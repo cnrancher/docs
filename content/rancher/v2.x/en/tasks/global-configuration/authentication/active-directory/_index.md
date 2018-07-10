@@ -1,13 +1,14 @@
 ---
-title: Configuring Active Directory Authentication
-weight: 3075
+title: Configuring Active Directory (AD)
+weight: 51
 ---
 
 In environments using Microsoft Active Directory (AD), you can configure Rancher to allow sign on using AD credentials.
 
 >**先决条件:**
 >
->- Create a service account in Active Directory with `read-only` access. {{< product >}} uses this account to verify group membership when a user makes a request using an API key.
+>- Have an Active Directory server configured.
+>- Create a service account in Active Directory with `read-only` access. Rancher uses this account to verify group membership when a user makes a request using an API key.
 >- Read [External Authentication Configuration and Principal Users]({{< baseurl >}}/rancher/v2.x/en/concepts/global-configuration/authentication/#external-authentication-configuration-and-principal-users).
 
 1.  Sign into Rancher using a local user assigned `administrator` global permissions (i.e., the _local principal_).
@@ -19,7 +20,7 @@ In environments using Microsoft Active Directory (AD), you can configure Rancher
 4.	Complete the **Configure an Active Directory server** form.
 
 	You may need to log in to your domain controller to find the information requested in the form.
-	
+
 	>**Using TLS?**
  	>Make sure you have an LDAP certificate installed.
 	<br/>
