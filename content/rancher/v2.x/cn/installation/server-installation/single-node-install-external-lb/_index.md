@@ -2,6 +2,7 @@
 title: 单节点安装+外部负载平衡器
 weight: 260
 ---
+
 对于开发环境，我们推荐通过运行一个Docker容器来安装Rancher。在此场景中，您将使用单个Docker容器将Rancher部署到Linux主机。然后，您将配置外部负载均衡器以与Rancher配合使用。
 
 > 查看 [单节点安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/single-node-install).
@@ -26,7 +27,7 @@ weight: 260
     | -------- | --------- | -------- |     ------------------------------------------- | ---- |
     | 小       | 不超过10  | 最多50   | 2C                                              | 4GB  |
     | 中       | 不超过100 | 最多500  | 8C                                              | 32GB |
-    | 大       | 超过100   | 超过500  | [联系Rancher]    (https://rancher.com/contact/) |      |
+    | 大       | 超过100   | 超过500  | [联系Rancher](https://rancher.com/contact/) |      |
 
 3. #### 软件
 
@@ -57,45 +58,45 @@ weight: 260
 出于安全考虑，使用Rancher时需要SSL镜像加密。SSL可以保护所有Rancher网络通信，例如登录或与集群交互。
 
 > **注意Air Gap用户：**如果您正在访问此页面以完成[Air Gap安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)，在运行安装命令时，必须在Rancher镜像前面加上你私有仓库的地址，替换`<REGISTRY.DOMAIN.COM:PORT>`为你的私有仓库地址。
-
-例如: <REGISTRY.DOMAIN.COM:PORT>/rancher/rancher:latest
-
-### 方案A-使用您自己的自签名证书
-
-如果您选择使用自签名证书来加密通信，则必须将证书安装在负载均衡器上，并且将CA证书放置于Rancher 容器中。运行docker命令来部署Rancher，并将其指向您的证书。
-
-> **先决条件:**
-> - 创建一个自签名证书;
-> - 证书文件必须是 **PEM** 格式;
-
-**安装Rancher:**
-
-Rancher安装可以使用您提供的自签名证书来加密通信。在运行Docker命令来部署Rancher时，将Docker指向您的CA证书文件。
-
-   ```bash
-   docker run -d --restart=unless-stopped \
-   -p 80:80 -p 443:443 \
-   -v /etc/your_certificate_directory/cacerts.pem:/etc/rancher/ssl/cacerts.pem \
-   rancher/rancher:latest
-   ```
-
-### 方案B-使用权威CA机构颁发的证书
-
-如果您公开发布您的应用，理想情况下应该使用由权威CA机构颁发的证书。
-
-> **先决条件：**
 >
-> - 证书文件必须是[PEM格式](/docs/rancher/v2.x/cn/installation/server-installation/single-node-install-external-lb/#我如何知道我的证书是否为pem格式)。
+>例如: <REGISTRY.DOMAIN.COM:PORT>/rancher/rancher:latest
 
-**安装Rancher:**
+1. ### 方案A-使用您自己的自签名证书
 
-1. 如果您使用由权威CA机构颁发的证书，则无需在Rancher容器中安装您的CA证书。只需运行下面的基本安装命令即可。
+    如果您选择使用自签名证书来加密通信，则必须将证书安装在负载均衡器上，并且将CA证书放置于Rancher 容器中。运行docker命令来部署Rancher，并将其指向您的证书。
 
-   ```bash
-   docker run -d --restart=unless-stopped \
-   -p 80:80 -p 443:443 \
-   rancher/rancher:latest
-   ```
+    > **先决条件:**
+    > - 创建一个自签名证书;
+    > - 证书文件必须是 **PEM** 格式;
+
+    **安装Rancher:**
+
+    Rancher安装可以使用您提供的自签名证书来加密通信。在运行Docker命令来部署Rancher时，将Docker指向您的CA证书文件。
+
+    ```bash
+    docker run -d --restart=unless-stopped \
+    -p 80:80 -p 443:443 \
+    -v /etc/your_certificate_directory/cacerts.pem:/etc/rancher/ssl/cacerts.pem \
+    rancher/rancher:latest
+    ```
+
+2. ### 方案B-使用权威CA机构颁发的证书
+
+    如果您公开发布您的应用，理想情况下应该使用由权威CA机构颁发的证书。
+
+    > **先决条件：**
+    >
+    > - 证书文件必须是[PEM格式]    (/docs/rancher/v2.x/cn/installation/server-installation/single-node-install-external-lb/#我如何知道我的证书是否为pem格式)。
+
+    **安装Rancher:**
+
+    如果您使用由权威CA机构颁发的证书，则无需在Rancher容器中安装您的CA证书。只需运行下面的基本安装命令即可。
+
+    ```bash
+    docker run -d --restart=unless-stopped \
+    -p 80:80 -p 443:443 \
+    rancher/rancher:latest
+    ```
 
 ## 三、配置负载均衡器
 
@@ -116,7 +117,7 @@ Rancher安装可以使用您提供的自签名证书来加密通信。在运行D
     | `X-Forwarded-Port`    | Port used to reach Rancher.              | To identify the protocol that client used to connect to the load balancer or proxy.
     | `X-Forwarded-For`     | IP of the client connection.             | To identify the originating IP address of a client.
 
-### Nginx 配置文件示例
+### 四、Nginx 配置文件示例
 
 此Nginx配置文件在Nginx version 1.13 (mainline) and 1.14 (stable)通过测试
 
@@ -157,7 +158,7 @@ server {
 }
 ```
 
-## 四、删除默认CA证书
+## 五、删除默认CA证书
 
 >注意: 此操作仅适用于使用权威CA机构颁发的证书，如果您使用的是自签名证书，请不要进行此过程。
 
@@ -169,14 +170,14 @@ server {
 2. 选择 **设置** > **cacerts**。
 3. 选择`Edit`并删除内容。然后点击`Save`。
 
-## 五、下一步？
+## 六、下一步？
 
 你有几个选择：
 
 - 创建Rancher server的备份：[单节点备份和恢复](/docs/rancher/v2.x/cn/backups-and-restoration/single-node-backup-and-restoration/)。
 - 创建一个Kubernetes集群：[创建一个集群](/docs/rancher/v2.x/cn/installation/server-installation/single-node-install/%7B%7B%20%3Cbaseurl%3E%20%7D%7D/rancher/v2.x/en/tasks/clusters/creating-a-cluster/)。
 
-## 六、FAQ and Troubleshooting
+## 七、FAQ and Troubleshooting
 
 1. ### 如何知道我的证书是否为PEM格式？
 
@@ -223,7 +224,7 @@ server {
       Verify return code: 0 (ok)
       ```
 
-4. ## 数据持久
+4. ### 数据持久
 
     Rancher `etcd`用作数据存储，使用单节点安装时，将使用内置`etcd`。数据持久位于容器中的以下路径中： `/var/lib/rancher`。您可以将主机卷挂载到此位置以保留其运行的数据。
 

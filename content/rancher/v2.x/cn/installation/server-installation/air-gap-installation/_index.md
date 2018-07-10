@@ -11,16 +11,14 @@ Rancher支持从私有镜像仓库进行安装。在每个发行版中，我们�
 
 ## Release文件
 
-* **rancher-images.txt**: 包含该版本所需的所有镜像；
-* **rancher-save-images.sh**: 该脚本将从**DockerHub中**拉取所有需要的镜像，并将所有镜像保存为一个名为压缩文件`rancher-images.tar.gz`。拷贝`rancher-images.tar.gz`文件到可以访问内部私有镜像仓库的主机上；
-* **rancher-load-images.sh**: 这个脚本会从rancher-images.tar.gz导入镜像，并将它们推送到私有仓库。您必须添加私有仓库地址作为脚本的第一个参数。`rancher-load-images.sh registry.yourdomain.com:5000`;
+- **rancher-images.txt**: 包含该版本所需的所有镜像；
+- **rancher-save-images.sh**: 该脚本将从**DockerHub中**拉取所有需要的镜像，并将所有镜像保存为一个名为压缩文件`rancher-images.tar.gz`。拷贝`rancher-images.tar.gz`文件到可以访问内部私有镜像仓库的主机上；
+- **rancher-load-images.sh**: 这个脚本会从rancher-images.tar.gz导入镜像，并将它们推送到私有仓库。您必须添加私有仓库地址作为脚本的第一个参数。`rancher-load-images.sh registry.yourdomain.com:5000`;
 
-### Making the Rancher images available
+### 我们将介绍两种离线安装方案：
 
-我们将介绍两种方案：
-
-* **方案1**：一台可访问DockerHub的主机来拉取和保存镜像，另一台可以访问私有仓库的主机来推送镜像；
-* **方案2**：有一台可以同时访问DockerHub和私有仓库的主机；
+- **方案1**：一台可访问DockerHub的主机来拉取和保存镜像，另一台可以访问私有仓库的主机来推送镜像；
+- **方案2**：有一台可以同时访问DockerHub和私有仓库的主机；
 
 #### **方案1**：一台可访问DockerHub的主机来拉取和保存镜像，另一台可以访问私有仓库的主机来推送镜像；
 
