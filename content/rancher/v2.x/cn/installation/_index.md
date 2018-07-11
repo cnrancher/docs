@@ -14,13 +14,13 @@ weight: 3
 
     在此场景下，把Rancher安装在单个Linux主机上，并使用外部负载平衡器/代理来访问它。
 
-- [HA安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-server-install/)
+- [HA安装+外部四层负载(TCP-L4)]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-install-external-lb-tcp-l4/)
 
-    此安装方案将创建一个专用于Rancher服务以HA配置运行的新Kubernetes集群。
+    此安装方案将创建一个专用于Rancher服务以HA配置运行的新Kubernetes集群，并把外部四层负载(TCP-L4)放置于HA配置之前。
 
-- [HA安装+外部负载均衡器]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-server-install-external-lb/)
+- [HA安装+外部负载均衡器(https-L7)]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-install-external-lb-https-l7/)
 
-    此安装方案将创建一个专用于Rancher服务以HA配置运行的新Kubernetes集群，并把负载平衡器位于HA配置之前。
+    此安装方案将创建一个专用于Rancher服务以HA配置运行的新Kubernetes集群，并把外部七层负载(https-L7)放置于HA配置之前。
 
 - [离线安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)
 
@@ -35,3 +35,5 @@ weight: 3
 - [Rancher HTTP代理配置]({{< baseurl >}}/rancher/v2.x/cn/installation/proxy-configuration/)
 
     如果您的环境需要代理访问互联网，此页面提供有关如何为您的Rancher配置代理。
+
+- [生成SSL自签名证书]({{< baseurl >}}/rancher/v2.x/cn/installation/self-signed-ssl/)

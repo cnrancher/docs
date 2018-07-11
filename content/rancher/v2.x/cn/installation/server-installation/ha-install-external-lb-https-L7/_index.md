@@ -1,6 +1,6 @@
 ---
 title: HA安装+外部负载均衡器(https-L7)
-weight: 276
+weight: 4
 ---
 This set of instructions creates a new Kubernetes cluster that's dedicated to running Rancher in a high-availability (HA) configuration. This procedure walks you through setting up a 3-node cluster using the Rancher Kubernetes Engine (RKE). The cluster's sole purpose is running pods for Rancher. The setup is based on:
 

@@ -1,6 +1,6 @@
 ---
 title: 单节点安装+外部负载平衡器
-weight: 260
+weight: 2
 ---
 
 对于开发环境，我们推荐通过运行一个Docker容器来安装Rancher。在此场景中，您将使用单个Docker容器将Rancher部署到Linux主机。然后，您将配置外部负载均衡器以与Rancher配合使用。

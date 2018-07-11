@@ -1,6 +1,6 @@
 ---
 title: 单节点安装
-weight: 250
+weight: 1
 ---
 对于开发环境，我们推荐通过运行一个Docker容器来安装Rancher。在这种安装方案中，您将在单个Linux主机上安装Docker，然后使用单个Docker容器在您的主机上安装Rancher。
 
@@ -162,7 +162,9 @@ weight: 250
 
 ## 四、FAQ和故障排除
 
-1. ### 我如何知道我的证书是否为PEM格式？
+1. ### 何为PEM格式？
+
+    PEM格式通常用于数字证书认证机构(Certificate Authorities，CA)，扩展名为.pem, .crt, .cer, and .key。内容为Base64编码的ASCII码文件，有类似"-----BEGIN CERTIFICATE-----" 和 "-----END CERTIFICATE-----"的头尾标记。服务器认证证书，中级认证证书和私钥都可以储存为PEM格式（认证证书其实就是公钥）。Apache和类似的服务器使用PEM格式证书。
 
     您可以通过以下特征识别PEM格式：
 
@@ -172,7 +174,7 @@ weight: 250
     - 该文件以页脚结尾：
     `-----END CERTIFICATE-----`
 
-    **PEM证书例如: **
+    **PEM证书例如:**
 
     ```bash
     ----BEGIN CERTIFICATE-----

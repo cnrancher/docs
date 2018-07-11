@@ -1,6 +1,6 @@
 ---
 title: HA安装+外部四层负载(TCP-L4)
-weight: 275
+weight: 3
 ---
 以下步骤将创建一个新的Kubernetes集群，专用于Rancher高可用(HA)运行。本文档将引导您使用Rancher Kubernetes Engine(RKE)配置三个节点的集群,群集的唯一目的是为了以POD来运行Rancher.
 

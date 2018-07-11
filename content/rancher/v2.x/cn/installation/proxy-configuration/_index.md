@@ -1,6 +1,6 @@
 ---
 title: Rancher HTTP代理配置
-weight: 500
+weight: 4
 ---
 
 如果你的环境需要通过代理才可以连接互联网，那么需要配置`http_proxy`
