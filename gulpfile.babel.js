@@ -13,8 +13,9 @@ import buffer from 'vinyl-buffer';
 import babelify from 'babelify';
 import watch from 'gulp-watch';
 
-const $ = gulpLoadPlugins();
-const browserSync = require('browser-sync').create();
+const $            = gulpLoadPlugins();
+const browserSync  = require('browser-sync').create();
+const request = require('request');
 const isProduction = process.env.NODE_ENV === 'production';
 
 require('hugo-search-index/gulp')(gulp);
@@ -22,11 +23,6 @@ require('hugo-search-index/gulp')(gulp);
 const onError = (err) => {
   console.log(err);
 }
-
-process.on('SIGINT', () => {
-  console.log('Caught SIGINT, exiting');
-  process.exit(0);
-});
 
 // --
 gulp.task('dev', ['build-dev'], () => {
@@ -157,4 +153,56 @@ gulp.task('cms-delete', () => {
 
 gulp.task('pub-delete', () => {
   return del(['public/**', '!public']);
+});
+
+gulp.task('build:search-index', (cb) => {
+  const env = process.env;
+
+  const opts = {
+    stdio: 'inherit',
+    env: env
+  };
+  return spawn(process.cwd()+'/scripts/build-algolia.js', opts).on('close', (/* code */) => {
+    cb();
+  });
+});
+
+
+gulp.task('publish:search-index', (cb) => {
+  const env = process.env;
+
+  const opts = {
+    stdio: 'inherit',
+    env: env
+  };
+
+  request.get({url: 'http://rancher-metadata/2015-07-25/self/service/containers/0', timeout: 2000}, function(err, res, first) {
+    if ( err ) {
+      return cb(err);
+    }
+
+    request.get({url: 'http://rancher-metadata/2015-07-25/self/container/name', timeout: 2000}, function(err, res, me) {
+      if ( err ) {
+        return cb(err);
+      }
+
+      console.log('First:', first);
+      console.log('Me:', me);
+
+      if ( !first || !me ) {
+        return cb(new Error('Unable to determine who is the leader (' + first + ', ' + me+ ')'));
+      }
+
+      if ( first !== me ) {
+        console.log('I am not the leader');
+        return cb();
+      }
+
+      console.log('Publishing to algolia', process.env.ALGOLIA_INDEX_NAME);
+      atomicalgolia(process.env.ALGOLIA_INDEX_NAME, process.env.ALGOLIA_INDEX_FILE, {verbose: true},  (err, result) => {
+        console.log(result);
+        cb(err);
+      });
+    });
+  });
 });

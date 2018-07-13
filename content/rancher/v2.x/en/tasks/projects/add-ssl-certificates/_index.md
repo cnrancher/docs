@@ -1,7 +1,6 @@
 ---
 title: Adding SSL Certificates
 weight: 
-draft: true
 ---
 When you create an ingress within Rancher/Kubernetes, you must provide it with a TLS private key and certificate, which are used to encrypt and decrypt communications that come through the ingress. You can make certificates available for ingress use by navigating to its project or namespace, and then uploading the certificate.
 
@@ -39,4 +38,4 @@ Add SSL certificates to either projects, namespaces, or both. A project scoped c
 
 ## What's Next?
 
-Now you can add the certificate when launching an ingress within the current project or namespace. For more information, see [Adding Ingress](../../workloads/add-ingress/).
+Now you can add the certificate when launching an ingress within the current project or namespace. For more information, see [Adding Ingress]({{< baseurl >}}/rancher/v2.x/en/tasks/workloads/add-ingress/).

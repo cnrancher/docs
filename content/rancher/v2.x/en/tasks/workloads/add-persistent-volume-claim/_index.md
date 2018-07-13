@@ -1,7 +1,6 @@
 ---
 title: Adding a Persistent Volume Claim
-weight: 
-draft: true
+weight: 100
 ---
 
 _Persistent Volume Claims_ (or PVCs) are objects that request storage resources from your cluster. They're similar to a voucher that your deployment can redeem for storage access. When you create a deployment, you should usually attach a PVC so that your application can lay claim to persistent storage. This claim lets your deployment application store its data in an external location, so that if one of the application's containers fails, it can be replaced with a new container and continue accessing its data stored externally, as though an outage never occured.
@@ -11,7 +10,7 @@ _Persistent Volume Claims_ (or PVCs) are objects that request storage resources 
 - Each Rancher project contains a list of PVCs that you've created, available from the **Volumes** tab. You can reuse these PVCs when creating deployments in the future.
 
 >**Prerequisite:**
-> You must have a pre-provisioned [persistent volume](../../clusters/adding-storage/#adding-a-persistent-volume) available for use, or you must have a [storage class created](../../clusters/adding-storage/adding-storage-classes) that dynamically creates a volume upon request from the workload.
+> You must have a pre-provisioned [persistent volume]({{< baseurl >}}/rancher/v2.x/en/tasks/clusters/adding-storage/#adding-a-persistent-volume) available for use, or you must have a [storage class created]({{< baseurl >}}/rancher/v2.x/en/tasks/clusters/adding-storage/#adding-storage-classes) that dynamically creates a volume upon request from the workload.
 
 1. From the **Global** view, open the project containing a workload that you want to add a PVC to.
 
