@@ -14,13 +14,13 @@ weight: 4
     ```bash
     echo $http_proxy
     ```
-    如果变量为空，可以通过以下命令设置变量并将其存储在您帐户的环境中：
+    如果变量为空，可以通过以下命令设置变量并将其存储在你帐户的环境中：
 
     ```bash
     echo "export http_proxy=http://<username>:<password>@<proxy url>:<proxy port>/" >> .profile
     ```
 
-2. 注销并重新登录以激活您的更改
+2. 注销并重新登录以激活你的更改
 
 ## 使用代理信息启动Rancher容器
 

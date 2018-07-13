@@ -47,7 +47,7 @@ Yes. We still provide you with the same way of executing our Rancher agents dire
 
 #### 如何从v1.x迁移到v2.0？
 
-由于将Docker容器转换为Kubernetes pod的技术难度，升级将要求用户将这些工作负载从v1.x迁移到新的v2.0环境中。我们计划在v2.1中增加一个工具，将现有的Rancher Compose文件转换为Kubernetes YAML文件。然后，您将能够在v2.0平台上部署这些工作负载。
+由于将Docker容器转换为Kubernetes pod的技术难度，升级将要求用户将这些工作负载从v1.x迁移到新的v2.0环境中。我们计划在v2.1中增加一个工具，将现有的Rancher Compose文件转换为Kubernetes YAML文件。然后，你将能够在v2.0平台上部署这些工作负载。
 
 #### Is it possible to upgrade from Rancher v1.0 to v2.0 without any disruption to Cattle and Kubernetes clusters?
 

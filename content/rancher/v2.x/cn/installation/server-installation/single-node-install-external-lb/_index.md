@@ -3,7 +3,7 @@ title: 单节点安装+外部负载平衡器
 weight: 2
 ---
 
-对于开发环境，我们推荐通过运行一个Docker容器来安装Rancher。在此场景中，您将使用单个Docker容器将Rancher部署到Linux主机。然后，您将配置外部负载均衡器以与Rancher配合使用。
+对于开发环境，我们推荐通过运行一个Docker容器来安装Rancher。在此场景中，你将使用单个Docker容器将Rancher部署到Linux主机。然后，你将配置外部负载均衡器以与Rancher配合使用。
 
 > 查看 [单节点安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/single-node-install).
 
@@ -33,7 +33,7 @@ weight: 2
 
     - Docker
 
-      > **注意：**如果您使用的是RancherOS，请确保您将Docker引擎切换为受支持的版本`sudo ros engine switch docker-17.03.2-ce`
+      > **注意：**如果你使用的是RancherOS，请确保你将Docker引擎切换为受支持的版本`sudo ros engine switch docker-17.03.2-ce`
 
       **支持的Docker版本**
 
@@ -43,7 +43,7 @@ weight: 2
 
       [Docker安装说明](https://docs.docker.com/install/)
 
-      > **注意：** 该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果您无法访问DockerHub，或者离线环境下安装Rancher，请参阅[Air Gap安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。
+      > **注意：** 该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请参阅[Air Gap安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。
       >
       > 有关可用的其他Rancher server标记的列表，请参阅[Rancher server tags](/docs/rancher/v2.x/cn/installation/server-tags/)。
 
@@ -57,13 +57,13 @@ weight: 2
 
 出于安全考虑，使用Rancher时需要SSL镜像加密。SSL可以保护所有Rancher网络通信，例如登录或与集群交互。
 
-> **注意Air Gap用户：**如果您正在访问此页面以完成[Air Gap安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)，在运行安装命令时，必须在Rancher镜像前面加上你私有仓库的地址，替换`<REGISTRY.DOMAIN.COM:PORT>`为你的私有仓库地址。
+> **注意Air Gap用户：**如果你正在访问此页面以完成[Air Gap安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)，在运行安装命令时，必须在Rancher镜像前面加上你私有仓库的地址，替换`<REGISTRY.DOMAIN.COM:PORT>`为你的私有仓库地址。
 >
 >例如: <REGISTRY.DOMAIN.COM:PORT>/rancher/rancher:latest
 
-1. ### 方案A-使用您自己的自签名证书
+1. ### 方案A-使用你自己的自签名证书
 
-    如果您选择使用自签名证书来加密通信，则必须将证书安装在负载均衡器上，并且将CA证书放置于Rancher 容器中。运行docker命令来部署Rancher，并将其指向您的证书。
+    如果你选择使用自签名证书来加密通信，则必须将证书安装在负载均衡器上，并且将CA证书放置于Rancher 容器中。运行docker命令来部署Rancher，并将其指向你的证书。
 
     > **先决条件:**
     > - 创建一个自签名证书;
@@ -71,7 +71,7 @@ weight: 2
 
     **安装Rancher:**
 
-    Rancher安装可以使用您提供的自签名证书来加密通信。在运行Docker命令来部署Rancher时，将Docker指向您的CA证书文件。
+    Rancher安装可以使用你提供的自签名证书来加密通信。在运行Docker命令来部署Rancher时，将Docker指向你的CA证书文件。
 
     ```bash
     docker run -d --restart=unless-stopped \
@@ -82,7 +82,7 @@ weight: 2
 
 2. ### 方案B-使用权威CA机构颁发的证书
 
-    如果您公开发布您的应用，理想情况下应该使用由权威CA机构颁发的证书。
+    如果你公开发布你的应用，理想情况下应该使用由权威CA机构颁发的证书。
 
     > **先决条件：**
     >
@@ -90,7 +90,7 @@ weight: 2
 
     **安装Rancher:**
 
-    如果您使用由权威CA机构颁发的证书，则无需在Rancher容器中安装您的CA证书。只需运行下面的基本安装命令即可。
+    如果你使用由权威CA机构颁发的证书，则无需在Rancher容器中安装你的CA证书。只需运行下面的基本安装命令即可。
 
     ```bash
     docker run -d --restart=unless-stopped \
@@ -160,9 +160,9 @@ server {
 
 ## 五、删除默认CA证书
 
->注意: 此操作仅适用于使用权威CA机构颁发的证书，如果您使用的是自签名证书，请不要进行此过程。
+>注意: 此操作仅适用于使用权威CA机构颁发的证书，如果你使用的是自签名证书，请不要进行此过程。
 
-默认情况下，Rancher会在安装后自动为自己生成自签名CA证书。但是，由于您提供了自己的证书，因此必须禁用Rancher自动生成的CA证书。
+默认情况下，Rancher会在安装后自动为自己生成自签名CA证书。但是，由于你提供了自己的证书，因此必须禁用Rancher自动生成的CA证书。
 
 **删除默认证书:**
 
@@ -175,13 +175,13 @@ server {
 你有几个选择：
 
 - 创建Rancher server的备份：[单节点备份和恢复](/docs/rancher/v2.x/cn/backups-and-restoration/single-node-backup-and-restoration/)。
-- 创建一个Kubernetes集群：[创建一个集群](/docs/rancher/v2.x/cn/installation/server-installation/single-node-install/%7B%7B%20%3Cbaseurl%3E%20%7D%7D/rancher/v2.x/en/tasks/clusters/creating-a-cluster/)。
+- 创建一个Kubernetes集群：[创建一个集群](/docs/rancher/v2.x/cn/installation/server-installation/single-node-install/%7B%7B%20%3Cbaseurl%3E%20%7D%7D/rancher/v2.x/cn/tasks/clusters/creating-a-cluster/)。
 
 ## 七、FAQ and Troubleshooting
 
 1. ### 如何知道我的证书是否为PEM格式？
 
-    您可以通过以下特征识别PEM格式：
+    你可以通过以下特征识别PEM格式：
 
       - 该文件以下列标题开头：
       `-----BEGIN CERTIFICATE-----`
@@ -214,7 +214,7 @@ server {
 
 3. ### 我如何验证我的证书链？
 
-    您可以使用`openssl`二进制验证证书链。如果该命令的输出（参见下面的命令示例）结束`Verify return code: 0 (ok)`，那么证书链是有效的。该`ca.pem`文件必须与您添加到`rancher/rancher`容器中的文件相同。当使用由认可的认证机构签署的证书时，可以省略该`-CAfile`参数。
+    你可以使用`openssl`二进制验证证书链。如果该命令的输出（参见下面的命令示例）结束`Verify return code: 0 (ok)`，那么证书链是有效的。该`ca.pem`文件必须与你添加到`rancher/rancher`容器中的文件相同。当使用由认可的认证机构签署的证书时，可以省略该`-CAfile`参数。
 
     **命令:**
 
@@ -226,7 +226,7 @@ server {
 
 4. ### 数据持久
 
-    Rancher `etcd`用作数据存储，使用单节点安装时，将使用内置`etcd`。数据持久位于容器中的以下路径中： `/var/lib/rancher`。您可以将主机卷挂载到此位置以保留其运行的数据。
+    Rancher `etcd`用作数据存储，使用单节点安装时，将使用内置`etcd`。数据持久位于容器中的以下路径中： `/var/lib/rancher`。你可以将主机卷挂载到此位置以保留其运行的数据。
 
     **命令**:
 

@@ -8,7 +8,7 @@ weight: 3
 
 - [单节点安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/single-node-install)
 
-    在这个简单的安装场景中，您可以在单个Linux主机上安装RANCHER。
+    在这个简单的安装场景中，你可以在单个Linux主机上安装RANCHER。
 
 - [单个节点安装+外部负载均衡器]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/single-node-install-external-lb/)
 
@@ -34,6 +34,6 @@ weight: 3
 
 - [Rancher HTTP代理配置]({{< baseurl >}}/rancher/v2.x/cn/installation/proxy-configuration/)
 
-    如果您的环境需要代理访问互联网，此页面提供有关如何为您的Rancher配置代理。
+    如果你的环境需要代理访问互联网，此页面提供有关如何为你的Rancher配置代理。
 
 - [生成SSL自签名证书]({{< baseurl >}}/rancher/v2.x/cn/installation/self-signed-ssl/)

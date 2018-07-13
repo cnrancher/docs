@@ -7,7 +7,7 @@ weight: 370
 
 ## 1. ETCD集群容错表
 
-建议在ETCD群集中使用奇数个成员。通过添加额外成员可以获得更高的失败容错。在比较偶数和奇数大小的集群时，您可以在实践中看到这一点：
+建议在ETCD群集中使用奇数个成员。通过添加额外成员可以获得更高的失败容错。在比较偶数和奇数大小的集群时，你可以在实践中看到这一点：
 
 | 集群大小 | MAJORITY | 失败容错 |
 | ------------ | -------- | ----------------- |
@@ -27,7 +27,7 @@ weight: 370
 
 **创建新节点并获取最新快照:**
 
-1. 创建您选择的新节点，可以是物理主机、本地虚拟机、云主机等；
+1. 创建你选择的新节点，可以是物理主机、本地虚拟机、云主机等；
 
 2. 通过远程终端登录新主机；
 
@@ -45,7 +45,7 @@ weight: 370
 
 ## 3. 恢复 `etcd` 数据
 
-要还原`etcd`节点上的最新快照，请运行RKE命令`rke etcd snapshot-restore`。此命令将恢复`/opt/rke/etcd-snapshots`明确定义的快照。当您运行时`rke etcd snapshot-restore`，RKE会删除旧`etcd`容器（如果它仍然存在）。
+要还原`etcd`节点上的最新快照，请运行RKE命令`rke etcd snapshot-restore`。此命令将恢复`/opt/rke/etcd-snapshots`明确定义的快照。当你运行时`rke etcd snapshot-restore`，RKE会删除旧`etcd`容器（如果它仍然存在）。
 
 >**警告:** 还原`etcd`快照会删除当前`etcd`群集并将其替换为新群集。在运行该`rke etcd snapshot-restore`命令之前，请备份当前群集中的所有重要数据。
 >
@@ -57,9 +57,9 @@ weight: 370
 >
 >- rancher-cluster.yml
 >
->    您需要把用于Rancher安装的RKE配置文件`rancher-cluster.yml`，放在与RKE二进制文件相同的目录中。
+>    你需要把用于Rancher安装的RKE配置文件`rancher-cluster.yml`，放在与RKE二进制文件相同的目录中。
 >
->- 您必须将每个`etcd`节点还原到*同一*快照版本。在运行`etcd snapshot-restore`命令之前，将最新的快照从一个节点复制到其他节点。
+>- 你必须将每个`etcd`节点还原到*同一*快照版本。在运行`etcd snapshot-restore`命令之前，将最新的快照从一个节点复制到其他节点。
 
 1. From your workstation, open `rancher-cluster.yml` in your favorite text editor.
 

@@ -2,7 +2,7 @@
 title: 版本标签
 weight: 1
 ---
-{{< product >}}服务是作为一个Docker镜像分发的，它带有tag标签。标签用于表示镜像中包含的{{< product >}}版本。 如果您需要使用特定标签版本的镜像，需要先拉取该标签版本的镜像。否则，如果本地有该版本的镜像，Docker将优先使用本地镜像。
+{{< product >}}服务是作为一个Docker镜像分发的，它带有tag标签。标签用于表示镜像中包含的{{< product >}}版本。 如果你需要使用特定标签版本的镜像，需要先拉取该标签版本的镜像。否则，如果本地有该版本的镜像，Docker将优先使用本地镜像。
 
 你可以在 [DockerHub](https://hub.docker.com/r/rancher/rancher/tags/)找到Rancher 镜像：
 

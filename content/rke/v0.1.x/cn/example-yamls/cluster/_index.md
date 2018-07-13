@@ -160,7 +160,7 @@ services:
         - "/usr/libexec/kubernetes/kubelet-plugins:/usr/libexec/kubernetes/kubelet-plugins"
 
 # 目前，只支持x509验证
-# 您可以选择创建额外的SAN（主机名或IP）以添加到API服务器PKI证书。
+# 你可以选择创建额外的SAN（主机名或IP）以添加到API服务器PKI证书。
 # 如果要为control plane servers使用负载均衡器，这很有用。
 authentication:
     strategy: x509

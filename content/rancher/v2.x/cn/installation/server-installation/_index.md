@@ -9,6 +9,6 @@ weight: 5
 
 - [单节点安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/single-node-install/)
 - [单节点+外部LB安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/single-node-install-external-lb/)
-- [HA安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-server-install/)
-- [HA+外部LB安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-server-install-external-lb)
+- [四层负载均衡HA部署(TCP-L4)]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-install-external-lb/tcp-l4/)
+- [七层负载均衡HA部署(HTTPS-L7)]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-install-external-lb/https-l7/)
 - [离线安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/air-gap-installation)

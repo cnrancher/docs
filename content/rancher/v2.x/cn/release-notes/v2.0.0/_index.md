@@ -15,8 +15,8 @@ After many months of development, we are finally able to make Rancher 2.0 availa
 
 ## Helpful Links
 
-[Quick Start Guide](https://rancher.com/docs/rancher/v2.x/en/quick-start-guide/)
-[Rancher 2.0 Docs](https://rancher.com/docs/rancher/v2.x/en/)
+[Quick Start Guide](https://rancher.com/docs/rancher/v2.x/cn/quick-start-guide/)
+[Rancher 2.0 Docs](https://rancher.com/docs/rancher/v2.x/cn/)
 
 ## Versions
 

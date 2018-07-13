@@ -17,7 +17,7 @@ weight: 9
 
 ## Bugs
 
-如果您发现任何错误或有任何问题，请通过提交issue与我们联系。虽然我们有许多与Rancher相关的仓库，但我们希望统一在`rancher/rancher`仓库中提交的issue，以防我们错过问题！
+如果你发现任何错误或有任何问题，请通过提交issue与我们联系。虽然我们有许多与Rancher相关的仓库，但我们希望统一在`rancher/rancher`仓库中提交的issue，以防我们错过问题！
 
 ## 文档
 

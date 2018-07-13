@@ -13,7 +13,7 @@ weight: 25
     docker stop `<RANCHER_CONTAINER_ID>`
     ```
 
-    >**提示:** 您可以输入以下命令获取Rancher容器的ID: `docker ps`.
+    >**提示:** 你可以输入以下命令获取Rancher容器的ID: `docker ps`.
 
 2. 创建数据卷容器,备份当前Rancher Server容器运行的数据到数据卷容器中。
 
