@@ -98,7 +98,7 @@ weight: 2
     rancher/rancher:latest
     ```
 
-## 三、配置负载均衡器
+## 三、配置七层负载均衡器
 
 在Rancher容器前使用负载平衡器时，不需要容器将端口通信从端口80重定向到端口443。通过 `X-Forwarded-Proto: https`重定向，端口重定向被禁用。
 

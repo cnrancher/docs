@@ -1,95 +1,73 @@
 ---
 title: Amazon ALB配置
-weight: 277
-
+weight: 2
 ---
-## Objectives
 
-Configuring an Amazon ALB is a multistage process. We've broken it down into multiple tasks so that it's easy to follow.
+## 创建目标组
 
-1. [Create Target Group](#create-target-group)
+登录[Amazon AWS Console](https://console.aws.amazon.com/ec2/)开始配置步骤，具体可以信息可以查询[Amazon Documentation: Create a Target Group](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-target-group.html)
 
-	Begin by creating one target group for the http protocol. You'll add your Linux nodes to this group.
+- 目标组(HTTP)
 
-2. [Register Targets](#register-targets)
+设置选项                         | 设置值
+--------------------------------|------------------------------------
+Target Group Name               | `rancher-http-80`
+Protocol                        | `HTTP`
+Port                           | `80`
+Target type                     | `instance`
+VPC                             | Choose your VPC
+Protocol (Health Check)     | `HTTP`
+Path (Health Check)         | `/healthz`
 
-	Add your Linux nodes to the target group.
+## 注册目标
 
-3. [Create Your ALB](#create-your-alb)
+接下来，将Linux节点添加到目标组。[Amazon Documentation: Register Targets with Your Target Group](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/target-group-register-targets.html)
 
-	Use Amazon's Wizard to create an Application Load Balancer. As part of this process, you'll add the target groups you created in **1. Create Target Groups**.
+1. 浏览器访问[Amazon EC2 Console](https://console.aws.amazon.com/ec2/).
 
+2. 从导航窗格中，选择`LOAD BALANCING` > `Load Balancers`；
 
-## Create Target Group
+3. 点击**创建负载均衡**；
 
-Your first ALB configuration step is to create one target group for HTTP.
+4. 选择**应用负载均衡**；
 
-Log into the [Amazon AWS Console](https://console.aws.amazon.com/ec2/) to get started.
+5. **步骤 1: 配置Load Balancer**:
 
-The document below will guide you through this process. Use the data in the tables below to complete the procedure.
+    1. **基础配置**
 
-[Amazon Documentation: Create a Target Group](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-target-group.html)
+        - Name: `rancher-http`
+        - Scheme: `internet-facing`
+        - IP address type: `ipv4`
 
-### Target Group (HTTP)
+    2. **监听**
 
-Option                      | Setting
-----------------------------|------------------------------------
-Target Group Name           | `rancher-http-80`
-Protocol                    | `HTTP`
-Port                        | `80`
-Target type                 | `instance`
-VPC                         | Choose your VPC
-Protocol<br/>(Health Check) | `HTTP`
-Path<br/>(Health Check)     | `/healthz`
+        添加**负载协议**和**负载端口**
 
-## Register Targets
+        - `HTTP`: `80`
+        - `HTTPS`: `443`
 
-Next, add your Linux nodes to your target group.
+    3. **可用区域**
 
-[Amazon Documentation: Register Targets with Your Target Group](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/target-group-register-targets.html)
+        - 选择您的VPC和可用区
 
-### Create Your ALB
+6. **步骤 2: 配置安全设置**
 
-Use Amazon's Wizard to create an Application Load Balancer. As part of this process, you'll add the target group you created in [Create Target Group](#create-target-group).
+    配置要用于SSL的证书。
 
-1. From your web browser, navigate to the [Amazon EC2 Console](https://console.aws.amazon.com/ec2/).
+7. **步骤 3: 配置安全组**
 
-2. From the navigation pane, choose **LOAD BALANCING** > **Load Balancers**.
+8. **步骤 4: 配置路由表**:
 
-3. Click **Create Load Balancer**.
+    1. 点击`目标组`下拉菜单，选择现有`目标组`;
 
-4. Choose **Application Load Balancer**.
+    2. 添加目标主机`rancher-http-80`;
 
-5. Complete the **Step 1: Configure Load Balancer** form.
-	- **Basic Configuration**
+9. **步骤 5: 注册目标**
 
-	   - Name: `rancher-http`
-	   - Scheme: `internet-facing`
-	   - IP address type: `ipv4`
-	- **Listeners**
+    由于您之前已经注册了目标，所以您只需单击下一步：**审核**；
 
-		Add the **Load Balancer Protocols** and **Load Balancer Ports** below.
-		- `HTTP`: `80`
-		- `HTTPS`: `443`
+10. **步骤 6: 审核**
 
-	- **Availability Zones**
+    确认负载均衡详细信息，确认无误后点击`创建`
 
-	   - Select Your **VPC** and **Availability Zones**.
-
-6. Complete the **Step 2: Configure Security Settings** form.
-
-	Configure the certificate you want to use for SSL termination.
-
-7. Complete the **Step 3: Configure Security Groups** form.
-
-8. Complete the **Step 4: Configure Routing** form.
-
-	- From the **Target Group** drop-down, choose **Existing target group**.
-
-	- Add target group `rancher-http-80`.
-
-9. Complete **Step 5: Register Targets**. Since you registered your targets earlier, all you have to do it click **Next: Review**.
-
-10. Complete **Step 6: Review**. Look over the load balancer details and click **Create** when you're satisfied.
-
-11. After AWS creates the ALB, click **Close**.
+11. 等ALB创建完成，最后点击**关闭**
