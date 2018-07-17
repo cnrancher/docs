@@ -3,15 +3,15 @@ title: 安装
 weight: 50
 ---
 
-RKE is a fast, versatile Kubernetes installer that you can use to install Kubernetes on your Linux hosts. You can get started in a couple of quick and easy steps:
+RKE是一种快速，通用的Kubernetes安装程序，可用于在Linux主机上安装Kubernetes。您可以通过几个简单快捷的步骤开始：
 
-1. [Download the RKE Binary](#download-the-rke-bindary)
+1. [下载RKE二进制文件](#下载RKE二进制文件)
 2. [Prepare the Nodes for the Kubernetes Cluster](#prepare-the-nodes-for-the-kubernetes-cluster)
 3. [Creating the Cluster Configuration File](#creating-the-cluster-configuration-file)
 4. [Deploying Kubernetes with RKE](#deploying-kubernetes-with-rke)
 5. [Interacting with your Kubernetes Cluster](#interacting-with-your-kubernetes-cluster)
 
-## Download the RKE binary
+## 下载RKE二进制文件
 
 1. From your workstation, open a web browser and navigate to our [RKE Releases](https://github.com/rancher/rke/releases/latest) page. Download the latest RKE installer applicable to your Operating System:
 
