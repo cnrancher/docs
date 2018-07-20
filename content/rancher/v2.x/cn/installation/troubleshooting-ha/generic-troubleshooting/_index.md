@@ -1,145 +1,150 @@
 ---
-title: 常规问题
+title: 常见问题
 weight: 5 
 ---
 
-Below are steps that you can follow to determine what is wrong in your cluster.
+您可以按照以下步骤定位集群错误。
 
-- Double check if all the required ports are opened in your (host) firewall
+1. 检查防火墙是否放行了所需的端口，所需端口列表访问[端口需求]({{< baseurl >}}/rancher/v2.x/cn/installation/references/);
 
-Double check if all the [端口需求]({{< baseurl >}}/rancher/v2.x/cn/installation/references/) are opened in your (host) firewall.
+2. 所有节点都应该存在并处于`Ready`状态；
 
-- All nodes should be present and in **Ready** state
+    运行以下命令查询节点状态：
 
-To check, run the command:
+    ```bash
+    kubectl --kubeconfig kube_config_rancher-cluster.yml get nodes
+    ```
+    ![image-20180719143000678](_index.assets/image-20180719143000678.png)
 
-```bash
-kubectl --kubeconfig kube_config_rancher-cluster.yml get nodes
-```
+    如果输出结果中未显示节点或节点未处于`Ready`状态，则需要检查kubelet容器的日志记录。
 
-If a node is not shown in this output or a node is not in **Ready** state, you can check the logging of the `kubelet` container. Login to the node and run `docker logs kubelet`.
+    - 登录节点运行以下命令
 
-- All pods/jobs should be in **Running**/**Completed** state
+        `docker logs kubelet`.
 
-To check, run the command:
+3. 所有的`pods/jobs` 应该是`Running/Completed`状态；
 
-```bash
-kubectl --kubeconfig kube_config_rancher-cluster.yml get pods --all-namespaces
-```
+    通过以下命令检查`pods/jobs`状态:
 
-If a pod is not in **Running** state, you can dig into the root cause by running:
+    ```bash
+    kubectl --kubeconfig kube_config_rancher-cluster.yml get pods --all-namespaces
+    ```
+    ![image-20180719143121419](_index.assets/image-20180719143121419.png)
 
-<h3>Describe pod</h3>
+    1. **如果`pod`不是`Running`状态, 需要通过以下命令进一步查询问题:**
 
-```bash
-kubectl --kubeconfig kube_config_rancher-cluster.yml describe pod POD_NAME -n NAMESPACE
-```
+        1. **Describe pod**
 
-<h3>Pod container logs</h3>
+            ```bash
+            kubectl --kubeconfig kube_config_rancher-cluster.yml describe pod POD_NAME -n NAMESPACE
+            ```
 
-```bash
-kubectl --kubeconfig kube_config_rancher-cluster.yml logs POD_NAME -n NAMESPACE
-```
+        2. **Pod container logs**
 
-If a job is not in **Completed** state, you can dig into the root cause by running:
+            ```bash
+            kubectl --kubeconfig kube_config_rancher-cluster.yml logs POD_NAME -n NAMESPACE
+            ```
+    2. **如果job不是`Completed`状态, 通过以下命令检查问题:**
 
-<h3>Describe job</h3>
+        1. **Describe job**
 
-```bash
-kubectl --kubeconfig kube_config_rancher-cluster.yml describe job JOB_NAME -n NAMESPACE
-```
+            ```bash
+            kubectl --kubeconfig kube_config_rancher-cluster.yml describe job JOB_NAME -n NAMESPACE
+            ```
 
-<h3>Logs from the containers of pods of the job</h3>
+        2. **Logs from the containers of pods of the job**
 
-```bash
-kubectl --kubeconfig kube_config_rancher-cluster.yml logs -l job-name=JOB_NAME -n NAMESPACE
-```
+            ```bash
+            kubectl --kubeconfig kube_config_rancher-cluster.yml logs -l job-name=JOB_NAME -n NAMESPACE
+            ```
 
-- List all Kubernetes cluster events
+4. 列出所有Kubernetes集群事件
 
-Kubernetes cluster events are stored, and can be retrieved by running:
+    可以通过以下命令查询存储的Kubernetes cluster事件:
 
-```bash
-kubectl --kubeconfig kube_config_rancher-cluster.yml get events --all-namespaces
-```
+    ```bash
+    kubectl --kubeconfig kube_config_rancher-cluster.yml get events --all-namespaces
+    ```
 
-- Check Rancher container logging
+5. 检查Rancher容器日志：
 
-```bash
-kubectl --kubeconfig kube_config_rancher-cluster.yml logs -l app=cattle -n cattle-system
-```
+    ```bash
+    kubectl --kubeconfig kube_config_rancher-cluster.yml logs -l app=cattle -n cattle-system
+    ```
 
-- Check NGINX ingress controller logging
+6. 检查NGINX ingress controller日志
 
-```bash
-kubectl --kubeconfig kube_config_rancher-cluster.yml logs -l app=ingress-nginx -n ingress-nginx
-```
+    ```bash
+    kubectl --kubeconfig kube_config_rancher-cluster.yml logs -l app=ingress-nginx -n ingress-nginx
+    ```
 
-- Check if overlay network is functioning correctly
+7. 检查`overlay`网络是否正常运行
 
-The pod can be scheduled to any of the hosts you used for your cluster, but that means that the NGINX ingress controller needs to be able to route the request from `NODE_1` to `NODE_2`. This happens over the overlay network. If the overlay network is not functioning, you will experience intermittent TCP/HTTP connection failures due to the NGINX ingress controller not being able to route to the pod.
+    可以将pod运行到多台主机上，通过`nginx ingress`把请求路由到多个节点上。路由请求将会通过`overlay`网络通信，如果`overlay`网络没有正常运行，`nginx ingress`无法路由请求到Pod。
 
-To test the overlay network, you can launch the following `DaemonSet` definition. This will run an `alpine` container on every host, which we will use to run a `ping` test between containers on all hosts.
+    要测试`overlay`网络，可以通过DaemonSet定义一组全局服务，这将在每个主机上运行一个容器(alpine为例)，我们将使用这些容器去`ping`其他主机上的容器。
 
-1. Save the following file as `ds-alpine.yml`
+    1. 保存以下代码为 `ds-alpine.yml`
 
-    ```yaml
-    apiVersion: apps/v1
-    kind: DaemonSet
-    metadata:
-      name: alpine
-    spec:
-      selector:
-          matchLabels:
-            name: alpine
-      template:
+        ```
+        apiVersion: apps/v1
+        kind: DaemonSet
         metadata:
-          labels:
-            name: alpine
+          name: alpine
         spec:
-          tolerations:
-          - effect: NoExecute
-            key: "node-role.kubernetes.io/etcd"
-            value: "true"
-          - effect: NoSchedule
-            key: "node-role.kubernetes.io/controlplane"
-            value: "true"
-          containers:
-          - image: alpine
-            imagePullPolicy: Always
-            name: alpine
-            command: ["sh", "-c", "tail -f /dev/null"]
-            terminationMessagePath: /dev/termination-log
-    ```
+          selector:
+              matchLabels:
+                name: alpine
+          template:
+            metadata:
+              labels:
+                name: alpine
+            spec:
+              tolerations:
+              - effect: NoExecute
+                key: "node-role.kubernetes.io/etcd"
+                value: "true"
+              - effect: NoSchedule
+                key: "node-role.kubernetes.io/controlplane"
+                value: "true"
+              containers:
+              - image: alpine
+                imagePullPolicy: Always
+                name: alpine
+                command: ["sh", "-c", "tail -f /dev/null"]
+                terminationMessagePath: /dev/termination-log
+        ```
 
-2. Launch it using `kubectl --kubeconfig kube_config_rancher-cluster.yml create -f ds-alpine.yml`
-3. Wait until `kubectl --kubeconfig kube_config_rancher-cluster.yml rollout status ds/alpine -w` returns: `daemon set "alpine" successfully rolled out`.
-4. Run the following command to let each container on every host ping each other (it's a single line command).
+    2. 通过执行 `kubectl --kubeconfig kube_config_rancher-cluster.yml create -f ds-alpine.yml` 运行服务；
 
-    ```bash
-    echo "=> Start"; kubectl --kubeconfig kube_config_rancher-cluster.yml get pods -l name=alpine -o jsonpath='{range .items[*]}{@.metadata.name}{" "}{@.spec.nodeName}{"\n"}{end}' | while read spod shost; do kubectl --kubeconfig kube_config_rancher-cluster.yml get pods -l name=alpine -o jsonpath='{range .items[*]}{@.status.podIP}{" "}{@.spec.nodeName}{"\n"}{end}' | while read tip thost; do kubectl --kubeconfig kube_config_rancher-cluster.yml --request-timeout='10s' exec $spod -- /bin/sh -c "ping -c2 $tip > /dev/null 2>&1"; RC=$?; if [ $RC -ne 0 ]; then echo $shost cannot reach $thost; fi; done; done; echo "=> End"
-    ```
+    3. 等到`kubectl --kubeconfig kube_config_rancher-cluster.yml rollout status ds/alpine -w`返回`daemon set "alpine" successfully rolled out`；
 
-5. When this command has finished running, the output indicating everything is correct is:
+    4. 运行以下`kubectl`命令，让每个主机上的容器分别`ping`其他主机的容器:
 
-    ```bash
-    => Start
-    => End
-    ```
+        ```bash
+        echo "=> Start"; kubectl --kubeconfig kube_config_rancher-cluster.yml get pods -l name=alpine -o jsonpath='{range .items[*]}{@.metadata.name}{" "}{@.spec.nodeName}{"\n"}{end}' | while read spod shost; do kubectl --kubeconfig kube_config_rancher-cluster.yml get pods -l name=alpine -o jsonpath='{range .items[*]}{@.status.podIP}{" "}{@.spec.nodeName}{"\n"}{end}' | while read tip thost; do kubectl --kubeconfig kube_config_rancher-cluster.yml --request-timeout='10s' exec $spod -- /bin/sh -c "ping -c2 $tip > /dev/null 2>&1"; RC=$?; if [ $RC -ne 0 ]; then echo $shost cannot reach $thost; fi; done; done; echo "=> End"
+        ```
 
-If you see error in the output, that means that the [required ports]({{< baseurl >}}/rancher/v2.x/cn/installation/references/) for overlay networking are not opened between the hosts indicated.
+    5. 当命令运行完毕后，正常的`overlay`网络将会输出以下内容:
 
-Example error output of a situation where NODE1 had the UDP ports blocked.
+        ```bash
+        => Start
+        => End
+        ```
 
-```bash
-=> Start
-command terminated with exit code 1
-NODE2 cannot reach NODE1
-command terminated with exit code 1
-NODE3 cannot reach NODE1
-command terminated with exit code 1
-NODE1 cannot reach NODE2
-command terminated with exit code 1
-NODE1 cannot reach NODE3
-=> End
-```
+        如果在输出结果中看到错误，则表明`overlay`网络无法正常通信。通常情况是因为端口未放行导致，查看[端口需求]({{< baseurl >}}/rancher/v2.x/cn/installation/references/)验证端口放行。
+
+        错误示例：
+
+        ```bash
+        => Start
+        command terminated with exit code 1
+        NODE2 cannot reach NODE1
+        command terminated with exit code 1
+        NODE3 cannot reach NODE1
+        command terminated with exit code 1
+        NODE1 cannot reach NODE2
+        command terminated with exit code 1
+        NODE1 cannot reach NODE3
+        => End
+        ```
