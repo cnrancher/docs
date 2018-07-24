@@ -7,15 +7,15 @@ weight: 50
 
 ## **先决条件:**
 
-- Rancher Kubernetes Engine v0.1.7或更高版本，
+- Rancher Kubernetes Engine v0.1.7或更高版本
 
-    RKE v0.1.7以及更高版本才支持`etcd`快照功能。
+    RKE v0.1.7以及更高版本才支持`etcd`快照功能
 
-- rancher-cluster.yml
+- `rancher-cluster.yml`
 
-    需要使用安装Rancher的RKE配置文件rancher-cluster.yml，将此文件放在与RKE二进制文件同级目录中。
+    需要使用到安装Rancher的RKE配置文件`rancher-cluster.yml`，将此文件需放在与RKE二进制文件同级目录中
 
-- 你必须将每个`etcd`节点还原到同一快照。在运行`etcd snapshot-restore`命令之前，将你正在使用的快照从一个节点复制到其他节点
+- 在运行`etcd snapshot-restore`命令之前，必须保证每个`etcd`节点拥有最新相同版本的快照文件，快照需要存放在每个ETCD节点的`/opt/rke/etcd-snapshots/`目录下
 
 ## 1. 创建`etcd`数据快照
 
@@ -33,7 +33,7 @@ weight: 50
 
 对于通过RKE高可用安装的Rancher，我们建议开启定时自动创建快照，以便始终拥有安全的恢复点。
 
-定时自动创建快照服务是RKE附带的服务，默认没有开启。可以通过在rancher-cluster.yml中添加配置来启用etcd-snapshot(定时自动创建快照)服务。
+定时自动创建快照服务是RKE附带的服务，默认没有开启。可以通过在`rancher-cluster.yml`中添加配置来启用etcd-snapshot(定时自动创建快照)服务。
 
 **启用定时自动创建快照:**
 
@@ -63,6 +63,7 @@ weight: 50
     # Linux
     ./rke_linux-amd64 up --config rancher-cluster.yml
     ```
+>**结果:** RKE会在每个etcd节点上重复获取快照，并将快照将保存到每个etcd节点的:`/opt/rke/etcd-snapshots/`目录下
 
 ### 方案 B: 手动创建快照
 
@@ -70,7 +71,7 @@ weight: 50
 
 **手动创建快照:**
 
-1. 打开**Terminal**并切换路径到RKE二进制文件所在目录.确保`rancher-cluster.yml`也在这个路径下；
+1. 打开**Terminal**并切换路径到RKE二进制文件所在目录.确保`rancher-cluster.yml`也在该路径下
 
 2. 输入以下命令：
 
@@ -80,9 +81,9 @@ weight: 50
     # Linux
     ./rke_linux-amd64 etcd snapshot-save --name <SNAPSHOT.db> --config rancher-cluster.yml
     ```
-    >注意：替换<SNAPSHOT.db>为你喜欢的名称，例如：<SNAPSHOT.db>
+    >注意：替换`<SNAPSHOT.db>`为你喜欢的名称，例如：<SNAPSHOT.db>
 
-3. RKE会获取每个`etcd`节点的快照，并保存在`/opt/rke/etcd-snapshots`目录下；
+>**结果:** RKE会获取每个`etcd`节点的快照，并保存在每个etcd节点的`/opt/rke/etcd-snapshots`目录下；
 
 ## 2. 备份快照到安全位置
 

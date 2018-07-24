@@ -44,7 +44,7 @@ title: Webhooks
 
 ##### 安装 Prometheus
 
-[Rancher 应用商店](/docs/rancher/v1.x/cn/catalog/) 提供了 Prometheus 监控服务，在 **应用商店** 中可以找到这个服务。选中**Prometheus** 然后启动应用商店入口。 在 Prometheus 应用中找到一个名为 `prometheus` 的服务，这个服务暴露了 `9090` 端口。在容器中找到 `/etc/prom-conf`。 Prometheus 的配置文件`prometheus.yml` 就在 `/etc/prom-conf` 目录。为了添加警报， 单独创建一个警报文件，在 `prometheus.yml` 中提供文件的路径。 比如，如果你创建了一个名为 `rules.conf` 的警报文件，把它加入到 `prometheus.yml`，在 `prometheus.yml` 末尾加入如下两行:
+[Rancher 应用商店](/docs/rancher/v1.x/cn/catalog/) 提供了 Prometheus 监控服务，在 **应用商店** 中可以找到这个服务。选中**Prometheus** 然后启动应用商店入口。 在 Prometheus 应用中找到一个名为 `prometheus` 的服务，这个服务暴露了 `9090` 端口。在容器中找到 `/etc/prom-conf`。 Prometheus 的配置文件`prometheus.yml` 就在 `/etc/prom-conf` 目录。为了添加告警， 单独创建一个告警文件，在 `prometheus.yml` 中提供文件的路径。 比如，如果你创建了一个名为 `rules.conf` 的告警文件，把它加入到 `prometheus.yml`，在 `prometheus.yml` 末尾加入如下两行:
 
 ```
 rule_files:
@@ -53,7 +53,7 @@ rule_files:
 
 `rules.conf` 可以有多个报警配置，下面就是一个报警的配置
 
-###### `/etc/prom-conf/rules.conf` 中的警报配置例子
+###### `/etc/prom-conf/rules.conf` 中的告警配置例子
 
 ```yaml
 ALERT CpuUsageSpike
@@ -71,7 +71,7 @@ ANNOTATIONS {
 
 ##### 添加报警管理程序
 
-要调用接受器钩子， 报警管理程序需要先启用。 你可以把它加入到 Prometheus 应用. 在 Prometheus 应用中点击 **添加服务**。用 `prom/alertmanager` 添加服务。添加服务的时记得映射端口`9093:9093`。服务启动后，在容器中执行命令，更新 `etc/alertmanager/config.yml`。 在 `etc/alertmanager/config.yml` 中添加 webhook 的 URL 。这样，当警报被触发时报警管理程序就会向这个 URL 发送 `POST` 请求。在 `etc/alertmanager/config.yml` 添加 URL 信息后需要重启服务。
+要调用接受器钩子， 报警管理程序需要先启用。 你可以把它加入到 Prometheus 应用. 在 Prometheus 应用中点击 **添加服务**。用 `prom/alertmanager` 添加服务。添加服务的时记得映射端口`9093:9093`。服务启动后，在容器中执行命令，更新 `etc/alertmanager/config.yml`。 在 `etc/alertmanager/config.yml` 中添加 webhook 的 URL 。这样，当告警被触发时报警管理程序就会向这个 URL 发送 `POST` 请求。在 `etc/alertmanager/config.yml` 添加 URL 信息后需要重启服务。
 
 ###### 示例 `etc/alertmanager/config.yml`
 
@@ -97,7 +97,7 @@ receivers:
 ```
 
 ##### 自动扩缩容
-Prometheus 和警报管理程序随警报钩子更新后，重启服务器，以确保配置处于最新的激活状态。对于已经添加了警报的服务，服务会自动根据创建的更新器钩子自动扩容或缩容。
+Prometheus和告警管理程序随告警钩子更新后，重启服务器，以确保配置处于最新的激活状态。对于已经添加了告警的服务，服务会自动根据创建的更新器钩子自动扩容或缩容。
 
 #### 主机弹性伸缩
 Rancher 可以通过克隆用 Rancherc 创建的， 并且已经存在的主机来增加主机的数量。(即 Docker Machine)。这意味这通过 [自定义命令](/docs/rancher/v1.x/cn/infrastructure/hosts/custom/) 添加的主机不能进行伸缩。

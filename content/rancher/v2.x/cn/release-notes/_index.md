@@ -12,3 +12,7 @@ weight: 8
 [Release v2.0.3](/docs/rancher/v2.x/cn/release-notes/v2.0.3/)
 
 [Release v2.0.4](/docs/rancher/v2.x/cn/release-notes/v2.0.4/)
+
+[Release v2.0.5](/docs/rancher/v2.x/cn/release-notes/v2.0.5/)
+
+[Release v2.0.6](/docs/rancher/v2.x/cn/release-notes/v2.0.6/)

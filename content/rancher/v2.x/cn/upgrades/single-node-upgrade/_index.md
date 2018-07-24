@@ -3,14 +3,14 @@ title: 单节点升级
 weight: 1010
 ---
 
->**先决条件:** 打开Rancher web并记下浏览器左下方显示的版本号（例如:`v2.0.0`) ，在升级过程中你需要此号码。
+>**先决条件:** 打开Rancher web并记下浏览器左下方显示的版本号（例如:`v2.0.0`) ，在升级过程中你需要此版本号
 
-1. 运行以下命令，停止当前运行Rancher Server的容器。
+1. 运行以下命令，停止当前运行Rancher Server的容器
 
       ```bash
       docker stop <RANCHER_CONTAINER_ID>
       ```
-      >**提示：** 你可以输入以下命令获取Rancher容器的ID : `docker ps`
+      >**提示：** 你可以输入`docker ps`命令获取Rancher容器的ID
 
 2. 创建当前Rancher Server容器的数据卷容器，以便在升级Rancher Server中使用，命名为rancher-data容器。
 
@@ -53,6 +53,8 @@ weight: 1010
 
 6. 删除以前的Rancher Server容器。
 
-    如果你只停止以前的Rancher Server容器（并且不删除它）,则容器可能会在下次服务器重新启动后重新启动。登录rancher。通过检查浏览器窗口左下角显示的版本，确认升级成功。
+    如果你只停止以前的Rancher Server容器（并且不删除它）,则旧版本容器可能会在下次主机重新启动后跟着重新启动。
+
+7. 登录rancher，通过检查浏览器左下角显示的版本，确认是否升级成功。
 
     >**注意:** 如果升级未成功完成，则可以将Rancher Server及其数据回滚到上一个健康状态。有关更多信息，请参阅还原备份-单节点安装。
