@@ -7,7 +7,7 @@ weight: 370
 
 ## 1. ETCD集群容错表
 
-建议在ETCD群集中使用奇数个成员。通过添加额外成员可以获得更高的失败容错。在比较偶数和奇数大小的集群时，你可以在实践中看到这一点：
+建议在ETCD群集中使用奇数个成员,通过添加额外成员可以获得更高的失败容错。在比较偶数和奇数大小的集群时，你可以在实践中看到这一点：
 
 | 集群大小 | MAJORITY | 失败容错 |
 | ------------ | -------- | ----------------- |
@@ -37,7 +37,7 @@ weight: 370
     root@newnode:~# mkdir -p /opt/rke/etcd-snapshots/
     ```
 
-4. 复制备份的最新快照到`/opt/rke/etcd-snapshots/`目录下：
+4. 复制备份的最新快照到每个`etcd`节点`/opt/rke/etcd-snapshots/`目录下：
 
     ```bash
     root@newnode:~# s3cmd get s3://rke-etcd-snapshots/<SNAPSHOT.db> /opt/rke/etcd-snapshots/<SNAPSHOT.db>
@@ -48,42 +48,42 @@ weight: 370
 要还原`etcd`节点上的最新快照，请运行RKE命令`rke etcd snapshot-restore`。此命令将恢复`/opt/rke/etcd-snapshots`明确定义的快照。当你运行时`rke etcd snapshot-restore`，RKE会删除旧`etcd`容器（如果它仍然存在）。
 
 >**警告:** 还原`etcd`快照会删除当前`etcd`群集并将其替换为新群集。在运行该`rke etcd snapshot-restore`命令之前，请备份当前群集中的所有重要数据。
->
->**先决条件：**
->
->- Rancher Kubernetes Engine 等于v0.1.7或更高版本
->
->    RKE v0.1.7及更高版本才支持创建etcd快照功能。
->
->- rancher-cluster.yml
->
->    你需要把用于Rancher安装的RKE配置文件`rancher-cluster.yml`，放在与RKE二进制文件相同的目录中。
->
->- 你必须将每个`etcd`节点还原到*同一*快照版本。在运行`etcd snapshot-restore`命令之前，将最新的快照从一个节点复制到其他节点。
+
+### **先决条件**
+
+- Rancher Kubernetes Engine 等于v0.1.7或更高版本
+
+    RKE v0.1.7及更高版本才支持创建etcd快照功能。
+
+- rancher-cluster.yml
+
+    你需要把用于Rancher安装的RKE配置文件`rancher-cluster.yml`，放在与RKE二进制文件相同的目录中。
+
+- 你必须将每个`etcd`节点还原到*同一*快照版本。在运行`etcd snapshot-restore`命令之前，将最新的快照从一个节点复制到其他节点。
 
 1. From your workstation, open `rancher-cluster.yml` in your favorite text editor.
 
 2. Replace the unresponsive node (`3.3.3.3` in this example) with your new one (`4.4.4.4`). You IP addresses will be different obviously:
 
-        ```yaml
-        nodes:
-          - address: 1.1.1.1
-            user: root
-            role: [controlplane,etcd,worker]
-            ssh_key_path: ~/.ssh/id_rsa
-          - address: 2.2.2.2
-            user: root
-            role: [controlplane,etcd,worker]
-            ssh_key_path: ~/.ssh/id_rsa
-          #- address: 3.3.3.3  # UNRESPONSIVE NODE
-          #  user: root
-          #  role: [controlplane,etcd,worker]
-          #  ssh_key_path: ~/.ssh/id_rsa
-          - address: 4.4.4.4  # NEW NODE
-            user: root
-            role: [controlplane,etcd,worker]
-            ssh_key_path: ~/.ssh/id_rsa
-        ```
+    ```yaml
+    nodes:
+      - address: 1.1.1.1
+        user: root
+        role: [controlplane,etcd,worker]
+        ssh_key_path: ~/.ssh/id_rsa
+      - address: 2.2.2.2
+        user: root
+        role: [controlplane,etcd,worker]
+        ssh_key_path: ~/.ssh/id_rsa
+      #- address: 3.3.3.3  # UNRESPONSIVE NODE
+      #  user: root
+      #  role: [controlplane,etcd,worker]
+      #  ssh_key_path: ~/.ssh/id_rsa
+      - address: 4.4.4.4  # NEW NODE
+        user: root
+        role: [controlplane,etcd,worker]
+        ssh_key_path: ~/.ssh/id_rsa
+    ```
 
 3. Save and close `rancher-cluster.yml`.
 
