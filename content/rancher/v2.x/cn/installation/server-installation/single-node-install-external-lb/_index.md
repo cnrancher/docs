@@ -3,9 +3,7 @@ title: 单节点安装+外部负载平衡
 weight: 2
 ---
 
-对于开发环境，我们推荐通过运行一个Docker容器来安装Rancher。在此场景中，你将使用单个Docker容器将Rancher部署到Linux主机。然后，你将配置外部负载均衡器以与Rancher配合使用。
-
-> 查看 [单节点安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/single-node-install).
+对于开发环境，我们推荐直接在主机上通过`docker run`的形式运行Rancher server容器。如果主机可以通过公网IP直接访问，可以参考[单节点安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/single-node-install)。
 
 ##  一、配置Linux主机
 
@@ -16,8 +14,8 @@ weight: 2
 1. #### 操作系统
 
     - Ubuntu 16.04（64位）
-    - 红帽企业Linux 7.5（64位）
-    - RancherOS 1.3.0（64位）
+    - Centos/RedHat Linux 7.5+（64位）
+    - RancherOS 1.3.0+（64位）
 
 2. #### 硬件
 
@@ -43,35 +41,34 @@ weight: 2
 
       [Docker安装说明](https://docs.docker.com/install/)
 
-      > **注意：** 该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请参阅[Air Gap安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。
+      > **注意：** 该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请查阅[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。
       >
-      > 有关可用的其他Rancher server标记的列表，请参阅[Rancher server tags](/docs/rancher/v2.x/cn/installation/server-tags/)。
+      >  更多Rancher server tag列表，，请查阅[Rancher server tags](/docs/rancher/v2.x/cn/installation/server-tags/)。
 
 4. #### 端口
 
-    下图描述了Rancher的基本端口要求。有关全面列表，请参阅[端口要求](/docs/rancher/v2.x/cn/installation/references/)。
+    下图描述了Rancher的基本端口要求。有关全面列表，请查阅[端口要求](/docs/rancher/v2.x/cn/installation/references/)。
 
       ![基本端口要求](/docs/img/rancher/port-communications.png)
 
 ## 二、安装Rancher并配置SSL证书
 
-出于安全考虑，使用Rancher时需要SSL镜像加密。SSL可以保护所有Rancher网络通信，例如登录或与集群交互。
+出于安全考虑，使用Rancher时需要SSL进行加密。SSL可以保护所有Rancher网络通信，例如登录或与集群交互。
 
-> **注意Air Gap用户：**如果你正在访问此页面以完成[Air Gap安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)，在运行安装命令时，必须在Rancher镜像前面加上你私有仓库的地址，替换`<REGISTRY.DOMAIN.COM:PORT>`为你的私有仓库地址。
+> **注意：**如果你正在访问此页面以完成[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)，在运行安装命令时，必须在Rancher镜像前面加上你私有仓库的地址，替换`<REGISTRY.DOMAIN.COM:PORT>`为你的私有仓库地址。
 >
 >例如: <REGISTRY.DOMAIN.COM:PORT>/rancher/rancher:latest
 
-1. ### 方案A-使用你自己的自签名证书
+1. ### 方案A-使用你自己生成的自签名证书
 
-    如果你选择使用自签名证书来加密通信，则必须将证书安装在负载均衡器上，并且将CA证书放置于Rancher 容器中。运行docker命令来部署Rancher，并将其指向你的证书。
-
+    如果你选择使用自签名证书来加密通信，则必须将证书安装在负载均衡器上，并且将CA证书放置于Rancher容器中。
+    
     > **先决条件:**
+    >
     > - 创建一个自签名证书;
     > - 证书文件必须是 **PEM** 格式;
 
-    **安装Rancher:**
-
-    Rancher安装可以使用你提供的自签名证书来加密通信。在运行Docker命令来部署Rancher时，将Docker指向你的CA证书文件。
+    运行Rancher server容器时候，需要把自签名CA证书映射到Rancher容器中：
 
     ```bash
     docker run -d --restart=unless-stopped \
@@ -88,9 +85,8 @@ weight: 2
     >
     > - 证书文件必须是[PEM格式]    (/docs/rancher/v2.x/cn/installation/server-installation/single-node-install-external-lb/#我如何知道我的证书是否为pem格式)。
 
-    **安装Rancher:**
 
-    如果你使用由权威CA机构颁发的证书，则无需在Rancher容器中安装你的CA证书。只需运行下面的基本安装命令即可。
+    如果你使用由权威CA机构颁发的证书，则无需在Rancher容器中安装你的CA证书，只需运行下面的基本安装命令即可：
 
     ```bash
     docker run -d --restart=unless-stopped \
@@ -99,8 +95,7 @@ weight: 2
     ```
 
 ## 三、配置七层负载均衡器
-
-在Rancher容器前使用负载平衡器时，不需要容器将端口通信从端口80重定向到端口443。通过 `X-Forwarded-Proto: https`重定向，端口重定向被禁用。
+默认情况下，通过`docker run`运行的Rancher server容器会自动把端口80重定向到443，但是通过负载均衡器来代理Rancher server容器后，不再需要将Rancher server容器端口从80重定向到443。通过在负载均衡器上配置`X-Forwarded-Proto: https`参数后，Rancher server容器端口重定向功能将自动被禁用。
 
 负载均衡器或代理必须配置为支持以下内容：
 
@@ -160,9 +155,9 @@ server {
 
 ## 五、删除默认CA证书
 
->注意: 此操作仅适用于使用权威CA机构颁发的证书，如果你使用的是自签名证书，请不要进行此过程。
+>注意: 此操作仅适用于使用权威CA机构颁发的证书，如果你使用的是自签名证书，请不要进行此操作。
 
-默认情况下，Rancher会在安装后自动为自己生成自签名CA证书。但是，由于你提供了自己的证书，因此必须禁用Rancher自动生成的CA证书。
+默认情况下，Rancher会在安装时自动为自己生成自签名CA证书。但是，由于你提供了自己的证书，因此必须禁用Rancher自动生成的CA证书。
 
 **删除默认证书:**
 

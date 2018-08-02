@@ -18,8 +18,8 @@ weight: 3
 1. #### 操作系统
 
     - Ubuntu 16.04（64位）
-    - 红帽企业Linux 7.5（64位）
-    - RancherOS 1.3.0（64位）
+    - Centos/RedHat Linux 7.5+（64位）
+    - RancherOS 1.3.0+（64位）
 
 2. #### 硬件
 
@@ -45,13 +45,13 @@ weight: 3
 
       [Docker安装说明](https://docs.docker.com/install/)
 
-      > **注意：** 该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请参阅[Air Gap安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。
+      > **注意：** 该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请查阅[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。
       >
-      > 有关可用的其他Rancher server标记的列表，请参阅[Rancher server tags](/docs/rancher/v2.x/cn/installation/server-tags/)。
+      > 更多Rancher server tag列表，请查阅[Rancher server tags](/docs/rancher/v2.x/cn/installation/server-tags/)。
 
 4. #### 端口
 
-    下图描述了Rancher的基本端口要求。有关全面列表，请参阅[端口要求](/docs/rancher/v2.x/cn/installation/references/)。
+    下图描述了Rancher的基本端口要求。有关全面列表，请查阅[端口要求](/docs/rancher/v2.x/cn/installation/references/)。
 
       ![基本端口要求](/docs/img/rancher/port-communications.png)
 
@@ -66,7 +66,7 @@ weight: 3
 
 1. ### 安装nginx
 
-    首先在负载均衡器主机上安装NGINX。NGINX具有适用于所有已知操作系统的软件包。有关安装NGINX的帮助，请参阅其安装文档。[nginx安装文档](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/).
+    首先在负载均衡器主机上安装NGINX。NGINX具有适用于所有已知操作系统的软件包。有关安装NGINX的帮助，请查阅其安装文档[nginx安装文档](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/).
 
 2. ### 创建NGINX配置
 
@@ -300,7 +300,7 @@ nodes:
         ```
 
 2. 方案B — 使用权威CA机构颁发的SSL证书
-    如果你使用的是由权威CA机构颁发的SSL证书，则需要为证书文件和证书密钥文件生成base64编码的字符串(确保你的证书文件包含链中的所有中间证书)。在这种情况下，证书的顺序首先是你自己的证书，然后是中间证书。请参阅CSP（证书服务提供商）的文档，了解需要包含哪些中间证书。
+    如果你使用的是由权威CA机构颁发的SSL证书，则需要为证书文件和证书密钥文件生成base64编码的字符串(确保你的证书文件包含链中的所有中间证书)。在这种情况下，证书的顺序首先是你自己的证书，然后是中间证书。请查阅CSP（证书服务提供商）的文档，了解需要包含哪些中间证书。
 
     1. 在`kind: Secret`和 `name: cattle-keys-ingress`中:
 

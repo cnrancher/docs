@@ -3,7 +3,7 @@ title: 入门
 weight: 2
 ---
 
->**注意:** 本入门指南的目的是让你快速的运行一个环境，它不适用于生产。有关更全面的说明，请参阅[Rancher安装](/docs/rancher/v2.x/cn/installation/server-installation/).
+>**注意:** 本入门指南的目的是让你快速的运行一个环境，它不适用于生产。有关更全面的说明，请查阅[Rancher安装](/docs/rancher/v2.x/cn/installation/server-installation/).
 
 本教程将指导你完成:
 
@@ -19,12 +19,12 @@ weight: 2
 - 本地虚拟机
 - 本地物理机
 
-  >**注意:** 在使用云虚拟主机时，你需要允许入站TCP通信端口80和443连接.请参阅你的云主机文档以获取有关端口配置的信息。有关端口要求的完整列表，请参阅[端口需求](/docs/rancher/v2.x/cn/installation/references/).
+  >**注意:** 在使用云虚拟主机时，你需要允许入站TCP通信端口80和443连接.请查阅你的云主机文档以获取有关端口配置的信息。有关端口要求的完整列表，请查阅[端口需求](/docs/rancher/v2.x/cn/installation/references/).
 
 根据以下要求配置主机:
 
 - Ubuntu 16.04 +（64位）
-- 红帽企业Linux 7.5+（64位）
+- Centos/RedHat Linux 7.5+（64位）
 - RancherOS 1.3.0+（64位）
 
 **硬件需求**:

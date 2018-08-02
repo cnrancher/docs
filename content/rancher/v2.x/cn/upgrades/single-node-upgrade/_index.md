@@ -37,7 +37,7 @@ weight: 1010
       ```bash
       docker pull rancher/rancher:latest
       ```
-    >**注意**: Air Gap用户：如果你访问[离线升级]({{< baseurl >}}/rancher/v2.x/cn/upgrades/air-gap-upgrade/)，请在运行docker run命令时将你的私有镜像仓库URL添加到镜像名中
+    >**注意**: 离线用户：如果你访问[离线升级]({{< baseurl >}}/rancher/v2.x/cn/upgrades/air-gap-upgrade/)，请在运行docker run命令时将你的私有镜像仓库URL添加到镜像名中
     >
     >例如： <registry.yourdomain.com:port>/rancher/rancher:latest
 
@@ -57,4 +57,4 @@ weight: 1010
 
 7. 登录rancher，通过检查浏览器左下角显示的版本，确认是否升级成功。
 
-    >**注意:** 如果升级未成功完成，则可以将Rancher Server及其数据回滚到上一个健康状态。有关更多信息，请参阅还原备份-单节点安装。
+    >**注意:** 如果升级未成功完成，则可以将Rancher Server及其数据回滚到上一个健康状态。有关更多信息，请查阅还原备份-单节点安装。

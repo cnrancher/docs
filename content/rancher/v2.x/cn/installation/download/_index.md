@@ -5,9 +5,9 @@ weight: 7
 
 ### Rancher CLI
 
-[rancher-darwin-amd64.tar.gz](/download/cli/rancher-darwin-amd64.tar.gz) 
+[rancher-darwin-amd64.tar.gz(MacOS)](/download/cli/rancher-darwin-amd64.tar.gz) 
 
-[rancher-darwin-amd64.tar.xz](/download/cli/rancher-darwin-amd64.tar.xz)
+[rancher-darwin-amd64.tar.xz(MacOS)](/download/cli/rancher-darwin-amd64.tar.xz)
  
 [rancher-linux-amd64.tar.gz](/download/cli/rancher-linux-amd64.tar.gz)
 
@@ -25,7 +25,7 @@ weight: 7
 
 [rke](/download/rke)
 
-[rke_darwin-amd64](/download/rke/rke_darwin-amd64)
+[rke_darwin-amd64(MacOS)](/download/rke/rke_darwin-amd64)
 
 [rke_linux-amd64](/download/rke/rke_linux-amd64)
 
@@ -33,9 +33,8 @@ weight: 7
 
 ### kubectl
 
-[kubectl_darwin-amd64](/download/kubectl/kubectl_amd64-darwin)
+[kubectl_darwin-amd64(MacOS)](/download/kubectl/kubectl_amd64-darwin)
 
 [kubectl_linux-amd64](/download/kubectl/kubectl_amd64-linux)
 
 [kubectl_windows-amd64](/download/kubectl/kubectl_amd64-windows.exe)
-

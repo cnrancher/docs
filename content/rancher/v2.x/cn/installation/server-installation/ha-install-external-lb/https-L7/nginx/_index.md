@@ -3,11 +3,11 @@ title: Nginx配置
 weight: 1
 ---
 
-1. ## 安装Nginx
+## 安装Nginx
 
     NGINX拥有所有主流操作系统的软件包，通过包管理器可以很轻松安装。有关NGINX安装帮助，请参考[nginx安装文档](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/).
 
-2. ## 创建Nginx配置
+## 创建Nginx配置
 
     在安装nginx之前，需要先创建rancher代理配置文件`/etc/nginx/conf.d/rancher.conf`。
 
@@ -59,7 +59,7 @@ weight: 1
 
     5. 在`/etc/nginx/conf.d/rancher.conf`中, 替换`/certs/privkey.pem`为证书密钥的路径；
 
-3. ## 运行NGINX
+## 运行NGINX
 
     - 重新加载或者重启NGINX
 
@@ -72,6 +72,6 @@ weight: 1
         systemctl restart nginx
         ````
 
-4. ## 访问Rancher UI
+## 访问Rancher UI
 
     安装成功后，通过`https://FQDN`来访问RANCHER UI

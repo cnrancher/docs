@@ -2,7 +2,7 @@
 title: 七层负载均衡HA部署
 weight: 4
 ---
-以下步骤将创建一个新的Kubernetes集群，专用于Rancher高可用(HA)运行。本文档将引导你使用Rancher Kubernetes Engine(RKE)配置三个节点的集群,群集的唯一目的是为了以POD来运行Rancher.
+以下步骤将创建一个新的Kubernetes集群，专用于Rancher server高可用(HA)运行,本文档将引导你使用Rancher Kubernetes Engine(RKE)配置三个节点的集群.
 
 ## 一、架构说明
 
@@ -17,8 +17,8 @@ weight: 4
 1. #### 操作系统
 
     - Ubuntu 16.04（64位）
-    - 红帽企业Linux 7.5（64位）
-    - RancherOS 1.3.0（64位）
+    - Centos/RedHat Linux 7.5+（64位）
+    - RancherOS 1.3.0+（64位）
 
 2. #### 硬件
 
@@ -44,19 +44,19 @@ weight: 4
 
       [Docker安装说明](https://docs.docker.com/install/)
 
-      > **注意：** 该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请参阅[Air Gap安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。
+      > **注意：** 该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请查阅[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。
       >
-      > 有关可用的其他Rancher server标记的列表，请参阅[Rancher server tags](/docs/rancher/v2.x/cn/installation/server-tags/)。
+      > 更多Rancher server tag列表，请查阅[Rancher server tags](/docs/rancher/v2.x/cn/installation/server-tags/)。
 
 4. #### 端口
 
-    下图描述了Rancher的基本端口要求。有关全面列表，请参阅[端口要求](/docs/rancher/v2.x/cn/installation/references/)。
+    下图描述了Rancher的基本端口要求。有关全面列表，请查阅[端口要求](/docs/rancher/v2.x/cn/installation/references/)。
 
       ![基本端口要求](/docs/img/rancher/port-communications.png)
 
 ## 三、配置负载均衡器(以NGINX为例)
 
-在Rancher前面使用七层负载均衡器时，容器无需重定向80端口到443，通过传递标头`X-Forwarded-Proto: https`，端口重定向被禁用。
+默认情况下，通过`docker run`运行的Rancher server容器会自动把端口80重定向到443，但是通过负载均衡器来代理Rancher server容器后，不再需要将Rancher server容器端口从80重定向到443。通过在负载均衡器上配置`X-Forwarded-Proto: https`参数后，Rancher server容器端口重定向功能将自动被禁用。
 
 负载均衡器或代理必须支持以下参数:
 

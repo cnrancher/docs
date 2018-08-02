@@ -2,9 +2,8 @@
 title: 单节点安装
 weight: 1
 ---
-对于开发环境，我们推荐通过运行一个Docker容器来安装Rancher。在这种安装方案中，你将在单个Linux主机上安装Docker，然后使用单个Docker容器在你的主机上安装Rancher。
 
-> **想要使用外部负载平衡器？**请参阅[使用外部负载平衡器进行单一节点安装](/docs/rancher/v2.x/cn/installation/server-installation/single-node-install-external-lb/)。
+对于开发环境，我们推荐直接在主机上通过`docker run`的形式运行Rancher server容器。可能有的主机无法直接通过公网IP来访问主机，需要通过代理去访问，这种场景请参考[使用外部负载平衡器进行单一节点安装](/docs/rancher/v2.x/cn/installation/server-installation/single-node-install-external-lb/)。
 
 ## 一、配置Linux主机
 
@@ -15,8 +14,8 @@ weight: 1
 1. #### 操作系统
 
     - Ubuntu 16.04（64位）
-    - 红帽企业Linux 7.5（64位）
-    - RancherOS 1.3.0（64位）
+    - Centos/RedHat Linux 7.5+（64位）
+    - RancherOS 1.3.0+（64位）
 
 2. #### 硬件
 
@@ -42,27 +41,27 @@ weight: 1
 
       [Docker文档：安装说明](https://docs.docker.com/install/)
 
-    > **注意：**该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请参阅[Air Gap安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。
+    > **注意：**该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请参考[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。
     >
-    > 有关可用的其他Rancher server标记的列表，请参阅[Rancher server tags](/docs/rancher/v2.x/cn/installation/server-tags/)。
+    > 更多Rancher server tag列表，请参考[Rancher server tags](/docs/rancher/v2.x/cn/installation/server-tags/)。
 
 4. #### 端口
 
-    下图描述了Rancher的基本端口要求。有关全面列表，请参阅[端口要求](/docs/rancher/v2.x/cn/installation/references/)。
+    下图描述了Rancher的基本端口要求。有关全面列表，请参考[端口要求](/docs/rancher/v2.x/cn/installation/references/)。
 
     ![基本端口要求](/docs/img/rancher/port-communications.png)
 
 ## 二、安装Rancher并配置SSL证书
 
-出于安全考虑，使用Rancher时需要SSL。SSL可以保护所有Rancher网络通信，例如登录或与集群交互。
+出于安全考虑，使用Rancher时需要SSL进行加密。SSL可以保护所有Rancher网络通信，例如登录或与集群交互。
 
-> **注意Air Gap用户：**如果你正在访问此页面以完成[Air Gap安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)，在运行安装命令时，必须在Rancher镜像前面加上你私有仓库的地址，替换`<REGISTRY.DOMAIN.COM:PORT>`为你的私有仓库地址。
+> **注意：**如果你正在访问此页面以完成[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)，在运行安装命令时，必须在Rancher镜像前面加上你私有仓库的地址，替换`<REGISTRY.DOMAIN.COM:PORT>`为你的私有仓库地址。
 >
 >例如：`<REGISTRY.DOMAIN.COM:PORT>/rancher/rancher:latest`
 
 1. ### 方案A-使用默认自签名证书
 
-    如果你不使用自己的证书的情况下安装Rancher，Rancher会生成一个用于加密的自签名证书。
+    默认情况下，Rancher会自动生成一个用于加密的自签名证书。
 
     **使用默认证书安装Rancher：**
 
@@ -76,18 +75,18 @@ weight: 1
 
 2. ### 方案B-使用你自己的自签名证书
 
-    Rancher安装可以使用你提供的自签名证书来加密通信。
+    Rancher安装可以使用自己生成的自签名证书。
 
     > **先决条件：**创建一个自签名证书。
     >
     > - 证书文件必须是[PEM](/docs/rancher/v2.x/cn/installation/server-installation/single-node-install/#我如何知道我的证书是否为pem格式)格式;
-    > - 在你的证书文件中，包含链中的所有中间证书。有关示例，请参阅[SSL常见问题/故障排除](/docs/rancher/v2.x/cn/installation/server-installation/single-node-install/#如果我想添加我的中间证书-证书的顺序是什么)。
+    > - 在你的证书文件中，包含链中的所有中间证书。有关示例，请参考[SSL常见问题/故障排除](/docs/rancher/v2.x/cn/installation/server-installation/single-node-install/#如果我想添加我的中间证书-证书的顺序是什么)。
 
-    **使用自签名证书安装Rancher:**
+    **使用自己生成的自签名证书安装Rancher:**
 
     你的Rancher安装可以使用你提供的自签名证书来加密通信。
 
-    创建证书后，运行Docker命令安装Rancher，指向你的证书文件。
+    创建证书后，运行docker命令时把证书文件映射到容器中
 
     ```bash
      docker run -d --restart=unless-stopped \
@@ -108,8 +107,6 @@ weight: 1
     > - 证书必须通过`base64`加密；
     > - 确保容器包含你的证书文件和密钥文件。由于你的证书是由认可的CA签署的，因此不需要安装额外的CA证书文件。
 
-    **安装Rancher:**
-
     获取证书后，运行Docker命令以部署Rancher，同时指向证书文件。
 
     ```bash
@@ -120,7 +117,7 @@ weight: 1
     rancher/rancher:latest
     ```
 
-    默认情况下，Rancher会在安装后自动为自己生成自签名CA证书。但是，由于你提供了自己的证书，因此必须禁用Rancher自动生成的CA证书。
+    默认情况下，Rancher会在安装时自动为自己生成自签名CA证书。但是，由于你提供了自己的证书，因此必须禁用Rancher自动生成的CA证书。
 
     **删除默认证书:**
 
@@ -151,7 +148,7 @@ weight: 1
     --acme-domain rancher.mydomain.com
     ```
 
-    > **注意：Let’s Encrypt 平台对证书的申请和销毁有一定频率限制。有关更多信息，请参阅[Let’s Encrypt documentation on rate limits](https://letsencrypt.org/docs/rate-limits/)。
+    > **注意：Let’s Encrypt 平台对证书的申请和销毁有一定频率限制。有关更多信息，请参考[Let’s Encrypt documentation on rate limits](https://letsencrypt.org/docs/rate-limits/)。
 
 ## 三、下一步？
 

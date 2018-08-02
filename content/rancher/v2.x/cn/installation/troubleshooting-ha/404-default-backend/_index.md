@@ -3,7 +3,7 @@ title: 404 - default backend
 weight: 30
 ---
 
-您需要下载kubectl命令行工具来调试此错误。kubectl命令行工具安装方法，请参阅See [kubectl安装与设置](https://kubernetes.io/docs/tasks/tools/install-kubectl/)。
+您需要下载kubectl命令行工具来调试此错误。kubectl命令行工具安装方法，请查阅See [kubectl安装与设置](https://kubernetes.io/docs/tasks/tools/install-kubectl/)。
 
 当修改了 `rancher-cluster.yml`配置文件后, 必须运行`rke remove --config rancher-cluster.yml`以清理节点，确保不会与先前的配置发生冲突。
 
