@@ -5,8 +5,6 @@ weight: 50
 
 本节介绍在Rancher HA下如何备份数据。
 
-## **先决条件:**
-
 - Rancher Kubernetes Engine v0.1.7或更高版本
 
     RKE v0.1.7以及更高版本才支持`etcd`快照功能
@@ -75,14 +73,14 @@ weight: 50
 
 2. 输入以下命令：
 
+    >注意：替换`<SNAPSHOT.db>`为你喜欢的名称，例如：<SNAPSHOT.db>
+
     ```bash
     # MacOS
     ./rke_darwin-amd64 etcd snapshot-save --name <SNAPSHOT.db> --config rancher-cluster.yml
     # Linux
     ./rke_linux-amd64 etcd snapshot-save --name <SNAPSHOT.db> --config rancher-cluster.yml
     ```
-    >注意：替换`<SNAPSHOT.db>`为你喜欢的名称，例如：<SNAPSHOT.db>
-
 >**结果:** RKE会获取每个`etcd`节点的快照，并保存在每个etcd节点的`/opt/rke/etcd-snapshots`目录下；
 
 ## 2. 备份快照到安全位置

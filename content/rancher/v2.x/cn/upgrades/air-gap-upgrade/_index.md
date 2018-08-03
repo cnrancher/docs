@@ -3,7 +3,7 @@ title: 离线升级
 weight: 1500
 ---
 
-要离线升级Rancher Server，需要先把最新稳定版本的Rancher Server镜像以及其他系统组件镜像同步到私有镜像仓库，然后运行upgrade命令。
+要离线升级Rancher Server，需要先把最新稳定版本的 `Rancher Server`镜像以及其他系统组件镜像同步到私有镜像仓库，然后运行upgrade命令。
 
 ## 离线升级Rancher Server
 
@@ -13,4 +13,4 @@ weight: 1500
 
       >**注意：** 在单节点升级时，请在运行docker run命令时将私有镜像仓库地址添加到镜像名中。
       >
-      >例如: docker run -d <registry.yourdomain.com:port>/rancher/rancher:latest
+      >例如: `docker run -d <registry.yourdomain.com:port>/rancher/rancher:latest`

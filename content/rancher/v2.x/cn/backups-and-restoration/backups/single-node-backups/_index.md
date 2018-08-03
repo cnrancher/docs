@@ -15,7 +15,13 @@ weight: 25
 
     >**提示:** 你可以输入`docker ps`命令获取Rancher容器的ID
 
-3. 创建数据卷容器,备份当前Rancher Server容器运行的数据到数据卷容器中。
+3. 创建数据卷容器
+
+    备份当前Rancher Server容器的数据到数据卷容器中
+
+    - 替换`<RANCHER_CONTAINER_ID>`为上一步获取到的Rancher容器ID
+
+    - 替换`<RANCHER_IMAGES_TAG>`为第一步获取到的Rancher版本号
 
     ```bash
     docker create \
@@ -23,11 +29,18 @@ weight: 25
     --name rancher-backup-<RANCHER_IMAGES_TAG> \
     rancher/rancher:<RANCHER_IMAGES_TAG>
     ```
-    - 替换`<RANCHER_CONTAINER_ID>`为上一步获取到的Rancher容器的ID。
-    - 替换`<RANCHER_IMAGES_TAG>`为先决条件中获取到的Rancher版本号。
-
     >在Rancher的版本规划中，Rancher UI左下角显示的版本号始终与镜像的ATG号保持一致，例如: `rancher/rancher:v2.0.4`
 
-4. 以上步骤利用Docker原生的创建数据卷容器来备份数据，Docker会把指定容器中的数据卷中数据全部复制到创建的数据卷容器中，从而实现备份的功能，[了解数据卷容器](https://docs.docker.com/storage/volumes/#backup-restore-or-migrate-data-volumes)。
+4. 创建Rancher server数据卷容器备份
 
-5. 数据恢复请点击[单节点数据恢复](../../restorations/single-node-restoration/)
+    在升级期间，新的容器需要链接到数据卷容器，并且会对数据卷容器中的数据进行`更新/更改`。因此，需要提前对数据卷容器进行备份，以防升级失败时用于数据回滚。
+
+    ```bash
+    docker run --volumes-from rancher-backup-<RANCHER_IMAGES_TAG> \
+    -v $ PWD:/backup \
+    alpine \
+    tar zcvf /backup/rancher-backup-<RANCHER_IMAGES_TAG>.tar.gz /var/lib/rancher
+    ```
+5. 备份完成后可重启Rancher服务容器
+
+6. 了解数据恢复，请点击[单节点数据恢复](../../restorations/single-node-restoration/)

@@ -90,7 +90,7 @@ weight: 1
 
 2. daemon.json
 
-    daemon.json默认位于`/etc/docker/daemon.json`，如果没有可用手动创建，基于systemd管理的系统都是相同的路径。通过修改`daemon.json`来改过Docker配置，也是Docker官方推荐的方法。
+    daemon.json默认位于`/etc/docker/daemon.json`，如果没有可手动创建，基于systemd管理的系统都是相同的路径。通过修改`daemon.json`来改过Docker配置，也是Docker官方推荐的方法。
 
 > 以下说明均基于systemd,并通过`/etc/docker/daemon.json`来修改配置。
 
@@ -107,7 +107,7 @@ weight: 1
 
     Rancher从v1.6.15开始到v2.x.x,Rancher系统相关的所有镜像(包括1.6.x上的K8S镜像)都托管在Dockerhub仓库。Dockerhub节点在国外，国内直接拉取镜像会有些缓慢。为了加速镜像的下载，可以给Docker配置国内的镜像地址。
 
-    配置方法: 编辑`/etc/docker/daemon.json`加入以下内容
+    编辑`/etc/docker/daemon.json`加入以下内容
 
     ```json
     {
@@ -120,7 +120,7 @@ weight: 1
 
     Docker默认只信任TLS加密的仓库地址(https)，所有非https仓库默认无法登陆也无法拉取镜像。`insecure-registries`字面意思为不安全的仓库，通过添加这个参数对非https仓库进行授信。可以设置多个`insecure-registries`地址，以数组形式书写，地址不能添加协议头(http)。
 
-    配置方法: 编辑`/etc/docker/daemon.json`加入以下内容
+    编辑`/etc/docker/daemon.json`加入以下内容
 
     ```json
     {
@@ -129,6 +129,8 @@ weight: 1
     ```
 
 - 配置Docker存储驱动
+
+    编辑`/etc/docker/daemon.json`加入以下内容
 
     ```json
     {
