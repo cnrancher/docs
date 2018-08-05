@@ -3,25 +3,25 @@ title: 基础环境配置
 weight: 1
 ---
 
-## 节点配置
+## 一、主机配置
 
-### 主机名配置
+### 1、主机名配置
 
 因为K8S的规定，主机名只支持包含 `-` 和 `.`(中横线和点)两种特殊符号。
 
-### hosts
+### 2、hosts
 
 配置每台主机的hosts(/etc/hosts),添加`$hostname host_ip`到hosts文件中。
 
-### Centos关闭selinux
+### 3、CentOS关闭selinux
 
 `sudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config`
 
-### 关闭防火墙(可选)或者放行相应端口
+### 4、关闭防火墙(可选)或者放行相应端口
 
 - 关闭防火墙
 
-1. Centos
+1. CentOS
 
     `systemctl stop firewalld.service && systemctl disable firewalld.service`
 
@@ -33,9 +33,9 @@ weight: 1
 
     端口放行请查看[端口需求](/docs/rancher/v2.x/cn/installation/references/)
 
-## Dokcer安装与配置
+## 二、Docker安装与配置
 
-### Docker安装
+### 1、Docker安装
 
 - Ubuntu
 
@@ -52,7 +52,7 @@ weight: 1
     # Step 4: 更新并安装 Docker-CE
     sudo apt-get -y update
     version=$(apt-cache madison docker-ce|grep ${docker_version}|awk '{print $3}')
-    # `--allow-downgrades`允许降级安装
+    # --allow-downgrades 允许降级安装
     sudo apt-get -y install docker-ce=${version} --allow-downgrades
     # 设置开机启动
     sudo systemctl enable docker
@@ -60,14 +60,32 @@ weight: 1
 
 - CentOS
 
+    > 因为CentOS的安全限制，通过RKE安装K8S集群时候无法使用`root`账户。所以，建议`CentOS`用户使用非`root`用户来运行docker,不管是`RKE`还是`custom`安装k8s,详情查看[无法为主机配置SSH隧道](/docs/rancher/v2.x/cn/installation/troubleshooting-ha/ssh-tunneling/)。
+
     ```bash
+    # 添加用户(可选)
+    sudo adduser `<new_user>`
+    # 为新用户设置密码
+    sudo passwd `<new_user>`
+    # 为新用户添加sudo权限
+    sudo echo '<new_user> ALL=(ALL) ALL' >> /etc/sudoers
+    # 卸载旧版本Docker软件
+    sudo yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-selinux \
+                  docker-engine-selinux \
+                  docker-engine \
+                  container*
     # 定义安装版本
     export docker_version=17.03.2
     # step 1: 安装必要的一些系统工具
     sudo yum update -y
     sudo yum install -y yum-utils device-mapper-persistent-data lvm2
-    # 移除旧版本组件
-    sudo yum -y remove container*
     # Step 2: 添加软件源信息
     sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
     # Step 3: 更新并安装 Docker-CE
@@ -76,17 +94,19 @@ weight: 1
     sudo yum -y install --setopt=obsoletes=0 docker-ce-${version} docker-ce-selinux-${version}
     # 如果已经安装高版本Docker,可进行降级安装(可选)
     yum downgrade --setopt=obsoletes=0 -y docker-ce-${version} docker-ce-selinux-${version}
+    # 把当前用户加入docker组
+    sudo usermod -aG docker `<new_user>`
     # 设置开机启动
     sudo systemctl enable docker
     ```
 
-### Docker配置
+### 2、Docker配置
 
-对于通过systemd来管理服务的系统(比如Centos7.X、Ubuntu16.X), Docker有两处可以配置参数: 一个是`docker.service`服务配置文件,一个是Docker daemon配置文件daemon.json。
+对于通过systemd来管理服务的系统(比如CentOS7.X、Ubuntu16.X), Docker有两处可以配置参数: 一个是`docker.service`服务配置文件,一个是Docker daemon配置文件daemon.json。
 
 1. docker.service
 
-    对于centos系统，`docker.service`默认位于`/usr/lib/systemd/system/docker.service`；对于Ubuntu系统，`docker.service`默认位于`/lib/systemd/system/docker.service`
+    对于CentOS系统，`docker.service`默认位于`/usr/lib/systemd/system/docker.service`；对于Ubuntu系统，`docker.service`默认位于`/lib/systemd/system/docker.service`
 
 2. daemon.json
 
@@ -148,7 +168,7 @@ weight: 1
     ```
 > 通过以上命令可自动配置参数，如果`/etc/default/grub`非默认配置，需根据实际参数做调整。
 
-## 仓库配置
+## 三、仓库配置
 
 - 离线安装镜像仓库配置
 

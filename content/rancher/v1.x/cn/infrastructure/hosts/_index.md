@@ -41,7 +41,7 @@ weight: 460
 
 ### 安装特定版本的Docker
 
-一般会使用 `curl https://get.docker.com | sh` 脚本来安装最新版的 Docker 。但是，最新版的 Dokcer 有可能不适用于正准备安装或已经在使用中的 Rancher 版本。因此，一种推荐的做法是：安装特定版本的 Docker。按照上方的对比表，选择 Rancher 适用的安装脚本执行即可。
+一般会使用 `curl https://get.docker.com | sh` 脚本来安装最新版的 Docker 。但是，最新版的 Docker 有可能不适用于正准备安装或已经在使用中的 Rancher 版本。因此，一种推荐的做法是：安装特定版本的 Docker。按照上方的对比表，选择 Rancher 适用的安装脚本执行即可。
 
 > **注意：** 如果从操作界面上添加云主机，可以通过 **高级选项** 里面的 **Docker Install URL**来选择需要安装的 Docker 版本。
 

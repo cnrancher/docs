@@ -46,7 +46,7 @@ $ sudo service docker restart
 ```
 
 #### 使用亚马逊的ECR镜像库
-在Rancher使用亚马逊的 [EC2 容器镜像库](https://aws.amazon.com/ecr/) 需要额外的配置。ECR使用AWS的原生认证服务IAM去管理访问权限。AWS提供了API，让用户可以基于请求的IAM权限为Dokcer生成临时的认证信息。由于认证信息在12小时后会无效，每12小时需要生成一个新的认证信息。你可以使用[AWS ECR 认证更新器](/docs/rancher/v1.x/cn/infrastructure/environments/registries/ecr_updater/) 来发布一个自动更新认证信息的服务。
+在Rancher使用亚马逊的 [EC2 容器镜像库](https://aws.amazon.com/ecr/) 需要额外的配置。ECR使用AWS的原生认证服务IAM去管理访问权限。AWS提供了API，让用户可以基于请求的IAM权限为Docker生成临时的认证信息。由于认证信息在12小时后会无效，每12小时需要生成一个新的认证信息。你可以使用[AWS ECR 认证更新器](/docs/rancher/v1.x/cn/infrastructure/environments/registries/ecr_updater/) 来发布一个自动更新认证信息的服务。
 
 在Rancher中使用该镜像时，请使用AWS提供的全名地址，例如：
 
