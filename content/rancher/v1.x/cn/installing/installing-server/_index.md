@@ -18,7 +18,7 @@ Rancher是使用一系列的Docker容器进行部署的。运行Rancher跟启动
 
 ### 安装需求
 
-* 所有安装有[支持的Docker版本](/docs/rancher/v1.x/cn/infrastructure/hosts/#docker版本适用对比)的现代Linux发行版。 [RancherOS](http://docs.rancher.com/os/), Ubuntu, RHEL/CentOS 7 都是经过严格的测试。
+* 所有安装有[支持的Docker版本](/docs/rancher/v1.x/cn/infrastructure/hosts/#docker版本适用对比)的现代Linux发行版。 [RancherOS](https://docs.rancher.com/os/), Ubuntu, RHEL/CentOS 7 都是经过严格的测试。
   * 对于 RHEL/CentOS, 默认的 storage driver, 例如 devicemapper using loopback, 并不被[Docker](https://docs.docker.com/engine/reference/commandline/dockerd/#/storage-driver-options)推荐。 请参考Docker的文档去修改使用其他的storage driver。
   * 对于 RHEL/CentOS, 如果你想使用 SELinux, 你需要[安装额外的 SELinux 组件](/docs/rancher/v1.x/cn/installing-rancher/selinux/).
 * 1GB内存
@@ -59,7 +59,7 @@ UI以及API会使用 `8080` 端口对外服务。下载Docker镜像完成后，�
 
 访问如下的URL: `http://<SERVER_IP>:8080`。`<SERVER_IP>` 是运行Rancher Server的主机的公共IP地址。
 
-当UI已经启动并运行，你可以先[添加主机](/docs/rancher/v1.x/cn/infrastructure/hosts/) 或者在应用商店中选择一个容器编排引擎。在默认情况下，如果没有选择不同的容器编排引擎，当前环境会使用Cattle引擎。在主机被添加都Rancher中后，你可以开始添加[服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/)或者从[应用商店](/docs/rancher/v1.x/cn/catalog/)通过应用模版启动一个应用。
+当UI已经启动并运行，你可以先[添加主机](/docs/rancher/v1.x/cn/infrastructure/hosts/) 或者在应用商店中选择一个容器编排引擎。在默认情况下，如果没有选择不同的容器编排引擎，当前环境会使用Cattle引擎。在主机被添加都Rancher中后，你可以开始添加[服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/)或者从[应用商店](/docs/rancher/v1.x/cn/configuration/catalog/)通过应用模版启动一个应用。
 
 <a id="single-container-external-database"></a>
 
@@ -118,7 +118,7 @@ $ sudo docker run -d -v <host_vol>:/var/lib/mysql --restart=unless-stopped -p 80
 #### HA部署需求
 
 * HA 节点:
-    * 所有安装有[支持的Docker版本](/docs/rancher/v1.x/cn/infrastructure/hosts/#docker版本适用对比)的现代Linux发行版 [RancherOS](http://docs.rancher.com/os/), Ubuntu, RHEL/CentOS 7 都是经过严格的测试。
+    * 所有安装有[支持的Docker版本](/docs/rancher/v1.x/cn/infrastructure/hosts/#docker版本适用对比)的现代Linux发行版 [RancherOS](https://docs.rancher.com/os/), Ubuntu, RHEL/CentOS 7 都是经过严格的测试。
 	  * 对于 RHEL/CentOS, 默认的 storage driver, 例如 devicemapper using loopback, 并不被[Docker](https://docs.docker.com/engine/reference/commandline/dockerd/#/storage-driver-options)推荐。 请参考Docker的文档去修改使用其他的storage driver。
 	  * 对于 RHEL/CentOS, 如果你想使用 SELinux, 你需要 [安装额外的 SELinux 组件](/docs/rancher/v1.x/cn/installing-rancher/selinux/).
     * `9345`, `8080` 端口需要在各个节点之间能够互相访问
@@ -277,7 +277,7 @@ $ sudo vi /etc/default/docker
 
 > **注意：** 如果你使用systemd运行Docker, 请参考Docker官方的[文档](https://docs.docker.com/articles/systemd/#http-proxy) 去配置http proxy设置。
 
-为了使得[应用商店](/docs/rancher/v1.x/cn/catalog/)加载正常，HTTP代理设置必须在Rancher Server运行的环境变量中。
+为了使得[应用商店](/docs/rancher/v1.x/cn/configuration/catalog/)加载正常，HTTP代理设置必须在Rancher Server运行的环境变量中。
 
 ```bash
 $ sudo docker run -d \
@@ -288,7 +288,7 @@ $ sudo docker run -d \
     --restart=unless-stopped -p 8080:8080 rancher/server
 ```
 
-如果你不使用[应用商店](/docs/rancher/v1.x/cn/catalog/)，则使用你平常的Rancher Server命令即可。
+如果你不使用[应用商店](/docs/rancher/v1.x/cn/configuration/catalog/)，则使用你平常的Rancher Server命令即可。
 
 当向Rancher[添加主机](/docs/rancher/v1.x/cn/infrastructure/hosts/)时，在HTTP代理中不需要额外的设置和要求。
 

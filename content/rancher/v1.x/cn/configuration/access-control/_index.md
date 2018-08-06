@@ -12,7 +12,7 @@ Rancher认证的第一个账户将成为 **管理员** 账户。 想要获取有
 
 在 **系统管理** 选项卡中, 点击**访问控制**。
 
-在你配置了Rancher的访问控制后，访问控制将被启用。访问控制使你能够管理不同的[环境](/docs/rancher/v1.x/cn/infrastructure/environments/)并把它们分享给不同的个人或团队。
+在你配置了Rancher的访问控制后，访问控制将被启用。访问控制使你能够管理不同的[环境](/docs/rancher/v1.x/cn/configuration/environments/)并把它们分享给不同的个人或团队。
 
 当访问控制启用后，Rancher API将被锁定。这时需要用户进行身份认证， 或者使用[API 密钥](/docs/rancher/v1.x/cn/api/v2-beta/api-keys/)来访问它。
 
@@ -53,7 +53,7 @@ Rancher认证的第一个账户将成为 **管理员** 账户。 想要获取有
 在使用Shibboleth时，你应该注意一些已知的问题。
 
 * 不支持搜索或查找功能。 在添加用户时，请确保输入的用户ID是准确的，这样才能保证用户被添加成功。
-* 当添加用户到一个[环境](/docs/rancher/v1.x/cn/infrastructure/environments/)时, 不支持组ID，除非管理员是该组的成员之一。
+* 当添加用户到一个[环境](/docs/rancher/v1.x/cn/configuration/environments/)时, 不支持组ID，除非管理员是该组的成员之一。
 
 ### 站点访问
 
@@ -69,7 +69,7 @@ Rancher认证的第一个账户将成为 **管理员** 账户。 想要获取有
 
 任何具有Rancher服务访问权限的人都将被授予 [用户](/docs/rancher/v1.x/cn/configuration/accounts/#users)权限。他们将无法查看**系统管理**页面。 如果想要他们查看，你将需要明确地将其帐户更改为[管理员帐户](/docs/rancher/v1.x/cn/configuration/accounts/#管理员)。
 
-为了让用户查看不同的[环境](/docs/rancher/v1.x/cn/infrastructure/environments/), 他们将需要被环境的[所有者](/docs/rancher/v1.x/cn/infrastructure/environments/#所有者)添加到环境中。
+为了让用户查看不同的[环境](/docs/rancher/v1.x/cn/configuration/environments/), 他们将需要被环境的[所有者](/docs/rancher/v1.x/cn/configuration/environments/#所有者)添加到环境中。
 
 
 #### Azure AD/OpenLDAP
@@ -80,17 +80,17 @@ Rancher认证的第一个账户将成为 **管理员** 账户。 想要获取有
 
 启用本地身份认证后，管理员可以通过访问**系统管理**> **账号设置**选项卡来创建其他管理员/用户。 点击**添加账号**并填写你要添加的帐户的详细信息。 你可以选择其帐户类型为**管理员**或**用户**。 管理员可以查看**系统管理**页面，普通用户无法看到该页面。
 
-一旦帐户被创建后，该账户可以被添加到任何[环境](/docs/rancher/v1.x/cn/infrastructure/environments/)中。
+一旦帐户被创建后，该账户可以被添加到任何[环境](/docs/rancher/v1.x/cn/configuration/environments/)中。
 
 ### 账户类型
 
-帐户类型决定帐户是否可以访问系统管理页面。对于Rancher中的每个环境，可以设置不同级别的[成员角色](/docs/rancher/v1.x/cn/infrastructure/environments/#成员角色)来对特定环境进行访问。
+帐户类型决定帐户是否可以访问系统管理页面。对于Rancher中的每个环境，可以设置不同级别的[成员角色](/docs/rancher/v1.x/cn/configuration/environments/#成员角色)来对特定环境进行访问。
 
 #### 管理员
 
 认证Rancher的第一个用户成为Rancher的管理员。 只有管理员才有权限查看**系统管理**页面
 
-在管理环境时，管理员可以查看Rancher中的所有[环境](/docs/rancher/v1.x/cn/infrastructure/environments/)， 即使管理员没有被加入到该环境的成员中。 在非管理员的环境下拉菜单中，用户只能看到他们所在的环境。
+在管理环境时，管理员可以查看Rancher中的所有[环境](/docs/rancher/v1.x/cn/configuration/environments/)， 即使管理员没有被加入到该环境的成员中。 在非管理员的环境下拉菜单中，用户只能看到他们所在的环境。
 
 管理员可以将其他用户添加为Rancher管理员。 在用户登录Rancher后，他们可以在 **系统管理** > **账号设置**页面上更改用户角色。 在**系统管理**> **账号设置帐户**标签中，点击帐户名称旁边的**编辑**，并将帐户类型更改为管理员。 点击**保存**。
 

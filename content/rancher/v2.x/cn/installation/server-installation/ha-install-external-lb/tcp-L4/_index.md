@@ -17,9 +17,9 @@ weight: 3
 
 1. #### 操作系统
 
-    - Ubuntu 16.04（64位）
-    - Centos/RedHat Linux 7.5+（64位）
-    - RancherOS 1.3.0+（64位）
+    - Ubuntu 16.04(64位)
+    - Centos/RedHat Linux 7.5+(64位)
+    - RancherOS 1.3.0+(64位)
 
 2. #### 硬件
 
@@ -29,7 +29,7 @@ weight: 3
     | -------- | --------- | -------- |     ------------------------------------------- | ---- |
     | 小       | 不超过10  | 最多50   | 2C                                              | 4GB  |
     | 中       | 不超过100 | 最多500  | 8C                                              | 32GB |
-    | 大       | 超过100   | 超过500  | [联系Rancher](https://rancher.com/contact/) |      |
+    | 大       | 超过100   | 超过500  | [联系Rancher](https://www2.cnrancher.com/contact/) |      |
 
 3. #### 软件
 
@@ -57,7 +57,7 @@ weight: 3
 
 ## 三、配置负载均衡器(以NGINX为例)
 
-我们将使用NGINX作为第4层负载均衡器(TCP)。NGINX会将所有连接转发到你的Rancher节点之一。如果要使用Amazon NLB，可以跳过此步骤并使用[Amazon NLB configuration]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-server-install/nlb/)配置。
+我们将使用NGINX作为第4层负载均衡器(TCP)。NGINX会将所有连接转发到你的Rancher节点之一。如果要使用Amazon NLB，可以跳过此步骤并使用[Amazon NLB configuration]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-install-external-lb/tcp-l4/amazon-nlb-configuration/)配置。
 
 >**注意:**
 > 在此配置中，负载平衡器位于Linux主机的前面。负载均衡器可以是任何能够运行NGINX的主机。
@@ -265,7 +265,7 @@ nodes:
         >**注意:**
         > base64编码的字符串应与tls.crtor&tls.key在同一行，并且在开头，冒号后有一个空格，中间或末尾没有任何换行符。
 
-        **Result:** 替换值后，文件应如下所示（base64编码的字符串应该不同):
+        **Result:** 替换值后，文件应如下所示(base64编码的字符串应该不同):
 
         ```yaml
         ---
@@ -285,7 +285,7 @@ nodes:
         >**注意:**
         > base64编码的字符串应该与cacerts.pem在同一行，冒号后一个空格，在开头，中间或结尾没有任何换行符。
 
-        **结果:** 该文件修改后应如下所示（base64编码的字符串应该不同）：
+        **结果:** 该文件修改后应如下所示(base64编码的字符串应该不同)：
 
         ```yaml
         ---
@@ -300,7 +300,7 @@ nodes:
         ```
 
 2. 方案B — 使用权威CA机构颁发的SSL证书
-    如果你使用的是由权威CA机构颁发的SSL证书，则需要为证书文件和证书密钥文件生成base64编码的字符串(确保你的证书文件包含链中的所有中间证书)。在这种情况下，证书的顺序首先是你自己的证书，然后是中间证书。请查阅CSP（证书服务提供商）的文档，了解需要包含哪些中间证书。
+    如果你使用的是由权威CA机构颁发的SSL证书，则需要为证书文件和证书密钥文件生成base64编码的字符串(确保你的证书文件包含链中的所有中间证书)。在这种情况下，证书的顺序首先是你自己的证书，然后是中间证书。请查阅CSP(证书服务提供商)的文档，了解需要包含哪些中间证书。
 
     1. 在`kind: Secret`和 `name: cattle-keys-ingress`中:
 
@@ -308,7 +308,7 @@ nodes:
 
         - 替换`<BASE64_CRT>`为证书文件的base64加密字符串(通常称为`cert.pem`或`domain.crt`);
 
-        替换值后，该文件应如下所示（base64编码的字符串应该不同):
+        替换值后，该文件应如下所示(base64编码的字符串应该不同):
 
         >**注意:** base64编码的字符串应与tls.crtor 在同一行tls.key，冒号后有一个空格，并且在开头，中间或末尾没有任何换行符。
 
@@ -394,10 +394,10 @@ nodes:
 
 ## 十三、下一步？
 
-你有几个选择：
+你有几个选择:
 
-- 创建Rancher server的备份：[单节点备份和恢复](/docs/rancher/v2.x/cn/backups-and-restoration/single-node-backup-and-restoration/)。
-- 创建一个Kubernetes集群：[创建一个集群](/docs/rancher/v2.x/cn/installation/server-installation/single-node-install/%7B%7B%20%3Cbaseurl%3E%20%7D%7D/rancher/v2.x/cn/tasks/clusters/creating-a-cluster/)。
+- 创建Rancher server的备份：[单节点备份和恢复](/docs/rancher/v2.x/cn/backups-and-restoration/backups/single-node-backups/)。
+- 创建一个Kubernetes集群：[创建一个集群](/docs/rancher/v2.x/cn/configuration/clusters/creating-a-cluster/)。
 
 ## 十四、FAQ and Troubleshooting
 
@@ -464,7 +464,7 @@ nodes:
 
 5. ### 我如何验证我的证书链？
 
-    你可以使用`openssl`二进制验证证书链。如果该命令的输出（参见下面的命令示例）结束`Verify return code: 0 (ok)`，那么证书链是有效的。该`ca.pem`文件必须与你添加到`rancher/rancher`容器中的文件相同。当使用由认可的认证机构签署的证书时，可以省略该`-CAfile`参数。
+    你可以使用`openssl`二进制验证证书链。如果该命令的输出(参见下面的命令示例)结束`Verify return code: 0 (ok)`，那么证书链是有效的。该`ca.pem`文件必须与你添加到`rancher/rancher`容器中的文件相同。当使用由认可的认证机构签署的证书时，可以省略该`-CAfile`参数。
 
     **命令:**
 

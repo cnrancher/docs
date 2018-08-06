@@ -13,9 +13,9 @@ weight: 1
 
 1. #### 操作系统
 
-    - Ubuntu 16.04（64位）
-    - Centos/RedHat Linux 7.5+（64位）
-    - RancherOS 1.3.0+（64位）
+    - Ubuntu 16.04(64位)
+    - Centos/RedHat Linux 7.5+(64位)
+    - RancherOS 1.3.0+(64位)
 
 2. #### 硬件
 
@@ -25,7 +25,7 @@ weight: 1
     | -------- | --------- | -------- | ------------------------------------------- | ---- |
     | 小       | 不超过10  | 最多50   | 2C                                          | 4GB  |
     | 中       | 不超过100 | 最多500  | 8C                                          | 32GB |
-    | 大       | 超过100   | 超过500  | [联系Rancher](https://rancher.com/contact/) |      |
+    | 大       | 超过100   | 超过500  | [联系Rancher](https://www2.cnrancher.com/contact/) |      |
 
 3. #### 软件
 
@@ -127,12 +127,12 @@ weight: 1
 
 4. ### 方案D-Let’s Encrypt 证书
 
-    Rancher支持Let’s Encrypt 证书。Let’s Encrypt 使用一个`http-01 challenge`来验证你是否是该域名的所有者。你可以通过将想要用于Rancher访问的主机名（例如，`rancher.mydomain.com`）指向正Rancher server主机IP，以此来确认你是否是该域名的所有者。你可以通过在DNS中创建A记录来将主机名绑定到IP地址。
+    Rancher支持Let’s Encrypt 证书。Let’s Encrypt 使用一个`http-01 challenge`来验证你是否是该域名的所有者。你可以通过将想要用于Rancher访问的主机名(例如，`rancher.mydomain.com`)指向正Rancher server主机IP，以此来确认你是否是该域名的所有者。你可以通过在DNS中创建A记录来将主机名绑定到IP地址。
 
     > **先决条件：**
     >
     > - Let's Encrypt是一项互联网服务，不能用于内部/离线网络。
-    > - 在你的DNS中创建一条记录，将你的Linux主机IP地址绑定到你想要用于Rancher访问的主机名（例如:`rancher.mydomain.com`）。
+    > - 在你的DNS中创建一条记录，将你的Linux主机IP地址绑定到你想要用于Rancher访问的主机名(例如:`rancher.mydomain.com`)。
     > - 在你的Linux主机上打开`TCP/80`端口。Let's Encrypt http-01检查可能来自任意的源IP地址，因此端口`TCP/80`必须对所有IP地址开放。
 
     **使用Let's Encrypt证书安装Rancher:**
@@ -152,16 +152,16 @@ weight: 1
 
 ## 三、下一步？
 
-你有几个选择：
+你有几个选择:
 
-- 创建Rancher server的备份：[单节点备份和恢复](/docs/rancher/v2.x/cn/backups-and-restoration/single-node-backup-and-restoration/)。
-- 创建一个Kubernetes集群: [创建一个集群](/docs/rancher/v2.x/cn/installation/server-installation/single-node-install/%7B%7B%20%3Cbaseurl%3E%20%7D%7D/rancher/v2.x/cn/tasks/clusters/creating-a-cluster/)。
+- 创建Rancher server的备份: [单节点备份和恢复](/docs/rancher/v2.x/cn/backups-and-restoration/backups/single-node-backups/)。
+- 创建一个Kubernetes集群: [创建一个集群](/docs/rancher/v2.x/cn/configuration/clusters/creating-a-cluster/)。
 
 ## 四、FAQ和故障排除
 
 1. ### 何为PEM格式？
 
-    PEM格式通常用于数字证书认证机构(Certificate Authorities，CA)，扩展名为.pem, .crt, .cer, and .key。内容为Base64编码的ASCII码文件，有类似"-----BEGIN CERTIFICATE-----" 和 "-----END CERTIFICATE-----"的头尾标记。服务器认证证书，中级认证证书和私钥都可以储存为PEM格式（认证证书其实就是公钥）。Apache和类似的服务器使用PEM格式证书。
+    PEM格式通常用于数字证书认证机构(Certificate Authorities，CA)，扩展名为.pem, .crt, .cer, and .key。内容为Base64编码的ASCII码文件，有类似"-----BEGIN CERTIFICATE-----" 和 "-----END CERTIFICATE-----"的头尾标记。服务器认证证书，中级认证证书和私钥都可以储存为PEM格式(认证证书其实就是公钥)。Apache和类似的服务器使用PEM格式证书。
 
     你可以通过以下特征识别PEM格式：
 
@@ -196,7 +196,7 @@ weight: 1
 
 3. ### 我如何验证我的证书链？
 
-    你可以使用`openssl`二进制验证证书链。如果该命令的输出（参见下面的命令示例）结束`Verify return code: 0 (ok)`，那么证书链是有效的。该`ca.pem`文件必须与你添加到`rancher/rancher`容器中的文件相同。当使用由认可的认证机构签署的证书时，可以省略该`-CAfile`参数。
+    你可以使用`openssl`二进制验证证书链。如果该命令的输出(参见下面的命令示例)结束`Verify return code: 0 (ok)`，那么证书链是有效的。该`ca.pem`文件必须与你添加到`rancher/rancher`容器中的文件相同。当使用由认可的认证机构签署的证书时，可以省略该`-CAfile`参数。
 
     **命令:**
 

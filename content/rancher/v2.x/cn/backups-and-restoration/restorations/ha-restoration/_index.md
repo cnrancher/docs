@@ -45,7 +45,7 @@ weight: 370
 
 ## 3. 恢复 `etcd` 数据
 
-要还原`etcd`节点上的最新快照，请运行RKE命令`rke etcd snapshot-restore`。此命令将恢复`/opt/rke/etcd-snapshots`明确定义的快照。当你运行时`rke etcd snapshot-restore`，RKE会删除旧`etcd`容器（如果它仍然存在）。
+要还原`etcd`节点上的最新快照，请运行RKE命令`rke etcd snapshot-restore`。此命令将恢复`/opt/rke/etcd-snapshots`明确定义的快照。当你运行时`rke etcd snapshot-restore`，RKE会删除旧`etcd`容器(如果它仍然存在)。
 
 >**警告:** 还原`etcd`快照会删除当前`etcd`群集并将其替换为新群集。在运行该`rke etcd snapshot-restore`命令之前，请备份当前群集中的所有重要数据。
 

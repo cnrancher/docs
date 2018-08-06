@@ -16,9 +16,9 @@ weight: 4
 
 1. #### 操作系统
 
-    - Ubuntu 16.04（64位）
-    - Centos/RedHat Linux 7.5+（64位）
-    - RancherOS 1.3.0+（64位）
+    - Ubuntu 16.04(64位)
+    - Centos/RedHat Linux 7.5+(64位)
+    - RancherOS 1.3.0+(64位)
 
 2. #### 硬件
 
@@ -28,7 +28,7 @@ weight: 4
     | -------- | --------- | -------- |     ------------------------------------------- | ---- |
     | 小       | 不超过10  | 最多50   | 2C                                              | 4GB  |
     | 中       | 不超过100 | 最多500  | 8C                                              | 32GB |
-    | 大       | 超过100   | 超过500  | [联系Rancher](https://rancher.com/contact/) |      |
+    | 大       | 超过100   | 超过500  | [联系Rancher](https://www2.cnrancher.com/contact/) |      |
 
 3. #### 软件
 
@@ -219,7 +219,7 @@ nodes:
     >**注意:**
     >base64编码的字符串应该与cacerts.pem在同一行，冒号后有一个空格，在开头，中间或结尾没有任何换行符。
 
-    结果：替换值后，文件应如下所示（base64编码的字符串应该不同）：
+    结果：替换值后，文件应如下所示(base64编码的字符串应该不同)：
 
     ```yaml
     ---
@@ -241,7 +241,7 @@ nodes:
 
 RKE配置文件中有一个`<FQDN>`引用,编辑配置文件替换`<FQDN>`:
 
-**结果**: 替换值后，文件应如下所示（base64编码的字符串应该不同）：
+**结果**: 替换值后，文件应如下所示(base64编码的字符串应该不同)：
 
 ```yaml
 apiVersion: extensions/v1beta1
@@ -301,10 +301,10 @@ apiVersion: extensions/v1beta1
 
 ## 十三、下一步？
 
-你有几个选择：
+你有几个选择:
 
-- 创建Rancher server的备份：[单节点备份和恢复](/docs/rancher/v2.x/cn/backups-and-restoration/single-node-backup-and-restoration/)。
-- 创建一个Kubernetes集群：[创建一个集群](/docs/rancher/v2.x/cn/installation/server-installation/single-node-install/%7B%7B%20%3Cbaseurl%3E%20%7D%7D/rancher/v2.x/cn/tasks/clusters/creating-a-cluster/)。
+- 创建Rancher server的备份：[单节点备份和恢复](/docs/rancher/v2.x/cn/backups-and-restoration/backups/single-node-backups/)。
+- 创建一个Kubernetes集群：[创建一个集群](/docs/rancher/v2.x/cn/configuration/clusters/creating-a-cluster/)。
 
 ## 十四、FAQ and Troubleshooting
 
@@ -371,7 +371,7 @@ apiVersion: extensions/v1beta1
 
 5. ### 我如何验证我的证书链？
 
-    你可以使用`openssl`二进制验证证书链。如果该命令的输出（参见下面的命令示例）结束`Verify return code: 0 (ok)`，那么证书链是有效的。该`ca.pem`文件必须与你添加到`rancher/rancher`容器中的文件相同。当使用由认可的认证机构签署的证书时，可以省略该`-CAfile`参数。
+    你可以使用`openssl`二进制验证证书链。如果该命令的输出(参见下面的命令示例)结束`Verify return code: 0 (ok)`，那么证书链是有效的。该`ca.pem`文件必须与你添加到`rancher/rancher`容器中的文件相同。当使用由认可的认证机构签署的证书时，可以省略该`-CAfile`参数。
 
     **命令:**
 

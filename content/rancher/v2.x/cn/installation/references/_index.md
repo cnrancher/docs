@@ -3,7 +3,7 @@ title: 端口需求
 weight: 2
 ---
 
-要保证Rancher正常运行，需要主机或者安全策略打开以下端口。使用云服务创建集群(如Amazon EC2或DigitalOcean)，Rancher会自动打开这些端口。  下图显示了Rancher的基本端口要求。如果需要了解更多，请查阅下表。
+要保证Rancher正常运行，需要主机或者安全策略打开以下端口。使用云服务创建集群(如Amazon EC2或DigitalOcean),Rancher会自动打开这些端口。下图显示了Rancher的基本端口要求。如果需要了解更多，请查阅下表。
 
 ![Basic port Requirements]({{< baseurl >}}/img/rancher/port-communications.png)
 
@@ -39,7 +39,7 @@ weight: 2
 | TCP      | 2379  | etcd nodes<br />controlplane nodes                           | etcd client requests                                         |
 | TCP      | 2380  | etcd nodes<br />controlplane nodes                           | etcd peer communication                                      |
 | UDP      | 8472  | etcd nodes<br />controlplane nodes<br />worker nodes         | Canal/Flannel VXLAN overlay networking                       |
-| TCP      | 9099  | etcd node itself (local traffic, not across nodes)See [Local node traffic](https://rancher.com/docs/rancher/v2.x/en/installation/references/#local-node-traffic) | Canal/Flannel livenessProbe/readinessProbe                   |
+| TCP      | 9099  | etcd node itself (local traffic, not across nodes)See [Local node traffic](https://www2.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Canal/Flannel livenessProbe/readinessProbe                   |
 | TCP      | 10250 | controlplane nodes                                           | kubelet                                                      |
 
 ### etcd nodes-出站规则
@@ -51,7 +51,7 @@ weight: 2
 | TCP      | 2380 | etcd nodes                                                   | etcd peer communication                    |
 | TCP      | 6443 | controlplane nodes                                           | Kubernetes apiserver                       |
 | UDP      | 8472 | etcd nodes<br />controlplane nodes<br />worker nodes         | Canal/Flannel VXLAN overlay networking     |
-| TCP      | 9099 | etcd node itself (local traffic, not across nodes)See [Local node traffic](https://rancher.com/docs/rancher/v2.x/en/installation/references/#local-node-traffic) | Canal/Flannel livenessProbe/readinessProbe |
+| TCP      | 9099 | etcd node itself (local traffic, not across nodes)See [Local node traffic](https://www2.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Canal/Flannel livenessProbe/readinessProbe |
 
 ## controlplane nodes:
 
@@ -66,9 +66,9 @@ weight: 2
 | TCP      | 2376        | Rancher nodes                                                | Docker daemon TLS port used by Docker Machine (only needed when using Node Driver/Templates) |
 | TCP      | 6443        | etcd nodes<br />controlplane nodes<br />worker nodes         | Kubernetes apiserver                                         |
 | UDP      | 8472        | etcd nodes<br />controlplane nodes<br />worker nodes         | Canal/Flannel VXLAN overlay networking                       |
-| TCP      | 9099        | controlplane node itself (local traffic, not across nodes)See [Local node traffic](https://rancher.com/docs/rancher/v2.x/en/installation/references/#local-node-traffic) | Canal/Flannel livenessProbe/readinessProbe                   |
+| TCP      | 9099        | controlplane node itself (local traffic, not across nodes)See [Local node traffic](https://www2.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Canal/Flannel livenessProbe/readinessProbe                   |
 | TCP      | 10250       | controlplane nodes                                           | kubelet                                                      |
-| TCP      | 10254       | controlplane node itself (local traffic, not across nodes)See [Local node traffic](https://rancher.com/docs/rancher/v2.x/en/installation/references/#local-node-traffic) | Ingress controller livenessProbe/readinessProbe              |
+| TCP      | 10254       | controlplane node itself (local traffic, not across nodes)See [Local node traffic](https://www2.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Ingress controller livenessProbe/readinessProbe              |
 | TCP/UDP  | 30000-32767 | Any source that consumes NodePort services                   | NodePort port range                                          |
 
 ### controlplane nodes-出站规则
@@ -79,9 +79,9 @@ weight: 2
 | TCP      | 2379  | etcd nodes                                                   | etcd client requests                            |
 | TCP      | 2380  | etcd nodes                                                   | etcd peer communication                         |
 | UDP      | 8472  | etcd nodes<br />controlplane node<br />sworker nodes        | Canal/Flannel VXLAN overlay networking          |
-| TCP      | 9099  | controlplane node itself (local traffic, not across nodes)See [Local node traffic](https://rancher.com/docs/rancher/v2.x/en/installation/references/#local-node-traffic) | Canal/Flannel livenessProbe/readinessProbe      |
+| TCP      | 9099  | controlplane node itself (local traffic, not across nodes)See [Local node traffic](https://www2.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Canal/Flannel livenessProbe/readinessProbe      |
 | TCP      | 10250 | etcd nodescontrolplane nodesworker nodes                     | kubelet                                         |
-| TCP      | 10254 | controlplane node itself (local traffic, not across nodes)See [Local node traffic](https://rancher.com/docs/rancher/v2.x/en/installation/references/#local-node-traffic) | Ingress controller livenessProbe/readinessProbe |
+| TCP      | 10254 | controlplane node itself (local traffic, not across nodes)See [Local node traffic](https://www2.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Ingress controller livenessProbe/readinessProbe |
 
 ## worker nodes
 
@@ -95,9 +95,9 @@ weight: 2
 | TCP      | 443         | Any that consumes Ingress services                           | Ingress controller (HTTPS)                                   |
 | TCP      | 2376        | Rancher nodes                                                | Docker daemon TLS port used by Docker Machine (only needed when using Node Driver/Templates) |
 | UDP      | 8472        | etcd nodes<br />controlplane node<br />sworker nodes         | Canal/Flannel VXLAN overlay networking                       |
-| TCP      | 9099        | worker node itself (local traffic, not across nodes)See [Local node traffic](https://rancher.com/docs/rancher/v2.x/en/installation/references/#local-node-traffic) | Canal/Flannel livenessProbe/readinessProbe                   |
+| TCP      | 9099        | worker node itself (local traffic, not across nodes)See [Local node traffic](https://www2.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Canal/Flannel livenessProbe/readinessProbe                   |
 | TCP      | 10250       | controlplane nodes                                           | kubelet                                                      |
-| TCP      | 10254       | worker node itself (local traffic, not across nodes)See [Local node traffic](https://rancher.com/docs/rancher/v2.x/en/installation/references/#local-node-traffic) | Ingress controller livenessProbe/readinessProbe              |
+| TCP      | 10254       | worker node itself (local traffic, not across nodes)See [Local node traffic](https://www2.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Ingress controller livenessProbe/readinessProbe              |
 | TCP/UDP  | 30000-32767 | Any source that consumes NodePort services                   | NodePort port range                                          |
 
 ### worker nodes-出站规则
@@ -107,8 +107,8 @@ weight: 2
 | TCP      | 443   | Rancher nodes                                                | Rancher agent                                   |
 | TCP      | 6443  | controlplane nodes                                           | Kubernetes apiserver                            |
 | UDP      | 8472  | etcd nodes<br />controlplane nodes<br />worker nodes         | Canal/Flannel VXLAN overlay networking          |
-| TCP      | 9099  | worker node itself (local traffic, not across nodes)See [Local node traffic](https://rancher.com/docs/rancher/v2.x/en/installation/references/#local-node-traffic) | Canal/Flannel livenessProbe/readinessProbe      |
-| TCP      | 10254 | worker node itself (local traffic, not across nodes)See [Local node traffic](https://rancher.com/docs/rancher/v2.x/en/installation/references/#local-node-traffic) | Ingress controller livenessProbe/readinessProbe |
+| TCP      | 9099  | worker node itself (local traffic, not across nodes)See [Local node traffic](https://www2.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Canal/Flannel livenessProbe/readinessProbe      |
+| TCP      | 10254 | worker node itself (local traffic, not across nodes)See [Local node traffic](https://www2.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Ingress controller livenessProbe/readinessProbe |
 
 ## 有关本地节点流量信息
 

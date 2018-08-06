@@ -3,9 +3,9 @@ title: 服务
 ---
 
 
-* Cattle对服务采用标准Docker Compose术语，并将基本服务定义为从同一Docker镜像创建的一个或多个容器。一旦服务（消费者）链接到同一个[应用](/docs/rancher/v1.x/cn/infrastructure/cattle/stacks/)中的另一个服务（生产者）相关的[DNS记录](/docs/rancher/v1.x/cn/infrastructure/cattle/internal-dns-service/) 会被自动创建，“消费”服务的容器可以发现这些容器。在Rancher创建服务的其他好处包括：
+* Cattle对服务采用标准Docker Compose术语，并将基本服务定义为从同一Docker镜像创建的一个或多个容器。一旦服务(消费者)链接到同一个[应用](/docs/rancher/v1.x/cn/infrastructure/cattle/stacks/)中的另一个服务(生产者)相关的[DNS记录](/docs/rancher/v1.x/cn/infrastructure/cattle/internal-dns-service/) 会被自动创建，“消费”服务的容器可以发现这些容器。在Rancher创建服务的其他好处包括：
 
-* 服务高可用性（HA）：Rancher会不断监控服务中的容器状态，并主动管理以确保所需的服务实例规模。当健康的容器小于（或者多于）正常服务所需容器规模，主机不可用，容器故障或者不能满足健康检查就会被触发。
+* 服务高可用性(HA)：Rancher会不断监控服务中的容器状态，并主动管理以确保所需的服务实例规模。当健康的容器小于(或者多于)正常服务所需容器规模，主机不可用，容器故障或者不能满足健康检查就会被触发。
 
 * [健康检查](/docs/rancher/v1.x/cn/infrastructure/cattle/health-checks/): Rancher通过在主机上运行`healthcheck`的基础设施服务，从而实现了容器和服务的分布式健康检查系统。这个`healthcheck`服务内部使用HAProxy来检查应用程序的运行状况。当在单个容器或服务上启用健康检查时，Rancher将监控每个容器。
 
@@ -17,11 +17,11 @@ title: 服务
 
 在`应用`中，你可以通过单击`添加服务`按钮添加服务。也可以在`应用`列表中添加服务 ，每个单个`应用`都可以看到`添加服务`按钮。
 
-在**数量**部分，你可以使用滑块来指定要为服务启动的容器的数量。或者，你可以选择**总是在每台主机上运行一个此容器的实例**。使用此选项时，你的服务将被部署到该[环境](/docs/rancher/v1.x/cn/infrastructure/environments/)中的任何主机上。如果你在**调度**选项卡中创建了调度规则，则Rancher将仅在符合调度规则的主机上启动容器。
+在**数量**部分，你可以使用滑块来指定要为服务启动的容器的数量。或者，你可以选择**总是在每台主机上运行一个此容器的实例**。使用此选项时，你的服务将被部署到该[环境](/docs/rancher/v1.x/cn/configuration/environments/)中的任何主机上。如果你在**调度**选项卡中创建了调度规则，则Rancher将仅在符合调度规则的主机上启动容器。
 
 你还需要输入**名称**，如果需要，还可以输入服务**描述**。
 
-为服务设置所需的**镜像**。你可以使用[DockerHub](https://hub.docker.com/)上的任何镜像，以及已添加到你的[环境](/docs/rancher/v1.x/cn/infrastructure/environments/)中的任何[镜像仓库](/docs/rancher/v1.x/cn/infrastructure/environments/registries)。镜像名称的语法与`docker run`命令中使用的语法相同。
+为服务设置所需的**镜像**。你可以使用[DockerHub](https://hub.docker.com/)上的任何镜像，以及已添加到你的[环境](/docs/rancher/v1.x/cn/configuration/environments/)中的任何[镜像仓库](/docs/rancher/v1.x/cn/configuration/environments/registries)。镜像名称的语法与`docker run`命令中使用的语法相同。
 
 镜像名称的语法。默认情况下，我们从Dockerhub中拉取。如果没有指定标签，我们将拉取标签为tag的镜像。
 
@@ -37,7 +37,7 @@ Rancher努力与Docker保持一致，我们的目标是，支持任何`docker ru
 
 ##### 端口映射
 
-当配置了映射端口后，你可以通过主机上的公共端口访问容器暴露的端口。在**端口映射**部分中，需要设置暴露在主机上的端口。该端口将流量指向你设置的私有端口。私有端口通常是容器上暴露的端口（例如：镜像的[Dockerfile](https://docs.docker.com/engine/reference/builder/#expose)中的`EXPOSE`）。当你映射一个端口时，Rancher将会在启动容器之前检查主机是否有端口冲突。
+当配置了映射端口后，你可以通过主机上的公共端口访问容器暴露的端口。在**端口映射**部分中，需要设置暴露在主机上的端口。该端口将流量指向你设置的私有端口。私有端口通常是容器上暴露的端口(例如：镜像的[Dockerfile](https://docs.docker.com/engine/reference/builder/#expose)中的`EXPOSE`)。当你映射一个端口时，Rancher将会在启动容器之前检查主机是否有端口冲突。
 
 当使用端口映射时，如果服务的容器规模大于具有可用端口的主机数量时，你的服务将被阻塞在正在激活状态。如果你查看服务的详细信息，你将可以看到`Error`状态的容器，这表明容器由于无法在主机上找到未被占用的端口而失败。该服务将继续尝试，如果发现有主机/端口可用，则该服务将在该主机上启动一个容器。
 
@@ -59,7 +59,7 @@ Rancher努力与Docker保持一致，我们的目标是，支持任何`docker ru
 
 ##### 健康检查
 
-如果Rancher中主机不能正常工作来（例如：处于`reconnecting`或`inactive`状态），你需要配置健康检查，以使Rancher将服务中的容器调度到其他的主机上。
+如果Rancher中主机不能正常工作来(例如：处于`reconnecting`或`inactive`状态)，你需要配置健康检查，以使Rancher将服务中的容器调度到其他的主机上。
 
 > **注意：** 健康检查仅适用于托管网络的服务。如果你选择任何其他网络，则**不能**被监察到。
 
@@ -85,7 +85,7 @@ Rancher努力与Docker保持一致，我们的目标是，支持任何`docker ru
 
 Rancher Compose工具的工作方式和Docker Compose一样，并支持V1和V2版本的docker-compose.yml文件。要启用Rancher支持的功能，你还可以使用扩展或重写了docker-compose.yml的rancher-compose.yml文档。例如，rancher-compose.yml文档包含了服务的`scale`和`healthcheck`。
 
-如果你不熟悉Docker Compose或Rancher Compose，我们建议你使用UI来启动你的服务。你可以通过单击`应用`的下拉列表中的**查看配置**来查看整个应用的配置（例如：与你的应用等效的docker-compose.yml文件和rancher-compose.yml文件）。
+如果你不熟悉Docker Compose或Rancher Compose，我们建议你使用UI来启动你的服务。你可以通过单击`应用`的下拉列表中的**查看配置**来查看整个应用的配置(例如：与你的应用等效的docker-compose.yml文件和rancher-compose.yml文件)。
 
 #### 链接服务
 
@@ -135,7 +135,7 @@ services:
 
 在此示例中，`alldbs`应用中的`db1`服务将链接到`web`服务。在web服务中，`mongo`将可解析为`db1`。没有外部链接时，`db1.alldbs`将可解析为`db1`。
 
-> **注意：** 跨应用的服务发现受环境的限制（特意设计的）。不支持应用的跨环境发现。
+> **注意：** 跨应用的服务发现受环境的限制(特意设计的)。不支持应用的跨环境发现。
 
 ### 使用 Rancher Compose 添加服务
 
@@ -191,7 +191,7 @@ $ rancher-compose -p LetsChatApp up -d
 
 ### 从服务
 
-Rancher支持通过使用从服务的概念对服务进行分组，从而使一组服务可以同时进行调度和扩缩容。通常创建具有一个或多个从服务的服务，来支持容器之间共享卷（即`--volumes_from`）和网络（即`--net=container`）。
+Rancher支持通过使用从服务的概念对服务进行分组，从而使一组服务可以同时进行调度和扩缩容。通常创建具有一个或多个从服务的服务，来支持容器之间共享卷(即`--volumes_from`)和网络(即`--net=container`)。
 
 你可能希望你的服务的使用`volumes_from`和`net`去连接其他服务。为了实现这一点，你需要在服务直接建立一个从属关系。通过从属关系，Rancher可以将这些服务作为一个单元进行扩容和调度。例如：B是A的从服务，Rancher始终将A和B作为一对进行部署，服务的数量规模将始终保持一致。
 
@@ -253,7 +253,7 @@ services:
 
 ##### Rancher Compose里面的从服务例子:多服务使用来自同一个服务`volumes_from`
 
-如果你有多个服务，他们将使用相同的容器去做一个`volumes_from`，你可以添加第二个服务作为主服务的从服务，并使用相同的数据容器。由于只有主服务可以作为负载均衡的目标，请确保选择了正确的服务作为主服务（即，具有sidekick标签的服务）。
+如果你有多个服务，他们将使用相同的容器去做一个`volumes_from`，你可以添加第二个服务作为主服务的从服务，并使用相同的数据容器。由于只有主服务可以作为负载均衡的目标，请确保选择了正确的服务作为主服务(即，具有sidekick标签的服务)。
 示例 `docker-compose.yml`
 
 ```yaml

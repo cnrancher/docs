@@ -75,10 +75,10 @@ Once this is completed and the hostname/IP matches your certs' CN attribute, you
 - Fixed an issue with AD authentication where usernames/passwords with certain characters were not able to be log in [#9815, #9830]
 - Fixed an issue with AD authentication where users with escaped commas in their DN are not able to log in or use API keys [#9827, #9828]
 
-## [Rancher CLI](http://docs.rancher.com/rancher/v1.6/en/cli/) Downloads
+## [Rancher CLI](https://docs.rancher.com/rancher/v1.6/en/cli/) Downloads
 
 https://github.com/rancher/cli/releases/tag/v0.6.4
 
-## [Rancher-Compose](http://docs.rancher.com/rancher/v1.6/en/cattle/rancher-compose/) Downloads
+## [Rancher-Compose](https://docs.rancher.com/rancher/v1.6/en/cattle/rancher-compose/) Downloads
 
 https://github.com/rancher/rancher-compose/releases/tag/v0.12.5

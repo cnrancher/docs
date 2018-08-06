@@ -23,9 +23,9 @@ weight: 2
 
 根据以下要求配置主机:
 
-- Ubuntu 16.04 +（64位）
-- Centos/RedHat Linux 7.5+（64位）
-- RancherOS 1.3.0+（64位）
+- Ubuntu 16.04 +(64位)
+- Centos/RedHat Linux 7.5+(64位)
+- RancherOS 1.3.0+(64位)
 
 **硬件需求**:
 

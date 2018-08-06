@@ -18,7 +18,7 @@ Rancher环境的用户可以在特定的Rancher环境中通过**应用商店**�
 
 ### 应用商店中的基础设施服务
 
-在[环境模版](/docs/rancher/v1.x/cn/infrastructure/environments/#什么是环境模版)里的[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)来自Rancher中生效的应用商店中的 `infra-templates` 文件夹。
+在[环境模版](/docs/rancher/v1.x/cn/configuration/environments/#什么是环境模版)里的[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)来自Rancher中生效的应用商店中的 `infra-templates` 文件夹。
 
 在**应用商店**中也可以看到这些服务。你可以看到全部的基础设施服务，即使这些服务可能和你当前所选择的编排引擎不兼容。建议在创建环境的时候通过环境模版来选择基础设施服务而不是从应用商店中手动部署这些服务。
 

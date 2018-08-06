@@ -56,7 +56,7 @@ Rancher UI会给你提供一些指示，比如你的主机上应该开放的端�
 
 ### 基础设施服务
 
-当你第一次登陆Rancher时，你将自动进入**默认**[环境](/docs/rancher/v1.x/cn/infrastructure/environments/)。默认已经为此环境选择了Cattle[环境模板](/docs/rancher/v1.x/cn/infrastructure/environments/#什么是环境模版)来启动[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)。要想充分利用Rancher的一些功能，如[DNS](/docs/rancher/v1.x/cn/rancher-services/dns-service/)、[元数据](/docs/rancher/v1.x/cn/rancher-services/metadata-service)、[网络](/docs/rancher/v1.x/cn/rancher-services/networking)、[健康检查](/docs/rancher/v1.x/cn/infrastructure/cattle/health-checks/)，你需要启动这些基础设施服务。这些基础设施可以在**应用栈** -> **基础设施**中找到。在主机被添加至Rancher之前，这些栈会处于 `unhealthy` 状态。主机添加完成后，建议等到所有基础设施服务都处于`active`状态之后再添加服务。
+当你第一次登陆Rancher时，你将自动进入**默认**[环境](/docs/rancher/v1.x/cn/configuration/environments/)。默认已经为此环境选择了Cattle[环境模板](/docs/rancher/v1.x/cn/configuration/environments/#什么是环境模版)来启动[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)。要想充分利用Rancher的一些功能，如[DNS](/docs/rancher/v1.x/cn/rancher-services/dns-service/)、[元数据](/docs/rancher/v1.x/cn/rancher-services/metadata-service)、[网络](/docs/rancher/v1.x/cn/rancher-services/networking)、[健康检查](/docs/rancher/v1.x/cn/infrastructure/cattle/health-checks/)，你需要启动这些基础设施服务。这些基础设施可以在**应用栈** -> **基础设施**中找到。在主机被添加至Rancher之前，这些栈会处于 `unhealthy` 状态。主机添加完成后，建议等到所有基础设施服务都处于`active`状态之后再添加服务。
 
 在主机上，所有属于基础设施服务的容器将被隐藏，除非你单击“**显示系统容器**”复选框。
 
@@ -96,7 +96,7 @@ $ docker run -d -it --label io.rancher.container.network=true ubuntu:14.04.2
 2. 一个由两个“LetsChat”容器组成的*web*服务。
 3. 一个由一个“Mongo”容器组成的数据库服务。
 
-负载均衡器的目标是*web*服务（即LetsChat），Web服务将连接到数据库服务（即Mongo）。
+负载均衡器的目标是*web*服务(即LetsChat)，Web服务将连接到数据库服务(即Mongo)。
 
 在本节中，我们将介绍如何在Rancher中创建和部署[LetsChat](http://sdelements.github.io/lets-chat/)应用程序。
 
@@ -106,7 +106,7 @@ $ docker run -d -it --label io.rancher.container.network=true ubuntu:14.04.2
 
 接下来，再次点击**添加服务**以添加其他服务。我们将添加一个LetsChat服务并链接到*database*服务。让我们使用名称`web`以及`sdelements/lets-chat`镜像。在UI中，我们可以移动滑块，将服务扩容至2个容器。在**服务链接**中，添加*database*服务并将其命名为`mongo`。就像Docker的做法一样，Rancher会在`letschat`容器里加入这个链接所需要的相关环境变量。单击**创建**。
 
-最后，我们将创建我们的负载均衡器。单击**添加服务**按钮旁的下拉菜单图标。选择**添加负载均衡**。提供一个类似于`letschatapplb`这样的名字。输入访问端口（例如`80`端口），选择目标服务（即*web*），并选择目标端口（即`8080`端口）。*web*服务正在侦听`8080`端口。单击**创建**。
+最后，我们将创建我们的负载均衡器。单击**添加服务**按钮旁的下拉菜单图标。选择**添加负载均衡**。提供一个类似于`letschatapplb`这样的名字。输入访问端口(例如`80`端口)，选择目标服务(即*web*)，并选择目标端口(即`8080`端口)。*web*服务正在侦听`8080`端口。单击**创建**。
 
 至此，我们的LetsChat应用程序已完成！在**应用**页面上，你可以查找到超链接形式的负载均衡所暴露端口。点击该链接，将会打开一个新的页面，你将能看到LetsChat应用程序了。
 
@@ -178,9 +178,9 @@ services:
 ```
 
 <br>
-在Rancher UI中单击**下载CLI**（该按钮位于页面的右下角），即可下载Rancher CLI二进制文件，Windows、Mac和Linux的二进制文件均可下载。
+在Rancher UI中单击**下载CLI**(该按钮位于页面的右下角)，即可下载Rancher CLI二进制文件，Windows、Mac和Linux的二进制文件均可下载。
 
-若想使用Rancher CLI在Rancher中启动服务，你需要设置一些环境变量。你需要在Rancher UI中创建一个账户[API Key](/docs/rancher/v1.x/cn/api/v2-beta/api-keys/)。单击**API** -> **密钥**。单击**添加账户API Key**。填写一个名字，然后单击**创建**。保存**Access Key（用户名）**和**Secret Key（密码）**。通过运行`rancher config`配置RancherCLI，使用Rancher URL、Access Key和Secret Key。
+若想使用Rancher CLI在Rancher中启动服务，你需要设置一些环境变量。你需要在Rancher UI中创建一个账户[API Key](/docs/rancher/v1.x/cn/api/v2-beta/api-keys/)。单击**API** -> **密钥**。单击**添加账户API Key**。填写一个名字，然后单击**创建**。保存**Access Key(用户名)**和**Secret Key(密码)**。通过运行`rancher config`配置RancherCLI，使用Rancher URL、Access Key和Secret Key。
 
 ```bash
 # Configure Rancher CLI

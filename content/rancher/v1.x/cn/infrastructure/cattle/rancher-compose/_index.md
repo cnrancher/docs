@@ -2,7 +2,7 @@
 title: Rancher Compose
 ---
 
-Rancher Compose是一个多主机版本的Docker Compose。它运行于Rancher UI里属于一个[环境](/docs/rancher/v1.x/cn/infrastructure/environments/)多个[主机](/docs/rancher/v1.x/cn/infrastructure/hosts/)的[应用](/docs/rancher/v1.x/cn/infrastructure/cattle/stacks/)里。Rancher Compose启动的容器会被部署在满足[调度规则](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/)的同一环境中的任意主机里。如果没有设置调度规则，那么这些服务容器会被调度至最少容器运行的主机上运行。这些被Rancher Compose启动的容器的运行效果是和在UI上启动的效果是一致的.
+Rancher Compose是一个多主机版本的Docker Compose。它运行于Rancher UI里属于一个[环境](/docs/rancher/v1.x/cn/configuration/environments/)多个[主机](/docs/rancher/v1.x/cn/infrastructure/hosts/)的[应用](/docs/rancher/v1.x/cn/infrastructure/cattle/stacks/)里。Rancher Compose启动的容器会被部署在满足[调度规则](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/)的同一环境中的任意主机里。如果没有设置调度规则，那么这些服务容器会被调度至最少容器运行的主机上运行。这些被Rancher Compose启动的容器的运行效果是和在UI上启动的效果是一致的.
 
 Rancher Compose工具的工作方式是跟Docker Compose的工作方式是相似的，并且兼容版本V1和V2的 `docker-compose.yml` 文件。为了启用Rancher的特性，你需要额外一份`rancher-compose.yml`文件，这份文件扩展并覆盖了`docker-compose.yml`文件。例如，服务缩放和健康检查这些功能就会在`rancher-compose.yml`中体现。
 
@@ -37,7 +37,7 @@ $ rancher-compose --url http://server_ip:8080 --access-key <username_of_environm
 
 <br>
 
-现在你可以使用Rancher Compose 配合`docker-compose.yml`文件来[启动服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/#使用-rancher-compose-添加服务)了。这些服务会在环境API keys对应的[环境](/docs/rancher/v1.x/cn/infrastructure/environments/)中启动服务的。
+现在你可以使用Rancher Compose 配合`docker-compose.yml`文件来[启动服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/#使用-rancher-compose-添加服务)了。这些服务会在环境API keys对应的[环境](/docs/rancher/v1.x/cn/configuration/environments/)中启动服务的。
 
 就像Docker Compose，你可以在命令后面加上服务名称来选择启动全部或者仅启动指定某些`docker-compose.yml`中服务
 

@@ -38,7 +38,7 @@ rancher:
 
 <br>
 
-> **Note:** You can not name the service `rancher-agent` as this will not allow the rancher/agent container to be launched correctly. Please 了解更多 about why [you can't name your container as `rancher-agent`](https://rancher.com/docs/rancher/latest/zh/faqs/agents/#adding-in-name-rancher-agent).
+> **Note:** You can not name the service `rancher-agent` as this will not allow the rancher/agent container to be launched correctly. Please 了解更多 about why [you can't name your container as `rancher-agent`](https://www2.cnrancher.com/docs/rancher/latest/zh/faqs/agents/#adding-in-name-rancher-agent).
 
 ### Adding in Host Labels
 

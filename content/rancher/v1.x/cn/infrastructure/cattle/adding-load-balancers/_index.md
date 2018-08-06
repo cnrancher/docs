@@ -7,7 +7,7 @@ Rancher支持多种负载均衡驱动，通过在它之上建立代理规则，�
 默认情况下，Rancher提供一个基于HAProxy的托管的负载均衡，它可以被手动扩容至多台主机。在接下来的例子中将会涉及到负载均衡中不同的配置项，这些配置项主要以HAProxy为参考。我们计划支持除HAProxy以外的其他负载均衡驱动，但这些配置项都会是相同的。
 
 我们使用round robin算法分发流量至目标服务。这个算法可在[自定义HAProxy.cfg](#自定义haproxycfg)中进行自定义。
-另外，你可以配置负载均衡来将流量分发至与负载均衡容器处于相同主机的目标容器。通过给负载均衡设置一个特定的[标签](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#target-service-labels)，能够将负载均衡的目标限定在同一台主机中的目标容器（例如 `io.rancher.lb_service.target=only-local`），或者优先转发至同一台主机中的目标容器(例如： `io.rancher.lb_service.target=prefer-local`)。
+另外，你可以配置负载均衡来将流量分发至与负载均衡容器处于相同主机的目标容器。通过给负载均衡设置一个特定的[标签](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#target-service-labels)，能够将负载均衡的目标限定在同一台主机中的目标容器(例如 `io.rancher.lb_service.target=only-local`)，或者优先转发至同一台主机中的目标容器(例如： `io.rancher.lb_service.target=prefer-local`)。
 
 我们将会查看在[UI](#如何在ui上新增一个负载均衡)和[Rancher Compose](#用rancher-compose-添加负载均衡)中的负载均衡的配置项，并且给出[UI](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/#adding-a-load-balancer-in-the-ui)和[Rancher Compose](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/#adding-a-load-balancer-with-rancher-compose)的用例。
 
@@ -33,7 +33,7 @@ Rancher提供一个基于HAProxy的容器来重定向流量至目标服务。
 
 点击**添加服务**旁边的下拉图标，找到**添加负载均衡**并点击它。
 
-你能使用滑块选择`数量`，就是负载均衡使用多少个容器。或者，你可以选择`总是在每台主机上运行一个此容器的实例`。使用这一个选项, 你的负载均衡容器数量将会随着你[环境](/docs/rancher/v1.x/cn/infrastructure/environments/)下的主机数量增减而增减。如果你在**调度**部分设定了调度规则，Rancher将会在满足规则的主机上启动负载均衡。如果你的环境下新增了一台不满足调度规则的主机，负载均衡容器不会在这一台主机中启动。
+你能使用滑块选择`数量`，就是负载均衡使用多少个容器。或者，你可以选择`总是在每台主机上运行一个此容器的实例`。使用这一个选项, 你的负载均衡容器数量将会随着你[环境](/docs/rancher/v1.x/cn/configuration/environments/)下的主机数量增减而增减。如果你在**调度**部分设定了调度规则，Rancher将会在满足规则的主机上启动负载均衡。如果你的环境下新增了一台不满足调度规则的主机，负载均衡容器不会在这一台主机中启动。
 
 > **注意：** 负载均衡容器的扩缩容不能超过环境下主机的数量，否则会造成端口冲突，负载容器服务将会被阻碍在`activating`状态。它会不断去尝试寻找可用的主机并开启端口，直到你修改它的数量或者[添加主机](/docs/rancher/v1.x/cn/infrastructure/hosts/).
 
@@ -47,9 +47,9 @@ Rancher提供一个基于HAProxy的容器来重定向流量至目标服务。
 
 服务规则指的是端口指向目标容器的规则。
 
-在**访问**选项栏中，你可以决定这个负载均衡端口是否可以被公网访问（就是说是否可以从主机以外访问）或者仅仅在环境内部访问。默认情况下，Rancher假定你希望被公网访问，但是如果你希望仅仅在环境内部被访问，你可以选择`内部`。
+在**访问**选项栏中，你可以决定这个负载均衡端口是否可以被公网访问(就是说是否可以从主机以外访问)或者仅仅在环境内部访问。默认情况下，Rancher假定你希望被公网访问，但是如果你希望仅仅在环境内部被访问，你可以选择`内部`。
 
-选择`协议`选项栏。获取更多关于我们[协议选项](#协议)的信息。如果你选择了需要SSL终端（如 `https` or `tls`），你将需要在`SSL终端`标签页中新增你的认证信息。
+选择`协议`选项栏。获取更多关于我们[协议选项](#协议)的信息。如果你选择了需要SSL终端(如 `https` or `tls`)，你将需要在`SSL终端`标签页中新增你的认证信息。
 
 接下来，你可以针对流量的来源填写**请求头信息**, **端口** 和 **路径**。
 
@@ -103,7 +103,7 @@ domain.com.* -> hdr_beg(host) -i domain.com.
 
 **SSL会话终止**标签提供了添加用于`https`和`tls`协议证书的能力。在**证书**下拉框中，你可以为负载均衡选择主证书。
 
-添加证书前，请阅读[如何添加证书](/docs/rancher/v1.x/cn/infrastructure/environments/certificates/).
+添加证书前，请阅读[如何添加证书](/docs/rancher/v1.x/cn/configuration/environments/certificates/).
 
 为负载均衡添加多个证书是可以实现的。这样相应的证书会基于请求主机名(查看 [服务器名称指示](https://en.wikipedia.org/wiki/Server_Name_Indication))展示给客户端。这个功能可能在那些不支持SNI(它会获取主要证书)的老客户端上失效。对于现代客户端，我们会在能匹配到的列表中提供证书，如果没有匹配成功，就会提供主证书。
 
@@ -264,7 +264,7 @@ services:
 
 ##### 源端口
 
-源端口是值暴露在主机上的某个端口（也就是定义在`docker-compose.yml`中的端口）。
+源端口是值暴露在主机上的某个端口(也就是定义在`docker-compose.yml`中的端口)。
 
 如果你想要创建一个内部负载均衡，那么源端口酒不需要与`docker-compose.yml`中定义的任意一个匹配。
 
@@ -278,9 +278,9 @@ Rancher的负载均衡支持多种协议类型。
 
 * `http` - 默认情况下，如果没有设置任何协议，负载均衡就会使用`http`。HAProxy 不会对流量做任何解析，仅仅是转发。
 * `tcp` - HAProxy 不会对流量做任何解析，仅仅是转发。
-* `https` - 需要设置SSL会话终结。流量将会被HAProxy使用[证书](/docs/rancher/v1.x/cn/infrastructure/environments/certificates/)解密，这个证书必须在设定负载均衡之前被添加入Rancher。被流量负载均衡所转发的流量是没有加密的。
-* `tls` - 需要设置SSL会话终结。流量将会被HAProxy使用[证书](/docs/rancher/v1.x/cn/infrastructure/environments/certificates/)解密，这个证书必须在设定负载均衡之前被添加入Rancher。被流量负载均衡所转发的流量是没有加密的。
-* `sni` - 流量从负载均衡到服务都是被加密的。多个证书将会被提供给负载均衡,这样负载均衡就能将合适的证书基于主机名展示给客户端。 点击[服务器名称指示](https://en.wikipedia.org/wiki/Server_Name_Indication)）查看更多详情。
+* `https` - 需要设置SSL会话终结。流量将会被HAProxy使用[证书](/docs/rancher/v1.x/cn/configuration/environments/certificates/)解密，这个证书必须在设定负载均衡之前被添加入Rancher。被流量负载均衡所转发的流量是没有加密的。
+* `tls` - 需要设置SSL会话终结。流量将会被HAProxy使用[证书](/docs/rancher/v1.x/cn/configuration/environments/certificates/)解密，这个证书必须在设定负载均衡之前被添加入Rancher。被流量负载均衡所转发的流量是没有加密的。
+* `sni` - 流量从负载均衡到服务都是被加密的。多个证书将会被提供给负载均衡,这样负载均衡就能将合适的证书基于主机名展示给客户端。 点击[服务器名称指示](https://en.wikipedia.org/wiki/Server_Name_Indication))查看更多详情。
 * `udp` - Rancher 的HAProxy不支持.
 
 其他的负载均衡驱动可能只支持以上的几种。
@@ -360,7 +360,7 @@ domain.com.* -> hdr_beg(host) -i domain.com.
 
 ##### 优先级
 
-默认情况下，Rancher 针对同一个服务遵循[默认优先级顺序](#默认优先级顺序)，但是你也可以定制化你自己的优先级规则（数字越小，优先级越高）
+默认情况下，Rancher 针对同一个服务遵循[默认优先级顺序](#默认优先级顺序)，但是你也可以定制化你自己的优先级规则(数字越小，优先级越高)
 
 ###### Example `rancher-compose.yml`
 
@@ -462,7 +462,7 @@ services:
 
 #### 证书
 
-如果你需要使用`https` 或者 `tls` [协议](#协议), 你可以使用[直接加入Rancher](/docs/rancher/v1.x/cn/infrastructure/environments/certificates)或者挂载在负载均衡容器中的证书。
+如果你需要使用`https` 或者 `tls` [协议](#协议), 你可以使用[直接加入Rancher](/docs/rancher/v1.x/cn/configuration/environments/certificates)或者挂载在负载均衡容器中的证书。
 
 ##### 引用在Rancher中添加的证书
 
@@ -505,7 +505,7 @@ Rancher的负载均衡将会检测证书目录来实现更新。任何对证书�
   |   |-- fullchain.pem
 ...
 ```
-当启动一个负载均衡的时候，你必须用标签声明证书的路径（包括默认证书的路径）。这样以来，负载均衡将忽略设置在`lb_config`中的证书。
+当启动一个负载均衡的时候，你必须用标签声明证书的路径(包括默认证书的路径)。这样以来，负载均衡将忽略设置在`lb_config`中的证书。
 
 > **注意：** 你不能同时使用在Rancher中添加的证书和挂载在负载均衡容器中的证书
 

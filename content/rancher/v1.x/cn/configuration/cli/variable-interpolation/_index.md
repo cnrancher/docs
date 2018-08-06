@@ -69,7 +69,7 @@ services:
 在`docker-compose.yml`里面，Rancher能够支持使用[Go模板系统](https://golang.org/pkg/text/template/)，这样我们可以在`docker-compose.yml`里面使用逻辑条件语句。
 
 
-模板可以与Rancher CLI一起使用，也可以与[应用商店](/docs/rancher/v1.x/cn/catalog/)组合使用，这样可以让你配置你的应用商店模板，也可以让你根据答案来改变你的模板文件。
+模板可以与Rancher CLI一起使用，也可以与[应用商店](/docs/rancher/v1.x/cn/configuration/catalog/)组合使用，这样可以让你配置你的应用商店模板，也可以让你根据答案来改变你的模板文件。
 
 > **注意：**目前我们只支持对`string`的比较。
 

@@ -9,12 +9,12 @@ Docker容器在创建之后就不可更改了。唯一可更改的内容是我�
 你可以**克隆**，即选择已存在的容器，并基于已有容器的配置提前在**添加服务**界面中填入所有要设置的内容，如果你忘记填入某项内容，可以通过克隆来改变它之后删除旧的容器。
 
 ### 2、service-link的容器/服务在Rancher中是如何工作的？
-在Docker中，关联容器（在 `docker run`中使用`--link`）的ID和IP地址会出现在容器的`/etc/hosts`中。在Rancher中，我们不需要更改容器的`/etc/hosts`文件，而是通过运行一个内部DNS服务器来关联容器，DNS服务器会返回给我们正确的IP。
+在Docker中，关联容器(在 `docker run`中使用`--link`)的ID和IP地址会出现在容器的`/etc/hosts`中。在Rancher中，我们不需要更改容器的`/etc/hosts`文件，而是通过运行一个内部DNS服务器来关联容器，DNS服务器会返回给我们正确的IP。
 
 ### 3、不能通过Rancher的界面打开命令行或查看日志，如何去访问容器的命令行和日志?
-Agent主机有可能会暴露在公网上，Agent上接受到的访问容器命令行或者日志的请求是不可信的。Rancher Server中发出的请求包括一个JWT（JSON Web Token)，JWT是由服务器签名并且可由Agent校验的，Agent可以判断出请求是否来自服务器，JWT中包括了有效期限，有效期为5分钟。这个有效期可以防止它被长时间使用。如果JWT被拦截而且没有用SSL时，这一点尤为重要。
+Agent主机有可能会暴露在公网上，Agent上接受到的访问容器命令行或者日志的请求是不可信的。Rancher Server中发出的请求包括一个JWT(JSON Web Token)，JWT是由服务器签名并且可由Agent校验的，Agent可以判断出请求是否来自服务器，JWT中包括了有效期限，有效期为5分钟。这个有效期可以防止它被长时间使用。如果JWT被拦截而且没有用SSL时，这一点尤为重要。
 
-如果你运行`docker logs -f (rancher-agent名称或ID）`。日志会显示令牌过期的信息，随后检查Rancher Server主机和Rancher Agent主机的时钟是否同步。
+如果你运行`docker logs -f (rancher-agent名称或ID)`。日志会显示令牌过期的信息，随后检查Rancher Server主机和Rancher Agent主机的时钟是否同步。
 
 ### 4、在哪里可以看到我的服务日志?
 
@@ -40,7 +40,7 @@ Agent主机有可能会暴露在公网上，Agent上接受到的访问容器命�
  -v /var/run/docker.sock:/var/run/docker.sock \
  rancher/agent:v0.8.2 http://SERVER_IP:8080/v1/scripts/xxxx
 ```
-### 3、Rancher的默认子网（`10.42.0.0/16`）在我的网络环境中已经被使用或禁止使用，我应该怎么去更改这个子网？
+### 3、Rancher的默认子网(`10.42.0.0/16`)在我的网络环境中已经被使用或禁止使用，我应该怎么去更改这个子网？
 Rancher Overlay网络默认使用的子网是`10.42.0.0/16`。如果这个子网已经被使用，你将需要更改Rancher网络中使用的默认子网。你要确保基础设施服务里的Network组件中使用着合适的子网。这个子网定义在该服务的`rancher－compose.yml`文件中的`default_network`里。
 
 要更改Rancher的IPsec或VXLAN网络驱动，你将需要在环境模版中修改网络基础设施服务的配置。创建新环境模板或编辑现有环境模板时，可以通过单击**编辑**来配置网络基础结构服务的配置。在编辑页面中，选择**配置选项**　>　**子网**输入不同子网，点击**配置**。在任何新环境中将使用环境模板更新后的子网，编辑已经有的环境模板不会更改现在已有环境的子网。
@@ -138,7 +138,7 @@ Rancher上应用的调度，需要配合健康检查功能。当健康检查检�
 ## 七、CentOS
 ### 1、为什么容器无法连接到网络?
 
-如果你在主机上运行一个容器（如：`docker run -it ubuntu`）该容器不能与互联网或其他主机通信，那可能是遇到了网络问题。
+如果你在主机上运行一个容器(如：`docker run -it ubuntu`)该容器不能与互联网或其他主机通信，那可能是遇到了网络问题。
 Centos默认设置`/proc/sys/net/ipv4/ip_forward`为`0`，这从底层阻断了Docker所有网络。
 
 解决办法：

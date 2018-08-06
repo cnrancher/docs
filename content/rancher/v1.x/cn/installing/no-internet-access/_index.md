@@ -3,11 +3,11 @@ title: 离线安装
 weight: 203
 ---
 
-不可对外访问的网络环境（内网）也是可以启动 Rancher 服务的。在这种拓扑下，可以通过内网提供的IP或者域名来访问Rancher的操作界面（UI界面）。另外，也可以用HTTP代理或者私有镜像库来配置 Rancher。
+不可对外访问的网络环境(内网)也是可以启动 Rancher 服务的。在这种拓扑下，可以通过内网提供的IP或者域名来访问Rancher的操作界面(UI界面)。另外，也可以用HTTP代理或者私有镜像库来配置 Rancher。
 
 需要注意的是，在内网中启动一个 Rancher 服务会导致一些特性无效，比如：
 
-* 使用操作界面来启动云公有云提供商（例如AWS，DigitalOcean，阿里云，vSphere等）提供的主机。只能添加[自定义主机](/docs/rancher/v1.x/cn/infrastructure/hosts/custom/) 来初始化Rancher；
+* 使用操作界面来启动云公有云提供商(例如AWS，DigitalOcean，阿里云，vSphere等)提供的主机。只能添加[自定义主机](/docs/rancher/v1.x/cn/infrastructure/hosts/custom/) 来初始化Rancher；
 * Github 授权认证。
 
 ### 前提条件
@@ -29,9 +29,9 @@ Rancher Server当前版本中有2个不同的标签。对于每一个主要的re
 
 #### 将镜像上传到镜像仓库仓库
 
-在安装或升级Rancher服务之前，**必须保证**对应版本号的所有镜像（例如： `rancher/server`，`rancher/agent`，以及任何 [基础服务](/docs/rancher/v1.x/cn/rancher-services/) 涉及的镜像) 都必须上传到私有仓库或者类似的服务中。如果这些镜像不存在或者版本信息不对，Rancher服务将无法正常完成安装或升级。
+在安装或升级Rancher服务之前，**必须保证**对应版本号的所有镜像(例如： `rancher/server`，`rancher/agent`，以及任何 [基础服务](/docs/rancher/v1.x/cn/rancher-services/) 涉及的镜像) 都必须上传到私有仓库或者类似的服务中。如果这些镜像不存在或者版本信息不对，Rancher服务将无法正常完成安装或升级。
 
-对于每次发布的 Rancher 服务（`rancher/server`）和对应的 Rancher 代理（`rancher/agent`）的镜像版本信息，都在发布记录中摘记。而针对其他基础服务用到的镜像版本信息，就需要查看 [官方模板](https://github.com/rancher/rancher-catalog) 的`infra-templates`目录和 [社区模板](https://github.com/rancher/community-catalog) 来获取所关联的镜像。如果用到 [应用商店](/docs/rancher/v1.x/cn/catalog/)，还需要关注具体应用使用的docker-compose.yml来获取镜像版本信息。
+对于每次发布的 Rancher 服务(`rancher/server`)和对应的 Rancher 代理(`rancher/agent`)的镜像版本信息，都在发布记录中摘记。而针对其他基础服务用到的镜像版本信息，就需要查看 [官方模板](https://github.com/rancher/rancher-catalog) 的`infra-templates`目录和 [社区模板](https://github.com/rancher/community-catalog) 来获取所关联的镜像。如果用到 [应用商店](/docs/rancher/v1.x/cn/configuration/catalog/)，还需要关注具体应用使用的docker-compose.yml来获取镜像版本信息。
 
 ##### 使用命令行将镜像上传到镜像仓库仓库
 
@@ -67,7 +67,7 @@ $ sudo docker run -d --restart=unless-stopped -p 8080:8080 \
 
 #### Rancher操作界面
 
-默认情况下，操作界面访问（含接口API）是通过`8080`端口暴露的，可以用以下这个地址访问：`http://<SERVER_IP>:8080`。
+默认情况下，操作界面访问(含接口API)是通过`8080`端口暴露的，可以用以下这个地址访问：`http://<SERVER_IP>:8080`。
 
 #### 添加主机
 
@@ -85,7 +85,7 @@ $ sudo docker run -d --privileged -v /var/run/docker.sock:/var/run/docker.sock <
 
 #### 为基础设施服务配置默认仓库
 
-默认在 Rancher 中, 所有 [基础服务](/docs/rancher/v1.x/cn/rancher-services/) 都默认从 DockerHub上拉取镜像。可以通过 **API settings（接口设置）**改变默认的的仓库，比如改成私有的镜像仓库。
+默认在 Rancher 中, 所有 [基础服务](/docs/rancher/v1.x/cn/rancher-services/) 都默认从 DockerHub上拉取镜像。可以通过 **API settings(接口设置)**改变默认的的仓库，比如改成私有的镜像仓库。
 
 * **添加一个私有镜像仓库：** 在 **基础架构** 中选择 **镜像库**，添加可以为基础设施服务提供镜像的仓库服务。
 
@@ -93,7 +93,7 @@ $ sudo docker run -d --privileged -v /var/run/docker.sock:/var/run/docker.sock <
 
 * **创建一个新环境：** 当默认的镜像仓库地址被改变后，需要重新创建环境以便于基础设施服务可以使用这个新的镜像仓库地址。原来旧的环境中，基础设施服务仍然指向DockerHub。
 
-> **注意：** 原来旧的环境中的基础设施服务，仍然使用原来默认的镜像仓库地址（例如，在出厂设置中就是 DockerHub，那就一直都是 DockerHub）。只有把应用删除，然后重新部署才能使用新的镜像仓库地址。可以通过 **应用商店** 中的 **官方认证**进行部署。
+> **注意：** 原来旧的环境中的基础设施服务，仍然使用原来默认的镜像仓库地址(例如，在出厂设置中就是 DockerHub，那就一直都是 DockerHub)。只有把应用删除，然后重新部署才能使用新的镜像仓库地址。可以通过 **应用商店** 中的 **官方认证**进行部署。
 
 ### 使用HTTP代理
 
@@ -107,7 +107,7 @@ $ sudo docker run -d --privileged -v /var/run/docker.sock:/var/run/docker.sock <
 $ sudo vi /etc/default/docker
 ```
 
-打开配置文件后，修改或增加 `export http_proxy="http://${YOUR_PESONAL_REGISTYR_ADDRESS}/"`。然后保存它并重启Docker deamon。不同的操作系统重启Docker deamon（也就是重启 Docker ）的方法是不一样的，请自行了解，不再累述。
+打开配置文件后，修改或增加 `export http_proxy="http://${YOUR_PESONAL_REGISTYR_ADDRESS}/"`。然后保存它并重启Docker deamon。不同的操作系统重启Docker deamon(也就是重启 Docker )的方法是不一样的，请自行了解，不再累述。
 
 > **注意：** 如果Docker是通过systemd来运行的，那么可以参考[这篇文章](https://docs.docker.com/articles/systemd/#http-proxy)来了解更多。
 
@@ -121,7 +121,7 @@ sudo docker run -d --restart=unless-stopped -p 8080:8080 rancher/server
 
 #### Rancher操作界面
 
-默认情况下，操作界面访问（含接口API）是通过`8080`端口暴露的，可以用以下这个地址访问：`http://<SERVER_IP>:8080`。
+默认情况下，操作界面访问(含接口API)是通过`8080`端口暴露的，可以用以下这个地址访问：`http://<SERVER_IP>:8080`。
 
 #### 添加主机
 

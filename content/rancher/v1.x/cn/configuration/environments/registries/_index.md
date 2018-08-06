@@ -3,8 +3,8 @@ title: 镜像仓库
 
 ---
 
-你可以在Rancher配置镜像仓库的认证信息，使Rancher可以访问你的私有镜像仓库（DockerHub, Quay.io和其他私有镜像库）。
-在每个[环境](/docs/rancher/v1.x/cn/infrastructure/environments/)中，你可以给每个私有仓库地址配置一个认证信息，从而使Rancher可以拉取私有镜像。如果你给同一个镜像仓库配置了多个认证信息，那么Rancher只会使用最近添加的一个认证信息。 Rancher支持在Cattle和Kubernetes环境中使用多种镜像仓库。
+你可以在Rancher配置镜像仓库的认证信息，使Rancher可以访问你的私有镜像仓库(DockerHub, Quay.io和其他私有镜像库)。
+在每个[环境](/docs/rancher/v1.x/cn/configuration/environments/)中，你可以给每个私有仓库地址配置一个认证信息，从而使Rancher可以拉取私有镜像。如果你给同一个镜像仓库配置了多个认证信息，那么Rancher只会使用最近添加的一个认证信息。 Rancher支持在Cattle和Kubernetes环境中使用多种镜像仓库。
 
 ### 添加镜像库
 
@@ -46,7 +46,7 @@ $ sudo service docker restart
 ```
 
 #### 使用亚马逊的ECR镜像库
-在Rancher使用亚马逊的 [EC2 容器镜像库](https://aws.amazon.com/ecr/) 需要额外的配置。ECR使用AWS的原生认证服务IAM去管理访问权限。AWS提供了API，让用户可以基于请求的IAM权限为Docker生成临时的认证信息。由于认证信息在12小时后会无效，每12小时需要生成一个新的认证信息。你可以使用[AWS ECR 认证更新器](/docs/rancher/v1.x/cn/infrastructure/environments/registries/ecr_updater/) 来发布一个自动更新认证信息的服务。
+在Rancher使用亚马逊的 [EC2 容器镜像库](https://aws.amazon.com/ecr/) 需要额外的配置。ECR使用AWS的原生认证服务IAM去管理访问权限。AWS提供了API，让用户可以基于请求的IAM权限为Docker生成临时的认证信息。由于认证信息在12小时后会无效，每12小时需要生成一个新的认证信息。你可以使用[AWS ECR 认证更新器](/docs/rancher/v1.x/cn/configuration/environments/registries/ecr_updater/) 来发布一个自动更新认证信息的服务。
 
 在Rancher中使用该镜像时，请使用AWS提供的全名地址，例如：
 
@@ -68,10 +68,10 @@ $ sudo service docker restart
 ### 编辑镜像库
 
 一个镜像库的所有操作选项可以通过镜像库列表右边的下拉菜单看到。
-对于任意**启用中**的镜像库，你可以**停用**它，停用后Rancher将无法访问该镜像库的私有镜像，所以新的容器无法使用该镜像库的私有镜像（已经登陆过该镜像仓库的主机，仍然可以拉取私有镜像）。
+对于任意**启用中**的镜像库，你可以**停用**它，停用后Rancher将无法访问该镜像库的私有镜像，所以新的容器无法使用该镜像库的私有镜像(已经登陆过该镜像仓库的主机，仍然可以拉取私有镜像)。
 对于任意**停用中**的镜像库，你有两个选项。 一个是**启用**，这会允许容器使用镜像库中的镜像。你的环境中的任何成员可以使用你的认证信息，而无需重新输入密码。如果你不想这样，你应该**删除**镜像库，这会从环境中删除镜像库的认证信息。你可以**编辑**任意镜像库，去修改认证信息，但不能改变镜像库的地址。密码不会出现在“编辑”页面中，所以你需要重新输入密码。
 
-> **注意：** 如果一个镜像库无效了（如停用、移除或被新的认证信息覆盖），任何使用私有镜像的[服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/) 会继续运行。 由于镜像已经被拉取到主机上了，因此不会受镜像库的权限变化所影响。因此，扩容的服务或者新的容器都能运行。 当运行容器时，Rancher不会检查认证信息是否有效，我们假设你已经给了该主机访问该镜像的权限。
+> **注意：** 如果一个镜像库无效了(如停用、移除或被新的认证信息覆盖)，任何使用私有镜像的[服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/) 会继续运行。 由于镜像已经被拉取到主机上了，因此不会受镜像库的权限变化所影响。因此，扩容的服务或者新的容器都能运行。 当运行容器时，Rancher不会检查认证信息是否有效，我们假设你已经给了该主机访问该镜像的权限。
 
 ### 更改默认的镜像库
 
@@ -81,7 +81,7 @@ $ sudo service docker restart
 2. 找到**registry.default** 设置然后点击编辑按钮。
 3. 添加镜像库的值然后点击 **保存**.
 
-一旦 **registry.default** 设置被更新，任何没有镜像库前缀的镜像（如 `ubuntu:14.0.4`）会从新的默认镜像库拉取。
+一旦 **registry.default** 设置被更新，任何没有镜像库前缀的镜像(如 `ubuntu:14.0.4`)会从新的默认镜像库拉取。
 
 如果你使用的私有镜像库需要认证信息，为了使默认镜像库生效，你需要把该镜像库添加到Rancher中。
 

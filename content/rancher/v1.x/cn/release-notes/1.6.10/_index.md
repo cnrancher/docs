@@ -73,10 +73,10 @@ Once this is completed and the hostname/IP matches your certs' CN attribute, you
 ## Major Bug Fixes since v1.6.9
 - Fixed an issue with AD authentication where users cannot configure AD auth if login domain is used as prefix for test username [#9889]
 
-## [Rancher CLI](http://docs.rancher.com/rancher/v1.6/en/cli/) Downloads
+## [Rancher CLI](https://docs.rancher.com/rancher/v1.6/en/cli/) Downloads
 
 https://github.com/rancher/cli/releases/tag/v0.6.4
 
-## [Rancher-Compose](http://docs.rancher.com/rancher/v1.6/en/cattle/rancher-compose/) Downloads
+## [Rancher-Compose](https://docs.rancher.com/rancher/v1.6/en/cattle/rancher-compose/) Downloads
 
 https://github.com/rancher/rancher-compose/releases/tag/v0.12.5

@@ -19,7 +19,7 @@ weight: 1000
 
 [UI](https://github.com/rancher/ui): Rancher UI代码库。
 
-[Rancher Catalog](https://github.com/rancher/rancher-catalog): 这个代码库包含了大多数[应用商店](/docs/rancher/v1.x/cn/catalog) [基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)模板。这些模板(在`infra-templates`目录中)，在[环境(environments)](/docs/rancher/v1.x/cn/infrastructure/environments/)中被用做[环境模版](/docs/rancher/v1.x/cn/infrastructure/environments/#什么是环境模版)的一部分。我们欢迎社区参与Rancher开发。
+[Rancher Catalog](https://github.com/rancher/rancher-catalog): 这个代码库包含了大多数[应用商店](/docs/rancher/v1.x/cn/catalog) [基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)模板。这些模板(在`infra-templates`目录中)，在[环境(environments)](/docs/rancher/v1.x/cn/configuration/environments/)中被用做[环境模版](/docs/rancher/v1.x/cn/configuration/environments/#什么是环境模版)的一部分。我们欢迎社区参与Rancher开发。
 
 [Community Catalog](https://github.com/rancher/community-catalog)： 这个代码库包含了所有社区贡献的 [Rancher 应用商店](/docs/rancher/v1.x/cn/catalog)模板。我们欢迎社区参与Rancher应用商店模板的开发。
 

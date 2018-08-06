@@ -25,11 +25,11 @@ Rancher为运行容器化的应用实现了一层灵活的[基础设施服务](/
 
 ### 应用商店
 
-Rancher的用户可以在[应用商店](/docs/rancher/v1.x/cn/catalog)里一键部署由多个容器组成的应用。用户可以管理这个部署的应用，并且可以在这个应用有新的可用版本时进行自动化的升级。Rancher提供了一个由Rancher社区维护的应用商店，其中包括了一系列的流行应用。Rancher的用户也可以[创建自己的私有应用商店](/docs/rancher/v1.x/cn/catalog/private-catalog/)。
+Rancher的用户可以在[应用商店](/docs/rancher/v1.x/cn/catalog)里一键部署由多个容器组成的应用。用户可以管理这个部署的应用，并且可以在这个应用有新的可用版本时进行自动化的升级。Rancher提供了一个由Rancher社区维护的应用商店，其中包括了一系列的流行应用。Rancher的用户也可以[创建自己的私有应用商店](/docs/rancher/v1.x/cn/configuration/catalog/private-catalog/)。
 
 ### 企业级权限管理
 
-Rancher支持灵活的插件式的用户认证。支持Active Directory，LDAP， Github等 [认证方式](/docs/rancher/v1.x/cn/configuration/access-control/)。 Rancher支持在[环境](/docs/rancher/v1.x/cn/infrastructure/environments/)级别的基于角色的访问控制 (RBAC)，可以通过角色来配置某个用户或者用户组对开发环境或者生产环境的访问权限。
+Rancher支持灵活的插件式的用户认证。支持Active Directory，LDAP， Github等 [认证方式](/docs/rancher/v1.x/cn/configuration/access-control/)。 Rancher支持在[环境](/docs/rancher/v1.x/cn/configuration/environments/)级别的基于角色的访问控制 (RBAC)，可以通过角色来配置某个用户或者用户组对开发环境或者生产环境的访问权限。
 
 下图展示了Rancher的主要组件和功能：
 

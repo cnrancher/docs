@@ -25,11 +25,11 @@ Please do not use releases with a `rc{n}` suffix. These `rc` builds are meant fo
 
 ## Upgrades and Rollbacks
 
-Rancher supports both upgrade and rollback starting with v2.0.2.  Please note the version you would like to upgrade or rollback to and follow the [instructions](https://rancher.com/docs/rancher/v2.x/cn/upgrades/) to change the Rancher version.
+Rancher supports both upgrade and rollback starting with v2.0.2.  Please note the version you would like to upgrade or rollback to and follow the [instructions](https://www2.cnrancher.com/docs/rancher/v2.x/cn/upgrades/) to change the Rancher version.
 
 **Post upgrade, when scaling up workloads, new pods will be created [[#14136](https://github.com/rancher/rancher/issues/14136)]** - In order to update scheduling rules for workloads [[#13527](https://github.com/rancher/rancher/issues/13527)], a new field was added to all workloads on `update`, which will cause any pods in workloads from previous versions to re-create.
 
-> **Note:** When rolling back, we are expecting you to rollback to the state at the time of your upgrade. Any changes post upgrade would not be reflected. In the case of rolling back using a [Rancher single-node install](https://rancher.com/docs/rancher/v2.x/cn/installation/single-node-install/), you must specify the exact version you want to change the Rancher version to, rather than using the default `:latest` tag.
+> **Note:** When rolling back, we are expecting you to rollback to the state at the time of your upgrade. Any changes post upgrade would not be reflected. In the case of rolling back using a [Rancher single-node install](https://www2.cnrancher.com/docs/rancher/v2.x/cn/installation/server-installation/single-node-install/), you must specify the exact version you want to change the Rancher version to, rather than using the default `:latest` tag.
 > **Note:** If you had the helm stable catalog enabled in v2.0.0, we've updated the catalog to start pointing directly to the kubernetes helm repo instead of an internal repo. Please delete the custom catalog that is now showing up and re-enable the helm stable. [[#13582](https://github.com/rancher/rancher/issues/13582)]
 
 ## Enhancements

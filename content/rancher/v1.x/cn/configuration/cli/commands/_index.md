@@ -230,7 +230,7 @@ $ rancher env ls -q
 
 名字 | 描述
 ---|----
-`--template` value, `-t` value | 创建环境的模版（缺省: "Cattle"）
+`--template` value, `-t` value | 创建环境的模版(缺省: "Cattle")
 
 <br>
 
@@ -292,7 +292,7 @@ $ rancher env rm 1a20
 
 ### Rancher Exec 说明
 
-`rancher exec` 命令可以用于执行进入在Rancher的容器。 用户不需要知道容器在哪个宿主机，只需要知道Rancher中的容器ID（如 `1i1`, `1i788`）。
+`rancher exec` 命令可以用于执行进入在Rancher的容器。 用户不需要知道容器在哪个宿主机，只需要知道Rancher中的容器ID(如 `1i1`, `1i788`)。
 
 ```bash
 # 执行进入一个容器

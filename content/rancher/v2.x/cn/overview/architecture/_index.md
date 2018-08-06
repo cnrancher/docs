@@ -9,7 +9,7 @@ weight: 1
 
 Docker是容器打包和runtime标准。开发人员从Dockerfiles构建容器镜像，并从Docker镜像仓库中分发容器镜像。[Docker Hub](http://hub.docker.com)是最受欢迎的公共镜像仓库，许多组织还设置私有Docker镜像仓库。Docker主要用于管理各个节点上的容器。
 
->**Note:** 虽然Rancher 1.6支持Docker Swarm集群技术，但由于Rancher 2.0基于Kubernetes调度引擎，所以Rancher 2.0不再支持Docker Swarm。
+>**Note:** 虽然Rancher 1.6支持Docker Swarm集群技术，但由于Rancher2.0基于Kubernetes调度引擎，所以Rancher2.0不再支持Docker Swarm。
 
 ## Kubernetes
 
@@ -33,9 +33,9 @@ Kubernetes已成为容器集群管理标准，通过YAML文件来管理配置应
 
 ## Rancher
 
-大多数Rancher 2.0软件运行在Rancher Server节点上,Rancher Server包括用于管理整个Rancher部署的所有组件。
+大多数Rancher2.0软件运行在Rancher Server节点上,Rancher Server包括用于管理整个Rancher部署的所有组件。
 
-下图说明了Rancher 2.0的运行架构。该图描绘了管理两个Kubernetes集群的Rancher server安装：一个由RKE创建，另一个由GKE创建。
+下图说明了Rancher2.0的运行架构。该图描绘了管理两个Kubernetes集群的Rancher server安装：一个由RKE创建，另一个由GKE创建。
 
 ![Architecture]({{< baseurl >}}/img/rancher/rancher-architecture.png)
 
@@ -47,7 +47,7 @@ Rancher API server建立在嵌入式Kubernetes API服务器和etcd数据库之�
 
 - **Rancher API服务器**
 
-  Rancher API server管理与外部身份验证提供程序（如Active Directory或GitHub）对应的用户身份
+  Rancher API server管理与外部身份验证提供程序(如Active Directory或GitHub)对应的用户身份
 
 - **认证授权**
 

@@ -216,7 +216,7 @@ $ curl --header 'Accept: application/json' 'http://rancher-metadata/2015-12-19/s
 
 属性 | 描述
 ----|----
-`environment_name` | 应用所在的[环境](/docs/rancher/v1.x/cn/infrastructure/environments/)的名字
+`environment_name` | 应用所在的[环境](/docs/rancher/v1.x/cn/configuration/environments/)的名字
 `environment_uuid` | Rancher分配的环境的唯一标识
 `name` | [应用](/docs/rancher/v1.x/cn/infrastructure/cattle/stacks/)名称
 `services` | 应用中的服务列表

@@ -3,7 +3,7 @@ title: 命令行工具
 weight: 700
 ---
 
-Rancher的命令行界面（CLI）是用来管理Rancher Server的工具。 使用此工具，你可以管理你的[环境](/docs/rancher/v1.x/cn/infrastructure/environments/)，[主机](/docs/rancher/v1.x/cn/infrastructure/hosts/)，应用，服务和容器。
+Rancher的命令行界面(CLI)是用来管理Rancher Server的工具。 使用此工具，你可以管理你的[环境](/docs/rancher/v1.x/cn/configuration/environments/)，[主机](/docs/rancher/v1.x/cn/infrastructure/hosts/)，应用，服务和容器。
 
 ### 安装
 

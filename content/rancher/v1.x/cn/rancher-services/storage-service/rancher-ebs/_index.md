@@ -12,11 +12,11 @@ Rancher提供对AWS EBS卷的支持，用户可以选择为容器选择AWS EBS�
 
 ### 配置Rancher EBS
 
-当配置一个[环境模板](/docs/rancher/v1.x/cn/infrastructure/environments/#什么是环境模版)时，你可以选择启用**Rancher EBS**。这样从该环境模板创建的环境都会自动启动该存储驱动。
+当配置一个[环境模板](/docs/rancher/v1.x/cn/configuration/environments/#什么是环境模版)时，你可以选择启用**Rancher EBS**。这样从该环境模板创建的环境都会自动启动该存储驱动。
 
-又或者，你已经创建了一个环境，你可以选择从[应用商店](/docs/rancher/v1.x/cn/catalog/)中直接启动Rancher EBS。
+又或者，你已经创建了一个环境，你可以选择从[应用商店](/docs/rancher/v1.x/cn/configuration/catalog/)中直接启动Rancher EBS。
 
-> **注意：** 某些存储服务可能无法和一些容器或编排调度系统（例如，kubernetes）所兼容。环境模板可以根据当前的编排调度系统限定可以使用的存储服务，而应用商店中则会显示全部的存储服务。
+> **注意：** 某些存储服务可能无法和一些容器或编排调度系统(例如，kubernetes)所兼容。环境模板可以根据当前的编排调度系统限定可以使用的存储服务，而应用商店中则会显示全部的存储服务。
 
 要启动Rancher EBS，你需要一个AWS Access Key以及Secret Key 以确保你有权限创建AWS EBS卷。同时，不同的驱动选项可能还需要其他额外的权限。
 
@@ -37,7 +37,7 @@ Rancher提供对AWS EBS卷的支持，用户可以选择为容器选择AWS EBS�
 对于以下选项，你**必须**指定和ID绑定的可用区(`ec2_az`)
 
 * **Encrypted** (`encrypted`): 卷是否需要被加密。注：如果需要启动此选项，则需要提供AWS KMS ID。
-* **AWS KMS ID** (`kmsKeyId`): 用于创建加密卷的AWS Key Management Service customer master key (CMK) 的完整资源名称-ARN（Amazon Resource Name）
+* **AWS KMS ID** (`kmsKeyId`): 用于创建加密卷的AWS Key Management Service customer master key (CMK) 的完整资源名称-ARN(Amazon Resource Name)
 * **Snapshot ID** (`snapshotID`): 用于创建卷的快照。
 * **Volume ID** (`volumeID`): 已创建的卷ID。
 

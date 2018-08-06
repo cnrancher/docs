@@ -72,7 +72,7 @@ Once this is completed and the hostname/IP matches your certs' CN attribute, you
 * **Support for auto-labeling of environment UUID for containers [#8442]** - Each container will now be labeled with its corresponding environment UUID.
 
 ## Infrastructure Service Updates
-When upgrading infrastructure services, please make sure to [upgrade in the recommended order](http://rancher.com/docs/rancher/v1.6/en/upgrading/#infrastructure-services).
+When upgrading infrastructure services, please make sure to [upgrade in the recommended order](http://www2.cnrancher.com/docs/rancher/v1.6/en/upgrading/#infrastructure-services).
 
 * **Network Services - v0.2.6**
   - _New image: `rancher/network-manager:v0.7.8`, `rancher/dns:v0.15.3`, `rancher/metadata:v0.9.4`_
@@ -122,10 +122,10 @@ When upgrading infrastructure services, please make sure to [upgrade in the reco
 - Fixed an issue where allocation errors were not displaying the resource constraints in some scenarios [#9554]
 - Fixed an issue where catalog templates would take a long time to populate from the cached catalog on an air-gapped setup [#9669]
 
-## [Rancher CLI](http://docs.rancher.com/rancher/v1.6/en/cli/) Downloads
+## [Rancher CLI](https://docs.rancher.com/rancher/v1.6/en/cli/) Downloads
 
 https://github.com/rancher/cli/releases/tag/v0.6.4
 
-## [Rancher-Compose](http://docs.rancher.com/rancher/v1.6/en/cattle/rancher-compose/) Downloads
+## [Rancher-Compose](https://docs.rancher.com/rancher/v1.6/en/cattle/rancher-compose/) Downloads
 
 https://github.com/rancher/rancher-compose/releases/tag/v0.12.5

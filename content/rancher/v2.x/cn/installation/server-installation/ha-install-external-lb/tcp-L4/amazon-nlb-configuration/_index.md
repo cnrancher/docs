@@ -7,13 +7,13 @@ weight: 1
 
 从技术上讲，只需要端口443来访问Rancher，但是通常我们建议把让80端口也监听，它将自动重定向到端口443。节点上的NGINX控制器将确保端口80被重定向到端口443。
 
-登录[Amazon AWS Console](https://console.aws.amazon.com/ec2/),确定EC2实例（Linux节点）创建的区域。
+登录[Amazon AWS Console](https://console.aws.amazon.com/ec2/),确定EC2实例(Linux节点)创建的区域。
 
 目标组配置位于EC2服务的负载平衡部分，选择`服务`并选择`EC2`，找到`负载平衡`部分并打开`目标组`:
 
 ![EC2 Load Balancing section]({{< baseurl >}}/img/rancher/ha/nlb/ec2-loadbalancing.png)
 
-1. ### 目标组(TCP443端口）
+1. ### 目标组(TCP443端口)
 
     单击“ 创建目标组”以创建有关TCP端口443的第一个目标组。根据下表配置第一个目标组，配置截图显示在表格下方。
 
@@ -73,7 +73,7 @@ weight: 1
 
 ![Edit target group 443]({{< baseurl >}}/img/rancher/ha/nlb/edit-targetgroup-443.png)
 
-选择要添加的实例（Linux节点），然后单击“ 添加到注册”。
+选择要添加的实例(Linux节点)，然后单击“ 添加到注册”。
 
 **Screenshot Add targets to target group TCP port 443**
 ![Add targets to target group 443]({{< baseurl >}}/img/rancher/ha/nlb/add-targets-targetgroup-443.png)

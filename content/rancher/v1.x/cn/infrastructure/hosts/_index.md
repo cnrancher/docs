@@ -3,11 +3,11 @@ title: 主机
 weight: 460
 ---
 
-在Rancher中，主机是调度资源的基本单位（直观的理解就是所发生的操作最终都会落到某台主机上），它可以是虚拟的或者物理的Linux服务器。Rancher管理的主机需要满足以下的条件：
+在Rancher中，主机是调度资源的基本单位(直观的理解就是所发生的操作最终都会落到某台主机上)，它可以是虚拟的或者物理的Linux服务器。Rancher管理的主机需要满足以下的条件：
 
 
-* 任何可以运行[支持的Docker版本](#docker版本适用对比)的 Linux 发行版本，例如：[RancherOS](http://docs.rancher.com/os/)，Ubuntu，RHEL/CentOS 7。不过针对RHEL/CentOS系列，有些需要注意的地方：
-    * Docker 并不推荐使用 RHEL/CentOS 默认的存储驱动（devicemapper），可以参考[这篇文档](https://docs.docker.com/engine/reference/commandline/dockerd/#/storage-driver-options)来修改。
+* 任何可以运行[支持的Docker版本](#docker版本适用对比)的 Linux 发行版本，例如：[RancherOS](https://docs.rancher.com/os/)，Ubuntu，RHEL/CentOS 7。不过针对RHEL/CentOS系列，有些需要注意的地方：
+    * Docker 并不推荐使用 RHEL/CentOS 默认的存储驱动(devicemapper)，可以参考[这篇文档](https://docs.docker.com/engine/reference/commandline/dockerd/#/storage-driver-options)来修改。
     * 如果启用 SELinux，[需要安装额外的模块](/docs/rancher/v1.x/cn/installing-rancher/selinux/)。
     * 内核版本要求是 `3.10.0-514.2.2.el7.x86_64` 及以上，建议使用 RHEL/CentOS 7.3 或者更高的发行版本。
 * 1GB的内存。
@@ -47,19 +47,19 @@ weight: 460
 
 ### 主机是如何工作的？
 
-Rancher Agent容器在主机上启动成功之后，这台主机就连接到了Rancher Server上。在**添加主机**->**Custom（自定义）**界面中的很长的URL就是主机注册口令。这个注册口令在主机第一次连接Rancher Server的时候会被用到。在注册的过程中，Rancher Server会生成一个Agent账号和一个API密钥。之后Agent与Server直接的全部通信都要使用这个密钥，它们之间的认证逻辑和其他的API密钥认证逻辑是一样的。
+Rancher Agent容器在主机上启动成功之后，这台主机就连接到了Rancher Server上。在**添加主机**->**Custom(自定义)**界面中的很长的URL就是主机注册口令。这个注册口令在主机第一次连接Rancher Server的时候会被用到。在注册的过程中，Rancher Server会生成一个Agent账号和一个API密钥。之后Agent与Server直接的全部通信都要使用这个密钥，它们之间的认证逻辑和其他的API密钥认证逻辑是一样的。
 
 从设计的角度而言，Rancher Agent是运行在独立于Rancher Server的主机上，所以Rancher Agent本身是不可信的。采用接口访问密钥的机制，可以确保Rancher Agent只访问被授权的接口，而Rancher Server只响应可信的请求。但是目前是单向认证，只认证从Rancher Agent到Rancher Server的请求，并没有认证从Rancher Server到Rancher Agent的响应。因此，用户可以根据需要，使用TLS和证书来做校验。
 
-每个[环境](/docs/rancher/v1.x/cn/infrastructure/environments/)的注册口令，都是由Rancher Server生成并保存到数据库，然后和API密钥一起下发给Rancher Agent使用。Rancher Agent和Rancher Server之间是采用AES对称加密的点对点通讯。
+每个[环境](/docs/rancher/v1.x/cn/configuration/environments/)的注册口令，都是由Rancher Server生成并保存到数据库，然后和API密钥一起下发给Rancher Agent使用。Rancher Agent和Rancher Server之间是采用AES对称加密的点对点通讯。
 
 <a id="addhost"></a>
 
 ### 添加主机
 
-第一次添加主机时，Rancher Server会要求配置[主机注册地址](/docs/rancher/v1.x/cn/configuration/settings/##主机注册)。这个地址可以是域名或者IP地址（如果80端口不可访问，还需要加上可访问的端口号，默认 `8080`），能够访问Rancher接口即可。任何时候都可以改变 [主机注册地址](/docs/rancher/v1.x/cn/configuration/settings/#主机注册)，相关操作可以查看 **系统管理** 下的 **系统设置**。设置好主机注册地址后，点击 **保存**.
+第一次添加主机时，Rancher Server会要求配置[主机注册地址](/docs/rancher/v1.x/cn/configuration/settings/##主机注册)。这个地址可以是域名或者IP地址(如果80端口不可访问，还需要加上可访问的端口号，默认 `8080`)，能够访问Rancher接口即可。任何时候都可以改变 [主机注册地址](/docs/rancher/v1.x/cn/configuration/settings/#主机注册)，相关操作可以查看 **系统管理** 下的 **系统设置**。设置好主机注册地址后，点击 **保存**.
 
-Rancher支持添加云提供商（例如AWS，DigitalOcean，阿里云，vSphere等）所提供的主机或者本地（例如VirtualBox，VMWare等）设置好的主机。对于云提供商，Rancher可以通过`docker-machine`来添加的，所以本质上实现了 Docker Machine 驱动的厂商的云主机，都可以被添加。
+Rancher支持添加云提供商(例如AWS，DigitalOcean，阿里云，vSphere等)所提供的主机或者本地(例如VirtualBox，VMWare等)设置好的主机。对于云提供商，Rancher可以通过`docker-machine`来添加的，所以本质上实现了 Docker Machine 驱动的厂商的云主机，都可以被添加。
 
 接下来，选择:
 
@@ -82,7 +82,7 @@ Rancher支持添加云提供商（例如AWS，DigitalOcean，阿里云，vSphere
 
 给主机增加标签后，你可以根据需求来[调度服务／负载均衡](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/)。如果不希望某个服务运行在某台主机上或者要求某个服务必须运行在某台主机上，可以在[添加服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/)时通过主机标签来进行配置。
 
-在你需要使用[外部DNS服务（类似 Bind9 这类）](/docs/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/)或者[通过程序来控制DNS记录](/docs/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/#为外部dns使用特定的ip)的时候，如果所需的IP不是主机IP的话，那就要在运行 `rancher/agent` 时增加标签 `io.rancher.host.external_dns_ip=<IP_TO_BE_USED_FOR_EXTERNAL_DNS>`。切记，当要某个容器服务要使用外部DNS服务时，一定要增加这个标签。
+在你需要使用[外部DNS服务(类似 Bind9 这类)](/docs/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/)或者[通过程序来控制DNS记录](/docs/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/#为外部dns使用特定的ip)的时候，如果所需的IP不是主机IP的话，那就要在运行 `rancher/agent` 时增加标签 `io.rancher.host.external_dns_ip=<IP_TO_BE_USED_FOR_EXTERNAL_DNS>`。切记，当要某个容器服务要使用外部DNS服务时，一定要增加这个标签。
 
 通过UI添加云提供商的主机时，你可以在UI上添加主机标签，`rancher/agent` 会保证这些标签都会自动添加到主机上。
 
@@ -117,10 +117,10 @@ Rancher 会自动创建一些和Linux内核版本信息以及Docker引擎版本�
 
 ### 主机调度地址
 
-为了使Rancher可以在[有多个IP的主机上暴露端口](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#多ip主机调度)，需要给这些主机进行配置，从而使Rancher知道哪些IP可以使用。配置调度IP的方法取决于这台主机是已经存在的主机（运行了 `rancher/agent` 容器的服务器）还是还没有添加的主机（还没有运行 `rancher/agent` 容器的服务器）。
+为了使Rancher可以在[有多个IP的主机上暴露端口](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#多ip主机调度)，需要给这些主机进行配置，从而使Rancher知道哪些IP可以使用。配置调度IP的方法取决于这台主机是已经存在的主机(运行了 `rancher/agent` 容器的服务器)还是还没有添加的主机(还没有运行 `rancher/agent` 容器的服务器)。
 
 #### 给已有主机添加调度地址
-在环境中已存在的主机，可以通过增加`io.rancher.scheduler.ips`标签来设置调度IP。通过操作界面，点击这台主机的**编辑**按钮，然后增加 **调度IP**。如果是通过接口的方式，只需要给主机添加标签 `io.rancher.scheduler.ips` 和值（多个地址，可以通过逗号分隔）即可。
+在环境中已存在的主机，可以通过增加`io.rancher.scheduler.ips`标签来设置调度IP。通过操作界面，点击这台主机的**编辑**按钮，然后增加 **调度IP**。如果是通过接口的方式，只需要给主机添加标签 `io.rancher.scheduler.ips` 和值(多个地址，可以通过逗号分隔)即可。
 
 > **注意：** 在没有添加调度地址前，如果某些容器已经暴露了端口，那么这些容器的端口暴露在`0.0.0.0`上。那就意味着，已有的容器已经占用了全部的IP地址，后来添加的调度地址也被占用了。
 
@@ -160,13 +160,13 @@ $  sudo docker run -e CATTLE_SCHEDULER_IPS='1.2.3.4,<IP2>,..<IPN>' -d --privileg
 
 如果需要把一台停止的主机重新激活，从 **基础架构** 进入 **主机** 页面，点击已经停止的这台主机的下拉菜单，选择 **激活** 即可。
 
-> **注意：** 在Rancher中如果主机宕机了（比如处于 `reconnecting` 或 `inactive` 的状态），需要给服务配置[健康检查](/docs/rancher/v1.x/cn/infrastructure/cattle/health-checks/) 以便于Rancher把这台宕掉的主机上的容器服务迁移到其他主机上执行。
+> **注意：** 在Rancher中如果主机宕机了(比如处于 `reconnecting` 或 `inactive` 的状态)，需要给服务配置[健康检查](/docs/rancher/v1.x/cn/infrastructure/cattle/health-checks/) 以便于Rancher把这台宕掉的主机上的容器服务迁移到其他主机上执行。
 
 ### 在Rancher内删除主机
 
 在 Rancher 内删除主机的操作需要进行几个步骤：从 **基础架构** 进入 **主机** 页面，点击需要删除的主机的下拉菜单，选择 **停用**。当主机完成停止以后，将会显示 _Inactive_ 状态。然后点击下拉菜单，选择 **删除**，Rancher 会执行对这台主机的删除操作。当显示 _Removed_ 状态时，就表示这台主机已经被删除了。但是，仍然可以在操作界面上看到这台主机，只有当点击下拉菜单，选择 **清理**后，这台主机才会从操作界面上消失。
 
-如果这台主机是由 Rancher 调用 `docker-machiine` 基于云提供商的驱动创建，按照上述的删除操作执行后，被删除的主机也会在云提供商的管理界面中消失。但是，如果是采用 [添加自定义主机](/docs/rancher/v1.x/cn/infrastructure/hosts/custom/) 的方式所添加的云提供商主机，被删除的主机还会在云提供商的管理界面中被查看到。而且这台主机内的容器服务（例如 `rancher/agent`）还是保留着的。可以认为通过自定义添加的云提供商的主机被删除后，只是从Rancher的调度中解离出去，但是它原来的生命周期Rancher不会干涉。
+如果这台主机是由 Rancher 调用 `docker-machiine` 基于云提供商的驱动创建，按照上述的删除操作执行后，被删除的主机也会在云提供商的管理界面中消失。但是，如果是采用 [添加自定义主机](/docs/rancher/v1.x/cn/infrastructure/hosts/custom/) 的方式所添加的云提供商主机，被删除的主机还会在云提供商的管理界面中被查看到。而且这台主机内的容器服务(例如 `rancher/agent`)还是保留着的。可以认为通过自定义添加的云提供商的主机被删除后，只是从Rancher的调度中解离出去，但是它原来的生命周期Rancher不会干涉。
 
 > **注意：** 对自定义主机，包括Rancher Agent在内的全部容器都会保留在该主机上。同时，Rancher网络驱动创建的`docker0`上的IP也将会保留。
 

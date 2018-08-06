@@ -96,7 +96,7 @@ server {
 
 * `<server_name>` 是Rancher Server容器的名称。当你启动Apache容器，命令中必须包含 `--link=<server_name>`，这样以下的配置才能生效。
 * 在代理的设置中，你需要在配置中替换 `rancher` 这个参数。
-* 确保 `proxy_wstunnel` 这个参数是启用的（websocket支持）。
+* 确保 `proxy_wstunnel` 这个参数是启用的(websocket支持)。
 
 ```
 <VirtualHost *:80>

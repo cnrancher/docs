@@ -18,7 +18,7 @@ Key | Value |描述
 `io.rancher.container.pull_image` | `always` | 用于在部署容器之前始终拉取新的镜像.
 `io.rancher.container.requested_ip` | IP于`10.42.0.0/16`的地址空间 | 允许你选择容器的特定IP。从v1.6.6版本开始，服务内的容器将会使用配置的多个IP地址中的可用地址，直到这些地址全被占用。这些地址要用逗号隔开，例如`10.42.100.100, 10.42.100.101`。 在v1.6.6之前，只有服务中的一个容器可以使用这个特定IP。**注意：如果IP在主机上不可用，则容器将以随机IP开始.**
 `io.rancher.container.dns.priority` | `service_last` | 在服务域之前使用主机的DNS搜索路径。 保证主机将从`/etc/resolv.conf`搜索后再对`*.rancher.internal`搜索。
-`io.rancher.service.selector.container` |  [_Selector Label_ Values](/docs/rancher/v1.x/cn/infrastructure/cattle/labels/#选择器标签) | 用于服务，以支持选择独立的容器来加入DNS服务。 注意：作为独立容器，任何服务操作都不会影响独立容器（即停用/删除/编辑服务，健康检查等）。
+`io.rancher.service.selector.container` |  [_Selector Label_ Values](/docs/rancher/v1.x/cn/infrastructure/cattle/labels/#选择器标签) | 用于服务，以支持选择独立的容器来加入DNS服务。 注意：作为独立容器，任何服务操作都不会影响独立容器(即停用/删除/编辑服务，健康检查等)。
 `io.rancher.service.selector.link` | [_Selector Label_ Values](/docs/rancher/v1.x/cn/infrastructure/cattle/labels/#选择器标签) | 用于服务以允许服务基于服务标签链接到服务。 例如: Service1具有标签`io.rancher.service.selector.link：foo = bar`。 任何添加到Rancher的具有`foo=bar`标签的服务将自动链接到Service1。
 `io.rancher.scheduler.global` | `true` | 用于设置[全局服务](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#全局服务)
 `io.rancher.scheduler.affinity:host_label` | 主机标签的Key Value配对| 用于根据[主机标签](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#使用主机标签查找主机)在主机上编排容器
@@ -28,11 +28,11 @@ Key | Value |描述
 
 <br>
 
-> **注意：** 对于以`io.rancher.scheduler.affinity`为前缀的标签，根据你想要匹配的方式（即相等或不相等，hard或soft规则）会有轻微的变化。 更多细节可以在这里找到[这里](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#table-of-scheduling-labels).
+> **注意：** 对于以`io.rancher.scheduler.affinity`为前缀的标签，根据你想要匹配的方式(即相等或不相等，hard或soft规则)会有轻微的变化。 更多细节可以在这里找到[这里](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#table-of-scheduling-labels).
 
 #### 选择器标签
 
-使用 _选择器标签_（即`io.rancher.service.selector.link`, `io.rancher.service.selector.container`），Rancher可以通过标签识别服务/容器，并将它们自动链接到服务。 将在以下两种情况下进行评估。 情景1是将 _选择器标签_ 添加到服务时。 在情景1中，对所有现有标签进行评估，以查看它们是否与 _选择器标签_ 匹配。 情景2是服务已经有 _选择器标签_ 时。 在情景2中，检查添加到Rancher的任何新服务/容器，看看它是否符合链接条件。 _选择器标签_ 可以由多个要求组成，以逗号分隔。 如果有多个要求，则必须满足所有要求，因此逗号分隔符作为** AND **逻辑运算符。
+使用 _选择器标签_(即`io.rancher.service.selector.link`, `io.rancher.service.selector.container`)，Rancher可以通过标签识别服务/容器，并将它们自动链接到服务。 将在以下两种情况下进行评估。 情景1是将 _选择器标签_ 添加到服务时。 在情景1中，对所有现有标签进行评估，以查看它们是否与 _选择器标签_ 匹配。 情景2是服务已经有 _选择器标签_ 时。 在情景2中，检查添加到Rancher的任何新服务/容器，看看它是否符合链接条件。 _选择器标签_ 可以由多个要求组成，以逗号分隔。 如果有多个要求，则必须满足所有要求，因此逗号分隔符作为** AND **逻辑运算符。
 
 ```
 # 其中一个容器标签必须具有一个等于`foo1`的键，并且值等于`bar1`
@@ -101,10 +101,10 @@ Rancher会自动创建与主机的linux内核版本和Docker Engine版本相关�
 Key | Value | 描述
 ----|----|----
 `io.rancher.host.linux_kernel_version` | 主机上的Linux内核版本 (例如`3.19`) | 主机上运行的Linux内核的版本
-`io.rancher.host.docker_version` | 主机上的Docker版本（例如`1.10.3`） | 主机上运行的Docker Engine版本
-`io.rancher.host.provider` | 云提供商信息 | 云提供商名称（目前仅适用于AWS）
-`io.rancher.host.region` | 云提供商区域 | 云提供商区域（目前仅适用于AWS）
-`io.rancher.host.zone` | 云提供商可用区 | 云提供商可用区（目前仅适用于AWS）
+`io.rancher.host.docker_version` | 主机上的Docker版本(例如`1.10.3`) | 主机上运行的Docker Engine版本
+`io.rancher.host.provider` | 云提供商信息 | 云提供商名称(目前仅适用于AWS)
+`io.rancher.host.region` | 云提供商区域 | 云提供商区域(目前仅适用于AWS)
+`io.rancher.host.zone` | 云提供商可用区 | 云提供商可用区(目前仅适用于AWS)
 
 ### 本地Docker标签
 

@@ -2,6 +2,7 @@
 title: 自签名ssl生成
 weight: 3
 ---
+## HTTP over SSL
 
 要保证Web浏览器到服务器的安全连接，HTTPS几乎是唯一选择。HTTPS其实就是HTTP over SSL，也就是让HTTP连接建立在SSL安全连接之上。
 
@@ -15,27 +16,165 @@ SSL使用证书来创建安全连接。有两种验证模式：
 
 - 客户端如何验证服务器的证书呢？
 
-    服务器自己的证书必须经过某“权威”证书的签名，而这个“权威”证书又可能经过更权威的证书签名，这么一级一级追溯上去，最顶层那个最权威的证书就称为根证书。根证书直接内置在浏览器中，这样，浏览器就可以利用自己自带的根证书去验证某个服务器的证书是否有效。
+    服务器自己的证书必须经过某“权威”证书的签名，而这个“权威”证书又可能经过更权威的证书签名，这么一级一级追溯上去，最顶层那个最权威的证书就称为根证书。根证书直接内置在浏览器中，这样，浏览器就可以利用自己自带的根证书去验证某个服务器的证书是否有效。如果要提供一个有效的证书，服务器的证书必须从`VeriSign`这样的证书颁发机构签名。这样，浏览器就可以验证通过，否则，浏览器给出一个证书无效的警告。
 
-    如果要提供一个有效的证书，服务器的证书必须从VeriSign这样的证书颁发机构签名。这样，浏览器就可以验证通过，否则，浏览器给出一个证书无效的警告。
+    一般安全要求较高的内网环境，可以通过创建自签名SSL证书来加密通信。
 
-    一般要求较高的内网环境，可以通过创建自签名SSL证书来加密通信。
+## 数字证书(Certificate)
 
-下面简单介绍如何通过openssl创建一个自签名的SSL证书。
+在HTTPS的传输过程中，有一个非常关键的角色--`数字证书`，那什么是数字证书？又有什么作用呢？
+
+所谓数字证书，是一种用于电脑的身份识别机制。由数字证书颁发机构(CA)对使用私钥创建的签名请求文件做的签名(盖章)，表示CA结构对证书持有者的认可。
+
+### 数字证书拥有以下几个优点：
+
+- 使用数字证书能够提高用户的可信度；
+- 数字证书中的公钥，能够与服务端的私钥配对使用，实现数据传输过程中的加密和解密；
+- 在证认使用者身份期间，使用者的敏感个人数据并不会被传输至证书持有者的网络系统上；
+
+### 证书类型
+
+x509的证书编码格式有两种:
+
+1. PEM(Privacy-enhanced Electronic Mail)是明文格式的,以 -----BEGIN CERTIFICATE-----开头，已-----END CERTIFICATE-----结尾。中间是经过base64编码的内容,apache需要的证书就是这类编码的证书.查看这类证书的信息的命令为: `openssl x509 -noout -text -in server.pem`。其实PEM就是把DER的内容进行了一次base64编码
+
+2. DER是二进制格式的证书，查看这类证书的信息的命令为: `openssl x509 -noout -text -inform der -in server.der`
+
+### 扩展名
+
+- .crt证书文件,可以是DER(二进制)编码的，也可以是PEM(ASCII (Base64))编码的),在类unix系统中比较常见;
+- .cer也是证书，常见于Windows系统。编码类型同样可以是DER或者PEM的，windows下有工具可以转换crt到cer；
+- .csr证书签名请求文件，一般是生成请求以后发送给CA，然后CA会给你签名并发回证书
+- .key一般公钥或者密钥都会用这种扩展名，可以是DER编码的或者是PEM编码的。查看DER编码的(公钥或者密钥)的文件的命令为: `openssl rsa -inform DER  -noout -text -in  xxx.key`。查看PEM编码的(公钥或者密钥)的文件的命令为: `openssl rsa -inform PEM   -noout -text -in  xxx.key`;
+- .p12证书文件,包含一个X509证书和一个被密码保护的私钥;
+
+## 自签名证书及自签名类型
+
+当由于某种原因(如：不想通过CA购买证书，或者仅是用于测试等情况)，无法正常获取CA签发的证书。这时可以生成一个自签名证书。使用这个自签名证书的时候，会在客户端浏览器报一个错误，签名证书授权未知或不可信(signing certificate authority is unknown and not trusted.）。
+
+### 自签名类型
+
+- 自签名证书
+- 私有CA签名证书
+
+  >自签名证书的`Issuer`和`Subject`是相同的。
+
+- 区别:
+
+    自签名的证书无法被吊销，私有CA签名的证书可以被吊销。
+
+    如果你的规划需要创建多个证书，那么使用私有CA签名的方法比较合适，因为只要给所有的客户端都安装相同的CA证书，那么以该CA证书签名过的证书，客户端都是信任的，也就只需要安装一次就够了。
+
+    如果你使用用自签名证书，你需要给所有的客户端安装该证书才会被信任。如果你需要第二个证书，则需要给所有客户端安装第二个CA证书才会被信任。
+
+## 生成自签名证书
+
+下面简单介绍如何通过openssl创建一个自签名SSL证书。
 
 操作步骤：
 
-- 创建Key；
+### 创建自签名证书
 
-- 创建签名请求；
+- 1.生成私钥
 
-- 将Key的口令移除；
+    使用openssl工具生成一个RSA私钥
 
-- 用Key签名证书;
+    ```bash
+    openssl genrsa -des3 -out server-private.key 2048
+    ```
 
-- 验证证书
+    > 说明：生成rsa私钥，des3算法，2048位强度，server.key是秘钥文件名。
+    > 注意：生成私钥，需要提供一个至少4位的密码。
 
-    `openssl s_client -connect git.xinao.bid:443 -servername git.xinao.bid -CAfile xxx/xxx/my.cert`
+- 2.生成CSR(证书签名请求)
 
->创建的签名请求的CN必须与域名完全一致，否则无法通过浏览器验证。
-  
+    生成私钥之后，便可以创建CSR(证书签名请求)文件。
+
+    理想情况下，可以将证书发送给证书颁发机构(CA)，CA验证过请求者的身份之后，会出具签名证书。如果只是内部或者测试需求，也可以使用OpenSSL实现自签名.
+
+    具体操作如下：
+
+    ```bash
+    openssl req -new -key server-private.key -out server.csr
+    ```
+
+    > 说明：需要依次输入国家，地区，城市，组织，组织单位，Common Name和Email。其中Common Name，可以写自己的名字或者域名，如果要支持https，Common Name应该与域名保持一致，否则会引起浏览器警告。
+
+    ```bash
+    Country Name(2 letter code)[AU]: `CN`
+    State or Province Name(full name)[Some-State]: `Beijing`
+    Locality Name(eg, city)[]: `Beijing`
+    Organization Name(eg, company)[Internet Widgits Pty Ltd]: `rancher`
+    Organizational Unit Name(eg, section)[]: `info technology`
+    Common Name(e.g. server FQDN or YOUR name)[]: `demo.rancher.com`
+    Email Address []: `xxx@qq.com`
+    ```
+
+- 3.删除私钥中的密码
+
+    在第1步创建私钥的过程中，由于必须要指定一个密码。而这个密码会带来一个副作用，那就是在每次启动Web服务器时，都会要求输入密码，这显然非常不方便。
+
+    要删除私钥中的密码，操作如下：
+
+    ```bash
+    cp server-private.key server-private.key.org
+    openssl rsa -in server-private.key.org -out server-private.key.org.key
+    rm -rf server-private.key.org
+    ```
+
+- 4.生成自签名证书
+
+    ```bash
+    openssl x509 -req -days 365 -in server.csr -signkey server-private.key.org.key -out server-ca.crt
+    ```
+  > 生成一个有效期为365天的自签名证书
+
+- 5.验证证书
+
+  > 注意: 因为使用的是自签名证书，浏览器会提示证书的颁发机构是未知的。
+
+  把生成的ca证书和去除密码的私钥文件部署到web服务器后，执行以下命令验证:
+
+  - 不加CA证书验证
+
+    ```bash
+    openssl s_client -connect demo.rancher.com:443 -servername demo.rancher.com
+    ```
+    ![image-20180805213034249] (_index.assets/image-20180805213034249.png)
+
+  - 添加CA证书验证
+
+    ```bash
+    openssl s_client -connect demo.rancher.com:443 -servername demo.rancher.com -CAfile server-ca.crt
+    ```
+    ![image-20180805213123781](_index.assets/image-20180805213123781.png)
+
+### 私有CA签名证书
+
+- 1.创建CA私钥
+
+    ```bash
+    openssl genrsa -des3 -out ca-private.key 4096
+    ```
+- 2.生成CA自签名证书
+
+    ```bash
+    openssl req -new -x509 -days 365 -key ca-private.key -out ca.crt
+    ```
+- 3.生成服务端(web)私钥
+
+    ```bash
+    openssl genrsa -des3 -out server-private.key 4096
+    ```
+- 4.为服务端(web)生成证书签名请求文件
+
+    ```bash
+    openssl req -new -key server-private.key -out server.csr
+    ```
+    >注意: 证书签名请求当中的Common Name必须区别与CA的证书里面的Common Name
+
+- 5.用`第二步`创建的CA证书给`第四步`生成的签名请求进行签名
+
+    ```bash
+    openssl x509 -req -days 365 -in server.csr -CA ca.crt -CAkey ca-private.key -set_serial 01 -out server.crt
+    ```

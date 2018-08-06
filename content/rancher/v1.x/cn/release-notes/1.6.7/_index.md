@@ -49,7 +49,7 @@ Please do not the releases with a `rc{n}` suffix. These `rc` builds are meant fo
     5. After your setup is back to its original state, update the `upgrade.manager` value back to the original value that you had (either `mandatory` or `none`). 
 
 ## Infrastructure Service Updates
-When upgrading infrastructure services, please make sure to [upgrade in the recommended order](http://rancher.com/docs/rancher/v1.6/en/upgrading/#infrastructure-services).
+When upgrading infrastructure services, please make sure to [upgrade in the recommended order](http://www2.cnrancher.com/docs/rancher/v1.6/en/upgrading/#infrastructure-services).
 
 * **Network Services - v0.2.5**
   - _New image: `rancher/metadata:v0.9.3`_
@@ -72,10 +72,10 @@ When upgrading infrastructure services, please make sure to [upgrade in the reco
 ## Major Bug Fixes since v1.6.6
 - See the list of infrastructure services to see major bug fixes
 
-## [Rancher CLI](http://docs.rancher.com/rancher/v1.6/en/cli/) Downloads
+## [Rancher CLI](https://docs.rancher.com/rancher/v1.6/en/cli/) Downloads
 
 https://github.com/rancher/cli/releases/tag/v0.6.3
 
-## [Rancher-Compose](http://docs.rancher.com/rancher/v1.6/en/cattle/rancher-compose/) Downloads
+## [Rancher-Compose](https://docs.rancher.com/rancher/v1.6/en/cattle/rancher-compose/) Downloads
 
 https://github.com/rancher/rancher-compose/releases/tag/v0.12.5

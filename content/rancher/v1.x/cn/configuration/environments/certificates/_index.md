@@ -5,7 +5,7 @@ title: 证书
 
 ### 添加证书
 
-可以在**基础架构** -> **证书**页面把证书添加到你的[环境](/docs/rancher/v1.x/cn/infrastructure/environments/)里。这个页面已经列出了所有已添加到Rancher环境的证书。你可以点击**添加证书**添加一个新证书。
+可以在**基础架构** -> **证书**页面把证书添加到你的[环境](/docs/rancher/v1.x/cn/configuration/environments/)里。这个页面已经列出了所有已添加到Rancher环境的证书。你可以点击**添加证书**添加一个新证书。
 
 1. 填写证书**名称**和**描述**。
 

@@ -2,7 +2,7 @@
 title: 密文功能
 ---
 
-Rancher支持创建密文并在容器中使用该密文（在容器中使用该密文需要部署应用商店里的Rancher Secrets服务）。Rancher通过对接加密后台来保障密文的安全。加密后台可以使用本地的AES密钥或者使用[Vault Transit](https://www.vaultproject.io/docs/secrets/transit/)
+Rancher支持创建密文并在容器中使用该密文(在容器中使用该密文需要部署应用商店里的Rancher Secrets服务)。Rancher通过对接加密后台来保障密文的安全。加密后台可以使用本地的AES密钥或者使用[Vault Transit](https://www.vaultproject.io/docs/secrets/transit/)
 
 ### 加密后台设置
 
@@ -70,9 +70,9 @@ Rancher支持创建密文并在容器中使用该密文（在容器中使用该�
 
 #### 通过Rancher命令行创建密文
 
-在命令行当中有两种方法来创建密文。一种是在标准输入中（stdin）输入密文值，另一种是给命令行传递含有密文的文件名称。
+在命令行当中有两种方法来创建密文。一种是在标准输入中(stdin)输入密文值，另一种是给命令行传递含有密文的文件名称。
 
-##### 通过标准输入（stdin）创建密文
+##### 通过标准输入(stdin)创建密文
 ```bash
 $ rancher secrets create name-of-secret - <<< secret-value
 ```
@@ -95,7 +95,7 @@ $ rancher secrets create name-of-secret file-with-secret
 
 ### 在Rancher中启用密文
 
-为了在容器中使用密文，你要先部署**Rancher Secrets**服务。你可以把这个服务加到[环境模版](/docs/rancher/v1.x/cn/infrastructure/environments/#什么是环境模版)中，在添加该服务之后部署的新[环境](/docs/rancher/v1.x/cn/infrastructure/environments/)里都会含有**Rancher Secrets**服务。你也可以直接通过[应用商店](/docs/rancher/v1.x/cn/catalog/)部署该服务。如果你想在现有的环境中部署**Rancher Secrets**服务，你可以通过**应用商店** -> **官方认证**，然后搜索**Rancher Secrets**找到**Rancher Secrets**服务。如果不部署**Rancher Secrets**服务的话，你仅仅可以创建密文，但是不能在你的容器里使用这些密文。
+为了在容器中使用密文，你要先部署**Rancher Secrets**服务。你可以把这个服务加到[环境模版](/docs/rancher/v1.x/cn/configuration/environments/#什么是环境模版)中，在添加该服务之后部署的新[环境](/docs/rancher/v1.x/cn/configuration/environments/)里都会含有**Rancher Secrets**服务。你也可以直接通过[应用商店](/docs/rancher/v1.x/cn/configuration/catalog/)部署该服务。如果你想在现有的环境中部署**Rancher Secrets**服务，你可以通过**应用商店** -> **官方认证**，然后搜索**Rancher Secrets**找到**Rancher Secrets**服务。如果不部署**Rancher Secrets**服务的话，你仅仅可以创建密文，但是不能在你的容器里使用这些密文。
 
 ### 向服务／容器中添加密文
 
@@ -174,8 +174,8 @@ secrets:
 
 1. 点击**添加密文**
 2. 下拉列表中会列出，已经加入到Rancher中的全部可用密文。你可以选择一个你想要使用的密文。
-3. （可选操作） 默认情况下，挂载到容器内的密文文件的名称为密文名。你可以在映射名称栏，给容器中的密文文件设置一个不同的文件名。
-4. （可选操作） 如果你想要修改默认的文件所有者和文件权限。你可以点击**自定义文件所有者及权限**链接来更新配置。你可以修改用户ID，组ID和文件权限。用户ID的默认值为`0`，组ID的默认值为0，文件权限的默认值为`0444`。
+3. (可选操作) 默认情况下，挂载到容器内的密文文件的名称为密文名。你可以在映射名称栏，给容器中的密文文件设置一个不同的文件名。
+4. (可选操作) 如果你想要修改默认的文件所有者和文件权限。你可以点击**自定义文件所有者及权限**链接来更新配置。你可以修改用户ID，组ID和文件权限。用户ID的默认值为`0`，组ID的默认值为0，文件权限的默认值为`0444`。
 5. 点击 **创建**.
 
 ### Docker Hub镜像
@@ -194,7 +194,7 @@ Docker在很多自己的官方镜像中都支持通过文件来传递密文。�
 
 #### 被入侵的Rancher Server容器
 
-存储在Rancher中的密文和存储在CI系统（如Travis CI和Drone）中的密文安全程度是一样。由于加密密钥直接存储在Rancher Server容器中，所以如果Rancher Server容器被入侵，全部的密文都能被黑客获取到。Rancher将在以后的版本中努力降低这种情况的安全隐患。
+存储在Rancher中的密文和存储在CI系统(如Travis CI和Drone)中的密文安全程度是一样。由于加密密钥直接存储在Rancher Server容器中，所以如果Rancher Server容器被入侵，全部的密文都能被黑客获取到。Rancher将在以后的版本中努力降低这种情况的安全隐患。
 
 > **注意：** 如果你使用Vault进行加密，你需要创建一个策略来限制Rancher Server所用的token的访问权限。
 

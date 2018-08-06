@@ -78,7 +78,7 @@ docker cp <container_id>:/var/lib/cattle/logs /local/path
 
 ### 10、Rancher Server运行变得很慢，怎么去优化它？
 
-很可能有一些任务由于某些原因而处于僵死状态，如果你能够用界面查看**系统管理** -> **系统进程**，你将可以看到`Running`中的内容，如果这些任务长时间运行（并且失败），则Rancher会最终使用太多的内存来跟踪任务。这使得Rancher Server处于了内存不足的状态。
+很可能有一些任务由于某些原因而处于僵死状态，如果你能够用界面查看**系统管理** -> **系统进程**，你将可以看到`Running`中的内容，如果这些任务长时间运行(并且失败)，则Rancher会最终使用太多的内存来跟踪任务。这使得Rancher Server处于了内存不足的状态。
 
 为了使服务变为可响应状态，你需要添加更多内存。通常4GB的内存就够了。
 
@@ -143,7 +143,7 @@ mysql> select * from DATABASECHANGELOGLOCK;
 ```
 ### 13、管理员密码忘记了，我该如何重置管理员密码？
 
-如果你的身份认证出现问题（例如管理员密码忘记），则可能无法访问Rancher。 要重新获得对Rancher的访问权限，你需要在数据库中关闭访问控制。 为此，你需要访问运行Rancher Server的主机。
+如果你的身份认证出现问题(例如管理员密码忘记)，则可能无法访问Rancher。 要重新获得对Rancher的访问权限，你需要在数据库中关闭访问控制。 为此，你需要访问运行Rancher Server的主机。
 
 ps：假设在重置访问控制之前有创建过其他用户，那么在认证方式没有变化的情况下，重置访问控制除了超级管理员(第一个被创建的管理员，ID为1a1)，其他用户账号信息不会受影响。
 
@@ -220,7 +220,7 @@ http://X.X.X.X/v1/settings/catalog.refresh.interval.seconds 默认300秒 可以�
 
 ### 18、Rancher server cattle-debug.log 文件占满磁盘的问题
 
-这个问题主要在Rancher server 1.6.11 之前（1.6.11 已经解决）
+这个问题主要在Rancher server 1.6.11 之前(1.6.11 已经解决)
 
 目前是按天来创建日志文件， 如果日志文件太多会进行日志分段，每一段默认100M， 默认情况下，系统保留5个分段。
 通过打开http://rancher_url:8080/v2-beta/settings ，网页搜索 logback 可以看到以下内容，
