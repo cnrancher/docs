@@ -5,19 +5,26 @@ weight: 1
 
 ## 一、主机配置
 
-### 1、主机名配置
+### 1、操作系统选择
+
+- Ubuntu 16.04(64位)
+- Centos/RedHat Linux 7.5+(64位)
+- RancherOS 1.3.0+(64位)
+> Ubuntu操作系统有Desktop和Server版本，选择安装server版本。
+
+### 2、主机名配置
 
 因为K8S的规定，主机名只支持包含 `-` 和 `.`(中横线和点)两种特殊符号。
 
-### 2、hosts
+### 3、Hosts
 
 配置每台主机的hosts(/etc/hosts),添加`$hostname host_ip`到hosts文件中。
 
-### 3、CentOS关闭selinux
+### 4、CentOS关闭selinux
 
 `sudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config`
 
-### 4、关闭防火墙(可选)或者放行相应端口
+### 5、关闭防火墙(可选)或者放行相应端口
 
 - 关闭防火墙
 
@@ -31,13 +38,15 @@ weight: 1
 
 - 端口放行
 
-    端口放行请查看[端口需求](/docs/rancher/v2.x/cn/installation/references/)
+    端口放行请查看 [端口需求](/docs/rancher/v2.x/cn/installation/references/)
 
 ## 二、Docker安装与配置
 
 ### 1、Docker安装
 
 - Ubuntu
+
+    **Docker-ce**
 
     ```bash
     # 定义安装版本
@@ -57,8 +66,13 @@ weight: 1
     # 设置开机启动
     sudo systemctl enable docker
     ```
+    **Docker-engine**
+
+    Docker-Engine Docker官方已经不推荐使用，请安装Docker-CE。
 
 - CentOS
+
+    **Docker-ce**
 
     > 因为CentOS的安全限制，通过RKE安装K8S集群时候无法使用`root`账户。所以，建议`CentOS`用户使用非`root`用户来运行docker,不管是`RKE`还是`custom`安装k8s,详情查看[无法为主机配置SSH隧道](/docs/rancher/v2.x/cn/installation/troubleshooting-ha/ssh-tunneling/)。
 
@@ -99,6 +113,9 @@ weight: 1
     # 设置开机启动
     sudo systemctl enable docker
     ```
+    **Docker-engine**
+
+    Docker-Engine Docker官方已经不推荐使用，请安装Docker-CE。
 
 ### 2、Docker配置
 
@@ -150,6 +167,16 @@ weight: 1
 
 - 配置Docker存储驱动
 
+    OverlayFS是一个新一代的联合文件系统，类似于AUFS，但速度更快，实现更简单。Docker为OverlayFS提供了两个存储驱动程序：旧版的`overlay`，新版的`overlay2`(更稳定)。
+
+  先决条件:
+  - `overlay2`: Linux内核版本4.0或更高版本，或使用内核版本3.10.0-514+的RHEL或CentOS。
+  - `overlay`: 主机Linux内核版本3.18+
+  - 支持的磁盘文件系统
+    - ext4（仅限RHEL 7.1）
+    - xfs（RHEL7.2及更高版本），需要启用d_type=true。
+    > 具体详情参考 [Docker Use the OverlayFS storage driver](https://docs.docker.com/storage/storagedriver/overlayfs-driver/)
+
     编辑`/etc/docker/daemon.json`加入以下内容
 
     ```json
@@ -173,3 +200,5 @@ weight: 1
 - 离线安装镜像仓库配置
 
     在线情况下，Rancher部署kubenetes或者部署其他系统组件时，都是通过dockerhub拉取镜像，Dockerhub上rancher仓库为公开仓库，不用登录即可拉取镜像。如果是在离线环境下安装kubenetes集群,那么对应的项目需要为公开权限，不用登录即可拉取镜像。因为在Rancher2.0全局部署kubenetes时,无法使用Registries功能，对于私有项目无法代理提供登录信息，从而导致无法拉取镜像。
+
+## 四、以上配置完成后，建议重启一次主机。
