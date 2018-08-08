@@ -27,6 +27,8 @@ weight: 2
 - Centos/RedHat Linux 7.5+(64位)
 - RancherOS 1.3.0+(64位)
 
+> Ubuntu操作系统有Desktop和Server版本，选择安装server版本.
+
 **硬件需求**:
 
 - 内存: 4GB
@@ -42,6 +44,8 @@ weight: 2
   - `17.03.2`
 
   >**注意:** 有关Docker安装说明,请访问其[文档](https://docs.docker.com/install/)。软件需求要应用于所有节点。
+  >
+  > 主机的更详细配置说明，请查看[基础环境配置](/docs/rancher/v2.x/cn/installation/basic-environment-configuration/)
 
 ## 安装Rancher
 

@@ -10,11 +10,12 @@ weight: 1
 - Ubuntu 16.04(64位)
 - Centos/RedHat Linux 7.5+(64位)
 - RancherOS 1.3.0+(64位)
+
 > Ubuntu操作系统有Desktop和Server版本，选择安装server版本。
 
 ### 2、主机名配置
 
-因为K8S的规定，主机名只支持包含 `-` 和 `.`(中横线和点)两种特殊符号。
+因为K8S的规定，主机名只支持包含 `-` 和 `.`(中横线和点)两种特殊符号，并且主机名不能出现重复。
 
 ### 3、Hosts
 
@@ -25,6 +26,8 @@ weight: 1
 `sudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config`
 
 ### 5、关闭防火墙(可选)或者放行相应端口
+
+对于刚刚接触Rancher的用户，建议在关闭防火墙的测试环境或桌面虚拟机来运行rancher，以避免网络通信问题。
 
 - 关闭防火墙
 
