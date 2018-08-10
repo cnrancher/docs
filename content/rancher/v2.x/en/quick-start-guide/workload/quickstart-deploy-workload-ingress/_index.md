@@ -21,7 +21,7 @@ For this workload, you'll be deploying the application Rancher Hello-World.
 
 4.  Click **Deploy**.
 
-	**Step Result:** The **Deploy Workload** page opens.
+	**步骤结果:** The **Deploy Workload** page opens.
 
 5.  Enter a **Name** for your workload.
 

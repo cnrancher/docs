@@ -65,7 +65,7 @@ From the Azure portal, create an API key. Rancher will use this key to authentic
 
      ![Open Rancher Registration]({{< baseurl >}}/img/rancher/open-rancher-app.png)
 
-    **Step Result:** A new blade opens for Rancher.
+    **????:** A new blade opens for Rancher.
 
 1. Click **Settings**.
 

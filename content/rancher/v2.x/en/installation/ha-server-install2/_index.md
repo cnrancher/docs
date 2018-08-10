@@ -174,7 +174,7 @@ Choose a fully qualified domain name (FQDN) that you want to use to access Ranch
 
     `nslookup HOSTNAME.DOMAIN.COM`
 
-    **Step Result:** Terminal displays output similar to the following:
+    **步骤结果:** Terminal displays output similar to the following:
 
     ```
     $ nslookup rancher.yourdomain.com
@@ -219,7 +219,7 @@ RKE is a fast, versatile Kubernetes installer that you can use to install Kubern
     $ ./rke_linux-amd64 --version
     ```
 
-    **Step Result:** You receive output similar to what follows:
+    **步骤结果:** 您将看到以下内容:
     ```
     rke version v<N.N.N>
     ```
@@ -413,7 +413,7 @@ With all configuration in place, use RKE to launch Rancher. You can complete thi
 ./rke_linux-amd64 up --config rancher-cluster.yml
 ```
 
-**Step Result:** The output should be similar to the snippet below:
+**步骤结果:** The output should be similar to the snippet below:
 
 ```
 INFO[0000] Building Kubernetes cluster

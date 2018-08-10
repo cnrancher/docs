@@ -49,7 +49,7 @@ Please do not the releases with a `rc{n}` suffix. These `rc` builds are meant fo
     5. After your setup is back to its original state, update the `upgrade.manager` value back to the original value that you had (either `mandatory` or `none`). 
 
 ## Infrastructure Service Updates
-When upgrading infrastructure services, please make sure to [upgrade in the recommended order](http://www2.cnrancher.com/docs/rancher/v1.6/en/upgrading/#infrastructure-services).
+When upgrading infrastructure services, please make sure to [upgrade in the recommended order](http://www.cnrancher.com/docs/rancher/v1.6/en/upgrading/#infrastructure-services).
 
 * **Network Services - v0.2.5**
   - _New image: `rancher/metadata:v0.9.3`_

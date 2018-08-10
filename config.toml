@@ -39,62 +39,62 @@ pre        = "<i class='material-icons'>keyboard_arrow_down</i>"
 
   [[menu.main]]
   name       = "概述"
-  url        = "https://www2.cnrancher.com/what-is-rancher/overview/"
+  url        = "https://www.cnrancher.com/what-is-rancher/overview/"
   parent     = "what-is-rancher"
   weight     = "1"
 
   [[menu.main]]
   name       = "Kubernetes功能增强"
-  url        = "https://www2.cnrancher.com/what-is-rancher/what-rancher-adds-to-kubernetes/"
+  url        = "https://www.cnrancher.com/what-is-rancher/what-rancher-adds-to-kubernetes/"
   parent     = "what-is-rancher"
   weight     = "2"
 
   [[menu.main]]
   name       = "Rancher与众不同"
-  url        = "https://www2.cnrancher.com/what-is-rancher/how-is-rancher-different/"
+  url        = "https://www.cnrancher.com/what-is-rancher/how-is-rancher-different/"
   parent     = "what-is-rancher"
   weight     = "3"
 
 
   [[menu.main]]
   name       = "Run Kubernetes Anywhere"
-  url        = "https://www2.cnrancher.com/kubernetes/"
+  url        = "https://www.cnrancher.com/kubernetes/"
   parent     = "what-is-rancher"
   weight     = "4"
 
   [[menu.main]]
   # name       = "Cluster Operations"
-  # url        = "https://www2.cnrancher.com/what-is-rancher/cluster-operations/"
+  # url        = "https://www.cnrancher.com/what-is-rancher/cluster-operations/"
   # parent     = "what-is-rancher"
   # weight     = "5"
 
   [[menu.main]]
   # name       = "Hybrid cloud & multi-cloud"
-  # url        = "https://www2.cnrancher.com/what-is-rancher/hybrid-multi-cloud/"
+  # url        = "https://www.cnrancher.com/what-is-rancher/hybrid-multi-cloud/"
   # parent     = "what-is-rancher"
   # weight     = "6"
 
   [[menu.main]]
   # name       = "Security & compliance"
-  # url        = "https://www2.cnrancher.com/what-is-rancher/security-and-compliance/"
+  # url        = "https://www.cnrancher.com/what-is-rancher/security-and-compliance/"
   # parent     = "what-is-rancher"
   # weight     = "7"
 
   [[menu.main]]
   # name       = "Workload Management"
-  # url        = "https://www2.cnrancher.com/what-is-rancher/workload-management/"
+  # url        = "https://www.cnrancher.com/what-is-rancher/workload-management/"
   # parent     = "what-is-rancher"
   # weight     = "8"
 
   [[menu.main]]
   # name       = "100% Open Source"
-  # url        = "https://www2.cnrancher.com/what-is-rancher/open-source/"
+  # url        = "https://www.cnrancher.com/what-is-rancher/open-source/"
   # parent     = "what-is-rancher"
   # weight     = "9"
 
   [[menu.main]]
   # name       = "How is Rancher Built"
-  # url        = "https://www2.cnrancher.com/what-is-rancher/how-is-rancher-built/"
+  # url        = "https://www.cnrancher.com/what-is-rancher/how-is-rancher-built/"
   # parent     = "what-is-rancher"
   # weight     = "10"
 
@@ -107,19 +107,19 @@ pre        = "<i class='material-icons'>keyboard_arrow_down</i>"
 
   [[menu.main]]
   name       = "Rancher"
-  url        = "https://www2.cnrancher.com/what-is-rancher/overview/"
+  url        = "https://www.cnrancher.com/what-is-rancher/overview/"
   parent     = "products"
 
   [[menu.main]]
   name       = "RancherOS"
-  url        = "https://www2.cnrancher.com/rancher-os/"
+  url        = "https://www.cnrancher.com/rancher-os/"
   parent     = "products"
 
 
 [[menu.main]]
 #identifier = "customers"
 #name       = "Customers"
-#url        = "https://www2.cnrancher.com//customers/"
+#url        = "https://www.cnrancher.com//customers/"
 #weight     = "3"
 
 [[menu.main]]
@@ -130,22 +130,22 @@ pre        = "<i class='material-icons'>keyboard_arrow_down</i>"
 
   [[menu.main]]
   name       = "博客"
-  url        = "https://www2.cnrancher.com/blog/"
+  url        = "https://www.cnrancher.com/blog/"
   parent     = "learn"
 
   [[menu.main]]
   name       = "文档-中文"
-  url        = "https://www2.cnrancher.com/docs/"
+  url        = "https://www.cnrancher.com/docs/"
   parent     = "learn"
 
   [[menu.main]]
   name       = "文档-英文"
-  url        = "https://www2.cnrancher.com/docs-en/"
+  url        = "https://www.cnrancher.com/docs-en/"
   parent     = "learn"
 
   [[menu.main]]
   name       = "Training"
-  url        = "https://www2.cnrancher.com/training/"
+  url        = "https://www.cnrancher.com/training/"
   parent     = "learn"
 
   [[menu.main]]
@@ -157,45 +157,45 @@ pre        = "<i class='material-icons'>keyboard_arrow_down</i>"
 
   [[menu.main]]
   #name       = "Learning Resources"
-  #url        = "https://www2.cnrancher.com/learning-resources/"
+  #url        = "https://www.cnrancher.com/learning-resources/"
   #parent     = "learn"
 
   [[menu.main]]
   name       = "Events"
-  url        = "https://www2.cnrancher.com/events/"
+  url        = "https://www.cnrancher.com/events/"
   parent     = "learn"
 
 
 [[menu.main]]
 identifier = "about"
 name       = "About"
-url        = "https://www2.cnrancher.com/about/"
+url        = "https://www.cnrancher.com/about/"
 weight     = "5"
 pre        = "<i class='material-icons'>keyboard_arrow_down</i>"
 
   [[menu.main]]
   name       = "News"
-  url        = "https://www2.cnrancher.com/news/"
+  url        = "https://www.cnrancher.com/news/"
   parent     = "about"
 
   [[menu.main]]
   name       = "About Us"
-  url        = "https://www2.cnrancher.com/about/"
+  url        = "https://www.cnrancher.com/about/"
   parent     = "about"
 
   [[menu.main]]
   name       = "Careers"
-  url        = "https://www2.cnrancher.com/careers/"
+  url        = "https://www.cnrancher.com/careers/"
   parent     = "about"
 
   [[menu.main]]
   name       = "Contact Us"
-  url        = "https://www2.cnrancher.com/contact/"
+  url        = "https://www.cnrancher.com/contact/"
   parent     = "about"
 
   [[menu.main]]
   name       = "Partners"
-  url        = "https://www2.cnrancher.com/partners/"
+  url        = "https://www.cnrancher.com/partners/"
   parent     = "about"
 
 #footer menu#
@@ -203,22 +203,22 @@ pre        = "<i class='material-icons'>keyboard_arrow_down</i>"
 identifier = "about"
 pre = "<i class='material-icons'>info_outline</i>"
 name       = "关于"
-url        = "https://www2.cnrancher.com/about/"
+url        = "https://www.cnrancher.com/about/"
 
 [[menu.footer]]
 identifier = "contact"
 pre = "<i class='material-icons'>chat_bubble_outline</i>"
 name       = "联系我们"
-url        = "https://www2.cnrancher.com/contact/"
+url        = "https://www.cnrancher.com/contact/"
 
 [[menu.footer]]
 identifier = "privacy"
 pre = "<i class='material-icons'>fingerprint</i>"
 name       = "隐私"
-url        = "https://www2.cnrancher.com/privacy/"
+url        = "https://www.cnrancher.com/privacy/"
 
 [[menu.footer]]
 identifier = "careers"
 pre = "<i class='material-icons'>people_outline</i>"
 name       = "招聘信息"
-url        = "https://www2.cnrancher.com/careers/"
+url        = "https://www.cnrancher.com/careers/"

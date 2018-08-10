@@ -2,57 +2,56 @@
 title: 七层负载均衡HA部署
 weight: 4
 ---
+
 以下步骤将创建一个新的Kubernetes集群，专用于Rancher server高可用(HA)运行,本文档将引导你使用Rancher Kubernetes Engine(RKE)配置三个节点的集群.
 
 ## 一、架构说明
 
 ![Rancher HA]({{< baseurl >}}/img/rancher/ha/rancher2ha-l7.svg)
 
-## 二、配置Linux主机
+## 二、Linux主机要求
 
 在安装Rancher之前，请确认符合主机要求,使用以下要求配置3个新的Linux主机。
 
-### 要求
+### 1、操作系统
 
-1. #### 操作系统
+- Ubuntu 16.04(64位)
+- Centos/RedHat Linux 7.5+(64位)
+- RancherOS 1.3.0+(64位)
 
-    - Ubuntu 16.04(64位)
-    - Centos/RedHat Linux 7.5+(64位)
-    - RancherOS 1.3.0+(64位)
+### 2、硬件
 
-2. #### 硬件
+硬件需求根据Rancher部署的规模进行扩展。根据需求配置每个节点。
 
-    硬件需求根据Rancher部署的规模进行扩展。根据需求配置每个节点。
+| 部署大小 | 集群(个)  | 节点(个) | vCPU                                            | 内存 |
+| -------- | --------- | -------- |     ------------------------------------------- | ---- |
+| 小       | 不超过10  | 最多50   | 2C                                              | 4GB  |
+| 中       | 不超过100 | 最多500  | 8C                                              | 32GB |
+| 大       | 超过100   | 超过500  | [联系Rancher](https://www.cnrancher.com/contact/) |      |
 
-    | 部署大小 | 集群(个)  | 节点(个) | vCPU                                            | 内存 |
-    | -------- | --------- | -------- |     ------------------------------------------- | ---- |
-    | 小       | 不超过10  | 最多50   | 2C                                              | 4GB  |
-    | 中       | 不超过100 | 最多500  | 8C                                              | 32GB |
-    | 大       | 超过100   | 超过500  | [联系Rancher](https://www2.cnrancher.com/contact/) |      |
+### 3、软件
 
-3. #### 软件
+- Docker
 
-    - Docker
+    > **注意：**如果你使用的是RancherOS，请确保你将Docker引擎切换为受支持的版本`sudo ros engine switch docker-17.03.2-ce`
 
-      > **注意：**如果你使用的是RancherOS，请确保你将Docker引擎切换为受支持的版本`sudo ros engine switch docker-17.03.2-ce`
+    **支持的Docker版本**
 
-      **支持的Docker版本**
+  - `1.12.6`
+  - `1.13.1`
+  - `17.03.2`
 
-      - `1.12.6`
-      - `1.13.1`
-      - `17.03.2`
+    [Docker安装说明](https://docs.docker.com/install/)
 
-      [Docker安装说明](https://docs.docker.com/install/)
+    > **注意：** 该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请查阅[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。
+    >
+    > 更多Rancher server tag列表，请查阅[Rancher server tags](/docs/rancher/v2.x/cn/installation/server-tags/)。
 
-      > **注意：** 该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请查阅[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。
-      >
-      > 更多Rancher server tag列表，请查阅[Rancher server tags](/docs/rancher/v2.x/cn/installation/server-tags/)。
+### 4、端口
 
-4. #### 端口
+下图描述了Rancher的基本端口要求。有关全面列表，请查阅[端口要求](/docs/rancher/v2.x/cn/installation/references/)。
 
-    下图描述了Rancher的基本端口要求。有关全面列表，请查阅[端口要求](/docs/rancher/v2.x/cn/installation/references/)。
-
-      ![基本端口要求](/docs/img/rancher/port-communications.png)
+![基本端口要求](/docs/img/rancher/port-communications.png)
 
 ## 三、配置负载均衡器(以NGINX为例)
 
@@ -61,7 +60,7 @@ weight: 4
 负载均衡器或代理必须支持以下参数:
 
 - **WebSocket** 连接
-- **SPDY** / **HTTP/2** 协议
+- **SPDY**/**HTTP/2**协议
 - 传递/设置以下headers:
 
 | Header              | Value                                  | Description                                                                                                                                                              |
@@ -75,110 +74,112 @@ weight: 4
 - [Amazon ALB](./alb)
 - [nginx](./nginx)
 
-## 四、配置 DNS
+## 四、配置DNS
 
 选择一个用于访问Rancher的域名(FQDN)(例如，demo.rancher.com).
 
-1. 方案1 - 有DNS服务器
+### 1、方案1 - 有DNS服务器
 
-    1. 登录DNS服务，创建一条 `A` 记录指向负载均衡主机IP。
+- 1、登录DNS服务，创建一条 `A` 记录指向负载均衡主机IP；
 
-    2. 在终端中执行一下命令来验证运行解析是否生效:
+- 2、在终端中执行一下命令来验证运行解析是否生效:
 
-        `nslookup HOSTNAME.DOMAIN.COM`
+    `nslookup HOSTNAME.DOMAIN.COM`
 
-        1. 如果解析生效：
+    **如果解析生效**
 
-            ```bash
-            nslookup demo.rancher.com
-            DNS Server:         YOUR_HOSTNAME_IP_ADDRESS
-            DNS Address:        YOUR_HOSTNAME_IP_ADDRESS#53
-            Non-authoritative answer:
-            Name:   demo.rancher.com
-            Address: <负载均衡IP地址>
-            ```
-        2. 如果解析不生效
-            ```bash
-            nslookup demo.rancher.com
-            DNS Server:         YOUR_HOSTNAME_IP_ADDRESS
-            DNS Address:        YOUR_HOSTNAME_IP_ADDRESS#53
+    ```bash
+    nslookup demo.rancher.com
+    DNS Server:         YOUR_HOSTNAME_IP_ADDRESS
+    DNS Address:        YOUR_HOSTNAME_IP_ADDRESS#53
+    Non-authoritative answer:
+    Name:   demo.rancher.com
+    Address: <负载均衡IP地址>
+    ```
+    **如果解析不生效**
 
-            ** server can't find demo.rancher.com: NXDOMAIN
-            ```
+    ```bash
+    nslookup demo.rancher.com
+    DNS Server:         YOUR_HOSTNAME_IP_ADDRESS
+    DNS Address:        YOUR_HOSTNAME_IP_ADDRESS#5
+    ** server can't find demo.rancher.com: NXDOMAIN
+    ```
 
-2. 方案2 - 无DNS服务器
+### 2、方案2 - 无DNS服务器
 
-    如果环境为内部网络且无DNS服务器，可以通过修改客户端的`/etc/hosts`文件，添加相应的条目。比如：
+如果环境为内部网络且无DNS服务器，可以通过修改客户端的`/etc/hosts`文件，添加相应的条目。比如：
 
-    ![image-20180711140926370](/docs/img/rancher/ha/image-20180711140926370.png)
+![image-20180711140926370](/docs/img/rancher/ha/image-20180711140926370.png)
 
 ## 五、下载 RKE
 
 RKE是一种快速，通用的Kubernetes安装程序，可用于在Linux主机上安装Kubernetes。我们将使用RKE来配置Kubernetes集群并运行Rancher。
 
-1. 打开浏览器访问 [RKE Releases](https://github.com/rancher/rke/releases/latest)页面，根据你操作系统类型下载最新版本的RKE：
+1、打开浏览器访问[下载文件](/docs/rancher/v2.x/cn/installation/download/)页面，根据你操作系统类型下载最新版本的RKE：
 
-    - **MacOS**: `rke_darwin-amd64`
-    - **Linux**: `rke_linux-amd64`
-    - **Windows**: `rke_windows-amd64.exe`
+- **MacOS**: `rke_darwin-amd64`
+- **Linux**: `rke_linux-amd64`
+- **Windows**: `rke_windows-amd64.exe`
 
-2. 通过`chmod +x`命令给刚下载的RKE二进制文件添加可执行权限。
+2、通过`chmod +x`命令给刚下载的RKE二进制文件添加可执行权限。
 
-    >如果是Windows系统，则跳过一步，直接进入[下载RKE配置模板](#下载RKE配置模板).
+>如果是Windows系统，则跳过这一步.
 
-    ```bash
-    # MacOS
-    $ chmod +x rke_darwin-amd64
-    # Linux
-    $ chmod +x rke_linux-amd64
-    ```
+```bash
+# MacOS
+$ chmod +x rke_darwin-amd64
+# Linux
+$ chmod +x rke_linux-amd64
+```
 
-3. 确认RKE是否是最新版本：
+3、确认RKE是否是最新版本：
 
-    ```bash
-    # MacOS
-    $ ./rke_darwin-amd64 --version
-    # Linux
-    $ ./rke_linux-amd64 --version
-    ```
+```bash
+# MacOS
+$ ./rke_darwin-amd64 --version
+# Linux
+$ ./rke_linux-amd64 --version
+```
 
-    **Step Result:** You receive output similar to what follows:
+**步骤结果:** 您将看到以下内容:
 
-    ```bash
-    rke version v<N.N.N>
-    ```
+```bash
+rke version v<N.N.N>
+```
 
 ## 六、下载RKE配置模板
 
 RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板可供选择，具体取决于使用的SSL证书类型。
 
-- 根据你使用的SSL证书类型，选择模板下载：
+### 1、根据你使用的SSL证书类型，选择模板下载：
 
-  - [Template for self-signed certificate<br/> `3-node-externalssl-certificate.yml`](https://raw.githubusercontent.com/rancher/rancher/58e695b51096b1f404188379cea6f6a35aea9e4c/rke-templates/3-node-externalssl-certificate.yml)
+- [Template for self-signed certificate<br/> `3-node-externalssl-certificate.yml`](https://raw.githubusercontent.com/rancher/rancher/58e695b51096b1f404188379cea6f6a35aea9e4c/rke-templates/3-node-externalssl-certificate.yml)
 
-  - [Template for certificate signed by recognized CA<br/> `3-node-externalssl-recognizedca.yml`](https://raw.githubusercontent.com/rancher/rancher/58e695b51096b1f404188379cea6f6a35aea9e4c/rke-templates/3-node-externalssl-recognizedca.yml)
+- [Template for certificate signed by recognized CA<br/> `3-node-externalssl-recognizedca.yml`](https://raw.githubusercontent.com/rancher/rancher/58e695b51096b1f404188379cea6f6a35aea9e4c/rke-templates/3-node-externalssl-recognizedca.yml)
 
-- 重命名模板文件为 `rancher-cluster.yml`.
+### 2、重命名模板文件为 `rancher-cluster.yml`.
 
 ## 七、节点配置
 
 Once you have the `rancher-cluster.yml` config file template, edit the nodes section to point toward your Linux hosts.
 
-1. 节点免密登录
+### 1、节点免密登录
 
-    1. 第一步:在任意一台Linux主机使用ssh-keygen命令产生公钥私钥对
+- 第一步:在任意一台Linux主机使用ssh-keygen命令产生公钥私钥对
 
-        ```bash
-        ssh-keygen
-        ```
+    ```bash
+    ssh-keygen
+    ```
 
-    2. 第二步:通过ssh-copy-id命令将公钥复制到远程机器中
+- 第二步:通过ssh-copy-id命令将公钥复制到远程机器中
 
-        ```bash
-        ssh-copy-id -i .ssh/id_rsa.pub  $user@192.168.x.xxx
-        ```
+    ```bash
+    ssh-copy-id -i .ssh/id_rsa.pub  $user@192.168.x.xxx
+    ```
 
-2. 编辑器打开 `rancher-cluster.yml` 文件,在nodes配置版块中，修改 `IP_ADDRESS_X` and `USER`为你真实的Linux主机IP和用户名,`ssh_key_path`为第一步生成的私钥文件，如果是在RKE所在主机上生成的公钥私钥对，此配置可保持默认:
+### 2、编辑`rancher-cluster.yml`配置文件
+
+编辑器打开 `rancher-cluster.yml` 文件,在nodes配置版块中，修改 `IP_ADDRESS_X` and `USER`为你真实的Linux主机IP和用户名,`ssh_key_path`为第一步生成的私钥文件，如果是在RKE所在主机上生成的公钥私钥对，此配置可保持默认:
 
 ```yaml
 nodes:
@@ -204,38 +205,38 @@ nodes:
 
 出于安全考虑，使用Rancher需要SSL加密。 SSL可以保护所有Rancher网络通信，例如登录或与群集交互时。
 
-1. 方案A — 使用自签名证书
+### 1、方案A — 使用自签名证书
 
-    >**先决条件:**
-    >
-    > - 证书必须是`PEM格式`；
-    > - 证书必须通过`base64`加密；
-    > - 在你的证书文件中，包含链中的所有中间证书；
+>**先决条件:**
+>
+> - 证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型](/docs/rancher/v2.x/cn/installation/self-signed-ssl/)；
+> - 证书必须通过`base64`加密；
+> - 在你的证书文件中，包含链中的所有中间证书；
 
-    在`kind: Secret`和`name: cattle-keys-ingress`中:
+在`kind: Secret`和`name: cattle-keys-ingress`中:
 
-    - 替换<BASE64_CA>为CA证书文件的base64编码字符串(通常称为ca.pem或ca.crt)
+- 替换<BASE64_CA>为CA证书文件的base64编码字符串(通常称为ca.pem或ca.crt)
 
-    >**注意:**
-    >base64编码的字符串应该与cacerts.pem在同一行，冒号后有一个空格，在开头，中间或结尾没有任何换行符。
+>**注意:**
+>base64编码的字符串应该与cacerts.pem在同一行，冒号后有一个空格，在开头，中间或结尾没有任何换行符。
 
-    结果：替换值后，文件应如下所示(base64编码的字符串应该不同)：
+结果：替换值后，文件应如下所示(base64编码的字符串应该不同)：
 
-    ```yaml
-    ---
-    apiVersion: v1
-    kind: Secret
-    metadata:
-      name: cattle-keys-server
-      namespace: cattle-system
-    type: Opaque
-    data:
-      cacerts.pem: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNvRENDQVlnQ0NRRHVVWjZuMEZWeU16QU5CZ2txaGtpRzl3MEJBUXNGQURBU01SQXdEZ1lEVlFRRERBZDAKWlhOMExXTmhNQjRYRFRFNE1EVXdOakl4TURRd09Wb1hEVEU0TURjd05USXhNRFF3T1Zvd0VqRVFNQTRHQTFVRQpBd3dIZEdWemRDMWpZVENDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFNQmpBS3dQCndhRUhwQTdaRW1iWWczaTNYNlppVmtGZFJGckJlTmFYTHFPL2R0RUdmWktqYUF0Wm45R1VsckQxZUlUS3UzVHgKOWlGVlV4Mmo1Z0tyWmpwWitCUnFiZ1BNbk5hS1hocmRTdDRtUUN0VFFZdGRYMVFZS0pUbWF5NU45N3FoNTZtWQprMllKRkpOWVhHWlJabkdMUXJQNk04VHZramF0ZnZOdmJ0WmtkY2orYlY3aWhXanp2d2theHRUVjZlUGxuM2p5CnJUeXBBTDliYnlVcHlad3E2MWQvb0Q4VUtwZ2lZM1dOWmN1YnNvSjhxWlRsTnN6UjVadEFJV0tjSE5ZbE93d2oKaG41RE1tSFpwZ0ZGNW14TU52akxPRUc0S0ZRU3laYlV2QzlZRUhLZTUxbGVxa1lmQmtBZWpPY002TnlWQUh1dApuay9DMHpXcGdENkIwbkVDQXdFQUFUQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUFHTCtaNkRzK2R4WTZsU2VBClZHSkMvdzE1bHJ2ZXdia1YxN3hvcmlyNEMxVURJSXB6YXdCdFJRSGdSWXVtblVqOGo4T0hFWUFDUEthR3BTVUsKRDVuVWdzV0pMUUV0TDA2eTh6M3A0MDBrSlZFZW9xZlVnYjQrK1JLRVJrWmowWXR3NEN0WHhwOVMzVkd4NmNOQQozZVlqRnRQd2hoYWVEQmdma1hXQWtISXFDcEsrN3RYem9pRGpXbi8walI2VDcrSGlaNEZjZ1AzYnd3K3NjUDIyCjlDQVZ1ZFg4TWpEQ1hTcll0Y0ZINllBanlCSTJjbDhoSkJqa2E3aERpVC9DaFlEZlFFVFZDM3crQjBDYjF1NWcKdE03Z2NGcUw4OVdhMnp5UzdNdXk5bEthUDBvTXl1Ty82Tm1wNjNsVnRHeEZKSFh4WTN6M0lycGxlbTNZQThpTwpmbmlYZXc9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
-    ```
+```yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cattle-keys-server
+  namespace: cattle-system
+type: Opaque
+data:
+    cacerts.pem: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNvRENDQVlnQ0NRRHVVWjZuMEZWeU16QU5CZ2txaGtpRzl3MEJBUXNGQURBU01SQXdEZ1lEVlFRRERBZDAKWlhOMExXTmhNQjRYRFRFNE1EVXdOakl4TURRd09Wb1hEVEU0TURjd05USXhNRFF3T1Zvd0VqRVFNQTRHQTFVRQpBd3dIZEdWemRDMWpZVENDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFNQmpBS3dQCndhRUhwQTdaRW1iWWczaTNYNlppVmtGZFJGckJlTmFYTHFPL2R0RUdmWktqYUF0Wm45R1VsckQxZUlUS3UzVHgKOWlGVlV4Mmo1Z0tyWmpwWitCUnFiZ1BNbk5hS1hocmRTdDRtUUN0VFFZdGRYMVFZS0pUbWF5NU45N3FoNTZtWQprMllKRkpOWVhHWlJabkdMUXJQNk04VHZramF0ZnZOdmJ0WmtkY2orYlY3aWhXanp2d2theHRUVjZlUGxuM2p5CnJUeXBBTDliYnlVcHlad3E2MWQvb0Q4VUtwZ2lZM1dOWmN1YnNvSjhxWlRsTnN6UjVadEFJV0tjSE5ZbE93d2oKaG41RE1tSFpwZ0ZGNW14TU52akxPRUc0S0ZRU3laYlV2QzlZRUhLZTUxbGVxa1lmQmtBZWpPY002TnlWQUh1dApuay9DMHpXcGdENkIwbkVDQXdFQUFUQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUFHTCtaNkRzK2R4WTZsU2VBClZHSkMvdzE1bHJ2ZXdia1YxN3hvcmlyNEMxVURJSXB6YXdCdFJRSGdSWXVtblVqOGo4T0hFWUFDUEthR3BTVUsKRDVuVWdzV0pMUUV0TDA2eTh6M3A0MDBrSlZFZW9xZlVnYjQrK1JLRVJrWmowWXR3NEN0WHhwOVMzVkd4NmNOQQozZVlqRnRQd2hoYWVEQmdma1hXQWtISXFDcEsrN3RYem9pRGpXbi8walI2VDcrSGlaNEZjZ1AzYnd3K3NjUDIyCjlDQVZ1ZFg4TWpEQ1hTcll0Y0ZINllBanlCSTJjbDhoSkJqa2E3aERpVC9DaFlEZlFFVFZDM3crQjBDYjF1NWcKdE03Z2NGcUw4OVdhMnp5UzdNdXk5bEthUDBvTXl1Ty82Tm1wNjNsVnRHeEZKSFh4WTN6M0lycGxlbTNZQThpTwpmbmlYZXc9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+```
 
-2. 方案B—使用权威CA机构颁发的证书
+### 2、方案B—使用权威CA机构颁发的证书
 
-    如果您使用的是权威CA机构颁发的证书，则不需要做任何操作。
+如果您使用的是权威CA机构颁发的证书，则不需要做任何操作。
 
 ## 九、域名配置
 
@@ -271,29 +272,29 @@ apiVersion: extensions/v1beta1
 
 完成所有配置后，您可以通过运行rke up命令并使用--config参数指定配置文件来完成Rancher 集群的安装。
 
-1. 下载RKE二进制文档到你的主机，确保 `rancher-cluster.yml`与下载的`rke` 在同一目录下；
+1、下载RKE二进制文档到你的主机，确保 `rancher-cluster.yml`与下载的`rke` 在同一目录下；
 
-2. 打开shell 终端，切换路径到RKE所在的目录；
+2、打开shell 终端，切换路径到RKE所在的目录；
 
-3. 根据操作系统类型，选择以下命令并执行：
+3、根据操作系统类型，选择以下命令并执行：
 
-    ```bash
-    # MacOS
-    ./rke_darwin-amd64 up --config rancher-cluster.yml
-    # Linux
-    ./rke_linux-amd64 up --config rancher-cluster.yml
-    ```
+```bash
+# MacOS
+./rke_darwin-amd64 up --config rancher-cluster.yml
+# Linux
+./rke_linux-amd64 up --config rancher-cluster.yml
+```
 
-    **结果:** 应该会有以下日志输出：
+**结果:** 应该会有以下日志输出：
 
-    ```bash
-    INFO[0000] Building Kubernetes cluster
-    INFO[0000] [dialer] Setup tunnel for host [1.1.1.1]
-    INFO[0000] [network] Deploying port listener containers
-    INFO[0000] [network] Pulling image [alpine:latest] on host [1.1.1.1]
-    ...
-    INFO[0101] Finished building Kubernetes cluster successfully
-    ```
+```bash
+INFO[0000] Building Kubernetes cluster
+INFO[0000] [dialer] Setup tunnel for host [1.1.1.1]
+INFO[0000] [network] Deploying port listener containers
+INFO[0000] [network] Pulling image [alpine:latest] on host [1.1.1.1]
+...
+INFO[0101] Finished building Kubernetes cluster successfully
+```
 
 ## 十二、备份自动生成的kubectl配置文件
 
@@ -308,75 +309,79 @@ apiVersion: extensions/v1beta1
 
 ## 十四、FAQ and Troubleshooting
 
-1. ### 我如何知道我的证书是否为PEM格式？
+### 1、我如何知道我的证书是否为PEM格式？
 
-    可以通过以下特征识别PEM格式：
+可以通过以下特征识别PEM格式：
 
-    - 该文件以下列标题开头：
-    `-----BEGIN CERTIFICATE-----`
-    - 标题后面跟着一串长字符
-    - 该文件以页脚结尾：
-    `-----END CERTIFICATE-----`
+```bash
+该文件以下列标题开头：
+-----BEGIN CERTIFICATE-----
+标题后面跟着一串长字符
+该文件以页脚结尾：
+-----END CERTIFICATE-----
+```
 
-    **PEM证书示例:**
+**PEM证书示例:**
 
-    ```bash
-    ----BEGIN CERTIFICATE-----
-    MIIGVDCCBDygAwIBAgIJAMiIrEm29kRLMA0GCSqGSIb3DQEBCwUAMHkxCzAJBgNV
-    ... more lines
-    VWQqljhfacYPgp8KJUJENQ9h5hZ2nSCrI+W00Jcw4QcEdCI8HL5wmg==
-    -----END CERTIFICATE-----
-    ```
-2. ### 如何对证书PEM进行base64加密？
+```bash
+----BEGIN CERTIFICATE-----
+MIIGVDCCBDygAwIBAgIJAMiIrEm29kRLMA0GCSqGSIb3DQEBCwUAMHkxCzAJBgNV
+... more lines
+VWQqljhfacYPgp8KJUJENQ9h5hZ2nSCrI+W00Jcw4QcEdCI8HL5wmg==
+-----END CERTIFICATE-----
+```
 
-    1. 登录终端，切换目录到证书所在目录；
+### 2、如何对证书PEM进行base64加密？
 
-    2. 根据操作系统类型，选择运行以下命令，替换FILENAME为你的证书名称。
+- 登录终端，切换目录到证书所在目录；
 
-        ```bash
-        # MacOS
-        cat FILENAME | base64
-        # Linux
-        cat FILENAME | base64 -w0
-        # Windows
-        certutil -encode FILENAME FILENAME.base64
-        ```
-
-3. ### 如何验证base64字符串对应的证书文件？
-
-    1. 复制生成的base64字符串；
-
-    2. 替换`YOUR_BASE64_STRING`,根据操作系统类型，选择运行以下命令:
-
-        ```bash
-        # MacOS
-        echo YOUR_BASE64_STRING | base64 -D
-        # Linux
-        echo YOUR_BASE64_STRING | base64 -d
-        # Windows
-        certutil -decode FILENAME.base64 FILENAME.verify
-        ```
-4. ### 如果我想添加我的中间证书，证书的顺序是什么？
-
-    添加证书的顺序如下：
+- 根据操作系统类型，选择运行以下命令，替换FILENAME为你的证书名称。
 
     ```bash
-    -----BEGIN CERTIFICATE-----
-    %YOUR_CERTIFICATE%
-    -----END CERTIFICATE-----
-    -----BEGIN CERTIFICATE-----
-    %YOUR_INTERMEDIATE_CERTIFICATE%
-    -----END CERTIFICATE-----
+    # MacOS
+    cat FILENAME | base64
+    # Linux
+    cat FILENAME | base64 -w0
+    # Windows
+    certutil -encode FILENAME FILENAME.base64
     ```
 
-5. ### 我如何验证我的证书链？
+### 3、如何验证base64字符串对应的证书文件？
 
-    你可以使用`openssl`二进制验证证书链。如果该命令的输出(参见下面的命令示例)结束`Verify return code: 0 (ok)`，那么证书链是有效的。该`ca.pem`文件必须与你添加到`rancher/rancher`容器中的文件相同。当使用由认可的认证机构签署的证书时，可以省略该`-CAfile`参数。
+- 复制生成的base64字符串；
 
-    **命令:**
+- 替换`YOUR_BASE64_STRING`,根据操作系统类型，选择运行以下命令:
 
     ```bash
-    openssl s_client -CAfile ca.pem -connect demo.rancher.com:443
-    ...
-    Verify return code: 0 (ok)
+    # MacOS
+    echo YOUR_BASE64_STRING | base64 -D
+    # Linux
+    echo YOUR_BASE64_STRING | base64 -d
+    # Windows
+    certutil -decode FILENAME.base64 FILENAME.verify
     ```
+
+### 4、如果我想添加我的中间证书，证书的顺序是什么？
+
+添加证书的顺序如下：
+
+```bash
+-----BEGIN CERTIFICATE-----
+%YOUR_CERTIFICATE%
+-----END CERTIFICATE-----
+-----BEGIN CERTIFICATE-----
+%YOUR_INTERMEDIATE_CERTIFICATE%
+-----END CERTIFICATE-----
+```
+
+### 5、如何验证我的证书链？
+
+你可以使用`openssl`二进制验证证书链。如果该命令的输出(参见下面的命令示例)结束`Verify return code: 0 (ok)`，那么证书链是有效的。该`ca.pem`文件必须与你添加到`rancher/rancher`容器中的文件相同。当使用由认可的认证机构签署的证书时，可以省略该`-CAfile`参数。
+
+**命令:**
+
+```bash
+openssl s_client -CAfile ca.pem -connect demo.rancher.com:443
+...
+Verify return code: 0 (ok)
+```

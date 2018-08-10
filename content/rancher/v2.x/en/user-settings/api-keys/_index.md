@@ -31,7 +31,7 @@ API Keys are composed of four components:
 
 4. Click **Create**.
 
-    **Step Result:** Your API Key is created. Your API **Endpoint**, **Access Key**, **Secret Key**, and **Bearer Token** are displayed.
+    **步骤结果:** Your API Key is created. Your API **Endpoint**, **Access Key**, **Secret Key**, and **Bearer Token** are displayed.
 
     Use the **Bearer Token** to authenticate with Rancher CLI.
 

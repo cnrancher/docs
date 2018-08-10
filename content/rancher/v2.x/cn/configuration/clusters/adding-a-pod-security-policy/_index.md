@@ -46,7 +46,7 @@ If you don't apply a PSP as you create your cluster, you can always add one late
 
     >**Note:** Not all cluster providers support PSPs, so this option may not be available.
 
-    **Step Result:** The **Default Pod Security Policy** drop-down activates.
+    **步骤结果:** The **Default Pod Security Policy** drop-down activates.
 
 4. From **Default Pod Security Policy**, select the PSP you want to apply to the cluster.
 

@@ -27,21 +27,21 @@ weight: 1
 
 ### 5、关闭防火墙(可选)或者放行相应端口
 
-对于刚刚接触Rancher的用户，建议在关闭防火墙的测试环境或桌面虚拟机来运行rancher，以避免网络通信问题。
+对于刚刚接触Rancher的用户，建议在关闭防火墙的测试环境或桌面虚拟机来运行rancher，以避免出现网络通信问题。
 
 - 关闭防火墙
 
-1. CentOS
+    1、CentOS
 
     `systemctl stop firewalld.service && systemctl disable firewalld.service`
 
-2. Ubuntu
+    2、Ubuntu
 
     `ufw disable`
 
 - 端口放行
 
-    端口放行请查看 [端口需求](/docs/rancher/v2.x/cn/installation/references/)
+    端口放行请查看[端口需求](/docs/rancher/v2.x/cn/installation/references/)
 
 ## 二、Docker安装与配置
 
@@ -124,13 +124,13 @@ weight: 1
 
 对于通过systemd来管理服务的系统(比如CentOS7.X、Ubuntu16.X), Docker有两处可以配置参数: 一个是`docker.service`服务配置文件,一个是Docker daemon配置文件daemon.json。
 
-1. docker.service
+1、docker.service
 
-    对于CentOS系统，`docker.service`默认位于`/usr/lib/systemd/system/docker.service`；对于Ubuntu系统，`docker.service`默认位于`/lib/systemd/system/docker.service`
+对于CentOS系统，`docker.service`默认位于`/usr/lib/systemd/system/docker.service`；对于Ubuntu系统，`docker.service`默认位于`/lib/systemd/system/docker.service`
 
-2. daemon.json
+2、daemon.json
 
-    daemon.json默认位于`/etc/docker/daemon.json`，如果没有可手动创建，基于systemd管理的系统都是相同的路径。通过修改`daemon.json`来改过Docker配置，也是Docker官方推荐的方法。
+daemon.json默认位于`/etc/docker/daemon.json`，如果没有可手动创建，基于systemd管理的系统都是相同的路径。通过修改`daemon.json`来改过Docker配置，也是Docker官方推荐的方法。
 
 > 以下说明均基于systemd,并通过`/etc/docker/daemon.json`来修改配置。
 
@@ -173,11 +173,14 @@ weight: 1
     OverlayFS是一个新一代的联合文件系统，类似于AUFS，但速度更快，实现更简单。Docker为OverlayFS提供了两个存储驱动程序：旧版的`overlay`，新版的`overlay2`(更稳定)。
 
   先决条件:
+
   - `overlay2`: Linux内核版本4.0或更高版本，或使用内核版本3.10.0-514+的RHEL或CentOS。
   - `overlay`: 主机Linux内核版本3.18+
   - 支持的磁盘文件系统
+  
     - ext4（仅限RHEL 7.1）
     - xfs（RHEL7.2及更高版本），需要启用d_type=true。
+
     > 具体详情参考 [Docker Use the OverlayFS storage driver](https://docs.docker.com/storage/storagedriver/overlayfs-driver/)
 
     编辑`/etc/docker/daemon.json`加入以下内容

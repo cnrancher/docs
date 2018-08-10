@@ -81,10 +81,10 @@ x509的证书编码格式有两种:
     使用openssl工具生成一个RSA私钥
 
     ```bash
-    openssl genrsa -aes250 -out server-private.key 2048
+    openssl genrsa -aes256 -out server.key 2048
     ```
 
-    > 说明：生成rsa私钥，aes250算法，2048位强度，server.key是秘钥文件名。
+    > 说明：生成rsa私钥，aes256算法，2048位强度，server.key是秘钥文件名。
     >
     > 注意：生成私钥，需要提供一个至少4位的密码。
 
@@ -97,7 +97,7 @@ x509的证书编码格式有两种:
     具体操作如下：
 
     ```bash
-    openssl req -new -key server-private.key -out server.csr
+    openssl req -new -key server.key -out server.csr
     ```
 
     > 说明：需要依次输入国家，地区，城市，组织，组织单位，Common Name和Email。其中Common Name，可以写自己的名字或者域名，如果要支持https，Common Name应该与域名保持一致，否则会引起浏览器警告。
@@ -119,15 +119,14 @@ x509的证书编码格式有两种:
     要删除私钥中的密码，操作如下：
 
     ```bash
-    cp server-private.key server-private.key.org
-    openssl rsa -in server-private.key.org -out server-private.key.org.key
-    rm -rf server-private.key.org
+    mv server.key server.key.bak
+    openssl rsa -in server.key.bak -out server.key
     ```
 
 - 4.生成自签名证书
 
     ```bash
-    openssl x509 -req -days 365 -in server.csr -signkey server-private.key.org.key -out server-ca.crt
+    openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
     ```
   > 生成一个有效期为365天的自签名证书
 
@@ -140,31 +139,21 @@ x509的证书编码格式有两种:
 - 2.生成root CA自签名证书
 
     `openssl req -new -x509 -days 7300 -key root-ca.key -sha256 -out root-ca.crt`
+
     ```bash
     Country Name(2 letter code)[AU]: CN
     State or Province Name(full name)[Some-State]: Beijing
     Locality Name(eg, city)[]: Beijing
     Organization Name(eg, company)[Internet Widgits Pty Ltd]: rancher
     Organizational Unit Name(eg, section)[]: info technology
-    Common Name(e.g. server FQDN or YOUR name)[]: ca.rancher.com
+    Common Name(e.g. server FQDN or YOUR name)[]: .rancher.com
     Email Address []: xxx@qq.com
     ```
 - 3.生成服务端(web)私钥
 
     `openssl genrsa -aes256 -out server.key 4096`
 
-- 4.删除私钥中的密码
-
-    在上一步创建私钥的过程中，由于必须要指定一个密码，而这个密码会带来一个副作用，那就是在每次启动Web服务器时，都会要求输入密码，这显然非常不方便。
-    要删除私钥中的密码，操作如下：
-
-    ```bash
-    cp server.key server.key.bak
-    mv server.key server.key.org
-    openssl rsa -in server.key.org -out server.key
-    rm -rf server.key.org
-    ```
-- 5.为服务端(web)生成证书签名请求文件
+- 4.为服务端(web)生成证书签名请求文件
 
     `openssl req -new  -sha256  -key server.key -out server.csr`
 
@@ -177,7 +166,17 @@ x509的证书编码格式有两种:
     Common Name(e.g. server FQDN or YOUR name)[]: demo.rancher.com
     Email Address []: xxx@qq.com
     ```
-    >注意: Commone Name一定要是你要授予证书的服务器域名或主机名，并且不能与challenge password不填。
+    >注意: `Commone Name`一定要是你要授予证书的服务器域名或主机名，并且不能与生成root CA自签名证书的`Commone Name`相同，challenge password可以不填。
+
+- 5.删除私钥中的密码
+
+    在上一步创建私钥的过程中，由于必须要指定一个密码，而这个密码会带来一个副作用，那就是在每次启动Web服务器时，都会要求输入密码，这显然非常不方便。
+    要删除私钥中的密码，操作如下：
+
+    ```bash
+    mv server.key server.key.bak
+    openssl rsa -in server.key.bak -out server.key
+    ```
 
 - 6.用`第二步`创建的CA证书给`第四步`生成的签名请求进行签名
 

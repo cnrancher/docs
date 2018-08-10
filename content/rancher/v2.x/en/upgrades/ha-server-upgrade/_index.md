@@ -33,7 +33,7 @@ kubectl --kubeconfig=kube_config_rancher-cluster.yml set image deployment/cattle
     ```
     Replace `<VERSION_TAG>` with the version that you want to upgrade to. For a list of tags available, see the [Rancher Forum Announcements](https://forums.rancher.com/c/announcements).
 
-    **Step Result:** The upgrade begins. Rancher Server may be unavailable for a few minutes.
+    **步骤结果:** The upgrade begins. Rancher Server may be unavailable for a few minutes.
 
 1. Log into Rancher. Confirm that the upgrade succeeded by checking the version displayed in the bottom-left corner of the browser window.
 

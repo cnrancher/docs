@@ -38,7 +38,7 @@ Clusters provisioned using [one of the node pool options]({{< baseurl >}}/ranche
 1. From the Node Pool cluster, select **Nodes** from the main menu.
 1. Find the node that you want to remote into. Select **Ellipsis (...) > Download Keys**.
 
-    **Step Result:** A ZIP file containing files used for SSH is downloaded.
+    **步骤结果:** A ZIP file containing files used for SSH is downloaded.
 
 1. Extract the ZIP file to any location.
 1. Open Terminal. Change your location to the extracted ZIP file.
