@@ -6,7 +6,7 @@ Rancher 支持使用 `docker machine` 来管理 [Rackspace](http://www.rackspace
 
 ### 获取Rackspace访问凭证
 
-为了能启动 Rackspace 主机，需要获取由 Rackspace 提供的 **API Key(接口密钥)**。首先，登录 Rackspace，然后：
+为了能启动 Rackspace 主机，需要获取由 Rackspace 提供的 **API Key(接口密钥)**。首先，登录 Rackspace，然后:
 
 1. 切换到 Account Settings(账户设置界面)；
 

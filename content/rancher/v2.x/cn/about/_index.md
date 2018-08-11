@@ -5,7 +5,7 @@ weight: 9
 
 ## 代码库
 
-所有的代码库都位于我们的主要GitHub组织内，Rancher使用了许多代码库，我们将对Rancher使用的一些主要代码库进行描述：
+所有的代码库都位于我们的主要GitHub组织内，Rancher使用了许多代码库，我们将对Rancher使用的一些主要代码库进行描述:
 
 - [Rancher Repo](https://github.com/rancher/rancher): Rancher 2.x代码库。
 

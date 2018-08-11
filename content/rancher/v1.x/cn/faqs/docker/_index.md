@@ -37,7 +37,7 @@ WARNING: No swap limit support
 WARNING: No kernel memory limit support
 WARNING: No oom kill disable support 
 ```
-编辑`/etc/default/grub` 文件，并设置：
+编辑`/etc/default/grub` 文件，并设置:
 `GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"`
 
 接着

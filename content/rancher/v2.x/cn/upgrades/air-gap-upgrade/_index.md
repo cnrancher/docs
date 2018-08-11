@@ -11,6 +11,6 @@ weight: 1500
 
   2. 按照[单节点安装升级](/docs/rancher/v2.x/cn/upgrades/single-node-upgrade/)的操作步骤完成升级
 
-      >**注意：** 在单节点升级时，请在运行docker run命令时将私有镜像仓库地址添加到镜像名中。
+      >**注意:** 在单节点升级时，请在运行docker run命令时将私有镜像仓库地址添加到镜像名中。
       >
       >例如: `docker run -d <registry.yourdomain.com:port>/rancher/rancher:latest`

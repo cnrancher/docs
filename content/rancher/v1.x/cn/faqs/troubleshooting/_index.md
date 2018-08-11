@@ -83,7 +83,7 @@ ipsec:
           - dst: 169.254.169.250/32
 ```
 
-> **注意：** 随着Rancher通过升级基础服务来更新子网，以前通过API更新子网的方法将不再适用。
+> **注意:** 随着Rancher通过升级基础服务来更新子网，以前通过API更新子网的方法将不再适用。
 
 ### 4、VXLAN 网络模式下，跨主机容器无法通信
 Vxlan 通过4789端口实现通信，检查防火墙有没有开放此端口；
@@ -99,7 +99,7 @@ Vxlan 通过4789端口实现通信，检查防火墙有没有开放此端口；
 cat /etc/rancher-dns/answers.json
 ```
 ### 八、在Ubuntu上运行容器时彼此间不能正常通信。
-如果你的系统开启了`UFW`，请关闭`UFW`或更改`/etc/default/ufw`中的策略为：
+如果你的系统开启了`UFW`，请关闭`UFW`或更改`/etc/default/ufw`中的策略为:
 
 ```
 DEFAULT_FORWARD_POLICY="ACCEPT"
@@ -138,15 +138,15 @@ Rancher上应用的调度，需要配合健康检查功能。当健康检查检�
 ## 七、CentOS
 ### 1、为什么容器无法连接到网络?
 
-如果你在主机上运行一个容器(如：`docker run -it ubuntu`)该容器不能与互联网或其他主机通信，那可能是遇到了网络问题。
+如果你在主机上运行一个容器(如:`docker run -it ubuntu`)该容器不能与互联网或其他主机通信，那可能是遇到了网络问题。
 Centos默认设置`/proc/sys/net/ipv4/ip_forward`为`0`，这从底层阻断了Docker所有网络。
 
-解决办法：
+解决办法:
 
 ```bash
 vi /usr/lib/sysctl.d/00-system.conf
 ```
-添加如下代码：
+添加如下代码:
 
 ```
 net.ipv4.ip_forward=1
@@ -171,4 +171,4 @@ sysctl net.ipv4.ip_forward
 ### 1、京东云运行rancher server 出现以下问题
 ![]( img/jd.jpg )
 
-解决办法：```sudo sysctl -w net.ipv4.tcp_mtu_probing=1```
+解决办法:```sudo sysctl -w net.ipv4.tcp_mtu_probing=1```

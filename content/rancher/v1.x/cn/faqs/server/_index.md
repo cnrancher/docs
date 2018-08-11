@@ -7,7 +7,7 @@ title: Rancher Server常见问题
 需要注意运行rancher server 容器时，不要使用host模式。程序中有些地方定义的是localhost或者127.0.0.1，如果容器网络设置为host，将会去访问宿主机资源，因为宿主机并没有相应资源，rancher server 容器启动就出错。
 
 ```bash
-PS：docker命令中，如果使用了 --network host参数，那后面再使用-p 8080:8080 就不会生效。
+PS:docker命令中，如果使用了 --network host参数，那后面再使用-p 8080:8080 就不会生效。
 ```
 ```
 docker run -d -p 8080:8080 rancher/server:stable
@@ -37,7 +37,7 @@ Rancher的版本位于UI的页脚的左侧。 如果你点击版本号，将可�
 
 如果你有添加了健康检查功能的服务自动调度到状态`Disconnected`主机上，CATTLE会将这些服务重新调度到其他主机上。
 ```
-PS：如果使用了标签调度，如果你有多台主机就有相同的调度标签，那么服务会调度到其他具有调度标签的节点上；如果选择了指定运行到某台主机上，那主机删除后你的应用将无法在其他主机上自动运行。
+PS:如果使用了标签调度，如果你有多台主机就有相同的调度标签，那么服务会调度到其他具有调度标签的节点上；如果选择了指定运行到某台主机上，那主机删除后你的应用将无法在其他主机上自动运行。
 ```
 ### 5、我如何在代理服务器后配置主机？
 
@@ -113,7 +113,7 @@ Rancher Server会自动清理几个数据库表，以防止数据库增长太快
 ```
 #### 释放数据库锁
 
-> **注意：** 请不要释放数据库锁，除非有相关日志锁的**异常**。如果是由于数据迁移导致升级时间过长，在这种情况下释放数据库锁，可能会使你遇到其他迁移问题。
+> **注意:** 请不要释放数据库锁，除非有相关日志锁的**异常**。如果是由于数据迁移导致升级时间过长，在这种情况下释放数据库锁，可能会使你遇到其他迁移问题。
 
 如果你已根据升级文档创建了Rancher Server的数据容器，你需要`exec`到`rancher-data`容器中升级`DATABASECHANGELOGLOCK`表并移除锁，如果你没有创建数据容器，你用`exec`到包含有你数据库的容器中。
 
@@ -145,14 +145,14 @@ mysql> select * from DATABASECHANGELOGLOCK;
 
 如果你的身份认证出现问题(例如管理员密码忘记)，则可能无法访问Rancher。 要重新获得对Rancher的访问权限，你需要在数据库中关闭访问控制。 为此，你需要访问运行Rancher Server的主机。
 
-ps：假设在重置访问控制之前有创建过其他用户，那么在认证方式没有变化的情况下，重置访问控制除了超级管理员(第一个被创建的管理员，ID为1a1)，其他用户账号信息不会受影响。
+ps:假设在重置访问控制之前有创建过其他用户，那么在认证方式没有变化的情况下，重置访问控制除了超级管理员(第一个被创建的管理员，ID为1a1)，其他用户账号信息不会受影响。
 
 * 假设数据库为rancher内置数据库
 
 ```bash
 docker exec -it <rancher_server_container_ID> mysql
 ```
-> **注意：** 这个 `<rancher_server_container_ID>`是具有Rancher数据库的容器。 如果你升级并创建了一个Rancher数据容器，则需要使用Rancher数据容器的ID而不是Rancher Server容器，rancher内置数据库默认密码为空。
+> **注意:** 这个 `<rancher_server_container_ID>`是具有Rancher数据库的容器。 如果你升级并创建了一个Rancher数据容器，则需要使用Rancher数据容器的ID而不是Rancher Server容器，rancher内置数据库默认密码为空。
 
 * 选择Cattle数据库。
 
@@ -258,7 +258,7 @@ http://X.X.X.X/v1/settings/catalog.refresh.interval.seconds 默认300秒 可以�
 ```
 点击self 后的相应类型，比如"self": "…/v2-beta/settings/logback.max.history" 可以做相应参数调整。
 
-相应issue：https://github.com/rancher/rancher/issues/9887
+相应issue:https://github.com/rancher/rancher/issues/9887
 
 ### 19、Rancher server 如何免密更新Catalog
 在配置
@@ -269,7 +269,7 @@ https://{username}:{password}@github.com/{repo}
 ```
 ### 20、修改server 日志等级
 
-默认情况下，server日志记录等级为INFO，可以按照以下方法修改：
+默认情况下，server日志记录等级为INFO，可以按照以下方法修改:
 
 通过打开 http://rancher_url:8080/v2-beta/settings/auth.service.log.level ,
 
@@ -289,7 +289,7 @@ https://{username}:{password}@github.com/{repo}
 
 ### 21、禁止新用户不创建default 环境
 
-默认情况下，新用户第一次登录会创建default环境，通过设置API可以禁止此设置：
+默认情况下，新用户第一次登录会创建default环境，通过设置API可以禁止此设置:
 
 通过打开 http://rancher_url:8080/v2-beta/settings/project.create.default
 

@@ -12,17 +12,17 @@ weight: 420
 
 在创建Mesos环境后，你可以在左上角环境的下拉菜单中切换到你的环境，或者在环境管理页面中，在对应环境的下拉选项中点击 **切换到此环境** 。
 
-> **注意：** Rancher支持多种容器编排引擎框架，但Rancher目前不支持在已有运行服务的环境里切换容器编排引擎。
+> **注意:** Rancher支持多种容器编排引擎框架，但Rancher目前不支持在已有运行服务的环境里切换容器编排引擎。
 
 ### 启动 Mesos
 
 在Mesos环境被创建后，在你添加一台主机到这个环境之前，[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)是不会启动的。**Mesos**服务需要至少3个主机节点。[添加主机](/docs/rancher/v1.x/cn/infrastructure/hosts/)的过程与其他编排引擎相同。一旦第一个主机被添加成功，Rancher将会自动启动基础设施服务，包括Mesos的组件(例如mesos-master，mesos-agent以及zookeeper)。你可以在 **Mesos**页面看到部署的过程。
 
-> **注意：** 只有Rancher的管理员或者环境的所有者才能够看到[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)。
+> **注意:** 只有Rancher的管理员或者环境的所有者才能够看到[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)。
 
 ### 使用 Mesos
 
-当安装成功后，你可以通过以下的方式开始创建或者管理你的Mesos应用：
+当安装成功后，你可以通过以下的方式开始创建或者管理你的Mesos应用:
 
 #### Mesos UI
 

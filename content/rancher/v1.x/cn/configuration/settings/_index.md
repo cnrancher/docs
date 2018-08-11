@@ -14,7 +14,7 @@ Rancher通过该设置确定你的主机连接Rancher API所用的URL。默认�
 
 ### 应用商店
 
-默认情况下，[应用商店](/docs/rancher/v1.x/cn/configuration/catalog/)有三类可使用的应用：
+默认情况下，[应用商店](/docs/rancher/v1.x/cn/configuration/catalog/)有三类可使用的应用:
 
 * [Rancher基础设施](https://github.com/rancher/infra-catalog)所有基础设施服务的模版。
 * [Rancher官方认证](https://github.com/rancher/rancher-catalog)包括Rancher认证过的应用模版。

@@ -31,7 +31,7 @@ Path (Health Check)         | `/healthz`
 
 4、选择**应用负载均衡**；
 
-5、**步骤 1：配置Load Balancer**:
+5、**步骤 1:配置Load Balancer**:
 
 基础配置
 
@@ -39,7 +39,7 @@ Path (Health Check)         | `/healthz`
 - Scheme: `internet-facing`
 - IP address type: `ipv4`
 
-**监听**：添加**负载协议**和**负载端口**
+**监听**:添加**负载协议**和**负载端口**
 
 - `HTTP`: `80`
 - `HTTPS`: `443`
@@ -62,7 +62,7 @@ Path (Health Check)         | `/healthz`
 
 9、**步骤 5: 注册目标**
 
-由于您之前已经注册了目标，所以您只需单击下一步：**审核**；
+由于您之前已经注册了目标，所以您只需单击下一步:**审核**；
 
 10、**步骤 6: 审核**
 

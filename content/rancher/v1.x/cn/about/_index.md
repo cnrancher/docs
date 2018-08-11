@@ -13,17 +13,17 @@ weight: 1000
 
 我们的所有代码都在我们的Github[主页](https://github.com/rancher)。 这些代码库有很多为Rancher所用，下面是其中Rancher用到的主要的代码库的描述。
 
-[Rancher](https://github.com/rancher/rancher)： Rancher的主要代码库，它整合了很多其它的代码库.
+[Rancher](https://github.com/rancher/rancher): Rancher的主要代码库，它整合了很多其它的代码库.
 
-[Cattle](https://github.com/rancher/cattle)：Rancher所开发的主要功能代码库。
+[Cattle](https://github.com/rancher/cattle):Rancher所开发的主要功能代码库。
 
 [UI](https://github.com/rancher/ui): Rancher UI代码库。
 
 [Rancher Catalog](https://github.com/rancher/rancher-catalog): 这个代码库包含了大多数[应用商店](/docs/rancher/v1.x/cn/catalog) [基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)模板。这些模板(在`infra-templates`目录中)，在[环境(environments)](/docs/rancher/v1.x/cn/configuration/environments/)中被用做[环境模版](/docs/rancher/v1.x/cn/configuration/environments/#什么是环境模版)的一部分。我们欢迎社区参与Rancher开发。
 
-[Community Catalog](https://github.com/rancher/community-catalog)： 这个代码库包含了所有社区贡献的 [Rancher 应用商店](/docs/rancher/v1.x/cn/catalog)模板。我们欢迎社区参与Rancher应用商店模板的开发。
+[Community Catalog](https://github.com/rancher/community-catalog): 这个代码库包含了所有社区贡献的 [Rancher 应用商店](/docs/rancher/v1.x/cn/catalog)模板。我们欢迎社区参与Rancher应用商店模板的开发。
 
-[Rancher CLI](https://github.com/rancher/cli)： [Rancher 命令行](/docs/rancher/v1.x/cn/infrastructure/cli/)基于此代码库。
+[Rancher CLI](https://github.com/rancher/cli): [Rancher 命令行](/docs/rancher/v1.x/cn/infrastructure/cli/)基于此代码库。
 
 [Rancher Compose](https://github.com/rancher/rancher-compose): [Rancher Compose](/docs/rancher/v1.x/cn/infrastructure/cattle/rancher-compose/)命令行基于此代码库。 此代码库和 docker/libcompose 保持同步。
 

@@ -11,7 +11,7 @@ weight: 30
 
 1. Nginx ingress无法为`rancher-cluster.yml`配置的应用提供代理服务
 
-    这应该是您为访问Rancher的FQDN配置错误，您可以通过运行以下命令来检查它是否已正确配置：
+    这应该是您为访问Rancher的FQDN配置错误，您可以通过运行以下命令来检查它是否已正确配置:
 
     ```bash
     kubectl --kubeconfig kube_config_rancher-cluster.yml get ingress -n cattle-system -o wide
@@ -19,7 +19,7 @@ weight: 30
 
     检查`HOSTS`是否与配置文件的`<FQDN>`相同，以及列出的`ADDRESS`是否与配置文件配置的主机IP相同
 
-    通过以下命令查看nginx ingress日志：
+    通过以下命令查看nginx ingress日志:
 
     ```bash
     kubectl --kubeconfig kube_config_rancher-cluster.yml logs -l app=ingress-nginx -n ingress-nginx

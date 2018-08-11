@@ -5,7 +5,7 @@ Rancher 通过使用 `docker machine` 来管理 [DigitalOcean](https://www.digit
 
 ### 获取DigitalOcean访问凭证
 
-为了能启动 DigitalOcean 主机, 需要获取由 DigitalOcean 提供的 **Personal Access Token(私有访问令牌)** 。 首先，登录 DigitalOcean，然后：
+为了能启动 DigitalOcean 主机, 需要获取由 DigitalOcean 提供的 **Personal Access Token(私有访问令牌)** 。 首先，登录 DigitalOcean，然后:
 
 1. 切换到 [Apps & API(应用及接口)](https://cloud.digitalocean.com/settings/applications)页面；
 

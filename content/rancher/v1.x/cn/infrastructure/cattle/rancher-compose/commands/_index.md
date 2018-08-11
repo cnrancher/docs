@@ -87,7 +87,7 @@ $ rancher-compose -p stack1 up web
 
 <br>
 
-> **注意：** 如果你没有传入 `-p <STACK_NAME>`，应用名就是你执行Rancher Compose命令所在的文件夹名称。
+> **注意:** 如果你没有传入 `-p <STACK_NAME>`，应用名就是你执行Rancher Compose命令所在的文件夹名称。
 
 #### 使用 `--env-file` 选项
 
@@ -223,7 +223,7 @@ $ rancher-compose pull --cached
 
 <br>
 
-> **注意：** 不同于 `docker-compose pull`, 你不可以指定拉取哪些服务的镜像，Rancher Compose 会拉取所有在 `docker-compose.yml` 里的服务镜像。
+> **注意:** 不同于 `docker-compose pull`, 你不可以指定拉取哪些服务的镜像，Rancher Compose 会拉取所有在 `docker-compose.yml` 里的服务镜像。
 
 #### upgrade 命令
 

@@ -21,7 +21,7 @@ Rancher 支持将资源分组归属到多个环境。每个环境具有自己独
 
 点击 **添加环境**。每个环境都有自己的名字和描述，你可以选择你要使用的环境模板。在环境模板中，你可以看到哪个基础设施服务是启用的。
 
-> **注意：** 如果没有配置 [访问控制](/docs/rancher/v1.x/cn/configuration/access-control/)， 所有环境都可以被其它 Rancher 的用户访问到。 环境没有任何所属关系。
+> **注意:** 如果没有配置 [访问控制](/docs/rancher/v1.x/cn/configuration/access-control/)， 所有环境都可以被其它 Rancher 的用户访问到。 环境没有任何所属关系。
 
 有两种方法可以将成员添加到一个环境里:
 
@@ -30,7 +30,7 @@ Rancher 支持将资源分组归属到多个环境。每个环境具有自己独
 
 你可以把每个成员(既个人、团队、或组织)的角色设置为[所有者](#所有者)、[成员](#成员)、[受限制的成员](#受限)或[只读用户](#只读)中的一个。默认情况下，新添加的用户角色为[成员](#成员)。通过用户名旁边的下拉框，可以改变相应用户的角色. 对于环境所有者，你可以随时编辑成员列表以及成员角色。 只有环境的所有者能编辑环境的成员以及其角色。
 
-> **注意：** 只有所有者和管理员才能查看环境的[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)。
+> **注意:** 只有所有者和管理员才能查看环境的[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)。
 
 点击 **创建** 会创建一个环境，所有在成员列表中的用户都立即可以看到这个环境。创建完环境并且添加主机后，Rancher会开始自动部署已启用的基础设施服务。
 
@@ -65,14 +65,14 @@ Rancher 支持将资源分组归属到多个环境。每个环境具有自己独
 
 对受限成员的限制体现在他们对主机的操作上。受限成员只能查看一个环境的主机，而不能添加，编辑，移除环境的主机。
 
-> **注意：** 受限成员不能添加、移除主机标签，只有成员和所有者才能改变主机的标签。
+> **注意:** 受限成员不能添加、移除主机标签，只有成员和所有者才能改变主机的标签。
 
 
 #### 只读
 只读成员只能查看环境的资源。 他们可以查看 主机、应用、服务和容器。但只读成员不能对它们作任何创建、编辑和移除操作。
 
 
-> **注意：** 只读成员可以查看容器的日志。
+> **注意:** 只读成员可以查看容器的日志。
 
 为了使非`所有者`可以设置环境的成员，你可以通过更新API配置[`project.set.member.roles`](/docs/rancher/v1.x/cn/api/v2-beta/api-resources/setting/)来实现这一点。
 
@@ -84,7 +84,7 @@ Rancher 支持将资源分组归属到多个环境。每个环境具有自己独
 
 在和其它用户共享环境前， 我们推荐先设置好[访问控制](/docs/rancher/v1.x/cn/configuration/access-control/)。用户被加入一个环境后, 他们就拥有了创建服务和管理资源的权限。
 
-> **注意：** 基础设施资源不可夸环境共享。[镜像仓库](/docs/rancher/v1.x/cn/configuration/environments/registries/)、[证书](/docs/rancher/v1.x/cn/configuration/environments/certificates/) 和环境[API密钥](/docs/rancher/v1.x/cn/api/v2-beta/api-keys/)也不能夸环境。
+> **注意:** 基础设施资源不可夸环境共享。[镜像仓库](/docs/rancher/v1.x/cn/configuration/environments/registries/)、[证书](/docs/rancher/v1.x/cn/configuration/environments/certificates/) 和环境[API密钥](/docs/rancher/v1.x/cn/api/v2-beta/api-keys/)也不能夸环境。
 
 ### 添加环境模版
 

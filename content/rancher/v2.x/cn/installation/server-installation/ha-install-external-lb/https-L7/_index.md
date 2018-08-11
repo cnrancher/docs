@@ -33,7 +33,7 @@ weight: 4
 
 - Docker
 
-    > **注意：**如果你使用的是RancherOS，请确保你将Docker引擎切换为受支持的版本`sudo ros engine switch docker-17.03.2-ce`
+    > **注意:**如果你使用的是RancherOS，请确保你将Docker引擎切换为受支持的版本`sudo ros engine switch docker-17.03.2-ce`
 
     **支持的Docker版本**
 
@@ -43,7 +43,7 @@ weight: 4
 
     [Docker安装说明](https://docs.docker.com/install/)
 
-    > **注意：** 该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请查阅[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。
+    > **注意:** 该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请查阅[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。
     >
     > 更多Rancher server tag列表，请查阅[Rancher server tags](/docs/rancher/v2.x/cn/installation/server-tags/)。
 
@@ -69,7 +69,7 @@ weight: 4
 | `X-Forwarded-Proto` | `https`                                | To identify the protocol that a client used to connect to the load balancer.<br /><br/>**Note:** If this header is present, `rancher/rancher` does not redirect HTTP to HTTPS. |
 | `X-Forwarded-Port`  | Port used to reach Rancher.             | To identify the protocol that client used to connect to the load balancer.                                                                                       |
 | `X-Forwarded-For`   | IP of the client connection.            | To identify the originating IP address of a client.                                                                                                                       |
-我们有以下负载均衡器的示例配置：
+我们有以下负载均衡器的示例配置:
 
 - [Amazon ALB](./alb)
 - [nginx](./nginx)
@@ -107,7 +107,7 @@ weight: 4
 
 ### 2、方案2 - 无DNS服务器
 
-如果环境为内部网络且无DNS服务器，可以通过修改客户端的`/etc/hosts`文件，添加相应的条目。比如：
+如果环境为内部网络且无DNS服务器，可以通过修改客户端的`/etc/hosts`文件，添加相应的条目。比如:
 
 ![image-20180711140926370](/docs/img/rancher/ha/image-20180711140926370.png)
 
@@ -115,7 +115,7 @@ weight: 4
 
 RKE是一种快速，通用的Kubernetes安装程序，可用于在Linux主机上安装Kubernetes。我们将使用RKE来配置Kubernetes集群并运行Rancher。
 
-1、打开浏览器访问[下载文件](/docs/rancher/v2.x/cn/installation/download/)页面，根据你操作系统类型下载最新版本的RKE：
+1、打开浏览器访问[下载文件](/docs/rancher/v2.x/cn/installation/download/)页面，根据你操作系统类型下载最新版本的RKE:
 
 - **MacOS**: `rke_darwin-amd64`
 - **Linux**: `rke_linux-amd64`
@@ -132,7 +132,7 @@ $ chmod +x rke_darwin-amd64
 $ chmod +x rke_linux-amd64
 ```
 
-3、确认RKE是否是最新版本：
+3、确认RKE是否是最新版本:
 
 ```bash
 # MacOS
@@ -151,7 +151,7 @@ rke version v<N.N.N>
 
 RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板可供选择，具体取决于使用的SSL证书类型。
 
-### 1、根据你使用的SSL证书类型，选择模板下载：
+### 1、根据你使用的SSL证书类型，选择模板下载:
 
 - [Template for self-signed certificate<br/> `3-node-externalssl-certificate.yml`](https://raw.githubusercontent.com/rancher/rancher/58e695b51096b1f404188379cea6f6a35aea9e4c/rke-templates/3-node-externalssl-certificate.yml)
 
@@ -220,7 +220,7 @@ nodes:
 >**注意:**
 >base64编码的字符串应该与cacerts.pem在同一行，冒号后有一个空格，在开头，中间或结尾没有任何换行符。
 
-结果：替换值后，文件应如下所示(base64编码的字符串应该不同)：
+结果:替换值后，文件应如下所示(base64编码的字符串应该不同):
 
 ```yaml
 ---
@@ -242,7 +242,7 @@ data:
 
 RKE配置文件中有一个`<FQDN>`引用,编辑配置文件替换`<FQDN>`:
 
-**结果**: 替换值后，文件应如下所示(base64编码的字符串应该不同)：
+**结果**: 替换值后，文件应如下所示(base64编码的字符串应该不同):
 
 ```yaml
 apiVersion: extensions/v1beta1
@@ -276,7 +276,7 @@ apiVersion: extensions/v1beta1
 
 2、打开shell 终端，切换路径到RKE所在的目录；
 
-3、根据操作系统类型，选择以下命令并执行：
+3、根据操作系统类型，选择以下命令并执行:
 
 ```bash
 # MacOS
@@ -285,7 +285,7 @@ apiVersion: extensions/v1beta1
 ./rke_linux-amd64 up --config rancher-cluster.yml
 ```
 
-**结果:** 应该会有以下日志输出：
+**结果:** 应该会有以下日志输出:
 
 ```bash
 INFO[0000] Building Kubernetes cluster
@@ -304,20 +304,20 @@ INFO[0101] Finished building Kubernetes cluster successfully
 
 你有几个选择:
 
-- 创建Rancher server的备份：[单节点备份和恢复](/docs/rancher/v2.x/cn/backups-and-restoration/backups/single-node-backups/)。
-- 创建一个Kubernetes集群：[创建一个集群](/docs/rancher/v2.x/cn/configuration/clusters/creating-a-cluster/)。
+- 创建Rancher server的备份:[单节点备份和恢复](/docs/rancher/v2.x/cn/backups-and-restoration/backups/single-node-backups/)。
+- 创建一个Kubernetes集群:[创建一个集群](/docs/rancher/v2.x/cn/configuration/clusters/creating-a-cluster/)。
 
 ## 十四、FAQ and Troubleshooting
 
 ### 1、我如何知道我的证书是否为PEM格式？
 
-可以通过以下特征识别PEM格式：
+可以通过以下特征识别PEM格式:
 
 ```bash
-该文件以下列标题开头：
+该文件以下列标题开头:
 -----BEGIN CERTIFICATE-----
 标题后面跟着一串长字符
-该文件以页脚结尾：
+该文件以页脚结尾:
 -----END CERTIFICATE-----
 ```
 
@@ -363,7 +363,7 @@ VWQqljhfacYPgp8KJUJENQ9h5hZ2nSCrI+W00Jcw4QcEdCI8HL5wmg==
 
 ### 4、如果我想添加我的中间证书，证书的顺序是什么？
 
-添加证书的顺序如下：
+添加证书的顺序如下:
 
 ```bash
 -----BEGIN CERTIFICATE-----

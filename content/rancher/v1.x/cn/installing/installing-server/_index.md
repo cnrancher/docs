@@ -14,7 +14,7 @@ Rancher是使用一系列的Docker容器进行部署的。运行Rancher跟启动
 * [Rancher Server - 在HTTP代理后方启动 Rancher Server](#http-proxy)
 * [Rancher Server - 通过SSL连接MySQL](#mysql-ssl)
 
-> **注意：** 你可以运行Rancher Server的容器的命令 `docker run rancher/server --help` 来获得所有选项以及帮助信息。
+> **注意:** 你可以运行Rancher Server的容器的命令 `docker run rancher/server --help` 来获得所有选项以及帮助信息。
 
 ### 安装需求
 
@@ -32,7 +32,7 @@ Rancher是使用一系列的Docker容器进行部署的。运行Rancher跟启动
     * innodb_file_per_table=1
     * innodb_buffer_pool_size >= 1GB (对于更高需求的配置，请在专属MySQL服务器机器上使用4-8G的值)
 
-> **注意：** 目前Rancher中并不支持Docker for Mac
+> **注意:** 目前Rancher中并不支持Docker for Mac
 
 ### Rancher Server 标签
 
@@ -67,7 +67,7 @@ UI以及API会使用 `8080` 端口对外服务。下载Docker镜像完成后，�
 
 除了使用内部的数据库，你可以启动一个Rancher Server并使用一个外部的数据库。启动命令与之前一样，但添加了一些额外的参数去说明如何连接你的外部数据库。
 
-> **注意：** 在你的外部数据库中，只需要提前创建数据库名和数据库用户。Rancher会自动创建Rancher所需要的数据库表。
+> **注意:** 在你的外部数据库中，只需要提前创建数据库名和数据库用户。Rancher会自动创建Rancher所需要的数据库表。
 
 以下是创建数据库和数据库用户的SQL命令例子
 
@@ -96,7 +96,7 @@ $ sudo docker run -d --restart=unless-stopped -p 8080:8080 rancher/server \
 
 <br>
 
-> **注意：** 在之前版本的Rancher Server中，我们需要使用环境变量去连接外部数据库。在新版本中，这些环境变量会继续生效，但Rancher建议使用命令参数代替。
+> **注意:** 在之前版本的Rancher Server中，我们需要使用环境变量去连接外部数据库。在新版本中，这些环境变量会继续生效，但Rancher建议使用命令参数代替。
 
 <a id="single-container-bind-mount"></a>
 
@@ -125,14 +125,14 @@ $ sudo docker run -d -v <host_vol>:/var/lib/mysql --restart=unless-stopped -p 80
     * 1GB内存
 * MySQL数据库
     * 至少 1 GB内存
-    * 每个Rancher Server节点需要50个连接 (例如：3个节点的Rancher则需要至少150个连接)
+    * 每个Rancher Server节点需要50个连接 (例如:3个节点的Rancher则需要至少150个连接)
     * MYSQL配置要求
       * 选项1: 用默认`COMPACT`选项运行Antelope
       * 选项2: 运行MySQL 5.7，使用Barracuda。默认选项`ROW_FORMAT`需设置成`Dynamic`
 * 外部负载均衡服务器
     * 负载均衡服务器需要能访问Rancher Server节点的 `8080` 端口
 
-> **注意：** 目前Rancher中并不支持Docker for Mac
+> **注意:** 目前Rancher中并不支持Docker for Mac
 
 #### 大规模部署建议
 
@@ -140,7 +140,7 @@ $ sudo docker run -d -v <host_vol>:/var/lib/mysql --restart=unless-stopped -p 80
 * MySQL数据库需要有高性能磁盘
 * 对于一个完整的HA，建议使用一个有副本的Mysql数据库。另一种选择则是使用Galera集群并强制写入一个MySQL节点。
 
-1. 在每个需要加入Rancher Server HA集群的节点上，运行以下命令：
+1. 在每个需要加入Rancher Server HA集群的节点上，运行以下命令:
 
    ```bash
    # Launch on each node in your HA cluster
@@ -153,7 +153,7 @@ $ sudo docker run -d -v <host_vol>:/var/lib/mysql --restart=unless-stopped -p 80
 
    如果你修改了 `-p 8080:8080` 并在host上暴露了一个不一样的端口，你需要添加 `--advertise-http-port <host_port>` 参数到命令中。
 
-   > **注意：** 你可以使用 `docker run rancher/server --help` 获得命令的帮助信息
+   > **注意:** 你可以使用 `docker run rancher/server --help` 获得命令的帮助信息
 
 2. 配置一个外部的负载均衡器，这个负责均衡负责将例如`80`或`443`端口的流量，转发到运行Rancher Server的节点的`8080`端口中。负载均衡器必须支持websockets 以及 forwarded-for 的Http请求头以支持Rancher的功能。参考 [使用SSL](/docs/rancher/v1.x/cn//installing-rancher/installing-server/basic-ssl-config/) 这个配置的例子。
 
@@ -178,11 +178,11 @@ $ sudo docker run -d -v <host_vol>:/var/lib/mysql --restart=unless-stopped -p 80
 
 如果你在配置ELB中遇到问题，我们建议你参考[terraform version](#使用terraform进行配置)。
 
-> **注意：** 如果你正在使用自签名的证书, 请参考我们SSL部分里的[如何在AWS里配置ELB](/docs/rancher/v1.x/cn/installing-rancher/installing-server/basic-ssl-config/#elb).
+> **注意:** 如果你正在使用自签名的证书, 请参考我们SSL部分里的[如何在AWS里配置ELB](/docs/rancher/v1.x/cn/installing-rancher/installing-server/basic-ssl-config/#elb).
 
 #### Listener 配置 - Plaintext
 
-简单的来说，使用非加密的负载均衡，需要以下的listener配置：
+简单的来说，使用非加密的负载均衡，需要以下的listener配置:
 
 | Configuration Type | Load Balancer Protocol | Load Balancer Port | Instance Protocol | Instance Port |
 |---|---|---|---|---|
@@ -204,7 +204,7 @@ $ aws elb set-load-balancer-policies-for-backend-server --load-balancer-name <LB
 
 #### 使用Terraform进行配置
 
-以下是使用Terraform配置的例子：
+以下是使用Terraform配置的例子:
 
 ```
 resource "aws_elb" "lb" {
@@ -275,7 +275,7 @@ $ sudo vi /etc/default/docker
 
 在文件中，编辑 `#export http_proxy="http://127.0.0.1:3128/"` 并修改它指向你的代理。保存修改并重启Docker。重启Docker的方式在每个OS上都不一样。
 
-> **注意：** 如果你使用systemd运行Docker, 请参考Docker官方的[文档](https://docs.docker.com/articles/systemd/#http-proxy) 去配置http proxy设置。
+> **注意:** 如果你使用systemd运行Docker, 请参考Docker官方的[文档](https://docs.docker.com/articles/systemd/#http-proxy) 去配置http proxy设置。
 
 为了使得[应用商店](/docs/rancher/v1.x/cn/configuration/catalog/)加载正常，HTTP代理设置必须在Rancher Server运行的环境变量中。
 
@@ -295,7 +295,7 @@ $ sudo docker run -d \
 <a id="mysql-ssl"></a>
 
 ### 通过SSL连接MySQL的Rancher Server
-> **注意：** 目前在Rancher 1.6.3以上版本才支持
+> **注意:** 目前在Rancher 1.6.3以上版本才支持
 
 ### 重要提示
 

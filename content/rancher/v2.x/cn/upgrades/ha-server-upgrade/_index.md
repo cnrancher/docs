@@ -19,7 +19,7 @@ weight: 5
 
     通过RKE创建kubernetes集群，需要预先设置rancher-cluster.yml配置文件，通过这个配置文件安装kubernetes集群，这个文件需要与RKE二进制文件存放同一目录。
 
-- 确认系统存在以下路径：~/.kube/，如果没有，请自行创建。
+- 确认系统存在以下路径:~/.kube/，如果没有，请自行创建。
 
 - `kube_config_rancher-cluster.yml`(kubectl配置文件)
 
@@ -45,7 +45,7 @@ weight: 5
 
 4. Rancher 升级
 
-    输入以下命令进行升级：
+    输入以下命令进行升级:
 
     ```bash
     kubectl --kubeconfig=kube_config_rancher-cluster.yml set image deployment/cattle cattle-server=rancher/rancher:<VERSION_TAG> -n cattle-system

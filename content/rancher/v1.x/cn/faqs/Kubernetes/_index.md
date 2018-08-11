@@ -35,14 +35,14 @@ EOF
 
 ## 3、如何验证你的主机注册地址设置是否正确？
 
-如果你正面临Rancher Agent和Rancher Server的连接问题，请检查主机设置。当你第一次尝试在UI中添加主机时，你需要设置主机注册的URL，该URL用于建立从主机到Rancher Server的连接。这个URL必须可以从你的主机访问到。为了验证它，你需要登录到主机并执行curl命令：
+如果你正面临Rancher Agent和Rancher Server的连接问题，请检查主机设置。当你第一次尝试在UI中添加主机时，你需要设置主机注册的URL，该URL用于建立从主机到Rancher Server的连接。这个URL必须可以从你的主机访问到。为了验证它，你需要登录到主机并执行curl命令:
 
 ```
 curl -i <Host Registration URL you set in UI>/v1
 ```
 你应该得到一个json响应。 如果开启了认证，响应代码应为401。如果认证未打开，则响应代码应为200。
 
-**注意：** 普通的HTTP请求和websocket连接(ws://)都将被使用。 如果此URL指向代理或负载平衡器，请确保它们可以支持Websocket连接。
+**注意:** 普通的HTTP请求和websocket连接(ws://)都将被使用。 如果此URL指向代理或负载平衡器，请确保它们可以支持Websocket连接。
 
 ## Kuberbetes UI 显示Service unavailable
 很多同学正常部署Kuberbetes环境后无法进入Dashboard，基础设施应用栈均无报错。但通过查看 基础架构|容器 发现并没有Dashboard相关的容器.因为Kuberbetes在拉起相关服务(如Dashboard、内置DNS等服务)是通过应用商店里面的YML文件来定义的，YML文件中定义了相关的镜像名和版本。
@@ -51,4 +51,4 @@ curl -i <Host Registration URL you set in UI>/v1
 
 为了解决这一问题，优化中国区用户的使用体验，在RANCHER v1.6.11之前的版本，我们修改了 ```http://git.oschina.net/rancher/rancher-catalog```  仓库中的YML文件，将相关的镜像也同步到国内仓库，通过替换默认商店地址来实现加速部署；在RANCHER v1.6.11及之后的版本，不用替换商店catalog地址，直接通过在模板中定义仓库地址和命名空间就行实现加速；在后期的版本种，Kuberbetes需要的镜像都会同步到docker hub中。
 
-安装方法见：[K8S加速安装](/blog/K8S-install)
+安装方法见:[K8S加速安装](/blog/K8S-install)

@@ -170,7 +170,7 @@ $ rancher --host 1h1 docker ps
 
 <br>
 
-> **注意：** 如果环境变量`RANCHER_DOCKER_HOST`没有设置，你需要通过`--host`指定运行Docker命令的主机。
+> **注意:** 如果环境变量`RANCHER_DOCKER_HOST`没有设置，你需要通过`--host`指定运行Docker命令的主机。
 
 ### Rancher Environment 说明
 
@@ -465,7 +465,7 @@ $ rancher restart <stackName>/<serviceName>
 
 <br>
 
-> **注意：** 服务里中需要包含了应用的名字，以保证指定了正确的服务。
+> **注意:** 服务里中需要包含了应用的名字，以保证指定了正确的服务。
 
 ### Rancher rm 说明
 
@@ -611,7 +611,7 @@ $ rancher start <stackName>/<serviceName>
 
 <br>
 
-> **注意：** 为了保证指定了正确的服务，服务名中需要包含应用的名字。
+> **注意:** 为了保证指定了正确的服务，服务名中需要包含应用的名字。
 
 ### Rancher stop/deactivate 说明
 
@@ -634,7 +634,7 @@ $ rancher stop <stackName>/<serviceName>
 
 <br>
 
-> **注意：** 为了保证指定了正确的服务，服务名中需要包含应用的名字。
+> **注意:** 为了保证指定了正确的服务，服务名中需要包含应用的名字。
 
 ### Rancher up 说明
 
@@ -758,7 +758,7 @@ $ rancher inspect <stackName>/<serviceName>
 
 <br>
 
-> **注意：** 为了保证指定了正确的服务，服务名中需要包含应用的名字。
+> **注意:** 为了保证指定了正确的服务，服务名中需要包含应用的名字。
 
 ### Rancher wait 说明
 

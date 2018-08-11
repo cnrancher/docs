@@ -9,7 +9,7 @@ weight: 5
 
 2. 所有节点都应该存在并处于`Ready`状态；
 
-    运行以下命令查询节点状态：
+    运行以下命令查询节点状态:
 
     ```bash
     kubectl --kubeconfig kube_config_rancher-cluster.yml get nodes
@@ -66,7 +66,7 @@ weight: 5
     kubectl --kubeconfig kube_config_rancher-cluster.yml get events --all-namespaces
     ```
 
-5. 检查Rancher容器日志：
+5. 检查Rancher容器日志:
 
     ```bash
     kubectl --kubeconfig kube_config_rancher-cluster.yml logs -l app=cattle -n cattle-system
@@ -134,7 +134,7 @@ weight: 5
 
         如果在输出结果中看到错误，则表明`overlay`网络无法正常通信。通常情况是因为端口未放行导致，查看[端口需求]({{< baseurl >}}/rancher/v2.x/cn/installation/references/)验证端口放行。
 
-        错误示例：
+        错误示例:
 
         ```bash
         => Start

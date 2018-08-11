@@ -1,5 +1,5 @@
 ---
-title: 自签名ssl生成
+title: 自签名ssl证书
 weight: 3
 ---
 
@@ -7,7 +7,7 @@ weight: 3
 
 要保证Web浏览器到服务器的安全连接，HTTPS几乎是唯一选择。HTTPS其实就是HTTP over SSL，也就是让HTTP连接建立在SSL安全连接之上。
 
-SSL使用证书来创建安全连接。有两种验证模式：
+SSL使用证书来创建安全连接。有两种验证模式:
 
 1. 仅客户端验证服务器的证书，客户端自己不提供证书；
 
@@ -27,7 +27,7 @@ SSL使用证书来创建安全连接。有两种验证模式：
 
 所谓数字证书，是一种用于电脑的身份识别机制。由数字证书颁发机构(CA)对使用私钥创建的签名请求文件做的签名(盖章)，表示CA结构对证书持有者的认可。
 
-### 1、数字证书拥有以下几个优点：
+### 1、数字证书拥有以下几个优点:
 
 - 使用数字证书能够提高用户的可信度；
 - 数字证书中的公钥，能够与服务端的私钥配对使用，实现数据传输过程中的加密和解密；
@@ -51,7 +51,7 @@ x509的证书编码格式有两种:
 
 ## 三、自签名证书及自签名类型
 
-当由于某种原因(如：不想通过CA购买证书，或者仅是用于测试等情况)，无法正常获取CA签发的证书。这时可以生成一个自签名证书。使用这个自签名证书的时候，会在客户端浏览器报一个错误，签名证书授权未知或不可信(signing certificate authority is unknown and not trusted.)。
+当由于某种原因(如:不想通过CA购买证书，或者仅是用于测试等情况)，无法正常获取CA签发的证书。这时可以生成一个自签名证书。使用这个自签名证书的时候，会在客户端浏览器报一个错误，签名证书授权未知或不可信(signing certificate authority is unknown and not trusted.)。
 
 ### 1、自签名类型
 
@@ -72,7 +72,7 @@ x509的证书编码格式有两种:
 
 下面简单介绍如何通过openssl创建一个自签名SSL证书。
 
-操作步骤：
+操作步骤:
 
 ### 1、创建自签名证书
 
@@ -84,9 +84,9 @@ x509的证书编码格式有两种:
     openssl genrsa -aes256 -out server.key 2048
     ```
 
-    > 说明：生成rsa私钥，aes256算法，2048位强度，server.key是秘钥文件名。
+    > 说明:生成rsa私钥，aes256算法，2048位强度，server.key是秘钥文件名。
     >
-    > 注意：生成私钥，需要提供一个至少4位的密码。
+    > 注意:生成私钥，需要提供一个至少4位的密码。
 
 - 2.生成CSR(证书签名请求)
 
@@ -94,13 +94,13 @@ x509的证书编码格式有两种:
 
     理想情况下，可以将证书发送给证书颁发机构(CA)，CA验证过请求者的身份之后，会出具签名证书。如果只是内部或者测试需求，也可以使用OpenSSL实现自签名.
 
-    具体操作如下：
+    具体操作如下:
 
     ```bash
     openssl req -new -key server.key -out server.csr
     ```
 
-    > 说明：需要依次输入国家，地区，城市，组织，组织单位，Common Name和Email。其中Common Name，可以写自己的名字或者域名，如果要支持https，Common Name应该与域名保持一致，否则会引起浏览器警告。
+    > 说明:需要依次输入国家，地区，城市，组织，组织单位，Common Name和Email。其中Common Name，可以写自己的名字或者域名，如果要支持https，Common Name应该与域名保持一致，否则会引起浏览器警告。
 
     ```bash
     Country Name(2 letter code)[AU]: `CN`
@@ -116,7 +116,7 @@ x509的证书编码格式有两种:
 
     在第1步创建私钥的过程中，由于必须要指定一个密码。而这个密码会带来一个副作用，那就是在每次启动Web服务器时，都会要求输入密码，这显然非常不方便。
 
-    要删除私钥中的密码，操作如下：
+    要删除私钥中的密码，操作如下:
 
     ```bash
     mv server.key server.key.bak
@@ -130,15 +130,15 @@ x509的证书编码格式有两种:
     ```
   > 生成一个有效期为365天的自签名证书
 
-### 2、私有CA签名证书
+### 2、私有CA签名证书(推荐)
 
 - 1.创建root CA私钥
 
-    `openssl genrsa -aes256 -out root-ca.key 4096`
-
-- 2.生成root CA自签名证书
-
-    `openssl req -new -x509 -days 7300 -key root-ca.key -sha256 -out root-ca.crt`
+    ```bash
+    openssl req \
+    -newkey rsa:4096 -nodes -sha256 -keyout ca.key \
+    -x509 -days 365 -out ca.crt
+    ```
 
     ```bash
     Country Name(2 letter code)[AU]: CN
@@ -146,16 +146,19 @@ x509的证书编码格式有两种:
     Locality Name(eg, city)[]: Beijing
     Organization Name(eg, company)[Internet Widgits Pty Ltd]: rancher
     Organizational Unit Name(eg, section)[]: info technology
-    Common Name(e.g. server FQDN or YOUR name)[]: .rancher.com
+    Common Name(e.g. server FQDN or YOUR name)[]: ca.rancher.com
     Email Address []: xxx@qq.com
     ```
-- 3.生成服务端(web)私钥
 
-    `openssl genrsa -aes256 -out server.key 4096`
+- 2.为服务端(web)生成证书签名请求文件
 
-- 4.为服务端(web)生成证书签名请求文件
+    如果您使用类似`demo.rancher.com`的FQDN域名访问，则需要设置`demo.rancher.com`作为CN；如果您使用IP地址访问，CN则为IP地址：
 
-    `openssl req -new  -sha256  -key server.key -out server.csr`
+    ```bash
+    openssl req \
+    -newkey rsa:4096 -nodes -sha256 -keyout demo.rancher.com.key \
+    -out  demo.rancher.com.csr
+    ```
 
     ```bash
     Country Name(2 letter code)[AU]: CN
@@ -166,23 +169,18 @@ x509的证书编码格式有两种:
     Common Name(e.g. server FQDN or YOUR name)[]: demo.rancher.com
     Email Address []: xxx@qq.com
     ```
-    >注意: `Commone Name`一定要是你要授予证书的服务器域名或主机名，并且不能与生成root CA自签名证书的`Commone Name`相同，challenge password可以不填。
+    >注意: `Commone Name`一定要是你要授予证书的FQDN域名或主机名，并且不能与生成root CA设置的`Commone Name`相同，challenge password可以不填。
 
-- 5.删除私钥中的密码
-
-    在上一步创建私钥的过程中，由于必须要指定一个密码，而这个密码会带来一个副作用，那就是在每次启动Web服务器时，都会要求输入密码，这显然非常不方便。
-    要删除私钥中的密码，操作如下：
+- 3.用`第一步`创建的CA证书给`第二步`生成的签名请求进行签名
 
     ```bash
-    mv server.key server.key.bak
-    openssl rsa -in server.key.bak -out server.key
+    openssl x509 -req -days 365 -in demo.rancher.com.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out demo.rancher.com.crt
     ```
-
-- 6.用`第二步`创建的CA证书给`第四步`生成的签名请求进行签名
+- 4.如果您使用IP，例如192.168.1.101来连接，则可以改为运行以下命令：
 
     ```bash
-    openssl x509 -req -days 3650 -sha256 -in server.csr -CA root-ca.crt -CAkey root-ca.key -CAcreateserial -out server.crt
-    chmod 444 server.crt
+    echo 'subjectAltName = IP:192.168.1.101' > extfile.cnf
+    openssl x509 -req -days 365 -in demo.rancher.com.csr -CA ca.crt -CAkey ca.key -CAcreateserial -extfile extfile.cnf -out  demo.rancher.com.crt
     ```
 
 ## 五、验证证书

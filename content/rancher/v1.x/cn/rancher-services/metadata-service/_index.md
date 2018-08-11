@@ -4,7 +4,7 @@ title: metadata服务
 ---
 
 
-Rancher通过基础设施中的Metadata服务为服务和容器提供数据。这些数据用来管理运行中的docker实例。这些数据可以通过调用基于HTTP的API来访问。这些数据包括创建容器，服务时的静态数据，也包括运行时数据，例如：在同一个服务里的其他容器的相关信息。
+Rancher通过基础设施中的Metadata服务为服务和容器提供数据。这些数据用来管理运行中的docker实例。这些数据可以通过调用基于HTTP的API来访问。这些数据包括创建容器，服务时的静态数据，也包括运行时数据，例如:在同一个服务里的其他容器的相关信息。
 
 通过Rancher的Metadata服务，你可以进到任何使用Rancher托管网络的容器的命令行中，并查看运行在Rancher中的容器的信息。通过Metadata服务你可以获取容器，服务，容器所在的应用，容器所在的主机。Metadata是JSON格式的。
 
@@ -38,7 +38,7 @@ Metadata | 路径  | 描述
 
 在`curl`命令中，我们强烈建议使用确定的版本号，但是你也可以选者`latest`。
 
-> **注意：** 因为`latest`版本会包含最新的代码变动，各个版本的返回的数据可能不同，需要确认是否和你之前的代码能够兼容。
+> **注意:** 因为`latest`版本会包含最新的代码变动，各个版本的返回的数据可能不同，需要确认是否和你之前的代码能够兼容。
 
 metadata的版本是基于日期的。
 
@@ -174,7 +174,7 @@ $ curl --header 'Accept: application/json' 'http://rancher-metadata/2015-12-19/s
 | `name` | 容器的名字。
 | `network_from_container_uuid` | 容器网络来源的容器UUID。
 | `network_uuid` | Rancher分配的网络唯一标识
-| `ports` | 列出[容器使用的端口](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/#port-mapping)。格式为： `hostIP:publicIP:privateIP[/protocol]`.
+| `ports` | 列出[容器使用的端口](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/#port-mapping)。格式为: `hostIP:publicIP:privateIP[/protocol]`.
 | `primary_ip` | 容器IP
 | `primary_mac_address` | 容器的MAC地址
 | `service_index` | 服务中容器名称的最后一个数字

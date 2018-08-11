@@ -10,9 +10,9 @@ Rancher支持使用`docker machine`部署[Amazon EC2](http://aws.amazon.com/ec2/
 
 ### 启动Amazon EC2主机
 
-通过**基础架构** -> **主机**进入主机主界面，点击**添加主机**，选中**Amazon EC2**图标，选择你所在的**区域**，并提供你访问AWS的密钥对**Access key**和**Secret Key**，点击**下一步：验证及选择网络**。Rancher将会根据你提供的凭据决定是否在AWS上创建新的实例。
+通过**基础架构** -> **主机**进入主机主界面，点击**添加主机**，选中**Amazon EC2**图标，选择你所在的**区域**，并提供你访问AWS的密钥对**Access key**和**Secret Key**，点击**下一步:验证及选择网络**。Rancher将会根据你提供的凭据决定是否在AWS上创建新的实例。
 
-为了创建实例，你需要选择一个可用的区域，根据你选择的区域，会显示可用的VPC IDs和Subnet IDs，选择一个**VPC ID**或者**子网ID**，并点击**下一步：选择一个安全组**.
+为了创建实例，你需要选择一个可用的区域，根据你选择的区域，会显示可用的VPC IDs和Subnet IDs，选择一个**VPC ID**或者**子网ID**，并点击**下一步:选择一个安全组**.
 
 接下来，为你的主机使用选择一个安全组，这里有两种模式可供选择。一种是**Standard**，该模式将会创建或者直接使用已经存在的`rancher-machine`安全组，这种安全组默认会开放所有必要的端口，以便Rancher能够正常工作。`docker machine`将会自动打开`2376`，该端口是Docker守护进程用到的端口。
 
@@ -20,15 +20,15 @@ Rancher支持使用`docker machine`部署[Amazon EC2](http://aws.amazon.com/ec2/
 
 <a id="EC2Ports"></a>
 
-### Rancher需要用到的端口：
+### Rancher需要用到的端口:
 
 * Rancher Server访问的TCP端口 `22` (通过SSH安装和配置Docker)
 * 如果你正在使用IPsec [网络驱动](/docs/rancher/v1.x/cn/rancher-services/networking/), 所有主机都需要打开UDP端口`500`和`4500`
 * 如果你正在使用VXLAN [网络驱动](/docs/rancher/v1.x/cn/rancher-services/networking/), 所有主机需要打开UDP端口`4789`
 
-> **注意：** 如果你再次使用`rancher-machine`安全组, 之前任何丢失的端口都不会再次打开。如果主机没有正常启动，你需要检查一下AWS上的安全组。
+> **注意:** 如果你再次使用`rancher-machine`安全组, 之前任何丢失的端口都不会再次打开。如果主机没有正常启动，你需要检查一下AWS上的安全组。
 
-选择安全组选项之后，点击**下一步：设置实例选项**。
+选择安全组选项之后，点击**下一步:设置实例选项**。
 
 最后，你只需要完成填写主机的的一些细节信息。
 
@@ -36,7 +36,7 @@ Rancher支持使用`docker machine`部署[Amazon EC2](http://aws.amazon.com/ec2/
 2. 如果需要为主机提供一个**名字**和**描述**。
 3. 根据你的需要选择**实例类型**。
 4. 选择镜像的**根大小**，`docker machine`中默认大小为16G，这也是Rancher默认需要的大小。
-5. (可选) 对于**AMI**，`docker machine` 默认是该特定区域的一个Ubuntu 16.04 LTS镜像。你也可以选择你自己的AMI，但是如果你选择自己的AMI，请确保以下几点：
+5. (可选) 对于**AMI**，`docker machine` 默认是该特定区域的一个Ubuntu 16.04 LTS镜像。你也可以选择你自己的AMI，但是如果你选择自己的AMI，请确保以下几点:
    1. 在前面选中的区域中是可访问的；
    2. 定义正确的**SSH User**。如果是使用的[RancherOS AMI](https://github.com/rancher/os#amazon)，SSH User就应该是`rancher`。
 6. (可选)提供用作实例概要的**IAM简介**。

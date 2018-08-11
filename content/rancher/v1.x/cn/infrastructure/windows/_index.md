@@ -7,7 +7,7 @@ weight: 440
 
 目前Rancher只支持在特定主机上创建容器。大多数在Cattle和Rancher UI上有的特性目前都不支持**Windows**(如 服务发现, 健康检查, 元数据, DNS, 负载均衡)。
 
-> **注意：** Rancher中有一个默认的Windows环境模版。如果你想创建你自己的Windows环境模版，你需要禁用所有其它的基础设施服务，因为这些服务目前都不兼容Windows。
+> **注意:** Rancher中有一个默认的Windows环境模版。如果你想创建你自己的Windows环境模版，你需要禁用所有其它的基础设施服务，因为这些服务目前都不兼容Windows。
 
 ### 创建一个 Windows 环境
 
@@ -15,7 +15,7 @@ weight: 440
 
 在创建Windows环境后，你可以在左上角环境的下拉菜单中切换到你的环境，或者在环境管理页面中，在对应环境的下拉选项中点击**切换到此环境**。
 
-> **注意：** Rancher支持多种容器编排引擎框架，但Rancher目前不支持在已有运行服务的环境里切换容器编排引擎。
+> **注意:** Rancher支持多种容器编排引擎框架，但Rancher目前不支持在已有运行服务的环境里切换容器编排引擎。
 
 ### 添加 Windows 主机
 在Rancher中添加一个Windows主机，你需要先有一个运行了Docker的[Windows Server 2016](https://msdn.microsoft.com/en-us/virtualization/windowscontainers/about/index)主机。

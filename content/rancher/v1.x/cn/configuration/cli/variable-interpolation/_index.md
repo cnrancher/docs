@@ -6,7 +6,7 @@ title: 变量替换
 
 ### 如何使用
 
-通过使用`docker-compose.yml`和`rancher-compose.yml`文件，你可以引用机器上的环境变量。 如果机器上没有环境变量，它将用空白字符串替换。 `Rancher`将会提示一个警告，指出哪些环境变量没有设置。 如果使用环境变量作为镜像标签时，请注意，`rancher`不会从镜像中自动删除`：`来获取latest镜像。 因为镜像名，比如`<镜像名>：`是一个无效的镜像名，所以不会部署成功。用户需要确定机器中所有的环境变量的有效性。
+通过使用`docker-compose.yml`和`rancher-compose.yml`文件，你可以引用机器上的环境变量。 如果机器上没有环境变量，它将用空白字符串替换。 `Rancher`将会提示一个警告，指出哪些环境变量没有设置。 如果使用环境变量作为镜像标签时，请注意，`rancher`不会从镜像中自动删除`:`来获取latest镜像。 因为镜像名，比如`<镜像名>:`是一个无效的镜像名，所以不会部署成功。用户需要确定机器中所有的环境变量的有效性。
 
 #### 例子
 
@@ -20,7 +20,7 @@ IMAGE_TAG=14.04
 $ rancher up
 ```
 
-**例子： `docker-compose.yml`**
+**例子: `docker-compose.yml`**
 
 ```yaml
 version: '2'
@@ -71,7 +71,7 @@ services:
 
 模板可以与Rancher CLI一起使用，也可以与[应用商店](/docs/rancher/v1.x/cn/configuration/catalog/)组合使用，这样可以让你配置你的应用商店模板，也可以让你根据答案来改变你的模板文件。
 
-> **注意：**目前我们只支持对`string`的比较。
+> **注意:**目前我们只支持对`string`的比较。
 
 #### 例子
 
@@ -138,7 +138,7 @@ services:
 
 如果你通过Rancher命令行来创建应用，例如`rancher up -s myawesomestack -f docker-compose.yml`，那么这个应用将会创建一个带有标签`stack-name=myawesomestack`的服务。
 
-> **注意：** 替换只是发生在应用栈创建时，之后对应用名称的修改无法触发替换。
+> **注意:** 替换只是发生在应用栈创建时，之后对应用名称的修改无法触发替换。
 
 
 #### 双括号使用

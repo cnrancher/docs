@@ -6,7 +6,7 @@ Rancher 通过使用 `docker machine` 来管理 [Packet](https://www.packet.net/
 
 ### 获取Packet访问凭证
 
-为了能启动 Packet 主机，需要获取由 Rackspace 提供的 **API Key(接口密钥)**。首先，登录 Packet，然后：
+为了能启动 Packet 主机，需要获取由 Rackspace 提供的 **API Key(接口密钥)**。首先，登录 Packet，然后:
 
 1. 切换到 [api-key(接口密钥)](https://app.packet.net/portal#/api-keys)页面，创建一个新接口密钥；
 

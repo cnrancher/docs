@@ -13,13 +13,13 @@ Key | Value |描述
 `io.rancher.sidekicks` |  `服务名称`  | 用来定义哪些服务属于[从容器](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/#sidekick-服务)
 `io.rancher.loadbalancer.target.SERVICE_NAME` | `REQUEST_HOST:SOURCE_PORT/REQUEST_PATH=TARGET_PORT` |用于判定 [L7 Load Balancing](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/#load-balancer-example-l7)
 `io.rancher.container.dns`| `true` | 服务能够使用基于Rancher DNS的服务发现来解析其他服务，并能被其他服务解析。 如果你需要此DNS服务，且网络设置为`主机`，则此标签是必需的.
-`io.rancher.container.hostname_override` | `容器名称` | 用于将容器的主机名设置为容器的名称 (例如： StackName_ServiceName_CreateIndex)
+`io.rancher.container.hostname_override` | `容器名称` | 用于将容器的主机名设置为容器的名称 (例如: StackName_ServiceName_CreateIndex)
 `io.rancher.container.start_once` |`true` | 用于设置容器只运行一次，并在容器为停止状态时显示`active`状态。
 `io.rancher.container.pull_image` | `always` | 用于在部署容器之前始终拉取新的镜像.
-`io.rancher.container.requested_ip` | IP于`10.42.0.0/16`的地址空间 | 允许你选择容器的特定IP。从v1.6.6版本开始，服务内的容器将会使用配置的多个IP地址中的可用地址，直到这些地址全被占用。这些地址要用逗号隔开，例如`10.42.100.100, 10.42.100.101`。 在v1.6.6之前，只有服务中的一个容器可以使用这个特定IP。**注意：如果IP在主机上不可用，则容器将以随机IP开始.**
+`io.rancher.container.requested_ip` | IP于`10.42.0.0/16`的地址空间 | 允许你选择容器的特定IP。从v1.6.6版本开始，服务内的容器将会使用配置的多个IP地址中的可用地址，直到这些地址全被占用。这些地址要用逗号隔开，例如`10.42.100.100, 10.42.100.101`。 在v1.6.6之前，只有服务中的一个容器可以使用这个特定IP。**注意:如果IP在主机上不可用，则容器将以随机IP开始.**
 `io.rancher.container.dns.priority` | `service_last` | 在服务域之前使用主机的DNS搜索路径。 保证主机将从`/etc/resolv.conf`搜索后再对`*.rancher.internal`搜索。
-`io.rancher.service.selector.container` |  [_Selector Label_ Values](/docs/rancher/v1.x/cn/infrastructure/cattle/labels/#选择器标签) | 用于服务，以支持选择独立的容器来加入DNS服务。 注意：作为独立容器，任何服务操作都不会影响独立容器(即停用/删除/编辑服务，健康检查等)。
-`io.rancher.service.selector.link` | [_Selector Label_ Values](/docs/rancher/v1.x/cn/infrastructure/cattle/labels/#选择器标签) | 用于服务以允许服务基于服务标签链接到服务。 例如: Service1具有标签`io.rancher.service.selector.link：foo = bar`。 任何添加到Rancher的具有`foo=bar`标签的服务将自动链接到Service1。
+`io.rancher.service.selector.container` |  [_Selector Label_ Values](/docs/rancher/v1.x/cn/infrastructure/cattle/labels/#选择器标签) | 用于服务，以支持选择独立的容器来加入DNS服务。 注意:作为独立容器，任何服务操作都不会影响独立容器(即停用/删除/编辑服务，健康检查等)。
+`io.rancher.service.selector.link` | [_Selector Label_ Values](/docs/rancher/v1.x/cn/infrastructure/cattle/labels/#选择器标签) | 用于服务以允许服务基于服务标签链接到服务。 例如: Service1具有标签`io.rancher.service.selector.link:foo = bar`。 任何添加到Rancher的具有`foo=bar`标签的服务将自动链接到Service1。
 `io.rancher.scheduler.global` | `true` | 用于设置[全局服务](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#全局服务)
 `io.rancher.scheduler.affinity:host_label` | 主机标签的Key Value配对| 用于根据[主机标签](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#使用主机标签查找主机)在主机上编排容器
 `io.rancher.scheduler.affinity:container_label` | 容器标签的Key Value配对 | 用于根据[容器标签或服务名称](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#用容器标签查找主机)在主机上编排容器
@@ -28,7 +28,7 @@ Key | Value |描述
 
 <br>
 
-> **注意：** 对于以`io.rancher.scheduler.affinity`为前缀的标签，根据你想要匹配的方式(即相等或不相等，hard或soft规则)会有轻微的变化。 更多细节可以在这里找到[这里](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#table-of-scheduling-labels).
+> **注意:** 对于以`io.rancher.scheduler.affinity`为前缀的标签，根据你想要匹配的方式(即相等或不相等，hard或soft规则)会有轻微的变化。 更多细节可以在这里找到[这里](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#table-of-scheduling-labels).
 
 #### 选择器标签
 
@@ -48,7 +48,7 @@ foo5 notin (bar3, bar4)
 ```
 <br>
 
-> **注意：** 如果标签有中包含逗号的标签，则选择器将无法与标签匹配，因为 _选择器标签_ 可以匹配任何没有关联值的键。 例如: `io.rancher.service.selector.link: foo=bar1,bar2`的标签将转换为任何服务必须具有一个标签为`foo`的键值，并且值等于`bar1` **和**另一个带有等于`bar2`的标签。 它不会选择一个键等于`foo`，并且值等于`bar1，bar2`的标签的服务。
+> **注意:** 如果标签有中包含逗号的标签，则选择器将无法与标签匹配，因为 _选择器标签_ 可以匹配任何没有关联值的键。 例如: `io.rancher.service.selector.link: foo=bar1,bar2`的标签将转换为任何服务必须具有一个标签为`foo`的键值，并且值等于`bar1` **和**另一个带有等于`bar2`的标签。 它不会选择一个键等于`foo`，并且值等于`bar1，bar2`的标签的服务。
 
 #### 逗号分隔列表的示例
 
@@ -58,7 +58,7 @@ service1:
     # 添加选择器标签来接收其他服务
     io.rancher.service.selector.link: hello != world, hello1 in (world1, world2), foo = bar
 ```
-在此示例中，将链接到`service1`的服务需要满足以下所有条件：
+在此示例中，将链接到`service1`的服务需要满足以下所有条件:
 
 * 具有键等于`hello`并且值不等于`world`的标签
 * 具有键等于“hello1”但值可以等于`world1`或`world2`的标签
@@ -92,7 +92,7 @@ Key | 描述
 
 Key | Value |描述
 ----|-----|---
-`io.rancher.host.external_dns_ip` | 用于[外部DNS](/docs/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/)的IP, 例如： a.b.c.d | 用于外部DNS服务，并需要对DNS记录进行编程[使用主机IP以外的IP](/docs/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/#为外部dns使用特定的ip)
+`io.rancher.host.external_dns_ip` | 用于[外部DNS](/docs/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/)的IP, 例如: a.b.c.d | 用于外部DNS服务，并需要对DNS记录进行编程[使用主机IP以外的IP](/docs/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/#为外部dns使用特定的ip)
 
 ### 自动创建的主机标签
 

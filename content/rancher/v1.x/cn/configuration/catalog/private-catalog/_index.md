@@ -41,7 +41,7 @@ Rancher的[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)可以从
 
 在应用模板的文件夹中 (例如 `cloudflare`), 将包含该应用模板的各个版本所对应的文件夹。第一个版本为`0`，后续每个版本加1。比如，第二个版本应该在 `1` 文件夹中。每增加一个新版本的文件夹，你就可以使用这个新版本的应用模版来升级你的应用了。另外，你也可直接更新`0`文件夹中的内容并重新部署应用。
 
-> **注意：** 应用文件夹名称需要为一个单词，文件名中不能包含空格。针对名字比较长的应用请使用`-` 连接符。在`config.yml`中的 `name`你可以使用空格。
+> **注意:** 应用文件夹名称需要为一个单词，文件名中不能包含空格。针对名字比较长的应用请使用`-` 连接符。在`config.yml`中的 `name`你可以使用空格。
 
 ### 在Rancher应用商店中展示出的Rancher Catalog文件
 
@@ -63,11 +63,11 @@ projectURL: # 和模板相关的URL
 
 * 另外一个文件为该模板的logo。该文件的前缀必须为 `catalogIcon-`。
 
-对于每一个应用模板，将至少有一下三个部分组成： `config.yml`, `catalogIcon-entry.svg`, 以及 `0` 文件夹 - 包含该模板的第一个版本配置。
+对于每一个应用模板，将至少有一下三个部分组成: `config.yml`, `catalogIcon-entry.svg`, 以及 `0` 文件夹 - 包含该模板的第一个版本配置。
 
 ### Rancher 应用商店模板
 
- `docker-compose.yml`以及`rancher-compose.yml`为在Rancher中使用[Rancher Compose](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/#使用-rancher-compose-添加服务)启动服务**必须**提供的两个文件. 该文件将被保存在版本文件夹中。 (如： `0`, `1`, 等等)。
+ `docker-compose.yml`以及`rancher-compose.yml`为在Rancher中使用[Rancher Compose](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/#使用-rancher-compose-添加服务)启动服务**必须**提供的两个文件. 该文件将被保存在版本文件夹中。 (如: `0`, `1`, 等等)。
 
  `docker-compose.yml`为一个可以使用 `docker-compose up`来启动的文件。 该服务遵循docker-compose格式。
 
@@ -92,11 +92,11 @@ catalog:
 
 对于 `upgrade_from`, 有三种值可以使用。
 
-1. 只允许从某一个版本升级： `"1.0.0"`
-2. 可以从高于或低于某一个版本升级： `">=1.0.0"`, `"<=2.0.0"`
+1. 只允许从某一个版本升级: `"1.0.0"`
+2. 可以从高于或低于某一个版本升级: `">=1.0.0"`, `"<=2.0.0"`
 3. 定义一个[区间升级](https://github.com/blang/semver#ranges): `">1.0.0 <2.0.0 || >3.0.0"`
 
-> **注意：** 如同例子中的配置，请确保你配置的版本号或版本范围带上双引号。
+> **注意:** 如同例子中的配置，请确保你配置的版本号或版本范围带上双引号。
 
 ### `rancher-compose.yml`中的问题部分
 

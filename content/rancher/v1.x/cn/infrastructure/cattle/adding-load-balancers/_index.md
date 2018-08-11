@@ -7,7 +7,7 @@ Rancher支持多种负载均衡驱动，通过在它之上建立代理规则，�
 默认情况下，Rancher提供一个基于HAProxy的托管的负载均衡，它可以被手动扩容至多台主机。在接下来的例子中将会涉及到负载均衡中不同的配置项，这些配置项主要以HAProxy为参考。我们计划支持除HAProxy以外的其他负载均衡驱动，但这些配置项都会是相同的。
 
 我们使用round robin算法分发流量至目标服务。这个算法可在[自定义HAProxy.cfg](#自定义haproxycfg)中进行自定义。
-另外，你可以配置负载均衡来将流量分发至与负载均衡容器处于相同主机的目标容器。通过给负载均衡设置一个特定的[标签](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#target-service-labels)，能够将负载均衡的目标限定在同一台主机中的目标容器(例如 `io.rancher.lb_service.target=only-local`)，或者优先转发至同一台主机中的目标容器(例如： `io.rancher.lb_service.target=prefer-local`)。
+另外，你可以配置负载均衡来将流量分发至与负载均衡容器处于相同主机的目标容器。通过给负载均衡设置一个特定的[标签](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#target-service-labels)，能够将负载均衡的目标限定在同一台主机中的目标容器(例如 `io.rancher.lb_service.target=only-local`)，或者优先转发至同一台主机中的目标容器(例如: `io.rancher.lb_service.target=prefer-local`)。
 
 我们将会查看在[UI](#如何在ui上新增一个负载均衡)和[Rancher Compose](#用rancher-compose-添加负载均衡)中的负载均衡的配置项，并且给出[UI](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/#adding-a-load-balancer-in-the-ui)和[Rancher Compose](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/#adding-a-load-balancer-with-rancher-compose)的用例。
 
@@ -29,13 +29,13 @@ Rancher支持多种负载均衡驱动，通过在它之上建立代理规则，�
 
 Rancher提供一个基于HAProxy的容器来重定向流量至目标服务。
 
-> **注意：** 负载均衡只会在那些使用`托管`网络的服务中生效，其他网络模式都不会生效。
+> **注意:** 负载均衡只会在那些使用`托管`网络的服务中生效，其他网络模式都不会生效。
 
 点击**添加服务**旁边的下拉图标，找到**添加负载均衡**并点击它。
 
 你能使用滑块选择`数量`，就是负载均衡使用多少个容器。或者，你可以选择`总是在每台主机上运行一个此容器的实例`。使用这一个选项, 你的负载均衡容器数量将会随着你[环境](/docs/rancher/v1.x/cn/configuration/environments/)下的主机数量增减而增减。如果你在**调度**部分设定了调度规则，Rancher将会在满足规则的主机上启动负载均衡。如果你的环境下新增了一台不满足调度规则的主机，负载均衡容器不会在这一台主机中启动。
 
-> **注意：** 负载均衡容器的扩缩容不能超过环境下主机的数量，否则会造成端口冲突，负载容器服务将会被阻碍在`activating`状态。它会不断去尝试寻找可用的主机并开启端口，直到你修改它的数量或者[添加主机](/docs/rancher/v1.x/cn/infrastructure/hosts/).
+> **注意:** 负载均衡容器的扩缩容不能超过环境下主机的数量，否则会造成端口冲突，负载容器服务将会被阻碍在`activating`状态。它会不断去尝试寻找可用的主机并开启端口，直到你修改它的数量或者[添加主机](/docs/rancher/v1.x/cn/infrastructure/hosts/).
 
 你需要提供负载均衡的**名称**，如果有需要的话，你可以添加**描述**。
 
@@ -53,7 +53,7 @@ Rancher提供一个基于HAProxy的容器来重定向流量至目标服务。
 
 接下来，你可以针对流量的来源填写**请求头信息**, **端口** 和 **路径**。
 
-> **注意：** `42` 端口不能被用作负载均衡的源端口，因为它被用于[健康检查](/docs/rancher/v1.x/cn/infrastructure/cattle/health-checks)。
+> **注意:** `42` 端口不能被用作负载均衡的源端口，因为它被用于[健康检查](/docs/rancher/v1.x/cn/infrastructure/cattle/health-checks)。
 
 ##### 请求头信息／路径
 
@@ -97,7 +97,7 @@ domain.com.* -> hdr_beg(host) -i domain.com.
 * 服务B有一个`foo1=bar` 标签，它将会匹配第二条规则. 任何指向`200`的流量都会被转发到服务B。
 * 服务C有`foo=bar`和`foo1=bar1`两个标签，它将会匹配两条规则. 任何指向`200`和`100`的流量都会被转发到服务C.
 
-> **注意：** 目前，如果你想要将一条选择器规则应用于多个主机名／路径上，你需要使用[Rancher Compose](#selector)在目标服务上去设置主机名／路径。
+> **注意:** 目前，如果你想要将一条选择器规则应用于多个主机名／路径上，你需要使用[Rancher Compose](#selector)在目标服务上去设置主机名／路径。
 
 #### SSL会话终止
 
@@ -111,7 +111,7 @@ domain.com.* -> hdr_beg(host) -i domain.com.
 
 你可以点击选择负载均衡的**会话粘性**。会话粘性就是你的cookie策略。
 
-Rancher支持以下两种选项：
+Rancher支持以下两种选项:
 
 * **无**: 这个选项意味着不会设置cookie策略
 * **创建新的Cookie**: 这个选项意味着在你的应用之外会创建cookie。这个cookie是由负载均衡设置在请求与响应中的。这就是会话粘性策略。
@@ -156,7 +156,7 @@ backend customUUID
 
 点击[这里](/docs/rancher/v1.x/cn/infrastructure/cattle/rancher-compose/)查看更多关于如何配置一个Rancher Compose。
 
-> **注意：**: 在我们的例子中，我们会使用`<version>`作为负载均衡镜像的标签。每一个Rancher版本都有特定的，被负载均衡所支持的`lb-service-haproxy`版本。
+> **注意:**: 在我们的例子中，我们会使用`<version>`作为负载均衡镜像的标签。每一个Rancher版本都有特定的，被负载均衡所支持的`lb-service-haproxy`版本。
 
 我们将会建立一个和我们上面在UI中所使用到的例子一样范例。首先你需要创建一个`docker-compose.yml`文件和一个`rancher-compose.yml`文件。使用Rancher Compose，我们可以启动一个负载均衡
 
@@ -195,7 +195,7 @@ services:
 
 Rancher 提供一个基于HAProxy的容器来做负载均衡。
 
-> **注意：** 负载均衡仅仅在使用托管网络的服务中生效。其他的网络选择都不会生效。
+> **注意:** 负载均衡仅仅在使用托管网络的服务中生效。其他的网络选择都不会生效。
 
 负载均衡可以像其他任何一个服务一样被调度。点击[这里](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#在rancher-compose中添加标签)获取更多关于在Rancher Compose中使用负载均衡的例子。
 
@@ -207,7 +207,7 @@ Rancher 提供一个基于HAProxy的容器来做负载均衡。
 
 当创建一个负载均衡的时候，你可以将任意一个你想要的端口暴露在主机上。这些端口都可以被用做负载均衡的源端口。如果你想要一个内部的负载均衡，就不要暴露任何端口在负载均衡上，只需要在负载均衡配置中添加端口规则。
 
-> **注意：** `42` 端口 不能被用作负载均衡的源端口，因为它被用于[健康检查](/docs/rancher/v1.x/cn/infrastructure/cattle/health-checks)。
+> **注意:** `42` 端口 不能被用作负载均衡的源端口，因为它被用于[健康检查](/docs/rancher/v1.x/cn/infrastructure/cattle/health-checks)。
 
 #### Example `docker-compose.yml`
 
@@ -507,7 +507,7 @@ Rancher的负载均衡将会检测证书目录来实现更新。任何对证书�
 ```
 当启动一个负载均衡的时候，你必须用标签声明证书的路径(包括默认证书的路径)。这样以来，负载均衡将忽略设置在`lb_config`中的证书。
 
-> **注意：** 你不能同时使用在Rancher中添加的证书和挂载在负载均衡容器中的证书
+> **注意:** 你不能同时使用在Rancher中添加的证书和挂载在负载均衡容器中的证书
 
 ```yaml
 labels:

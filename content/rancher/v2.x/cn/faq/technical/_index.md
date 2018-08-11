@@ -70,7 +70,7 @@ ClusterIP是一个虚拟IP，不会响应ping。测试ClusterIP配置是否正�
 
 ## 为什么我的L4层负载均衡服务处于“挂起”状态？
 
-L4层负载均衡器创建为`type：LoadBalancer`，在Kubernetes中，这需要云提供商或控制器能够满足这些请求，否则这些将永远处于“挂起”状态。 了解更多[云提供商]({{< baseurl >}}/rancher/v2.x/cn/concepts/clusters/cloud-providers/) 或者 [Create External Load Balancer](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/)
+L4层负载均衡器创建为`type:LoadBalancer`，在Kubernetes中，这需要云提供商或控制器能够满足这些请求，否则这些将永远处于“挂起”状态。 了解更多[云提供商]({{< baseurl >}}/rancher/v2.x/cn/concepts/clusters/cloud-providers/) 或者 [Create External Load Balancer](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/)
 
 ## Rancher的状态存储在什么地方？
 

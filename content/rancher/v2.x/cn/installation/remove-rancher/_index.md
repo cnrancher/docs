@@ -3,7 +3,7 @@ title: 初始化节点
 weight: 9
 ---
 
-将节点添加到群集时后，会创建容器、虚拟网络接口等资源和证书、配置文件。从群集中正常删除节点时（如果处于Active状态），将自动清除这些资源，并且只需重新启动节点即可。当节点无法访问且无法使用自动清理，或者异常导致节点脱离集群后，如果需要再次将节点加入集群，那么需要手动进行节点初始化操作。
+将节点添加到群集时后，会创建容器、虚拟网络接口等资源和证书、配置文件。从群集中正常删除节点时(如果处于Active状态)，将自动清除这些资源，并且只需重新启动节点即可。当节点无法访问且无法使用自动清理，或者异常导致节点脱离集群后，如果需要再次将节点加入集群，那么需要手动进行节点初始化操作。
 
 ## 一、通过Rancher UI从群集中删除节点
 
@@ -20,28 +20,28 @@ weight: 9
 
 ## 二、手动清理节点
 
-当节点无法访问并已从群集中删除，将无法触发自动清理过程。需按照以下步骤手动清理节点：
+当节点无法访问并已从群集中删除，将无法触发自动清理过程。需按照以下步骤手动清理节点:
 
-> **警告：** 下面操作的命令将删除节点中的数据，在执行任何命令之前，请确保已进行数据备份。
+> **警告:** 下面操作的命令将删除节点中的数据，在执行任何命令之前，请确保已进行数据备份。
 
 ### 1、Docker容器、镜像、容器卷
 
 - 清理所有Docker容器和容器卷
 
   ```bash
-  docker rm -f $（docker ps -qa）
-  docker volume rm $（docker volume ls -q）
+  docker rm -f $(docker ps -qa)
+  docker volume rm $(docker volume ls -q)
   ```
 
 - 如果需要清理Docker镜像,执行以下命令
 
   ```bash
-  docker rmi -f $（docker images -q）
+  docker rmi -f $(docker images -q)
   ```
 
 ### 2、Mounts挂载
 
-在运行Pod后，会有很多挂载文件。比如：
+在运行Pod后，会有很多挂载文件。比如:
 
 |  挂载路径                    |
 | --------------------------- |
@@ -108,8 +108,8 @@ rm -rf /etc/ceph \
 | `flannel.1`                      |
 | `cni0`                           |
 | `tunl0`                          |
-| `caliXXXXXXXXXXX` （随机接口名称）  |
-| `vethXXXXXXXX` （随机接口名称）     |
+| `caliXXXXXXXXXXX` (随机接口名称)  |
+| `vethXXXXXXXX` (随机接口名称)     |
 
 - 列出所有网络接口
 
@@ -140,23 +140,23 @@ Iptables规则用于路由来自容器的流量。规则是动态创建的，不
 | `cali-from-hep-forward`                     |
 | `cali-from-host-endpoint`                   |
 | `cali-from-wl-dispatch`                     |
-| `cali-fw-caliXXXXXXXXXXX` （随机链名称）    |
+| `cali-fw-caliXXXXXXXXXXX` (随机链名称)    |
 | `cali-nat-outgoing`                         |
-| `cali-pri-kns.NAMESPACE` （每个命名空间链） |
-| `cali-pro-kns.NAMESPACE` （每个命名空间链） |
+| `cali-pri-kns.NAMESPACE` (每个命名空间链) |
+| `cali-pro-kns.NAMESPACE` (每个命名空间链) |
 | `cali-to-hep-forward`                       |
 | `cali-to-host-endpoint`                     |
 | `cali-to-wl-dispatch`                       |
-| `cali-tw-caliXXXXXXXXXXX` （随机链名称）    |
+| `cali-tw-caliXXXXXXXXXXX` (随机链名称)    |
 | `cali-wl-to-host`                           |
 | `KUBE-EXTERNAL-SERVICES`                    |
 | `KUBE-FIREWALL`                             |
 | `KUBE-MARK-DROP`                            |
 | `KUBE-MARK-MASQ`                            |
 | `KUBE-NODEPORTS`                            |
-| `KUBE-SEP-XXXXXXXXXXXXXXXX` （随机链名称）  |
+| `KUBE-SEP-XXXXXXXXXXXXXXXX` (随机链名称)  |
 | `KUBE-SERVICES`                             |
-| `KUBE-SVC-XXXXXXXXXXXXXXXX` （随机链名称）  |
+| `KUBE-SVC-XXXXXXXXXXXXXXXX` (随机链名称)  |
 
 - 如何列出所有iptables规则
 

@@ -10,7 +10,7 @@ title: 应用栈
 
 之后会进到这个刚创建的应用页面里。你可以开始在应用里[添加服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/)，[添加负载均衡](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)，[添加服务别名](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-service-alias)，或者[添加外部服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-external-services)。
 
-> **注意：** 在启动服务之前，你需要至少向Rancher环境添加一台主机。更多添加主机的内容，请查看[文档](/docs/rancher/v1.x/cn/infrastructure/hosts/)。
+> **注意:** 在启动服务之前，你需要至少向Rancher环境添加一台主机。更多添加主机的内容，请查看[文档](/docs/rancher/v1.x/cn/infrastructure/hosts/)。
 
 你也可以通过导入`compose`文件来创建应用。在应用创建页面可以导入`docker-compose.yml`和`rancher-compose.yml`文件。你可以在创建应用页面里直接上传文件，也可以把文件中的内容通过复制粘贴输入到创建页面上。当你点击**创建**之后，一个由相关服务组成的应用就创建成功了。通过`docker-compose.yml`文件来创建的服务，仅会被创建但并不会被启动。你需要手动启动他们。
 
@@ -37,9 +37,9 @@ title: 应用栈
 
 下面是导出应用配置的两种方法。
 
-方法一：在应用的下拉菜单里点击**导出配置**按钮，可以下载一个zip包，包里包括`docker-compose.yml`和`rancher-compose.yml`文件。
+方法一:在应用的下拉菜单里点击**导出配置**按钮，可以下载一个zip包，包里包括`docker-compose.yml`和`rancher-compose.yml`文件。
 
-方法二：在应用的下拉菜单里点击**查看配置**按钮，可以看到配置详情，点击`docker-compose.yml`和`rancher-compose.yml`旁边的按钮，可以将文件内容复制到剪贴板。
+方法二:在应用的下拉菜单里点击**查看配置**按钮，可以看到配置详情，点击`docker-compose.yml`和`rancher-compose.yml`旁边的按钮，可以将文件内容复制到剪贴板。
 
 ## 查看图形
 
@@ -53,7 +53,7 @@ title: 应用栈
 
 对服务和负载均衡来说，你可以点击服务详情页面的**加号**快速对其进行扩容。扩容后，新的容器将会被添加到服务中。
 
-> **注意：** 对于负载均衡，如果你对其扩容的最终数量超过了有可用开放端口的主机数量。负载均衡将会卡在**Updating-Active**状态。如果卡住了，解决方法是停掉该负载均衡，并且把容器数量修改到和可用主机数量相同。
+> **注意:** 对于负载均衡，如果你对其扩容的最终数量超过了有可用开放端口的主机数量。负载均衡将会卡在**Updating-Active**状态。如果卡住了，解决方法是停掉该负载均衡，并且把容器数量修改到和可用主机数量相同。
 
 你也可以通过点击服务下拉菜单的**编辑**按钮来增加或者减少服务内容器的数量。在编辑服务的弹出框内，你可以通过滑动条来修改容器数量。
 

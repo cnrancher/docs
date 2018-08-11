@@ -3,23 +3,23 @@ title: 入门
 weight: 2
 ---
 
->**注意:** 本入门指南的目的是让你快速的运行一个环境，它不适用于生产。有关更全面的说明，请查阅[Rancher安装](/docs/rancher/v2.x/cn/installation/server-installation/).
+>**注意:** 本入门指南的目的是让你快速的运行一个Rancher2.0环境，它不适用于生产。有关更全面的说明，请查阅[Rancher安装](/docs/rancher/v2.x/cn/installation/server-installation/).
 
 本教程将指导你完成:
 
-- 安装{{< product >}} {{< version >}}
-- 本教程将指导你完成：
-- 部署一个应用程序，Nginx
+- 安装{{< product >}} {{< version >}}；
+- 本教程将指导你创建第一个集群；
+- 部署一个应用程序，如Nginx；
 
-## 配置Linux主机
+## 一、配置Linux主机
 
-通过配置Linux主机开始创建自定义集群。你的主机可以是：
+通过配置Linux主机开始创建自定义集群。你的主机可以是:
 
 - 云虚拟主机
 - 本地虚拟机
 - 本地物理机
 
-  >**注意:** 在使用云虚拟主机时，你需要允许入站TCP通信端口80和443连接.请查阅你的云主机文档以获取有关端口配置的信息。有关端口要求的完整列表，请查阅[端口需求](/docs/rancher/v2.x/cn/installation/references/).
+  >**注意:** 在使用云虚拟主机时，你需要允许TCP/80和TCP/443入站通信端口。请查阅你的云主机文档以获取有关端口配置的信息。有关端口要求的完整列表，请查阅[端口需求](/docs/rancher/v2.x/cn/installation/references/).
 
 根据以下要求配置主机:
 
@@ -29,12 +29,13 @@ weight: 2
 
 > Ubuntu操作系统有Desktop和Server版本，选择安装server版本.
 
-**硬件需求**:
+### 1、**硬件需求**:
 
 - CPU: 2C
 - 内存: 4GB
+> **注意:** 此配置仅为满足小规模测试环境的最低配置。如用于生产，请参考[基础配置要求](/rancher/v2.x/cn/installation/basic-environment-configuration/)。
 
-**软件需求**:
+### 2、**软件需求**:
 
 - 软件: Docker
 
@@ -48,7 +49,7 @@ weight: 2
   >
   > 主机的更详细配置说明，请查看[基础环境配置](/docs/rancher/v2.x/cn/installation/basic-environment-configuration/)
 
-## 安装Rancher
+## 二、安装Rancher
 
 要想在主机上安装Rancher,需要先登录到主机上，接着进行以下步骤:
 
@@ -60,7 +61,7 @@ weight: 2
       sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher
       ```
 
-## 登录
+## 三、登录Rancher
 
 登录并开始使用Rancher。登录后，你将进行一些一次性配置。
 
@@ -80,7 +81,7 @@ weight: 2
 
       这个Rancher Server URL是agent节点注册的地址，需要保证这个地址能够被其他主机访问
 
-## 创建集群
+## 四、创建K8S集群
 
 现在创建第一个Kubernetes集群，可以使用**自定义**选项。你可以添加云虚拟主机、内部虚拟机或物理主机作为集群节点，节点可以运行任何一种或多种主流Linux发行版:
 
@@ -138,7 +139,7 @@ weight: 2
 
       ![image-20180703161314995](_index.assets/image-20180703161314995.png)
 
-## 部署工作负载
+## 五、部署工作负载
 
 工作负载是一个对象，包括pod以及部署应用程序所需的其他文件和信息。我们以nginx作为例如: 
 

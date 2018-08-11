@@ -7,7 +7,7 @@ weight: 370
 
 ## 1. ETCD集群容错表
 
-建议在ETCD群集中使用奇数个成员,通过添加额外成员可以获得更高的失败容错。在比较偶数和奇数大小的集群时，你可以在实践中看到这一点：
+建议在ETCD群集中使用奇数个成员,通过添加额外成员可以获得更高的失败容错。在比较偶数和奇数大小的集群时，你可以在实践中看到这一点:
 
 | 集群大小 | MAJORITY | 失败容错 |
 | ------------ | -------- | ----------------- |
@@ -37,7 +37,7 @@ weight: 370
     root@newnode:~# mkdir -p /opt/rke/etcd-snapshots/
     ```
 
-4. 复制备份的最新快照到每个`etcd`节点`/opt/rke/etcd-snapshots/`目录下：
+4. 复制备份的最新快照到每个`etcd`节点`/opt/rke/etcd-snapshots/`目录下:
 
     ```bash
     root@newnode:~# s3cmd get s3://rke-etcd-snapshots/<SNAPSHOT.db> /opt/rke/etcd-snapshots/<SNAPSHOT.db>

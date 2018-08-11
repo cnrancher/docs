@@ -3,10 +3,10 @@ title: 主机
 weight: 460
 ---
 
-在Rancher中，主机是调度资源的基本单位(直观的理解就是所发生的操作最终都会落到某台主机上)，它可以是虚拟的或者物理的Linux服务器。Rancher管理的主机需要满足以下的条件：
+在Rancher中，主机是调度资源的基本单位(直观的理解就是所发生的操作最终都会落到某台主机上)，它可以是虚拟的或者物理的Linux服务器。Rancher管理的主机需要满足以下的条件:
 
 
-* 任何可以运行[支持的Docker版本](#docker版本适用对比)的 Linux 发行版本，例如：[RancherOS](https://docs.rancher.com/os/)，Ubuntu，RHEL/CentOS 7。不过针对RHEL/CentOS系列，有些需要注意的地方：
+* 任何可以运行[支持的Docker版本](#docker版本适用对比)的 Linux 发行版本，例如:[RancherOS](https://docs.rancher.com/os/)，Ubuntu，RHEL/CentOS 7。不过针对RHEL/CentOS系列，有些需要注意的地方:
     * Docker 并不推荐使用 RHEL/CentOS 默认的存储驱动(devicemapper)，可以参考[这篇文档](https://docs.docker.com/engine/reference/commandline/dockerd/#/storage-driver-options)来修改。
     * 如果启用 SELinux，[需要安装额外的模块](/docs/rancher/v1.x/cn/installing-rancher/selinux/)。
     * 内核版本要求是 `3.10.0-514.2.2.el7.x86_64` 及以上，建议使用 RHEL/CentOS 7.3 或者更高的发行版本。
@@ -37,13 +37,13 @@ weight: 460
 `17.06.x-ce`          | **Yes**{::nomarkdown}<p>(v1.6.3以及更高版本)</p>{:/}    | No                  | `curl https://releases.rancher.com/install-docker/17.06.sh | sh`
 `17.06.x-ee`          | **Yes**{::nomarkdown}<p>(v1.6.3以及更高版本)</p>{:/}    | No                  | n/a
 
-> **注意：** 我们不会支持Docker的edge版本，但是我们会支持Docker的稳定版本。
+> **注意:** 我们不会支持Docker的edge版本，但是我们会支持Docker的稳定版本。
 
 ### 安装特定版本的Docker
 
-一般会使用 `curl https://get.docker.com | sh` 脚本来安装最新版的 Docker 。但是，最新版的 Docker 有可能不适用于正准备安装或已经在使用中的 Rancher 版本。因此，一种推荐的做法是：安装特定版本的 Docker。按照上方的对比表，选择 Rancher 适用的安装脚本执行即可。
+一般会使用 `curl https://get.docker.com | sh` 脚本来安装最新版的 Docker 。但是，最新版的 Docker 有可能不适用于正准备安装或已经在使用中的 Rancher 版本。因此，一种推荐的做法是:安装特定版本的 Docker。按照上方的对比表，选择 Rancher 适用的安装脚本执行即可。
 
-> **注意：** 如果从操作界面上添加云主机，可以通过 **高级选项** 里面的 **Docker Install URL**来选择需要安装的 Docker 版本。
+> **注意:** 如果从操作界面上添加云主机，可以通过 **高级选项** 里面的 **Docker Install URL**来选择需要安装的 Docker 版本。
 
 ### 主机是如何工作的？
 
@@ -86,14 +86,14 @@ Rancher支持添加云提供商(例如AWS，DigitalOcean，阿里云，vSphere�
 
 通过UI添加云提供商的主机时，你可以在UI上添加主机标签，`rancher/agent` 会保证这些标签都会自动添加到主机上。
 
-如果通过UI添加自定义主机，当增加标签时，UI上的运行注册脚本会增加对应的环境变量：`CATTLE_HOST_LABELS`。比如，增加一个标签：foo=bar，会出现下面的效果：
+如果通过UI添加自定义主机，当增加标签时，UI上的运行注册脚本会增加对应的环境变量:`CATTLE_HOST_LABELS`。比如，增加一个标签:foo=bar，会出现下面的效果:
 
 ```bash
 $  sudo docker run -e CATTLE_HOST_LABELS='foo=bar' -d --privileged \
     -v /var/run/docker.sock:/var/run/docker.sock rancher/agent:v0.8.2 \
     http://<rancher-server-ip>:8080/v1/projects/1a5/scripts/<registrationToken>
 
-# 当再增加一个标签：hello=world
+# 当再增加一个标签:hello=world
 $  sudo docker run -e CATTLE_HOST_LABELS='foo=bar&hello=world' -d --privileged \
     -v /var/run/docker.sock:/var/run/docker.sock rancher/agent:v0.8.2 \
     http://<rancher-server-ip>:8080/v1/projects/1a5/scripts/<registrationToken>
@@ -101,7 +101,7 @@ $  sudo docker run -e CATTLE_HOST_LABELS='foo=bar&hello=world' -d --privileged \
 
 <br>
 
-> **注意：** `rancher/agent` 的版本与 `rancher/server` 的版本是相关的，执行添加自定义主机的时候，需要注意注册脚本的 `rancher/agent` 是否正确。正常情况下，通过操作界面获取的脚本内的版本信息都是正确的，用户不需要做额外修改。
+> **注意:** `rancher/agent` 的版本与 `rancher/server` 的版本是相关的，执行添加自定义主机的时候，需要注意注册脚本的 `rancher/agent` 是否正确。正常情况下，通过操作界面获取的脚本内的版本信息都是正确的，用户不需要做额外修改。
 
 #### 自动添加的标签
 
@@ -122,11 +122,11 @@ Rancher 会自动创建一些和Linux内核版本信息以及Docker引擎版本�
 #### 给已有主机添加调度地址
 在环境中已存在的主机，可以通过增加`io.rancher.scheduler.ips`标签来设置调度IP。通过操作界面，点击这台主机的**编辑**按钮，然后增加 **调度IP**。如果是通过接口的方式，只需要给主机添加标签 `io.rancher.scheduler.ips` 和值(多个地址，可以通过逗号分隔)即可。
 
-> **注意：** 在没有添加调度地址前，如果某些容器已经暴露了端口，那么这些容器的端口暴露在`0.0.0.0`上。那就意味着，已有的容器已经占用了全部的IP地址，后来添加的调度地址也被占用了。
+> **注意:** 在没有添加调度地址前，如果某些容器已经暴露了端口，那么这些容器的端口暴露在`0.0.0.0`上。那就意味着，已有的容器已经占用了全部的IP地址，后来添加的调度地址也被占用了。
 
 #### 给新主机添加调度地址
 
-对于新添加的[自定义主机](/docs/rancher/v1.x/cn/infrastructure/hosts/custom/) 需要像下面的例子，给注册脚本增加一个环境变量 `CATTLE_SCHEDULER_IPS` ：
+对于新添加的[自定义主机](/docs/rancher/v1.x/cn/infrastructure/hosts/custom/) 需要像下面的例子，给注册脚本增加一个环境变量 `CATTLE_SCHEDULER_IPS` :
 
 ```bash
 $  sudo docker run -e CATTLE_SCHEDULER_IPS='1.2.3.4,<IP2>,..<IPN>' -d --privileged \
@@ -160,15 +160,15 @@ $  sudo docker run -e CATTLE_SCHEDULER_IPS='1.2.3.4,<IP2>,..<IPN>' -d --privileg
 
 如果需要把一台停止的主机重新激活，从 **基础架构** 进入 **主机** 页面，点击已经停止的这台主机的下拉菜单，选择 **激活** 即可。
 
-> **注意：** 在Rancher中如果主机宕机了(比如处于 `reconnecting` 或 `inactive` 的状态)，需要给服务配置[健康检查](/docs/rancher/v1.x/cn/infrastructure/cattle/health-checks/) 以便于Rancher把这台宕掉的主机上的容器服务迁移到其他主机上执行。
+> **注意:** 在Rancher中如果主机宕机了(比如处于 `reconnecting` 或 `inactive` 的状态)，需要给服务配置[健康检查](/docs/rancher/v1.x/cn/infrastructure/cattle/health-checks/) 以便于Rancher把这台宕掉的主机上的容器服务迁移到其他主机上执行。
 
 ### 在Rancher内删除主机
 
-在 Rancher 内删除主机的操作需要进行几个步骤：从 **基础架构** 进入 **主机** 页面，点击需要删除的主机的下拉菜单，选择 **停用**。当主机完成停止以后，将会显示 _Inactive_ 状态。然后点击下拉菜单，选择 **删除**，Rancher 会执行对这台主机的删除操作。当显示 _Removed_ 状态时，就表示这台主机已经被删除了。但是，仍然可以在操作界面上看到这台主机，只有当点击下拉菜单，选择 **清理**后，这台主机才会从操作界面上消失。
+在 Rancher 内删除主机的操作需要进行几个步骤:从 **基础架构** 进入 **主机** 页面，点击需要删除的主机的下拉菜单，选择 **停用**。当主机完成停止以后，将会显示 _Inactive_ 状态。然后点击下拉菜单，选择 **删除**，Rancher 会执行对这台主机的删除操作。当显示 _Removed_ 状态时，就表示这台主机已经被删除了。但是，仍然可以在操作界面上看到这台主机，只有当点击下拉菜单，选择 **清理**后，这台主机才会从操作界面上消失。
 
 如果这台主机是由 Rancher 调用 `docker-machiine` 基于云提供商的驱动创建，按照上述的删除操作执行后，被删除的主机也会在云提供商的管理界面中消失。但是，如果是采用 [添加自定义主机](/docs/rancher/v1.x/cn/infrastructure/hosts/custom/) 的方式所添加的云提供商主机，被删除的主机还会在云提供商的管理界面中被查看到。而且这台主机内的容器服务(例如 `rancher/agent`)还是保留着的。可以认为通过自定义添加的云提供商的主机被删除后，只是从Rancher的调度中解离出去，但是它原来的生命周期Rancher不会干涉。
 
-> **注意：** 对自定义主机，包括Rancher Agent在内的全部容器都会保留在该主机上。同时，Rancher网络驱动创建的`docker0`上的IP也将会保留。
+> **注意:** 对自定义主机，包括Rancher Agent在内的全部容器都会保留在该主机上。同时，Rancher网络驱动创建的`docker0`上的IP也将会保留。
 
 ### 在Rancher外删除主机
 

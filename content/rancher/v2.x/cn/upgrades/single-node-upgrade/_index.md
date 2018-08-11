@@ -10,7 +10,7 @@ weight: 1010
       ```bash
       docker stop <RANCHER_CONTAINER_ID>
       ```
-      >**提示：** 你可以输入`docker ps`命令获取Rancher容器的ID
+      >**提示:** 你可以输入`docker ps`命令获取Rancher容器的ID
 
 2. 创建当前Rancher Server容器的数据卷容器，以便在升级Rancher Server中使用，命名为rancher-data容器。
 
@@ -24,7 +24,7 @@ weight: 1010
 
 3. 备份`rancher-data`数据卷容器
 
-    如果升级失败，可以通过此备份还原Rancher Server，容器命名：`rancher-data-snapshot-<CURRENT_VERSION>`.
+    如果升级失败，可以通过此备份还原Rancher Server，容器命名:`rancher-data-snapshot-<CURRENT_VERSION>`.
 
     - 替换`<RANCHER_CONTAINER_ID>`为上一步中的相同ID。
     - 替换`<CURRENT_VERSION>`为当前安装的Rancher版本的标记。

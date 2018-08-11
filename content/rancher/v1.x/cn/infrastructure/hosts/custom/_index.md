@@ -10,7 +10,7 @@ title: 添加Custom主机
 
 一旦你的主机添加到Rancher之后，你就可以开始[添加服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/)了。
 
-> **注意：** 确保运行Rancher Server的主机和你所添加的主机的时钟是一样的并且能够正常访问主机上的容器。更多信息，请参考[在Rancher中访问容器的命令行和日志](/docs/rancher/v1.x/cn/faqs/troubleshooting/#求助-我不能通过-rancher的界面打开-shell-或查看日志--rancher-是如何去访问容器的-shell和日志)。
+> **注意:** 确保运行Rancher Server的主机和你所添加的主机的时钟是一样的并且能够正常访问主机上的容器。更多信息，请参考[在Rancher中访问容器的命令行和日志](/docs/rancher/v1.x/cn/faqs/troubleshooting/#求助-我不能通过-rancher的界面打开-shell-或查看日志--rancher-是如何去访问容器的-shell和日志)。
 
 ### 主机标签
 
@@ -40,7 +40,7 @@ http://<rancher-server-ip>:8080/v1/projects/1a5/scripts/<registrationToken>
 
 * 如果你正在使用IPsec[网络驱动](/docs/rancher/v1.x/cn/rancher-services/networking/)，要开放所有主机上的UDP端口500和4500。
 * 如果你正在使用VXLAN[网络驱动](/docs/rancher/v1.x/cn/rancher-services/networking/)，要开放所有主机上的UDP端口`4789`。
-* _k8s主机_ ：用作K8s的主机需要开放`10250`和`10255`端口来为`kubectl`使用。为了访问外部的服务，NodePort使用的端口也需要开放，默认的是TCP端口`30000` - `32767`。
+* _k8s主机_ :用作K8s的主机需要开放`10250`和`10255`端口来为`kubectl`使用。为了访问外部的服务，NodePort使用的端口也需要开放，默认的是TCP端口`30000` - `32767`。
 
 <a id="samehost"></a>
 
@@ -64,7 +64,7 @@ $ sudo vi /etc/default/docker
 
 在文件里，编辑`#export http_proxy="http://127.0.0.1:3128/"`，使其指向你的代理。保存你的修改并且重启docker。在不同的系统上重启docker的方式是不一样的。
 
-> **注意：** 如果是用systemd启动的docker, 那么修改http代理的方式请参考docker [介绍](https://docs.docker.com/articles/systemd/#http-proxy)。
+> **注意:** 如果是用systemd启动的docker, 那么修改http代理的方式请参考docker [介绍](https://docs.docker.com/articles/systemd/#http-proxy)。
 
 为了在代理后添加主机，你不用在命令行中添加其他环境变量来启动Rancher Agent。你只需要保证你的docker daemon配置正确就可以了。
 
@@ -79,4 +79,4 @@ $ sudo docker run -d -e CATTLE_AGENT_IP=<PRIVATE_IP> -v /var/run/docker....
 ```
 如果在Agent已经连接之后需要修改主机的IP，那么请重新运行添加自定义主机的命令行。
 
-> **注意：** 当设置成私有地址之后，Rancher中已经存在的容器将不在同一个托管网络内。
+> **注意:** 当设置成私有地址之后，Rancher中已经存在的容器将不在同一个托管网络内。

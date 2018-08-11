@@ -12,21 +12,21 @@ Rancher允许用户在[环境](/docs/rancher/v1.x/cn/configuration/environments/
 
 如果你已经有一个启动的Rancher环境，你可以从[Rancher应用商店](/docs/rancher/v1.x/cn/configuration/catalog/)中启动 **Network Policy Manager**
 
-> **注意：** Network Policy Manager现在只能在使用Cattle编排引擎的时候使用。环境模版基于编排引擎确定哪些组件可用，Rancher支持几乎所有的编排引擎。
+> **注意:** Network Policy Manager现在只能在使用Cattle编排引擎的时候使用。环境模版基于编排引擎确定哪些组件可用，Rancher支持几乎所有的编排引擎。
 
 ### 通过UI管理网络策略规则
 网络策略规则可以在每个环境设置页面中配置。点击左上角下拉列表中的**环境管理**，然后在需要配置的环境右侧点击编辑按钮
 
 在界面上有四个选择，`允许`允许网络通信，`禁止`限制网络通信
 
-* **链接服务之间**：这个选项用来控制两个服务中链接的容器
+* **链接服务之间**:这个选项用来控制两个服务中链接的容器
 * **服务内部**: 这个选项用来控制服务内的容器
 * **应用内部**: 这个选项用来控制相同应用中不同服务
 * **其他**: 这个选项用来控制上面不包含的情况
 
 一个通常的配置是在**其他**选择`禁止`，其他的都选择`允许`。
 
-> **注意：** 规则生效的顺序为从左至右
+> **注意:** 规则生效的顺序为从左至右
 
 
 ### 通过API管理网络策略规则
@@ -44,9 +44,9 @@ http://<RANCHER_SERVER_IP>/v2-beta/projects/<PROJECT_ID>/networks/<NETWORK_ID>`
 怎么查找需要配置的网络的URL:
 
 1. 点击**API**打开**高级选项**。在 **环境API Keys**，点击 **Endpoint (v2-beta)**.
-  > **注意：**: 在UI上是`环境`，在API是`project`。
+  > **注意:**: 在UI上是`环境`，在API是`project`。
 2. 在环境的links属性中查找**networks**，点击链接。
-3. 查询你环境中启动的网络驱动的名字。例如：可能为 `ipsec`。点击该网络驱动的**self**
+3. 查询你环境中启动的网络驱动的名字。例如:可能为 `ipsec`。点击该网络驱动的**self**
 4. 在右边的**Operations**中，点击**Edit**，在`defaultPolicyAction`中，你可以修改默认的网络策略，同时在`policy`字段，你可以管理你的网络策略规则。
 
 
@@ -72,7 +72,7 @@ http://<RANCHER_SERVER_IP>/v2-beta/projects/<PROJECT_ID>/networks/<NETWORK_ID>`
   "action": "allow"
 }
 ```
-> **注意：** 服务B的容器不会初始化一个链接到服务A。
+> **注意:** 服务B的容器不会初始化一个链接到服务A。
 
 关闭服务A和服务B之间的通信:
 

@@ -16,7 +16,7 @@ Rancher提供对AWS EBS卷的支持，用户可以选择为容器选择AWS EBS�
 
 又或者，你已经创建了一个环境，你可以选择从[应用商店](/docs/rancher/v1.x/cn/configuration/catalog/)中直接启动Rancher EBS。
 
-> **注意：** 某些存储服务可能无法和一些容器或编排调度系统(例如，kubernetes)所兼容。环境模板可以根据当前的编排调度系统限定可以使用的存储服务，而应用商店中则会显示全部的存储服务。
+> **注意:** 某些存储服务可能无法和一些容器或编排调度系统(例如，kubernetes)所兼容。环境模板可以根据当前的编排调度系统限定可以使用的存储服务，而应用商店中则会显示全部的存储服务。
 
 要启动Rancher EBS，你需要一个AWS Access Key以及Secret Key 以确保你有权限创建AWS EBS卷。同时，不同的驱动选项可能还需要其他额外的权限。
 
@@ -36,7 +36,7 @@ Rancher提供对AWS EBS卷的支持，用户可以选择为容器选择AWS EBS�
 
 对于以下选项，你**必须**指定和ID绑定的可用区(`ec2_az`)
 
-* **Encrypted** (`encrypted`): 卷是否需要被加密。注：如果需要启动此选项，则需要提供AWS KMS ID。
+* **Encrypted** (`encrypted`): 卷是否需要被加密。注:如果需要启动此选项，则需要提供AWS KMS ID。
 * **AWS KMS ID** (`kmsKeyId`): 用于创建加密卷的AWS Key Management Service customer master key (CMK) 的完整资源名称-ARN(Amazon Resource Name)
 * **Snapshot ID** (`snapshotID`): 用于创建卷的快照。
 * **Volume ID** (`volumeID`): 已创建的卷ID。
@@ -49,8 +49,8 @@ Rancher提供对AWS EBS卷的支持，用户可以选择为容器选择AWS EBS�
 
 1. 点击**添加卷**
 2. 填写卷名称
-3. 必填：填写 `size`选项
-4. 可选：添加其他额外的驱动选项。注：如果要使用加密，快照ID或者卷ID，你需要指定对应的可用区。
+3. 必填:填写 `size`选项
+4. 可选:添加其他额外的驱动选项。注:如果要使用加密，快照ID或者卷ID，你需要指定对应的可用区。
 
 #### 在服务中使用卷
 
@@ -63,9 +63,9 @@ Rancher提供对AWS EBS卷的支持，用户可以选择为容器选择AWS EBS�
 在基础设施应用中的**Rancher EBS**启动后，你可以开始在Compose文件中创建卷了。
 在Docker Compose文件中`volumes`下可以定义卷。在同一个Docker Compose中每个卷可以和多个服务关联。
 
-> **注意：** 此功能只在Compose v2格式下生效。
+> **注意:** 此功能只在Compose v2格式下生效。
 
-#### 举例：应用级别存储卷，指定size、卷类型以及IOPS
+#### 举例:应用级别存储卷，指定size、卷类型以及IOPS
 在这里例子中，我们将创建一个使用[应用级别的存储卷](/docs/rancher/v1.x/cn/rancher-services/storage-service/#应用级别)的服务。所有该应用中的服务将共享同一个卷。
 
 ```yaml
@@ -90,7 +90,7 @@ volumes:
       iops: 1000
 ```
 
-#### 举例：指定可用区的应用级别的存储卷
+#### 举例:指定可用区的应用级别的存储卷
 
 在这里例子中，我们将创建一个使用[应用级别的存储卷](/docs/rancher/v1.x/cn/rancher-services/storage-service/#应用级别)的服务。所有该应用中的服务将共享同一个卷。
 我们将指定卷的可用区，使用该AWS EBS卷的所有容器将会被调度到同一台主机上。
@@ -113,7 +113,7 @@ volumes:
       ec2_az: us-west-2a
 ```
 
-#### 举例：应用级别加密卷
+#### 举例:应用级别加密卷
 
 在这里例子中，我们将创建一个使用[应用级别的存储卷](/docs/rancher/v1.x/cn/rancher-services/storage-service/#应用级别)的服务。所有该应用中的服务将共享同一个卷。
 为了加密该卷，你需要在驱动选项中启用加密并指定加密密钥的ID以及该密钥所在的可用区。
@@ -139,7 +139,7 @@ volumes:
       ec2_az: <AVAILABILITY_ZONE_WHERE_THE_KMS_KEY_IS>
 ```
 
-#### 举例：基于快照的应用级别的存储卷
+#### 举例:基于快照的应用级别的存储卷
 
 在这里例子中，我们将创建一个使用[应用级别的存储卷](/docs/rancher/v1.x/cn/rancher-services/storage-service/#应用级别)的服务。所有该应用中的服务将共享同一个卷。
 该卷将基于一个已有的AWS快照被创建出来。你需要指定快照ID以及该快照所在的可用区。
@@ -165,7 +165,7 @@ volumes:
       ec2_az: <AVAILABILITY_ZONE_WHERE_THE_SNAPSHOT_IS>
 ```
 
-#### 举例：基于已有EBS卷的的应用级别的存储卷
+#### 举例:基于已有EBS卷的的应用级别的存储卷
 
 在这里例子中，我们将创建一个使用[应用级别的存储卷](/docs/rancher/v1.x/cn/rancher-services/storage-service/#应用级别)的服务。所有该应用中的服务将共享同一个卷。
 你需要指定卷ID以及改卷所在的可用区。

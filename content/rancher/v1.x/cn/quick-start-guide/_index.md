@@ -12,7 +12,7 @@ weight: 100
 
 在主机上安装Docker的方法请参照[Docker](https://docs.docker.com/engine/installation/linux/ubuntulinux/)网站的安装说明。
 
-> **注意：** 目前Rancher尚不支持Docker for Windows以及Docker for Mac。
+> **注意:** 目前Rancher尚不支持Docker for Windows以及Docker for Mac。
 
 
 ### Rancher Server标签
@@ -38,7 +38,7 @@ $ sudo docker logs -f <CONTAINER_ID>
 
 Rancher UI的默认端口是 `8080`。所以为了访问UI，需打开`http://<SERVER_IP>:8080`。需要注意的事，如果你的浏览器和Rancher Server是运行在同一主机上的，你需要通过主机的**真实IP地址**访问，比如 `http://192.168.1.100:8080` ，而不是 `http://localhost:8080` 或`http://127.0.0.1:8080`，以防在添加主机的时候使用了不可达的IP而出现问题。
 
-> **注意：** 1. 初始安装时Rancher的访问控制并未配置，任何能够访问你的IP地址的人，都可以访问你的UI和API。我们建议你配置 [访问控制](/docs/rancher/v1.x/cn/configuration/access-control/). 2. 国内的公有云主机，如果需要使用80和8080端口，需备案后才可以使用。
+> **注意:** 1. 初始安装时Rancher的访问控制并未配置，任何能够访问你的IP地址的人，都可以访问你的UI和API。我们建议你配置 [访问控制](/docs/rancher/v1.x/cn/configuration/access-control/). 2. 国内的公有云主机，如果需要使用80和8080端口，需备案后才可以使用。
 
 ### 添加主机
 
@@ -90,7 +90,7 @@ $ docker run -d -it --label io.rancher.container.network=true ubuntu:14.04.2
 
 ### 创建一个多容器应用
 
-上文中我们已经介绍了如何创建单个容器以及这些单个容器之间如何进行跨主机网络通信。然而，现实情况中，大多数应用程序其实是由多个服务构成的，而每个服务又是由多个容器构成的。比如说，一个[LetsChat](http://sdelements.github.io/lets-chat/)应用程序，就是由下列几项服务构成的：
+上文中我们已经介绍了如何创建单个容器以及这些单个容器之间如何进行跨主机网络通信。然而，现实情况中，大多数应用程序其实是由多个服务构成的，而每个服务又是由多个容器构成的。比如说，一个[LetsChat](http://sdelements.github.io/lets-chat/)应用程序，就是由下列几项服务构成的:
 
 1. 一个负载均衡器。负载均衡器把Internet流量转发给“LetsChat”应用程序。
 2. 一个由两个“LetsChat”容器组成的*web*服务。
@@ -116,7 +116,7 @@ $ docker run -d -it --label io.rancher.container.network=true ubuntu:14.04.2
 
 当在Rancher中创建服务时，Rancher CLI工具与颇受欢迎的Docker Compose工具的工作方式类似。 它接收相同的`docker-compose.yml`文件，并在Rancher上部署应用程序。 你可以在`rancher-compose.yml`文件中指定更多的属性，该文件将扩展并覆盖`docker-compose.yml`文件。
 
-在上一节中，我们创建了一个具有一个负载均衡器的LetsChat应用程序。如果你已经在Rancher中创建了它，你可以直接在UI中下载这些文件，只需在应用的下拉菜单中选择**导出配置**即可。`docker-compose.yml`文件与 `rancher-compose.yml` 文件与下方示例类似：
+在上一节中，我们创建了一个具有一个负载均衡器的LetsChat应用程序。如果你已经在Rancher中创建了它，你可以直接在UI中下载这些文件，只需在应用的下拉菜单中选择**导出配置**即可。`docker-compose.yml`文件与 `rancher-compose.yml` 文件与下方示例类似:
 
 #### docker-compose.yml示例
 

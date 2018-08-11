@@ -58,11 +58,11 @@ Rancher支持创建密文并在容器中使用该密文(在容器中使用该密
       -e VAULT_ADDR=https://<VAULT_SERVER> -e VAULT_TOKEN=<TOKEN_FOR_VAULT_ACCCESS> rancher/server
    ```
 
-    > **注意：** 请检查运行的[Rancher Server版本](/docs/rancher/v1.x/cn/installing-rancher/installing-server/#rancher-server-标签)是否是你想要的。
+    > **注意:** 请检查运行的[Rancher Server版本](/docs/rancher/v1.x/cn/installing-rancher/installing-server/#rancher-server-标签)是否是你想要的。
 
 4. 在Rancher服务启动成功之后，你需要修改Rancher中的`service-backend`设置。在**系统管理** -> **系统设置** -> **高级设置**中，找到`secrets.backend`。它的默认值是`localkey`，你可以把它修改为`vault`。
 
-> **注意：** 目前Rancher不支持对不同加密后台之间进行切换。
+> **注意:** 目前Rancher不支持对不同加密后台之间进行切换。
 
 ### 创建密文
 
@@ -89,7 +89,7 @@ $ rancher secrets create name-of-secret file-with-secret
 
 ### 删除密文
 
-> **备注：** 目前Rancher命令行不支持删除密文。
+> **备注:** 目前Rancher命令行不支持删除密文。
 
 你可以在UI里把密文从Rancher中删除，但是这并不会在已使用该密文的容器中删除该密文文件。如果一台主机上运行着使用该密文的容器，Rancher也不会在该主机上删除该密文文件。
 
@@ -101,12 +101,12 @@ $ rancher secrets create name-of-secret file-with-secret
 
 当密文被添加到容器中时，密文会被写到一个tmpfs卷中。你可以在容器里和主机上访问这个卷。
 
-* 在使用该密文的容器中：这个卷被挂载在`/run/secrets/`.
-* 在运行使用该密文的容器所在的主机上：这个卷被挂载在`/var/lib/rancher/volumes/rancher-secrets/`.
+* 在使用该密文的容器中:这个卷被挂载在`/run/secrets/`.
+* 在运行使用该密文的容器所在的主机上:这个卷被挂载在`/var/lib/rancher/volumes/rancher-secrets/`.
 
 #### 通过Rancher命令行添加密文到服务中
 
-> **注意：** 密文是在compose文件版本3中被引入的。由于Rancher不支持compose文件版本，所以我们在版本2中加入了密文功能。
+> **注意:** 密文是在compose文件版本3中被引入的。由于Rancher不支持compose文件版本，所以我们在版本2中加入了密文功能。
 
 你可以在`docker-compose.yml`里，通过配置服务的`secrets`值来指定一个或者多个密文。密文文件的名称与在Rancher中加入的密文名称相同。在默认情况下，将使用用户ID`0`和组ID`0`创建该密文文件，文件权限为`0444`。在`secrets`里将`external`设置为`true`确保Rancher知道该密文已经被创建成功了。
 
@@ -196,7 +196,7 @@ Docker在很多自己的官方镜像中都支持通过文件来传递密文。�
 
 存储在Rancher中的密文和存储在CI系统(如Travis CI和Drone)中的密文安全程度是一样。由于加密密钥直接存储在Rancher Server容器中，所以如果Rancher Server容器被入侵，全部的密文都能被黑客获取到。Rancher将在以后的版本中努力降低这种情况的安全隐患。
 
-> **注意：** 如果你使用Vault进行加密，你需要创建一个策略来限制Rancher Server所用的token的访问权限。
+> **注意:** 如果你使用Vault进行加密，你需要创建一个策略来限制Rancher Server所用的token的访问权限。
 
 #### 被入侵的主机
 
@@ -204,7 +204,7 @@ Docker在很多自己的官方镜像中都支持通过文件来传递密文。�
 
 #### 容器访问
 
-如果一个用户可以exec进入到容器中，该用户可以通过容器中挂载的卷查看到密文值。可以通过如下方式访问容器：
+如果一个用户可以exec进入到容器中，该用户可以通过容器中挂载的卷查看到密文值。可以通过如下方式访问容器:
 
   * UI点击"执行命令行"
   * Rancher命令行工具

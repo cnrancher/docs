@@ -43,7 +43,7 @@ title: 外部DNS服务
 }
 ```
 
-> **注意：** 当使用这个JSON文档在AWS中创建自定义IAM规则时，请使用Route53所在区域或者通配符('*')来替换`<HOSTED_ZONE_ID>`。
+> **注意:** 当使用这个JSON文档在AWS中创建自定义IAM规则时，请使用Route53所在区域或者通配符('*')来替换`<HOSTED_ZONE_ID>`。
 
 ### 启动 Route53 服务
 
@@ -51,7 +51,7 @@ title: 外部DNS服务
 
 为你的应用栈填写 **名称**，并填写必要的 **描述**。
 
-在 **配置选项** 中，你需要提供一下的信息：
+在 **配置选项** 中，你需要提供一下的信息:
 
 
 名称| 值
@@ -67,7 +67,7 @@ Hosted Zone | Route53 hosted zone。这个必须在你的Route53实例上预创�
 
 ### 使用Route53的服务
 
-`route53`服务只会为在Host上映射端口的服务生成DNS记录，每一个Rancher生成的DNS记录，他使用一下的格式为服务创建一个fqdn：
+`route53`服务只会为在Host上映射端口的服务生成DNS记录，每一个Rancher生成的DNS记录，他使用一下的格式为服务创建一个fqdn:
 
 ```
 fqdn=<serviceName>.<stackName>.<environmentName>.<yourHostedZoneName>
@@ -79,7 +79,7 @@ fqdn=<serviceName>.<stackName>.<environmentName>.<yourHostedZoneName>
 
 当在浏览器使用fqdn，他会被指向到服务中的其中一个容器。如果服务中容器的IP地址发生了变化，这些变化会在AWS的Route 53服务同步更新。由于用户一直在使用fqdn，所有这些更变对用户是透明的。
 
-> **注意：** 在 `route53` 服务被启动后，任何已经部署并使用了host端口的服务都会获得一个fqdn。
+> **注意:** 在 `route53` 服务被启动后，任何已经部署并使用了host端口的服务都会获得一个fqdn。
 
 
 ### 删除 Route53 服务

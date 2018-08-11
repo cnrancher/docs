@@ -37,7 +37,7 @@ weight: 50
 
 1. 编辑`rancher-cluster.yml`配置文件；
 
-2. 在`rancher-cluster.yml`配置文件中添加以下代码：
+2. 在`rancher-cluster.yml`配置文件中添加以下代码:
 
     ```yaml
     services:
@@ -53,7 +53,7 @@ weight: 50
 
 5. 打开**Terminal**并切换路径到RKE二进制文件所在目录.确保`rancher-cluster.yml`也在这个路径下；
 
-6. 运行以下命令：
+6. 运行以下命令:
 
     ```bash
     # MacOS
@@ -71,9 +71,9 @@ weight: 50
 
 1. 打开**Terminal**并切换路径到RKE二进制文件所在目录.确保`rancher-cluster.yml`也在该路径下
 
-2. 输入以下命令：
+2. 输入以下命令:
 
-    >注意：替换`<SNAPSHOT.db>`为你喜欢的名称，例如：<SNAPSHOT.db>
+    >注意:替换`<SNAPSHOT.db>`为你喜欢的名称，例如:<SNAPSHOT.db>
 
     ```bash
     # MacOS

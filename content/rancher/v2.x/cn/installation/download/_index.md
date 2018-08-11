@@ -38,3 +38,7 @@ weight: 7
 [kubectl_linux-amd64](/download/kubectl/kubectl_amd64-linux)
 
 [kubectl_windows-amd64](/download/kubectl/kubectl_amd64-windows.exe)
+
+### Harbor
+
+[harbor-online-installer.tgz](/download/harbor/harbor-online-installer.tgz)

@@ -5,7 +5,7 @@ title: AWS ECR证书更新器
 
 ECR证书更新器是一个容器服务，它会间歇性自动测验AWS ECR API并拉取新的Docker注册证书. 更新器通过IAM证书向 AWS 验证，IAM 证书能让更新器获取请求Docker证书的权限。Docker证书假设发起请求的IAM用户有相同的镜像仓库权限。IAM 用户至少要有对所有ECR镜像库的读权限用户才能在Rancher中从代码库拉取镜像. 请查阅 [Amazon ECR IAM Policies and Roles](http://docs.aws.amazon.com/AmazonECR/latest/userguide/ECR_IAM_policies.html) 获取关于许可权的详情。
 
-> **注意：**: 如果不启动 ECR 更新器。任何添加到 Rancher 的注册 token 都会过期，以至不能再拉取镜像.
+> **注意:**: 如果不启动 ECR 更新器。任何添加到 Rancher 的注册 token 都会过期，以至不能再拉取镜像.
 
 ## 安装ECR更新器
 
@@ -15,7 +15,7 @@ ECR证书更新器是一个容器服务，它会间歇性自动测验AWS ECR API
 **应用商店** -> **官方认证** 下找到 **Rancher ECR 证书更新器**. 启动这个应用商店应用时, 你需要配置服务的 AWS 访问密钥。
 这些你已经提供了合适的访问策略密钥因该给用户使用。
 
-> **注意：** 如果你要用 Kubernetes, 我们推荐你编辑环境模版，并在创建环境前把这个模版添加到环境模版中。如果你已经有了一个 Kubernetes, 你可以删除这个 Kubernetes 应用， 这样就可以把它转成 Cattle 来启动应用商店应用，同时在应用商店中重新启动这个 Kubernetes。
+> **注意:** 如果你要用 Kubernetes, 我们推荐你编辑环境模版，并在创建环境前把这个模版添加到环境模版中。如果你已经有了一个 Kubernetes, 你可以删除这个 Kubernetes 应用， 这样就可以把它转成 Cattle 来启动应用商店应用，同时在应用商店中重新启动这个 Kubernetes。
 
 ### 新环境
 

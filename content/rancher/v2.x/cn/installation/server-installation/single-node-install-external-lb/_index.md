@@ -29,7 +29,7 @@ weight: 2
 
 - Docker
 
-    > **注意：**如果你使用的是RancherOS，请确保你将Docker引擎切换为受支持的版本`sudo ros engine switch docker-17.03.2-ce`
+    > **注意:**如果你使用的是RancherOS，请确保你将Docker引擎切换为受支持的版本`sudo ros engine switch docker-17.03.2-ce`
 
     **支持的Docker版本**
 
@@ -39,7 +39,7 @@ weight: 2
 
     [Docker安装说明](https://docs.docker.com/install/)
 
-    > **注意：** 该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请查阅[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。
+    > **注意:** 该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请查阅[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。
     >
     >  更多Rancher server tag列表，，请查阅[Rancher server tags](/docs/rancher/v2.x/cn/installation/server-tags/)。
 
@@ -53,7 +53,7 @@ weight: 2
 
 出于安全考虑，使用Rancher时需要SSL进行加密。SSL可以保护所有Rancher网络通信，例如登录或与集群交互。
 
-> **注意：**如果你正在访问此页面以完成[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)，在运行安装命令时，必须在Rancher镜像前面加上你私有仓库的地址，替换`<REGISTRY.DOMAIN.COM:PORT>`为你的私有仓库地址。
+> **注意:**如果你正在访问此页面以完成[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)，在运行安装命令时，必须在Rancher镜像前面加上你私有仓库的地址，替换`<REGISTRY.DOMAIN.COM:PORT>`为你的私有仓库地址。
 >
 >例如: <REGISTRY.DOMAIN.COM:PORT>/rancher/rancher:latest
 
@@ -66,7 +66,7 @@ weight: 2
 > - 创建一个自签名证书;
 > - 证书文件必须是 **PEM** 格式;
 
-运行Rancher server容器时候，需要把自签名CA证书映射到Rancher容器中：
+运行Rancher server容器时候，需要把自签名CA证书映射到Rancher容器中:
 
 ```bash
 docker run -d --restart=unless-stopped \
@@ -79,11 +79,11 @@ rancher/rancher:latest
 
 如果你公开发布你的应用，理想情况下应该使用由权威CA机构颁发的证书。
 
-> **先决条件：**
+> **先决条件:**
 >
 > - 证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型](/docs/rancher/v2.x/cn/installation/self-signed-ssl/)；
 
-如果你使用由权威CA机构颁发的证书，则无需在Rancher容器中安装你的CA证书，只需运行下面的基本安装命令即可：
+如果你使用由权威CA机构颁发的证书，则无需在Rancher容器中安装你的CA证书，只需运行下面的基本安装命令即可:
 
 ```bash
 docker run -d --restart=unless-stopped \
@@ -95,7 +95,7 @@ rancher/rancher:latest
 
 默认情况下，通过`docker run`运行的Rancher server容器会自动把端口80重定向到443，但是通过负载均衡器来代理Rancher server容器后，不再需要将Rancher server容器端口从80重定向到443。通过在负载均衡器上配置`X-Forwarded-Proto: https`参数后，Rancher server容器端口重定向功能将自动被禁用。
 
-负载均衡器或代理必须配置为支持以下内容：
+负载均衡器或代理必须配置为支持以下内容:
 
 - **WebSocket** 连接
 
@@ -167,20 +167,20 @@ server {
 
 你有几个选择:
 
-- 创建Rancher server的备份：[单节点备份和恢复](/docs/rancher/v2.x/cn/backups-and-restoration/backups/single-node-backups/)。
-- 创建一个Kubernetes集群：[创建一个集群](/docs/rancher/v2.x/cn/configuration/clusters/creating-a-cluster/)。
+- 创建Rancher server的备份:[单节点备份和恢复](/docs/rancher/v2.x/cn/backups-and-restoration/backups/single-node-backups/)。
+- 创建一个Kubernetes集群:[创建一个集群](/docs/rancher/v2.x/cn/configuration/clusters/creating-a-cluster/)。
 
 ## 七、FAQ and Troubleshooting
 
 ### 1、如何知道我的证书是否为PEM格式？
 
-你可以通过以下特征识别PEM格式：
+你可以通过以下特征识别PEM格式:
 
 ```bash
-- 该文件以下列标题开头：
+- 该文件以下列标题开头:
 -----BEGIN CERTIFICATE-----
 - 标题后面跟着一串长字符
-- 该文件以页脚结尾：
+- 该文件以页脚结尾:
 -----END CERTIFICATE-----
 ```
 
@@ -196,7 +196,7 @@ VWQqljhfacYPgp8KJUJENQ9h5hZ2nSCrI+W00Jcw4QcEdCI8HL5wmg==
 
 ### 2、如果我想添加我的中间证书，证书的顺序是什么？
 
-添加证书的顺序如下：
+添加证书的顺序如下:
 
 ```bash
 -----BEGIN CERTIFICATE-----
@@ -221,7 +221,7 @@ Verify return code: 0 (ok)
 
 ### 4、数据持久
 
-Rancher `etcd`用作数据存储，使用单节点安装时，将使用内置`etcd`。数据持久位于容器中的以下路径中： `/var/lib/rancher`。你可以将主机卷挂载到此位置以保留其运行的数据。
+Rancher `etcd`用作数据存储，使用单节点安装时，将使用内置`etcd`。数据持久位于容器中的以下路径中: `/var/lib/rancher`。你可以将主机卷挂载到此位置以保留其运行的数据。
 
 **命令**:
 

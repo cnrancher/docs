@@ -9,7 +9,7 @@ weight: 1
 
 Rancher是一个开源的企业级容器管理平台。通过Rancher，企业再也不必自己使用一系列的开源软件去从头搭建容器服务平台。Rancher提供了在生产环境中使用的管理Docker和Kubernetes的全栈化容器部署与管理平台。
 
-Rancher由以下四个部分组成：
+Rancher由以下四个部分组成:
 
 ### 基础设施编排
 
@@ -31,6 +31,6 @@ Rancher的用户可以在[应用商店](/docs/rancher/v1.x/cn/catalog)里一键�
 
 Rancher支持灵活的插件式的用户认证。支持Active Directory，LDAP， Github等 [认证方式](/docs/rancher/v1.x/cn/configuration/access-control/)。 Rancher支持在[环境](/docs/rancher/v1.x/cn/configuration/environments/)级别的基于角色的访问控制 (RBAC)，可以通过角色来配置某个用户或者用户组对开发环境或者生产环境的访问权限。
 
-下图展示了Rancher的主要组件和功能：
+下图展示了Rancher的主要组件和功能:
 
 <img src="/img/rancher/rancher.png" width="800" alt="Rancher Overview">

@@ -6,15 +6,15 @@ title: 数据卷
 
 #### 术语
 
-`卷插件`和`卷驱动`同时在Docker和Rancher中使用。他们代表的是同一个东西: 一个[Docker卷插件](https://docs.docker.com/engine/extend/plugins_volume/) 可以给一个Docker容器提供本地卷或者共享的持久化卷的支持。Rancher卷插件(驱动)目前是以Docker卷插件的形式实现的。并且可以通过`docker volume`命令行来进行操作，但是这取决于存储技术。卷可以被环境中的某个主机，某些主机或者全部主机访问。Rancher对跨主机使用共享卷的复杂过程进行了封装。例如：rancher-nfs, rancher-ebs 和 pxd (portworx)。
+`卷插件`和`卷驱动`同时在Docker和Rancher中使用。他们代表的是同一个东西: 一个[Docker卷插件](https://docs.docker.com/engine/extend/plugins_volume/) 可以给一个Docker容器提供本地卷或者共享的持久化卷的支持。Rancher卷插件(驱动)目前是以Docker卷插件的形式实现的。并且可以通过`docker volume`命令行来进行操作，但是这取决于存储技术。卷可以被环境中的某个主机，某些主机或者全部主机访问。Rancher对跨主机使用共享卷的复杂过程进行了封装。例如:rancher-nfs, rancher-ebs 和 pxd (portworx)。
 
-`存储驱动`是关于容器和镜像是如何在Docker主机上被存储的。例如：aufs, btrfs, zfs, devicemapper等。这些驱动在Rancher的管控范围之外。Rancher UI混合了这个术语，但实际上指的是`卷插件`和`卷驱动`。更多关于存储驱动的插件信息信息，请查看[这里](https://docs.docker.com/engine/userguide/storagedriver/imagesandcontainers/)。
+`存储驱动`是关于容器和镜像是如何在Docker主机上被存储的。例如:aufs, btrfs, zfs, devicemapper等。这些驱动在Rancher的管控范围之外。Rancher UI混合了这个术语，但实际上指的是`卷插件`和`卷驱动`。更多关于存储驱动的插件信息信息，请查看[这里](https://docs.docker.com/engine/userguide/storagedriver/imagesandcontainers/)。
 
 ### 管理卷
 
 在这一部分，你将会了解如何创建一个可以被容器之间共享的持久化卷。在这里我们将专门使用[Rancher命令行](/docs/rancher/v1.x/cn/infrastructure/cli/)。
 
-> **注意：** UI可以用来管理除了由`local`卷驱动创建的卷。
+> **注意:** UI可以用来管理除了由`local`卷驱动创建的卷。
 
 #### 创建卷
 
@@ -52,7 +52,7 @@ $ rancher volume rm app-data
 
 #### 卷状态
 
-卷有七个不同的状态：`inactive`, `activating`, `active`, `deactivating`, `detached`, `removing` 和 `removed`。
+卷有七个不同的状态:`inactive`, `activating`, `active`, `deactivating`, `detached`, `removing` 和 `removed`。
 
 一个刚刚建好的卷的状态是`inactive`，直到有容器尝试挂载这个卷。
 
@@ -84,7 +84,7 @@ Rancher中，应用级别的存储卷的命名规则为使用应用名称为前�
 
 下面的例子中，将会创建应用级别的卷`data`。
 
-> **注意：** 因为在文件中最顶层的volumes部分不存在其他配置值，所以这个卷的级别为应用级。
+> **注意:** 因为在文件中最顶层的volumes部分不存在其他配置值，所以这个卷的级别为应用级。
 
 ```yaml
 version: '2'
@@ -107,13 +107,13 @@ volumes:
 
 在通过Rancher命令行创建应用之后，你可以[列出卷](#列出卷)来确认`data`卷已经创建成功。这个卷的名称将为`<STACK_NAME>_data_<RANDOM_NUMBER>`。
 
-> **注意：** 应用级别的卷可以被其他应用挂载。应用级别的卷并不是一种安全的机制。仅是为了管理卷的生命周期。
+> **注意:** 应用级别的卷可以被其他应用挂载。应用级别的卷并不是一种安全的机制。仅是为了管理卷的生命周期。
 
 #### 环境级别的卷
 
 环境级别的卷可能需要被环境中的全部容器共享。Rancher会把容器调度到卷所在的主机，从而保证容器可以挂载这个卷。
 
-环境级别的卷并不能在某个环境中的全部的主机上自动共享。你需要借助一个共享驱动(例如：`rancher-nfs`)来实现跨主机共享。这意味着一个由`local`卷驱动创建的环境级别卷只能在一台主机上被访问到，所以使用该卷的容器都会被调度到这台主机上。
+环境级别的卷并不能在某个环境中的全部的主机上自动共享。你需要借助一个共享驱动(例如:`rancher-nfs`)来实现跨主机共享。这意味着一个由`local`卷驱动创建的环境级别卷只能在一台主机上被访问到，所以使用该卷的容器都会被调度到这台主机上。
 
 你在创建一个使用环境级别卷的服务之前，Rancher需要你先创建这个环境级别的卷。你可以使用任何配置好的卷驱动来创建卷。
 
@@ -142,11 +142,11 @@ volumes:
     external: true  # 如果没有这个定义，将会创建一个应用级别的卷。
 ```
 
-> **注意：** 如果在volume中没有定义`external: true`，这个卷将会被创建为一个[应用级别的卷](#应用级别的卷).
+> **注意:** 如果在volume中没有定义`external: true`，这个卷将会被创建为一个[应用级别的卷](#应用级别的卷).
 
 在通过Rancher命令行创建应用之后，你可以[列出卷](#列出卷)来确认`redis-data-external`卷已经创建成功并且状态为`active`。
 
-> **注意：** 对一个服务进行扩容和缩容的时候，将会挂载或卸载同一个共享的卷。
+> **注意:** 对一个服务进行扩容和缩容的时候，将会挂载或卸载同一个共享的卷。
 
 任何新的应用都可以挂载同一个`redis-data-external`卷。最简单的方法就是复制compose文件中最顶层的volume部分。
 
@@ -163,7 +163,7 @@ volumes:
 
 你也可能用到了[Docker V1 Compose](https://docs.docker.com/compose/compose-file/compose-file-v1/#volumes-volume_driver)。在V1 compose文件中，不支持最顶层的volume部分。所以这时卷只能被定义在服务里。Rancher会把V1的卷定义直接传递给Docker。所以，卷不会被自动删除同时也无法确保可以正常调度到卷所在的主机。为了解决这个在V1卷下的调度问题，你需要使用[调度标签](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#字段-1)。
 
-> **注意：** 请尽可能不要使用V1版本的Compose。
+> **注意:** 请尽可能不要使用V1版本的Compose。
 
 ####  V1版本的Compose示例
 

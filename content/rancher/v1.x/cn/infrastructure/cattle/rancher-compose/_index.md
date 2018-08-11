@@ -18,7 +18,7 @@ Rancher Compose的可执行文件下载链接可以在UI的右下角中找到�
 
 为了让Rancher Compose可以在Rancher实例中启动服务，你需要设置一些环境变量或者在Rancher Compose命令中送一些参数。必要的环境变量分别是 `RANCHER_URL`, `RANCHER_ACCESS_KEY`, 以及 `RANCHER_SECRET_KEY`。 access key和secret key是一个环境API Keys, 可以在**API** -> **高级选项**菜单中创建得到。
 
-> **注意：** 默认情况下，在**API**菜单下创建的是账号API Keys, 所以你需要在**高级选项**中创建环境API Keys.
+> **注意:** 默认情况下，在**API**菜单下创建的是账号API Keys, 所以你需要在**高级选项**中创建环境API Keys.
 
 ```bash
 # Set the url that Rancher is on
@@ -29,7 +29,7 @@ $ export RANCHER_ACCESS_KEY=<username_of_environment_api_key>
 $ export RANCHER_SECRET_KEY=<password_of_environment_api_key>
 ```
 
-如果你不想设置环境变量，那么你需要在Rancher Compose 命令中手动送入这些变量：
+如果你不想设置环境变量，那么你需要在Rancher Compose 命令中手动送入这些变量:
 
 ```bash
 $ rancher-compose --url http://server_ip:8080 --access-key <username_of_environment_api_key> --secret-key <password_of_environment_api_key> up

@@ -16,15 +16,15 @@ weight: 430
 
 在创建Swarm环境后，你可以在左上角环境的下拉菜单中切换到你的环境，或者在环境管理页面中，在对应环境的下拉选项中点击**切换到此环境**。
 
-> **注意：** Rancher支持多种容器编排引擎框架，但Rancher目前不支持在已有运行服务的环境里切换容器编排引擎。
+> **注意:** Rancher支持多种容器编排引擎框架，但Rancher目前不支持在已有运行服务的环境里切换容器编排引擎。
 
 ### 启动 Swarm
 
 在Swarm环境被创建后，在你添加一台主机到这个环境之前，[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)是不会启动的。**Swarm**服务需要至少3个主机节点。[添加主机](/docs/rancher/v1.x/cn/infrastructure/hosts/)的过程与其他编排引擎相同。一旦第一个主机被添加成功，Rancher将会自动启动基础设施服务，包括Swarm的组件(例如swarm与swarm-agent)。你可以在**Swarm**页面看到部署的过程。
 
-> **注意：** 请不要手动对docker daemon使用`docker swarm`命令。这可能与Rancher管理Swarm集群产生冲突。
+> **注意:** 请不要手动对docker daemon使用`docker swarm`命令。这可能与Rancher管理Swarm集群产生冲突。
 
-> **注意：** 只有Rancher的管理员或者环境的所有者才能够看到[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)。
+> **注意:** 只有Rancher的管理员或者环境的所有者才能够看到[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)。
 
 #### 在命令行中使用CLI
 

@@ -3,7 +3,7 @@ title: 安装
 weight: 50
 ---
 
-RKE是一种快速，通用的Kubernetes安装程序，可用于在Linux主机上安装Kubernetes。您可以通过几个简单快捷的步骤开始：
+RKE是一种快速，通用的Kubernetes安装程序，可用于在Linux主机上安装Kubernetes。您可以通过几个简单快捷的步骤开始:
 
 1. [下载RKE二进制文件](#下载RKE二进制文件)
 2. [Prepare the Nodes for the Kubernetes Cluster](#prepare-the-nodes-for-the-kubernetes-cluster)

@@ -20,7 +20,7 @@ Rancher托管IP不会显示在Docker元数据中，这意味着通过`docker ins
 
 #### 托管网络
 默认情况下，通过UI创建容器会使用托管网络，在容器中使用ip addr或者ifconfig可以看到eth0和lo设备，eth0的IP从属于Rancher托管子网中，默认的子网是10.42.0.0/16，当然你也可以修改这个子网。
-注意：如果在基础设施服务中删除了网络驱动服务，那么容器的网络设置将会失效。
+注意:如果在基础设施服务中删除了网络驱动服务，那么容器的网络设置将会失效。
 
 ##### 通过Docker CLI创建容器
 任何通过Docker CLI创建的容器，只要添加--label io.rancher.container.network=true的标签，那么将会自动使用托管网络。不用这个标签，大部分情况下使用的是bridge网络。
@@ -39,7 +39,7 @@ Rancher托管IP不会显示在Docker元数据中，这意味着通过`docker ins
 当容器使用container网络类型，基本上等同于Docker中—net=container:<CONTAINER>。在容器中可以看到指定容器的网络配置。
 
 ### Rancher IPSEC使用例子
-通过编写YAML文件，利用CNI框架来驱动，就可以构建Rancher的网络基础服务。下面是IPSEC网络驱动的YAML文件样例：
+通过编写YAML文件，利用CNI框架来驱动，就可以构建Rancher的网络基础服务。下面是IPSEC网络驱动的YAML文件样例:
 ```
 ipsec:
   network_driver:

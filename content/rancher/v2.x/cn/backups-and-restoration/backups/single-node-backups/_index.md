@@ -5,7 +5,7 @@ weight: 25
 
 在完成Rancher的单节点安装后，或在升级Rancher到新版本之前，需要对Rancher进行数据备份。如果在Rancher数据损坏或者丢失，或者升级遇到问题时，可以通过最新的备份进行数据恢复。
 
-1. 浏览器访问Rancher UI，记下浏览器左下角显示的版本号(例如：`v2.0.0`),在后续备份过程中需要这个版本号
+1. 浏览器访问Rancher UI，记下浏览器左下角显示的版本号(例如:`v2.0.0`),在后续备份过程中需要这个版本号
 
 2. 停止当前运行Rancher Server的容器,替换`<RANCHER_CONTAINER_ID>`为你真实的Rancher容器的ID
 
