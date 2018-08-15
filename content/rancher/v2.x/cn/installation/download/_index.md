@@ -39,6 +39,14 @@ weight: 7
 
 [kubectl_windows-amd64](/download/kubectl/kubectl_amd64-windows.exe)
 
+### docker-compose
+
+[docker-compose-Darwin-x86_64(MacOS)](/download/compose/docker-compose-Darwin-x86_64)
+
+[docker-compose-Linux-x86_64](/download/compose/docker-compose-Linux-x86_64)
+
+[docker-compose-Windows-x86_64](/download/compose/docker-compose-Windows-x86_64.exe)
+
 ### Harbor
 
 [harbor-online-installer.tgz](/download/harbor/harbor-online-installer.tgz)

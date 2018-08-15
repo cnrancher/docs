@@ -34,13 +34,13 @@ weight: 370
 3. 创建快照目录:
 
     ```bash
-    root@newnode:~# mkdir -p /opt/rke/etcd-snapshots/
+    mkdir -p /opt/rke/etcd-snapshots/
     ```
 
 4. 复制备份的最新快照到每个`etcd`节点`/opt/rke/etcd-snapshots/`目录下:
 
     ```bash
-    root@newnode:~# s3cmd get s3://rke-etcd-snapshots/<SNAPSHOT.db> /opt/rke/etcd-snapshots/<SNAPSHOT.db>
+    s3cmd get s3://rke-etcd-snapshots/<SNAPSHOT.db> /opt/rke/etcd-snapshots/<SNAPSHOT.db>
     ```
 
 ## 3. 恢复 `etcd` 数据
@@ -61,9 +61,9 @@ weight: 370
 
 - 你必须将每个`etcd`节点还原到*同一*快照版本。在运行`etcd snapshot-restore`命令之前，将最新的快照从一个节点复制到其他节点。
 
-1. From your workstation, open `rancher-cluster.yml` in your favorite text editor.
+1. 在笔记本或者其他远程电脑上用编辑器打开`rancher-cluster.yml`
 
-2. Replace the unresponsive node (`3.3.3.3` in this example) with your new one (`4.4.4.4`). You IP addresses will be different obviously:
+2. 用新节点替换旧节点地址,假设旧节点为`3.3.3.3`,新节点为`4.4.4.4`:
 
     ```yaml
     nodes:
@@ -75,21 +75,17 @@ weight: 370
         user: root
         role: [controlplane,etcd,worker]
         ssh_key_path: ~/.ssh/id_rsa
-      #- address: 3.3.3.3  # UNRESPONSIVE NODE
-      #  user: root
-      #  role: [controlplane,etcd,worker]
-      #  ssh_key_path: ~/.ssh/id_rsa
-      - address: 4.4.4.4  # NEW NODE
+      - address: 4.4.4.4 #3.3.3.3旧节点
         user: root
         role: [controlplane,etcd,worker]
         ssh_key_path: ~/.ssh/id_rsa
     ```
 
-3. Save and close `rancher-cluster.yml`.
+3. 保存`rancher-cluster.yml`
 
-4. Open **Terminal** and change directory to the location of the RKE binary. Your `rancher-cluster.yml` file must reside in the same directory.
+4. 打开``shell终端``,切换路径到RKE二进制文件所在的位置，并且上一步修改的`rancher-cluster.yml`文件也需要放在同一路径下。
 
-5. Run one of the following commands to restore the `etcd` database:
+5. 根据系统类型，选择运行以下命令还原`etcd`数据库：
 
     ```bash
     # MacOS
@@ -98,7 +94,7 @@ weight: 370
     ./rke_linux-amd64 etcd snapshot-restore --name <SNAPSHOT.db> --config rancher-cluster.yml
     ```
 
-6. Run one of the following commands to bring your cluster back up:
+6. 根据系统类型，选择运行以下命令更新集群：
 
     ```bash
     # MacOS
@@ -107,10 +103,10 @@ weight: 370
     ./rke_linux-amd64 up --config rancher-cluster.yml
     ```
 
-7. Lastly, restart the Kubernetes components on all cluster nodes to prevent potential `etcd` conflicts. Run this command on each of your nodes.
+7. 最后，重新启动所有集群节点上的Kubernetes组件，以防止潜在的`etcd`冲突。在每个节点上运行以下命令：
 
     ```bash
-    docker restart kube-apiserver kubelet kube-controller-manager kube-scheduler   kube-proxy
+    docker restart kube-apiserver kubelet kube-controller-manager kube-scheduler  kube-proxy
     docker ps | grep flannel | cut -f 1 -d " " | xargs docker restart
     docker ps | grep calico | cut -f 1 -d " " | xargs docker restart
     ```

@@ -1,5 +1,5 @@
 ---
-title: 单节点安装
+title: 独立容器安装
 weight: 1
 ---
 
@@ -77,8 +77,9 @@ Rancher安装可以使用自己生成的自签名证书。
 
 > **先决条件:**创建一个自签名证书。
 >
+> - 这里的证书不需要进行`base64`加密;
 > - 证书文件必须是[PEM](/docs/rancher/v2.x/cn/installation/server-installation/single-node-install/#我如何知道我的证书是否为pem格式)格式;
-> - 在你的证书文件中，包含链中的所有中间证书。有关示例，请参考[SSL常见问题/故障排除](/docs/rancher/v2.x/cn/installation/server-installation/single-node-install/#如果我想添加我的中间证书-证书的顺序是什么)。
+> - 在你的证书文件中，包含链中的所有中间证书。有关示例，请参考[SSL常见问题/故障排除];(/docs/rancher/v2.x/cn/installation/server-installation/single-node-install/#如果我想添加我的中间证书-证书的顺序是什么);
 
 **使用自己生成的自签名证书安装Rancher:**
 
@@ -100,8 +101,9 @@ docker run -d --restart=unless-stopped \
 > **先决条件:**
 >
 > - 证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型](/docs/rancher/v2.x/cn/installation/self-signed-ssl/)；
-> - 证书必须通过`base64`加密；
-> - 确保容器包含你的证书文件和密钥文件。由于你的证书是由认可的CA签署的，因此不需要安装额外的CA证书文件。
+> - 确保容器包含你的证书文件和密钥文件。由于你的证书是由认可的CA签署的，因此不需要安装额外的CA证书文件;
+> - 给容器添加`--no-cacerts`参数禁止Rancher生成默认CA证书；
+> - 这里的证书不需要进行`base64`加密;
 
 获取证书后，运行Docker命令以部署Rancher，同时指向证书文件。
 
@@ -110,7 +112,7 @@ docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
   -v /etc/your_certificate_directory/fullchain.pem:/etc/rancher/ssl/cert.pem \
   -v /etc/your_certificate_directory/privkey.pem:/etc/rancher/ssl/key.pem \
-  rancher/rancher:latest
+  rancher/rancher:latest --no-cacerts
 ```
 
 默认情况下，Rancher会在安装时自动为自己生成自签名CA证书。但是，由于你提供了自己的证书，因此必须禁用Rancher自动生成的CA证书。
@@ -127,7 +129,7 @@ Rancher支持Let’s Encrypt 证书。Let’s Encrypt 使用一个`http-01 chall
 
 > **先决条件:**
 >
-> - Let's Encrypt是一项互联网服务，不能用于内部/离线网络。
+> - Let's Encrypt是一项在线互联网服务，因此不能用于内部/离线网络。
 > - 在你的DNS中创建一条记录，将你的Linux主机IP地址绑定到你想要用于Rancher访问的主机名(例如:`rancher.mydomain.com`)。
 > - 在你的Linux主机上打开`TCP/80`端口。Let's Encrypt http-01检查可能来自任意的源IP地址，因此端口`TCP/80`必须对所有IP地址开放。
 

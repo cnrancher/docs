@@ -1,5 +1,5 @@
 ---
-title: 单节点安装+外部负载平衡
+title: 独立容器安装+外部负载平衡
 weight: 2
 ---
 
@@ -64,7 +64,8 @@ weight: 2
 > **先决条件:**
 >
 > - 创建一个自签名证书;
-> - 证书文件必须是 **PEM** 格式;
+> - 证书文件必须是**PEM**格式;
+> - 这里的证书不需要进行`base64`加密;
 
 运行Rancher server容器时候，需要把自签名CA证书映射到Rancher容器中:
 
@@ -82,13 +83,15 @@ rancher/rancher:latest
 > **先决条件:**
 >
 > - 证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型](/docs/rancher/v2.x/cn/installation/self-signed-ssl/)；
+> - 这里的证书不需要进行`base64`加密;
+> - 给容器添加`--no-cacerts`参数禁止Rancher生成默认CA证书；
 
 如果你使用由权威CA机构颁发的证书，则无需在Rancher容器中安装你的CA证书，只需运行下面的基本安装命令即可:
 
 ```bash
 docker run -d --restart=unless-stopped \
 -p 80:80 -p 443:443 \
-rancher/rancher:latest
+rancher/rancher:latest --no-cacerts
 ```
 
 ## 三、配置七层负载均衡器
@@ -103,12 +106,12 @@ rancher/rancher:latest
 
 - 传递/设置以下headers:
 
-| Header | Value | Description |
-|--------|-------|-------------|
-| `Host`                | Hostname used to reach Rancher.          | To identify the server requested by the client.
-| `X-Forwarded-Proto`   | `https`                                  | To identify the protocol that a client used to connect to the load balancer or proxy.<br /><br/>**Note:** If this header is present, `rancher/rancher` does not redirect HTTP to HTTPS.
-| `X-Forwarded-Port`    | Port used to reach Rancher.              | To identify the protocol that client used to connect to the load balancer or proxy.
-| `X-Forwarded-For`     | IP of the client connection.             | To identify the originating IP address of a client.
+| Header       | Value       | 描述     |
+|-----------|-------------|:-----------|
+| `Host`              | 传递给Rancher的主机名| 识别客户端请求的主机名。          |
+| `X-Forwarded-Proto` | `https`     | 识别客户端用于连接负载均衡器的协议。**注意：**如果存在此标头，`rancher/ancher`不会将HTTP重定向到HTTPS。 |
+| `X-Forwarded-Port`  | Port used to reach Rancher.  | 识别客户端用于连接负载均衡器的协议。   |
+| `X-Forwarded-For`   | IP of the client connection.  | 识别客户端的原始IP地址。  |
 
 ### 四、Nginx 配置文件示例
 

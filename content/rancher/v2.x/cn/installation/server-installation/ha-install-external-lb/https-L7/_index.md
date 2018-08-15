@@ -63,12 +63,13 @@ weight: 4
 - **SPDY**/**HTTP/2**协议
 - 传递/设置以下headers:
 
-| Header              | Value                                  | Description                                                                                                                                                              |
-|---------------------|----------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `Host`              | FQDN used to reach Rancher. | To identify the server requested by the client.                                                                                                                           |
-| `X-Forwarded-Proto` | `https`                                | To identify the protocol that a client used to connect to the load balancer.<br /><br/>**Note:** If this header is present, `rancher/rancher` does not redirect HTTP to HTTPS. |
-| `X-Forwarded-Port`  | Port used to reach Rancher.             | To identify the protocol that client used to connect to the load balancer.                                                                                       |
-| `X-Forwarded-For`   | IP of the client connection.            | To identify the originating IP address of a client.                                                                                                                       |
+| Header              | Value             | 描述            |
+|---------------------|--------------------------|:------------|
+| `Host`              | 传递给Rancher的主机名| 识别客户端请求的主机名。      |
+| `X-Forwarded-Proto` | `https`       | 识别客户端用于连接负载均衡器的协议。**注意：**如果存在此标头，`rancher / rancher`不会将HTTP重定向到HTTPS。 |
+| `X-Forwarded-Port`  | Port used to reach Rancher.   | 识别客户端用于连接负载均衡器的协议。      |
+| `X-Forwarded-For`   | IP of the client connection.   | 识别客户端的原始IP地址。            |
+
 我们有以下负载均衡器的示例配置:
 
 - [Amazon ALB](./alb)
@@ -161,7 +162,7 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 
 ## 七、节点配置
 
-Once you have the `rancher-cluster.yml` config file template, edit the nodes section to point toward your Linux hosts.
+获得rancher-cluster.yml配置文件模板后，编辑节点部分以指向Linux主机。
 
 ### 1、节点免密登录
 
@@ -200,6 +201,8 @@ nodes:
     role: [controlplane,etcd,worker]
     ssh_key_path: ~/.ssh/id_rsa
 ```
+
+> **注意** 使用RHEL/CentOS系统时，因为系统安全限制，`ssh`不能使用root账户。
 
 ## 八、证书配置
 
