@@ -1,6 +1,6 @@
 ---
 title: Release v2.0.0
-weight: 1
+weight: 0
 ---
 
 After many months of development, we are finally able to make Rancher 2.0 available to our users.  The previous version of Rancher, version 1.6, was a container management platform built on Docker. Rancher 2.0 builds on the success and experience of Rancher 1.6.  However, for version 2.0, most of Rancher has been redesigned to work on Kubernetes. Rancher 2.0 retains the user-friendly features of version 1.6, such as the UI and catalog, but now also includes many new features such as:

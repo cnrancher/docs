@@ -1,6 +1,6 @@
 ---
-title: 单节点备份
-weight: 25
+title: 1、单节点备份
+weight: 1
 ---
 
 在完成Rancher的单节点安装后，或在升级Rancher到新版本之前，需要对Rancher进行数据备份。如果在Rancher数据损坏或者丢失，或者升级遇到问题时，可以通过最新的备份进行数据恢复。

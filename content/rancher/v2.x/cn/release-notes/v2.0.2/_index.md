@@ -1,6 +1,6 @@
 ---
 title: Release v2.0.2
-weight: 3
+weight: 2
 ---
 
 > **Note:** We found a major issue where Github Auth was not able to be turned on in v2.0.1 and released v2.0.2 to fix it. To review all the enhancements and bug fixes since v2.0.0, please review the [v2.0.1 release notes](https://github.com/rancher/rancher/releases/tag/v2.0.1). 

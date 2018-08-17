@@ -1,6 +1,6 @@
 ---
 title: Release v2.0.5
-weight: 6
+weight: 5
 ---
 
 ## Versions

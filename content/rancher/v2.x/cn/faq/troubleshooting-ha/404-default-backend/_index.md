@@ -1,6 +1,6 @@
 ---
-title: 404 - default backend
-weight: 30
+title: 1、404 - default backend
+weight: 1
 ---
 
 您需要下载kubectl命令行工具来调试此错误。kubectl命令行工具安装方法，请查阅See [kubectl安装与设置](https://kubernetes.io/docs/tasks/tools/install-kubectl/)。

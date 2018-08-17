@@ -1,6 +1,6 @@
 ---
-title: HA升级
-weight: 5
+title: 2、HA升级
+weight: 2
 ---
 
 ### 先决条件

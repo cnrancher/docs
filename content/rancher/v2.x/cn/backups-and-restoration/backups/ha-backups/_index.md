@@ -1,6 +1,6 @@
 ---
-title: 集群备份
-weight: 50
+title: 2、集群备份
+weight: 2
 ---
 
 本节介绍在Rancher HA下如何备份数据。

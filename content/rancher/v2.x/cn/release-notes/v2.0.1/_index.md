@@ -1,6 +1,6 @@
 ---
 title: Release v2.0.1
-weight: 2
+weight: 1
 ---
 
 > **Note:** There is a major issue where v2.0.1 cannot be authenticated with Github auth. We've released v2.0.2 to fix this issue. 

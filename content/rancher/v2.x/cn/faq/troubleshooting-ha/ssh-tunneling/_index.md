@@ -1,6 +1,6 @@
 ---
-title: 无法为主机创建SSH隧道
-weight: 10
+title: 4、无法为主机创建SSH隧道
+weight: 4
 ---
 
 ## Failed to set up SSH tunneling for host [xxx.xxx.xxx.xxx]: Can't retrieve Docker Info ，Failed to dial to /var/run/docker.sock: ssh: rejected: administratively prohibited (open failed)

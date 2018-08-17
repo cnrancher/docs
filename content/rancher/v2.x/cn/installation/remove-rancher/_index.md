@@ -1,5 +1,5 @@
 ---
-title: 初始化节点
+title: 9、初始化节点
 weight: 9
 ---
 

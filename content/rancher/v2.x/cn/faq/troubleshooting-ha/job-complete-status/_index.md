@@ -1,6 +1,6 @@
 ---
-title: Failed to get job complete status
-weight: 20
+title: 3、Failed to get job complete status
+weight: 3
 ---
 
 To debug issues around this error, you will need to download the command-line tool `kubectl`. See [Install and Set Up kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) how to download `kubectl` for your platform.

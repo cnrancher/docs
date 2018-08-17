@@ -1,6 +1,6 @@
 ---
-title: 集群恢复
-weight: 370
+title: 2、集群恢复
+weight: 2
 ---
 
 此节描述了如何在灾难情形下丢失Rancher数据时恢复etcd快照。

@@ -1,5 +1,5 @@
 ---
-title: Rancher安装
+title: 7、Rancher安装
 weight: 5
 ---
 

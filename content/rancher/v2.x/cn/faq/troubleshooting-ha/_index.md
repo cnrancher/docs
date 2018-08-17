@@ -1,5 +1,5 @@
 ---
-title: Rancher安装FAQ
+title: 3、Rancher安装FAQ
 weight: 3
 ---
 
