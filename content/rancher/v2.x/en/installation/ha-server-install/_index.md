@@ -1,12 +1,11 @@
 ---
-title: High Availability Installation 2
+title: High Availability Installation with External Load Balancer (TCP/Layer 4)
 weight: 275
-draft: true
 ---
 This set of instructions creates a new Kubernetes cluster that's dedicated to running Rancher in a high-availability (HA) configuration. This procedure walks you through setting up a 3-node cluster using the Rancher Kubernetes Engine (RKE). The cluster's sole purpose is running pods for Rancher. The setup is based on:
 
 - Layer 4 load balancer (TCP)
-- NGINX ingress controller with SSL termination (HTTPS)
+- [NGINX ingress controller with SSL termination (HTTPS)](https://kubernetes.github.io/ingress-nginx/)
 
 ![Rancher HA]({{< baseurl >}}/img/rancher/ha/rancher2ha.svg)
 
@@ -58,12 +57,6 @@ Installation of Rancher in a high-availability configuration involves multiple p
 
 	During installation, RKE generates a config file that you'll use later for upgrades. Back it up to a safe location.
 
-12. **For those using a certificate signed by a recognized CA:**
-
-	[Remove Default Certificates](#12-remove-default-certificates)
-
-	If you chose [Option B](#option-b-bring-your-own-certificate-signed-by-recognized-ca) as your SSL option, log into the Rancher UI and remove the certificates that Rancher automatically generates.
-
 <br/>
 
 ## 1. Provision Linux Hosts
@@ -103,9 +96,9 @@ We will be using NGINX as our Layer 4 Load Balancer (TCP). NGINX will forward al
 
 ### A. Install NGINX
 
-Start by installing NGINX on your load balancer host. NGINX has packages available for all known operating systems.
+Start by installing NGINX on your load balancer host. NGINX has packages available for all known operating systems. For help installing NGINX, refer to their [install documentation](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/).
 
-For help installing NGINX, refer to their [install documentation](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/).
+The `stream` module is required, which is present when using the official NGINX packages. Please refer to your OS documentation how to install and enable the NGINX `stream` module on your operating system.
 
 ### B. Create NGINX Configuration
 
@@ -115,6 +108,8 @@ After installing NGINX, you need to update the NGINX config file, `nginx.conf`, 
 
 2. From `nginx.conf`, replace `IP_NODE_1`, `IP_NODE_2`, and `IP_NODE_3` with the IPs of your [Linux hosts](#1-provision-linux-hosts).
 
+    >**Note:** This Nginx configuration is only an example and may not suit your environment. For complete documentation, see [NGINX Load Balancing - TCP and UDP Load Balancer](https://docs.nginx.com/nginx/admin-guide/load-balancer/tcp-udp-load-balancer/).
+		
     **Example NGINX config:**
     ```
     worker_processes 4;
@@ -174,7 +169,7 @@ Choose a fully qualified domain name (FQDN) that you want to use to access Ranch
 
     `nslookup HOSTNAME.DOMAIN.COM`
 
-    **Step Result:** Terminal displays output similar to the following:
+    **步骤结果:** Terminal displays output similar to the following:
 
     ```
     $ nslookup rancher.yourdomain.com
@@ -201,7 +196,7 @@ RKE is a fast, versatile Kubernetes installer that you can use to install Kubern
 2. Make the RKE binary that you just downloaded executable. Open Terminal, change directory to the location of the RKE binary, and then run one of the commands below.
 
     >**Using Windows?**
-    >The file is already an executable. Skip to [Download RKE Config File Template](#5-download-rke-config-file-template).
+    >The file is already an executable. Skip to [Download Config File Template](#5-download-rke-config-file-template).
 
     ```
     # MacOS
@@ -219,7 +214,7 @@ RKE is a fast, versatile Kubernetes installer that you can use to install Kubern
     $ ./rke_linux-amd64 --version
     ```
 
-    **Step Result:** You receive output similar to what follows:
+    **步骤结果:** 您将看到以下内容:
     ```
     rke version v<N.N.N>
     ```
@@ -231,7 +226,7 @@ RKE uses a `.yml` config file to install and configure your Kubernetes cluster. 
 1. Download one of following templates, depending on the SSL certificate you're using.
 
 	- [Template for self-signed certificate<br/> `3-node-certificate.yml`](https://raw.githubusercontent.com/rancher/rancher/e9d29b3f3b9673421961c68adf0516807d1317eb/rke-templates/3-node-certificate.yml)
-	- [Template for certificate signed by recognized CA<br/> `3-node-certificate-recognizedca.yml`](https://raw.githubusercontent.com/rancher/rancher/e9d29b3f3b9673421961c68adf0516807d1317eb/rke-templates/3-node-certificate-recognizedca.yml)
+	- [Template for certificate signed by recognized CA<br/> `3-node-certificate-recognizedca.yml`](https://raw.githubusercontent.com/rancher/rancher/d8ca0805a3958552e84fdf5d743859097ae81e0b/rke-templates/3-node-certificate-recognizedca.yml)
 
 2. Rename the file to `rancher-cluster.yml`.
 
@@ -243,18 +238,22 @@ Once you have the `rancher-cluster.yml` config file template, edit the nodes sec
 
 2. Update the `nodes` section with the information of your [Linux hosts](#1-provision-linux-hosts).
 
-    For each node in your cluster, update the following placeholders: `IP_ADDRESS_X` and `USER`.
+    For each node in your cluster, update the following placeholders: `IP_ADDRESS_X` and `USER`. The specified user should be able to access the Docket socket, you can test this by logging in with the specified user and run `docker ps`.
+
+    >**Note:**
+    > When using RHEL/CentOS, the SSH user can't be root due to https://bugzilla.redhat.com/show_bug.cgi?id=1527565. See [Operating System Requirements]({{< baseurl >}}/rke/v0.1.x/en/installation/os#redhat-enterprise-linux-rhel-centos) for RHEL/CentOS specific requirements.
+
 
 ```
 nodes:
+    # The IP address or hostname of the node
   - address: IP_ADDRESS_1
-    # THE IP ADDRESS OR HOSTNAME OF THE NODE
+    # User that can login to the node and has access to the Docker socket (i.e. can execute `docker ps` on the node)
+    # When using RHEL/CentOS, this can't be root due to https://bugzilla.redhat.com/show_bug.cgi?id=1527565
 	user: USER
-    # USER WITH ADMIN ACCESS. USUALLY `root`
 	role: [controlplane,etcd,worker]
+    # Path the SSH key that can be used to access to node with the specified user
 	ssh_key_path: ~/.ssh/id_rsa
-    # PATH TO SSH KEY THAT AUTHENTICATES ON YOUR WORKSTATION
-    # USUALLY THE VALUE ABOVE
   - address: IP_ADDRESS_2
 	user: USER
 	role: [controlplane,etcd,worker]
@@ -276,7 +275,7 @@ Choose from the following options:
 
 ### Option A—Bring Your Own Certificate: Self-Signed
 
->**Prerequisites:**
+>**先决条件:**
 >Create a self-signed certificate.
 >
 >- The certificate files must be in [PEM format](#pem).
@@ -413,7 +412,7 @@ With all configuration in place, use RKE to launch Rancher. You can complete thi
 ./rke_linux-amd64 up --config rancher-cluster.yml
 ```
 
-**Step Result:** The output should be similar to the snippet below:
+**步骤结果:** The output should be similar to the snippet below:
 
 ```
 INFO[0000] Building Kubernetes cluster
@@ -427,22 +426,6 @@ INFO[0101] Finished building Kubernetes cluster successfully
 ## 11. Back Up Auto-Generated Config File
 
 During installation, RKE automatically generates a config file named `kube_config_rancher-cluster.yml` in the same directory as the RKE binary. Copy this file and back it up to a safe location. You'll use this file later when upgrading Rancher Server.
-
-## 12. Remove Default Certificates
-
-**For those using a certificate signed by a recognized CA:**
-
->**Note:** If you're using a self-signed certificate, you don't have to complete this procedure. Continue to [What's Next?](#what-s-next)
-
-By default, Rancher automatically generates self-signed certificates for itself after installation. However, since you've provided your own certificates, you must disable the certificates that Rancher generated for itself.
-
-**To Remove the Default Certificates:**
-
-1. Log into Rancher.
-
-2. Select  **Settings** > **cacerts**.
-
-3. Choose `Edit` and remove the contents. Then click `Save`.
 
 ## What's Next?
 
