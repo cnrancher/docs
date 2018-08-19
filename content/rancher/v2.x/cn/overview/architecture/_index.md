@@ -1,5 +1,5 @@
 ---
-title: 1、架构设计
+title: 1 - 架构设计
 weight: 1
 ---
 

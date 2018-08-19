@@ -1,6 +1,6 @@
 ---
 title: 版本记录
-weight: 8
+weight: 9
 ---
 
 [Release v2.0.0](/docs/rancher/v2.x/cn/release-notes/v2.0.0/)
@@ -16,3 +16,5 @@ weight: 8
 [Release v2.0.5](/docs/rancher/v2.x/cn/release-notes/v2.0.5/)
 
 [Release v2.0.6](/docs/rancher/v2.x/cn/release-notes/v2.0.6/)
+
+[Release v2.0.7](/docs/rancher/v2.x/cn/release-notes/v2.0.7/)

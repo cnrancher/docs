@@ -1,6 +1,6 @@
 ---
 title: Release v2.0.7
-weight: 7
+weight: 8
 ---
 
 ## Important

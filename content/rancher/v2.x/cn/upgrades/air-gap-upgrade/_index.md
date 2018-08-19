@@ -1,5 +1,5 @@
 ---
-title: 3、离线升级
+title: 3 - 离线升级
 weight: 3
 ---
 

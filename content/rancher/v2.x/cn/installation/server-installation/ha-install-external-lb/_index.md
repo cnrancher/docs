@@ -1,6 +1,6 @@
 ---
-title: Rancher HA安装
-weight: 5
+title: 4 - Rancher HA安装
+weight: 4
 ---
 
 本章节将介绍在开发和生产环境中通过4层负载均衡和7层负载均衡来部署Rancher HA。

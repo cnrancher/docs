@@ -14,6 +14,7 @@ COPY src src
 
 ADD https://github.com/rancherlabs/website-theme/archive/master.tar.gz master.tar.gz
 RUN tar -xzf master.tar.gz --strip 1 -C /run/node_modules/rancher-website-theme && rm master.tar.gz
+
 RUN gulp build
 
 # Make sure something got built

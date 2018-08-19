@@ -1,6 +1,6 @@
 ---
 title: FAQ
-weight: 7
+weight: 8
 ---
 
 常见问题记录了Rancher2使用过程中最常见的问题。

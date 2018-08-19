@@ -1,5 +1,5 @@
 ---
-title: 2、相关术语
+title: 2 - 相关术语
 weight: 2
 ---
 

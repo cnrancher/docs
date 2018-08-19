@@ -1,6 +1,6 @@
 ---
-title: 5、自签名ssl证书
-weight: 3
+title: 5 - 自签名ssl证书
+weight: 5
 ---
 
 ## 一、HTTP over SSL

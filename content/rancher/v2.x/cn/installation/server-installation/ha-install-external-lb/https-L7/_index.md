@@ -1,6 +1,6 @@
 ---
-title: 七层负载均衡HA部署
-weight: 4
+title: 2 - 七层负载均衡HA部署
+weight: 2
 ---
 
 以下步骤将创建一个新的Kubernetes集群，专用于Rancher server高可用(HA)运行,本文档将引导你使用Rancher Kubernetes Engine(RKE)配置三个节点的集群.

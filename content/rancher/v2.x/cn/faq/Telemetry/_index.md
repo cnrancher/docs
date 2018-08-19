@@ -1,5 +1,5 @@
 ---
-title: 2、信息收集
+title: 2 - 信息收集
 weight: 2
 ---
 

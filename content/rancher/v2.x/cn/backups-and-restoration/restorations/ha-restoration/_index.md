@@ -1,5 +1,5 @@
 ---
-title: 2、集群恢复
+title: 2 - 集群恢复
 weight: 2
 ---
 

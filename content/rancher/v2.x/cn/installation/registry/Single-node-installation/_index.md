@@ -1,5 +1,5 @@
 ---
-title: Harbor单节点安装
+title: 1 - Harbor单节点安装
 weight: 1
 ---
 本文档翻译至Harbor官方文档[Installation and Configuration Guide](https://github.com/goharbor/harbor/blob/master/docs/installation_guide.md)

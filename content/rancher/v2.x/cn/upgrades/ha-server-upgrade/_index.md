@@ -1,5 +1,5 @@
 ---
-title: 2、HA升级
+title: 2 - HA升级
 weight: 2
 ---
 

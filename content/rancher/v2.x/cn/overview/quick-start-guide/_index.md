@@ -1,5 +1,5 @@
 ---
-title: 3、快速入门
+title: 3 - 快速入门
 weight: 3
 ---
 
