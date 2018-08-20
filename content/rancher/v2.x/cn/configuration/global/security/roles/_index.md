@@ -1,6 +1,6 @@
 ---
-title: Roles
-weight: 100
+title: 角色
+weight: 1
 ---
 Within Rancher, _roles_ determine what actions a user can make within a cluster or project.
 

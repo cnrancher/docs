@@ -53,6 +53,22 @@ weight: 1
 
     端口放行请查看[端口需求](/docs/rancher/v2.x/cn/installation/references/)
 
+### 7、ETCD集群容错表
+
+建议在ETCD群集中使用奇数个成员,通过添加额外成员可以获得更高的失败容错。在比较偶数和奇数大小的集群时，你可以在实践中看到这一点:
+
+| 集群大小 | MAJORITY | 失败容错 |
+| ------------ | -------- | ----------------- |
+| 1            | 1        | 0                 |
+| 2            | 2        | 0                 |
+| 3            | 2        | **1**             |
+| 4            | 3        | 1                 |
+| 5            | 3        | **2**             |
+| 6            | 4        | 2                 |
+| 7            | 4        | **3**             |
+| 8            | 5        | 3                 |
+| 9            | 5        | **4**             |
+
 ## 二、Docker安装与配置
 
 ### 1、Docker安装
@@ -201,6 +217,21 @@ daemon.json默认位于`/etc/docker/daemon.json`，如果没有可手动创建�
     "storage-opts": ["overlay2.override_kernel_check=true"]
     }
     ```
+- 配置日志驱动
+
+    容器在运行时会产生大量日志文件，很容易占满磁盘空间。通过配置日志驱动来限制文件大小与文件的数量。
+    >限制单个日志文件为`100M`,最多生产`3`个日志文件
+
+    ```json
+    {
+    "log-driver": "json-file",
+    "log-opts": {
+        "max-size": "100m",
+        "max-file": "3"
+        }
+    }
+    ```
+
 - Ubuntu系统 ，docker info提示WARNING: No swap limit support
 
     Ubuntu系统下，默认cgroups未开启swap account功能，将会导致需要swap的容器出错。通过修改grub启动参数来开启swap account功能:

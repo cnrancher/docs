@@ -1,28 +1,28 @@
 ---
-title: Clusters
-weight: 2100
+title: 集群
+weight: 1
 ---
 
 ## What's a Cluster?
 
-A cluster is a group of computing resources that work as a team to accomplish a goal. Each individual computer in a cluster is called a _node_.
+全局中的集群，它是Rancher中的概念。这里归纳了所有创建的K8S集群，你可以删除、新建、搜索集群。
 
-## Cluster Creation
+## 创建集群
 
-Rancher simplifies creation of Kubernetes clusters by allowing you to create them with the Rancher UI rather than a config file.
+Rancher支持通过UI创建Kubernetes集群，而不是使用配置文件，从而简化了Kubernetes集群的创建。
 
-### Node Components
+### 节点
 
-A Kubernetes cluster contains 3 types of nodes: etcd nodes, control plane nodes, and worker nodes.
+Kubernetes集群包含3种角色类型的节点：etcd节点，control plane节点和worker节点。创建Kubernetes集群，每种角色至少需要一个，`多个角色可以运行在某一台节点上`。
 
 #### etcd Nodes
 
-The etcd nodes are used to run the etcd database. etcd is a key value store used as Kubernetes’ backing store for all cluster data. Even though you can run etcd on a single node, you need 3, 5, or 7 nodes for redundancy.
+etcd节点用于运行etcd数据库。 etcd是一个键值存储，用作Kubernetes对所有集群数据的后备存储。即使您可以在单个节点上运行etcd实例，也需要3个、5个或7个节点来实现冗余,具体参考[ETCD集群容错表](/docs/rancher/v2.x/cn/installation/basic-environment-configuration/#7、ETCD集群容错表)。
 
 #### Control Plane Nodes
 
-The control plane nodes are used to run the Kubernetes API server, scheduler, and controller manager. Control plane nodes are stateless since all cluster data are stored on etcd nodes. You can run control plane on 1 node, although 2 or more nodes are required for redundancy. You can also run control plane on etcd nodes.
+control plane节点用于运行Kubernetes API服务、scheduler和controller manager。control plane节点是无状态的，因为所有集群数据都存储在etcd节点上。您可以在1个节点上运行control plane，但需要2个或更多节点实现冗余。您还可以在etcd节点上运行控制平面。
 
 #### Worker Nodes
 
-Worker nodes are used to run the kubelet and the workload. It also runs the storage and networking drivers and ingress controllers when required. You create as many worker nodes as needed for your workload needs.
+Worker节点用于运行kubelet和工作负载。它还在需要时运行存储和网络驱动程序和ingress controllers。您可以根据工作负载需要创建尽可能多的Worker节点。

@@ -1,5 +1,5 @@
 ---
-title: 配置
+title: 用户手册
 weight: 7
 ---
 

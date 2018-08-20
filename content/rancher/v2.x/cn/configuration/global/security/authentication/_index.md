@@ -1,6 +1,6 @@
 ---
 title: 认证
-weight: 50
+weight: 3
 ---
 You have three options for user authentication in Rancher:
 

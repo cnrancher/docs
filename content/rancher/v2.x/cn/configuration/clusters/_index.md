@@ -1,4 +1,4 @@
 ---
-title: 集群配置
-weight: 1000
+title: 4 - 集群配置
+weight: 4
 ---

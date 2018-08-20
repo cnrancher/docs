@@ -1,6 +1,6 @@
 ---
-title: Workloads
-weight: 3675
+title: 1 - 工作负载
+weight: 1
 ---
 
 This section of the documentation contains instructions for deploying workloads and using workload options.
