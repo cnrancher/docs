@@ -1,6 +1,6 @@
 ---
 title: Creating an AKS Cluster
-shortTitle: Azure Container Service
+draft: true
 weight: 3350
 ---
 

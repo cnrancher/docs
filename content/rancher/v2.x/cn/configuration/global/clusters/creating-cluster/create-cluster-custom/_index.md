@@ -3,67 +3,84 @@ title: 创建自定义集群
 weight: 1
 ---
 
-## 创建集群
+自定义安装kubernetes集群，适用于拥有内部虚拟机、内部物理主机，或者没有提供kubernetes云服务的云服务器，通过自定义安装方式来快速安装kubernetes集群。
 
-1. From the **Clusters** page, click **Add Cluster**.
+## 一、主机和端口需求
 
-2. Choose **Custom**.
+查看[基础环境配置](/docs/rancher/v2.x/cn/installation/basic-environment-configuration/)和[端口需求](/docs/rancher/v2.x/cn/installation/references/)获取具体信息。
 
-3. Enter a **Cluster Name**.
+## 二、添加集群
 
-4. {{< step_create-cluster_member-roles >}}
+1、点击集`集群`，再点击`添加集群`
 
-5. {{< step_create-cluster_cluster-options >}}
+![image-20180820133743148](_index.assets/image-20180820133743148.png)
 
-6.	Click **Next**.
+![image-20180820133126613](_index.assets/image-20180820133126613.png)
 
-7.	From **Node Role**, choose the roles that you want filled by a cluster node.
+2、选择自定义
 
-	>**Bare-Metal Server Reminder:**
-	>
-	If you plan on dedicating bare-metal servers to each role, you must provision a bare-metal server for each role (i.e. provision multiple bare-metal servers).
+![image-20180820133900819](_index.assets/image-20180820133900819.png)
 
-8.	**Optional**: Add **Labels** to your cluster nodes to help schedule workloads later.
+3、设置集群名称
 
-	[Kubernetes Documentation: Labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)
+![image-20180820133931984](_index.assets/image-20180820133931984.png)
 
-9. Copy the command displayed on screen to your clipboard.
+4、成员与角色
 
-10. Log in to your Linux host using your preferred shell, such as PuTTy or a remote Terminal connection. Run the command copied to your clipboard.
+集群成员对应了Rancher中的一个真实的用户，角色则表示此用户具有的集群权限。要想在创建集群时添加成员和对应的成员角色，需要首先在全局下添加用户和集群角色。[用户](../../users)和[角色](../../security/roles)
 
-	>**Note:** Repeat steps 7-10 if you want to dedicate specific hosts to specific node roles. Repeat the steps as many times as needed.
+5、集群选项
 
-11. When you finish running the command(s) on your Linux host(s), click **Done**.
+- kubernetes版本
 
-{{< result_create-cluster >}}
+    每个Rancher发行版对应了不同的kubernetes版本，可根据需求进行选择；
 
-## Amazon Only:<br/>Tag Resources
+- 网络组件
 
-If you have configured your cluster to use Amazon as **Cloud Provider**, tag your AWS resources with a cluster ID.
+    目前Rancher支持三种网络组件：flannel、calico、canal。canal支持基于`项目`的网络隔离，可根据际需求选择是否开启。
 
-[Amazon Documentation: Tagging Your Amazon EC2 Resources](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html)
+- Nginx Ingress
 
->**Note:** You can use Amazon EC2 instances without configuring a cloud provider in Kubernetes. You only have to configure the cloud provider if you want to use specific Kubernetes cloud provider functionality. For more information, see [Kubernetes Cloud Providers](https://kubernetes.io/docs/concepts/cluster-administration/cloud-providers/)
+    Rancher中默认支持Nginx Ingress，v2.0.7开始支持根据自定义是否开启，默认开启。
 
+- Metrics服务监控
 
-The following resources need to tagged with a `ClusterID`:
+   服务监控指标，v2.0.7开始支持根据自定义是否开启，默认开启。
 
-- **Nodes**: All hosts added in Rancher.
-- **Subnet**: The subnet used for your cluster
-- **Security Group**: The security group used for your cluster.
+- Pod安全策略
 
-	>**Note:** Do not tag multiple security groups. Tagging multiple groups generates an error when creating Elastic Load Balancer.
+    根据需求选择启用或者禁止，如要启用，需现在`全局| 安全 |Pod安全策略`中创建策略，默认禁止。
 
-The tag that should be used is:
+- 主机Docker版本
 
-```
-Key=kubernetes.io/cluster/<CLUSTERID>, Value=owned
-```
+   目前，经过Rancher严格测试的Docker有三个版本：1.12.6、1.13.1、17.03.2，如果设置为`需要支的版本`,主机的Docker版本需要为三个版本其中之一，如果版本不一致将无法安装K8S集群。默认设置`允不受支持的版本`,对于生产环境建议选择`需要支持的版本`。
 
-`<CLUSTERID>` can be any string you choose. However, the same string must be used on every resource you tag. Setting the tag value to `owned` informs the cluster that all resources tagged with the `<CLUSTERID>` are owned and managed by this cluster.
+- 云提供商
 
-If you share resources between clusters, you can change the tag to:
+    根据主机所属的云平台，选择对应的云提供商。选择对应的云提供商，可以对接公有云上的一些基础设施，比4层负载均衡、存储登录。
 
-```
-Key=kubernetes.io/cluster/CLUSTERID, Value=shared
-```
+6、最后点击下一步。
+
+7、自定义主机运行命令
+
+- 主机角色
+
+    在K8S的架构中，必须至少有一个etcd、Control、Worker，三种角色可以运行在同一台主机上。
+
+- 高级选项
+
+    在高级选项中，可以指定节点的IP地址。对于内网环境的单IP主机，可以忽略此设置；如果是多IP主机，以通过此设置来指定主机的访问IP。
+
+- 主机标签
+
+    标签可用于主机的识别和应用的调度，可以在添加节点的时候为其指定。
+
+    假设目前只有一台主机，可按以下方式选择：
+
+    ![image-20180820172356088](_index.assets/image-20180820172356088.png)
+
+- 最后点击点击右侧的复制按钮
+
+    ![image-20180820172514578](_index.assets/image-20180820172514578.png)
+
+8、最后点击完成

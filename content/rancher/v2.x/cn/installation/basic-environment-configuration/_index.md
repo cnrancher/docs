@@ -23,19 +23,27 @@ weight: 1
 
 > Ubuntu操作系统有Desktop和Server版本，选择安装server版本。
 
-### 3、主机名配置
+### 3、Docker版本选择
+
+支持的Docker版本
+
+- 1.12.6
+- 1.13.1
+- 17.03.2
+
+### 4、主机名配置
 
 因为K8S的规定，主机名只支持包含 `-` 和 `.`(中横线和点)两种特殊符号，并且主机名不能出现重复。
 
-### 4、Hosts
+### 5、Hosts
 
 配置每台主机的hosts(/etc/hosts),添加`$hostname host_ip`到hosts文件中。
 
-### 5、CentOS关闭selinux
+### 6、CentOS关闭selinux
 
 `sudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config`
 
-### 6、关闭防火墙(可选)或者放行相应端口
+### 7、关闭防火墙(可选)或者放行相应端口
 
 对于刚刚接触Rancher的用户，建议在关闭防火墙的测试环境或桌面虚拟机来运行rancher，以避免出现网络通信问题。
 
@@ -53,7 +61,7 @@ weight: 1
 
     端口放行请查看[端口需求](/docs/rancher/v2.x/cn/installation/references/)
 
-### 7、ETCD集群容错表
+### 8、ETCD集群容错表
 
 建议在ETCD群集中使用奇数个成员,通过添加额外成员可以获得更高的失败容错。在比较偶数和奇数大小的集群时，你可以在实践中看到这一点:
 

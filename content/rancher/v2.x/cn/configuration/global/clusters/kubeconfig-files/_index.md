@@ -1,6 +1,7 @@
 ---
 title: Kubeconfig Files
 weight: 2100
+draft: true
 ---
 
 A _kubeconfig file_ is a file used to configure access to Kubernetes when used in conjunction with the kubectl commandline tool (or other clients).

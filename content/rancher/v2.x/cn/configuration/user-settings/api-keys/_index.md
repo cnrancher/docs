@@ -6,18 +6,29 @@ weight: 1
 
 ## API Keys and User Authentication
 
-If you want to access your Rancher clusters, projects, or other objects using external applications, you can do so using the Rancher API. However, before your application can access the API, you must provide the app with a key used to authenticate with Rancher. You can obtain a key using the Rancher UI.
+如果要使用外部应用程序访问Rancher集群、项目或其他对象，可以使用Rancher API执行此操作。但是，在您的应用程序可以访问API之前，您必须为应用程序提供用于向Rancher进行身份验证的API密钥。您可以使用Rancher UI获取密钥。
 
-An API key is also required for using Rancher CLI.
+> 使用Rancher CLI还需要API密钥[cli](../cli)。
 
-API Keys are composed of four components:
+API密钥由四个组件组成：
 
-- **Endpoint:** This is the IP address and path that other applications use to send requests to the Rancher API.
-- **Access Key:** The token's username.
-- **Secret Key:** The token's password. For applications that prompt you for two different strings for API authentication, you usually enter the two keys together.
-- **Bearer Token:** The token username and password concatenated together. Use this string for applications that prompt you for one authentication string.
+- **Endpoint:**
 
-## Creating an API Key
+这是其他应用程序用于向Rancher API发送请求的地址。
+
+- **Access Key:**
+
+token的用户名
+
+- **Secret Key:**
+
+token的密码。对于提示您使用API身份验证的应用程序，通常会将两个密钥一起输入。
+
+- **Bearer Token:**
+
+token的用户名和密码连接在一起。将此字符串用于提示您输入一个验证字符串的应用程序。
+
+## 创建API Key
 
 1. Select **User Avatar** > **API & Keys** from the **User Settings** menu in the upper-right.
 

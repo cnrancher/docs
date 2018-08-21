@@ -1,6 +1,6 @@
 ---
 title: Creating a GKE Cluster
-shortTitle: Google Container Engine
+draft: true
 weight: 3325
 ---
 ## Objectives

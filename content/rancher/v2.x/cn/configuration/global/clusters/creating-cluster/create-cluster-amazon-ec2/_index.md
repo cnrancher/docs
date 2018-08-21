@@ -1,7 +1,7 @@
 ---
 title: Creating an Amazon EC2 Cluster
-shortTitle: Amazon EC2
 weight: 3250
+draft: true
 ---
 Use {{< product >}} to create a Kubernetes cluster in Amazon EC2.
 

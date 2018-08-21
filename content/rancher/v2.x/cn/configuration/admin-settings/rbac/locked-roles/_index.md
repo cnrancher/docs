@@ -1,37 +1,29 @@
 ---
-title: Locked Roles
+title: 锁定/解锁角色
 weight: 1129
 ---
 
-You can set roles to a status of `locked`. Locking roles prevent them from being assigned users in the future.
+您可以将角色设置为`locked`状态,锁定角色可防止为其分配用户。
 
-Locked roles:
+锁定角色：
 
-- Cannot be assigned to users that don't already have it assigned.
-- Are not listed in the **Member Roles** drop-down when you are adding a user to a cluster or project.
-- Do not affect users assigned the role before you lock the role. These users retain access that the role provides.
+- 无法分配给尚未分配角色的用户。
+- 将用户添加到群集或项目时，不会在`成员角色`下拉列表中列出。
+- 在锁定角色之前，不要影响分配了该角色的用户。这些用户保留角色提供的访问权限。
 
-    **Example:** let's say your organization creates an internal policy that users assigned to a cluster are prohibited from creating new projects. It's your job to enforce this policy.
+角色可以被以下用户锁定：
 
-    To enforce it, before you add new users to the cluster, you should lock the following roles: `Cluster Owner`, `Cluster Member`, and `Create Projects`. Then you could create a new custom role that includes the same permissions as a __Cluster Member__, except the ability to create projects. Then, you use this new custom role when adding users to a cluster.
+- 分配了`Administrator`全局权限的用户。
+- 分配了`Custom Users`权限的用户以及`Manage Roles`角色。
 
-Roles can be locked by the following users:
+## 锁定/解锁角色
 
-- Any user assigned the `Administrator` global permission.
-- Any user assigned the `Custom Users` permission, along with the `Manage Roles` role.
+`锁定角色`可以在新建角色或者编辑已有角色来实现，解锁角色只能通过编辑已有的角色。
 
+- 新建角色
 
-## Locking/Unlocking Roles
+![image-20180820181623710](_index.assets/image-20180820181623710.png)
 
-If you want to prevent a role from being assigned to users, you can set it to a status of `locked`.
+- 编辑角色
 
-You can lock roles in two contexts:
-
-- When you're [adding a custom role](({{< baseurl >}}/rancher/v2.x/en/admin-settings/rbac/default-custom-roles/).
-- When you editing an existing role (see below).
-
-1. From the **Global** view, select **Security** > **Roles**.
-
-2. From the role that you want to lock (or unlock), select **Vertical Ellipsis (...)** > **Edit**.
-
-3. From the **Locked** option, choose the **Yes** or **No** radio button. Then click **Save**.
+![image-20180820181829410](_index.assets/image-20180820181829410.png)

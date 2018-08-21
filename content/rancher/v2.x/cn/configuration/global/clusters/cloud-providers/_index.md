@@ -1,6 +1,7 @@
 ---
 title: Cloud Providers
 weight: 2110
+draft: true
 ---
 A _cloud provider_ is a module in Kubernetes that provides an interface for managing nodes, load balancers, and networking routes. You can configure a cloud provider to automatically provision load balancers or persistent storage devices when launching Kubernetes definitions, provided that the cloud provider you're using supports such automation.
 

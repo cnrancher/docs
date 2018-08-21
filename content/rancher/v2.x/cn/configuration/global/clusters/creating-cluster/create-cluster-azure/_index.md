@@ -1,7 +1,7 @@
 ---
 title: Creating an Azure Cluster
-shortTitle: Azure
 weight: 3300
+draft: true
 ---
 
 # Creating an Azure Cluster

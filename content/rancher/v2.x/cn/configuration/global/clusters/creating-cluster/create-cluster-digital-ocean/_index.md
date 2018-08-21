@@ -1,6 +1,6 @@
 ---
 title: Creating a DigitalOcean Clusters
-shortTitle: DigitalOcean
+draft: true
 weight: 3275
 ---
 Use {{< product >}} to create a Kubernetes cluster using DigitalOcean.

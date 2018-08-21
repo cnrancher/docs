@@ -1,6 +1,7 @@
 ---
 title: Importing a Cluster
 weight: 3400
+draft: true
 ---
 
 You can import an existing Kubernetes cluster and then manage it using Rancher.
