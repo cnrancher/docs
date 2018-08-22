@@ -61,7 +61,33 @@ weight: 1
 
     端口放行请查看[端口需求](/docs/rancher/v2.x/cn/installation/references/)
 
-### 8、ETCD集群容错表
+### 8、配置主机时间、时区、系统语言
+
+- 查看时区
+
+    `date -R`或者`timedatectl`
+
+- 修改时区
+
+    ```ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime```
+
+- 修改系统语言环境
+
+    ```sudo echo 'LANG="en_US.UTF-8"' >> /etc/profile;source /etc/profile```
+
+- 配置主机NTP时间同步
+
+### 9、Kernel性能调优
+
+```bash
+net.ipv4.neigh.default.gc_thresh1=4096
+net.ipv4.neigh.default.gc_thresh2=6144
+net.ipv4.neigh.default.gc_thresh3=8192
+```
+
+> 数值根据实际环境自行配置，最后执行`sysctl –p`保存配置。
+
+### 10、ETCD集群容错表
 
 建议在ETCD群集中使用奇数个成员,通过添加额外成员可以获得更高的失败容错。在比较偶数和奇数大小的集群时，你可以在实践中看到这一点:
 
