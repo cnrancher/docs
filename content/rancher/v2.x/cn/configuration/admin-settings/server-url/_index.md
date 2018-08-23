@@ -7,7 +7,7 @@ weight: 1
 
 如果Rancher server是多节点HA运行，请不要设置`Rancher Server URL`为某一个节点的IP地址，避免因某一个节点出现故障影响整个集群。如果`Rancher Server URL`使用域名，请把域名解析到所有`Rancher Server`节点IP或者VIP上。
 
-首次登录`Rancher Server`时，系统会提示您设置此`URL`。如果登录时设置有误，需要在创建集群前修改，如果在创建好集群后修改`Rancher Server URL`,之前注册的集群将会受到影响。
+首次登录`Rancher Server`时，系统会提示你设置此`URL`。如果登录时设置有误，需要在创建集群前修改，如果在创建好集群后修改`Rancher Server URL`,之前注册的集群将会受到影响。
 
 ## 修改Rancher Server URL
 

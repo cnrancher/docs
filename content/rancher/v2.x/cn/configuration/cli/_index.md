@@ -3,15 +3,15 @@ title: 6 - Rancher CLI
 weight: 6
 ---
 
-Rancher CLI是一个统一的工具，可用于与Rancher进行交互。使用此工具，您可以使用命令行而不是GUI来操作Rancher。
+Rancher CLI是一个统一的工具，可用于与Rancher进行交互。使用此工具，你可以使用命令行而不是GUI来操作Rancher。
 
 ## 一、下载Rancher CLI
 
-`Rancher CLI`二进制文件可以直接从Rancher UI下载，下载链接可以从`Rancher UI`右下角找到。`Rancher CLI`有Windows，Mac和Linux的二进制文件。您还可以从[文件下载](/docs/rancher/v2.x/cn/installation/download/)页面下载最新版本的二进制文件。
+`Rancher CLI`二进制文件可以直接从Rancher UI下载，下载链接可以从`Rancher UI`右下角找到。`Rancher CLI`有Windows，Mac和Linux的二进制文件。你还可以从[文件下载](/docs/rancher/v2.x/cn/installation/download/)页面下载最新版本的二进制文件。
 
 ## 二、运行要求
 
-下载Rancher CLI后，您需要进行一些配置。 Rancher CLI要求：
+下载Rancher CLI后，你需要进行一些配置。 Rancher CLI要求：
 
 - 需要使用[Rancher Server URL]({{< baseurl >}}/rancher/v2.x/en/admin-settings/server-url)去连接Rancher Server.
 - API KEY，用于向Rancher进行身份验证。更多信息，请参考[Creating an API Key]({{< baseurl >}}/rancher/v2.x/en/user-settings/api-keys/).
@@ -30,7 +30,7 @@ Rancher CLI是一个统一的工具，可用于与Rancher进行交互。使用�
 
 ![image-20180818181947065](_index.assets/image-20180818181947065.png)
 
-2、如果Rancher Server使用自签名证书，Rancher CLI会提示您是否继续连接
+2、如果Rancher Server使用自签名证书，Rancher CLI会提示你是否继续连接
 
 ![image-20180818182047812](_index.assets/image-20180818182047812.png)
 
@@ -60,7 +60,7 @@ NUMBER    CLUSTER NAME   PROJECT ID              PROJECT NAME
 Select a Project:
 ```
 
-输入编号后，控制台会显示一条消息，表明您已切换到其他项目，并生成新的配置文件。
+输入编号后，控制台会显示一条消息，表明你已切换到其他项目，并生成新的配置文件。
 
 ```
 INFO[0005] Setting new context to project project-1

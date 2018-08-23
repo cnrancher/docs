@@ -1,18 +1,18 @@
 ---
-title: 喜好设置
+title: 偏好设置
 weight: 4
 ---
 
-Each user can choose preferences to personalize their Rancher experience. To change preference settings, open the **User Settings** menu and then select **Preferences**.
+每个用户都可以选择喜好设置来个性化他们的Rancher体验。点击右上角用户头像，选择设定进入偏好设置页面
 
-## Theme
+## 主题
 
-Choose your background color for the Rancher UI. If you choose **Auto**, the background color changes from light to dark at 6 PM, and then changes back at 6 AM.
+选择Rancher UI的背景颜色。如果选择“ 自动”，则背景颜色在下午6点从亮到暗变化，然后在早上6点变回。
 
-## My Account
+## 账号密码修改
 
-This section displays the **Name** (your display name) and **Username** (your login) used for your session. To change your login's current password, click the **Change Password** button.
+此部分显示用于会话的名称（你的显示名称）和用户名（你的登录名）。要更改登录的当前密码，请单击`更改密码`按钮。
 
-## Table Row per Page
+## 每页显示行数
 
-On pages that display system objects like clusters or deployments in a table, you can set the number of objects that display on the page before you must paginate. The default setting is `50`.
+在显示系统对象（如表中的集群或部署）的页面上，你可以设置在必须分页之前在页面上显示的对象数。默认设置为`50`。

@@ -214,7 +214,7 @@ RKE is a fast, versatile Kubernetes installer that you can use to install Kubern
     $ ./rke_linux-amd64 --version
     ```
 
-    **步骤结果:** 您将看到以下内容:
+    **步骤结果:** 你将看到以下内容:
     ```
     rke version v<N.N.N>
     ```

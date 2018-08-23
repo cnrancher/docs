@@ -188,7 +188,7 @@ $ ./rke_darwin-amd64 --version
 $ ./rke_linux-amd64 --version
 ```
 
-**结果:** 您将看到以下内容:
+**结果:** 你将看到以下内容:
 
 ```bash
 rke version v<N.N.N>
@@ -358,11 +358,11 @@ nodes:
 
 ## 十、备份配置文件
 
-保存关闭.yml文件后，将其备份到安全位置。升级Rancher时，您需要再次使用此文件。
+保存关闭.yml文件后，将其备份到安全位置。升级Rancher时，你需要再次使用此文件。
 
 ## 十一、运行RKE
 
-完成所有配置后，您可以通过运行rke up命令并使用--config参数指定配置文件来完成Rancher 集群的安装。
+完成所有配置后，你可以通过运行rke up命令并使用--config参数指定配置文件来完成Rancher 集群的安装。
 
 1、下载RKE二进制文档到你的主机，确保 `rancher-cluster.yml`与下载的`rke` 在同一目录下；
 

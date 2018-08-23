@@ -21,7 +21,7 @@ kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceac
 <details><summary>离线环境下安装的附加步骤</summary>
 <p>
 
-如果您是离线安装，则私有镜像仓库中需要有`tiller`镜像。
+如果你是离线安装，则私有镜像仓库中需要有`tiller`镜像。
 
 ### 1、创建registry secret
 

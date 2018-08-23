@@ -3,7 +3,7 @@ title: 1、404 - default backend
 weight: 1
 ---
 
-您需要下载kubectl命令行工具来调试此错误。kubectl命令行工具安装方法，请查阅See [kubectl安装与设置](https://kubernetes.io/docs/tasks/tools/install-kubectl/)。
+你需要下载kubectl命令行工具来调试此错误。kubectl命令行工具安装方法，请查阅See [kubectl安装与设置](https://kubernetes.io/docs/tasks/tools/install-kubectl/)。
 
 当修改了 `rancher-cluster.yml`配置文件后, 必须运行`rke remove --config rancher-cluster.yml`以清理节点，确保不会与先前的配置发生冲突。
 
@@ -11,7 +11,7 @@ weight: 1
 
 1. Nginx ingress无法为`rancher-cluster.yml`配置的应用提供代理服务
 
-    这应该是您为访问Rancher的FQDN配置错误，您可以通过运行以下命令来检查它是否已正确配置:
+    这应该是你为访问Rancher的FQDN配置错误，你可以通过运行以下命令来检查它是否已正确配置:
 
     ```bash
     kubectl --kubeconfig kube_config_rancher-cluster.yml get ingress -n cattle-system -o wide

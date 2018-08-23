@@ -3,7 +3,7 @@ title: 配置K8S角色
 weight: 1125
 ---
 
-在Rancher中，每个人都以用户身份进行身份验证，这是一个允许您访问Rancher的登录信息。如[Authentication](../../authentication/)中所述，用户可以是本地的也可以是外部的。
+在Rancher中，每个人都以用户身份进行身份验证，这是一个允许你访问Rancher的登录信息。如[Authentication](../../authentication/)中所述，用户可以是本地的也可以是外部的。
 
 配置外部身份验证后，`用户`页面上显示的用户将改变：
 

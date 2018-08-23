@@ -152,7 +152,7 @@ x509的证书编码格式有两种:
 
 - 2.为服务端(web)生成证书签名请求文件
 
-    如果您使用类似`demo.rancher.com`的FQDN域名访问，则需要设置`demo.rancher.com`作为CN；如果您使用IP地址访问，CN则为IP地址：
+    如果你使用类似`demo.rancher.com`的FQDN域名访问，则需要设置`demo.rancher.com`作为CN；如果你使用IP地址访问，CN则为IP地址：
 
     ```bash
     openssl req \
@@ -176,7 +176,7 @@ x509的证书编码格式有两种:
     ```bash
     openssl x509 -req -days 365 -in demo.rancher.com.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out demo.rancher.com.crt
     ```
-- 4.如果您使用IP，例如192.168.1.101来连接，则可以改为运行以下命令：
+- 4.如果你使用IP，例如192.168.1.101来连接，则可以改为运行以下命令：
 
     ```bash
     echo 'subjectAltName = IP:192.168.1.101' > extfile.cnf
