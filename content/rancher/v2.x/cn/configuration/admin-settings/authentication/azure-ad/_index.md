@@ -1,189 +1,157 @@
 ---
 title: 配置Azure AD认证
-weight: 1115
-
+weight: 2
 ---
 
-_Available as of v2.0.3_
+`Rancher v2.0.3`版本支持
 
-If you have an instance of Active Directory (AD) hosted in Azure, you can configure Rancher to allow your users to log in using their AD accounts. Configuration of Azure AD external authentication requires you to make configurations in both Azure and Rancher.
+如果你在Azure中启用了Active Directory(AD)服务，则可以配置Rancher以允许你的用户使用Azure AD帐户登录。
 
->**Prerequisite:** Have an instance of Azure AD configured.
+## 一、在Azure中注册Rancher
 
->**Note:** Most of this procedure takes place from the [Microsoft Azure Portal](https://portal.azure.com/).
+在Rancher中启用Azure AD之前，必须向Azure注册Rancher。
 
-## Azure Active Directory Configuration Outline
+Azure分Global区和中国区：
 
-Configuring Rancher to allow your users to authenticate with their Azure AD accounts involves multiple procedures. Review the outline below before getting started.
+- 中国区Portal地址：`https://portal.azure.cn`
+- Global区Portal地址：`https://portal.azure.com`
 
-<a id="tip"></a>
+## `本文配置以中国区为例，Global区方法类似`
 
->**Tip:** Before you start, we recommend creating an empty text file. You can use this file to copy values from Azure that you'll paste into Rancher later.
+1. 步骤中的配置需要管理访问权限，所以需要以管理用户身份登录[Microsoft Azure portal](https://portal.azure.cn/)。
 
-1. [Register Rancher with Azure](#1-register-rancher-with-azure)
+2. 搜索`应用注册`并打开
 
-    Before enabling Azure AD within Rancher, you must register Rancher with Azure.
+    ![image-20180823164708129](_index.assets/image-20180823164708129.png)
 
-1. [Create an Azure API Key](#2-create-an-azure-api-key)
+3. 点击`新应用程序注册`，并完成表单填写,最后点击右下角的创建。
 
-    From the Azure portal, create an API key. Rancher will use this key to authenticate with AD.
+    ![image-20180823165210404](_index.assets/image-20180823165210404.png)
 
-1. [Set Required Permissions for Rancher](#3-set-required-permissions-for-rancher)
+    ![image-20180823165630846](_index.assets/image-20180823165630846.png)
 
-    Next, set API permissions for Rancher within Azure.
+   > **注意**：登录URL需要填写为Rancher设置中配置的`server_url`，但是中国区需要在`rancher_server_url`地址后面添加`verify-auth-azure`后缀，例如：`https://demo.rancher.com/verify-auth-azure`，Azure为Global区不用添加。
 
-1. [Copy Azure Application Data](#4-copy-azure-application-data)
+## 二、创建Azure API密钥
 
-    As your final step in Azure, copy the data that you'll use to configure Rancher for Azure AD authentication.
+从Azure门户中创建API密钥，Rancher将使用此密钥对Azure AD进行身份验证。
 
-1. [Configure Azure AD in Rancher](#5-configure-azure-ad-in-rancher)
+1. 搜索`应用注册`服务，然后打开上一个过程中创建的`rancher-test`。可能会提示`你不是此目录中任何应用程序的所有者`,直接点击查看所有应用程序。
 
-    From the Rancher UI, enter information about your AD instance hosted in Azure to complete configuration.
+    ![image-20180823170226581](_index.assets/image-20180823170226581.png)
 
-### 1. Register Rancher with Azure
+    ![image-20180823170250818](_index.assets/image-20180823170250818.png)
 
-Before enabling Azure AD within Rancher, you must register Rancher with Azure.
+2. 点击`rancher-test`后弹出新的窗口
 
-1. Log in to [Microsoft Azure](https://portal.azure.com/) as an administrative user. Configuration in future steps requires administrative access rights.
+    ![image-20180823170455895](_index.assets/image-20180823170455895.png)
 
-1. Use search to open the **App registrations** service.
+3. 单击**设置**，从**设置**边栏中选择`密钥`。
 
-    ![Open App Registrations]({{< baseurl >}}/img/rancher/search-app-registrations.png)
+    ![image-20180823170710676](_index.assets/image-20180823170710676.png)
 
-1. Click **New application registration** and complete the **Create** form.
+4. 输入**密钥描述**,比如`rancher-test`，选择密钥的**有效期**，最后点击保存。
 
-    ![New App Registration]({{< baseurl >}}/img/rancher/new-app-registration.png)
+    ![image-20180823171126876](_index.assets/image-20180823171126876.png)
 
-    1. Enter a **Name** (something like `Rancher`).
+    > **注意:** 因为密钥只显示一次，所以需要复制密钥并保存到一个安全的地方。
 
-    1. From **Application type**, make sure that **Web app / API** is selected.
+## 三、设置Rancher的必需权限
 
-    1. In the **Sign-on URL** field, enter the URL of your Rancher Server.
+接下来，在Azure中为Rancher设置API权限。
 
-    1. Click **Create**.
+1. 紧接上一步，从`设置`边栏选择`**所需权限**`。
 
-### 2. Create an Azure API Key
+    ![image-20180823171753402](_index.assets/image-20180823171753402.png)
 
-From the Azure portal, create an API key. Rancher will use this key to authenticate with Azure AD.
+2. 单击**Windows Azure Active Directory**。
 
-1. Use search to open **App registrations** services. Then open the entry for Rancher that you created in the last procedure.
+3. 从**启用访问权限**边栏选项卡中，勾选以下**委派权限**：
 
-     ![Open Rancher Registration]({{< baseurl >}}/img/rancher/open-rancher-app.png)
+    - 以登录用户身份访问该目录
 
-    **????:** A new blade opens for Rancher.
+    - 读取目录数据
 
-1. Click **Settings**.
+    - 读取所有群组
 
-1. From the **Settings** blade, select **Keys**.
+    - 读取所有用户的完整个人资料
 
-1. From **Passwords**, create an API key.
+    - 读取所有用户的基本配置文件
 
-    1. Enter a **Key description** (something like `Rancher`).
+    - 登录并读取用户个人资料
 
-    1. Select a **Duration** for the key. This drop-down sets the expiration date for the key. Shorter durations are more secure, but require you to create a new key after expiration.
+    ![image-20180823172306171](_index.assets/image-20180823172306171.png)
 
-    1. Click **Save** (you don't need to enter a value—it will automatically populate after you save).
-<a id="secret"></a>
+    > 注意：必须以Azure管理员身份登录才能成功保存权限设置。
 
-1.  Copy the key value and save it to an [empty text file](#tip).
+## 四、复制Azure应用程序数据
 
-    You'll enter this key into the Rancher UI later as your **Application Secret**.
+作为Azure的最后一步，复制用于配置Rancher进行Azure AD身份验证的数据并将其粘贴到空文本文件中。
 
-    You won't be able to access the key value again within the Azure UI.
+1. 获取`目录ID`
 
-### 3. Set Required Permissions for Rancher
+    - 搜索Azure Active Directory服务
 
-Next, set API permissions for Rancher within Azure.
+        ![image-20180823172714211](_index.assets/image-20180823172714211.png)
 
-1. From the **Settings** blade, select **Required permissions**.
+    - 从Azure Active Directory菜单中，打开`属性`
 
-    ![Open Required Permissions]({{< baseurl >}}/img/rancher/select-required-permissions.png)
+        ![image-20180823172749770](_index.assets/image-20180823172749770.png)
 
-1. Click **Windows Azure Active Directory**.
+    - 复制`目录ID`并将其粘贴到文本文件中
 
-1. From the **Enable Access** blade, select the following **Delegated Permissions**:
-    <br/>
-    <br/>
-    - **Access the directory as the signed-in user**
-    - **Read directory data**
-    - **Read all groups**
-    - **Read all users' full profiles**
-    - **Read all users' basic profiles**
-    - **Sign in and read user profile**
+        ![image-20180823172910904](_index.assets/image-20180823172910904.png)
 
-1. Click **Save**.
+2. 获取`应用ID`。
 
-1. From **Required permissions**, click **Grant permissions**. Then click **Yes**.
+    - 搜索`应用注册`
 
-    >**Note:** You must be signed in as an Azure administrator to successfully save your permission settings.
+    - 找到创建的`rancher-test`应用
 
+    - 复制应用程序ID并将其粘贴到你的文本文件中
 
-### 4. Copy Azure Application Data
+        ![image-20180823173342700](_index.assets/image-20180823173342700.png)
 
-As your final step in Azure, copy the data that you'll use to configure Rancher for Azure AD authentication and paste it into an empty text file.
+3. 获取`MICROSOFT AZURE AD GRAPH API终结点`、`OAUTH 2.0令牌终结点`和`OAUTH 2.0授权终结点`。
 
-1. Obtain your Rancher **Tenant ID**.
+    - 搜索`应用注册`，并点击`终结点`
 
-    1. Use search to open the **Azure Active Directory** service.
+        ![image-20180823173646887](_index.assets/image-20180823173646887.png)
 
-         ![Open Azure Active Directory]({{< baseurl >}}/img/rancher/search-azure-ad.png)
+        ![image-20180823173925497](_index.assets/image-20180823173925497.png)
 
-    1. From the **Azure Active Directory** menu, open **Properties**.
+4. 将以下端点复制到剪贴板并将其粘贴到文本文件中
 
-    2. Copy the **Directory ID** and paste it into your [text file](#tip).
+    - MICROSOFT AZURE AD GRAPH API终结点
+    - OAUTH 2.0令牌终结点
+    - OAUTH 2.0授权终结点
 
-        You'll paste this value into Rancher as your **Tenant ID**.
+## 五、在Rancher中配置Azure AD
 
-1. Obtain your Rancher **Application ID**.
+在Rancher UI中，输入在Azure中获取到的AD配置信息以完成配置。
 
-    1. Use search to open **App registrations**.
+1. 登录RancherUI,从`全局`视图中，选择`安全>认证`。
 
-         ![Open App Registrations]({{< baseurl >}}/img/rancher/search-app-registrations.png)
+2. 选择Azure AD。
 
-    1. Find the entry you created for Rancher.
+3. 输入对应的配置信息:
 
-    1. Copy the **Application ID** and paste it to your [text file](#tip).
+    下表是Azure门户配置与Rancher认证配置的字段对应表:
 
-1. Obtain your Rancher **Graph Endpoint**, **Token Endpoint**, and **Auth Endpoint**.
+    | Rancher                | Azure AD                             |
+    | ---------------------- | ------------------------------------ |
+    | 租户ID(Tenant ID)      | 目录ID(Directory ID)                  |
+    | 应用ID(Application ID) | 应用ID(Application ID)                    |
+    | Application Secret         | 密钥                                  |
+    | Endpoint                   | <https://login.chinacloudapi.cn>     |
+    | Graph Endpoint             | <https://graph.chinacloudapi.cn>     |
+    | Token Endpoint             | OAUTH 2.0 令牌终结点                   |
+    | Auth Endpoint              | OAUTH 2.0 授权终结点                   |
 
-    1. From **App registrations**, click **Endpoints**.
-
-        ![Click Endpoints]({{< baseurl >}}/img/rancher/click-endpoints.png)
-
-    2. Copy the following endpoints to your clipboard and paste them into your [text file](#tip) (these values will be your Rancher endpoint values).
-
-        - **Microsoft Azure AD Graph API Endpoint** (Graph Endpoint)
-        - **OAuth 2.0 Token Endpoint** (Token Endpoint)
-        - **OAuth 2.0 Authorization Endpoint** (Auth Endpoint)
-
-### 5. Configure Azure AD in Rancher
-
-From the Rancher UI, enter information about your AD instance hosted in Azure to complete configuration.
-
-Enter the values that you copied to your [text file](#tip).
-
-1. Log into Rancher. From the **Global** view, select **Security > Authentication**.
-
-1. Select **Azure AD**.
-
-1. Complete the **Configure Azure AD Account** form using the information you copied while completing [Copy Azure Application Data](#4-copy-azure-application-data).
-
-    >**Important:** When entering your Graph Endpoint, remove the tenant ID from the URL, like below.
+    > Global区Endpoint地址: `https://login.windows.net/`
     >
-    ><code>http<span>s://g</span>raph.windows.net/<del>abb5adde-bee8-4821-8b03-e63efdc7701c</del></code>
+    > Global区Graph Endpoint地址：`https://graph.windows.net/`
+    >
+    >具体信息请查阅：[Check-endpoints-in-Azure](https://docs.microsoft.com/en-us/azure/china/china-get-started-developer-guide#Check-endpoints-in-Azure)
 
-    The following table maps the values you copied in the Azure portal to the fields in Rancher. 
-
-    Rancher Field | Azure Value
-    ---------|----------
-    Tenant ID | Directory ID
-    Application ID | Application ID
-    Application Secret | Key Value
-    Endpoint | https://login.microsoftonline.com/
-    Graph Endpoint | Microsoft Azure AD Graph API Endpoint
-    Token Endpoint | OAuth 2.0 Token Endpoint
-    Auth Endpoint | OAuth 2.0 Authorization Endpoint
-
-1. Click **Authenticate with Azure**.
-
-**Result:** Azure Active Directory authentication is configured.
+4. 最后点击`启用Azure AD`

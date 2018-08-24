@@ -1,6 +1,6 @@
 ---
 title: 配置FreeIPA
-weight: 1114
+weight: 7
 ---
 
 _Available as of v2.0.5_

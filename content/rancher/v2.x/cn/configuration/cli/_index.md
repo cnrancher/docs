@@ -121,7 +121,7 @@ INFO[0005] Saving config to /Users/markbishop/.rancher/cli2.json
 
 - `ssh`
 
-    使用SSH协议连接到其中一个群集节点。
+    使用SSH协议连接到其中一个集群节点。
 
 - `help, [h]`
 

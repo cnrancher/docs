@@ -78,7 +78,7 @@ weight: 2
 - 2> 共享存储(Swift服务器.192.168.1.216)
 - 3> Redis集群(192.168.1.217)
 - 4> PostgreSQL(Clair DB 192.168.1.50)
-- 5> 2个VM用于负载平衡器群集。
+- 5> 2个VM用于负载平衡器集群。
 - 6> n用于Harbor无状态服务的VM(n> = 2)，在此示例中，我们将设置2个Harbor节点。
 - 7> n+1个静态IP(1个用于VIP，其他n个IP将由Harbor无状态服务器使用)
 
@@ -195,7 +195,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
     db_user = root
     ```
 
-6. 修改`harbor.cfg`配置Redis服务器/群集地址
+6. 修改`harbor.cfg`配置Redis服务器/集群地址
 
     ```bash
     #The redis server address

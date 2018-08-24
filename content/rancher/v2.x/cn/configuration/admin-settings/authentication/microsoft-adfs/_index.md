@@ -1,6 +1,6 @@
 ---
 title: 配置Microsoft Active Directory Federation Service (SAML)
-weight: 1205
+weight: 6
 ---
 _Available as of v2.0.7_
 

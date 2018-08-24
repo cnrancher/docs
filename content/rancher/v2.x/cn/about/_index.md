@@ -26,7 +26,7 @@ loglevel repository | https://github.com/rancher/loglevel | 储库loglevel二进
 
 ## 构建
 
-每个代码库都应该有一个Makefile文件，可以使用该make命令构建。`make`执行的目标程序是基于存储库中`/scripts`目录中的脚本(以及其他`trash`命令，有关使用`trash`的更多信息），每个目标将使用`Dapper`在隔离环境中运行。`Dockerfile.dapper`将用于此过程，并包含所需的所有必要的构建工具。
+每个代码库都应该有一个Makefile文件，可以使用该make命令构建。`make`执行的目标程序是基于存储库中`/scripts`目录中的脚本(以及其他`trash`命令，有关使用`trash`的更多信息)，每个目标将使用`Dapper`在隔离环境中运行。`Dockerfile.dapper`将用于此过程，并包含所需的所有必要的构建工具。
 
 默认运行的目标程序是`ci`,并且将会运行`./scripts/validate`，`./scripts/build`，`./scripts/test`和`./scripts/package`。生成的二进制文件将包含在`./build/binDocker`镜像中，并且通常也打包在Docker镜像中。
 

@@ -1,6 +1,6 @@
 ---
 title: 配置OpenLDAP认证
-weight: 1113
+weight: 4
 ---
 
 _Available as of v2.0.5_

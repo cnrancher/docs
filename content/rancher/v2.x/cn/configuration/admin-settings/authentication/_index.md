@@ -1,17 +1,15 @@
 ---
 title: 登录认证
-weight: 1110
+weight: 4
 ---
 
-One of the key features that Rancher adds to Kubernetes is centralized user authentication. This feature allows your users to use one set of credentials to authenticate with any of your Kubernetes clusters.
+Rancher为Kubernetes增强的一个关键功能是集中用户身份验证，此功能允许您的用户使用一组凭据对所有Kubernetes集群进行身份验证。
 
-This centralized user authentication is accomplished using the Rancher authentication proxy, which is installed along with the rest of Rancher. This proxy authenticates your users and forwards their requests to your Kubernetes clusters using a service account.
+此集中式用户身份验证是使用Rancher身份验证代理完成的，该代理与Rancher一起安装。此代理会对您的用户进行身份验证，并使用服务帐户将其请求转发给您的Kubernetes集群。
 
-<!-- todomark add diagram -->
+## 外部认证与本地认证
 
-### External vs. Local Authentication
-
-The Rancher authentication proxy integrates with the following external authentication services.
+Rancher提供本地身份验证，也可以`同时`与以下`一个或者多个`外部身份验证服务集成：
 
 - Microsoft Active Directory
 - Microsoft Azure AD
@@ -21,37 +19,37 @@ The Rancher authentication proxy integrates with the following external authenti
 - FreeIPA
 - OpenLDAP
 
-However, Rancher also provides local authentication.
+在大多数情况下，您应该使用外部身份验证服务，因为外部验证服务可以统一的进行用户管理。如果没有外部身份验证服务，您也可以通过本地身份验证来管理Rancher用户。
 
-In most cases, you should use an external authentication service over local, as external authentication allows user management from a central location. However, you may want a few local authentication users for managing Rancher under rare circumstances, such as if Active Directory is down.
+## 外部身份验证配置和主要用户
 
-### External Authentication Configuration and Principal Users
+外部身份验证的配置需要：
 
-Configuration of external authentication requires:
+- 一个具有管理员角色的本地管理员账号，例如：`local_admin`
+- 一个可以使用外部身份验证服务进行身份验证的外部服务账号，例如：`demo`
 
-- A local user assigned the administrator role, called hereafter the _local principal_.
-- An external user that can authenticate with your external authentication service, called hereafter the _external principal_.
+  外部身份验证的配置会影响Rancher中本地用户的管理方式。请按照以下列表更好地了解这些效果。
 
-Configuration of external authentication affects how principal users are managed within Rancher. Follow the list below to better understand these effects.
+1. 以`本地管理员`登录Rancher，对外部身份验证服务进行完整配置。
 
-1. Sign into Rancher as the local principal and complete configuration of external authentication.
+    ![Sign In](/docs/img/rancher/sign-in.png)
 
-	![Sign In]({{< baseurl >}}/img/rancher/sign-in.png)
+2. Rancher将外部服务账号与本地管理员账号联系在一起。这两个账号共享本地管理员用户的用户ID。
 
-2. Rancher associates the external principal with the local principal. These two users share the local principal's user ID.
+    ![Principal ID Sharing](/docs/img/rancher/principal-ID.png)
 
-	![Principal ID Sharing]({{< baseurl >}}/img/rancher/principal-ID.png)
+3. 完成配置后，Rancher会自动注销本地管理员账号。
 
-3. After you complete configuration, Rancher automatically signs out the local principal.
+    ![Sign Out Local Principal](/docs/img/rancher/sign-out-local.png)
 
-	![Sign Out Local Principal]({{< baseurl >}}/img/rancher/sign-out-local.png)
+4. 然后，Rancher将自动以外部服务用户登录。
 
-4. Then, Rancher automatically signs you back in as the external principal.
+    ![Sign In External Principal](/docs/img/rancher/sign-in-external.png)
 
-	![Sign In External Principal]({{< baseurl >}}/img/rancher/sign-in-external.png)
+5. 由于外部服务账号和本地管理员账号共享一个ID，因此在`用户`页面上不会显示外部服务账号的唯一标识。
 
-5. Because the external principal and the local principal share an ID, no unique object for the external principal displays on the Users page.
+    ![Sign In External Principal](/docs/img/rancher/users-page.png)
 
-	![Sign In External Principal]({{< baseurl >}}/img/rancher/users-page.png)
+6. 外部服务账号和本地管理员账号共享相同的访问权限。
 
-6. The external principal and the local principal share the same access rights.
+> **重要说明** 不管启用哪种外部身份验证服务，Rancher内置的`超级管理员admin`将一直启用。

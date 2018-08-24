@@ -3,7 +3,7 @@ title: Rancher Server URL
 weight: 1
 ---
 
-此`URL`地址可以是IP也可以是域名，群集所有节点将使用该URL来注册到Rancher，所以需要保证所有节点能访问该地址。
+此`URL`地址可以是IP也可以是域名，集群所有节点将使用该URL来注册到Rancher，所以需要保证所有节点能访问该地址。
 
 如果Rancher server是多节点HA运行，请不要设置`Rancher Server URL`为某一个节点的IP地址，避免因某一个节点出现故障影响整个集群。如果`Rancher Server URL`使用域名，请把域名解析到所有`Rancher Server`节点IP或者VIP上。
 
