@@ -7,8 +7,7 @@ weight: 3
 
 Rancher使用LDAP与Active Directory服务通信。因此，Active Directory的身份验证流程与[OpenLDAP](../openldap)身份验证集成方法相同。
 
-> **注意:**
->
+> **注意**
 > 在开始之前，请熟悉[外部身份验证配置和主要用户](/docs/rancher/v2.x/cn/configuration/admin-settings/authentication/#外部身份验证配置和主要用户)的概念。
 
 ## 一、先决条件
@@ -20,24 +19,20 @@ Rancher使用LDAP与Active Directory服务通信。因此，Active Directory的�
 但请注意，在某些锁定的Active Directory配置中，此默认行为可能不适用。在这种情况下，您需要确保服务帐户用户至少具有在基本OU(封闭用户和组)上授予的`读取和列出内容`权限，或者全局授予域。
 
 > **使用TLS？**
->
 > 如果AD服务器使用的证书是自签名的，或者不是来自公认的证书颁发机构，请确保手头有PEM格式的CA证书(与所有中间证书连接)。您必须在配置期间设置此证书，以便Rancher能够验证证书。
 
-## 二、配置步骤
-
-### 1、选择Active Directory
+## 二、选择Active Directory
 
 1. 使用本地admin帐户登录Rancher UI 。
 2. 从全局视图中，导航到`安全>认证`。
 3. 选择`Active Directory`，配置AD服务参数。
 
-### 2、配置Active Directory服务
+## 三、配置Active Directory服务
 
 在标题为`1. 配置Active Directory服务器`的部分中，填写特定于Active Directory服务的配置信息。有关每个参数所需值的详细信息，请参阅下表。
 
-> **注意:**
->
-> 如果您不确定要在用户/组搜索库字段中输入正确的值, please refer to [Identify Search Base and Schema using ldapsearch](#annex-identify-search-base-and-schema-using-ldapsearch).
+> **注意**
+> 如果您不确定要在用户/组搜索库字段中输入正确的值, 请查看[使用ldapsearch识别Search Base和架构](#六、附件一：使用ldapsearch识别Search Base和架构).
 
 **表1：AD服务器参数**
 
@@ -53,17 +48,18 @@ Rancher使用LDAP与Active Directory服务通信。因此，Active Directory的�
 | User Search Base  | 目录树中节点的专有名称，从该节点开始搜索用户对象。所有用户必须是此基本DN的后代。例如：`ou=people，dc=acme，dc=com`。 |
 | Group Search Base | 如果您的组位于与`User Search Base`配置的节点不同的节点下，则需要在此处提供可分辨名称。否则将其留空。例如：`ou=groups，dc=acme，dc=com`。 |
 
-### 配置用户/组架构
+## 四、配置用户/组架构(可选)
+
+> **注意** 如果你的AD服务器为标准配置，那可以跳过此步骤
 
 在标题为`2. 自定义架构`的部分中，您必须为Rancher提供与目录中使用的模式相对应的`用户和组`属性的正确配置。
 
 Rancher使用LDAP查询来搜索和检索有关Active Directory中的用户和组的信息，本节中配置的属性映射用于构建搜索过滤器并解析组成员身份。因此，提供的设置反映AD域的实际情况至关重要。
 
-> **注意:**
->
+> **注意**
 > 如果您不熟悉Active Directory域中使用的架构，请参阅使用ldapsearch识别搜索库和架构以确定正确的配置值。
 
-#### 用户架构
+### 1、用户架构
 
 下表详细介绍了用户架构部分配置的参数。
 
@@ -79,11 +75,11 @@ Rancher使用LDAP查询来搜索和检索有关Active Directory中的用户和�
 | 用户启用的属性 | 包含表示用户帐户标志的按位枚举的整数值的属性。Rancher使用它来确定是否禁用了用户帐户。您通常应将此设置保留为AD标准`userAccountControl`。 |
 | 禁用状态位掩码 | 这是`User Enabled Attribute`指定已禁用的用户帐户的值。您通常应将此设置保留为Microsoft Active Directory架构中指定的默认值“2”(请参阅[此处](https://docs.microsoft.com/en-us/windows/desktop/adschema/a-useraccountcontrol#remarks))。 |
 
-#### 组架构
+### 2、组架构
 
 下表详细说明了组架构配置的参数。
 
-*表3：组架构配置参数**
+**表3: 组架构配置参数**
 
 | 参数           | 描述                                                         |
 | -------------- | ------------------------------------------------------------ |
@@ -95,96 +91,85 @@ Rancher使用LDAP查询来搜索和检索有关Active Directory中的用户和�
 | 组DN属性       | group属性的名称，其格式与描述用户成员身份的user属性中的值匹配。见 `User Member Attribute`。 |
 | 嵌套组成员资格 | 此设置定义Rancher是否应解析嵌套组成员资格。仅在您的组织使用这些嵌套成员资格时使用(即您拥有包含其他组作为成员的组)。 |
 
-### 测试认证
+## 五、测试认证
 
 完成配置后，继续测试与AD服务器的连接。如果测试成功，将隐式启用使用已配置的Active Directory进行身份验证。
 
-> **注意:**
->
+> **注意**
 > 与在此步骤中输入的凭据相关的AD用户将映射到本地主体帐户并在Rancher中分配管理员权限。因此，您应该有意识地决定使用哪个AD帐户执行此步骤。
 
 1. 输入应映射到本地主帐户的AD帐户的**用户名**和**密码**。
 2. 单击**使用Active Directory**进行**身份验证**以完成设置。
 
-**Result:**
+> **注意**
+> 如果LDAP服务中断，您可以使用本地帐户和密码登录。
 
-- Active Directory authentication has been enabled.
-- You have been signed into Rancher as administrator using the provided AD credentials.
+## 六、附件一：使用ldapsearch识别Search Base和架构
 
-> **Note:**
->
-> You will still be able to login using the locally configured `admin` account and password in case of a disruption of LDAP services.
+为了成功配置AD身份验证，您必须提供与AD服务器的层次结构和架构相关的正确配置。
 
-## Annex: Identify Search Base and Schema using ldapsearch
+该[`ldapsearch`](http://manpages.ubuntu.com/manpages/artful/man1/ldapsearch.1.html)工具可以帮助您查询AD服务器用户和组对象的模式。
 
-In order to successfully configure AD authentication it is crucial that you provide the correct configuration pertaining to the hirarchy and schema of your AD server.
+处于演示的目的，我们假设:
 
-The [`ldapsearch`](http://manpages.ubuntu.com/manpages/artful/man1/ldapsearch.1.html) tool allows you to query your AD server to learn about the schema used for user and group objects.
+- Active Directory服务器的主机名为`ad.acme.com`。
+- 服务器正在侦听端口上的未加密连接`389`。
+- Active Directory域是`acme`
+- 拥有一个有效的AD帐户，其中包含用户名`jdoe`和密码`secret`
 
-For the purpose of the example commands provided below we will assume:
+### 1、识别Search Base
 
-- The Active Directory server has a hostname of `ad.acme.com`
-- The server is listening for unencrypted connections on port `389`
-- The Active Directory domain is `acme`
-- You have a valid AD account with the username `jdoe` and password `secret`
+首先，我们将使用`ldapsearch`来识别用户和组的父节点的专有名称(DN)：
 
-### Identify Search Base
-
-First we will use `ldapsearch` to identify the Distinguished Name (DN) of the parent node(s) for users and groups:
-
-```
-$ ldapsearch -x -D "acme\jdoe" -w "secret" -p 389 \
+```bash
+ldapsearch -x -D "acme\jdoe" -w "secret" -p 389 \
 -h ad.acme.com -b "dc=acme,dc=com" -s sub "sAMAccountName=jdoe"
 ```
 
-This command performs an LDAP search with the search base set to the domain root (`-b "dc=acme,dc=com"`) and a filter targeting the the user account (`sAMAccountNam=jdoe`), returning the attributes for said user:
+此命令执行LDAP搜索，`search base`设置为根域(`-b "dc=acme,dc=com"`)，过滤器以用户(`sAMAccountNam=jdoe`)为目标，返回所述用户的属性：
 
 ![LDAP User]({{< baseurl >}}/img/rancher/ldapsearch-user.png)
 
-Since in this case the user's DN is `CN=John Doe,CN=Users,DC=acme,DC=com` [5], we should configure the **User Search Base** with the parent node DN `CN=Users,DC=acme,DC=com`.
+由于在这种情况下用户的DN是`CN=John Doe,CN=Users,DC=acme,DC=com[5]`，我们应该使用父节点DN配置用户Search Base`CN=Users,DC=acme,DC=com`。
 
-Similarly, based on the DN of the group referenced in the **memberOf** attribute [4], the correct value for the **Group Search Base** would be the parent node of that value, ie. `OU=Groups,DC=acme,DC=com`.
+类似地，基于`memberOf`属性[4]中引用的组的DN，组Search Base的正确值应该是该值的父节点，即:`OU=Groups,DC=acme,DC=com`。
 
-### Identify User Schema
+### 2、识别用户架构
 
-The output of the above `ldapsearch` query also allows to determine the correct values to use in the user schema configuration:
+上述`ldapsearch`查询的输出结果还可以确定用户架构的配置：
 
 - `Object Class`: **person** [1]
 - `Username Attribute`: **name** [2]
 - `Login Attribute`: **sAMAccountName** [3]
 - `User Member Attribute`: **memberOf** [4]
 
-> **Note:**
->
-> If the AD users in our organisation were to authenticate with their UPN (e.g. jdoe@acme.com) instead of the short logon name, then we would have to set the `Login Attribute` to **userPrincipalName** instead.  
+> **注意**
+> 如果组织中的AD用户使用他们的UPN（例如`jdoe@acme.com` ）而不是短登录名进行身份验证，那么我们必须将`Login Attribute`设置为`userPrincipalName`。\
+> 还可以`Search Attribute`参数设置为`sAMAccountName | name`。这样，通过输入用户名或全名，可以通过Rancher UI将用户添加到群集/项目中。
 
-We'll also set the `Search Attribute` parameter to **sAMAccountName|name**. That way users can be added to clusters/projects in the Rancher UI either by entering their username or full name.
+### 3、识别组架构
 
-### Identify Group Schema
+接下来，我们查询与此用户关联的一个组，在这种情况下`CN=examplegroup,OU=Groups,DC=acme,DC=com`：
 
-Next, we'll query one of the groups associated with this user, in this case `CN=examplegroup,OU=Groups,DC=acme,DC=com`:
-
-```
-$ ldapsearch -x -D "acme\jdoe" -w "secret" -p 389 \
+```bash
+ldapsearch -x -D "acme\jdoe" -w "secret" -p 389 \
 -h ad.acme.com -b "ou=groups,dc=acme,dc=com" \
 -s sub "CN=examplegroup"
 ```
 
-This command will inform us on the attributes used for group objects:
+以上命令将显示组对象的属性：
 
 ![LDAP Group]({{< baseurl >}}/img/rancher/ldapsearch-group.png)
-
-Again, this allows us to determine the correct values to enter in the group schema configuration:
 
 - `Object Class`: **group** [1]
 - `Name Attribute`: **name** [2]
 - `Group Member Mapping Attribute`: **member** [3]
 - `Search Attribute`: **sAMAccountName** [4]
 
-Looking  at the value of the  **member** attribute, we can see that it contains the DN of the referenced user. This  corresponds to the **distinguishedName** attribute in our user object. Accordingly will have to set the value of the `Group Member User Attribute` parameter to this attribute.
+查看成员属性值，我们可以看到它包含引用用户的DN。这对应用户对象中的`distinguishedName`属性。因此必须将`Group Member User Attribute`参数的值设置为此属性值。
 
-In the same way, we can observe that the value in the **memberOf** attribute in the user object corresponds to the **distinguishedName** [5] of the group. We therefore need to set the value for the `Group DN Attribute` parameter to this attribute.
+以同样的方式，我们可以观察到用户对象中`memberOf`属性中的值对应于组的`distinguishedName [5]`。因此，我们需要将`Group DN Attribute`参数的值设置为此属性值。
 
-## Annex: Troubleshooting
+## 七、附件二：故障排除
 
-If you are experiencing issues while testing the connection to the Active Directory server, first double-check the credentials entered for the service account as well as the search base configuration. You may also inspect the Rancher logs to help pinpointing the problem cause. Debug logs may contain more detailed information about the error. Please refer to [How can I enable debug logging]({{< baseurl >}}/rancher/v2.x/en/faq/technical/#how-can-i-enable-debug-logging) in this documentation.
+如果在测试与Active Directory服务器的连接时遇到问题，请检查为服务帐户输入的凭据以及`Search Base`配置。还可以检查Rancher日志以帮助查明问题原因。调试日志可能包含有关错误的更多详细信息，请参考[如何开启debug模式](/docs/rancher/v2.x/cn/faq/technical/#怎么样开启debug模式)。
