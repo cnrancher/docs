@@ -3,9 +3,9 @@ title: 6 - API审计日志
 weight: 6
 ---
 
-Rancher附带API审计功能，用以记录每个用户发起的系统事件信息。您可以知道发生了什么、何时发生、谁发起的、以及事件对集群的影响。API审计也记录Rancher API的所有请求和响应，包括使用Rancher UI和通过编程使用Rancher API的所有其他用途。
+Rancher附带API审计功能，用以记录每个用户发起的系统事件信息。你可以知道发生了什么、何时发生、谁发起的、以及事件对集群的影响。API审计也记录Rancher API的所有请求和响应，包括使用Rancher UI和通过编程使用Rancher API的所有其他用途。
 
-您可以在Rancher安装或升级期间启用API审计。
+你可以在Rancher安装或升级期间启用API审计。
 
 ## API审计使用方法
 
@@ -14,7 +14,7 @@ Rancher附带API审计功能，用以记录每个用户发起的系统事件信�
 参数 | 描述
 ---------|----------
  `AUDIT_LEVEL` | `0` - 禁用审核日志(默认设置)<br/>`1` - 记录事件元数据<br/>`2` - 记录事件元数据和请求内容. <br/>`3` - 记录事件元数据、请求内容和响应内容。请求/响应对的每个日志事务使用相同的`auditID`值。<br/>有关显示每个等级设置记录的具体内容，请参阅[审计级别日志](#审计日志级别)记录
- `AUDIT_LOG_PATH` | Rancher Server API的日志路径，默认路径是：`/var/log/auditlog/rancher-api-audit.log`，您可以将日志目录挂载到主机。<br/>用法示例: `AUDIT_LOG_PATH=/my/custom/path/`<br/> 
+ `AUDIT_LOG_PATH` | Rancher Server API的日志路径，默认路径是：`/var/log/auditlog/rancher-api-audit.log`，你可以将日志目录挂载到主机。<br/>用法示例: `AUDIT_LOG_PATH=/my/custom/path/`<br/> 
  `AUDIT_LOG_MAXAGE` | 定义了保留旧审核日志文件的最大天数，默认为10天。
  `AUDIT_LOG_MAXBACKUP` | 定义要保留的最大审核日志文件个数，默认值为10。
  `AUDIT_LOG_MAXSIZE` | 定义单个审计日志文件的最大值(以兆字节为单位)，默认大小为100M。
@@ -48,7 +48,7 @@ docker run -d --restart=unless-stopped \
 
 ## 查看API审核日志
 
-默认情况下，您可以使用自己熟悉的文本编辑器在Rancher server节点上查看审核日志。例如：
+默认情况下，你可以使用自己熟悉的文本编辑器在Rancher server节点上查看审核日志。例如：
 
 ```bash
 less /root/var/log/auditlog/rancher-api-audit.log

@@ -19,7 +19,7 @@ kubectl -n cattle-system create secret tls tls-rancher-ingress \
 
 ## 私有CA签名证书(可选)
 
-如果您使用的是私有CA，则需要传递CA文件给Rancher。
+如果你使用的是私有CA，则需要传递CA文件给Rancher。
 
 将CA证书复制到名为`cacerts.pem`的文件中，并用`kubectl`在命名空间`cattle-system`中创建`tls-ca`secret。
 

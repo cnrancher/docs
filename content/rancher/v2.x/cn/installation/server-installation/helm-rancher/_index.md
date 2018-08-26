@@ -67,10 +67,10 @@ helm install rancher-stable/rancher \
 
 ### 3、Kubernetes Secret配置证书
 
-从您自己的证书中创建Kubernetes Secrets以供Rancher使用。
+从你自己的证书中创建Kubernetes Secrets以供Rancher使用。
 
 >**注意:** 1.证书的对应的`域名`需要与`hostname`选项匹配，否则ingress将无法代理访问Rancher。\
->2.如果您使用的是私有CA签名证书，需要添加`--set privateCA=true`
+>2.如果你使用的是私有CA签名证书，需要添加`--set privateCA=true`
 
 配置`hostname`和`ingress.tls.source=secret`
 
@@ -86,7 +86,7 @@ helm install rancher-stable/rancher \
 
 ### 4、高级配置
 
-Rancher chart有许多配置选项,可用于自定义安装以适合您的特定环境。以下是一些常见的高级方案:
+Rancher chart有许多配置选项,可用于自定义安装以适合你的特定环境。以下是一些常见的高级方案:
 
 - [HTTP代理配置](./chart-options/#http-proxy)
 - [私有镜像仓库](./chart-options/#private-registry)
