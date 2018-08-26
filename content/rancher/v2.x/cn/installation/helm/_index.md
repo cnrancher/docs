@@ -154,7 +154,7 @@ Helm的服务器端部分Tiller,通常运行在 Kubernetes 集群内部。但是
 helm init --service-account tiller   --tiller-image registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.9.1
 ```
 
-> 由于RKE默认启用RBAC,所有在安装`tiller`时需要指定`ServiceAccount`。默认情况下，会去谷歌镜像仓库拉取镜像，可以通过`--tiller-image`指定私有镜像仓库镜像。
+>由于RKE默认启用RBAC,所有在安装`tiller`时需要指定`ServiceAccount`。默认情况下，会去谷歌镜像仓库拉取镜像，可以通过`--tiller-image`指定私有镜像仓库镜像。
 
 `helm init`以后，可以运行`kubectl get pods --namespace kube-system`并看到Tiller正在运行。
 

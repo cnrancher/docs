@@ -33,7 +33,7 @@ weight: 2
 
 - Docker
 
-    > **注意:**如果你使用的是RancherOS，请确保你将Docker引擎切换为受支持的版本`sudo ros engine switch docker-17.03.2-ce`
+    >**注意:**如果你使用的是RancherOS，请确保你将Docker引擎切换为受支持的版本`sudo ros engine switch docker-17.03.2-ce`
 
     **支持的Docker版本**
 
@@ -43,9 +43,8 @@ weight: 2
 
     [Docker安装说明](https://docs.docker.com/install/)
 
-    > **注意:** 该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请查阅[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。
-    >
-    > 更多Rancher server tag列表，请查阅[Rancher server tags](/docs/rancher/v2.x/cn/installation/server-tags/)。
+    >**注意:**1.该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请查阅[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。\
+    >2.更多Rancher server tag列表，请查阅[Rancher server tags](/docs/rancher/v2.x/cn/installation/server-tags/)。
 
 ### 4、端口
 
@@ -137,9 +136,9 @@ $ chmod +x rke_linux-amd64
 
 ```bash
 # MacOS
-$ ./rke_darwin-amd64 --version
+./rke_darwin-amd64 --version
 # Linux
-$ ./rke_linux-amd64 --version
+./rke_linux-amd64 --version
 ```
 
 **步骤结果:** 你将看到以下内容:
@@ -210,18 +209,15 @@ nodes:
 
 ### 1、方案A — 使用自签名证书
 
->**先决条件:**
->
-> - 证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型](/docs/rancher/v2.x/cn/installation/self-signed-ssl/)；
-> - 证书必须通过`base64`加密；
-> - 在你的证书文件中，包含链中的所有中间证书；
+>**先决条件:** 1.证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型](/docs/rancher/v2.x/cn/installation/self-signed-ssl/)；\
+> 2.证书必须通过`base64`加密；\
+> 3.在你的证书文件中，包含链中的所有中间证书；
 
 在`kind: Secret`和`name: cattle-keys-ingress`中:
 
 - 替换<BASE64_CA>为CA证书文件的base64编码字符串(通常称为ca.pem或ca.crt)
 
->**注意:**
->base64编码的字符串应该与cacerts.pem在同一行，冒号后有一个空格，在开头，中间或结尾没有任何换行符。
+>**注意:** base64编码的字符串应该与cacerts.pem在同一行，冒号后有一个空格，在开头，中间或结尾没有任何换行符。
 
 结果:替换值后，文件应如下所示(base64编码的字符串应该不同):
 

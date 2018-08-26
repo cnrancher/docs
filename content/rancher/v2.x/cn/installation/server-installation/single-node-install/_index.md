@@ -53,9 +53,9 @@ weight: 1
 
 出于安全考虑，使用Rancher时需要SSL进行加密。SSL可以保护所有Rancher网络通信，例如登录或与集群交互。
 
-> **注意:**如果你正在访问此页面以完成[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)，在运行安装命令时，必须在Rancher镜像前面加上你私有仓库的地址，替换`<REGISTRY.DOMAIN.COM:PORT>`为你的私有仓库地址。
->
->例如:`<REGISTRY.DOMAIN.COM:PORT>/rancher/rancher:latest`
+> **注意** 如果你正在访问此页面以完成[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)，在运行安装命令时，必须在Rancher镜像前面加上你私有仓库的地址，替换`<REGISTRY.DOMAIN.COM:PORT>`为你的私有仓库地址。\
+> 例如:`<REGISTRY.DOMAIN.COM:PORT>/rancher/rancher:latest` \
+> 如果想开启API审计日志功能，请访问[API审计日志](/docs/rancher/v2.x/cn/installation/server-installation/api-auditing/)。
 
 ### 1、方案A-使用默认自签名证书
 
@@ -75,11 +75,10 @@ rancher/rancher:latest
 
 Rancher安装可以使用自己生成的自签名证书。
 
-> **先决条件:**创建一个自签名证书。
->
+> **先决条件** 创建一个自签名证书。
 > - 这里的证书不需要进行`base64`加密;
 > - 证书文件必须是[PEM](/docs/rancher/v2.x/cn/installation/server-installation/single-node-install/#我如何知道我的证书是否为pem格式)格式;
-> - 在你的证书文件中，包含链中的所有中间证书。有关示例，请参考[SSL常见问题/故障排除];(/docs/rancher/v2.x/cn/installation/server-installation/single-node-install/#如果我想添加我的中间证书-证书的顺序是什么);
+> - 在你的证书文件中，包含链中的所有中间证书。有关示例，请参考[SSL常见问题/故障排除](/docs/rancher/v2.x/cn/installation/server-installation/single-node-install/#如果我想添加我的中间证书-证书的顺序是什么);
 
 **使用自己生成的自签名证书安装Rancher:**
 
@@ -98,12 +97,10 @@ docker run -d --restart=unless-stopped \
 
 如果你公开发布你的应用，理想情况下应该使用由权威CA机构颁发的证书。
 
-> **先决条件:**
->
-> - 证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型](/docs/rancher/v2.x/cn/installation/self-signed-ssl/)；
-> - 确保容器包含你的证书文件和密钥文件。由于你的证书是由认可的CA签署的，因此不需要安装额外的CA证书文件;
-> - 给容器添加`--no-cacerts`参数禁止Rancher生成默认CA证书；
-> - 这里的证书不需要进行`base64`加密;
+> **先决条件:**1.证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型](/docs/rancher/v2.x/cn/installation/self-signed-ssl/)；\
+>2.确保容器包含你的证书文件和密钥文件。由于你的证书是由认可的CA签署的，因此不需要安装额外的CA证书文件;\
+>3.给容器添加`--no-cacerts`参数禁止Rancher生成默认CA证书；\
+>4.这里的证书不需要进行`base64`加密;
 
 获取证书后，运行Docker命令以部署Rancher，同时指向证书文件。
 
@@ -127,11 +124,9 @@ docker run -d --restart=unless-stopped \
 
 Rancher支持Let’s Encrypt 证书。Let’s Encrypt 使用一个`http-01 challenge`来验证你是否是该域名的所有者。你可以通过将想要用于Rancher访问的主机名(例如，`rancher.mydomain.com`)指向正Rancher server主机IP，以此来确认你是否是该域名的所有者。你可以通过在DNS中创建A记录来将主机名绑定到IP地址。
 
-> **先决条件:**
->
-> - Let's Encrypt是一项在线互联网服务，因此不能用于内部/离线网络。
-> - 在你的DNS中创建一条记录，将你的Linux主机IP地址绑定到你想要用于Rancher访问的主机名(例如:`rancher.mydomain.com`)。
-> - 在你的Linux主机上打开`TCP/80`端口。Let's Encrypt http-01检查可能来自任意的源IP地址，因此端口`TCP/80`必须对所有IP地址开放。
+> **先决条件:**1.Let's Encrypt是一项在线互联网服务，因此不能用于内部/离线网络。\
+>2.在你的DNS中创建一条记录，将你的Linux主机IP地址绑定到你想要用于Rancher访问的主机名(例如:`rancher.mydomain.com`)。\
+>3.在你的Linux主机上打开`TCP/80`端口,Let's Encrypt http-01检查可能来自任意的源IP地址，因此端口`TCP/80`必须对所有IP地址开放。
 
 **使用Let's Encrypt证书安装Rancher:**
 
@@ -146,7 +141,7 @@ docker run -d --restart=unless-stopped \
   --acme-domain rancher.mydomain.com
 ```
 
-> **注意:Let’s Encrypt 平台对证书的申请和销毁有一定频率限制。有关更多信息，请参考[Let’s Encrypt documentation on rate limits](https://letsencrypt.org/docs/rate-limits/)。
+>**注意:Let’s Encrypt 平台对证书的申请和销毁有一定频率限制。有关更多信息，请参考[Let’s Encrypt documentation on rate limits](https://letsencrypt.org/docs/rate-limits/)。
 
 ## 三、下一步？
 
@@ -227,7 +222,7 @@ Rancher `etcd`用作数据存储，使用单节点安装时，将使用内置`et
 
 如果一个节点被添加到集群，它将部署使用端口80和443的ingress控制器。这与`rancher/rancher`容器默认映射的端口冲突。
 
-> 注意，不建议在生产中把Rancher/Rancher和Rancher/Rancher-Agent运行在一台主机上，但可用于开发/演示。
+>**注意**不建议在生产中把Rancher/Rancher和Rancher/Rancher-Agent运行在一台主机上，但可用于开发/演示。
 
 要更改主机端口映射，替换`-p 80:80 -p 443:443`为`-p 8080:80 -p 8443:443`:
 

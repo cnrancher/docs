@@ -5,9 +5,9 @@ weight: 3
 
 Rancher支持从私有镜像仓库进行安装。在每个发行版中，我们都会提供所需的Docker镜像清单和脚本，通过这些脚本你可以把镜像同步到你的私有仓库中。当主机添加到集群时，或启用CI/CD或启用日志收集功能时，将使用这些Docker镜像。
 
->**先决条件:** 假设你有自己的私有镜像仓库或其他方式将镜像分发到你的主机。如果你在创建私有镜像仓库方面需要帮助, 请参考: [Docker documentation for private registries](https://docs.docker.com/registry/)。
->
->在Rancher v2.0.0中，从私有仓库安装不支持使用具有身份验证的私有仓库，仓库需要为公开。
+>**先决条件:** 1.假设你有自己的私有镜像仓库或其他方式将镜像分发到你的主机。如果你在创建私有镜像仓库方面需要帮助, 请参考: [Docker documentation for private registries](https://docs.docker.com/registry/)。\
+> 2.在Rancher v2.0.0中，从私有仓库安装不支持使用具有身份验证的私有仓库，仓库需要为公开。\
+> 3.如果想开启API审计日志功能，请访问[API审计日志](/docs/rancher/v2.x/cn/installation/server-installation/api-auditing/)。
 
 ## Release文件
 
@@ -25,15 +25,11 @@ Rancher支持从私有镜像仓库进行安装。在每个发行版中，我们�
 ![Scenario1]({{< baseurl >}}/img/rancher/airgap/privateregistry.svg)
 
 1. 根据你选择的版本(例如: ```https://github.com/rancher/rancher/releases/tag/v2.0.0```) 浏览release页面，并下载`rancher-save-images.sh`和 `rancher-load-images.sh` 两个脚本；
-
 2. 复制`rancher-save-images.sh`脚本到能访问DockerHub的主机上运行，将需要大致20G磁盘空间；
-
 3. 复制`rancher-images.tar.gz`和`rancher-load-images.sh`到可以访问私有仓库的主机上，两个文件放在同一级目录下，并运行`rancher-load-images.sh`；
-
 4. 使用[单节点安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/single-node-install)，中的说明完成Rancher的安装；
 
-    >**注意:**
-    >在进行单节点安装，运行`docker run`命令时，需要将私有仓库地址添加到镜像中。
+    >**注意:** 在进行单节点安装，运行`docker run`命令时，需要将私有仓库地址添加到镜像中。
     > 例如:
     > ```bash
     >docker run -d --restart=unless-stopped \
@@ -69,7 +65,7 @@ Rancher支持从私有镜像仓库进行安装。在每个发行版中，我们�
 
 3. 使用[单节点安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/single-node-install).中的说明完成Rancher的安装；
 
-    >**注意: **在进行单节点安装，运行`docker run`命令时，需要将私有仓库地址添加到镜像中。例如:
+    >**注意:** 在进行单节点安装，运行`docker run`命令时，需要将私有仓库地址添加到镜像中。例如:
     > ```bash
     >docker run -d --restart=unless-stopped \
     > -p 80:80 -p 443:443 \
@@ -93,10 +89,9 @@ Rancher需要配置使用私有镜像仓库作为默认是仓库
 
     >**注意:** 如果要在启动rancher/rancher容器时配置``system-default-registry`，可以使用环境变量
     >`CATTLE_SYSTEM_DEFAULT_REGISTRY`
-    >
     >```bash
     >#!/bin/sh
-    >docker run -d -p 80:80 -p 443:443 
-    >-e CATTLE_SYSTEM_DEFAULT_REGISTRY=<registry.yourdomain.com:port> 
+    >docker run -d -p 80:80 -p 443:443
+    >-e CATTLE_SYSTEM_DEFAULT_REGISTRY=<registry.yourdomain.com:port>
     ><registry.yourdomain.com:port>/>rancher/rancher:v2.0.0
     >```

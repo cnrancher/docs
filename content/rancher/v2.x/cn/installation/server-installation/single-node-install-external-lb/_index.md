@@ -39,9 +39,8 @@ weight: 2
 
     [Docker安装说明](https://docs.docker.com/install/)
 
-    > **注意:** 该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请查阅[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。
-    >
-    >  更多Rancher server tag列表，，请查阅[Rancher server tags](/docs/rancher/v2.x/cn/installation/server-tags/)。
+    > **注意:** 1.该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请查阅[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。\
+    >2.更多Rancher server tag列表，，请查阅[Rancher server tags](/docs/rancher/v2.x/cn/installation/server-tags/)。
 
 ### 4、端口
 
@@ -53,19 +52,17 @@ weight: 2
 
 出于安全考虑，使用Rancher时需要SSL进行加密。SSL可以保护所有Rancher网络通信，例如登录或与集群交互。
 
-> **注意:**如果你正在访问此页面以完成[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)，在运行安装命令时，必须在Rancher镜像前面加上你私有仓库的地址，替换`<REGISTRY.DOMAIN.COM:PORT>`为你的私有仓库地址。
->
->例如: <REGISTRY.DOMAIN.COM:PORT>/rancher/rancher:latest
+> **注意:** 1.如果你正在访问此页面以完成[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)，在运行安装命令时，必须在Rancher镜像前面加上你私有仓库的地址，替换`<REGISTRY.DOMAIN.COM:PORT>`为你的私有仓库地址。\
+> 例如: <REGISTRY.DOMAIN.COM:PORT>/rancher/rancher:latest \
+>2.如果想开启API审计日志功能，请访问[API审计日志](/docs/rancher/v2.x/cn/installation/server-installation/api-auditing/)。
 
 ### 1、方案A-使用你自己生成的自签名证书
 
 如果你选择使用自签名证书来加密通信，则必须将证书安装在负载均衡器上，并且将CA证书放置于Rancher容器中。
 
-> **先决条件:**
->
-> - 创建一个自签名证书;
-> - 证书文件必须是**PEM**格式;
-> - 这里的证书不需要进行`base64`加密;
+> **先决条件:**1.创建一个自签名证书;\
+>2.证书文件必须是**PEM**格式;\
+>3.这里的证书不需要进行`base64`加密;
 
 运行Rancher server容器时候，需要把自签名CA证书映射到Rancher容器中:
 
@@ -80,11 +77,9 @@ rancher/rancher:latest
 
 如果你公开发布你的应用，理想情况下应该使用由权威CA机构颁发的证书。
 
-> **先决条件:**
->
-> - 证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型](/docs/rancher/v2.x/cn/installation/self-signed-ssl/)；
-> - 这里的证书不需要进行`base64`加密;
-> - 给容器添加`--no-cacerts`参数禁止Rancher生成默认CA证书；
+> **先决条件:**1.证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型](/docs/rancher/v2.x/cn/installation/self-signed-ssl/)；\
+>2.这里的证书不需要进行`base64`加密;\
+>3.给容器添加`--no-cacerts`参数禁止Rancher生成默认CA证书；
 
 如果你使用由权威CA机构颁发的证书，则无需在Rancher容器中安装你的CA证书，只需运行下面的基本安装命令即可:
 
@@ -101,9 +96,7 @@ rancher/rancher:latest --no-cacerts
 负载均衡器或代理必须配置为支持以下内容:
 
 - **WebSocket** 连接
-
 - **SPDY**/**HTTP/2** 协议
-
 - 传递/设置以下headers:
 
 | Header       | Value       | 描述     |

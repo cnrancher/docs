@@ -3,42 +3,40 @@ title: 配置OpenLDAP认证
 weight: 4
 ---
 
-_Available as of v2.0.5_
+`Rancher v2.0.5`版本支持
 
-If your organization uses LDAP for user authentication, you can configure Rancher to communicate with an OpenLDAP server to authenticate users. This allows Rancher admins to control access to clusters and projects based on users and groups managed externally in the organisation's central user repository, while allowing end-users to authenticate with their LDAP credentials when logging in to the Rancher UI. 
- 
-## OpenLDAP Authentication Flow 
- 
-1. When a user attempts to login with his LDAP credentials, Rancher creates an initial bind to the LDAP server using a service account with permissions to search the directory and read user/group attributes. 
-2. Rancher then searches the directory for the user by using a search filter based on the provided username and configured attribute mappings. 
-3. Once the user has been found, he is authenticated with another LDAP bind request using the user's DN and provided password. 
-4. Once authentication succeeded, Rancher then resolves the group memberships both from the membership attribute in the user's object and by performing a group search based on the configured user mapping attribute.
+如果您的组织使用LDAP进行用户身份验证，则可以将Rancher与OpenLDAP服务集成，以提供统一的用户身份验证。
 
-> **Note:**
-> 
-> Before you proceed with the configuration, please familiarise yourself with the concepts of [External Authentication Configuration and Principal Users]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/#external-authentication-configuration-and-principal-users).
+## 一、OpenLDAP身份验证流程
 
-## Prerequisites
+1. 当用户尝试使用LDAP账号登录Rancher时，Rancher使用具有`搜索目录和读取用户/组权限`的服务帐户创建对LDAP服务器的初始绑定。(账号初始化)
+2. 然后，Rancher使用基于提供的用户名和配置的属性映射的搜索过滤器在目录中搜索用户。(搜索用户)
+3. 找到用户后，使用用户的DN和提供的密码对另一个LDAP绑定请求进行身份验证。()
+4. 验证成功后，Rancher将从用户对象的成员资格属性中解析组成员资格，并根据配置的用户映射属性执行组搜索。(搜索组)
 
-Rancher must be configured with a LDAP bind account (aka service account) to search and retrieve LDAP entries pertaining to users and groups that should have access. It is recommended to not use an admin account or personal account for this purpose and instead create a dedicated account in OpenLDAP with read-only access to users and groups under the configured search base (see below).
+> **注意**
+> 在配置之前请先熟悉[外部身份验证配置和主要用户的概念](../authentication/#外部身份验证配置和主要用户)。
 
-> **Using TLS?**
->
-> If the certificate used by the OpenLDAP server is self-signed or not from a recognised certificate authority, make sure have at hand the CA certificate (concatenated with any intermediate certificates) in PEM format. You will have to paste in this certificate during the configuration so that Rancher is able to validate the certificate chain.
+## 二、先决条件
 
-## Configuration Steps
-### Open OpenLDAP Configuration
+必须使用LDAP绑定帐户(也称为服务帐户)配置Rancher，以搜索和检索用户和组相关的LDAP条目。建议不要使用管理员帐户或个人帐户，而是在OpenLDAP中创建一个专用帐户，对配置的搜索路径下的用户和组只具有只读访问权限(见下文)。
 
-1. Log into the Rancher UI using the initial local `admin` account.
-2. From the **Global** view, navigate to **Security** > **Authentication**
-3. Select **OpenLDAP**. The **Configure an OpenLDAP server** form will be displayed.
+> **使用TLS？**
+> 如果OpenLDAP服务器使用的是自签名证书，或不是来自权威的证书颁发机构，请确保有PEM格式的CA证书(与所有的中间证书连接)。您必须在配置期间设置证书，以便Rancher能够验证证书链。
 
-### Configure OpenLDAP Server Settings
+## 三、配置步骤
 
-In the section titled `1. Configure an OpenLDAP server`,   complete the fields with the information specific to your server. Please refer to the following table for detailed information on the required values for each parameter.
+## 打开OpenLDAP配置页面
 
-> **Note:**
->
+1. 使用系统默认的`admin`帐户登录Rancher UI。
+2. 从`全局`视图中，导航到`安全 > 认证`页面
+3. 选择OpenLDAP，将显示`配置OpenLDAP服务器`表单。
+
+## 配置OpenLDAP服务器设置
+
+在标题为`1. Configure an OpenLDAP server`的部分中，填写特定于LDAP服务器的信息字段。有关每个参数所需值的详细信息，请参阅下表。
+
+> **注意**
 > If you are in doubt about the correct values to enter in the user/group Search Base configuration fields, consult your LDAP administrator or refer to the section [Identify Search Base and Schema using ldapsearch]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/ad/#annex-identify-search-base-and-schema-using-ldapsearch) in the Active Directory authentication documentation.
 
 **Table 1: OpenLDAP server parameters**

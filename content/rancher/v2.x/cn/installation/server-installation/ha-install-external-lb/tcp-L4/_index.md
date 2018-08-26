@@ -33,7 +33,7 @@ weight: 1
 
 - Docker
 
-> **注意:**如果你使用的是RancherOS，请确保你将Docker引擎切换为受支持的版本`sudo ros engine switch docker-17.03.2-ce`
+>**注意:** 如果你使用的是RancherOS，请确保你将Docker引擎切换为受支持的版本`sudo ros engine switch docker-17.03.2-ce`
 
 **支持的Docker版本**
 
@@ -43,9 +43,8 @@ weight: 1
 
   [Docker安装说明](https://docs.docker.com/install/)
 
-  > **注意:** 该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请查阅[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。
-  >
-  > 更多Rancher server tag列表，请查阅[Rancher server tags](/docs/rancher/v2.x/cn/installation/server-tags/)。
+  >**注意:** 1.该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请查阅[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。\
+  > 2.更多Rancher server tag列表，请查阅[Rancher server tags](/docs/rancher/v2.x/cn/installation/server-tags/)。
 
 ### 4、端口
 
@@ -57,8 +56,7 @@ weight: 1
 
 我们将使用NGINX作为第4层负载均衡器(TCP)。NGINX会将所有连接转发到你的Rancher节点之一。如果要使用Amazon NLB，可以跳过此步骤并使用[Amazon NLB configuration]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-install-external-lb/tcp-l4/amazon-nlb-configuration/)配置。
 
->**注意:**
-> 在此配置中，负载平衡器位于Rancher节点的前面，负载均衡器可以是任意能够运行NGINX的主机。`不要使用任意一个Rancher节点作为负载均衡器节点`,会出现端口冲突。
+>**注意:** 在此配置中，负载平衡器位于Rancher节点的前面，负载均衡器可以是任意能够运行NGINX的主机。`不要使用任意一个Rancher节点作为负载均衡器节点`,会出现端口冲突。
 
 ### 1、安装nginx
 
@@ -69,7 +67,6 @@ weight: 1
 安装NGINX后，你需要使用节点的IP地址更新NGINX配置文件`nginx.conf`。
 
 1. 复制下面的代码到文本编辑器，保存为`nginx.conf`。
-
 2. 在`nginx.conf`配置中, 替换`IP_NODE_1`、`IP_NODE_2`、`IP_NODE_3` 为你主机真实的IP地址。
 
     **NGINX配置示例:**
@@ -102,7 +99,6 @@ weight: 1
     ```
 
 3. 保存 `nginx.conf` ，并复制`nginx.conf`到负载均衡器节点的`/etc/nginx/nginx.conf`路径下。
-
 4. 重新加载nginx配置
 
     ```bash
@@ -183,9 +179,9 @@ $ chmod +x rke_linux-amd64
 
 ```bash
 # MacOS
-$ ./rke_darwin-amd64 --version
+./rke_darwin-amd64 --version
 # Linux
-$ ./rke_linux-amd64 --version
+./rke_linux-amd64 --version
 ```
 
 **结果:** 你将看到以下内容:
@@ -242,7 +238,7 @@ nodes:
     ssh_key_path: ~/.ssh/id_rsa
 ```
 
-> **注意** 使用RHEL/CentOS系统时，因为系统安全限制，`ssh`不能使用root账户。
+>**注意** 使用RHEL/CentOS系统时，因为系统安全限制，`ssh`不能使用root账户。
 
 ## 八、证书配置
 
@@ -250,19 +246,16 @@ nodes:
 
 ### 1、方案A — 使用自签名证书
 
->**先决条件:**
->
-> - 证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型](/docs/rancher/v2.x/cn/installation/self-signed-ssl/)；
-> - 证书必须通过`base64`加密；
-> - 在你的证书文件中，包含链中的所有中间证书；
+>**先决条件:** 1.证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型](/docs/rancher/v2.x/cn/installation/self-signed-ssl/)；\
+> 2.证书必须通过`base64`加密；\
+> 3.在你的证书文件中，包含链中的所有中间证书；
 
 - 1、在`kind: Secret`与`name: cattle-keys-ingress`中:
 
   - 替换 `<BASE64_CRT>` 为证书文件经过base64加密的字符串(证书文件通常名为 `cert.pem` 或 `domain.crt`)
   - 替换 `<BASE64_KEY>` 为证书密钥文件经过base64加密的字符串(通过证书密钥文件名为`key.pem`或`domain.key`)
 
-  >**注意:**
-  > base64编码的字符串应与tls.crtor&tls.key在同一行，并且在开头，冒号后有一个空格，中间或末尾没有任何换行符。
+  >**注意:** base64编码的字符串应与tls.crtor&tls.key在同一行，并且在开头，冒号后有一个空格，中间或末尾没有任何换行符。
 
   **结果:** 替换值后，文件应如下所示(base64编码的字符串应该不同)
 
@@ -281,8 +274,7 @@ nodes:
 
 - 2、在`kind: Secret` 和 `name: cattle-keys-server`中, 替换<BASE64_CA>为CA证书文件的base64加密字符串(通常称为ca.pem或ca.crt)。
 
-    >**注意:**
-    > base64编码的字符串应该与cacerts.pem在同一行，冒号后一个空格，在开头，中间或结尾没有任何换行符。
+    >**注意:** base64编码的字符串应该与cacerts.pem在同一行，冒号后一个空格，在开头，中间或结尾没有任何换行符。
 
     **结果:** 该文件修改后应如下所示(base64编码的字符串应该不同):
 

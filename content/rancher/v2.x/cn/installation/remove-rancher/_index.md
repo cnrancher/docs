@@ -1,5 +1,5 @@
 ---
-title: 9 - 初始化节点
+title: 9 - 节点初始化
 weight: 9
 ---
 
@@ -165,4 +165,5 @@ iptables -L -t nat
 iptables -L -t mangle
 iptables -L
 ```
+
 > 因为网络接口和iptables规则都不是永久存储的，所以建议在完成前面的步骤后重启主机。
