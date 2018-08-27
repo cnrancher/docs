@@ -1,6 +1,6 @@
 ---
 title: 升级
-weight: 100
+weight: 2
 ---
 
 After RKE has deployed Kubernetes, you can upgrade the versions of the components in your Kubernetes cluster, [definition of the Kubernetes services]({{< baseurl >}}/rke/v0.1.x/cn/config-options/services/) or [add-ons]({{< baseurl >}}/rke/v0.1.x/cn/config-options/add-ons/).

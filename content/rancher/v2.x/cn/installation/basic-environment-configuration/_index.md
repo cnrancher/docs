@@ -91,7 +91,7 @@ EOF
 
 ### 10、ETCD集群容错表
 
-建议在ETCD集群中使用奇数个成员,通过添加额外成员可以获得更高的失败容错。在比较偶数和奇数大小的集群时，你可以在实践中看到这一点:
+建议在ETCD集群中使用奇数个成员,通过添加额外成员可以获得更高的失败容错。具体详情可以查阅[optimal-cluster-size](https://coreos.com/etcd/docs/latest/v2/admin_guide.html#optimal-cluster-size)。
 
 | 集群大小 | MAJORITY | 失败容错 |
 | ------------ | -------- | ----------------- |

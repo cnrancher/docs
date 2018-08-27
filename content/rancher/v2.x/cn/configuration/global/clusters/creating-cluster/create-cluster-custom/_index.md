@@ -65,7 +65,7 @@ weight: 1
 
 - 主机角色
 
-    在K8S的架构中，必须至少有一个etcd、Control、Worker，三种角色可以运行在同一台主机上。
+    在K8S的架构中，必须至少有一个etcd、Control、Worker，三种角色可以运行在同一台主机上。要保证集群的高可用，那么需要保证有多个etcd、Control实例并且运行在不同主机上。因为etcd数据同步机制，etcd节点数需要为奇数个，比如1、3、5，具体查看[etcd集群容错表](/docs/rancher/v2.x/cn/installation/basic-environment-configuration/#10-etcd集群容错表)。所以要保证ETCD高可用运行，那至少需要有三个节点来运行etcd服务。
 
 - 高级选项
 
@@ -83,4 +83,6 @@ weight: 1
 
     ![image-20180820172514578](_index.assets/image-20180820172514578.png)
 
-8、最后点击完成
+8、ssh登录到准备添加到K8S集群的节点，粘贴并运行上一步复制的命令。
+
+9、最后点击完成

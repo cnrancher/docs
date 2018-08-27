@@ -1,6 +1,6 @@
 ---
 title: 配置
-weight: 200
+weight: 3
 ---
 
 When setting up your `cluster.yml` for RKE, there are a lot of different options that can be configured to control the behavior of how RKE launches Kubernetes.
@@ -8,6 +8,7 @@ When setting up your `cluster.yml` for RKE, there are a lot of different options
 There are several options that can be configured in cluster configuration option. There are several [example yamls]({{< baseurl >}}/rke/v0.1.x/cn/example-yamls/) that contain all the options.
 
 ### Configuring Nodes
+
 * [Nodes]({{< baseurl >}}/rke/v0.1.x/cn/config-options/nodes/)
 * [Ignoring unsupported Docker versions](#supported-docker-versions)
 * [Private Registries]({{< baseurl >}}/rke/v0.1.x/cn/config-options/private-registries/)
@@ -16,6 +17,7 @@ There are several options that can be configured in cluster configuration option
 * [Bastion Host]({{< baseurl >}}/rke/v0.1.x/cn/config-options/bastion-host/)
 
 ### Configuring Kubernetes Cluster
+
 * [Cluster Name](#cluster-name)
 * [Kubernetes Version](#kubernetes-version)
 * [System Images]({{< baseurl >}}/rke/v0.1.x/cn/config-options/system-images/)
