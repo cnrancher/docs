@@ -1,6 +1,6 @@
 ---
-title: Backups and Disaster Recovery
-weight: 65
+title: 备份和恢复
+weight: 1
 ---
 
 As of v0.1.7, you can configure a RKE cluster to automatically take snapshots of etcd. In a disaster scenario, you can restore these snapshots, which are stored on other nodes in the cluster.
@@ -156,7 +156,7 @@ To simulate the failure, let's power down `node2`.
 root@node2:~# poweroff
 ```
 
-Before restoring etcd and running `rancher up`, we need to retrieve the backup saved on S3 to a new node, e.g. `node3`.
+Before restoring etcd and running `rke up`, we need to retrieve the backup saved on S3 to a new node, e.g. `node3`.
 
 
 |  Name |    IP    |          Role          |
@@ -203,7 +203,7 @@ After the new node is added to the `cluster.yml`, run `rke etcd snapshot-restore
 $ rke etcd snapshot-restore --name snapshot.db --config cluster.yml
 ```
 
-Finally, we need to restore the operations on the cluster by making the Kubernetes API point to the new `etcd`  by running `rke up` again using the new `cluster.yml`.
+Finally, we need to restore the operations on the cluster by making the Kubernetes API point to the new `etcd` by running `rke up` again using the new `cluster.yml`.
 
 ```
 $ rke up --config cluster.yml
@@ -218,3 +218,25 @@ nginx-65899c769f-kcdpr   1/1       Running   0          17s
 nginx-65899c769f-pc45c   1/1       Running   0          17s
 nginx-65899c769f-qkhml   1/1       Running   0          17s
 ```
+
+## Troubleshooting
+
+As of **v0.1.8** and below, the **rke-bundle-cert** container is left over from a failed etcd restore. If you are having an issue with restoring an **etcd snapshot** then you can do the following on each etcd nodes before attempting to do another restore:
+
+```
+docker container rm --force rke-bundle-cert
+```
+
+The rke-bundle-cert container is usually removed when a backup or restore of **etcd** succeeds.
+Whenever something goes wrong, the **rke-bundle-cert** container will be left over. You can look
+at the logs or inspect the container to see what the issue is.
+
+```
+docker container logs --follow rke-bundle-cert
+docker container inspect rke-bundle-cert
+```
+
+The important thing to note is the mounts of the container and location of the **pki.bundle.tar.gz**.
+
+As of **v0.1.9**, the **rke-bundle-cert** container is removed on both success and
+failure of a restore. To debug any issues, you will need to look at the **logs** generated from rke.

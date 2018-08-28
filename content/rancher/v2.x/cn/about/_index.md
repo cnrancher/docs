@@ -9,18 +9,18 @@ weight: 10
 
 Repository | URL | Description
 -----------|-----|-------------
-Rancher | https://github.com/rancher/rancher | 存储Rancher 2.x的主要源代码
-Types | https://github.com/rancher/types | 存储Rancher 2.x的所有API类型
-API Framework | https://github.com/rancher/norman | 存储构建由Kubernetes Custom Resources支持的Rancher样式API的API框架
-User Interface | https://github.com/rancher/ui | 存储Rancher UI源代码
-(Rancher) Docker Machine | https://github.com/rancher/machine | 存储`Docker Machine`二进制文件的源代码。这是`docker/machine`仓库的一个分支
-machine-package | https://github.com/rancher/machine-package | 构建Rancher Docker Machine二进制文件的源代码
-kontainer-engine | https://github.com/rancher/kontainer-engine | 存储`kontainer-engine`的源代码
-RKE repository | https://github.com/rancher/rke | 存储Rancher Kubernetes Engine源代码
-CLI | https://github.com/rancher/cli | 存储Rancher CLI的源代码
-(Rancher) Helm repository | https://github.com/rancher/helm | Helm二进制文件的源代码。这是`helm/helm`仓库的一个分支
-Telemetry repository | https://github.com/rancher/telemetry | `telemetry`二进制文件的源代码
-loglevel repository | https://github.com/rancher/loglevel | 储库loglevel二进制文件的源代码，用于动态更改日志级别
+Rancher | `https://github.com/rancher/rancher` | 存储Rancher 2.x的主要源代码
+Types | `https://github.com/rancher/types` | 存储Rancher 2.x的所有API类型
+API Framework | `https://github.com/rancher/norman` | 存储构建由Kubernetes Custom Resources支持的Rancher样式的API框架
+User Interface | `https://github.com/rancher/ui` | 存储Rancher UI源代码
+(Rancher) Docker Machine | `https://github.com/rancher/machine` | 存储`Docker Machine`二进制文件的源代码，这是`docker/machine`仓库的一个分支
+machine-package | `https://github.com/rancher/machine-package` | 构建Rancher Docker Machine二进制文件的源代码
+kontainer-engine | `https://github.com/rancher/kontainer-engine` | 存储`kontainer-engine`的源代码
+RKE repository | `https://github.com/rancher/rke` | 存储Rancher Kubernetes Engine源代码
+CLI | `https://github.com/rancher/cli` | 存储Rancher CLI的源代码
+(Rancher) Helm repository | `https://github.com/rancher/helm` | Helm二进制文件的源代码。这是`helm/helm`仓库的一个分支
+Telemetry repository | `https://github.com/rancher/telemetry` | `telemetry`二进制文件的源代码
+loglevel repository | `https://github.com/rancher/loglevel` | 储库loglevel二进制文件的源代码，用于动态更改日志级别
 
 要查看所有Rancher中使用的`libraries/projects`，请参考`rancher/rancher`仓库中`vendor.conf`的内容。
 
@@ -40,8 +40,7 @@ loglevel repository | https://github.com/rancher/loglevel | 储库loglevel二进
 
 在提交问题时请遵循此表，这将有助于我们调查和解决问题。更多信息意味着我们可以使用更多数据来确定导致问题的原因或可能与问题相关的内容。
 
->**注意:** 对于大量数据，请使用[GitHub Gist](https://gist.github.com/)或类似数据存储工具，并在问题中附加创建的链接资源。
->
+>**注意:** 对于大量数据，请使用[GitHub Gist](https://gist.github.com/)或类似数据存储工具，并在问题中附加创建的链接资源。\
 >**重要提示:** 请删除所有敏感数据，因为它们是公开可见的。
 
 - 尽可能详细地提供所使用资源的详细信息。由于问题的原因可能很多，尽可能详细的细节有助于确定具体原因。看下面的一些例子：

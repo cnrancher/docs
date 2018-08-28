@@ -1,4 +1,4 @@
 ---
-title: 示例
-weight: 4
+title: 6 - 示例
+weight: 6
 ---

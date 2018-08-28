@@ -1,11 +1,11 @@
 ---
-title: Managing RKE Clusters
-weight: 60
+title: 5 - 集群管理
+weight: 5 
 ---
 
 ### Adding/Removing Nodes
 
-RKE supports adding/removing [nodes]({{< baseurl >}}/rke/v0.1.x/cn/config-options/nodes/) for worker and controlplane hosts.
+RKE supports adding/removing [nodes]({{< baseurl >}}/rke/v0.1.x/en/config-options/nodes/) for worker and controlplane hosts.
 
 In order to add additional nodes, you update the original `cluster.yml` file with any additional nodes and specify their role in the Kubernetes cluster.
 
@@ -17,7 +17,7 @@ After you've made changes to add/remove nodes, run `rke up` with the updated `cl
 
 You can add/remove only worker nodes, by running `rke up --update-only`. This will ignore everything else in the `cluster.yml` except for any worker nodes.
 
-### Removing Kubernetes Clusters from Nodes
+### Removing Kubernetes Components from Nodes
 
 In order to remove the Kubernetes components from nodes, you use the `rke remove` command.
 
@@ -25,8 +25,16 @@ In order to remove the Kubernetes components from nodes, you use the `rke remove
 
 This command does the following to each node in the `cluster.yml`:
 
+- Remove the Kubernetes component deployed on it
+  - `etcd`
+  - `kube-apiserver`
+  - `kube-controller-manager`
+  - `kubelet`
+  - `kube-proxy`
+  - `nginx-proxy`
 
-- Remove the Kubernetes services deployed on it
+> **Note:** Pods are not removed from the nodes. If the node is re-used, the pods will automatically be removed when the new Kubernetes cluster is created.
+
 - Clean each host from the directories left by the services:
   - /etc/kubernetes/ssl
   - /var/lib/etcd

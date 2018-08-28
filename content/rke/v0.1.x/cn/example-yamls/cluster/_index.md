@@ -1,9 +1,11 @@
 ---
 title: Cluster.ymls
-weight: 300
+weight: 1
 ---
 
-有许多不同的[配置选项]({{< baseurl >}}/rke/v0.1.x/cn/config-options/)可以在集群配置文件中为RKE设置。以下是一些示例配置:
+有许多不同的[配置选项](/docs/rke/v0.1.x/cn/config-options/)可以在集群配置文件中为RKE设置。以下是一些示例配置:
+
+>**Rancher 2用户注意事项** 如果在创建[Rancher Launched Kubernetes](/docs/rancher/v2.x/en/cluster-provisioning/rke-clusters/)时使用[配置文件](/docs/rancher/v2.x/en/cluster-provisioning/rke-clusters/options/#config-file)配置群集选项，则`kube_api`、`kube_controller`服务名称应仅包含`下划线`。这仅适用于`Rancher v2.0.5和v2.0.6`。
 
 ## 最小化`cluster.yml`示例
 
@@ -45,24 +47,26 @@ nodes:
       labels:
         app: ingress
 
-# 如果设置为true，将使用不受支持的Docker版本
+# 如果设置为true，则可以使用不受支持的Docker版本
 ignore_docker_version: false
 
 # 集群通信SSH私钥(private key)
 # RKE将会以此私钥去连接集群节点
 ssh_key_path: ~/.ssh/test
 
-# Enable use of SSH agent to use SSH private keys with passphrase
-# This requires the environment `SSH_AUTH_SOCK` configured pointing to your SSH agent which has the private key added
+# 允许使用SSH代理将SSH私钥与密码一起使用
+# 这需要配置环境`SSH_AUTH_SOCK`指向已添加私钥的SSH代理
 ssh_agent_auth: true
 
 # 私有仓库
+# 如果您使用的是DockerHub镜像仓库，则可以省略`url`或将其设置为`docker.io`
+
 private_registries:
     - url: registry.com
       user: Username
       password: password
 
-# 堡垒主机配置
+# 堡垒机配置
 # 如果集群节点需要通过堡垒机跳转，那么需要为RKE配置堡垒机信息
 bastion_host:
     address: x.x.x.x
@@ -75,9 +79,7 @@ bastion_host:
 #
 #     -----END RSA PRIVATE KEY-----
 
-# Set the name of the Kubernetes cluster  
-
-# 集群名称
+# 设置Kubernetes集群的名称  
 cluster_name: mycluster
 
 # 定义kubernetes版本.
@@ -118,7 +120,7 @@ services:
       #   -----BEGIN PRIVATE KEY-----
       #   xxxxxxxxxx
       #   -----END PRIVATE KEY-----
-
+      # Rancher 2用户注意事项：如果在创建Rancher Launched Kubernetes时使用配置文件配置群集，则`kube_api`服务名称应仅包含下划线。这仅适用于Rancher v2.0.5和v2.0.6。
     kube-api:
       # cluster_ip范围
       # 这必须与kube-controller中的service_cluster_ip_range匹配
@@ -137,7 +139,7 @@ services:
         delete-collection-workers: 3
         # 将日志输出的级别设置为debug模式
         v: 4
-
+    # Rancher 2用户注意事项：如果在创建Rancher Launched Kubernetes时使用配置文件配置群集，则`kube_controller`服务名称应仅包含下划线。这仅适用于Rancher v2.0.5和v2.0.6。
     kube-controller:
       # Pods_ip范围
       cluster_cidr: 10.42.0.0/16
@@ -146,7 +148,12 @@ services:
       service_cluster_ip_range: 10.43.0.0/16
 
     kubelet:
-      # Base domain for the cluster
+      # 扩展变量
+      extra_args:
+        # 修改节点最大Pod数量
+        max-pods: "250"
+
+      # 群集搜索域
       cluster_domain: cluster.local
 
       # 内部DNS服务器地址
@@ -181,9 +188,9 @@ cloud_provider:
 # Add-ons是通过kubernetes jobs来部署。 在超时后，RKE将放弃重试获取job状态。以秒为单位。
 addon_job_timeout: 30
 
-# 有几个网络插件可以选择，Rancher2默认flannel
+# 有几个网络插件可以选择：`flannel、canal、calico`，Rancher2默认canal
 network:
-    plugin: flannel
+    plugin: canal
 
 # 目前只支持nginx ingress controller
 # 设置`provider: none`来禁用ingress controller

@@ -6,7 +6,7 @@ When RKE is deploying Kubernetes, there are several images that are pulled. Thes
 
 As of `v0.1.6`, the functionality of a couple of the system images were consolidated into a single `rancher/rke-tools` image to simplify and speed the deployment process.
 
-You can configure the [network plug-ins]({{< baseurl >}}/rke/v0.1.x/cn/config-options/add-ons/network-plugins/) and [ingress controller]({{< baseurl >}}/rke/v0.1.x/cn/config-options/add-ons/ingress-controllers/) as well as the options for these add-ons separately.
+You can configure the [network plug-ins]({{< baseurl >}}/rke/v0.1.x/en/config-options/add-ons/network-plugins/) and [ingress controller]({{< baseurl >}}/rke/v0.1.x/en/config-options/add-ons/ingress-controllers/) as well as the options for these add-ons separately.
 
 This is the example of the full list of system images used to deploy Kubernetes through RKE. The image tags are dependent on the [Kubernetes image/version used](https://github.com/rancher/types/blob/master/apis/management.cattle.io/v3/k8s_defaults.go).
 
@@ -46,7 +46,7 @@ system_images:
 
     # Ingress Options
     ingress: rancher/nginx-ingress-controller:0.10.2-rancher3
-    ingressBackend: rancher/nginx-ingress-controller-defaultbackend:1.4
+    ingress_backend: rancher/nginx-ingress-controller-defaultbackend:1.4
 ```
 
 Prior to `v0.1.6`, instead of using the `rancher/rke-tools` image, we used the following images:
@@ -61,4 +61,4 @@ system_images:
 
 ### Air-gapped Setups
 
-If you have an air-gapped setup and cannot access `docker.io`, you will need to set up your [private registry]({{< baseurl >}}/rke/v0.1.x/cn/config-options/private-registries/) in your cluster configuration file. After you set up private registry, you will need to update these images to pull from your private registry.
+If you have an air-gapped setup and cannot access `docker.io`, you will need to set up your [private registry]({{< baseurl >}}/rke/v0.1.x/en/config-options/private-registries/) in your cluster configuration file. After you set up private registry, you will need to update these images to pull from your private registry.

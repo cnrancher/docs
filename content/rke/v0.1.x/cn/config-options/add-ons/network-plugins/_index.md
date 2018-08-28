@@ -1,6 +1,6 @@
 ---
 title: Network Plug-ins
-weight: 251
+weight: 261
 ---
 
 RKE supports the following network plug-ins that are deployed as add-ons:
@@ -18,7 +18,7 @@ network:
     plugin: flannel
 ```
 
-The images used for network plug-ins are under the [`system_images` directive]({< baseurl >}}/rke/v0.1.x/cn/config-options/system-images/). For each Kubernetes version, there are default images associated with each network plug-in, but these can be overridden by changing the image tag in `system_images`.
+The images used for network plug-ins are under the [`system_images` directive]({< baseurl >}}/rke/v0.1.x/en/config-options/system-images/). For each Kubernetes version, there are default images associated with each network plug-in, but these can be overridden by changing the image tag in `system_images`.
 
 ## Network Plug-in Options
 

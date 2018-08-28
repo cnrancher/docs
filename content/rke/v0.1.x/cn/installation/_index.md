@@ -1,17 +1,17 @@
 ---
-title: 安装
-weight: 1
+title: 2 - 安装
+weight: 2
 ---
 
-RKE是一种快速，通用的Kubernetes安装程序，可用于在Linux主机上安装Kubernetes。你可以通过几个简单快捷的步骤开始:
+RKE is a fast, versatile Kubernetes installer that you can use to install Kubernetes on your Linux hosts. You can get started in a couple of quick and easy steps:
 
-1. [下载RKE二进制文件](#下载RKE二进制文件)
+1. [Download the RKE Binary](#download-the-rke-binary)
 2. [Prepare the Nodes for the Kubernetes Cluster](#prepare-the-nodes-for-the-kubernetes-cluster)
 3. [Creating the Cluster Configuration File](#creating-the-cluster-configuration-file)
 4. [Deploying Kubernetes with RKE](#deploying-kubernetes-with-rke)
 5. [Interacting with your Kubernetes Cluster](#interacting-with-your-kubernetes-cluster)
 
-## 下载RKE二进制文件
+## Download the RKE binary
 
 1. From your workstation, open a web browser and navigate to our [RKE Releases](https://github.com/rancher/rke/releases/latest) page. Download the latest RKE installer applicable to your Operating System:
 
@@ -44,20 +44,20 @@ RKE是一种快速，通用的Kubernetes安装程序，可用于在Linux主机�
 
 The Kubernetes cluster components are launched using Docker on a Linux distro. You can use any Linux you want, as long as you can install Docker on it.
 
-Review the [OS requirements]({{< baseurl >}}/rke/v0.1.x/cn/installation/os/) and configure each node appropriately.
+Review the [OS requirements]({{< baseurl >}}/rke/v0.1.x/en/installation/os/) and configure each node appropriately.
 
 ## Creating the Cluster Configuration File
 
-RKE uses a cluster configuration file, referred to as `cluster.yml` to determine what nodes will be in the cluster and how to deploy Kubernetes. There are [many configuration options]({{< baseurl >}}/rke/v0.1.x/cn/config-options/) that can be set in the `cluster.yml`. In our example, we will be assuming the minimum of one [node]({{< baseurl >}}/rke/v0.1.x/cn/config-options/nodes) for your Kubernetes cluster.
+RKE uses a cluster configuration file, referred to as `cluster.yml` to determine what nodes will be in the cluster and how to deploy Kubernetes. There are [many configuration options]({{< baseurl >}}/rke/v0.1.x/en/config-options/) that can be set in the `cluster.yml`. In our example, we will be assuming the minimum of one [node]({{< baseurl >}}/rke/v0.1.x/en/config-options/nodes) for your Kubernetes cluster.
 
 There are two easy ways to create a `cluster.yml`:
 
-- Using our [minimal `cluster.yml`]({{< baseurl >}}/rke/v0.1.x/cn/example-yamls/#minimal-cluster-yml-example) and updating it based on the node that you will be using.
+- Using our [minimal `cluster.yml`]({{< baseurl >}}/rke/v0.1.x/en/example-yamls/#minimal-cluster-yml-example) and updating it based on the node that you will be using.
 - Using `rke config` to query for all the information needed.
 
 ### Using `rke config`
 
-To create a new `cluster.yml`, run `rke config` and this command prompts you for all the information needed to build your cluster. Review [our cluster configuration options]({{< baseurl >}}/rke/v0.1.x/cn/config-options/) to understand what each question means.
+To create a new `cluster.yml`, run `rke config` and this command prompts you for all the information needed to build your cluster. Review [our cluster configuration options]({{< baseurl >}}/rke/v0.1.x/en/config-options/) to understand what each question means.
 
 ```
 ./rke_darwin-amd64 config
