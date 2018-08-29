@@ -10,7 +10,7 @@ This document is for upgrading Rancher HA installed with the RKE Add-On yaml. Se
 * [Migrating from a High Availability RKE Add-on Install]({{< baseurl >}}/rancher/v2.x/en/upgrades/upgrades/migrating-from-rke-add-on/)
 * [High Availability (HA) Upgrade]({{< baseurl >}}/rancher/v2.x/en/upgrades/upgrades/ha-server-upgrade-helm/)
 
->**先决条件:**
+>**Prerequisites:**
 {{< requirements_rollback >}}
 
 >- Install [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) on your workstation.
@@ -43,7 +43,7 @@ kubectl --kubeconfig=kube_config_rancher-cluster.yml set image deployment/cattle
     ```
     Replace `<VERSION_TAG>` with the version that you want to upgrade to. For a list of tags available, see the [Rancher Forum Announcements](https://forums.rancher.com/c/announcements).
 
-    **步骤结果:** The upgrade begins. Rancher Server may be unavailable for a few minutes.
+    **Step Result:** The upgrade begins. Rancher Server may be unavailable for a few minutes.
 
 1. Log into Rancher. Confirm that the upgrade succeeded by checking the version displayed in the bottom-left corner of the browser window.
 

@@ -13,7 +13,7 @@ By default, the **Cloud Provider** option is set to `None`. Supported cloud prov
 
 The `Custom` cloud provider is available if you want to configure your own cloud provider name and configuration in your cluster.
 
-> **Warning:** Your cluster will not provision correctly if you configure a cloud provider cluster of nodes that do not meet the 先决条件. 先决条件 for supported cloud providers are listed below.
+> **Warning:** Your cluster will not provision correctly if you configure a cloud provider cluster of nodes that do not meet the prerequisites. Prerequisites for supported cloud providers are listed below.
 
 ## Amazon
 
@@ -22,7 +22,7 @@ When using the `Amazon` cloud provider, you can leverage the following capabilit
 - **Load Balancers:** Launches an AWS Elastic Load Balancer (ELB) when choosing `Layer-4 Load Balancer` in **Port Mapping** or when launching a `Service` with `type: LoadBalancer`.
 - **Persistent Volumes**: Allows you to use AWS Elastic Block Stores (EBS) for persistent volumes.
 
-### 先决条件
+### Prerequisites
 
 - Create an IAM role and attach to the instances
 - Configuring the ClusterID
@@ -108,7 +108,7 @@ The following account types are not supported for Azure Subscriptions:
 - Single tenant accounts (i.e. accounts with no subscriptions).
 - Multi-subscription accounts.
 
-### 先决条件
+### Prerequisites
 
 * Configure the credentials
 

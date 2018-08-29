@@ -7,7 +7,7 @@ aliases:
 ---
 This section describes how to create backups of your high-availability Rancher install.
 
->**先决条件:** {{< requirements_rollback >}}
+>**Prerequisites:** {{< requirements_rollback >}}
 
 ## Backup Outline
 

@@ -9,7 +9,7 @@ When you create an ingress within Rancher/Kubernetes, you must provide it with a
 
 Add SSL certificates to either projects, namespaces, or both. A project scoped certificate will be available in all its namespaces.
 
->**先决条件:** You must have a TLS private key and certificate available to upload.
+>**Prerequisites:** You must have a TLS private key and certificate available to upload.
 
 1. From the **Global** view, select the project where you want to deploy your ingress.
 

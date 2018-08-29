@@ -35,7 +35,7 @@ $ RUNTEST=TestPreload make integration-test
 
 ### Running
 
-先决条件: QEMU, coreutils, cdrtools/genisoimage/mkisofs.
+Prerequisites: QEMU, coreutils, cdrtools/genisoimage/mkisofs.
 On OS X, `brew` is recommended to install those. On Linux, use your distro package manager.
 
 To launch RancherOS in QEMU from your dev version, you can either use `make run`, or customise the vm using `./scripts/run` and its options. You can use `--append your.kernel=params here` and `--cloud-config your-cloud-config.yml` to configure the RancherOS instance you're launching.

@@ -1,5 +1,5 @@
 ---
-title: 关于
+title: 5 - 关于
 weight: 5
 ---
 
@@ -9,14 +9,14 @@ Development is easiest done with QEMU on Linux. OS X works too, although QEMU do
 
 ### Building
 
-#### Requirements
+#### Requirements:
 
 * bash
 * make
 * Docker 1.10.3+
 
-```bash
-make
+```
+$ make
 ```
 
 The build will run in Docker containers, and when the build is done, the vmlinuz, initrd, and ISO should be in `dist/artifacts`.
@@ -29,13 +29,13 @@ Run `make integration-tests` to run the all integration tests in a container, or
 
 To run just one integration test, or a group of them (using regex's like `.*Console.*`, you can set the `RUNTEST` environment variable:
 
-```bash
-RUNTEST=TestPreload make integration-test
+```
+$ RUNTEST=TestPreload make integration-test
 ```
 
 ### Running
 
-先决条件: QEMU, coreutils, cdrtools/genisoimage/mkisofs.
+Prerequisites: QEMU, coreutils, cdrtools/genisoimage/mkisofs.
 On OS X, `brew` is recommended to install those. On Linux, use your distro package manager.
 
 To launch RancherOS in QEMU from your dev version, you can either use `make run`, or customise the vm using `./scripts/run` and its options. You can use `--append your.kernel=params here` and `--cloud-config your-cloud-config.yml` to configure the RancherOS instance you're launching.
@@ -59,12 +59,16 @@ All of repositories are located within our main GitHub [page](https://github.com
 
 [RancherOS Repo](https://github.com/rancher/os): This repo contains the bulk of the RancherOS code.
 
-[RancherOS Services Repo](https://github.com/rancher/os-services): This repo is where any [system-services]({{< baseurl >}}/os/v1.x/cn//installation/system-services/adding-system-services/) can be contributed.
+[RancherOS Services Repo](https://github.com/rancher/os-services): This repo is where any [system-services]({{< baseurl >}}/os/v1.x/en//installation/system-services/adding-system-services/) can be contributed.
 
 [RancherOS Images Repo](https://github.com/rancher/os-images): This repo is for the corresponding service images.
 
+
 ## Bugs
 
-If you find any bugs or are having any trouble, please 联系我们 by filing an [issue](https://github.com/rancher/os/issues/new).
+If you find any bugs or are having any trouble, please contact us by filing an [issue](https://github.com/rancher/os/issues/new).
 
 If you have any updates to our documentation, please make any PRs to our [docs repo](https://github.com/rancher/docs).
+
+<br>
+<br>

@@ -21,7 +21,7 @@ For this workload, you'll be deploying the application Rancher Hello-World.
 
 4.  Click **Deploy**.
 
-	**步骤结果:** The **Deploy Workload** page opens.
+	**Step Result:** The **Deploy Workload** page opens.
 
 5.  Enter a **Name** for your workload.
 
@@ -105,7 +105,7 @@ gettingstarted@rancher:~$ curl http://localhost:31568
     <br />
 
     <div id='rancherLinks' class="row social">
-      <a class="p-a-xs" href="https://www.cnrancher.com/docs"><img src="img/favicon.png" alt="Docs" height="25" width="25"></a>
+      <a class="p-a-xs" href="https://rancher.com/docs"><img src="img/favicon.png" alt="Docs" height="25" width="25"></a>
       <a class="p-a-xs" href="https://slack.rancher.io/"><img src="img/icon-slack.svg" alt="slack" height="25" width="25"></a>
       <a class="p-a-xs" href="https://github.com/rancher/rancher"><img src="img/icon-github.svg" alt="github" height="25" width="25"></a>
       <a class="p-a-xs" href="https://twitter.com/Rancher_Labs"><img src="img/icon-twitter.svg" alt="twitter" height="25" width="25"></a>

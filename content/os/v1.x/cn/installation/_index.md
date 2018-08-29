@@ -1,4 +1,4 @@
 ---
-title: 安装
+title: 3 - 安装
 weight: 3
 ---

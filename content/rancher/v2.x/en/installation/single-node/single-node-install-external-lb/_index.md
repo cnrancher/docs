@@ -85,7 +85,7 @@ For security purposes, SSL (Secure Sockets Layer) is required when using Rancher
 
 If you elect to use a self-signed certificate to encrypt communication, you must install the certificate on your load balancer (which you'll do later) and your Rancher container. Run the docker command to deploy Rancher, pointing it toward your certificate.
 
->**先决条件:**
+>**Prerequisites:**
 >Create a self-signed certificate.
 >
 >- The certificate files must be in [PEM format](#pem).
@@ -105,7 +105,7 @@ If you elect to use a self-signed certificate to encrypt communication, you must
 
 If your cluster is public facing, it's best to use a certificate signed by a recognized CA.
 
->**先决条件:**
+>**Prerequisites:**
 >
 >- The certificate files must be in [PEM format](#pem).
 

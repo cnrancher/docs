@@ -9,7 +9,7 @@ You must boot with at least **1280MB** of memory. If you boot with the ISO, you 
 
 ### Install to Disk
 
-After you boot RancherOS from ISO, you can follow the instructions [here]({{< baseurl >}}/os/v1.x/cn/installation/running-rancheros/server/install-to-disk/) to install RancherOS to a hard disk.
+After you boot RancherOS from ISO, you can follow the instructions [here]({{< baseurl >}}/os/v1.x/en/installation/running-rancheros/server/install-to-disk/) to install RancherOS to a hard disk.
 
 ### Persisting State
 

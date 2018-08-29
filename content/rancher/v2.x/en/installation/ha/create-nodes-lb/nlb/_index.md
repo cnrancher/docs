@@ -41,7 +41,7 @@ Target Group Name                     | `rancher-tcp-443`
 Protocol                              | `TCP`
 Port                                  | `443`
 Target type                           | `instance`
-VPC                                   | 选择你的VPC
+VPC                                   | Choose your VPC
 Protocol<br/>(Health Check)           | `HTTP`
 Path<br/>(Health Check)               | `/healthz`
 Port (Advanced health check)          | `override`,`80`
@@ -73,7 +73,7 @@ Target Group Name                     | `rancher-tcp-80`
 Protocol                              | `TCP`
 Port                                  | `80`
 Target type                           | `instance`
-VPC                                   | 选择你的VPC
+VPC                                   | Choose your VPC
 Protocol<br/>(Health Check)           | `HTTP`
 Path<br/>(Health Check)               | `/healthz`
 Port (Advanced health check)          | `traffic port`

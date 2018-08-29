@@ -39,7 +39,7 @@ Target Group Name           | `rancher-http-80`
 Protocol                    | `HTTP`
 Port                        | `80`
 Target type                 | `instance`
-VPC                         | 选择你的VPC
+VPC                         | Choose your VPC
 Protocol<br/>(Health Check) | `HTTP`
 Path<br/>(Health Check)     | `/healthz`
 

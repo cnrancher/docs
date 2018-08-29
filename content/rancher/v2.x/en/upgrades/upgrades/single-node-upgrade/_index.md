@@ -7,7 +7,7 @@ aliases:
 To upgrade Rancher Server 2.x after a new version is released, create a backup of your server and then run the upgrade command.
 <a id="prereq"></a>
 
->**先决条件:** Open Rancher and write down the version number displayed in the lower-left of the browser (example: `v2.0.0`). You'll need this number during the upgrade process.
+>**Prerequisites:** Open Rancher and write down the version number displayed in the lower-left of the browser (example: `v2.0.0`). You'll need this number during the upgrade process.
 
 1. Stop the container currently running Rancher Server. Replace `<RANCHER_CONTAINER_ID>` with the ID of your Rancher container.
 

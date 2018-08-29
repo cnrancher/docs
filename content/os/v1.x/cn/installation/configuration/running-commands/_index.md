@@ -12,7 +12,7 @@ runcmd:
 - echo "test" > /home/rancher/test2
 ```
 
-Commands specified using `runcmd` will be executed within the context of the `console` container. More details on the ordering of commands run in the `console` container can be found [here]({{< baseurl >}}/os/v1.x/cn/installation/boot-process/built-in-system-services/#console).
+Commands specified using `runcmd` will be executed within the context of the `console` container. More details on the ordering of commands run in the `console` container can be found [here]({{< baseurl >}}/os/v1.x/en/installation/boot-process/built-in-system-services/#console).
 
 ### Running Docker commands
 
@@ -31,17 +31,4 @@ write_files:
       docker run -d nginx
 ```
 
-Running Docker commands in this manner is useful when pieces of the `docker run` command are dynamically generated. For services whose configuration is static, [adding a system service]({{< baseurl >}}/os/v1.x/cn/installation/system-services/adding-system-services/) is recommended.
-
-## Running Commands Early in the Boot Process
----
-
-The `bootcmd` parameter can be used to run commands earlier in the boot process. In particular, `bootcmd` will be executed while RancherOS is still running from memory and before System Docker and any system services are started.
-
-The syntax for bootcmd is the same as `runcmd`.
-
-```yaml
-#cloud-config
-bootcmd:
-- [ mdadm, --assemble, --scan ]
-```
+Running Docker commands in this manner is useful when pieces of the `docker run` command are dynamically generated. For services whose configuration is static, [adding a system service]({{< baseurl >}}/os/v1.x/en/installation/system-services/adding-system-services/) is recommended.

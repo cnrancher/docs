@@ -1,7 +1,6 @@
 ---
 title: 11 - 最佳实践
 weight: 11
-draft: true
 ---
 
 ## 一、etcd
@@ -36,7 +35,7 @@ IOPS=1000ms/(寻道时间+旋转延迟)。忽略数据传输时间。\
 sudo ionice -c2 -n0 -p `pgrep etcd`
 ```
 
-### 3、修改ETCD默认存储快大小
+### 3、修改空间配额大小
 
 默认ETCD空间配额大小为2G，超过2G将不再写入数据。通过给ETCD配置`--quota-backend-bytes`参数增大空间配额,最大支持8G。
 
@@ -60,3 +59,41 @@ tc filter add dev eth0 parent 1: protocol ip prio 2 u32 match ip dport 2739 0xff
 ```
 
 >根据实际情况修改接口名称
+
+## 二、主机/OS
+
+### 1、增加ARP缓存大小
+
+```bash
+cat >>  /etc/sysctl.conf <<EOF
+net.ipv4.neigh.default.gc_thresh1=<value1>
+net.ipv4.neigh.default.gc_thresh2=<value2>
+net.ipv4.neigh.default.gc_thresh3=<value3>
+EOF
+```
+
+接着执行`sysctl -p`
+
+> 根据主机资源大小来调整<value>值.
+
+## 三、Docker
+
+- max-concurrent-downloads,max-concurrent-uploads
+
+    Docker镜像下载最大并发数
+
+```bash
+touch /etc/docker/daemon.json
+cat > /etc/docker/daemon.json <<EOF
+{
+"max-concurrent-downloads": 10,
+"max-concurrent-uploads": 10,
+"registry-mirrors": ["https://7bezldxe.mirror.aliyuncs.com"],
+"storage-driver": "overlay2",
+"storage-opts": [
+"overlay2.override_kernel_check=true"
+]
+}
+EOF
+systemctl daemon-reload && systemctl restart docker
+```

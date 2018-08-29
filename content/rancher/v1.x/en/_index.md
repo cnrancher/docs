@@ -1,7 +1,7 @@
 ---
 title: Rancher v1.0 Docs
 shortTitle: Rancher 1.0-EN
-weight: 1
+weight: 2
 ---
 
 ## Rancher概览

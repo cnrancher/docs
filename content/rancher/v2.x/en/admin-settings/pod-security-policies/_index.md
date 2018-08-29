@@ -44,7 +44,7 @@ Rancher ships with two default Pod Security Policies (PSPs): the `restricted` an
 
 1.	From the **Global** view, select **Security** > **Pod Security Policies** from the main menu. Then click **Add Policy**.
 
-	**步骤结果:** The **Add Policy** form opens.
+	**Step Result:** The **Add Policy** form opens.
 
 2. Name the policy.
 

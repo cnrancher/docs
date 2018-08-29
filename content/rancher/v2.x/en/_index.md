@@ -1,7 +1,7 @@
 ---
 title: Rancher 2.0 Docs
 shortTitle: Rancher 2.0-EN
-weight: 1
+weight: 2
 ---
 
 ## What's New?

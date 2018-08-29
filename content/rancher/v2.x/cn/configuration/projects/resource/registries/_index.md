@@ -1,6 +1,6 @@
 ---
-title: 镜像库
-weight: 3063
+title: 6 - 镜像库
+weight: 6
 ---
 
 Registries are secrets containing credentials used to authenticate with [private registries](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/). Deployments use these secrets to authenticate with a private registry and then pull a Docker image hosted on it.

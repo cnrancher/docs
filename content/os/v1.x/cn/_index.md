@@ -1,5 +1,5 @@
 ---
-title: 概述
+title: Overview of RancherOS 
 shortTitle: Rancher OS-CN
 description: RancherOS is a simplified Linux distribution built from containers, for containers. These documents describe how to install and use RancherOS.
 weight: 1
@@ -25,9 +25,11 @@ VMWare | 1280MB (rancheros.iso) <br> 2048MB (rancheros-vmware.iso)
 GCE |  1280MB
 AWS |  1.7GB
 
+You can adjust memory requirements by custom building RancherOS, please refer to [reduce-memory-requirements]({{< baseurl >}}/os/v1.x/en/installation/custom-builds/custom-rancheros-iso/#reduce-memory-requirements)
+
 ### How this works
 
-Everything in RancherOS is a Docker container. We accomplish this by launching two instances of Docker. One is what we call **System Docker**, the first process on the system. All other system services, like `ntpd`, `syslog`, and `console`, are running in Docker containers. System Docker replaces traditional init systems like `systemd`, and can be used to launch [additional system services]({{< baseurl >}}/os/v1.x/cn/installation/system-services/adding-system-services/).
+Everything in RancherOS is a Docker container. We accomplish this by launching two instances of Docker. One is what we call **System Docker**, the first process on the system. All other system services, like `ntpd`, `syslog`, and `console`, are running in Docker containers. System Docker replaces traditional init systems like `systemd`, and can be used to launch [additional system services](installation/system-services/adding-system-services/).
 
 System Docker runs a special container called **Docker**, which is another Docker daemon responsible for managing all of the user’s containers. Any containers that you launch as a user from the console will run inside this Docker. This creates isolation from the System Docker containers, and ensures normal user commands don’t impact system services.
 
@@ -38,7 +40,7 @@ System Docker runs a special container called **Docker**, which is another Docke
 
 ### Running RancherOS
 
-To find out more about installing RancherOS, jump to our [Quick Start Guide]({{< baseurl >}}/os/v1.x/cn/quick-start-guide/).
+To find out more about installing RancherOS, jump to our [Quick Start Guide](quick-start-guide/).
 
 ### Latest Release
 

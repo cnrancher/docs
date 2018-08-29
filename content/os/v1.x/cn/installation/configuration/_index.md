@@ -18,7 +18,7 @@ A Linux OS supporting cloud-config will invoke a cloud-init process during start
 
 When you create a RancherOS instance on AWS, for example, you can optionally provide cloud-config passed in the `user-data` field. Inside the RancherOS instance, cloud-init process will retrieve the cloud-config content through its AWS cloud-config data source, which simply extracts the content of user-data received by the VM instance. If the file starts with "`#cloud-config`", cloud-init will interpret that file as a cloud-config file. If the file starts with `#!<interpreter>` (e.g., `#!/bin/sh`), cloud-init will simply execute that file. You can place any configuration commands in the file as scripts.
 
-A cloud-config file uses the YAML format. YAML is easy to understand and easy to parse. For more information on YAML, please 了解更多 at the [YAML site](http://www.yaml.org/start.html). The most important formatting principle is indentation or whitespace. This indentation indicates relationships of the items to one another. If something is indented more than the previous line, it is a sub-item of the top item that is less indented.
+A cloud-config file uses the YAML format. YAML is easy to understand and easy to parse. For more information on YAML, please read more at the [YAML site](http://www.yaml.org/start.html). The most important formatting principle is indentation or whitespace. This indentation indicates relationships of the items to one another. If something is indented more than the previous line, it is a sub-item of the top item that is less indented.
 
 Example: Notice how both are indented underneath `ssh_authorized_keys`.
 
@@ -34,7 +34,7 @@ In our example above, we have our `#cloud-config` line to indicate it's a cloud-
 ### Manually Changing Configuration
 
 To update RancherOS configuration after booting, the `ros config set <key> <value>` command can be used.
-For more complicated settings, like the [sysctl settings]({{< baseurl >}}/os/v1.x/cn/installation/configuration/sysctl/), you can also create a small YAML file and then run `sudo ros config merge -i <your yaml file>`.
+For more complicated settings, like the [sysctl settings]({{< baseurl >}}/os/v1.x/en/installation/configuration/sysctl/), you can also create a small YAML file and then run `sudo ros config merge -i <your yaml file>`.
 
 #### Getting Values
 
