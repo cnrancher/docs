@@ -39,7 +39,7 @@ weight: 9
   docker rmi -f $(docker images -q)
   ```
 
-### 2、Mounts挂载
+### 2、Mounts挂载点
 
 在运行Pod后，会有很多挂载文件。比如:
 
@@ -99,9 +99,35 @@ rm -rf /etc/ceph \
        /var/run/calico
 ```
 
-### 4、网络接口
+### 4、完整命令
 
-- 网络名称
+```bash
+docker rm -f $(docker ps -qa)
+  docker volume rm $(docker volume ls -q)
+  for mount in $(mount | grep tmpfs | grep '/var/lib/kubelet' | awk '{ print $3 }') /var/lib/kubelet /var/lib/rancher; do umount $mount; done
+  rm -rf /etc/ceph \
+       /etc/cni \
+       /etc/kubernetes \
+       /opt/cni \
+       /opt/rke \
+       /run/secrets/kubernetes.io \
+       /run/calico \
+       /run/flannel \
+       /var/lib/calico \
+       /var/lib/etcd \
+       /var/lib/cni \
+       /var/lib/kubelet \
+       /var/lib/rancher \
+       /var/log/containers \
+       /var/log/pods \
+       /var/run/calico
+```
+
+### 5、网络接口和iptables规则
+
+容器网络接口和iptables规则，两者都是非持久性的，重新启动节点后将被自动清除。所以，推荐在完成前面的步骤后直接重启主机来清理网络接口和iptables规则。
+
+- 网络接口
 
 |接口名称                           |
 |----------------------------------|
@@ -127,7 +153,7 @@ ifconfig -a
 ip link delete interface_name
 ```
 
-### 5、iptables规则
+### 6、iptables规则
 
 Iptables规则用于路由来自容器的流量。规则是动态创建的，不是持久的，重新启动节点会将iptables恢复到其原始状态。
 
@@ -165,5 +191,3 @@ iptables -L -t nat
 iptables -L -t mangle
 iptables -L
 ```
-
-> 因为网络接口和iptables规则都不是永久存储的，所以建议在完成前面的步骤后重启主机。

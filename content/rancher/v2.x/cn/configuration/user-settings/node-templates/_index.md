@@ -1,31 +1,36 @@
 ---
-title: 主机模板
-weight: 3
+title: Managing Node Templates
+weight: 7010
 ---
 
-配置节点池集群时，将使用主机模板来配置集群节点。这些模板使用Docker Machine配置选项来定义节点的操作系统映像和设置参数。创建主机模板时，它将绑定到你的用户配置文件，主机模板不能在用户之间共享，你可以删除不再使用的陈旧主机模板。
+When you provision a [node pool]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools) cluster, [node templates]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools/#node-templates) are used to provision the cluster nodes. These templates use Docker Machine configuration options to define an operating system image and settings/parameters for the node. You can create node templates in two contexts:
 
-## 创建主机模板
+- While [provisioning a node pool cluster]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools).
+- At any time, from your [user settings](#creating-a-node-template-from-user-settings).
 
-1. 选择用户头像>主机模板
-2. 单击添加模板
-3. 选择一个可用的云提供商，然后按照屏幕上的说明配置模板
+When you create a node template, it is bound to your user profile. Node templates cannot be shared among users. You can delete stale node templates that you no longer user from your user settings.
+
+## Creating a Node Template from User Settings
+
+1. From your user settings, select **User Avatar > Node Templates**.
+1. Click **Add Template**.
+1. Select one of the cloud providers available. Then follow the instructions on screen to configure the template.
 
 **Result:** The template is configured. You can use the template later when you [provision a node pool cluster]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools).
 
-## 克隆主机模板
+## Cloning Node Templates
 
-创建新主机模板时，可以克隆现有模板并快速更新其设置，而不是从头开始创建新模板。克隆模板可以为你节省配置时间，避免重新输入云提供商访问密钥的麻烦。
+When creating new node templates from your user settings, you can clone an existing template and quickly update its settings rather than creating a new one from scratch. Cloning templates saves you the hassle of re-entering access keys for the cloud provider.
 
-1. 选择用户头像>主机模板
-2. 找到要克隆的模板。然后选择省略号>克隆
-3. 填写表格的其余部分
+1. From your user settings, select **User Avatar > Node Templates**.
+1. Find the template you want to clone. Then select **Ellipsis > Clone**.
+1. Complete the rest of the form.
 
 **Result:** The template is cloned and configured. You can use the template later when you [provision a node pool cluster]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools).
 
-## 删除主机模板
+## Deleting a Node Template
 
-当你不再使用主机模板时，可以从用户设置中删除它。
+When you no longer use a node template, you can delete it from your user settings.
 
-1. 选择用户头像>主机模板。
-2. 从列表中选择一个或多个模板，然后单击删除，出现提示时确认删除。
+1. From your user settings, select **User Avatar > Node Templates**.
+1. Select one or more template from the list. Then click **Delete**. Confirm the delete when prompted.

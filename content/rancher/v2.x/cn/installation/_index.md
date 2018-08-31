@@ -39,7 +39,7 @@ weight: 3
 
 - [端口需求](/docs/rancher/v2.x/cn/installation/references/)
 
-- [Rancher HTTP代理配置](/docs/rancher/v2.x/cn/installation/proxy-configuration/)
+- [HTTP代理配置](/docs/rancher/v2.x/cn/installation/proxy-configuration/)
 
     如果你的环境需要代理访问互联网，此页面提供有关如何为你的Rancher配置代理。
 

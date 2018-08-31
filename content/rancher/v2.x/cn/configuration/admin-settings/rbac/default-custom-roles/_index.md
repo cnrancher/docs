@@ -1,13 +1,15 @@
 ---
-title: Custom Roles
-weight: 1128
+title: 自定义角色
+weight: 3
+aliases:
+    - /rancher/v2.x/en/tasks/global-configuration/roles/
 ---
 
 Within Rancher, _roles_ determine what actions a user can make within a cluster or project.
 
 Note that _roles_ are different from _permissions_, which determine what clusters and projects you can access.
 
->**先决条件:**
+>**Prerequisites:**
 >
 >To complete the tasks on this page, the following permissions are required:
 >
