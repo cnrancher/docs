@@ -131,7 +131,7 @@ weight     = "4"
 
 [[menu.main]]
 identifier = "learn"
-name       = "Learn"
+name       = "学习"
 weight     = "5"
 pre        = "<i class='material-icons'>keyboard_arrow_down</i>"
 
