@@ -118,13 +118,6 @@ pre        = "<i class='material-icons'>keyboard_arrow_down</i>"
   url        = "https://rancher.com/rancher-os/"
   parent     = "products"
 
-
-[[menu.main]]
-#identifier = "customers"
-#name       = "Customers"
-#url        = "https://rancher.com/customers/"
-#weight     = "3"
-
 [[menu.main]]
 identifier = "customers"
 name       = "Customers"
