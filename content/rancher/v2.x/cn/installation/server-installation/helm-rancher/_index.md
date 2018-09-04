@@ -98,4 +98,4 @@ Rancher chart有许多配置选项,可用于自定义安装以适合你的特定
 
 确保保存了所有的配置参数，Rancher下一次升级时，helm需要使用相同的配置参数来运行新版本Rancher。
 
-### 6、[故障排除](./troubleshooting/)
+### 6、[故障排除](/docs/rancher/v2.x/cn/faq/troubleshooting-helm/)

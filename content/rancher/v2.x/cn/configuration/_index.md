@@ -1,6 +1,6 @@
 ---
 title: 用户手册
-weight: 7
+weight: 5
 ---
 
 本章节将从三个层面讲解Rancher2.0的配置:

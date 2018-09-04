@@ -1,6 +1,6 @@
 ---
 title: 升级
-weight: 5
+weight: 3
 ---
 
 ## 从Rancher 2.x.x升级

@@ -1,7 +1,6 @@
 ---
-title: CNI Providers
-weight: 2300
-draft: true
+title: 1 - CNI Providers
+weight: 1
 ---
 
 ## What is CNI?

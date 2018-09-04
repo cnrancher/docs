@@ -3,9 +3,9 @@ title: 1 - 基础环境配置
 weight: 1
 ---
 
-## 一、主机配置
+{{% accordion id="option-a" label="一、主机配置" %}}
 
-### 1、配置要求
+## 1、配置要求
 
 硬件需求根据Rancher部署的规模进行扩展。根据需求配置每个节点。
 
@@ -21,7 +21,7 @@ weight: 1
 - Centos/RedHat Linux 7.5+(64位)
 - RancherOS 1.3.0+(64位)
 
->Ubuntu操作系统有Desktop和Server版本，选择安装server版本。
+> Ubuntu操作系统有Desktop和Server版本，选择安装server版本。
 
 ### 3、Docker版本选择
 
@@ -105,11 +105,12 @@ EOF
 | 8            | 5        | 3                 |
 | 9            | 5        | **4**             |
 
-## 二、Docker安装与配置
+{{% /accordion %}}
+{{% accordion id="option-b" label="二、Docker安装与配置" %}}
 
-### 1、Docker安装
+## 1、Docker安装
 
-#### Ubuntu
+### Ubuntu
 
 - **Docker-ce**
 
@@ -135,7 +136,7 @@ EOF
 
     Docker-Engine Docker官方已经不推荐使用，请安装Docker-CE。
 
-#### CentOS
+### CentOS
 
 - **Docker-ce**
 
@@ -182,7 +183,7 @@ EOF
 
     Docker-Engine Docker官方已经不推荐使用，请安装Docker-CE。
 
-### 2、Docker配置
+## 2、Docker配置
 
 对于通过systemd来管理服务的系统(比如CentOS7.X、Ubuntu16.X), Docker有两处可以配置参数: 一个是`docker.service`服务配置文件,一个是Docker daemon配置文件daemon.json。
 
@@ -196,7 +197,7 @@ EOF
 
 >以下说明均基于systemd,并通过`/etc/docker/daemon.json`来修改配置。
 
-#### 配置镜像下载和上传并发数
+### 配置镜像下载和上传并发数
 
 从Docker1.12开始，支持自定义下载和上传镜像的并发数，默认值上传为3个并发，下载为5个并发。通过添加"max-concurrent-downloads"和"max-concurrent-uploads"参数对其修改:
 
@@ -205,7 +206,7 @@ EOF
 "max-concurrent-uploads": 5
 ```
 
-#### 配置镜像加速地址
+### 配置镜像加速地址
 
 Rancher从v1.6.15开始到v2.x.x,Rancher系统相关的所有镜像(包括1.6.x上的K8S镜像)都托管在Dockerhub仓库。Dockerhub节点在国外，国内直接拉取镜像会有些缓慢。为了加速镜像的下载，可以给Docker配置国内的镜像地址。
 
@@ -219,7 +220,7 @@ Rancher从v1.6.15开始到v2.x.x,Rancher系统相关的所有镜像(包括1.6.x�
 
 >可以设置多个`registry-mirrors`地址，以数组形式书写，地址需要添加协议头(https或者http)。
 
-#### 配置`insecure-registries`私有仓库
+### 配置`insecure-registries`私有仓库
 
 Docker默认只信任TLS加密的仓库地址(https)，所有非https仓库默认无法登陆也无法拉取镜像。`insecure-registries`字面意思为不安全的仓库，通过添加这个参数对非https仓库进行授信。可以设置多个`insecure-registries`地址，以数组形式书写，地址不能添加协议头(http)。
 
@@ -231,7 +232,7 @@ Docker默认只信任TLS加密的仓库地址(https)，所有非https仓库默�
 }
 ```
 
-#### 配置Docker存储驱动
+### 配置Docker存储驱动
 
 OverlayFS是一个新一代的联合文件系统，类似于AUFS，但速度更快，实现更简单。Docker为OverlayFS提供了两个存储驱动程序:旧版的`overlay`，新版的`overlay2`(更稳定)。
 
@@ -253,7 +254,7 @@ OverlayFS是一个新一代的联合文件系统，类似于AUFS，但速度更�
 }
 ```
 
-#### 配置日志驱动
+### 配置日志驱动
 
 容器在运行时会产生大量日志文件，很容易占满磁盘空间。通过配置日志驱动来限制文件大小与文件的数量。
 >限制单个日志文件为`100M`,最多产生`3`个日志文件
@@ -268,7 +269,7 @@ OverlayFS是一个新一代的联合文件系统，类似于AUFS，但速度更�
 }
 ```
 
-#### Ubuntu系统 ，docker info提示WARNING: No swap limit support
+## Ubuntu系统 ，docker info提示WARNING: No swap limit support
 
 Ubuntu系统下，默认cgroups未开启swap account功能，将会导致需要swap的容器出错。通过修改grub启动参数来开启swap account功能:
 
@@ -277,12 +278,15 @@ sudo sed -i 's/GRUB_CMDLINE_LINUX=".*"/GRUB_CMDLINE_LINUX="cgroup_enable=memory 
 sudo update-grub
 ```
 
->通过以上命令可自动配置参数，如果`/etc/default/grub`非默认配置，需根据实际参数做调整。
+  > 通过以上命令可自动配置参数，如果`/etc/default/grub`非默认配置，需根据实际参数做调整。
 
-## 三、仓库配置
+{{% accordion %}}
+{{% accordion id="option-c" label="三、仓库配置" %}}
 
 - 离线安装镜像仓库配置
 
     在线情况下，Rancher部署kubenetes或者部署其他系统组件时，都是通过dockerhub拉取镜像，Dockerhub上rancher仓库为公开仓库，不用登录即可拉取镜像。如果是在离线环境下安装kubenetes集群,那么对应的项目需要为公开权限，不用登录即可拉取镜像。因为在Rancher2.0全局部署kubenetes时,无法使用Registries功能，对于私有项目无法代理提供登录信息，从而导致无法拉取镜像。
 
-## 四、以上配置完成后，建议重启一次主机。
+    > **提示** 以上配置完成后，建议重启一次主机。
+
+{{% accordion %}}

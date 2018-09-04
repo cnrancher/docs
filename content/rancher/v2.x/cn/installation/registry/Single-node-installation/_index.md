@@ -4,9 +4,9 @@ weight: 1
 ---
 本文档翻译至Harbor官方文档[Installation and Configuration Guide](https://github.com/goharbor/harbor/blob/master/docs/installation_guide.md)
 
-## 一、环境准备
+{{% accordion id="option-a" label="一、环境准备" %}}
 
-### 1、硬件
+## 1、硬件
 
 | 资源 | 配置      | 描述       |
 | -------- | ------------- | ----------------- |
@@ -16,7 +16,7 @@ weight: 1
 
 >**注意:** 磁盘大小需要根据实际使用场景来确定
 
-### 2、软件
+## 2、软件
 
 | 软件名       | 版本                 | 描述                                                  |
 | -------------- | ----------------------- | ------------------------------------------------------------ |
@@ -25,7 +25,7 @@ weight: 1
 | Docker-Compose | 1.6.0或更高版本 | 有关安装说明，请参考: <https://docs.docker.com/compose/install/> |
 | Openssl        | 推荐最新版本     | 为Harbor生成证书和密钥                    |
 
-### 3、网络
+## 3、网络
 
 | 端口 | 协议 | 描述                                                  |
 | ---- | -------- | ------------------------------------------------------------ |
@@ -33,23 +33,18 @@ weight: 1
 | 4443 | HTTPS    | 只有在启用`Notary`时才需要连接到`Docker Content Trust`服务 |
 | 80   | HTTP     | Harbor UI和API将接受此端口上的http协议请求 |
 
-## 二、安装配置
+{{% /accordion %}}
+{{% accordion id="option-b" label="二、Harbor配置" %}}
 
-安装步骤归结为以下内容
-
-- 1、下载安装程序;
-- 2、配置harbor.cfg ;
-- 3、运行install.sh安装并启动Harbor;
-
-### 1、Harbor程序下载
+## 1、Harbor程序下载
 
 可以通过Harbor的[发布页面](https://github.com/goharbor/harbor/releases)下载，也可以通过[文件下载](/docs/rancher/v2.x/cn/installation/download/)页面下载最新的在线安装包。
 
-### 2、解压压缩包
+## 2、解压压缩包
 
 `tar xvf harbor-online-installer-<version>.tgz`
 
-### 3、修改配置文件
+## 3、修改配置文件
 
 解压压缩包会得到harbor文件夹，harbor.cfg配置文件位于文件夹根目录。在harbor.cfg中有两类参数，必需参数和可选参数。
 
@@ -61,7 +56,7 @@ weight: 1
 
 参数如下所述 - 请注意，至少需要更改`hostname`参数。
 
-#### 必需参数:
+### 必需参数
 
 - **hostname**:目标主机的主机名，用于访问UI和Harbor服务。它应该是目标计算机的IP地址或域名(FQDN)，例如，`192.168.1.10`或`reg.yourdomain.com`。不要使用localhost或127.0.0.1作为主机名，因为外部客户端需要访问Harbor服务！
 
@@ -83,7 +78,7 @@ weight: 1
 
 - **log_rotate_size**:仅当日志文件大于**log_rotate_size**字节时才会轮转日志文件。如果大小后跟k，则假定大小以千字节为单位。如果使用M，则大小以兆字节为单位，如果使用G，则大小为千兆字节。尺寸100，尺寸100k，尺寸100M和尺寸100G都是有效的。
 
-#### 可选参数
+### 可选参数
 
 - **Email settings**:Harbor需要这些参数才能向用户发送“密码重置”电子邮件，并且仅在需要该功能时才做配置。另外，**请注意**，在默认情况下SSL连接`没有启用`，如果你的SMTP服务器需要SSL，那么你应该通过设置`email_ssl = TRUE`参数来启用SSL，但`不支持STARTTLS`。如果电子邮件服务器使用自签名证书或不受信任证书，则需要设置`email_insecure = true`。有关`email_identity`的详细说明，请参阅[rfc2595](https://tools.ietf.org/rfc/rfc2595.txt)
 
@@ -124,7 +119,7 @@ weight: 1
 
 - **project_creation_restriction**:用于控制用户有权创建项目的设置。默认情况下，每个人都可以创建一个项目，设置为“adminonly”，只有管理员才能创建项目。
 
-#### 配置存储后端(可选)
+### 配置存储后端(可选)
 
 默认情况下，Harbor将镜像存储在本地文件系统中。在生产环境中，你可以考虑使用其他存储后端而不是本地文件系统，如S3，OpenStack Swift，Ceph等。你需要更新的是storage文件中的部分common/templates/registry/config.yml。例如，如果你使用Openstack Swift作为存储后端，则该部分可能如下所示:
 
@@ -142,78 +137,124 @@ storage:
 
 **注意**:有关注册表存储后端的详细信息，请参阅[registry配置参考](https://docs.docker.com/registry/configuration/)。
 
-### 3、安装Harbor
+### Harbor监听自定义端口
+
+默认情况下，Harbor监听80(HTTP)和443(HTTPS，如果已配置)，你可以使用自定义命令对其进行修改。
+
+- 对于HTTP协议
+
+  1、修改 docker-compose.yml
+
+  将第一个`80`修改为自定义端口，例如`8888:80`。
+
+  ```yaml
+  proxy:
+      image: library/nginx:1.11.5
+      restart: always
+      volumes:
+        - ./config/nginx:/etc/nginx
+      ports:
+        - 8888:80
+        - 443:443
+      depends_on:
+        - mysql
+        - registry
+        - ui
+        - log
+      logging:
+        driver: "syslog"
+        options:  
+          syslog-address: "tcp://127.0.0.1:1514"
+          tag: "proxy"
+  ```
+
+  2、修改harbor.cfg，将端口添加到参数“hostname”
+
+  `hostname = 192.168.0.2:8888`
+
+  3、重新部署Harbour,参考上一节“管理harbor的生命周期”。
+
+- 对于HTTPS协议
+
+  方法同`HTTP协议`
+
+{{% /accordion %}}
+{{% accordion id="option-c" label="三、Harbor安装" %}}
 
 在harbor文件夹中有`install.sh`脚本，一旦`harbor.cfg`和存储后端(可选)配置完成，就可以镜像Harbor安装。请注意，在线安装需要一些时间从Docker hub下载Harbor镜像，具体根据实际网络情况。
 
 - 默认安装(没有Notary/Clair)
 
-`sudo ./install.sh`
+  `sudo ./install.sh`
 
->Harbor已与Notary和Clair集成(用于漏洞扫描)。但是，默认不安装Notary或Clair服务。
+  >Harbor已与Notary和Clair集成(用于漏洞扫描)。但是，默认不安装Notary或Clair服务。
 
-如果一切正常，你应该能够打开浏览器访问`http://reg.yourdomain.com/`上的管理门户(`reg.yourdomain.com`为`harbor.cfg`配置的主机名,默认管理员用户名/密码为admin/Harbor12345)。
+  如果一切正常，你应该能够打开浏览器访问`http://reg.yourdomain.com/`上的管理门户(`reg.yourdomain.com`为`harbor.cfg`配置的主机名,默认管理员用户名/密码为admin/Harbor12345)。
 
-登录管理门户并创建一个新项目，例如: myproject。然后，你可以使用docker命令登录和推送镜像。默认情况下，Harbor的默认安装使用HTTP协议，而Docker默认信任https协议。所以，要想docker命令登录和推送镜像，需要添加`--insecure-registry`到docker 配置文件并重启docker服务。
+  登录管理门户并创建一个新项目，例如: myproject。然后，你可以使用docker命令登录和推送镜像。默认情况下，Harbor的默认安装使用HTTP协议，而Docker默认信任https协议。所以，要想docker命令登录和推送镜像，需要添加`--insecure-registry`到docker 配置文件并重启docker服务。
 
-```
-docker login reg.yourdomain.com
-docker push reg.yourdomain.com/myproject/myrepo:mytag
-```
+  ```bash
+  docker login reg.yourdomain.com
+  docker push reg.yourdomain.com/myproject/myrepo:mytag
+  ```
 
 - 使用Notary安装
 
-要使用Notary服务安装Harbour，请在运行`install.sh`时添加参数:
+  要使用Notary服务安装Harbour，请在运行`install.sh`时添加参数:
 
-`sudo ./install.sh --with-notary`
+  `sudo ./install.sh --with-notary`
 
-**注意**:使用notary安装，参数ui_url_protocol必须设置为“https”。
+  **注意**:使用notary安装，参数ui_url_protocol必须设置为“https”。
 
 - 使用Clair安装
 
-要使用Clair服务安装Harbour，请在运行`install.sh`时添加参数:
+  要使用Clair服务安装Harbour，请在运行`install.sh`时添加参数:
 
-`sudo ./install.sh --with-clair`
+  `sudo ./install.sh --with-clair`
 
 - 同时安装Clair和Notary
 
-`sudo ./install.sh --with-notary --with-clair`
+  `sudo ./install.sh --with-notary --with-clair`
 
-### 4、配置HTTPS访问配置Harbor
+{{% /accordion %}}
+{{% accordion id="option-d" label="四、配置HTTPS访问配置Harbor" %}}
 
 Harbor不附带任何证书，默认情况下使用HTTP来处理请求。虽然这使得设置和运行相对简单 - 特别是对于开发或测试环境 - 但不建议用于生产环境。要启用HTTPS，请参阅[使用HTTPS访问Harbor](/docs/rancher/v2.x/cn/installation/registry/configure-https/)。
 
-### 5、默认安装管理Harbor的生命周期
+{{% /accordion %}}
+{{% accordion id="option-e" label="五、Harbor的生命周期" %}}
+
+## 1、默认安装管理Harbor的生命周期
 
 - 开始、停止、重启
 
-你可以使用docker-compose来管理Harbor的生命周期。一些有用的命令列出如下(必须与docker-compose.yml在同一目录中运行)。
+  你可以使用docker-compose来管理Harbor的生命周期。一些有用的命令列出如下(必须与docker-compose.yml在同一目录中运行)。
 
-`sudo docker-compose start/stop/restart`
+  `sudo docker-compose start/stop/restart`
 
 - 更新配置
 
-要更改Harbour的配置，请先停止现有的Harbor实例并进行更新harbor.cfg。然后运行prepare脚本以填充配置。最后重新创建并启动Harbor的实例:
+  要更改Harbour的配置，请先停止现有的Harbor实例并进行更新harbor.cfg。然后运行prepare脚本以填充配置。最后重新创建并启动Harbor的实例:
 
-```bash
-sudo docker-compose down -v
-sudo vim harbor.cfg
-sudo prepare
-sudo docker-compose up -d
-```
+  ```bash
+  sudo docker-compose down -v
+  sudo vim harbor.cfg
+  sudo prepare
+  sudo docker-compose up -d
+  ```
 
 - 删除Harbor的容器，同时将镜像数据和Harbor的数据库文件保存在文件系统上
 
-`sudo docker-compose down -v`
+  `sudo docker-compose down -v`
 
 - 删除Harbor的数据库和图像数据(用于干净的重新安装)
 
-```bash
-rm -r /data/database
-rm -r /data/registry
-```
+  ```bash
+  rm -r /data/database
+  rm -r /data/registry
+  ```
 
-### 6、与notary或者Clair一起安装时管理Harbor的生命周期
+## 2、与notary或者Clair一起安装时管理Harbor的生命周期
 
 当Harbour与Notary或者Clair一起安装时，docker-compose命令需要指定一个或者两个额外的模板文件。用于管理Harbour生命周期的docker-compose命令是:
 
@@ -227,73 +268,37 @@ sudo docker-compose -f ./docker-compose.yml -f ./docker-compose.notary.yml -f ./
 
 - 如果要在使用Notary安装Harbor时更改配置并重新部署Harbour，则应使用以下命令:
 
-```bash
-sudo docker-compose -f ./docker-compose.yml -f ./docker-compose.notary.yml down -v
-sudo vim harbor.cfg
-sudo prepare --with-notary
-sudo docker-compose -f ./docker-compose.yml -f ./docker-compose.notary.yml up -d
-```
+  ```bash
+  sudo docker-compose -f ./docker-compose.yml -f ./docker-compose.notary.yml down -v
+  sudo vim harbor.cfg
+  sudo prepare --with-notary
+  sudo docker-compose -f ./docker-compose.yml -f ./docker-compose.notary.yml up -d
+  ```
 
-```bash
-sudo docker-compose -f ./docker-compose.yml -f ./docker-compose.notary.yml -f ./docker-compose.clair.yml down -v
-sudo vim harbor.cfg
-sudo prepare --with-notary --with-clair
-sudo docker-compose -f ./docker-compose.yml -f ./docker-compose.notary.yml -f ./docker-compose.clair.yml up -d
-```
+  ```bash
+  sudo docker-compose -f ./docker-compose.yml -f ./docker-compose.notary.yml -f   ./docker-compose.clair.yml down -v
+  sudo vim harbor.cfg
+  sudo prepare --with-notary --with-clair
+  sudo docker-compose -f ./docker-compose.yml -f ./docker-compose.notary.yml -f   ./docker-compose.clair.yml up -d
+  ```
 
-### 7、持久数据和日志文件
+{{% /accordion %}}
+{{% accordion id="option-f" label="六、持久数据和日志文件" %}}
 
 默认情况下，镜像数据保留在主机的/data/目录中。即使Harbor的容器被移除或重新创建，此数据仍保持不变。此外，Harbor使用rsyslog来收集每个容器的日志。默认情况下，这些日志文件存储在目标主机上的`/var/log/harbor/`目录中以进行故障排除。
 
-### 8、配置Harbor侦听自定义端口
-
-默认情况下，Harbor监听80(HTTP)和443(HTTPS，如果已配置)，你可以使用自定义命令对其进行修改。
-
-- 对于HTTP协议
-
-1、修改 docker-compose.yml
-
-将第一个`80`修改为自定义端口，例如`8888:80`。
-
-```yaml
-proxy:
-    image: library/nginx:1.11.5
-    restart: always
-    volumes:
-      - ./config/nginx:/etc/nginx
-    ports:
-      - 8888:80
-      - 443:443
-    depends_on:
-      - mysql
-      - registry
-      - ui
-      - log
-    logging:
-      driver: "syslog"
-      options:  
-        syslog-address: "tcp://127.0.0.1:1514"
-        tag: "proxy"
-```
-
-2、修改harbor.cfg，将端口添加到参数“hostname”
-
-`hostname = 192.168.0.2:8888`
-
-3、重新部署Harbour,参考上一节“管理harbor的生命周期”。
-
-- 对于HTTPS协议
-
-方法同`HTTP协议`
-
-### 9、性能调整
+{{% /accordion %}}
+{{% accordion id="option-g" label="七、性能调整" %}}
 
 默认情况下，Harbor将Clair容器的CPU使用率限制为150000，并避免耗尽所有CPU资源。这在docker-compose.clair.yml文件中定义,你可以根据硬件配置对其进行修改。
 
-### 10、故障排除
+{{% /accordion %}}
+{{% accordion id="option-h" label="八、故障排除" %}}
 
 - 当Harbor无法正常工作时，请运行以下命令以查明Harbor的所有容器是否处于UP状态:
 
-`sudo docker-compose ps`
+  `sudo docker-compose ps`
 
-如果容器不是UP状态，检查目录容器的日志文件/var/log/harbor。例如，如果容器harbor-ui未运行，则应查看日志文件ui.log。
+  如果容器不是UP状态，检查目录容器的日志文件/var/log/harbor。例如，如果容器harbor-ui未运行，则应查看日志文件ui.log。
+
+{{% /accordion %}}

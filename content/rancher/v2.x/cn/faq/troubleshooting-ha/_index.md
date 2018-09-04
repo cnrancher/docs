@@ -1,5 +1,5 @@
 ---
-title: 3 - Rancher安装FAQ
+title: 3 - RancherHA安装FAQ
 weight: 3
 ---
 

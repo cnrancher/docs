@@ -1,7 +1,6 @@
 ---
 title: Node Requirements
 weight: 1
-aliases:
 ---
 
 Whether you're configuring Rancher to run in a single-node or high-availability setup, each node running Rancher Server must meet the following requirements.
@@ -10,9 +9,10 @@ Whether you're configuring Rancher to run in a single-node or high-availability 
 {{% tab "Operating Systems" %}}
 Rancher is supported on the following operating systems and their subsequent releases.
 
-*   Ubuntu 16.04 (64-bit)
-*   Red Hat Enterprise Linux 7.5 (64-bit)
-*   RancherOS 1.4 (64-bit)
+- Ubuntu 16.04 (64-bit)
+- Red Hat Enterprise Linux 7.5 (64-bit)
+- RancherOS 1.4 (64-bit)
+
 {{% /tab %}}
 {{% tab "Hardware" %}}
 Hardware requirements scale based on the size of your Rancher deployment. Provision each individual node according to the requirements.
@@ -54,9 +54,9 @@ A supported version of [Docker](https://www.docker.com/) is required.
 
 Supported Versions:
 
-*   `1.12.6`
-*   `1.13.1`
-*   `17.03.2`
+- `1.12.6`
+- `1.13.1`
+- `17.03.2`
 
 [Docker Documentation: Installation Instructions](https://docs.docker.com/)
 {{% /tab %}}

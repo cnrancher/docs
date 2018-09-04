@@ -2,20 +2,20 @@
 title: 2 - Harbor HA安装
 weight: 2
 ---
-
-## 一、说明
+{{% accordion id="option-a" label="一、说明" %}}
 
 本文档翻译至Harbor官方文档[Harbor High Availability Guide](https://github.com/goharbor/harbor/blob/master/docs/high_availability_installation_guide.md)。介绍如何安装和配置Harbour以实现高可用性,它补充了[单节点镜像仓库安装](/docs/rancher/v2.x/cn/installation/registry/single-node-installation/)。
 
 **重要** 本文档基于Harbor1.5.0版本，它不适用于1.4.0之前的版本。本指南仅供参考。
 
-## 二、Harbor高可用性介绍
+{{% /accordion %}}
+{{% accordion id="option-b" label="二、Harbor高可用性介绍" %}}
 
 本文档介绍了实现高可用系统的一些常用方法，重点是核心Harbor服务和与Harbor密切配合的其他开源服务。
 
 你需要解决在运行的Harbor环境中，所有应用程序软件的高可用性问题。重要的是确保你的服务冗余且可用。
 
-### 1、无状态服务
+## 1、无状态服务
 
 要使无状态服务具有高可用性，你需要提供实例冗余并对其进行负载平衡。无状态的Harbor服务包括：
 
@@ -27,7 +27,7 @@ weight: 2
 - Clair
 - Proxy
 
-### 2、有状态的服务
+## 2、有状态的服务
 
 有状态服务更难管理,提供额外的实例和负载平衡并不能解决问题。有状态的Harbor服务包括以下服务：
 
@@ -36,11 +36,12 @@ weight: 2
 - Notary database(MariaDB)
 - Redis
 
-## 3、高可用性架构
+{{% /accordion %}}
+{{% accordion id="option-c" label="三、HA架构" %}}
 
 同样，这种架构仅供建议。
 
-![Architecture](_index.assets/Architecture.png)
+![Architecture](./_index.assets/Architecture.png)
 
 如上图所示，架构中涉及的组件包括：
 
@@ -62,17 +63,18 @@ weight: 2
 
 **注意** 由于组件通过rest API相互通信。你始终可以根据使用方案定义组粒度。
 
-### 4、局限性
+- 局限性
 
-目前Harbour在HA方案中不支持Notary。这意味着此HA设置不支持内容信任功能。
+    目前Harbour在HA方案中不支持Notary。这意味着此HA设置不支持内容信任功能。
 
-## 三、配置
+{{% /accordion %}}
+{{% accordion id="option-d" label="四、HA安装" %}}
 
 按照本节中的设置说明，我们可以构建Harbor高可用性部署，如下图所示。如果需要，你可以设置更多Harbor节点。
 
 ![LabInstallation](_index.assets/LabInstallation.png)
 
-### 1、先决条件
+## 1、先决条件
 
 - 1> MariaDB集群(Harbor-DB，192.168.1.215，目前Harbour使用MariaDB 10.2.10)
 - 2> 共享存储(Swift服务器.192.168.1.216)
@@ -96,7 +98,7 @@ docker run -d --restart=always -e MYSQL_ROOT_PASSWORD=root123 -v /data/database:
 docker run -d -e POSTGRES_PASSWORD="password" -p 5432:5432 postgres:9.6
 ```
 
-### 2、加载Harbor数据库结构
+## 2、加载Harbor数据库结构
 
 将Harbor数据库结构导入外部MariaDB
 
@@ -110,13 +112,13 @@ docker run -d -e POSTGRES_PASSWORD="password" -p 5432:5432 postgres:9.6
 mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 ```
 
-### 3、负载平衡器设置
+## 3、负载平衡器设置
 
 由于所有Harbor节点都处于活动状态。将需要一个loadbancer来有效地在Harbor节点之间分配传入请求。你可以方便地选择硬件负载均衡器或软件负载均衡器。
 
 在这里，我们将使用Ubuntu16.04 + Keepalived来构建软件负载均衡器。
 
-#### 在Loadbalancer01
+### 在Loadbalancer01
 
 1. 安装Keepalived和curl应用程序，Curl将用于keepalived check脚本。
 
@@ -160,11 +162,11 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
     systemctl restart keepalived
     ```
 
-#### 在Loadbalancer02上：
+### 在Loadbalancer02上：
 
 按照与`Loadbalancer01`列表相同的步骤1到5，仅`priority`在步骤2中将`/etc/keepalived/keepalived.conf`中的更改为20.更高的数字将获得VIP地址。
 
-### 4、Harbor节点1设置
+## 4、Harbor节点1设置
 
 1. 从[GitHub](https://github.com/vmware/harbor/releases)下载Harbor离线包到你的主目录
 
@@ -281,7 +283,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
 13. 将harbor_ha.tar复制到harbor_node2
 
-### 5、Harbor节点2 ... n设置
+## 5、Harbor节点2 ... n设置
 
 1. 将tar文件放在主目录中
 
@@ -334,9 +336,10 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
     如果要设置更多Harbor节点，请重复步骤1到4. Keepalived配置还需要在两个loadbalancer服务器中更新。
 
-    现在你可以通过http(s)：// VIP访问Harbor
+    现在你可以通过http(s)://VIP访问Harbor
 
-## 四、已知问题
+{{% /accordion %}}
+{{% accordion id="option-e" label="四、已知问题" %}}
 
 1、Job日志应保存到集中的位置: <https://github.com/vmware/harbor/issues/3919>
 
@@ -349,3 +352,5 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 2、在HA环境中无法正确停止正在运行的作业:<https://github.com/vmware/harbor/issues/4012>
 
 在Harbor 1.4中，我们支持停止正在运行的Jobs。但在高可用性方案中，你可能无法停止作业。目前，作业状态存储在内存中而不是磁盘存储中。请求可能无法安排到执行作业的节点。我们将计划重构jobservices模型，并在下一版本中解决此问题。
+
+{{% /accordion %}}

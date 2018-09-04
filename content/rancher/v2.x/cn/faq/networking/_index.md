@@ -1,9 +1,8 @@
 ---
-title: Networking
-weight: 8005
+title: 4 - 网络
+weight: 4
 ---
 
 Networking FAQ's
 
-- [CNI Providers]({{< baseurl >}}/rancher/v2.x/en/faq/networking/cni-providers/)
-
+- [CNI Providers]({{< baseurl >}}/rancher/v2.x/cn/faq/networking/cni-providers/)
