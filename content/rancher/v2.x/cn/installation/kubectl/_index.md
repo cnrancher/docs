@@ -5,7 +5,7 @@ weight: 12
 
 `kubectl`是一个CLI命令行工具，用于运行Kubernetes集群的命令。Rancher 2.x中的许多维护和管理都需要它。
 
-## 一、安装kubectl
+{{% accordion id="1" label="一、安装kubectl" %}}
 
 {{% accordion id="option-a" label="1、使用包管理器安装" %}}
 
@@ -214,8 +214,8 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 2、将`kubectl`二进制文件移动到PATH路径下。
 
 {{% /accordion %}}
-
-## 二、配置kubectl
+{{% /accordion %}}
+{{% accordion id="2" label="二、配置kubectl" %}}
 
 使用RKE创建Kubernetes集群时，RKE会在本地目录中创建一个包含认证信息的配置文件`kube_config_rancher-cluster.yml`，以使用`kubectl`或`helm`等工具连接到新集群。
 
@@ -234,8 +234,8 @@ kubectl get nodes
 165.227.116.167               Ready     controlplane,etcd,worker   11m       v1.10.1
 165.227.127.226               Ready     controlplane,etcd,worker   11m       v1.10.1
 ```
-
-## 三、检查kubectl配置
+{{% /accordion %}}
+{{% accordion id="3" label="三、检查kubectl配置" %}}
 
 通过获取群集状态来检查kubectl是否已正确配置：
 
@@ -259,11 +259,12 @@ The connection to the server <server-name:port> was refused - did you specify th
 kubectl cluster-info dump
 ```
 
-## 四、启用shell自动补全
+{{% /accordion %}}
+{{% accordion id="4" label="四、启用shell自动补全" %}}
 
 kubectl包括自动补全支持，可以节省大量的输入！完成脚本本身由kubectl生成，因此您通常只需要从配置文件中调用它。这里提供了常见的例子。有关详细信息，请咨询`kubectl completion -h`。
 
-### 1、使用bash的Linux主机
+## 1、使用bash的Linux主机
 
 在CentOS Linux上，您可能需要安装默认情况下未安装的bash-completion软件包。
 
@@ -277,7 +278,7 @@ yum install bash-completion -y
 echo "source <(kubectl completion bash)" >> ~/.bashrc
 ```
 
-### 2、使用bash的macOS主机
+## 2、使用bash的macOS主机
 
 在macOS上，您需要先通过Homebrew安装`bash-completion`:
 
@@ -300,7 +301,7 @@ kubectl completion bash > $(brew --prefix)/etc/bash_completion.d/kubectl
 
 The Homebrew project is independent from Kubernetes, so the bash-completion packages are not guaranteed to work.
 
-### 3、Using Zsh
+## 3、Using Zsh
 
 If you are using zsh edit the ~/.zshrc file and add the following code to enable kubectl autocompletion:
 
@@ -315,3 +316,5 @@ Or when using [Oh-My-Zsh](http://ohmyz.sh/), edit the ~/.zshrc file and update t
 ```shell
 plugins=(kubectl)
 ```
+
+{{% /accordion %}}

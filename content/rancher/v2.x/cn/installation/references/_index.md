@@ -7,7 +7,7 @@ weight: 3
 
 ![Basic port Requirements]({{< baseurl >}}/img/rancher/port-communications.png)
 
-## Rancher nodes
+{{% accordion id="option-1" label="一、Rancher nodes" %}}
 
 运行 `rancher/rancher` 容器的主机
 
@@ -27,7 +27,8 @@ weight: 3
 | TCP      | 2376 | Any node IP from a node created using Node Driver            | Docker daemon TLS port used by Docker Machine |
 | TCP      | 6443 | Hosted/Imported Kubernetes API                               | Kubernetes apiserver                          |
 
-## etcd nodes
+{{% /accordion %}}
+{{% accordion id="option-2" label="二、Etcd nodes" %}}
 
 具有**etcd**角色的节点
 
@@ -53,7 +54,8 @@ weight: 3
 | UDP      | 8472 | etcd nodes<br />controlplane nodes<br />worker nodes         | Canal/Flannel VXLAN overlay networking     |
 | TCP      | 9099 | etcd node itself (local traffic, not across nodes)See [Local node traffic](https://www.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Canal/Flannel livenessProbe/readinessProbe |
 
-## controlplane nodes:
+{{% /accordion %}}
+{{% accordion id="option-3" label="三、Controlplane nodes" %}}
 
 具有**controlplane**角色的主机
 
@@ -83,7 +85,8 @@ weight: 3
 | TCP      | 10250 | etcd nodescontrolplane nodesworker nodes                     | kubelet                                         |
 | TCP      | 10254 | controlplane node itself (local traffic, not across nodes)See [Local node traffic](https://www.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Ingress controller livenessProbe/readinessProbe |
 
-## worker nodes
+{{% /accordion %}}
+{{% accordion id="option-4" label="四、Worker nodes" %}}
 
 具有**worker**角色的主机
 
@@ -110,11 +113,13 @@ weight: 3
 | TCP      | 9099  | worker node itself (local traffic, not across nodes)See [Local node traffic](https://www.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Canal/Flannel livenessProbe/readinessProbe      |
 | TCP      | 10254 | worker node itself (local traffic, not across nodes)See [Local node traffic](https://www.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Ingress controller livenessProbe/readinessProbe |
 
-## 有关本地节点流量信息
+{{% /accordion %}}
+{{% accordion id="option-5" label="五、有关本地节点流量信息" %}}
 
 Kubernetes healthchecks (`livenessProbe` and `readinessProbe`) are executed on the host itself. On most nodes, this is allowed by default. When you have applied strict host firewall (i.e. `iptables`) policies on the node, or when you are using nodes that have multiple interfaces (multihomed), this traffic gets blocked. In this case, you have to explicitely allow this traffic in your host firewall, or in case of public/private cloud hosted machines (i.e. AWS or OpenStack), in your security group configuration. Keep in mind that when using a security group as Source or Destination in your security group, that this only applies to the private interface of the nodes/instances.
 
-## 使用节点驱动程序时的Amazon EC2安全组
+{{% /accordion %}}
+{{% accordion id="option-6" label="六、使用节点驱动程序时的Amazon EC2安全组" %}}
 
 If you are [Creating an Amazon EC2 Cluster](https://rancher.com/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools/ec2/), you can choose to let Rancher create a Security Group called `rancher-nodes`. The following rules are automatically added to this Security Group.
 
@@ -142,3 +147,5 @@ If you are [Creating an Amazon EC2 Cluster](https://rancher.com/rancher/v2.x/en/
 | Type        | 协议 | 端口 Range | Destination |
 | ----------- | -------- | ---------- | ----------- |
 | All traffic | All      | All        | 0.0.0.0/0   |
+
+{{% /accordion %}}

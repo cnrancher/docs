@@ -2,18 +2,17 @@
 title: 2 - Harbor HA安装
 weight: 2
 ---
-{{% accordion id="option-a" label="一、说明" %}}
+
+{{% accordion id="option-1" label="一、说明" %}}
 
 本文档翻译至Harbor官方文档[Harbor High Availability Guide](https://github.com/goharbor/harbor/blob/master/docs/high_availability_installation_guide.md)。介绍如何安装和配置Harbour以实现高可用性,它补充了[单节点镜像仓库安装](/docs/rancher/v2.x/cn/installation/registry/single-node-installation/)。
 
 **重要** 本文档基于Harbor1.5.0版本，它不适用于1.4.0之前的版本。本指南仅供参考。
 
 {{% /accordion %}}
-{{% accordion id="option-b" label="二、Harbor高可用性介绍" %}}
+{{% accordion id="option-2" label="二、Harbor高可用性介绍" %}}
 
-本文档介绍了实现高可用系统的一些常用方法，重点是核心Harbor服务和与Harbor密切配合的其他开源服务。
-
-你需要解决在运行的Harbor环境中，所有应用程序软件的高可用性问题。重要的是确保你的服务冗余且可用。
+本文档介绍了实现高可用系统的一些常用方法，重点是核心Harbor服务和与Harbor密切配合的其他开源服务。你需要解决在运行的Harbor环境中，所有应用程序软件的高可用性问题。重要的是确保你的服务冗余且可用。
 
 ## 1、无状态服务
 
@@ -37,11 +36,11 @@ weight: 2
 - Redis
 
 {{% /accordion %}}
-{{% accordion id="option-c" label="三、HA架构" %}}
+{{% accordion id="option-3" label="三、HA架构" %}}
 
 同样，这种架构仅供建议。
 
-![Architecture](./_index.assets/Architecture.png)
+![Architecture](_index.assets/architecture.jpg)
 
 如上图所示，架构中涉及的组件包括：
 
@@ -68,11 +67,11 @@ weight: 2
     目前Harbour在HA方案中不支持Notary。这意味着此HA设置不支持内容信任功能。
 
 {{% /accordion %}}
-{{% accordion id="option-d" label="四、HA安装" %}}
+{{% accordion id="option-4" label="四、HA安装" %}}
 
 按照本节中的设置说明，我们可以构建Harbor高可用性部署，如下图所示。如果需要，你可以设置更多Harbor节点。
 
-![LabInstallation](_index.assets/LabInstallation.png)
+  ![LabInstallation](_index.assets/labInstallation.jpg)
 
 ## 1、先决条件
 
@@ -339,7 +338,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
     现在你可以通过http(s)://VIP访问Harbor
 
 {{% /accordion %}}
-{{% accordion id="option-e" label="四、已知问题" %}}
+{{% accordion id="option-e" label="五、已知问题" %}}
 
 1、Job日志应保存到集中的位置: <https://github.com/vmware/harbor/issues/3919>
 

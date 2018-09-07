@@ -5,7 +5,7 @@ weight: 9
 
 将节点添加到集群时后，会创建容器、虚拟网络接口等资源和证书、配置文件。从集群中正常删除节点时(如果处于Active状态)，将自动清除这些资源，并且只需重新启动节点即可。当节点无法访问且无法使用自动清理，或者异常导致节点脱离集群后，如果需要再次将节点加入集群，那么需要手动进行节点初始化操作。
 
-## 一、通过Rancher UI从集群中删除节点
+{{% accordion id="option-1" label="一、通过Rancher UI从集群中删除节点" %}}
 
 当节点处于Active状态时，从集群中删除节点将触发清理节点的进程。完成自动清理过程后，需要重新启动节点，以确保正确删除所有非持久性数据。
 
@@ -17,8 +17,8 @@ weight: 9
     #using shutdown
     sudo shutdown -r now
     ```
-
-## 二、手动清理节点
+{{% /accordion %}}
+{{% accordion id="option-2" label="二、手动清理节点" %}}
 
 当节点无法访问并已从集群中删除，将无法触发自动清理过程。需按照以下步骤手动清理节点:
 
@@ -191,3 +191,4 @@ iptables -L -t nat
 iptables -L -t mangle
 iptables -L
 ```
+{{% /accordion %}}

@@ -269,7 +269,7 @@ OverlayFS是一个新一代的联合文件系统，类似于AUFS，但速度更�
 }
 ```
 
-## Ubuntu系统 ，docker info提示WARNING: No swap limit support
+## 3、Ubuntu系统 ，docker info提示WARNING: No swap limit support
 
 Ubuntu系统下，默认cgroups未开启swap account功能，将会导致需要swap的容器出错。通过修改grub启动参数来开启swap account功能:
 
@@ -278,10 +278,11 @@ sudo sed -i 's/GRUB_CMDLINE_LINUX=".*"/GRUB_CMDLINE_LINUX="cgroup_enable=memory 
 sudo update-grub
 ```
 
-  > 通过以上命令可自动配置参数，如果`/etc/default/grub`非默认配置，需根据实际参数做调整。
+> 通过以上命令可自动配置参数，如果`/etc/default/grub`非默认配置，需根据实际参数做调整。
 
-{{% accordion %}}
+{{% /accordion %}}
 {{% accordion id="option-c" label="三、仓库配置" %}}
+
 
 - 离线安装镜像仓库配置
 
@@ -289,4 +290,4 @@ sudo update-grub
 
     > **提示** 以上配置完成后，建议重启一次主机。
 
-{{% accordion %}}
+{{% /accordion %}}
