@@ -12,7 +12,7 @@ title: 内部DNS服务
 
 如果你使用Rancher Compose[添加服务](/docs/rancher/v1.x/cn/infrastructure/cattle/services/#使用-rancher-compose-添加服务)，`docker-compose.yml`将使用`links`或`external_links`指令.
 
-```yaml
+```
 version: '2'
 services:
   service1:
@@ -47,7 +47,7 @@ services:
 
 在执行`foo`服务中的一个容器之后，你可以ping通`bar`服务.
 
-```bash
+```
 $ ping bar
 PING bar.stacka.rancher.internal (10.42.x.x) 58(84) bytes of data.
 64 bytes from 10.42.x.x: icmp_seq=1 ttl=62 time=1.63 ms
@@ -63,7 +63,7 @@ PING bar.stacka.rancher.internal (10.42.x.x) 58(84) bytes of data.
 
 如果我们执行`foo`服务中的一个容器，你可以用`bar.stackb`来ping.
 
-```bash
+```
 $ ping bar.stackb
 PING bar.stackb (10.42.x.x) 56(84) bytes of data.
 64 bytes from 10.42.x.x: icmp_seq=1 ttl=62 time=1.43 ms
@@ -79,7 +79,7 @@ PING bar.stackb (10.42.x.x) 56(84) bytes of data.
 
 如果我们执行`foo`服务中的一个容器，你可以直接用`bar'命令ping它。
 
-```bash
+```
 # 在`foo`服务中的一个容器中，`bar`是一个从容器。
 $ ping bar
 PING bar.foo.stacka.rancher.internal (10.42.x.x) 56(84) bytes of data.
@@ -90,7 +90,7 @@ PING bar.foo.stacka.rancher.internal (10.42.x.x) 56(84) bytes of data.
 
 如果我们执行在同一个应用中的`hello`服务的一个容器，你可以通过`foo`来ping`foo`服务和`bar.foo`来ping`bar`服务.
 
-```bash
+```
 # 在`hello`服务中的一个容器内部，这不是服务/从容器的一部分
 # Ping主服务(i.e. foo)
 $ ping foo
@@ -108,7 +108,7 @@ PING bar.foo (10.42.x.x) 56(84) bytes of data.
 
 如果我们执行`world`服务中的一个容器，它是不同的应用，你可以通过`foo.stacka`来ping`foo`服务和`bar.foo.stacka`来ping从容器`bar`.
 
-```bash
+```
 # 在`world`服务中的一个容器内，它们位于不同的应用中
 # Ping另一个应用`stacka`中的主服务(i.e. foo)
 $ ping foo.stacka
@@ -132,7 +132,7 @@ PING bar.foo.stacka (10.42.x.x) 56(84) bytes of data.
 
 如果我们执行`foo`服务中的一个容器，你可以通过ping来访问`bar`服务中的相关容器.
 
-```bash
+```
 $ ping stackB-bar-1
 PING stackB-bar-1.rancher.internal (10.42.x.x): 56 data bytes
 64 bytes from 10.42.x.x: icmp_seq=1 ttl=62 time=1.994 ms

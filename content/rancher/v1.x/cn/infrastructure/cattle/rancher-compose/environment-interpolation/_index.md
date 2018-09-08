@@ -13,7 +13,7 @@ title: 环境插值
 
 在我们运行 Rancher Compose 的机器上有一个这样的环境变量，`IMAGE_TAG=14.04` 。
 
-```bash
+```
 # Image tag is set as environment variable
 $ env | grep IMAGE
 IMAGE_TAG=14.04
@@ -23,7 +23,7 @@ $ rancher-compose up
 
 **样例文件 `docker-compose.yml`**
 
-```yaml
+```
 version: '2'
 services:
   ubuntu:
@@ -40,7 +40,7 @@ services:
 
 Rancher Compose 支持和 Docker Compose 一样的格式。
 
-```yaml
+```
 version: '2'
 services:
   web:

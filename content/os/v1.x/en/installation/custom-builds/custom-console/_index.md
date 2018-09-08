@@ -22,7 +22,7 @@ Currently, the list of available consoles are:
 
 Here is an example cloud-config file that can be used to enable the debian console.
 
-```yaml
+```
 #cloud-config
 rancher:
   console: debian

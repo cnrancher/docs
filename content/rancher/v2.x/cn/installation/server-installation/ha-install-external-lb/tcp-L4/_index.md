@@ -71,7 +71,7 @@ weight: 1
 
     **NGINX配置示例:**
 
-    ```bash
+    ```
     worker_processes 4;
     worker_rlimit_nofile 40000;
 
@@ -101,7 +101,7 @@ weight: 1
 3. 保存 `nginx.conf` ，并复制`nginx.conf`到负载均衡器节点的`/etc/nginx/nginx.conf`路径下。
 4. 重新加载nginx配置
 
-    ```bash
+    ```
     nginx -s reload
     ```
 
@@ -109,7 +109,7 @@ weight: 1
 
 我们可以以容器的形式运行nginx服务，而不需要把它安装在宿主机上。将编辑好的NGINX示例配置文件保存到/etc/nginx.conf，并运行以下命令来启动NGINX容器:
 
-```bash
+```
 docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
   -v /etc/nginx.conf:/etc/nginx/nginx.conf \
@@ -130,7 +130,7 @@ docker run -d --restart=unless-stopped \
 
 - 如果解析生效:
 
-    ```bash
+    ```
     nslookup demo.rancher.com
     DNS Server:         YOUR_HOSTNAME_IP_ADDRESS
     DNS Address:        YOUR_HOSTNAME_IP_ADDRESS#53
@@ -140,7 +140,7 @@ docker run -d --restart=unless-stopped \
     ```
 - 如果解析不生效
 
-    ```bash
+    ```
     nslookup demo.rancher.com
     DNS Server:         YOUR_HOSTNAME_IP_ADDRESS
     DNS Address:        YOUR_HOSTNAME_IP_ADDRESS#53
@@ -168,7 +168,7 @@ RKE是一种快速，通用的Kubernetes安装程序，可用于在Linux主机�
 
 >如果是Windows系统，则跳过这一步.
 
-```bash
+```
 # MacOS
 $ chmod +x rke_darwin-amd64
 # Linux
@@ -177,7 +177,7 @@ $ chmod +x rke_linux-amd64
 
 3、确认RKE是否是最新版本:
 
-```bash
+```
 # MacOS
 ./rke_darwin-amd64 --version
 # Linux
@@ -186,7 +186,7 @@ $ chmod +x rke_linux-amd64
 
 **结果:** 你将看到以下内容:
 
-```bash
+```
 rke version v<N.N.N>
 ```
 
@@ -208,13 +208,13 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 
 - 第一步:在任意一台Linux主机使用ssh-keygen命令产生公钥私钥对
 
-    ```bash
+    ```
     ssh-keygen
     ```
 
 - 第二步:通过ssh-copy-id命令将公钥复制到远程机器中
 
-    ```bash
+    ```
     ssh-copy-id -i .ssh/id_rsa.pub  $user@192.168.x.xxx
     ```
 
@@ -222,7 +222,7 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 
 编辑器打开 `rancher-cluster.yml` 文件,在nodes配置版块中，修改 `IP_ADDRESS_X` and `USER`为你真实的Linux主机IP和用户名,`ssh_key_path`为第一步生成的私钥文件，如果是在RKE所在主机上生成的公钥私钥对，此配置可保持默认:
 
-```yaml
+```
 nodes:
   - address: `IP_ADDRESS_1`
     user: `USER`
@@ -259,7 +259,7 @@ nodes:
 
   **结果:** 替换值后，文件应如下所示(base64编码的字符串应该不同)
 
-    ```yaml
+    ```
     ---
       apiVersion: v1
       kind: Secret
@@ -278,7 +278,7 @@ nodes:
 
     **结果:** 该文件修改后应如下所示(base64编码的字符串应该不同):
 
-    ```yaml
+    ```
     ---
     apiVersion: v1
     kind: Secret
@@ -304,7 +304,7 @@ nodes:
 
     >**注意:** base64编码的字符串应与tls.crtor 在同一行tls.key，冒号后有一个空格，并且在开头，中间或末尾没有任何换行符。
 
-    ```yaml
+    ```
     ---
     apiVersion: v1
     kind: Secret
@@ -323,7 +323,7 @@ nodes:
 
 在`kind: Ingress` 和 `name: cattle-ingress-http`中，替换 `<FQDN>`为预先准备的域名,替换后应为如下显示:
 
-```yaml
+```
  ---
   apiVersion: extensions/v1beta1
   kind: Ingress
@@ -362,7 +362,7 @@ nodes:
 
 3、根据操作系统类型，选择以下命令并执行:
 
-  ```bash
+  ```
   # MacOS
   ./rke_darwin-amd64 up --config rancher-cluster.yml
   # Linux
@@ -371,7 +371,7 @@ nodes:
 
   **结果:** 应该会有以下日志输出:
 
-  ```bash
+  ```
   INFO[0000] Building Kubernetes cluster
   INFO[0000] [dialer] Setup tunnel for host [1.1.1.1]
   INFO[0000] [network] Deploying port listener containers

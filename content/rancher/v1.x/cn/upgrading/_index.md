@@ -54,27 +54,27 @@ _从v1.6.1开始_
 
 1. 停掉容器
 
-   ```bash
+   ```
    $ docker stop <container_name_of_original_server>
    ```
 
 2. 创建一个`rancher-data`容器。注意:如果你已经升级了并且已经有了一个`rancher-data`容器，该步可以跳过。
 
-   ```bash
+   ```
    $ docker create --volumes-from <container_name_of_original_server> \
     --name rancher-data rancher/server:<tag_of_previous_rancher_server>
    ```
 
 3. 拉取Rancher Server的最新镜像。注意:如果你跳过该步并尝试运行`latest`镜像，这将不会自动拉取最新的镜像。
 
-   ```bash
+   ```
    $ docker pull rancher/server:latest
    ```
 
 4. 用`rancher-data`中的数据库启动一个Rancher Server容器。启动之后，Rancher中的任何变化将会被保存在`rancher-data`容器中。如果你在服务器中看到有关日志锁的异常，请参考[如何修复日志锁](/docs/rancher/v1.x/cn/faqs/server/#databaselock)。
 
     > **注意:** 根据你Rancher Server时间的长短，某些数据库迁移可能需要比预期的更长的时间。 升级过程中请不要停止升级，因为下次升级时会遇到数据库迁移错误。
-   ```bash
+   ```
    $ docker run -d --volumes-from rancher-data --restart=unless-stopped \
      -p 8080:8080 rancher/server:latest
    ```
@@ -93,25 +93,25 @@ _从v1.6.1开始_
 
 1. 停掉正在运行的Rancher Server容器
 
-   ```bash
+   ```
    $ docker stop <container_name_of_original_server>
    ```
 
 2. 将数据库文件从服务器容器中复制出来。注意:如果已经将数据库存储在主机上，则可以跳过此步骤。另外，如果将DB复制出来，根据Docker复制出来的方式，它将会在／`<path>`/mysql/里面。当挂载到容器中时，一定要考虑到这一点。如果你启动的时候绑定挂载，则不需要mysql／
 
-   ```bash
+   ```
    $ docker cp <container_name_of_original_server>:/var/lib/mysql <path on host>
    ```
 
 3. 现在为文件夹设置UID/GID，以便容器内的mysql用户拥有正确的mysql mount的所有权。
 
-   ```bash
+   ```
    $ sudo chown -R 102:105 <path on host>
    ```
 
 4. 启动新的服务器容器
 
-   ```bash
+   ```
    $ docker run -d -v <path_on_host>:/var/lib/mysql -p 8080:8080 \
      --restart=unless-stopped rancher/server:latest
    ```
@@ -133,7 +133,7 @@ _从v1.6.1开始_
 
 2. 在HA架构中的每台Server节点上，停止并删除正在运行的Rancher Server容器，然后按照相同的[安装HA模式的Rancher Server说明](/docs/rancher/v1.x/cn/installing-rancher/installing-server/#multi-nodes)来启动一个新的Rancher服务容器，但是使用的是一个新的Rancher Server镜像版本。
 
-   ```bash
+   ```
    # On all nodes, stop all Rancher Server containers
    $ docker stop <container_name_of_original_server>
    # Execute the scrip with the latest rancher/server version

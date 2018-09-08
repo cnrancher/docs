@@ -68,7 +68,7 @@ Rancher提供对AWS EBS卷的支持，用户可以选择为容器选择AWS EBS�
 #### 举例:应用级别存储卷，指定size、卷类型以及IOPS
 在这里例子中，我们将创建一个使用[应用级别的存储卷](/docs/rancher/v1.x/cn/rancher-services/storage-service/#应用级别)的服务。所有该应用中的服务将共享同一个卷。
 
-```yaml
+```
 version: '2'
 services:
   foo1:
@@ -96,7 +96,7 @@ volumes:
 我们将指定卷的可用区，使用该AWS EBS卷的所有容器将会被调度到同一台主机上。
 
 
-```yaml
+```
 version: '2'
 services:
   foo:
@@ -119,7 +119,7 @@ volumes:
 为了加密该卷，你需要在驱动选项中启用加密并指定加密密钥的ID以及该密钥所在的可用区。
 使用该AWS EBS卷的所有容器将会被调度到同一台主机上。
 
-```yaml
+```
 version: '2'
 services:
   foo:
@@ -146,7 +146,7 @@ volumes:
 使用该AWS EBS卷的所有容器将会被调度到同一台主机上。
 
 
-```yaml
+```
 version: '2'
 services:
   foo:
@@ -172,7 +172,7 @@ volumes:
 使用该AWS EBS卷的所有容器将会被调度到同一台主机上。
 
 
-```yaml
+```
 version: '2'
 services:
   foo:

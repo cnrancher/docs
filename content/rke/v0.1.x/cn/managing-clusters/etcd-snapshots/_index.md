@@ -35,7 +35,7 @@ To schedule a recurring automatic etcd snapshot save, you can enable the `etcd-s
 
 In the `cluster.yml`, you need to turn enable `snapshot` as part of the `etcd service`. Additionally, you want to specify `creation` and `retention` for the snapshot service.
 
-```yaml
+```
 services:
     etcd:
       snapshot: true
@@ -177,7 +177,7 @@ root@node3:~# s3cmd get s3://rke-etcd-backup/snapshot.db /opt/rke/etcdbackup/sna
 
 Before updating and restoring etcd, you will need to add the new node into the Kubernetes cluster with the `etcd` role. In the `cluster.yml`, comment out the old node and add in the new node. `
 
-```yaml
+```
 nodes:
     - address: 10.0.0.1
       hostname_override: node1

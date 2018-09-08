@@ -34,7 +34,7 @@ When provisioning clusters in Rancher using the [vSphere node driver]({{< baseur
 8. Click on **Edit as YAML**
 9. Insert the following top-level structure to the pre-populated cluster YAML. Note that the `name` *must* be set to `vsphere`. Refer to the [configuration reference](#configuration-reference) to learn about the properties of the `vsphereCloudProvider` directive.
 
-    ```yaml
+    ```
     cloud_provider:
         name: vsphere
         vsphereCloudProvider:
@@ -70,7 +70,7 @@ ___
 
 **Example:**
 
-```yaml
+```
 (...)
     global:
       insecure-flag: true
@@ -103,7 +103,7 @@ ___
 
 **Example:**
 
-```yaml
+```
 (...)
     virtual_center:
       172.158.111.1: {}  # This vCenter inherits all it's properties from global options
@@ -130,7 +130,7 @@ ___
 
 **Example:**
 
-```yaml
+```
 (...)
     workspace:
       server: 172.158.111.1 # matches IP of vCenter defined in the virtual_center block
@@ -169,7 +169,7 @@ Given the following:
 
 The corresponding configuration for the provider would then be as follows:
 
-```yaml
+```
 (...)
 cloud_provider:
   name: vsphere

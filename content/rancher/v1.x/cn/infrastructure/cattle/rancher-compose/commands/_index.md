@@ -45,7 +45,7 @@ Name | Description
 
 ##### 样例文件 `docker-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   web:
@@ -58,7 +58,7 @@ services:
 
 ##### 样例文件 `rancher-compose.yml`
 
-```yaml
+```
 # Reference the service that you want to extend
 version: '2'
 services:
@@ -70,7 +70,7 @@ services:
 
 当你的这些文件创建好后，你就可以启动这些服务到 Rancher 服务了
 
-```bash
+```
 # Creating and starting services without environment variables and selecting a stack
 # If the stack does not exist in Rancher, it will be created in Rancher
 $ rancher-compose --url URL_of_Rancher --access-key <username_of_environment_api_key> --secret-key <password_of_environment_api_key> -p stack1 up
@@ -101,7 +101,7 @@ MYSQL_ROOT_PASSWORD=test
 
 ##### 样例文件 `docker-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   db:
@@ -114,7 +114,7 @@ services:
 
 你可以启动服务时传入 `secrets` 文件
 
-```bash
+```
 $ rancher-compose --env-file secrets up -d
 ```
 
@@ -139,7 +139,7 @@ Name | Description
 
 当你运行 Rancher Compose 的 `up` 命令时，在所有任务完成后进程会继续运行。如果你希望任务完成后进程退出，那么你需要传入 `-d` 选项，防止阻塞和输出日志。
 
-```bash
+```
 # If you do not use the -d flag, Rancher Compose will continue to run until you Ctrl+C to quit
 $ rancher-compose up
 
@@ -185,7 +185,7 @@ Name | Description
 
 <br>
 
-```yaml
+```
 # To change the scale of an existing service
 $ rancher-compose -p stack1 scale service1=3
 ```
@@ -213,7 +213,7 @@ Name | Description
 
 <br>
 
-```bash
+```
 # Pulls new images for all services located in the docker-compose.yml file on ALL hosts in the environment
 $ rancher-compose pull
 

@@ -23,7 +23,7 @@ Rancher的命令行界面(CLI)是用来管理Rancher Server的工具。 使用�
 
 你可以运行`rancher config`来设置与Rancher Server连接的配置
 
-```bash
+```
 $ rancher config
 URL []: http://<server_ip>:8080
 Access Key []: <accessKey_of_account_api_key>
@@ -41,7 +41,7 @@ INFO[0017] Saving config to /Users/<username>/.rancher/cli.json
 
 你可以设置以下环境变量`RANCHER_URL`，`RANCHER_ACCESS_KEY`和`RANCHER_SECRET_KEY`。
 
-```bash
+```
 # Set the url that Rancher is on
 $ export RANCHER_URL=http://<server_ip>:8080
 # Set the access key, i.e. username
@@ -54,7 +54,7 @@ $ export RANCHER_SECRET_KEY=<secretKey_of_account_api_key>
 
 如果你的Rancher Server中有多个环境，你还需要设置一个环境变量来选择默认环境，即“RANCHER_ENVIRONMENT”。
 
-```bash
+```
 # Set the environment to use, you can use either environment ID or environment name
 $ export RANCHER_ENVIRONMENT=<environment_id>
 ```
@@ -63,7 +63,7 @@ $ export RANCHER_ENVIRONMENT=<environment_id>
 
 如果你选择不运行`rancher config`或设置环境变量，那么你可以传递相同的值作为`rancher`命令参数选项的一部分。
 
-```bash
+```
 $ rancher --url http://server_ip:8080 --access-key <accessKey_of_account_api_key> --secret-key <secretKey_of_account_api_key> --env <environment_id> ps
 ```
 
@@ -71,7 +71,7 @@ $ rancher --url http://server_ip:8080 --access-key <accessKey_of_account_api_key
 
 当你使用Rancher命令行时，可以将环境变量“RANCHER_CLIENT_DEBUG”设置为“true”，这样当API被调用时，所有的CLI命令将打印出详细信息。
 
-```bash
+```
 # Print verbose messages for all CLI calls
 $ export RANCHER_CLIENT_DEBUG=true
 ```
@@ -79,7 +79,7 @@ $ export RANCHER_CLIENT_DEBUG=true
 
 如果你不想每个CLI命令都打印详细信息，请将环境变量“RANCHER_CLIENT_DEBUG”设置为“false”，然后将`--debug`传递给指定命令来获取详细消息。
 
-```bash
+```
 $ rancher --debug env create newEnv
 ```
 
@@ -87,7 +87,7 @@ $ rancher --debug env create newEnv
 
 如果你使用账户的API密钥，你将能够创建和更新环境。 如果你使用一个环境的API密钥，你将无法创建或更新其他环境，你将只能看到现有的环境。
 
-```bash
+```
 $ rancher env ls
 ID        NAME        STATE     CATALOG                           SYSTEM    DETAIL
 1e1       zookeeper   healthy   catalog://community:zookeeper:1   false
@@ -113,7 +113,7 @@ ID        HOSTNAME      STATE     IP
 
 现在你可以设置`RANCHER_DOCKER_HOST`环境变量，或者使用--host参数传入主机ID或主机名来选择不同的主机
 
-```bash
+```
 # Set the host to always select host-1 (1h1)
 $ export RANCHER_DOCKER_HOST=1h1
 # List the containers running on host-1
@@ -128,7 +128,7 @@ $ rancher --host host-2 docker ps
 
 在你选择的环境中，你可以查看在环境中运行的所有服务。
 
-```bash
+```
 $ rancher ps
 ID   TYPE                 NAME                IMAGE                       STATE     SCALE   ENDPOINTS            DETAIL
 1s1  service              zookeeper/zk        rawmind/alpine-zk:3.4.8-4   healthy   3
@@ -142,7 +142,7 @@ ID   TYPE                 NAME                IMAGE                       STATE 
 
 同样你可以查看环境中的所有容器。
 
-```bash
+```
 $ rancher ps -c
 ID      NAME                       IMAGE                              STATE     HOST   IP              DOCKER         DETAIL
 1i1     zookeeper_zk_zk-volume_1   rawmind/alpine-volume:0.0.1-1      stopped   1h1                    a92b6d3dad18
@@ -167,7 +167,7 @@ ID      NAME                       IMAGE                              STATE     
 
 如果要查看特定服务的容器，可以通过添加服务ID或服务名称列出运行服务的所有容器。
 
-```bash
+```
 $ rancher ps 1s5
 ID      NAME               IMAGE       STATE     HOST      IP             DOCKER         DETAIL
 1i16    App1_wordpress_1   wordpress   running   1h1       10.42.66.199   4bb77abebc08
@@ -182,7 +182,7 @@ ID      NAME               IMAGE       STATE     HOST      IP             DOCKER
 
 docker-compose.yml示例
 
-```yaml
+```
 version: '2'
 services:
   service1:
@@ -191,7 +191,7 @@ services:
 
 rancher-compose.yml示例
 
-```yaml
+```
 version: '2'
 services:
   # Reference the service that you want to extend
@@ -201,7 +201,7 @@ services:
 
 创建文件后，你可以在Rancher Server中启动对应的服务。
 
-```bash
+```
 # Creating and starting a service without environment variables and selecting a stack
 # If no stack is provided, the stack name will be the folder name that the command is running from
 # If the stack does not exist in Rancher, it will be created
@@ -221,7 +221,7 @@ $ rancher scale 1s4=5
 
 你可以使用Docker CLI添加容器，也可以使用`rancher run`添加容器到Rancher中。
 
-```bash
+```
 # Services should be stackName/service_name
 $ rancher run --name stackA/service1 nginx
 ```

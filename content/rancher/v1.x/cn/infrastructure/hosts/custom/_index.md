@@ -22,7 +22,7 @@ title: 添加Custom主机
 
 _例子_
 
-```bash
+```
 # Adding one host label to the rancher/agent command
 $  sudo docker run -e CATTLE_HOST_LABELS='foo=bar' -d --privileged \
 -v /var/run/docker.sock:/var/run/docker.sock rancher/agent:v0.8.2 \
@@ -48,7 +48,7 @@ http://<rancher-server-ip>:8080/v1/projects/1a5/scripts/<registrationToken>
 
 如果你想将正在运行Rancher Server的主机同时添加为Agent主机，你必须修改UI上提供的命令行。在UI上，你需要指定这台主机的注册IP，它将会作为环境变量自动添加到命令行中。
 
-```bash
+```
 $ sudo docker run -d -e CATTLE_AGENT_IP=<IP_OF_RANCHER_SERVER> -v /var/run/docker....
 ```
 
@@ -58,7 +58,7 @@ $ sudo docker run -d -e CATTLE_AGENT_IP=<IP_OF_RANCHER_SERVER> -v /var/run/docke
 
 为了在HTTP代理服务器后面添加主机， 需要通过配置docker deamon将docker指向这个代理。在添加自定义主机之前，修改文件`/etc/default/docker`，指向你的代理并重新启动docker。
 
-```bash
+```
 $ sudo vi /etc/default/docker
 ```
 
@@ -74,7 +74,7 @@ $ sudo vi /etc/default/docker
 
 默认情况下，对于同时包含私有IP和公共IP的虚拟机，IP地址将会根据主机注册地址中指定的地址来确定。例如，如果注册地址中使用的是私有IP，那么就会使用主机的私有IP。如果你想修改主机的IP地址，你需要编辑UI中提供的命令行。为了使Rancher Agent中的容器能够正常启动，需要将环境变量`CATTLE_AGENT_IP`设置成期望的IP地址。Rancher中所有的主机都需要和Rancher Serve在同一个网络。
 
-```bash
+```
 $ sudo docker run -d -e CATTLE_AGENT_IP=<PRIVATE_IP> -v /var/run/docker....
 ```
 如果在Agent已经连接之后需要修改主机的IP，那么请重新运行添加自定义主机的命令行。

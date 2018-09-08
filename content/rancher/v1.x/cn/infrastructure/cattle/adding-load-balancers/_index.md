@@ -162,7 +162,7 @@ backend customUUID
 
 #### Example `docker-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   letschatlb:
@@ -173,7 +173,7 @@ services:
 
 #### Example `rancher-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   letschatlb:
@@ -211,7 +211,7 @@ Rancher 提供一个基于HAProxy的容器来做负载均衡。
 
 #### Example `docker-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   lb1:
@@ -228,7 +228,7 @@ services:
 
 所有负载均衡的配置项都被定义在`rancher-compose.yml`的`lb_config`字段中
 
-```yaml
+```
 version: '2'
 services:
   lb1:
@@ -295,7 +295,7 @@ Rancher的负载均衡支持多种协议类型。
 
 ###### Example `rancher-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   lb1:
@@ -326,7 +326,7 @@ Rancher基于HAProxy的负载均衡支持七层路由，可以在端口规则下
 
 ###### Example `rancher-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   lb1:
@@ -364,7 +364,7 @@ domain.com.* -> hdr_beg(host) -i domain.com.
 
 ###### Example `rancher-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   lb1:
@@ -404,7 +404,7 @@ services:
 
 ###### Example `docker-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   lb1:
@@ -424,7 +424,7 @@ services:
 
 ###### Example `rancher-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   lb1:
@@ -468,7 +468,7 @@ services:
 
 证书可以在负载均衡容器的`lb_config`中被引用。
 
-```yaml
+```
 version: '2'
 services:
   lb:
@@ -492,7 +492,7 @@ Rancher的负载均衡将会检测证书目录来实现更新。任何对证书�
 在这个基础目录下，相同域名的证书被放置在同一个子目录下。文件名就是证书的域名。并且每一个文件夹都需要包含`privkey.pem`和
 `fullchain.pem`。对于默认证书，可以被放置在任意一个子目录名下，但是下面的文件命名规则必须保持一致。
 
-```bash
+```
 -- certs
   |-- foo.com
   |   |-- privkey.pem
@@ -509,7 +509,7 @@ Rancher的负载均衡将会检测证书目录来实现更新。任何对证书�
 
 > **注意:** 你不能同时使用在Rancher中添加的证书和挂载在负载均衡容器中的证书
 
-```yaml
+```
 labels:
   io.rancher.lb_service.cert_dir: <CERTIFICATE_LOCATION>
   io.rancher.lb_service.default_cert_dir: <DEFAULT_CERTIFICATE_LOCATION>
@@ -519,7 +519,7 @@ labels:
 
 ###### Example `docker-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   lb:
@@ -541,7 +541,7 @@ services:
 
 ###### Example `rancher-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   lb:
@@ -573,7 +573,7 @@ services:
 
 ##### Example `rancher-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   lb:
@@ -614,7 +614,7 @@ services:
 
 ##### Example `rancher-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   lb:
@@ -642,7 +642,7 @@ services:
 
 ##### Example `docker-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   web:
@@ -656,7 +656,7 @@ services:
 
 ##### Example `rancher-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   lb:
@@ -687,7 +687,7 @@ services:
 
 ##### Example `docker-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   lb:
@@ -700,7 +700,7 @@ services:
 
 ##### Example  `rancher-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   lb:
@@ -726,7 +726,7 @@ services:
 
 ##### Example `docker-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   lb:
@@ -741,7 +741,7 @@ services:
 
 ##### Example `rancher-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   lb:

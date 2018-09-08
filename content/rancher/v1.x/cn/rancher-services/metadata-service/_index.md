@@ -16,7 +16,7 @@ Rancher通过基础设施中的Metadata服务为服务和容器提供数据。�
 
 你可以通过curl命令获取metadata信息。
 
-```bash
+```
 # If curl is not installed, install it
 $ apt-get install curl
 # Basic curl command to obtain a plaintext response
@@ -57,7 +57,7 @@ V1 | 2015-07-25 |
 
 在Rancher中，名为`foostack`的应用包含一个有三个容器的服务 `barservice`。
 
-```bash
+```
 # 在V1只返回service的container names
 $ curl --header 'Accept: application/json' 'http://rancher-metadata/2015-07-25/services/barservice/containers'
 ["foostack_barservice_1", "foostack_barservice_2", "foostack_barservice_1"]
@@ -101,7 +101,7 @@ Metadata返回有纯文本和JSON两种格式，根据需要选择相应格式.
 
 通过curl命令，会获得请求路径的纯文本格式返回。你可以通过从第一层路径开始，层层推进，找到你需要的信息。
 
-```bash
+```
 $ curl 'http://rancher-metadata/2015-12-19/self/container'
 create_index
 dns/
@@ -146,7 +146,7 @@ $ curl 'http://rancher-metadata/2015-12-19/services/Example'
 
 JSON格式的返回可以通过在curl命令中增加header `Accept: application/json`
 
-```bash
+```
 $ curl --header 'Accept: application/json' 'http://rancher-metadata/2015-12-19/self/container'
 $ curl --header 'Accept: application/json' 'http://rancher-metadata/2015-12-19/self/stack'
 # 获取stack中另一个service的信息
@@ -242,7 +242,7 @@ Rancher支持为服务添加用户metadata。现在只支持通过[Rancher Compo
 
 #### Example `rancher-compose.yml`
 
-```yaml
+```
 service:
   # Scale of service
   scale: 3
@@ -260,7 +260,7 @@ service:
 
 #### 按照JSON格式查询
 
-```bash
+```
 $ curl --header 'Accept: application/json' 'http://rancher-metadata/latest/self/service/metadata'
 {"example":{"name":"hello","value":"world"},"example2":{"foo":"bar"}}
 
@@ -268,7 +268,7 @@ $ curl --header 'Accept: application/json' 'http://rancher-metadata/latest/self/
 
 #### 按照纯文本格式查询
 
-```bash
+```
 $ curl 'http://rancher-metadata/latest/self/service/metadata'
 example/
 $ curl 'http://rancher-metadata/latest/self/service/metadata/example'

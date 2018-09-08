@@ -5,7 +5,7 @@ weight: 215
 
 RKE supports the ability to configure multiple private Docker registries. By passing in your registry and credentials, it allows the nodes to pull images from these private registries.  
 
-```yaml
+```
 private_registries:
     - url: registry.com
       user: Username

@@ -46,7 +46,7 @@ Rancher利用了不同网络位置的主机进行健康检查，这种方式比�
 使用[Rancher Compose](/docs/rancher/v1.x/cn/infrastructure/cattle/rancher-compose/)，health checks能添加在`rancher-compose.yml`文件中。
 
 在我们的示例中，如果容器发现不健康，我们会显示三种不同策略的健康检查配置。
-```yaml
+```
 version: '2'
 services:
   service1:

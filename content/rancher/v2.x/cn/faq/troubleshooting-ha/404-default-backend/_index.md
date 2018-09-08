@@ -13,7 +13,7 @@ weight: 1
 
     这应该是你为访问Rancher的FQDN配置错误，你可以通过运行以下命令来检查它是否已正确配置:
 
-    ```bash
+    ```
     kubectl --kubeconfig kube_config_rancher-cluster.yml get ingress -n cattle-system -o wide
     ```
 
@@ -21,7 +21,7 @@ weight: 1
 
     通过以下命令查看nginx ingress日志:
 
-    ```bash
+    ```
     kubectl --kubeconfig kube_config_rancher-cluster.yml logs -l app=ingress-nginx -n ingress-nginx
     ```
 

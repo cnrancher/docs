@@ -88,7 +88,7 @@ Rancher支持添加云提供商(例如AWS，DigitalOcean，阿里云，vSphere�
 
 如果通过UI添加自定义主机，当增加标签时，UI上的运行注册脚本会增加对应的环境变量:`CATTLE_HOST_LABELS`。比如，增加一个标签:foo=bar，会出现下面的效果:
 
-```bash
+```
 $  sudo docker run -e CATTLE_HOST_LABELS='foo=bar' -d --privileged \
     -v /var/run/docker.sock:/var/run/docker.sock rancher/agent:v0.8.2 \
     http://<rancher-server-ip>:8080/v1/projects/1a5/scripts/<registrationToken>
@@ -128,7 +128,7 @@ Rancher 会自动创建一些和Linux内核版本信息以及Docker引擎版本�
 
 对于新添加的[自定义主机](/docs/rancher/v1.x/cn/infrastructure/hosts/custom/) 需要像下面的例子，给注册脚本增加一个环境变量 `CATTLE_SCHEDULER_IPS` :
 
-```bash
+```
 $  sudo docker run -e CATTLE_SCHEDULER_IPS='1.2.3.4,<IP2>,..<IPN>' -d --privileged \
     -v /var/run/docker.sock:/var/run/docker.sock rancher/agent:v0.8.2 \
     http://<rancher-server-ip>:8080/v1/projects/1a5/scripts/<registrationToken>

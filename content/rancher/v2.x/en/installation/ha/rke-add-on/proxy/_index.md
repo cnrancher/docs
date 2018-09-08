@@ -30,7 +30,7 @@ The environment variables should be defined in the `Deployment` inside the RKE C
 
 The example below is based on a proxy server accessible at `http://192.168.0.1:3128`, and excluding usage of the proxy when accessing network range `192.168.10.0/24`, the configured `service_cluster_ip_range` (`10.43.0.0/16`) and every hostname under the domain `example.com`. If you have changed the `service_cluster_ip_range`, you have to update the value below accordingly.
 
-```yaml
+```
 ...
 ---
   kind: Deployment

@@ -4,7 +4,7 @@ title: Docker 常见问题
 
 ## 1、镜像下载慢，如何提高下载速度？
 
-```bash
+```
 touch /etc/docker/daemon.json
 cat >> /etc/docker/daemon.json <<EOF
 {
@@ -21,7 +21,7 @@ PS:0.0.0.0/0 表示信任所有非https地址的镜像仓库，对于内网测�
 ## 2、如何配置Docker后端存储驱动？
 以overlay为例
 
-```bash
+```
 touch /etc/docker/daemon.json
 cat >> /etc/docker/daemon.json <<EOF
 {
@@ -32,7 +32,7 @@ systemctl daemon-reload && systemctl restart docker
 ```
 ## 3、docker info 出现 WARNING
 
-```bash
+```
 WARNING: No swap limit support
 WARNING: No kernel memory limit support
 WARNING: No oom kill disable support 
@@ -69,7 +69,7 @@ update-grub
 ## 5、Docker Error: Unable to remove filesystem
 Some container-based utilities, such as Google cAdvisor, mount Docker system directories, such as /var/lib/docker/, into a container. For instance, the documentation for cadvisor instructs you to run the cadvisor container as follows:
 
-````bash
+````
 $ sudo docker run \
   --volume=/:/rootfs:ro \
   --volume=/var/run:/var/run:rw \

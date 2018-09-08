@@ -21,7 +21,7 @@ container-selinux-2.19-2.1.el7.noarch
 
 为了安装另外的SELinux模块，你需要安装 `selinux-policy-devel` 这个包。
 
-```bash
+```
 $ yum install selinux-policy-devel
 ```
 

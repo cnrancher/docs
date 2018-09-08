@@ -66,7 +66,7 @@ weight: 2
 
 运行Rancher server容器时候，需要把自签名CA证书映射到Rancher容器中:
 
-```bash
+```
 docker run -d --restart=unless-stopped \
 -p 80:80 -p 443:443 \
 -v /etc/your_certificate_directory/cacerts.pem:/etc/rancher/ssl/cacerts.pem \
@@ -83,7 +83,7 @@ rancher/rancher:latest
 
 如果你使用由权威CA机构颁发的证书，则无需在Rancher容器中安装你的CA证书，只需运行下面的基本安装命令即可:
 
-```bash
+```
 docker run -d --restart=unless-stopped \
 -p 80:80 -p 443:443 \
 rancher/rancher:latest --no-cacerts
@@ -110,7 +110,7 @@ rancher/rancher:latest --no-cacerts
 
 此Nginx配置文件在Nginx version 1.13 (mainline)和1.14(stable)通过测试
 
-```bash
+```
 upstream rancher {
     server rancher-server:80;
 }

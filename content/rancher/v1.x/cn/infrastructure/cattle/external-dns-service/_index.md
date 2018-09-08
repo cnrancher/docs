@@ -14,7 +14,7 @@ title: 外部DNS服务
 下面的IAM权限是Route53 DNS所需要的最小权限。
 请确保你设置的主机AWS安全密钥(Access Key ID / Secret Access Key)或者主机IAM权限至少被配置了如下权限。
 
-```json
+```
 {
     "Version": "2012-10-17",
     "Statement": [

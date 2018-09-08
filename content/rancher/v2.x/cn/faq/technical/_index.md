@@ -7,7 +7,7 @@ weight: 1
 
 - 单节点安装
 
-  ```bash
+  ```
   docker exec -ti <container_id> reset-password
   New password for default admin user (user-xxxxx):
   <new_password>
@@ -15,7 +15,7 @@ weight: 1
 
 - HA安装
 
-  ```bash
+  ```
   KUBECONFIG=./kube_config_rancher-cluster.yml
   kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl   --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items  [] | select(.spec.containers[].name=="cattle-server") | .metadata.name')   -- reset-password
   New password for default admin user (user-xxxxx):
@@ -28,7 +28,7 @@ weight: 1
 
 - Enable
 
-  ```bash
+  ```
   docker exec -ti <container_id> loglevel --set debug
   OK
   docker logs -f <container_id>
@@ -36,7 +36,7 @@ weight: 1
 
 - 禁用
 
-  ```bash
+  ```
   docker exec -ti <container_id> loglevel --set info
   OK
   ```
@@ -45,7 +45,7 @@ weight: 1
 
 - 启用
 
-  ```bash
+  ```
   KUBECONFIG=./kube_config_rancher-cluster.yml
   kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl   --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items  [] | select(.spec.containers[].name=="cattle-server") | .metadata.name')   -- loglevel --set debug
   OK
@@ -54,7 +54,7 @@ weight: 1
 
 - 禁用
 
-  ```bash
+  ```
   KUBECONFIG=./kube_config_rancher-cluster.yml
   kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl   --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items  [] | select(.spec.containers[].name=="cattle-server") | .metadata.name')   -- loglevel --set info
   OK
@@ -94,6 +94,6 @@ L4层负载均衡器创建为`type:LoadBalancer`，在Kubernetes中，这需要�
 
 解压缩下载的zip文件，并使用文件`id_rsa`连接到你的主机。一定要使用正确的用户名(`rancher` for RancherOS, `ubuntu` for Ubuntu, `ec2-user` for Amazon Linux)
 
-```bash
+```
 ssh -i id_rsa user@ip_of_node
 ```

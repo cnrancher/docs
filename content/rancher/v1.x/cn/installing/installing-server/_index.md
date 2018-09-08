@@ -49,7 +49,7 @@ Rancher Server当前版本中有2个不同的标签。对于每一个主要的re
 
 在安装了Docker的Linux服务器上，使用一个简单的命令就可以启动一个单实例的Rancher。
 
-```bash
+```
 $ sudo docker run -d --restart=unless-stopped -p 8080:8080 rancher/server
 ```
 
@@ -79,14 +79,14 @@ UI以及API会使用 `8080` 端口对外服务。下载Docker镜像完成后，�
 
 启动一个Rancher连接一个外部数据库，你需要在启动容器的命令中添加额外参数。
 
-```bash
+```
 $ sudo docker run -d --restart=unless-stopped -p 8080:8080 rancher/server \
     --db-host myhost.example.com --db-port 3306 --db-user username --db-pass password --db-name cattle
 ```
 
 大部分的输入参数都有默认值并且是可选的，只有MySQL server的地址是必须输入的。
 
-```bash
+```
 --db-host               IP or hostname of MySQL server
 --db-port               port of MySQL server (default: 3306)
 --db-user               username for MySQL login (default: cattle)
@@ -104,7 +104,7 @@ $ sudo docker run -d --restart=unless-stopped -p 8080:8080 rancher/server \
 
 在Rancher Server容器中，如果你想使用一个主机上的卷来持久化数据库，如下命令可以在启动Rancher时挂载MySQL的数据卷。
 
-```bash
+```
 $ sudo docker run -d -v <host_vol>:/var/lib/mysql --restart=unless-stopped -p 8080:8080 rancher/server
 ```
 使用这条命令，数据库就会持久化在主机上。如果你有一个现有的Rancher Server容器并且想挂在MySQL的数据卷，可以参考以下的[Rancher升级](/docs/rancher/v1.x/cn/upgrading/#single-container-bind-mount)介绍。
@@ -142,7 +142,7 @@ $ sudo docker run -d -v <host_vol>:/var/lib/mysql --restart=unless-stopped -p 80
 
 1. 在每个需要加入Rancher Server HA集群的节点上，运行以下命令:
 
-   ```bash
+   ```
    # Launch on each node in your HA cluster
    $ docker run -d --restart=unless-stopped -p 8080:8080 -p 9345:9345 rancher/server \
         --db-host myhost.example.com --db-port 3306 --db-user username --db-pass password --db-name cattle \
@@ -243,20 +243,20 @@ resource "aws_proxy_protocol_policy" "websockets" {
 
 启动Rancher并挂载证书。证书在容器内部 **必须** 命名为`ca.crt`。
 
-```bash
+```
 $ sudo docker run -d --restart=unless-stopped -p 8080:8080 \
   -v /some/dir/cert.crt:/var/lib/rancher/etc/ssl/ca.crt rancher/server
 ```
 
 你可以使用Rancher Server的日志检查传入的 `ca.crt` 证书是否生效
 
-```bash
+```
 $ docker logs <SERVER_CONTAINER_ID>
 ```
 
 在日志的开头，会显示证书已经被正确加载的信息。
 
-```bash
+```
 Adding ca.crt to Certs.
 Updating certificates in /etc/ssl/certs... 1 added, 0 removed; done.
 Running hooks in /etc/ca-certificates/update.d....done.
@@ -269,7 +269,7 @@ Certificate was added to keystore
 
 为了设置HTTP Proxy，Docker守护进程需要修改配置并指向这个代理。在启动Rancher Server前，需要编辑配置文件 `/etc/default/docker` 添加你的代理信息并重启Docker服务。
 
-```bash
+```
 $ sudo vi /etc/default/docker
 ```
 
@@ -279,7 +279,7 @@ $ sudo vi /etc/default/docker
 
 为了使得[应用商店](/docs/rancher/v1.x/cn/configuration/catalog/)加载正常，HTTP代理设置必须在Rancher Server运行的环境变量中。
 
-```bash
+```
 $ sudo docker run -d \
     -e http_proxy=<proxyURL> \
     -e https_proxy=<proxyURL> \
@@ -317,7 +317,7 @@ jdbc:mysql://<DB_HOST>:<DB_PORT>/<DB_NAME>?useUnicode=true&characterEncoding=UTF
 
 #### 例子
 
-```shell
+```
 
 $ export JDBC_URL="jdbc:mysql://<DB_HOST>:<DB_PORT>/<DB_NAME>?useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&prepStmtCacheSize=517&cachePrepStmts=true&prepStmtCacheSqlLimit=4096&socketTimeout=60000&connectTimeout=60000&sslServerCert=/var/lib/rancher/etc/ssl/ca.crt&useSSL=true"
 

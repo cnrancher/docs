@@ -128,7 +128,7 @@ $ sudo ros os upgrade -s -i rancher/os:v0.5.0
 
 In the `upgrade` key, the `url` is used to find the list of available and current versions of RancherOS. This can be modified to track custom builds and releases.
 
-```yaml
+```
 #cloud-config
 rancher:
   upgrade:

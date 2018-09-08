@@ -79,7 +79,7 @@ weight: 1
 
 ### 9、Kernel性能调优
 
-```bash
+```
 cat >> /etc/sysctl.conf<<EOF
 net.ipv4.neigh.default.gc_thresh1=4096
 net.ipv4.neigh.default.gc_thresh2=6144
@@ -114,7 +114,7 @@ EOF
 
 - **Docker-ce**
 
-    ```bash
+    ```
     # 定义安装版本
     export docker_version=17.03.2
     # step 1: 安装必要的一些系统工具
@@ -142,7 +142,7 @@ EOF
 
     >因为CentOS的安全限制，通过RKE安装K8S集群时候无法使用`root`账户。所以，建议`CentOS`用户使用非`root`用户来运行docker,不管是`RKE`还是`custom`安装k8s,详情查看[无法为主机配置SSH隧道](/docs/rancher/v2.x/cn/installation/troubleshooting-ha/ssh-tunneling/)。
 
-    ```bash
+    ```
     # 添加用户(可选)
     sudo adduser `<new_user>`
     # 为新用户设置密码
@@ -201,7 +201,7 @@ EOF
 
 从Docker1.12开始，支持自定义下载和上传镜像的并发数，默认值上传为3个并发，下载为5个并发。通过添加"max-concurrent-downloads"和"max-concurrent-uploads"参数对其修改:
 
-```json
+```
 "max-concurrent-downloads": 3,
 "max-concurrent-uploads": 5
 ```
@@ -212,7 +212,7 @@ Rancher从v1.6.15开始到v2.x.x,Rancher系统相关的所有镜像(包括1.6.x�
 
 编辑`/etc/docker/daemon.json`加入以下内容
 
-```json
+```
 {
 "registry-mirrors": ["https://7bezldxe.mirror.aliyuncs.com/","https://IP:PORT/"]
 }
@@ -226,7 +226,7 @@ Docker默认只信任TLS加密的仓库地址(https)，所有非https仓库默�
 
 编辑`/etc/docker/daemon.json`加入以下内容:
 
-```json
+```
 {
 "insecure-registries": ["192.168.1.100","IP:PORT"]
 }
@@ -247,7 +247,7 @@ OverlayFS是一个新一代的联合文件系统，类似于AUFS，但速度更�
 
 编辑`/etc/docker/daemon.json`加入以下内容
 
-```json
+```
 {
 "storage-driver": "overlay2",
 "storage-opts": ["overlay2.override_kernel_check=true"]
@@ -259,7 +259,7 @@ OverlayFS是一个新一代的联合文件系统，类似于AUFS，但速度更�
 容器在运行时会产生大量日志文件，很容易占满磁盘空间。通过配置日志驱动来限制文件大小与文件的数量。
 >限制单个日志文件为`100M`,最多产生`3`个日志文件
 
-```json
+```
 {
 "log-driver": "json-file",
 "log-opts": {
@@ -273,7 +273,7 @@ OverlayFS是一个新一代的联合文件系统，类似于AUFS，但速度更�
 
 Ubuntu系统下，默认cgroups未开启swap account功能，将会导致需要swap的容器出错。通过修改grub启动参数来开启swap account功能:
 
-```bash
+```
 sudo sed -i 's/GRUB_CMDLINE_LINUX=".*"/GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1 net.ifnames=0"/g'  /etc/default/grub
 sudo update-grub
 ```

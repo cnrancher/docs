@@ -11,7 +11,7 @@ PEM格式通常用于数字证书认证机构(Certificate Authorities，CA)，�
 
 你可以通过以下特征识别PEM格式:
 
-  ```bash
+  ```
   - 该文件以下列标题开头:
   -----BEGIN CERTIFICATE-----
   - 标题后面跟着一串长字符
@@ -21,7 +21,7 @@ PEM格式通常用于数字证书认证机构(Certificate Authorities，CA)，�
 
 **PEM证书例如:**
 
-  ```bash
+  ```
   ----BEGIN CERTIFICATE-----
   MIIGVDCCBDygAwIBAgIJAMiIrEm29kRLMA0GCSqGSIb3DQEBCwUAMHkxCzAJBgNV
   ... more lines
@@ -33,7 +33,7 @@ PEM格式通常用于数字证书认证机构(Certificate Authorities，CA)，�
 
 添加证书的顺序如下:
 
-```bash
+```
 -----BEGIN CERTIFICATE-----
 %YOUR_CERTIFICATE%
 -----END CERTIFICATE-----
@@ -48,7 +48,7 @@ PEM格式通常用于数字证书认证机构(Certificate Authorities，CA)，�
 
 **命令:**
 
-```bash
+```
 openssl s_client -CAfile ca.pem -connect rancher.yourdomain.com:443
 ...
 Verify return code: 0 (ok)
@@ -60,7 +60,7 @@ Rancher `etcd`用作数据存储，使用单节点安装时，将使用内置`et
 
 **命令**:
 
-```bash
+```
 # 指定主机路径
   HOST_PATH=xxxx
   docker run -d --restart=unless-stopped \
@@ -79,7 +79,7 @@ Rancher `etcd`用作数据存储，使用单节点安装时，将使用内置`et
 
 要更改主机端口映射，替换`-p 80:80 -p 443:443`为`-p 8080:80 -p 8443:443`:
 
-```bash
+```
 docker run -d --restart=unless-stopped \
   -p 8080:80 -p 8443:443 \
   rancher/rancher:latest

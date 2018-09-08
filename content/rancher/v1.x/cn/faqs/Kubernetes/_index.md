@@ -5,14 +5,14 @@ title: Kubernetes常见问题
 
 ## 1、部署Kubernetes时候出现以下有关cgroup的问题
 
-```bash
+```
 Failed to get system container stats for "/system.slice/kubelet.service": 
 failed to get cgroup stats for "/system.slice/kubelet.service": failed to 
 get container info for "/system.slice/kubelet.service": unknown container 
 "/system.slice/kubelet.service"
 ```
 
-```bash
+```
 Expected state running but got error: Error response from daemon: 
 oci runtime error: container_linux.go:247: starting container 
 process caused "process_linux.go:258: applying cgroup configuration 

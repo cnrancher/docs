@@ -92,7 +92,7 @@ Rancher能够与主机标签，容器标签，容器名称或服务名称的值�
 
 你可以使用这些值来定义要检查的字段。 如果你有两个值要与同一条件和字段进行比较，则需要为标签名称使用一个标签。 对于标签的值，你需要使用逗号分隔列表。 如果有多个具有相同键的标签(例如`io.rancher.scheduler.affinity:host_label_ne`)，则Rancher将使用与标签键一起使用的最后一个值覆盖任何先前的值。
 
-```yaml
+```
 labels:
   io.rancher.scheduler.affinity:host_label: key1=value1,key2=value2
 ```
@@ -105,7 +105,7 @@ labels:
 
 ##### 例子 `docker-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   wordpress:
@@ -128,7 +128,7 @@ services:
 
 ##### 使用主机标签的示例
 
-```yaml
+```
 labels:
   # 主机必须有`key1 = value1`的标签
   io.rancher.scheduler.affinity:host_label: key1=value1
@@ -154,7 +154,7 @@ Key | Value | 描述
 
 <br>
 
-```yaml
+```
 labels:
 # 主机必须运行Docker版本1.10.3
 io.rancher.scheduler.affinity:host_label: io.rancher.host.docker_version=1.10.3
@@ -174,7 +174,7 @@ io.rancher.scheduler.affinity:host_label_ne: io.rancher.host.docker_version=1.6
 
 ##### 使用容器标签的示例
 
-```yaml
+```
 labels:
   # 主机必须有一个标签为`key1=value1`的容器
   io.rancher.scheduler.affinity:container_label: key1=value1
@@ -203,7 +203,7 @@ io.rancher.stack_service.name | `$${stack_name}/$${service_name}`
 
 ##### 使用服务名称的示例
 
-```yaml
+```
 labels:
   # Host必须有一个服务名称为`value1`的容器
   io.rancher.scheduler.affinity:container_label: io.rancher.stack_service.name=stackname/servicename
@@ -215,7 +215,7 @@ labels:
 
 ##### 使用容器名称的示例
 
-```yaml
+```
 labels:
   # 主机必须有一个名为`value1`的容器
   io.rancher.scheduler.affinity:container: value1
@@ -233,13 +233,13 @@ labels:
 
 典型的调度策略可能是尝试在不同的可用主机之间部署服务的容器。 实现这一点的一个方法是使用反相关性规则来关联自身:
 
-```yaml
+```
 labels:
   io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
 ```
 
 由于这是一个很强的反相关性规则，如果比例大于可用主机数量，我们可能会遇到问题。 在这种情况下，我们可能需要使用软反相关性规则，以便调度程序仍然允许将容器部署到已经具有该容器的主机。 基本上，这是一个软规则，所以如果没有更好的选择存在，它可以被忽略。
-```yaml
+```
 labels:
   io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
 ```
@@ -248,7 +248,7 @@ labels:
 
 另一个例子可能是将所有容器部署在同一个主机上，而不考虑哪个主机。 在这种情况下，可以使用对其自身的软亲合力。
 
-```yaml
+```
 labels:
   io.rancher.scheduler.affinity:container_label_soft: io.rancher.stack_service.name=$${stack_name}/$${service_name}
 ```

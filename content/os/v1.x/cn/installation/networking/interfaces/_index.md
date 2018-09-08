@@ -14,7 +14,7 @@ $ sudo ros config set rancher.network.interfaces.eth1.dhcp false
 
 If you wanted to configure the interfaces through the cloud config file, you'll need to place interface configurations within the `rancher` key.
 
-```yaml
+```
 #cloud-config
 rancher:
   network:
@@ -38,7 +38,7 @@ $ sudo ros config set rancher.network.interfaces.”mac=ea:34:71:66:90:12:01”.
 
 Alternatively, you can place the MAC address selection in your cloud config file as follows:
 
-```yaml
+```
 #cloud-config
 rancher:
   network:
@@ -51,7 +51,7 @@ rancher:
 
 You can aggregate several network links into one virtual link for redundancy and increased throughput. For example:
 
-```yaml
+```
 #cloud-config
 rancher:
   network:

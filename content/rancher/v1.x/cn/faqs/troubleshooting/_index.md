@@ -35,7 +35,7 @@ Agent主机有可能会暴露在公网上，Agent上接受到的访问容器命�
 ### 2、UI中显示的主机IP是否正确?
 有时，Docker网桥的IP地址会被错误的作为了主机IP，而并没有正确的选择真实的主机IP。这个错误的IP通常是`172.17.42.1`或以`172.17.x.x`开头的IP。如果是这种情况，在使用`docker run`命令添加主机时，请用真实主机的IP地址来配置`CATTLE_AGENT_IP`环境变量。
 
-```bash
+```
  sudo docker run -d -e CATTLE_AGENT_IP=<HOST_IP> --privileged \
  -v /var/run/docker.sock:/var/run/docker.sock \
  rancher/agent:v0.8.2 http://SERVER_IP:8080/v1/scripts/xxxx
@@ -47,7 +47,7 @@ Rancher Overlay网络默认使用的子网是`10.42.0.0/16`。如果这个子网
 
 这个实例是通过升级网络驱动的`rancher-compose.yml`文件去改变子网为`10.32.0.0/16`.
 
-```yaml
+```
 ipsec:
   network_driver:
     name: Rancher IPsec
@@ -95,7 +95,7 @@ Vxlan 通过4789端口实现通信，检查防火墙有没有开放此端口；
 ### 1、如何查看我的DNS是否配置正确?
 如果你想查看Rancher　DNS配置，点击**应用** > **基础服务**。点击`network-services`应用，选择`metadata`，在`metadata`中，找到名为`network-services-metadata-dns-X`的容器，通过UI点击**执行命令行**后，可以进入该容器的命令行，然后执行如下命令。
 
-```bash
+```
 cat /etc/rancher-dns/answers.json
 ```
 ### 八、在Ubuntu上运行容器时彼此间不能正常通信。
@@ -111,7 +111,7 @@ DEFAULT_FORWARD_POLICY="ACCEPT"
 ### 2、我如何查看负载均衡的配置?
 如果要查看负载均衡器的配置，你需要用进入负载均衡器容器内部查找配置文件，你可以在页面选择负载均衡容器的**执行命令行**
 
-```bash
+```
 cat /etc/haproxy/haproxy.cfg
 ```
 该文件将提供负载均衡器的所有配置详细信息。
@@ -143,7 +143,7 @@ Centos默认设置`/proc/sys/net/ipv4/ip_forward`为`0`，这从底层阻断了D
 
 解决办法:
 
-```bash
+```
 vi /usr/lib/sysctl.d/00-system.conf
 ```
 添加如下代码:

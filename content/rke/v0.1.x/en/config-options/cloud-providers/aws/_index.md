@@ -5,7 +5,7 @@ weight: 251
 
 To enable the AWS cloud provider, there are no configuration options. You only need to set the name as `aws`. In order to use the AWS cloud provider, all cluster nodes must have already been configured with an [appropriate IAM role](#iam-requirements) and your AWS resources must be [tagged with a cluster ID](#tagging-amazon-resources).
 
-```yaml
+```
 cloud_provider:
     name: aws
 ```
@@ -14,7 +14,7 @@ cloud_provider:
 
 The nodes used in RKE that will be running the AWS cloud provider must have at least the following IAM policy.
 
-```json
+```
 {
   "Effect": "Allow",
   "Action": "ec2:Describe*",
@@ -26,7 +26,7 @@ In order to use Elastic Load Balancers (ELBs) and EBS with Kubernetes, the node(
 
 ## Example Policy for IAM Role:
 
-```json
+```
 {
   "Version": "2012-10-17",
   "Statement": [

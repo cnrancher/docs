@@ -49,7 +49,7 @@ Rancher的[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)可以从
 
 * 第一个文件为 `config.yml`，包含了应用模板的详细信息。
 
-```yaml
+```
 name: # 应用商店模板名称
 description: |
   # 应用商店模板描述
@@ -77,7 +77,7 @@ projectURL: # 和模板相关的URL
 
 **`rancher-compose.yml`**
 
-```yaml
+```
 version: '2'
 catalog:
   name: # Name of the versioned template of the Catalog Entry
@@ -104,7 +104,7 @@ catalog:
 
 每一个配置选项都在`rancher-compose.yml`的 `questions` 部分配置.
 
-```yaml
+```
 version: '2'
 catalog:
   questions:
@@ -130,7 +130,7 @@ catalog:
 * `service` UI中将展示一个下拉框，所有该环境的服务都会显示出来。
 * `enum` UI中将展示一个下拉框，`options`中的配置将会被展示出来。
 
-```yaml
+```
 version: '2'
 catalog:
   questions:
@@ -145,7 +145,7 @@ catalog:
 
 * `multiline` 多行文本框会被显示在UI中。
 
-```yaml
+```
 version: '2'
 catalog:
   questions:
@@ -162,7 +162,7 @@ catalog:
 
 * `certificate` 该环境的所有可用证书都会显示出来。
 
-```yaml
+```
 version: '2'
 catalog:
   questions:

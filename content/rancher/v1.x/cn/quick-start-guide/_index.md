@@ -28,7 +28,7 @@ Rancher Server当前版本中有2个不同的标签。对于每一个主要的re
 
 你只需要一条命令就可以启动Rancher Server。当Rancher Server容器启动以后，我们将能查看到相关的日志。
 
-```bash
+```
 $ sudo docker run -d --restart=unless-stopped -p 8080:8080 rancher/server:stable
 # Tail the logs to show Rancher
 $ sudo docker logs -f <CONTAINER_ID>
@@ -72,7 +72,7 @@ Rancher UI会给你提供一些指示，比如你的主机上应该开放的端�
 
 Rancher会显示主机之上的所有容器，即使有些容器是在UI之外创建的。在主机的shell终端中创建一个容器。
 
-```bash
+```
 $ docker run -d -it --name=second-container ubuntu:14.04.2
 ```
 
@@ -84,7 +84,7 @@ Rancher会对Docker守护进程中发生的事件做出反应，调整自己以�
 
 如果我们想通过CLI创建一个Docker容器，但仍希望它使用Rancher托管网络的IP地址，该怎么做呢？我们只需要在命令中添加一个标签(`io.rancher.container.network=true`)，让Rancher知道你希望此容器成为`托管`网络的一部分。
 
-```bash
+```
 $ docker run -d -it --label io.rancher.container.network=true ubuntu:14.04.2
 ```
 
@@ -120,7 +120,7 @@ $ docker run -d -it --label io.rancher.container.network=true ubuntu:14.04.2
 
 #### docker-compose.yml示例
 
-```yaml
+```
 version: '2'
 services:
   letschatapplb:
@@ -150,7 +150,7 @@ services:
 
 #### rancher-compose.yml示例
 
-```yaml
+```
 version: '2'
 services:
   letschatapplb:
@@ -182,7 +182,7 @@ services:
 
 若想使用Rancher CLI在Rancher中启动服务，你需要设置一些环境变量。你需要在Rancher UI中创建一个账户[API Key](/docs/rancher/v1.x/cn/api/v2-beta/api-keys/)。单击**API** -> **密钥**。单击**添加账户API Key**。填写一个名字，然后单击**创建**。保存**Access Key(用户名)**和**Secret Key(密码)**。通过运行`rancher config`配置RancherCLI，使用Rancher URL、Access Key和Secret Key。
 
-```bash
+```
 # Configure Rancher CLI
 $ rancher config
 # Set the Rancher URL
@@ -196,7 +196,7 @@ Secret Key []:  <secretKey_of_account_api_key>
 <br>
 现在进入保存了`docker-compose.yml`和`rancher-compose.yml` 文件的目录中，运行下面这个命令。
 
-```bash
+```
 $ rancher up -d -s NewLetsChatApp
 ```
 <br>

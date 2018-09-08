@@ -53,7 +53,7 @@ Rancher支持创建密文并在容器中使用该密文(在容器中使用该密
 
 3. 启动Rancher Server，并加入相关环境变量来连接Vault。
 
-   ```bash
+   ```
    $ docker run -d --restart=unless-stopped -p 8080:8080 \
       -e VAULT_ADDR=https://<VAULT_SERVER> -e VAULT_TOKEN=<TOKEN_FOR_VAULT_ACCCESS> rancher/server
    ```
@@ -73,12 +73,12 @@ Rancher支持创建密文并在容器中使用该密文(在容器中使用该密
 在命令行当中有两种方法来创建密文。一种是在标准输入中(stdin)输入密文值，另一种是给命令行传递含有密文的文件名称。
 
 ##### 通过标准输入(stdin)创建密文
-```bash
+```
 $ rancher secrets create name-of-secret - <<< secret-value
 ```
 
 ##### 通过传递密文所在的文件名称来创建密文
-```bash
+```
 $ echo secret-value > file-with-secret
 $ rancher secrets create name-of-secret file-with-secret
 ```
@@ -111,7 +111,7 @@ $ rancher secrets create name-of-secret file-with-secret
 你可以在`docker-compose.yml`里，通过配置服务的`secrets`值来指定一个或者多个密文。密文文件的名称与在Rancher中加入的密文名称相同。在默认情况下，将使用用户ID`0`和组ID`0`创建该密文文件，文件权限为`0444`。在`secrets`里将`external`设置为`true`确保Rancher知道该密文已经被创建成功了。
 
 ##### 基础示例`docker-compose.yml`
-```yaml
+```
 version: '2'
 services:
   web:
@@ -129,7 +129,7 @@ secrets:
 如果你想要修改密文的默认配置，你可以用`target`来修改文件名，`uid`和`gid`来设置用户ID和组ID，`mode`来修改文件权限。
 
 ##### 修改密文文件配置示例`docker-compose.yml`
-```yaml
+```
 version: '2'
 services:
   web:
@@ -150,7 +150,7 @@ secrets:
 Racnher可以在创建应用的时候创建密文。你可以通过指定`file`参数，使Rancher在创建应用并启动服务之前创建密文。该密文值来自你指定的文件内容。
 
 ##### 指定多个密文并且在启动服务前创建密文的示例`docker-compose.yml`
-```yaml
+```
 version: '2'
 services:
   web:

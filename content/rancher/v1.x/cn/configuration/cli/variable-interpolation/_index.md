@@ -12,7 +12,7 @@ title: 变量替换
 
 在我们运行`rancher`的机器上，我们有一个环境变量`IMAGE_TAG = 14.04`。
 
-```bash
+```
 # Image tag is set as environment variable
 $ env | grep IMAGE
 IMAGE_TAG=14.04
@@ -22,7 +22,7 @@ $ rancher up
 
 **例子: `docker-compose.yml`**
 
-```yaml
+```
 version: '2'
 services:
   ubuntu:
@@ -39,7 +39,7 @@ services:
 
 `Rancher`支持与'docker-compose'相同的格式。
 
-```yaml
+```
 version: '2'
 services:
   web:
@@ -80,7 +80,7 @@ services:
 `docker-compose.yml`
 
 {% raw %}
-```yaml
+```
 version: '2'
 services:
   web:
@@ -97,7 +97,7 @@ services:
 
 `rancher-compose.yml`
 
-```yaml
+```
 version: '2'
 catalog:
   name: Nginx Application
@@ -112,7 +112,7 @@ catalog:
 
 `config.yml`
 
-```yaml
+```
 name: "Nginx Application"
 version: v0.0.1
 ```
@@ -126,7 +126,7 @@ Docker Compose文件可以用于创建新的应用栈，可以通过Rancher命�
 ##### 示例 `docker-compose.yml`
 
 {% raw %}
-```yaml
+```
 version: '2'
 services:
   web:
@@ -146,7 +146,7 @@ services:
 随着Rancher引入了模板系统，双括号 {% raw %}(`{{` or `}}`){% endraw %} 将被视为模板的一部分。如果你不想将这些字符转换为模板，你可以在包含字符的compose文件的顶部添加上`＃notemplating`。
 
 {% raw %}
-```yaml
+```
 # notemplating
 
 version: '2'

@@ -33,13 +33,13 @@ weight: 2
 
 3. 创建快照目录:
 
-    ```bash
+    ```
     mkdir -p /opt/rke/etcd-snapshots/
     ```
 
 4. 复制备份的最新快照到每个`etcd`节点`/opt/rke/etcd-snapshots/`目录下:
 
-    ```bash
+    ```
     s3cmd get s3://rke-etcd-snapshots/<SNAPSHOT.db> /opt/rke/etcd-snapshots/<SNAPSHOT.db>
     ```
 
@@ -65,7 +65,7 @@ weight: 2
 
 2. 用新节点替换旧节点地址,假设旧节点为`3.3.3.3`,新节点为`4.4.4.4`:
 
-    ```yaml
+    ```
     nodes:
       - address: 1.1.1.1
         user: root
@@ -87,7 +87,7 @@ weight: 2
 
 5. 根据系统类型，选择运行以下命令还原`etcd`数据库：
 
-    ```bash
+    ```
     # MacOS
     ./rke_darwin-amd64 etcd snapshot-restore --name <SNAPSHOT.db> --config rancher-cluster.yml
     # Linux
@@ -96,7 +96,7 @@ weight: 2
 
 6. 根据系统类型，选择运行以下命令更新集群：
 
-    ```bash
+    ```
     # MacOS
     ./rke_darwin-amd64 up --config rancher-cluster.yml
     # Linux
@@ -105,7 +105,7 @@ weight: 2
 
 7. 最后，重新启动所有集群节点上的Kubernetes组件，以防止潜在的`etcd`冲突。在每个节点上运行以下命令：
 
-    ```bash
+    ```
     docker restart kube-apiserver kubelet kube-controller-manager kube-scheduler  kube-proxy
     docker ps | grep flannel | cut -f 1 -d " " | xargs docker restart
     docker ps | grep calico | cut -f 1 -d " " | xargs docker restart

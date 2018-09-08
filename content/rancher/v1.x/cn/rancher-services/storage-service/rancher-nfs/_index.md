@@ -9,27 +9,27 @@ Rancher支持将NFS卷作为容器的一个存储选项
 
 在部署Rancher NFS驱动之前，你需要先准备一个NFS服务器。例如，你可以使用如下命令在Ubuntu 16.04上安装NFS服务器。
 
-```bash
+```
 sudo apt-get update
 sudo apt-get install nfs-kernel-server
 ```
 
 在这个服务器上，你需要设置一个基础目录。首选，你需要创建一个共享目录。
 
-```bash
+```
 sudo mkdir /nfs
 sudo chown nobody:nogroup /nfs
 ```
 
 修改exports文件(`/etc/exports`).
 
-```bash
+```
 /nfs    *(rw,sync,no_subtree_check,no_root_squash)
 ```
 
 在全部修改完成后，你需要重新启动NFS内核服务器。
 
-```bash
+```
 sudo systemctl restart nfs-kernel-server
 ```
 
@@ -95,7 +95,7 @@ Rancher的NFS驱动可以连接Amazon的EFS。当我们在Amazon EFS上使用Ran
 
 在这里例子中，我们将创建一个NFS卷同时创建使用这个卷的服务。所有该应用中的服务将共享同一个卷。
 
-```yaml
+```
 version: '2'
 services:
   foo:
@@ -112,7 +112,7 @@ volumes:
 
 下面的例子展示了如何在某个服务中，覆盖`host`和`exportBase`。
 
-```yaml
+```
 version: '2'
 services:
   foo:
@@ -130,7 +130,7 @@ volumes:
 
 你也可以给每个卷使用不同的`exportBase`，请看下面的例子。
 
-```yaml
+```
 version: '2'
 services:
   foo:
@@ -166,7 +166,7 @@ volumes:
 
 驱动选项`onRemove`的默认值为`purge`。这意味着，当从Rancher中删除这个卷的时候，底层的数据也会被删除。如果你想要保留底层数据，你可以将这个选项设置为`retain`。你也可以给每个卷设置不同的`onRemove`值。如果nfs-driver选项`onRemove`被设置为`retain`，但是你想要在某个卷在Rancher中被删除时清理掉这个卷的底层数据，你可以通过`docker-compose.yml`在这个卷的`driver_opts`下面设置`onRemove: purge`。示例入下。
 
-```yaml
+```
 services:
   foo:
     image: alpine
@@ -182,7 +182,7 @@ volumes:
 
 如果nfs-driver选项`onRemove`被设置为`purge`，你可以在卷的`driver_opts`里设置`onRemove: retain`来保留数据，这样当这个卷在Rancher中被移除时，数据将会被保留下来。
 
-```yaml
+```
 services:
   foo:
     image: alpine

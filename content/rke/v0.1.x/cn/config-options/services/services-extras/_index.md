@@ -13,7 +13,7 @@ As of `v0.1.3`, using `extra_args` will add new arguments and **override** any e
 
 Prior to `v0.1.3`, using `extra_args` would only add new arguments to the list and there was no ability to change the default list.
 
-```yaml
+```
 services:
     kube-controller:
       extra_args:
@@ -24,7 +24,7 @@ services:
 
 Additional volume binds can be added to services using the `extra_binds` arguments.
 
-```yaml
+```
 services:
     kubelet:
       extra_binds:
@@ -36,7 +36,7 @@ services:
 
 Additional environment variables can be added to services by using the `extra_env` arguments.
 
-```yaml
+```
 services:
     kubelet:
       extra_env:

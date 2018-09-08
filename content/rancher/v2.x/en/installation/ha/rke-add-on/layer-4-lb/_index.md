@@ -255,7 +255,7 @@ Choose from the following options:
 
     **Step Result:** After replacing the values, the file should look like the example below (the base64 encoded strings should be different):
 
-    ```yaml
+    ```
     ---
     apiVersion: v1
     kind: Secret
@@ -276,7 +276,7 @@ Choose from the following options:
 
     **Step Result:** The file should look like the example below (the base64 encoded string should be different):
     
-    ```yaml
+    ```
     ---
     apiVersion: v1
     kind: Secret
@@ -306,7 +306,7 @@ After replacing the values, the file should look like the example below (the bas
 >**Note:**
 > The base64 encoded string should be on the same line as `tls.crt` or `tls.key`, without any newline at the beginning, in between or at the end.
 
-```yaml
+```
 ---
 apiVersion: v1
 kind: Secret
@@ -333,7 +333,7 @@ In the `kind: Ingress` with `name: cattle-ingress-http`:
 
 After replacing `<FQDN>` with the FQDN chosen in [Configure DNS](#3-configure-dns), the file should look like the example below (`rancher.yourdomain.com` is the FQDN used in this example):
 
-```yaml
+```
  ---
   apiVersion: extensions/v1beta1
   kind: Ingress

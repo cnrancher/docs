@@ -24,7 +24,7 @@ title: 外部服务
 
 #### `docker-compose.yml`例子
 
-```yaml
+```
 version: '2'
 services:
   db:
@@ -35,7 +35,7 @@ services:
 
 #### `rancher-compose.yml` 使用外部IP的例子
 
-```yaml
+```
 version: '2'
 services:
   db:
@@ -53,7 +53,7 @@ services:
 
 #### `rancher-compose.yml` 使用域名的例子
 
-```yaml
+```
 version: '2'
 services:
   db:

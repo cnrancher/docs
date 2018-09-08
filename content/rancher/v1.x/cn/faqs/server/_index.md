@@ -6,7 +6,7 @@ title: Rancher Server常见问题
 
 需要注意运行rancher server 容器时，不要使用host模式。程序中有些地方定义的是localhost或者127.0.0.1，如果容器网络设置为host，将会去访问宿主机资源，因为宿主机并没有相应资源，rancher server 容器启动就出错。
 
-```bash
+```
 PS:docker命令中，如果使用了 --network host参数，那后面再使用-p 8080:8080 就不会生效。
 ```
 ```
@@ -14,7 +14,7 @@ docker run -d -p 8080:8080 rancher/server:stable
 ```
 此命令仅适用于单机测试环境，如果要生产使用Rancher server，请使用外置数据库(mysql)或者通过
 
-```bash
+```
 -v /xxx/mysql/:/var/lib/mysql -v /xxx/log/:/var/log/mysql -v /xxx/cattle/:/var/lib/cattle
 ```
 把数据挂载到宿主机上。如果用外置数据库，需提前对数据库做性能优化，以保证Rancher 运行的最佳性能。
@@ -23,7 +23,7 @@ docker run -d -p 8080:8080 rancher/server:stable
 
 你可以通过简单的Docker命令从Rancher Server容器导出数据库。
 
-```bash
+```
 docker exec <CONTAINER_ID_OF_SERVER> mysqldump cattle > dump.sql
 ```
 ### 3、我正在运行的Rancher是什么版本的?
@@ -51,7 +51,7 @@ PS:如果使用了标签调度，如果你有多台主机就有相同的调度�
 
 运行`docker logs`可以查看在Rancher Server容器的基本日志。要获取更详细的日志，你可以进入到Rancher Server容器内部并查看日志文件。
 
-```bash
+```
 进入 Rancher　Server　容器内部
 docker exec -it <container_id> bash
 
@@ -65,7 +65,7 @@ cat cattle-debug.log
 
 以下是将Rancher Server日志从容器复制到主机的命令。
 
-```bash
+```
 docker cp <container_id>:/var/lib/cattle/logs /local/path
 ```
 ### 9、如果Rancher Server的IP改变了会怎么样？
@@ -84,7 +84,7 @@ docker cp <container_id>:/var/lib/cattle/logs /local/path
 
 你需要再次运行Rancher Server命令并且添加一个额外的选项`-e JAVA_OPTS="-Xmx4096m"`
 
-```bash
+```
 docker run -d -p 8080:8080 --restart=unless-stopped -e JAVA_OPTS="-Xmx4096m" rancher/server
 ```
 
@@ -108,7 +108,7 @@ Rancher Server会自动清理几个数据库表，以防止数据库增长太快
 
 如果你刚刚升级，在Rancher　Server日志中，MySQL数据库可能存在尚未释放的日志锁定。
 
-```bash
+```
 ....liquibase.exception.LockException: Could not acquire change log lock. Currently locked by <container_ID>
 ```
 #### 释放数据库锁
@@ -117,13 +117,13 @@ Rancher Server会自动清理几个数据库表，以防止数据库增长太快
 
 如果你已根据升级文档创建了Rancher Server的数据容器，你需要`exec`到`rancher-data`容器中升级`DATABASECHANGELOGLOCK`表并移除锁，如果你没有创建数据容器，你用`exec`到包含有你数据库的容器中。
 
-```bash
+```
 sudo docker exec -it <container_id> mysql
 ```
 
 一旦进入到 Mysql 数据库, 你就要访问`cattle`数据库。
 
-```bash
+```
 mysql> use cattle;
 
 检查表中是否有锁
@@ -149,24 +149,24 @@ ps:假设在重置访问控制之前有创建过其他用户，那么在认证�
 
 * 假设数据库为rancher内置数据库
 
-```bash
+```
 docker exec -it <rancher_server_container_ID> mysql
 ```
 > **注意:** 这个 `<rancher_server_container_ID>`是具有Rancher数据库的容器。 如果你升级并创建了一个Rancher数据容器，则需要使用Rancher数据容器的ID而不是Rancher Server容器，rancher内置数据库默认密码为空。
 
 * 选择Cattle数据库。
 
-```bash
+```
 mysql> use cattle;
 ```
 * 查看`setting`表。
 
-```bash
+```
 mysql> select * from setting;
 ```
 * 更改`api.security.enabled`为`false`，并清除`api.auth.provider.configured`的值。
 
-```bash
+```
 # 关闭访问控制
 mysql> update setting set value="false" where name="api.security.enabled";
 # 清除认证方式
@@ -174,7 +174,7 @@ mysql> update setting set value="" where name="api.auth.provider.configured";
 ```
 * 确认更改在`setting`表中是否生效。
 
-```bash
+```
 mysql> select * from setting;
 ```
 * 可能需要约1分钟才能在用户界面中关闭身份认证，然后你可以通过刷新网页来登陆没有访问控制的Rancher Server
@@ -196,7 +196,7 @@ mysql> select * from setting;
 
 Go-machine-service是一种通过websocket连接到Rancher API服务器的微服务。如果无法连接，则会重新启动并再次尝试。如果你运行的是单节点的Rancher Server，它将使用你为主机注册地址来连接到Rancher API服务。 检查从Rancher Sever容器内部是否可以访问主机注册地址。
 
-```bash
+```
 docker exec -it <rancher-server_container_id> bash
 在 Rancher-Server 容器内
 curl -i <Host Registration URL you set in UI>/v1
@@ -225,7 +225,7 @@ http://X.X.X.X/v1/settings/catalog.refresh.interval.seconds 默认300秒 可以�
 目前是按天来创建日志文件， 如果日志文件太多会进行日志分段，每一段默认100M， 默认情况下，系统保留5个分段。
 通过打开http://rancher_url:8080/v2-beta/settings ，网页搜索 logback 可以看到以下内容，
 
-```bash
+```
 {
 "id": "logback.max.file.size",
 "type": "activeSetting",

@@ -26,7 +26,7 @@ title: 服务别名
 
 #### Example `docker-compose.yml`
 
-```yaml
+```
 version: '2'
 services:
   web:

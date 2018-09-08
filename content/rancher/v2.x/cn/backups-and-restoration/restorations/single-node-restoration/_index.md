@@ -7,7 +7,7 @@ weight: 1
 
 1. 停止当前运行的Rancher容器.可通过`docker ps`查看`<RANCHER_CONTAINER_ID>`
 
-    ```bash
+    ```
     docker stop <RANCHER_CONTAINER_ID>
     ```
 
@@ -15,7 +15,7 @@ weight: 1
 
     有关数据备份方法，请查阅[单节点备份](../../backups/single-node-backups/).
 
-    ```bash
+    ```
     docker run -d --restart=unless-stopped \
     -p 80:80 -p 443:443 \
     --name rancher-server-`date +%Y%m%d%H%M%S` \

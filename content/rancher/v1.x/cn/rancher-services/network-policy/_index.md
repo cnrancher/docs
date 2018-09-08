@@ -66,7 +66,7 @@ http://<RANCHER_SERVER_IP>/v2-beta/projects/<PROJECT_ID>/networks/<NETWORK_ID>`
 
 开启服务A和服务B之间的通信:
 
-```json
+```
 {
   "within": "linked",
   "action": "allow"
@@ -76,7 +76,7 @@ http://<RANCHER_SERVER_IP>/v2-beta/projects/<PROJECT_ID>/networks/<NETWORK_ID>`
 
 关闭服务A和服务B之间的通信:
 
-```json
+```
 {
   "within": "linked",
   "action": "deny"
@@ -90,7 +90,7 @@ http://<RANCHER_SERVER_IP>/v2-beta/projects/<PROJECT_ID>/networks/<NETWORK_ID>`
 
 开通同一服务内容器的通信:
 
-```json
+```
 {
   "within": "service",
   "action": "allow"
@@ -99,7 +99,7 @@ http://<RANCHER_SERVER_IP>/v2-beta/projects/<PROJECT_ID>/networks/<NETWORK_ID>`
 
 关闭同一服务内容器的通信:
 
-```json
+```
 {
   "within": "service",
   "action": "deny"
@@ -110,7 +110,7 @@ http://<RANCHER_SERVER_IP>/v2-beta/projects/<PROJECT_ID>/networks/<NETWORK_ID>`
 
 开通同一应用内容器的通信:
 
-```json
+```
 {
   "within": "stack",
   "action": "allow"
@@ -119,7 +119,7 @@ http://<RANCHER_SERVER_IP>/v2-beta/projects/<PROJECT_ID>/networks/<NETWORK_ID>`
 
 关闭同一应用内容器的通信:
 
-```json
+```
 {
   "within": "stack",
   "action": "deny"
@@ -130,7 +130,7 @@ http://<RANCHER_SERVER_IP>/v2-beta/projects/<PROJECT_ID>/networks/<NETWORK_ID>`
 
 通过标签开通容器间的通信:
 
-```json
+```
 {
   "between": {
     "groupBy": "<KEY_OF_LABEL>"
@@ -141,7 +141,7 @@ http://<RANCHER_SERVER_IP>/v2-beta/projects/<PROJECT_ID>/networks/<NETWORK_ID>`
 
 通过标签关闭容器间的通信:
 
-```json
+```
 {
   "between": {
     "groupBy": "<KEY_OF_LABEL>"
@@ -165,7 +165,7 @@ http://<RANCHER_SERVER_IP>/v2-beta/projects/<PROJECT_ID>/networks/<NETWORK_ID>`
 * 设置`defaultActionPolicy`为`deny`.
 * `policy`中添加如下规则:
 
-```json
+```
 {
   "within": "stack",
   "action": "allow"
@@ -178,7 +178,7 @@ http://<RANCHER_SERVER_IP>/v2-beta/projects/<PROJECT_ID>/networks/<NETWORK_ID>`
 
 假设在环境中，我们有如下一系列的应用
 
-```yaml
+```
 stack_one:
   service_one:
     label: com.rancher.department = qa
@@ -205,7 +205,7 @@ stack_three:
 * 设置`defaultActionPolicy`为`deny`.
 * 在`policy`中添加如下规则:
 
-```json
+```
 {
   "between": {
     "groupBy": "com.rancher.department"

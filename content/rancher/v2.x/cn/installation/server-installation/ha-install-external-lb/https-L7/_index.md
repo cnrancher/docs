@@ -88,7 +88,7 @@ weight: 2
 
     **如果解析生效**
 
-    ```bash
+    ```
     nslookup demo.rancher.com
     DNS Server:         YOUR_HOSTNAME_IP_ADDRESS
     DNS Address:        YOUR_HOSTNAME_IP_ADDRESS#53
@@ -98,7 +98,7 @@ weight: 2
     ```
     **如果解析不生效**
 
-    ```bash
+    ```
     nslookup demo.rancher.com
     DNS Server:         YOUR_HOSTNAME_IP_ADDRESS
     DNS Address:        YOUR_HOSTNAME_IP_ADDRESS#5
@@ -125,7 +125,7 @@ RKE是一种快速，通用的Kubernetes安装程序，可用于在Linux主机�
 
 >如果是Windows系统，则跳过这一步.
 
-```bash
+```
 # MacOS
 $ chmod +x rke_darwin-amd64
 # Linux
@@ -134,7 +134,7 @@ $ chmod +x rke_linux-amd64
 
 3、确认RKE是否是最新版本:
 
-```bash
+```
 # MacOS
 ./rke_darwin-amd64 --version
 # Linux
@@ -143,7 +143,7 @@ $ chmod +x rke_linux-amd64
 
 **步骤结果:** 你将看到以下内容:
 
-```bash
+```
 rke version v<N.N.N>
 ```
 
@@ -167,13 +167,13 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 
 - 第一步:在任意一台Linux主机使用ssh-keygen命令产生公钥私钥对
 
-    ```bash
+    ```
     ssh-keygen
     ```
 
 - 第二步:通过ssh-copy-id命令将公钥复制到远程机器中
 
-    ```bash
+    ```
     ssh-copy-id -i .ssh/id_rsa.pub  $user@192.168.x.xxx
     ```
 
@@ -181,7 +181,7 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 
 编辑器打开 `rancher-cluster.yml` 文件,在nodes配置版块中，修改 `IP_ADDRESS_X` and `USER`为你真实的Linux主机IP和用户名,`ssh_key_path`为第一步生成的私钥文件，如果是在RKE所在主机上生成的公钥私钥对，此配置可保持默认:
 
-```yaml
+```
 nodes:
   - address: IP_ADDRESS_1
     # THE IP ADDRESS OR HOSTNAME OF THE NODE
@@ -221,7 +221,7 @@ nodes:
 
 结果:替换值后，文件应如下所示(base64编码的字符串应该不同):
 
-```yaml
+```
 ---
 apiVersion: v1
 kind: Secret
@@ -243,7 +243,7 @@ RKE配置文件中有一个`<FQDN>`引用,编辑配置文件替换`<FQDN>`:
 
 **结果**: 替换值后，文件应如下所示(base64编码的字符串应该不同):
 
-```yaml
+```
 apiVersion: extensions/v1beta1
   kind: Ingress
   metadata:
@@ -277,7 +277,7 @@ apiVersion: extensions/v1beta1
 
 3、根据操作系统类型，选择以下命令并执行:
 
-```bash
+```
 # MacOS
 ./rke_darwin-amd64 up --config rancher-cluster.yml
 # Linux
@@ -286,7 +286,7 @@ apiVersion: extensions/v1beta1
 
 **结果:** 应该会有以下日志输出:
 
-```bash
+```
 INFO[0000] Building Kubernetes cluster
 INFO[0000] [dialer] Setup tunnel for host [1.1.1.1]
 INFO[0000] [network] Deploying port listener containers

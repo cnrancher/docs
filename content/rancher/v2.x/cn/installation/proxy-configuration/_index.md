@@ -17,7 +17,7 @@ weight: 6
 
 单容器安装Rancher时，可将代理参数以环境变量的形式传递给Rancher容器。比如:http://192.168.0.1:3128 是代理服务器地址，并且要求访问网络 `192.168.10.0/24`和`example.com`域名下的每个子域名时排除使用代理
 
-```bash
+```
 docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
   -e HTTP_PROXY="http://192.168.10.1:3128" \
@@ -30,7 +30,7 @@ docker run -d --restart=unless-stopped \
 
 在Rancher HA安装时，需要将代理参数添加到RKE配置文件模板。
 
-```yaml
+```
 ...
 ---
   kind: Deployment

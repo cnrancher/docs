@@ -14,7 +14,7 @@ title: Rancher Agent 常见问题
 
 解决方法是在克隆的VM上运行以下命令: 
 
-```bash
+```
 rm -rf /var/lib/rancher/state; docker rm -fv rancher-agent; docker rm -fv rancher-agent-state
 ```
 完成后可重新注册。
@@ -30,7 +30,7 @@ rm -rf /var/lib/rancher/state; docker rm -fv rancher-agent; docker rm -fv ranche
 你可以重新配置“CATTLE_AGENT_IP”设置，并将主机IP设置为你想要的。
 当主机IP地址不正确时，容器将无法访问管理网络。要使主机和所有容器进入管理网络，只需编辑添加自定义主机的命令行，将新的IP指定为环境变量“CATTLE_AGENT_IP”。 在主机上运行编辑后的命令。 不要停止或删除主机上的现有的Rancher Agent容器！
 
-```bash
+```
 sudo docker run -d -e CATTLE_AGENT_IP=<NEW_HOST_IP> --privileged \
 -v /var/run/docker.sock:/var/run/docker.sock \
 rancher/agent:v0.8.2 http://SERVER_IP:8080/v1/scripts/xxxx

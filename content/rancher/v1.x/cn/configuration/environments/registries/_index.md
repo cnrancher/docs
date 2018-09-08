@@ -20,7 +20,7 @@ title: 镜像仓库
 
 为了访问不安全的镜像库，你需要配置主机上的Docker守护进程。`DOMAIN` 和 `PORT` 是私有镜像库的域名和端口。
 
-```bash
+```
 # 编辑配置文件"/etc/default/docker"
 $ sudo vi /etc/default/docker
 # 将这行添加到文件最后，如果已经存在选项，确定你将它添加到当前选项的列表中。
@@ -33,7 +33,7 @@ $ sudo service docker restart
 
 为了在镜像库使用自签名证书，你需要配置主机上的Docker守护进程。 `DOMAIN` 和 `PORT` 是私有镜像库的域名和端口。
 
-```bash
+```
 # 下载域名的证书
 $ openssl s_client -showcerts -connect ${DOMAIN}:${PORT} </dev/null 2>/dev/null|openssl x509 -outform PEM >ca.crt
 # 拷贝证书到合适的目录

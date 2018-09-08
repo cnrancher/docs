@@ -22,7 +22,7 @@ A cloud-config file uses the YAML format. YAML is easy to understand and easy to
 
 Example: Notice how both are indented underneath `ssh_authorized_keys`.
 
-```yaml
+```
 #cloud-config
 ssh_authorized_keys:
   - ssh-rsa AAA...ZZZ example1@rancher

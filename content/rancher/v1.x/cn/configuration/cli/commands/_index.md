@@ -93,7 +93,7 @@ Rancher CLI 可以用于操作Rancher中的环境、主机、应用、服务和�
 
 <br>
 
-```bash
+```
 # 列出所有应用商店模版
 $ rancher catalog ls
 # 列出运行kubernetes环境中的所有应用商店模版
@@ -116,7 +116,7 @@ $ rancher catalog ls --system
 
 <br>
 
-```bash
+```
 # 安装一个应用模版
 $ rancher catalog install library/route53:v0.6.0-rancher1 --name route53
 # 安装一个应用模版并将其标识为系统模版
@@ -127,7 +127,7 @@ $ rancher catalog install library/route53:v0.6.0-rancher1 --name route53 --syste
 
 `rancher config` 命令用于设置你的[Rancher Server的配置](/docs/rancher/v1.x/cn/infrastructure/cli/#configuring-the-rancher-command-line-interface).
 
-```bash
+```
 $ rancher config
 URL []: http://<server_ip>:8080
 Access Key []: <accessKey_of_account_api_key>
@@ -148,7 +148,7 @@ INFO[0017] Saving config to /Users/<username>/.rancher/cli.json
 
 如果你想要打印当前配置，可以使用`----print`。
 
-```bash
+```
 # 显示当前的Rancher的配置
 $ rancher config --print
 ```
@@ -158,7 +158,7 @@ $ rancher config --print
 `rancher docker` 命令允许你在某台机器上运行任何Docker命令。 使用 `$RANCHER_DOCKER_HOST` 来运行Docker命令. 使用 `--host <hostID>` 或者 `--host <hostName>` 来选择其他主机。
 
 
-```bash
+```
 $ rancher --host 1h1 docker ps
 ```
 
@@ -211,7 +211,7 @@ $ rancher --host 1h1 docker ps
 
 <br>
 
-```bash
+```
 $ rancher env ls
 ID        NAME      ORCHESTRATION   STATE     CREATED
 1a5       Default   Cattle          active    2016-08-15T19:20:46Z
@@ -234,7 +234,7 @@ $ rancher env ls -q
 
 <br>
 
-```bash
+```
 # 创建一个环境
 $ rancher env create newCattleEnv
 # 创建一个kubernetes 环境
@@ -264,7 +264,7 @@ $ rancher env create -t kubernetes newk8sEnv
 #### Rancher Env Rm
 
 `rancher env rm`命令用于删除环境。可以使用环境名字或者ID来删除。
-```bash
+```
 # 使用名字删除环境
 $ rancher env rm newk8sEnv
 # 使用ID删除环境
@@ -294,7 +294,7 @@ $ rancher env rm 1a20
 
 `rancher exec` 命令可以用于执行进入在Rancher的容器。 用户不需要知道容器在哪个宿主机，只需要知道Rancher中的容器ID(如 `1i1`, `1i788`)。
 
-```bash
+```
 # 执行进入一个容器
 $ rancher exec -i -t 1i10
 ```
@@ -307,7 +307,7 @@ $ rancher exec -i -t 1i10
 
 在`rancher exec` 命令找到容器后，它在指定的主机和容器执行 `docker exec`命令。 可以通过使用`--help-docker`来显示 `docker exec`的说明。
 
-```bash
+```
 # 显示docker exec --help
 $ rancher exec --help-docker
 ```
@@ -325,7 +325,7 @@ $ rancher exec --help-docker
 
 <br>
 
-```bash
+```
 # 将一个应用中所有服务的docker-compose.yml和 rancher-compose.yml导出为tar包。
 $ rancher export mystack > files.tar
 $ rancher export -f files.tar mystack
@@ -364,7 +364,7 @@ $ rancher export -f files.tar mystack
 
 <br>
 
-```bash
+```
 $ rancher hosts ls
 ID        HOSTNAME      STATE     IP
 1h1       host-1        active    111.222.333.444
@@ -404,7 +404,7 @@ $ rancher hosts ls -q
 
 <br>
 
-```bash
+```
 # 获取某个容器ID对应容器的最后50行日志
 $ rancher logs --tail 50 <ID>
 # 使用容器名来查看日志
@@ -427,7 +427,7 @@ $ rancher logs -f <stackName>/<serviceName>
 
 <br>
 
-```bash
+```
 # 列出所有服务
 $ rancher ps
 ID        TYPE      NAME           IMAGE     STATE        SCALE     ENDPOINTS   DETAIL
@@ -456,7 +456,7 @@ ID        NAME             IMAGE                           STATE     HOST      D
 
 <br>
 
-```bash
+```
 # 通过服务、容器、主机的ID重启
 $ rancher restart <ID>
 # 通过服务、容器、主机的名字重启
@@ -480,7 +480,7 @@ $ rancher restart <stackName>/<serviceName>
 
 <br>
 
-```bash
+```
 $ rancher rm <ID>
 ```
 
@@ -488,7 +488,7 @@ $ rancher rm <ID>
 
 `run` 命令以1个容器的规模来部署一个服务。当创建服务时，如果想将其置于某个应用栈中， 需要提供`--name`和`stackName/serviceName`。如果`--name` 没有提供，那么新建的服务的名字是Docker提供的容器名，且处于 `Default` 应用中。
 
-```bash
+```
 $ rancher run --name App2/app nginx
 # CLI返回新建服务的ID
 1s3
@@ -497,7 +497,7 @@ $ rancher -i -t --name serviceA ubuntu:14.04.3
 ```
 如果要在主机上公开一个端口，那么该主机的端口必须可用。Rancher会自动调度容器到端口可用的主机上。
 
-```bash
+```
 $ rancher -p 2368:2368 --name blog ghost
 1s5
 ```
@@ -506,7 +506,7 @@ $ rancher -p 2368:2368 --name blog ghost
 
 当你使用`rancher run`创建一个服务时，服务的规模缺省是1。可以使用`rancher scale`命令来扩容某个服务。可以通过名字或者ID来指定服务。
 
-```bash
+```
 $ rancher scale <stackName>/<serviceName>=5 <serviceID>=3
 ```
 
@@ -514,7 +514,7 @@ $ rancher scale <stackName>/<serviceName>=5 <serviceID>=3
 
 `rancher ssh` 用于ssh到UI创建的某个主机中。它无法ssh通过[自定义](/docs/rancher/v1.x/cn/infrastructure/hosts/custom/) 命令添加的主机。
 
-```bash
+```
 $ rancher ssh <hostID>
 ```
 
@@ -551,7 +551,7 @@ $ rancher ssh <hostID>
 
 <br>
 
-```bash
+```
 #列出所有应用栈
 $ rancher stacks ls
 ID        NAME        STATE      CATALOG                           SYSTEM    DETAIL
@@ -582,7 +582,7 @@ $ rancher stacks ls -q
 
 <br>
 
-```bash
+```
 # 创建一个空的应用
 $ rancher stacks create NewStack -e
 # 从一个docker-compose和rancher-compose文件创建应用
@@ -602,7 +602,7 @@ $ rancher stacks create NewStack -f dc.yml -r rc.yml --start
 
 <br>
 
-```bash
+```
 # 用资源ID来启动
 $ rancher start <ID>
 # 用资源名字来启动
@@ -625,7 +625,7 @@ $ rancher start <stackName>/<serviceName>
 
 <br>
 
-```bash
+```
 # 用ID来停止
 $ rancher stop <ID>
 # 用名字来停止
@@ -658,7 +658,7 @@ $ rancher stop <stackName>/<serviceName>
 `--stack` value, `-s` value       |     指定一个新的项目名字(缺省: 目录名)
 
 
-```bash
+```
 # 在末尾还上 -d，防止阻塞和记录日志
 $ rancher up -s <stackName> -d
 ```
@@ -697,7 +697,7 @@ $ rancher up -s <stackName> -d
 
 <br>
 
-```bash
+```
 $ rancher volumes ls
 ID        NAME                       STATE      DRIVER        DETAIL
 1v1                                  active
@@ -713,7 +713,7 @@ ID        NAME                       STATE      DRIVER        DETAIL
 
 `rancher volume rm` 命令用于删除卷。
 
-```bash
+```
 $ rancher volumes rm <VOLUME_ID>
 ```
 
@@ -730,7 +730,7 @@ $ rancher volumes rm <VOLUME_ID>
 
  <br>
 
-```bash
+```
 # 使用 Rancher NFS 驱动创建新的卷
 $ rancher volume create NewVolume --driver rancher-nfs
 ```
@@ -749,7 +749,7 @@ $ rancher volume create NewVolume --driver rancher-nfs
 
 <br>
 
-```bash
+```
 # 用ID来查看详情
 $ rancher inspect <ID>
 # 用名字来查看详情
@@ -764,7 +764,7 @@ $ rancher inspect <stackName>/<serviceName>
 
 `rancher wait` 命令用于等待资源完成操作。 它对自动化Rancher命令十分有用，可以在脚本中用于等待某个资源就绪后再执行更多操作。
 
-```bash
+```
 $ rancher start 1i1
 $ rancher wait 1i1
 ```

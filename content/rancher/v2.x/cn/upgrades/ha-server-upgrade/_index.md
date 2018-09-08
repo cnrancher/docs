@@ -35,7 +35,7 @@ weight: 2
 
     替换`<SNAPSHOT.db>`为你喜欢的快照名称(例如upgrade.db)
 
-    ````bash
+    ````
     # MacOS
     ./rke_darwin-amd64 etcd snapshot-save --name <SNAPSHOT.db> --config rancher-cluster.yml
     # Linux
@@ -47,7 +47,7 @@ weight: 2
 
     输入以下命令进行升级:
 
-    ```bash
+    ```
     kubectl --kubeconfig=kube_config_rancher-cluster.yml set image deployment/cattle cattle-server=rancher/rancher:<VERSION_TAG> -n cattle-system
     ```
     替换`<VERSION_TAG>`为想要升级到的版本，可用的镜像版本可查阅[DockerHub](https://hub.docker.com/r/rancher/rancher/tags/)。

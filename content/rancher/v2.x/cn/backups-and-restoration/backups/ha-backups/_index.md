@@ -39,7 +39,7 @@ weight: 2
 
 2. 在`rancher-cluster.yml`配置文件中添加以下代码:
 
-    ```yaml
+    ```
     services:
       etcd:
         snapshot: true  # 是否启用快照功能，默认false；
@@ -55,7 +55,7 @@ weight: 2
 
 6. 运行以下命令:
 
-    ```bash
+    ```
     # MacOS
     ./rke_darwin-amd64 up --config rancher-cluster.yml
     # Linux
@@ -75,7 +75,7 @@ weight: 2
 
     >注意:替换`<SNAPSHOT.db>`为你喜欢的名称，例如:<SNAPSHOT.db>
 
-    ```bash
+    ```
     # MacOS
     ./rke_darwin-amd64 etcd snapshot-save --name <SNAPSHOT.db> --config rancher-cluster.yml
     # Linux

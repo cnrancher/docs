@@ -9,7 +9,7 @@ Rancher也支持使用Kubernetes的Helm包管理器镜像安装。
 
 使用`helm repo add`命令添加Rancher chart仓库地址.
 
-```bash
+```
 helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
 ```
 
@@ -21,7 +21,7 @@ Rancher依靠`Kubernetes Helm stable`仓库中的[cert-manager](https://github.c
 
 从Helm stable目录安装`cert-manager`。
 
-```bash
+```
 helm install stable/cert-manager \
   --name cert-manager \
   --namespace kube-system
@@ -43,7 +43,7 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全。
 
 唯一的要求是将`hostname`指向访问Rancher的域名地址。
 
-```bash
+```
 helm install rancher-stable/rancher \
   --name rancher \
   --namespace cattle-system \
@@ -56,7 +56,7 @@ helm install rancher-stable/rancher \
 
 >配置`hostname`、`ingress.tls.source=letEncrypt`和LetsEncrypt设置选项。
 
-```bash
+```
 helm install rancher-stable/rancher \
   --name rancher \
   --namespace cattle-system \
@@ -74,7 +74,7 @@ helm install rancher-stable/rancher \
 
 配置`hostname`和`ingress.tls.source=secret`
 
-```bash
+```
 helm install rancher-stable/rancher \
   --name rancher \
   --namespace cattle-system \

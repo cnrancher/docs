@@ -121,7 +121,7 @@ Rancher使用LDAP查询来搜索和检索有关Active Directory中的用户和�
 
 首先，我们将使用`ldapsearch`来识别用户和组的父节点的专有名称(DN)：
 
-```bash
+```
 ldapsearch -x -D "acme\jdoe" -w "secret" -p 389 \
 -h ad.acme.com -b "dc=acme,dc=com" -s sub "sAMAccountName=jdoe"
 ```
@@ -151,7 +151,7 @@ ldapsearch -x -D "acme\jdoe" -w "secret" -p 389 \
 
 接下来，我们查询与此用户关联的一个组，在这种情况下`CN=examplegroup,OU=Groups,DC=acme,DC=com`：
 
-```bash
+```
 ldapsearch -x -D "acme\jdoe" -w "secret" -p 389 \
 -h ad.acme.com -b "ou=groups,dc=acme,dc=com" \
 -s sub "CN=examplegroup"

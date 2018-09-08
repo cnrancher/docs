@@ -7,19 +7,20 @@ Rancher附带API审计功能，用以记录每个用户发起的系统事件信�
 
 你可以在Rancher安装或升级期间启用API审计。
 
-## API审计使用方法
+{{% accordion id="1" label="一、API审计日志使用方法" %}}
 
-以下定义了有关审核日志记录的内容以及包含哪些数据的规则：
+以下定义了有关审计日志记录的内容以及包含哪些数据的规则：
 
 参数 | 描述
 ---------|----------
- `AUDIT_LEVEL` | `0` - 禁用审核日志(默认设置)<br/>`1` - 记录事件元数据<br/>`2` - 记录事件元数据和请求内容. <br/>`3` - 记录事件元数据、请求内容和响应内容。请求/响应对的每个日志事务使用相同的`auditID`值。<br/>有关显示每个等级设置记录的具体内容，请参阅[审计级别日志](#审计日志级别)记录
+ `AUDIT_LEVEL` | `0` - 禁用审计日志(默认设置)<br/>`1` - 记录事件元数据<br/>`2` - 记录事件元数据和请求内容. <br/>`3` - 记录事件元数据、请求内容和响应内容。请求/响应对的每个日志事务使用相同的`auditID`值。<br/>有关显示每个等级设置记录的具体内容，请参阅[审计级别日志](#审计日志级别)记录
  `AUDIT_LOG_PATH` | Rancher Server API的日志路径，默认路径是：`/var/log/auditlog/rancher-api-audit.log`，你可以将日志目录挂载到主机。<br/>用法示例: `AUDIT_LOG_PATH=/my/custom/path/`<br/> 
- `AUDIT_LOG_MAXAGE` | 定义了保留旧审核日志文件的最大天数，默认为10天。
- `AUDIT_LOG_MAXBACKUP` | 定义要保留的最大审核日志文件个数，默认值为10。
+ `AUDIT_LOG_MAXAGE` | 定义了保留旧审计日志文件的最大天数，默认为10天。
+ `AUDIT_LOG_MAXBACKUP` | 定义要保留的最大审计日志文件个数，默认值为10。
  `AUDIT_LOG_MAXSIZE` | 定义单个审计日志文件的最大值(以兆字节为单位)，默认大小为100M。
 
-## 审计日志级别
+{{% /accordion %}}
+{{% accordion id="2" label="二、审计日志级别" %}}
 
 下表显示了每个`AUDIT_LEVEL`设置，记录的API事务具体内容。
 
@@ -30,11 +31,12 @@ Rancher附带API审计功能，用以记录每个用户发起的系统事件信�
 | `2`               | ✓              | ✓            |                 |                 |
 | `3`               | ✓              | ✓            | ✓               | ✓               |
 
-## 启用API审核
+{{% /accordion %}}
+{{% accordion id="3" label="三、启用API审计日志" %}}
 
-要启用API审核，请停止运行的Rancher容器，然后使用以下命令重新启动它。此命令包含打开API审核的参数，有关与API审核相关的每个`AUDIT_LEVEL`使用的详细信息，请参阅[API审计使用方法](#API审计使用方法)。
+要启用API审计日志，请停止运行的Rancher容器，然后使用以下命令重新启动它。此命令包含打开API审计的参数，有关与API审计相关的每个`AUDIT_LEVEL`使用的详细信息，请参阅[API审计日志使用方法](#API审计日志使用方法)。
 
-```bash
+```
 docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
   -v /root/var/log/auditlog:/var/log/auditlog \
@@ -46,23 +48,25 @@ docker run -d --restart=unless-stopped \
   rancher/rancher:latest
 ```
 
-## 查看API审核日志
+{{% /accordion %}}
+{{% accordion id="4" label="四、查看API审计日志" %}}
 
-默认情况下，你可以使用自己熟悉的文本编辑器在Rancher server节点上查看审核日志。例如：
+默认情况下，你可以使用自己熟悉的文本编辑器在Rancher server节点上查看审计日志。例如：
 
-```bash
+```
 less /root/var/log/auditlog/rancher-api-audit.log
 ```
 
-## 审核日志样本
+{{% /accordion %}}
+{{% accordion id="5" label="五、审计日志样本" %}}
 
-启用审核后，Rancher以JSON的形式记录每个API请求或响应。以下每个代码示例都提供了如何标识每个API事务的示例。
+启用审计后，Rancher以JSON的形式记录每个API请求或响应。以下每个代码示例都提供了如何标识每个API事务的示例。
 
 ### 元数据级别
 
 如果设置`AUDIT_LEVEL`为`1`，Rancher会记录每个API请求的元数据标头，但不会记录正文内容。标题提供有关API事务的基本信息，例如事务的ID，发起事务的人员，事件发生的时间等。
 
-```json
+```
 {
     "auditID": "30022177-9e2e-43d1-b0d0-06ef9d3db183",
     "requestURI": "/v3/schemas",
@@ -87,7 +91,7 @@ less /root/var/log/auditlog/rancher-api-audit.log
 
 下面的代码示例描述了一个API请求，包含其元数据头和正文内容。
 
-```json
+```
 {
     "auditID": "ef1d249e-bfac-4fd0-a61f-cbdcad53b9bb",
     "requestURI": "/v3/project/c-bcz5t:p-fdr4s/workloads/deployment:default:nginx",
@@ -257,7 +261,7 @@ less /root/var/log/auditlog/rancher-api-audit.log
 
 下面的代码示例描述了一个API请求，包含其元数据头和正文内容。 
 
-```json
+```
 {
     "auditID": "a886fd9f-5d6b-4ae3-9a10-5bff8f3d68af",
     "requestURI": "/v3/project/c-bcz5t:p-fdr4s/workloads/deployment:default:nginx",
@@ -420,7 +424,7 @@ less /root/var/log/auditlog/rancher-api-audit.log
 
 下面的代码示例描述了API响应，包括其元数据头和正文内容。 
 
-```json
+```
 {
     "auditID": "a886fd9f-5d6b-4ae3-9a10-5bff8f3d68af",
     "responseStatus": "200",
@@ -567,3 +571,5 @@ less /root/var/log/auditlog/rancher-api-audit.log
     }
 }
 ```
+
+{{% /accordion %}}

@@ -58,7 +58,7 @@ Rancher中，应用级别的存储卷的命名规则为使用应用名称为前�
 在Docker Compose文件中`volumes`下可以定义卷。在同一个Docker Compose中每个卷可以和多个服务关联。此功能只在Compose v2格式下生效。
 
 
-```yaml
+```
 version: '2'
 services:
   foo:
@@ -82,7 +82,7 @@ volumes:
 
 如果需要多个应用共享卷，你需要使用一个环境级别的卷。在这个例子里，必须先创建好卷，之后才可以启动使用这个卷对服务或应用。为了使用环境级别的卷，你需要添加`external`选项到这个卷里。
 
-```yaml
+```
 version: '2'
 services:
   foo:

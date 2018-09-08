@@ -9,7 +9,7 @@ weight: 1
 
 2. 停止当前运行Rancher Server的容器,替换`<RANCHER_CONTAINER_ID>`为你真实的Rancher容器的ID
 
-    ```bash
+    ```
     docker stop `<RANCHER_CONTAINER_ID>`
     ```
 
@@ -23,7 +23,7 @@ weight: 1
 
     - 替换`<RANCHER_IMAGES_TAG>`为第一步获取到的Rancher版本号
 
-    ```bash
+    ```
     docker create \
     --volumes-from <RANCHER_CONTAINER_ID> \
     --name rancher-backup-<RANCHER_IMAGES_TAG> \
@@ -35,7 +35,7 @@ weight: 1
 
     在升级期间，新的容器需要链接到数据卷容器，并且会对数据卷容器中的数据进行`更新/更改`。因此，需要提前对数据卷容器进行备份，以防升级失败时用于数据回滚。
 
-    ```bash
+    ```
     docker run --volumes-from rancher-backup-<RANCHER_IMAGES_TAG> \
     -v $ PWD:/backup \
     alpine \

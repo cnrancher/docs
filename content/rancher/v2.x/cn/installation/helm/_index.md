@@ -13,7 +13,7 @@ Helm在集群上安装`tiller`服务以管理`charts`. 由于RKE默认启用RBAC
 - 创建`ClusterRoleBinding`以授予tiller帐户对集群的访问权限 
 - `helm`初始化`tiller`服务
 
-```bash
+```
 kubectl -n kube-system create serviceaccount tiller
   kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
 ```
@@ -29,7 +29,7 @@ kubectl -n kube-system create serviceaccount tiller
 
 >更换仓库地址、用户名、用户密码、邮箱
 
-```bash
+```
 kubectl -n kube-system create secret docker-registry regcred \
 --docker-server="reg.example.com" \
 --docker-username=<user> \
@@ -41,7 +41,7 @@ kubectl -n kube-system create secret docker-registry regcred \
 
 更新`ServiceAccount`以包含`imagePullSecret`。使用此`ServiceAccount`创建的``imagePullSecret``将自动将添加到其清单中。
 
-```bash
+```
 kubectl -n kube-system patch serviceaccount tiller -p '{"imagePullSecrets": [{"name\": "regcred"}]}'
 ```
 
@@ -49,7 +49,7 @@ kubectl -n kube-system patch serviceaccount tiller -p '{"imagePullSecrets": [{"n
 
 将`-tiller-image`参数添加到`helm init`命令中指定安装所用的镜像：
 
-```bash
+```
 --tiller-image reg.example.com/kubernetes-helm/tiller:v2.9.1
 ```
 
@@ -75,7 +75,7 @@ Helm 客户端可以从源代码安装，也可以从预构建的二进制版本
 
 Kubernetes 社区的成员为 Homebrew 贡献了 Helm。这个通常是最新的。
 
-```bash
+```
 brew install kubernetes-helm
 ```
 
@@ -85,7 +85,7 @@ brew install kubernetes-helm
 
 Kubernetes 社区的成员为 Chocolatey 贡献了 Helm 包。这个软件包通常是最新的。
 
-```bash
+```
 choco install kubernetes-helm
 ```
 
@@ -95,13 +95,13 @@ Helm 现在有一个安装 shell 脚本，将自动获取最新版本的 Helm �
 
 可以获取该脚本，然后在本地执行它。这种方法也有文档指导，以便可以在运行之前仔细阅读并理解它在做什么。
 
-```bash
+```
 curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
   chmod 700 get_helm.sh
   ./get_helm.sh
 ```
 
-```bash
+```
 curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
 ```
 
@@ -123,7 +123,7 @@ curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
 
 你必须有一个安装`Go`工作环境 。
 
-```bash
+```
 cd $GOPATH
   mkdir -p src/k8s.io
   cd src/k8s.io
@@ -152,7 +152,7 @@ Helm的服务器端部分Tiller,通常运行在 Kubernetes 集群内部。但是
 
 执行以下命令在Rancher中安装Tiller：
 
-```bash
+```
 helm init --service-account tiller   --tiller-image registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.9.1
 ```
 
@@ -168,7 +168,7 @@ helm init --service-account tiller   --tiller-image registry.cn-hangzhou.aliyunc
 
 Canary镜像是从master分支建立的。他们可能不稳定，但他们提供测试最新功能的机会。安装`Canary`镜像最简单的方法是`helm init与--canary-image`参数一起使用：
 
-```bash
+```
 helm init --service-account tiller --canary-image
 ```
 
@@ -178,7 +178,7 @@ helm init --service-account tiller --canary-image
 
 对于开发而言，有时在本地运行Tiller更容易，将其配置为连接到远程Kubernetes集群。上面介绍了构建部署 Tiller的过程。一旦tiller构建部署完成，只需启动它：
 
-```bash
+```
 bin/tiller
   Tiller running on :44134
 ```
@@ -187,7 +187,7 @@ bin/tiller
 
 必须告知helm连接到这个新的本地Tiller主机，而不是连接到集群中的一个。有两种方法可以做到这一点。第一种是在命令行上指定`--host`选项。第二个是设置`$HELM_HOST`环境变量。
 
-```bash
+```
 export HELM_HOST=localhost:44134
   helm version # Should connect to localhost.
   Client: &version.Version{SemVer:"v2.0.0-alpha.4", GitCommit:"db...", GitTreeState:"dirty"}
@@ -201,7 +201,7 @@ export HELM_HOST=localhost:44134
 
 从Helm 2.2.0开始，Tiller可以升级使用`helm init --upgrade`。对于旧版本的Helm或手动升级，可以使用`kubectl`修改Tiller容器镜像：
 
-```bash
+```
 export TILLER_TAG=v2.0.0-beta.1        # Or whatever version you want
   kubectl --namespace=kube-system set image deployments/tiller-deploy tiller=gcr.io/kubernetes-helm/tiller:$TILLER_TAG
   deployment "tiller-deploy" image updated
@@ -216,7 +216,7 @@ export TILLER_TAG=v2.0.0-beta.1        # Or whatever version you want
 
 然后可以从客户端重新安装Tiller：
 
-```bash
+```
 helm init
 ```
 {{% /accordion %}}
@@ -230,13 +230,13 @@ helm init提供了额外的参数，用于在安装之前修改Tiller的deployme
 
 下面的例子将在nodeSelector属性下创建指定的标签。
 
-```bash
+```
 helm init --node-selectors "beta.kubernetes.io/os"="linux"
 ```
 
 已安装的deployment manifest将包含我们的节点选择器标签。
 
-```yaml
+```
 ...
 spec:
     template:
@@ -254,13 +254,13 @@ spec:
 
 在下面的示例中，我们使用`--override`添加修订版本属性并将其值设置为`1`。
 
-```bash
+```
 helm init --override metadata.annotations."deployment\.kubernetes\.io/revision"="1"
 ```
 
 输出：
 
-```yaml
+```
 apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
@@ -279,7 +279,7 @@ helm init --override "spec.template.spec.affinity.nodeAffinity.preferredDuringSc
 
 指定的属性组合到 “preferredDuringSchedulingIgnoredDuringExecution” 属性的第一个列表项中。
 
-```yaml
+```
 ...
 spec:
     strategy: {}
@@ -309,7 +309,7 @@ helm init --output json
 
 Tiller安装被跳过，manifest以JSON格式输出到stdout。
 
-```yaml
+```
 "apiVersion": "extensions/v1beta1",
   "kind": "Deployment",
   "metadata": {
@@ -330,7 +330,7 @@ Tiller安装被跳过，manifest以JSON格式输出到stdout。
 
 要启用secrets后端，需要使用以下选项启动Tiller：
 
-```bash
+```
 helm init --override 'spec.template.spec.containers[0].command'='{/tiller,--storage=secret}'
 ```
 

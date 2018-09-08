@@ -21,7 +21,7 @@ By default, RKE will deploy a new etcd service, but you can also run Kubernetes 
 
 The [Kubernetes API](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/) REST service, which handles requests and data for all Kubernetes objects and provide shared state for all the other Kubernetes components.
 
-```yaml
+```
 services:
   kube-api:
     # IP range for any services created on Kubernetes
@@ -48,7 +48,7 @@ RKE supports the following options for the `kube-api` service :
 
 The [Kubernetes Controller Manager](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/) service is the component responsible for running Kubernetes main control loops. The controller manager monitors the cluster desired state through the Kubernetes API server and makes the necessary changes to the current state to reach the desired state.
 
-```yaml
+```
 services:
     kube-controller:
       # CIDR pool used to assign IP addresses to pods in the cluster
@@ -69,7 +69,7 @@ RKE support the following options for the `kube-controller` service:
 
 The [kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/) services acts as a "node agent" for Kubernetes. It runs on all nodes deployed by RKE, and gives Kubernetes the ability to manage the container runtime on the node.
 
-```yaml
+```
 services:
     kubelet:
      # Base domain for the cluster

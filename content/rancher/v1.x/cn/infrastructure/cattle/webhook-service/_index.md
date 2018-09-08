@@ -55,7 +55,7 @@ rule_files:
 
 ###### `/etc/prom-conf/rules.conf` 中的告警配置例子
 
-```yaml
+```
 ALERT CpuUsageSpike
 IF rate(container_cpu_user_seconds_total{container_label_io_rancher_container_name="Demo-testTarget-1"}[30s]) * 100 > 70
 LABELS {
@@ -75,7 +75,7 @@ ANNOTATIONS {
 
 ###### 示例 `etc/alertmanager/config.yml`
 
-```yaml
+```
 route:
   repeat_interval: 5h
   routes:
@@ -138,7 +138,7 @@ Rancher 可以通过克隆用 Rancherc 创建的， 并且已经存在的主机�
 创建接受器钩子后，你需要在你的 Docker Hub webhook 中使用
 **触发 URL**。当Docker Hub 触发自己的 webhook, 被 Rancher 触发器钩子选中的服务会被升级。Rancher 触发器钩子默认需要 Docker Hub webhook 提供的特定信息。同时使用 Rancher's 接受器钩子和其它webhook，`POST` 请求中需要包含以下字段:
 
-```json
+```
 {
     "push_data": {
         "tag": <pushedTag>

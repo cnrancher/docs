@@ -11,14 +11,14 @@ weight: 3
 
 1、获取`yourdomain.com.crt和yourdomain.com.key`文件后，将它们放入以下目录`/root/cert/`
 
-```bash
+```
 cp yourdomain.com.crt /root/cert/
   cp yourdomain.com.key /root/cert/
 ```
 
 2、接下来，编辑`harbor.cfg`文件，更新主机名和协议，并设置`ssl_cert`和`ssl_cert_key`路径
 
-```bash
+```
 #set hostname
   hostname = reg.yourdomain.com
   #set ui_url_protocol

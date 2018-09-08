@@ -22,7 +22,7 @@ After you download the Rancher CLI, you need to make a few configurations. Ranch
 
 Before you can use Rancher CLI to control your Rancher Server, you must authenticate using an API Bearer Token. Log in using the following command (replace `<BEARER_TOKEN>` and `<SERVER_URL>` with your information):
 
-```bash
+```
 $ ./rancher login https://<SERVER_URL> --token <BEARER_TOKEN>
 ```
 

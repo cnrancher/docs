@@ -7,7 +7,7 @@ weight: 4
 
 - 指定连接的用户没有权限访问docker.sock。这可以通过登录主机并运行`docker ps`命令来检查 :
 
-```bash
+```
 $ ssh user@server
 user@server$ docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
@@ -17,7 +17,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 
 - SSH server version is not version 6.7 or higher. This is needed for socket forwarding to work, which is used to connect to the Docker socket over SSH. This can be checked using `sshd -V` on the host you are connecting to, or using netcat:
 
-```bash
+```
 $ nc xxx.xxx.xxx.xxx 22
 SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.10
 ```

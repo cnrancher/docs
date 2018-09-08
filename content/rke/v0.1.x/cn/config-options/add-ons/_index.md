@@ -33,6 +33,6 @@ Currently, only the [network plug-in]({{< baseurl >}}/rke/v0.1.x/en/config-optio
 
 RKE uses Kubernetes jobs to deploy add-ons. In some cases, add-ons deployment takes longer than expected. As of with version v0.1.7, RKE provides an option to control the job check timeout in seconds. This timeout is set at the cluster level.
 
-```yaml
+```
 addon_job_timeout: 30
 ```

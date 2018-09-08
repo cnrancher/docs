@@ -27,7 +27,7 @@ Rancher Server当前版本中有2个不同的标签。对于每一个主要的re
 
 启动Rancher Server。我们需要添加 `--name=rancher-server` 参数到命令中，使得代理的容器可以与Rancher Server容器建立Docker link
 
-```bash
+```
 $ sudo docker run -d --restart=unless-stopped --name=rancher-server rancher/server
 ```
 <br>
@@ -242,7 +242,7 @@ Rancher Compose CLI 将需要CA证书，这个CA证书需要被添加到操作�
 
 1. 通过以下的Docker命令启动Rancher Server容器。证书**必须**放在容器内部`/var/lib/rancher/etc/ssl/ca.crt`的位置。
 
-   ```bash
+   ```
    $ sudo docker run -d --restart=unless-stopped -p 8080:8080 -v /some/dir/cert.crt:/var/lib/rancher/etc/ssl/ca.crt rancher/server
    ```
     <br>

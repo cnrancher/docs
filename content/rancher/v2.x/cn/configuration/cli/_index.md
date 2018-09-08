@@ -22,7 +22,7 @@ Rancher CLI是一个统一的工具，可用于与Rancher进行交互。使用�
 
 使用以下命令登录:
 
-```bash
+```
 ./rancher login https://<SERVER_URL> --token <BEARER_TOKEN>
 ```
 

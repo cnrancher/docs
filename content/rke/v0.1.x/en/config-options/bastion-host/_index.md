@@ -5,7 +5,7 @@ weight: 220
 
 Since RKE uses `ssh` to connect to [nodes]({{< baseurl >}}/rke/v0.1.x/en/config-options/nodes/), you can configure to use a bastion host.
 
-```yaml
+```
 bastion_host:
     address: x.x.x.x
     user: ubuntu

@@ -67,7 +67,7 @@ After you enable auditing, each API request or response is logged by Rancher in 
 
 If you set your `AUDIT_LEVEL` to `1`, Rancher logs the metadata header for every API request, but not the body. The header provides basic information about the API transaction, such as the transaction's ID, who initiated the transaction, the time it occurred, etc.
 
-```json
+```
 {
     "auditID": "30022177-9e2e-43d1-b0d0-06ef9d3db183",
     "requestURI": "/v3/schemas",
@@ -93,7 +93,7 @@ If you set your `AUDIT_LEVEL` to `2`, Rancher logs the metadata header and body 
 
 The code sample below depicts an API request, with both its metadata header and body.
 
-```json
+```
 {
     "auditID": "ef1d249e-bfac-4fd0-a61f-cbdcad53b9bb",
     "requestURI": "/v3/project/c-bcz5t:p-fdr4s/workloads/deployment:default:nginx",
@@ -262,7 +262,7 @@ If you set your `AUDIT_LEVEL` to `3`, Rancher logs:
 
 The code sample below depicts an API request, with both its metadata header and body.
 
-```json
+```
 {
     "auditID": "a886fd9f-5d6b-4ae3-9a10-5bff8f3d68af",
     "requestURI": "/v3/project/c-bcz5t:p-fdr4s/workloads/deployment:default:nginx",
@@ -426,7 +426,7 @@ The code sample below depicts an API request, with both its metadata header and 
 The code sample below depicts an API response, with both its metadata header and body.
 
 
-```json
+```
 {
     "auditID": "a886fd9f-5d6b-4ae3-9a10-5bff8f3d68af",
     "responseStatus": "200",

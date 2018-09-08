@@ -27,7 +27,7 @@ weight: 440
 ### 移除 Windows 主机
 作为一个Rancher中的主机，Rancher客户端已经被安装并且注册在了主机上。你必须在Windows主机上删除已经存在的Rancher客户端服务，你可以在 powershell 中运行如下命令来删除客户端。删除客户端后你可以在 Windows 环境中重用这个主机
 
-```bash
+```
 & 'C:\Program Files\rancher\agent.exe' -unregister-service
 ```
 

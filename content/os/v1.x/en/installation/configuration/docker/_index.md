@@ -9,7 +9,7 @@ In RancherOS, you can configure System Docker and Docker daemons by using [cloud
 
 In your cloud-config, Docker configuration is located under the `rancher.docker` key.
 
-```yaml
+```
 #cloud-config
 rancher:
   docker:
@@ -66,7 +66,7 @@ Key | Value | Default | Description
 
 The following example can be used to set MTU on the Docker daemon:
 
-```yaml
+```
 #cloud-config
 rancher:
   docker:
@@ -77,7 +77,7 @@ rancher:
 
 In your cloud-config, System Docker configuration is located under the `rancher.system_docker` key.
 
-```yaml
+```
 #cloud-config
 rancher:
   system_docker:

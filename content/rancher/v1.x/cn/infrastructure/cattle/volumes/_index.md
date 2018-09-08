@@ -20,7 +20,7 @@ title: 数据卷
 
 你可以通过`rancher volume create`命令创建一个卷。
 
-```bash
+```
 $ rancher volume create --driver local app-data
 ```
 
@@ -32,13 +32,13 @@ $ rancher volume create --driver local app-data
 
 你可以列出环境中的卷。
 
-```bash
+```
 $ rancher volume ls
 ```
 
 如果你创建了一个`app-data`卷，你可能想知道为什么这个卷没有被列出来。你可以通过添加`--all`或者`-a`参数，来查看`inactive`的卷。
 
-```bash
+```
 $ rancher volume ls --all
 ```
 
@@ -46,7 +46,7 @@ $ rancher volume ls --all
 
 你可以通过`rancher volume rm`命令删除一个卷。
 
-```bash
+```
 $ rancher volume rm app-data
 ```
 
@@ -86,7 +86,7 @@ Rancher中，应用级别的存储卷的命名规则为使用应用名称为前�
 
 > **注意:** 因为在文件中最顶层的volumes部分不存在其他配置值，所以这个卷的级别为应用级。
 
-```yaml
+```
 version: '2'
 services:
   redis:
@@ -123,13 +123,13 @@ volumes:
 
 首选，[创建一个环境级别的卷](#创建卷)从而使其他应用共享这个卷。
 
-```bash
+```
 $ rancher volume create --driver local redis-data-external
 ```
 
 为了创建一个环境级别的卷，在最顶层的volume部分，你需要添加`external: true`。
 
-```yaml
+```
 version: '2'
 services:
   redis:
@@ -150,7 +150,7 @@ volumes:
 
 任何新的应用都可以挂载同一个`redis-data-external`卷。最简单的方法就是复制compose文件中最顶层的volume部分。
 
-```yaml
+```
 volumes:
   redis-data-external:
     driver: local
@@ -169,7 +169,7 @@ volumes:
 
 注意这里没有volumes部分；这个配置在V1中不存在。
 
-```yaml
+```
 etcd:
   image: rancher/etcd:v2.3.7-11
   volumes:
@@ -180,13 +180,13 @@ etcd:
 
 Docker compose的V2版本是V1版本的超集；两个格式都可以被使用。我们先创建一个环境级别的卷。
 
-```bash
+```
 $ rancher volume create --driver local etcd_backup
 ```
 
 这个例子中，`etcd_backup`是一个V2的环境级别的卷，`etcd`是一个V1的卷。因为没有定义volume，这隐式的将`etcd`设置为了V1的卷。
 
-```yaml
+```
 version: '2'
 services:
   etcd:
@@ -206,7 +206,7 @@ volumes:
 
 最后，如果你定义了一个空的volumes，这个卷将会被视为一个V1卷。这等同于yaml中完全没有volumes这部分。
 
-```yaml
+```
 version: '2'
 volumes: {}
 ```

@@ -11,7 +11,7 @@ weight: 9
 
 - 如何重新启动节点？
 
-    ```bash
+    ```
     #using reboot
     sudo reboot
     #using shutdown
@@ -28,14 +28,14 @@ weight: 9
 
 - 清理所有Docker容器和容器卷
 
-  ```bash
+  ```
   docker rm -f $(docker ps -qa)
   docker volume rm $(docker volume ls -q)
   ```
 
 - 如果需要清理Docker镜像,执行以下命令
 
-  ```bash
+  ```
   docker rmi -f $(docker images -q)
   ```
 
@@ -51,7 +51,7 @@ weight: 9
 
 - 卸载挂载文件
 
-```bash
+```
 for mount in $(mount | grep tmpfs | grep '/var/lib/kubelet' | awk '{ print $3 }') /var/lib/kubelet /var/lib/rancher; do umount $mount; done
 ```
 
@@ -80,7 +80,7 @@ for mount in $(mount | grep tmpfs | grep '/var/lib/kubelet' | awk '{ print $3 }'
 
 - 清理目录
 
-```bash
+```
 rm -rf /etc/ceph \
        /etc/cni \
        /etc/kubernetes \
@@ -101,7 +101,7 @@ rm -rf /etc/ceph \
 
 ### 4、完整命令
 
-```bash
+```
 docker rm -f $(docker ps -qa)
   docker volume rm $(docker volume ls -q)
   for mount in $(mount | grep tmpfs | grep '/var/lib/kubelet' | awk '{ print $3 }') /var/lib/kubelet /var/lib/rancher; do umount $mount; done
@@ -139,7 +139,7 @@ docker rm -f $(docker ps -qa)
 
 - 列出所有网络接口
 
-```bash
+```
 # Using ip
 ip address show
 
@@ -149,7 +149,7 @@ ifconfig -a
 
 - 手动删除网络接口
 
-```bash
+```
 ip link delete interface_name
 ```
 
@@ -186,7 +186,7 @@ Iptables规则用于路由来自容器的流量。规则是动态创建的，不
 
 - 如何列出所有iptables规则
 
-```bash
+```
 iptables -L -t nat
 iptables -L -t mangle
 iptables -L

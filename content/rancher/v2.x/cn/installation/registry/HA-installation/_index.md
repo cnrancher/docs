@@ -91,7 +91,7 @@ PostgreSQL是可选的，它只在你使用漏洞扫描功能时才需要，目�
 
 **提示**: 如果你只是为了POC而设置HA。你可以使用docker在一个操作系统中使用以下命令快速运行MariaDB，Redis和PostgreSQL。
 
-```bash
+```
 docker run --name redis-server -p 6379:6379 -d redis
 docker run -d --restart=always -e MYSQL_ROOT_PASSWORD=root123 -v /data/database:/var/lib/mysql:z -p 3306:3306 --name mariadb vmware/mariadb-photon:10.2.10
 docker run -d -e POSTGRES_PASSWORD="password" -p 5432:5432 postgres:9.6
@@ -107,7 +107,7 @@ docker run -d -e POSTGRES_PASSWORD="password" -p 5432:5432 postgres:9.6
 
 - 导入数据表结构
 
-```bash
+```
 mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 ```
 
@@ -121,7 +121,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
 1. 安装Keepalived和curl应用程序，Curl将用于keepalived check脚本。
 
-    ```bash
+    ```
     apt-get install keepalived curl
     ```
 
@@ -147,7 +147,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
 4. 启用ip forward
 
-    ```bash
+    ```
     add the follow two lines to /etc/sysctl.conf
     net.ipv4.ip_forward = 1
     net.ipv4.ip_nonlocal_bind = 1
@@ -157,7 +157,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
 5. 重新启动Keepalived服务。
 
-    ```bash
+    ```
     systemctl restart keepalived
     ```
 
@@ -175,7 +175,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
 4. 修改`harbor.cfg`配置主机名
 
-    ```bash
+    ```
     hostname = reg.mydomain.com
     ```
 
@@ -185,7 +185,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
     在`Harbor.cfg` 更改Harbor数据库连接信息
 
-    ```bash
+    ```
     #The address of the Harbor database. Only need to change when using external db.
     db_host = 192.168.1.215 
     #The password for the root user of Harbor database. Change this before any production use.
@@ -198,14 +198,14 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
 6. 修改`harbor.cfg`配置Redis服务器/集群地址
 
-    ```bash
+    ```
     #The redis server address
     redis_url = 192.168.1.217:6379
     ```
 
 7. 修改`harbor.cfg`配置Clair DB连接信息
 
-    ```bash
+    ```
     clair_db_host = 192.168.1.50
     clair_db_password = password
     clair_db_port = 5432
@@ -215,7 +215,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
 8. 修改`harbor.cfg`配置存储配置信息
 
-    ```conf
+    ```
     ### Docker Registry setting ###
     #registry_storage_provider can be: filesystem, s3, gcs, azure, etc.
     registry_storage_provider_name = filesystem
@@ -228,7 +228,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
     例如，如果你使用swift作为存储后端，则需要设置以下内容：
 
-    ```bash
+    ```
     registry_storage_provider_name = swift
     registry_storage_provider_config = username: yourusername,password: yourpass,authurl: http://192.168.1.217/identity/v3,tenant: admin,domain: default,region: RegionOne,container: docker_images
     ```
@@ -239,7 +239,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
 9. 如果启用https(可选)，则需要准备证书和密钥并将其复制到`/data/cert/`目录(如果该文件夹不存在，则需要创建该文件夹)。
 
-    ```bash
+    ```
     mkdir -p /data/cert
     cp server.crt /data/cert/
     cp server.key /data/cert/
@@ -251,7 +251,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
 10. 在第一个节点上启动Harbour
 
-    ```bash
+    ```
     ./install.sh --ha
     ```
 
@@ -259,7 +259,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
     如果要使用漏洞扫描功能。然后使用follow命令
 
-    ```bash
+    ```
     ./install.sh --ha --with-clair
     ```
 
@@ -269,14 +269,14 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
     在执行以下命令之前，你需要将192.168.1.220更改为你的VIP地址。如果你只使用http，那么你不需要运行第二个命令。
 
-    ```bash
+    ```
     iptables -t nat -A PREROUTING -p tcp -d 192.168.1.220 --dport 80 -j REDIRECT
     iptables -t nat -A PREROUTING -p tcp -d 192.168.1.220 --dport 443 -j REDIRECT
     ```
 
 12. 压缩Harbor目录
 
-    ```bash
+    ```
      tar -cvf harbor_ha.tar ~/harbor 
     ```
 
@@ -290,7 +290,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
 2. 解压缩文件
 
-    ```bash
+    ```
     tar -xvf harbor_ha.tar
     ```
 
@@ -302,14 +302,14 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
     这些文件夹将用于存储证书文件。
 
-    ```bash
+    ```
     mkdir -p /data/cert
     mkdir -p /data/ca_download
     ```
 
 4. 安装Harbor
 
-    ```bash
+    ```
     cd harbor  
     ./install.sh --ha  
     ```
@@ -318,7 +318,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
     如果启用漏洞扫描，请使用
 
-    ```bash
+    ```
      ./install.sh --ha --with-clair
     ```
 
@@ -328,7 +328,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
     在执行以下命令之前，你需要将192.168.1.220更改为你的VIP地址，如果你只使用http for Harbor，则无需运行第二个命令。
 
-    ```bash
+    ```
     iptables -t nat -A PREROUTING -p tcp -d 192.168.1.220 --dport 80 -j REDIRECT
     iptables -t nat -A PREROUTING -p tcp -d 192.168.1.220 --dport 443 -j REDIRECT
     ```

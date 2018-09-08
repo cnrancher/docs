@@ -20,7 +20,7 @@ Rancher Compose的可执行文件下载链接可以在UI的右下角中找到�
 
 > **注意:** 默认情况下，在**API**菜单下创建的是账号API Keys, 所以你需要在**高级选项**中创建环境API Keys.
 
-```bash
+```
 # Set the url that Rancher is on
 $ export RANCHER_URL=http://server_ip:8080/
 # Set the access key, i.e. username
@@ -31,7 +31,7 @@ $ export RANCHER_SECRET_KEY=<password_of_environment_api_key>
 
 如果你不想设置环境变量，那么你需要在Rancher Compose 命令中手动送入这些变量:
 
-```bash
+```
 $ rancher-compose --url http://server_ip:8080 --access-key <username_of_environment_api_key> --secret-key <password_of_environment_api_key> up
 ```
 
@@ -50,7 +50,7 @@ $ rancher-compose stop servicename2
 
 你可以设置环境变量`RANCHER_CLIENT_DEBUG`的值为`true`来让Rancher Compose输出所有被执行的CLI命令。
 
-```bash
+```
 # Print verbose messages for all CLI calls
 $ export RANCHER_CLIENT_DEBUG=true
 ```
@@ -59,7 +59,7 @@ $ export RANCHER_CLIENT_DEBUG=true
 
 如果你不需要所有的 CLI 命令信息，你可以在命令后上`--debug`来指定输出哪些可视化CLI命令。
 
-```bash
+```
 $ rancher-compose --debug up -d
 ```
 

@@ -31,7 +31,7 @@ IOPS=1000ms/(寻道时间+旋转延迟)。忽略数据传输时间。\
 
 在Linux上，etcd的磁盘优先级可以配置为ionice：
 
-```bash
+```
 sudo ionice -c2 -n0 -p `pgrep etcd`
 ```
 
@@ -43,14 +43,14 @@ sudo ionice -c2 -n0 -p `pgrep etcd`
 
 如果有大量并发客户端请求etcd leader服务，则可能由于网络拥塞而延迟处理`follower`对等请求。在`follower`节点上的发送缓冲区错误消息：
 
-```bash
+```
 dropped MsgProp to 247ae21ff9436b2d since streamMsg's sending buffer is full
 dropped MsgAppResp to 247ae21ff9436b2d since streamMsg's sending buffer is full
 ```
 
 可以通过在客户端提高etcd对等网络流量优先级来解决这些错误。在Linux上，可以使用流量控制机制对对等流量进行优先级排序：
 
-```bash
+```
 tc qdisc add dev eth0 root handle 1: prio bands 3
 tc filter add dev eth0 parent 1: protocol ip prio 1 u32 match ip sport 2380 0xffff flowid 1:1
 tc filter add dev eth0 parent 1: protocol ip prio 1 u32 match ip dport 2380 0xffff flowid 1:1
@@ -64,7 +64,7 @@ tc filter add dev eth0 parent 1: protocol ip prio 2 u32 match ip dport 2739 0xff
 
 ### 1、增加ARP缓存大小
 
-```bash
+```
 cat >>  /etc/sysctl.conf <<EOF
 net.ipv4.neigh.default.gc_thresh1=<value1>
 net.ipv4.neigh.default.gc_thresh2=<value2>
@@ -82,7 +82,7 @@ EOF
 
     Docker镜像下载最大并发数
 
-```bash
+```
 touch /etc/docker/daemon.json
 cat > /etc/docker/daemon.json <<EOF
 {

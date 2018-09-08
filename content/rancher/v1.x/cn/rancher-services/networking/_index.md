@@ -116,7 +116,7 @@ MTU的配置需要在每一个网络组件上进行设置；在主机上，在Do
 * 修改Docker网桥的MTU
   * 在大多数情况下，这将会是docker0。如下列，你可以通过在`/etc/docker/daemon.json`中设置MTU。更多详情，请参考Docker的官方文档[自定义网桥docker0](https://docs.docker.com/engine/userguide/networking/default_network/custom-docker0/)
 
-```json
+```
 {
   "mtu": 1450
 }

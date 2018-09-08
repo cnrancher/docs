@@ -65,7 +65,7 @@ weight: 1
 
 从你的Linux主机运行Docker命令来安装Rancher，而不需要任何其他参数:
 
-```bash
+```
 docker run -d --restart=unless-stopped \
 -p 80:80 -p 443:443 \
 rancher/rancher:latest
@@ -84,7 +84,7 @@ Rancher安装可以使用自己生成的自签名证书。
 
 你的Rancher安装可以使用你提供的自签名证书来加密通信。创建证书后，运行docker命令时把证书文件映射到容器中。
 
-```bash
+```
 docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
   -v /etc/<CERT_DIRECTORY>/<FULL_CHAIN.pem>:/etc/rancher/ssl/cert.pem \
@@ -104,7 +104,7 @@ docker run -d --restart=unless-stopped \
 
 获取证书后，运行Docker命令以部署Rancher，同时指向证书文件。
 
-```bash
+```
 docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
   -v /etc/your_certificate_directory/fullchain.pem:/etc/rancher/ssl/cert.pem \
@@ -134,7 +134,7 @@ Rancher支持Let’s Encrypt 证书。Let’s Encrypt 使用一个`http-01 chall
 
 运行Docker命令。
 
-```bash
+```
 docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
   rancher/rancher:latest \
