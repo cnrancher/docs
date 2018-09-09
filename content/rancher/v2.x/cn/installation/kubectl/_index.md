@@ -173,7 +173,7 @@ kubectl version
 
 1、文件下载
 
-通过[文件下载](/docs/rancher/v2.x/cn/installation/download/)下载最新文档版本。
+通过[文件下载]({{< baseurl >}}/rancher/v2.x/cn/installation/download/)下载最新文档版本。
 
 2、确保`kubectl`二进制文件是可执行文件。
 
@@ -191,7 +191,7 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 
 1、文件下载
 
-通过[文件下载](/docs/rancher/v2.x/cn/installation/download/)下载最新文档版本。
+通过[文件下载]({{< baseurl >}}/rancher/v2.x/cn/installation/download/)下载最新文档版本。
 
 2、确保`kubectl`二进制文件是可执行文件。
 
@@ -209,7 +209,7 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 
 1、下载二进制文件
 
-通过[文件下载](/docs/rancher/v2.x/cn/installation/download/)下载最新文档版本。
+通过[文件下载]({{< baseurl >}}/rancher/v2.x/cn/installation/download/)下载最新文档版本。
 
 2、将`kubectl`二进制文件移动到PATH路径下。
 

@@ -38,7 +38,7 @@ weight: 1
 
 ## 1、Harbor程序下载
 
-可以通过Harbor的[发布页面](https://github.com/goharbor/harbor/releases)下载，也可以通过[文件下载](/docs/rancher/v2.x/cn/installation/download/)页面下载最新的在线安装包。
+可以通过Harbor的[发布页面](https://github.com/goharbor/harbor/releases)下载，也可以通过[文件下载]({{< baseurl >}}/rancher/v2.x/cn/installation/download/)页面下载最新的在线安装包。
 
 ## 2、解压压缩包
 
@@ -219,7 +219,7 @@ storage:
 {{% /accordion %}}
 {{% accordion id="option-d" label="四、配置HTTPS访问配置Harbor" %}}
 
-Harbor不附带任何证书，默认情况下使用HTTP来处理请求。虽然这使得设置和运行相对简单 - 特别是对于开发或测试环境 - 但不建议用于生产环境。要启用HTTPS，请参阅[使用HTTPS访问Harbor](/docs/rancher/v2.x/cn/installation/registry/configure-https/)。
+Harbor不附带任何证书，默认情况下使用HTTP来处理请求。虽然这使得设置和运行相对简单 - 特别是对于开发或测试环境 - 但不建议用于生产环境。要启用HTTPS，请参阅[使用HTTPS访问Harbor]({{< baseurl >}}/rancher/v2.x/cn/installation/registry/configure-https/)。
 
 {{% /accordion %}}
 {{% accordion id="option-e" label="五、Harbor的生命周期" %}}

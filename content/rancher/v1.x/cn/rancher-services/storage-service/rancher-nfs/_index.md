@@ -39,9 +39,9 @@ Rancher的NFS驱动可以连接Amazon的EFS。当我们在Amazon EFS上使用Ran
 
 ### 配置Rancher NFS
 
-当设置一个[环境模版](/docs/rancher/v1.x/cn/configuration/environments/#什么是环境模版)的时候，你可以选择启用**Rancher NFS**应用，这样以后用这个模版创建的环境都会包括Rancher的NFS服务。
+当设置一个[环境模版]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/#什么是环境模版)的时候，你可以选择启用**Rancher NFS**应用，这样以后用这个模版创建的环境都会包括Rancher的NFS服务。
 
-或者，如果你已经设置好了一个环境，你可以在[应用商店](/docs/rancher/v1.x/cn/configuration/catalog/)中找到并部署Rancher NFS服务。
+或者，如果你已经设置好了一个环境，你可以在[应用商店]({{< baseurl >}}/rancher/v1.x/cn/configuration/catalog/)中找到并部署Rancher NFS服务。
 
 > **注意:** 某些存储服务可能与容器编排引擎不兼容(例如 Kubernetes)。环境模版会根据你选择的编排引擎显示其兼容的存储服务。但是在应用商店中可以看到全部的应用，不会按照编排引擎进行过滤。
 
@@ -77,7 +77,7 @@ Rancher的NFS驱动可以连接Amazon的EFS。当我们在Amazon EFS上使用Ran
 
 #### 在服务中使用卷
 
-一旦卷在UI中被创建成功，你可以在[服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/)中使用这个共享存储了。当创建一个服务时，在**卷**页签，可以输入**卷**和**卷驱动**。
+一旦卷在UI中被创建成功，你可以在[服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/)中使用这个共享存储了。当创建一个服务时，在**卷**页签，可以输入**卷**和**卷驱动**。
 
 **volume**的语法格式与Docker相同，`<volume_name>:</path/in/container>`。Docker的卷默认是以读写模式进行挂载的，但是你可以通过在卷结尾处添加`:ro`使其以只读的模式进行挂载。
 

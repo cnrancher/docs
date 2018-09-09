@@ -19,11 +19,11 @@ ECR证书更新器是一个容器服务，它会间歇性自动测验AWS ECR API
 
 ### 新环境
 
-你可以用[环境模版](/docs/rancher/v1.x/cn/configuration/environments/#什么是环境模版)创建一个新环境。这个新创建的环境已经有激活了的 **Rancher ECR 证书更新器** 模版。这样可就以用这个模版在任何环境中部署这个更新器了。
+你可以用[环境模版]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/#什么是环境模版)创建一个新环境。这个新创建的环境已经有激活了的 **Rancher ECR 证书更新器** 模版。这样可就以用这个模版在任何环境中部署这个更新器了。
 
 ## 从ECR中启动镜像
 
-在这个环境中，你需要添加ECR作为一个 [镜像库](/docs/rancher/v1.x/cn/configuration/environments/registries/). 一旦你启动了这个服务，你的 ECR 证书将永远不会失效，这样就可以永远从 ECR 中启动镜像了。
+在这个环境中，你需要添加ECR作为一个 [镜像库]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/registries/). 一旦你启动了这个服务，你的 ECR 证书将永远不会失效，这样就可以永远从 ECR 中启动镜像了。
 
 在 Rancher 中指定镜像名时，使用AWS提供完整的限定地址。 比如 `aws-account-number.dkr.ecr.us-west-2.amazonaws.com/my-repo:latest`。
 

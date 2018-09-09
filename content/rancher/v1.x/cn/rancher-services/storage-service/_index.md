@@ -7,9 +7,9 @@ Rancher提供了不同的存储服务，从而使用户可以将存储卷映射�
 
 ### 配置存储服务
 
-当我们创建[环境模板](/docs/rancher/v1.x/cn/configuration/environments/#什么是环境模版)时，用户可以从应用商店选择需要在环境中的使用存储服务。
+当我们创建[环境模板]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/#什么是环境模版)时，用户可以从应用商店选择需要在环境中的使用存储服务。
 
-或者，如果用户已经创建了一个环境，你可以从 [应用商店](/docs/rancher/v1.x/cn/configuration/catalog/)中选择并启动一个存储服务。
+或者，如果用户已经创建了一个环境，你可以从 [应用商店]({{< baseurl >}}/rancher/v1.x/cn/configuration/catalog/)中选择并启动一个存储服务。
 
 > **注意:** 某些存储服务可能无法和一些容器编排调度引擎(例如，kubernetes)兼容。环境模板可以根据当前的编排调度框架限定可以使用的存储服务，而应用商店中则会显示全部的存储服务。
 
@@ -35,7 +35,7 @@ Rancher中，应用级别的存储卷的命名规则为使用应用名称为前�
 
 ### 在UI中使用存储驱动
 
-在你的存储服务启动后且状态为`active`，使用共享存储卷的[服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/)就可以被创建了。在创建服务时，在**卷**选项卡中，输入**卷**以及**卷驱动**
+在你的存储服务启动后且状态为`active`，使用共享存储卷的[服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/)就可以被创建了。在创建服务时，在**卷**选项卡中，输入**卷**以及**卷驱动**
 
 **卷** 语法和Docker语法相同，`<volume_name>:</path/in/container>`。Docker卷默认挂载为读写模式，但是你可以通过在卷的末尾添加`:ro`将其挂载为只读模式。
 

@@ -17,11 +17,11 @@ Rancher 支持将资源分组归属到多个环境。每个环境具有自己独
 
 
 导航到 **环境** 页面后，你会看到一个环境列表和一个环境模板列表。如果你是 Rancher 的
-[管理员](/docs/rancher/v1.x/cn/configuration/accounts/#管理员)用户，你会看到一个所有环境的列表，即使你不是该环境的[成员](/docs/rancher/v1.x/cn/configuration/environments/#成员角色)。任何环境模板都对所有用户可见。
+[管理员]({{< baseurl >}}/rancher/v1.x/cn/configuration/accounts/#管理员)用户，你会看到一个所有环境的列表，即使你不是该环境的[成员]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/#成员角色)。任何环境模板都对所有用户可见。
 
 点击 **添加环境**。每个环境都有自己的名字和描述，你可以选择你要使用的环境模板。在环境模板中，你可以看到哪个基础设施服务是启用的。
 
-> **注意:** 如果没有配置 [访问控制](/docs/rancher/v1.x/cn/configuration/access-control/)， 所有环境都可以被其它 Rancher 的用户访问到。 环境没有任何所属关系。
+> **注意:** 如果没有配置 [访问控制]({{< baseurl >}}/rancher/v1.x/cn/configuration/access-control/)， 所有环境都可以被其它 Rancher 的用户访问到。 环境没有任何所属关系。
 
 有两种方法可以将成员添加到一个环境里:
 
@@ -30,7 +30,7 @@ Rancher 支持将资源分组归属到多个环境。每个环境具有自己独
 
 你可以把每个成员(既个人、团队、或组织)的角色设置为[所有者](#所有者)、[成员](#成员)、[受限制的成员](#受限)或[只读用户](#只读)中的一个。默认情况下，新添加的用户角色为[成员](#成员)。通过用户名旁边的下拉框，可以改变相应用户的角色. 对于环境所有者，你可以随时编辑成员列表以及成员角色。 只有环境的所有者能编辑环境的成员以及其角色。
 
-> **注意:** 只有所有者和管理员才能查看环境的[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)。
+> **注意:** 只有所有者和管理员才能查看环境的[基础设施服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/)。
 
 点击 **创建** 会创建一个环境，所有在成员列表中的用户都立即可以看到这个环境。创建完环境并且添加主机后，Rancher会开始自动部署已启用的基础设施服务。
 
@@ -41,7 +41,7 @@ Rancher 支持将资源分组归属到多个环境。每个环境具有自己独
 环境被停用后，这个环境不再对环境成员可见，但环境的所有者还可以看到并启用这个环境。在环境停用后你不能变更环境的成员，直到该环境被再次启用。环境被停用后所有资源不能再变更，如果你要变更你的基础设施服务，你需要在环境停用之前变更。
 
 
-要删除一个环境，先要停用这个环境。环境删除后，这个环境所有的镜像仓库，负载均衡，API keys 都会从 Rancher 移除。所有通过 Rancher UI 创建，用 Docker Machine 启用的主机也会在云提供商中被用 Docker Machine 移除。如果你已经通过[自定义](/docs/rancher/v1.x/cn/infrastructure/hosts/custom/)的方式添加了一台主机，那么这台主机在云提供商中不会被移除。
+要删除一个环境，先要停用这个环境。环境删除后，这个环境所有的镜像仓库，负载均衡，API keys 都会从 Rancher 移除。所有通过 Rancher UI 创建，用 Docker Machine 启用的主机也会在云提供商中被用 Docker Machine 移除。如果你已经通过[自定义]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/custom/)的方式添加了一台主机，那么这台主机在云提供商中不会被移除。
 
 ### 成员编辑
 只有环境的所有者可以编辑环境的成员。在**环境管理**页面，你可以点击**编辑**进入环境成员编辑页面， 在编辑页面，你可以通过下拉框添加环境成员。
@@ -55,10 +55,10 @@ Rancher 支持将资源分组归属到多个环境。每个环境具有自己独
 #### 所有者
 所有者有在环境中添加和删除用户的权限，也可以修改环境的状态。在环境的成员列表中，所有者还可以改变环境成员的角色。
 
-因为无法编辑环境模版，所有者可以通过[应用商店](/docs/rancher/v1.x/cn/catalog)来修改环境的[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)。环境模版只能在创建环境时使用。
+因为无法编辑环境模版，所有者可以通过[应用商店]({{< baseurl >}}/rancher/v1.x/cn/catalog)来修改环境的[基础设施服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/)。环境模版只能在创建环境时使用。
 
 #### 成员
-一个环境的成员可以在Rancher里面做任何不影响环境本身的操作。成员不能添加／移除其他成员，不能改变其他已存在成员的角色，也不能查看任何[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)。
+一个环境的成员可以在Rancher里面做任何不影响环境本身的操作。成员不能添加／移除其他成员，不能改变其他已存在成员的角色，也不能查看任何[基础设施服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/)。
 
 #### 受限
 环境的受限成员只能够做与应用和服务相关的操作。受限成员能对所有服务的容器做任何操作，即，启动、停止、删除、升级、克隆和编辑。从应用、 服务和容器操作的角度来说，受限成员是不受限制的。
@@ -74,17 +74,17 @@ Rancher 支持将资源分组归属到多个环境。每个环境具有自己独
 
 > **注意:** 只读成员可以查看容器的日志。
 
-为了使非`所有者`可以设置环境的成员，你可以通过更新API配置[`project.set.member.roles`](/docs/rancher/v1.x/cn/api/v2-beta/api-resources/setting/)来实现这一点。
+为了使非`所有者`可以设置环境的成员，你可以通过更新API配置[`project.set.member.roles`]({{< baseurl >}}/rancher/v1.x/cn/api/v2-beta/api-resources/setting/)来实现这一点。
 
 ### 什么是环境模版
 
-环境模版可以让用户定义需要部署的基础设施服务组合。基础设施服务包括(但不限于)容器编排 (即Cattle，[Kubernetes](/docs/rancher/v1.x/cn/kubernetes/)、[Mesos](/docs/rancher/v1.x/cn/infrastructure/mesos/)、[Swarm](/docs/rancher/v1.x/cn/infrastructure/swarm/))、[网络](/docs/rancher/v1.x/cn/rancher-services/networking/)、Rancher 服务 (即 [健康检查](/docs/rancher/v1.x/cn/infrastructure/cattle/health-checks)、[DNS](/docs/rancher/v1.x/cn/rancher-services/dns-service/)、[Metadata](/docs/rancher/v1.x/cn/rancher-services/metadata/)、[调度](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/)、服务发现、[存储](/docs/rancher/v1.x/cn/rancher-services/storage-service/)。
+环境模版可以让用户定义需要部署的基础设施服务组合。基础设施服务包括(但不限于)容器编排 (即Cattle，[Kubernetes]({{< baseurl >}}/rancher/v1.x/cn/kubernetes/)、[Mesos]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/mesos/)、[Swarm]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/swarm/))、[网络]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/networking/)、Rancher 服务 (即 [健康检查]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/health-checks)、[DNS]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/dns-service/)、[Metadata]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/metadata/)、[调度]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/)、服务发现、[存储]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/storage-service/)。
 
-容器的编排方式很多，Rancher提供了一套默认的模版以及推荐使用的基础设施服务用于容器编排。其中的一些基础设施服务(Rancher调度器只能在Cattle环境下使用 )，其他的编排引擎也依赖他们，因为这些服务被用来启动其它基础设施服务。除了默认的模版，你也可以创建自己的模版。通过自己创建模版，你可以选者环境中任何你想要的基础设施服务组合。只有[所有者](#所有者)或[管理员](/docs/rancher/v1.x/cn/configuration/access-control/#管理员)可以查看和编辑环境的基础设施服务。
+容器的编排方式很多，Rancher提供了一套默认的模版以及推荐使用的基础设施服务用于容器编排。其中的一些基础设施服务(Rancher调度器只能在Cattle环境下使用 )，其他的编排引擎也依赖他们，因为这些服务被用来启动其它基础设施服务。除了默认的模版，你也可以创建自己的模版。通过自己创建模版，你可以选者环境中任何你想要的基础设施服务组合。只有[所有者](#所有者)或[管理员]({{< baseurl >}}/rancher/v1.x/cn/configuration/access-control/#管理员)可以查看和编辑环境的基础设施服务。
 
-在和其它用户共享环境前， 我们推荐先设置好[访问控制](/docs/rancher/v1.x/cn/configuration/access-control/)。用户被加入一个环境后, 他们就拥有了创建服务和管理资源的权限。
+在和其它用户共享环境前， 我们推荐先设置好[访问控制]({{< baseurl >}}/rancher/v1.x/cn/configuration/access-control/)。用户被加入一个环境后, 他们就拥有了创建服务和管理资源的权限。
 
-> **注意:** 基础设施资源不可夸环境共享。[镜像仓库](/docs/rancher/v1.x/cn/configuration/environments/registries/)、[证书](/docs/rancher/v1.x/cn/configuration/environments/certificates/) 和环境[API密钥](/docs/rancher/v1.x/cn/api/v2-beta/api-keys/)也不能夸环境。
+> **注意:** 基础设施资源不可夸环境共享。[镜像仓库]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/registries/)、[证书]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/certificates/) 和环境[API密钥]({{< baseurl >}}/rancher/v1.x/cn/api/v2-beta/api-keys/)也不能夸环境。
 
 ### 添加环境模版
 
@@ -94,7 +94,7 @@ Rancher 支持将资源分组归属到多个环境。每个环境具有自己独
 
 为模版选择一个 **名称** 和 **描述**， 选择分享自己模版的方式。 模版可以是私有(只有自己可见)和公有(管理员可见)。
 
-[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)包括，但不限于容器编排、[存储](/docs/rancher/v1.x/cn/rancher-services/storage-service/)和[网络](/docs/rancher/v1.x/cn/rancher-services/networking)。默认的基础设施服务会自动启动。
+[基础设施服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/)包括，但不限于容器编排、[存储]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/storage-service/)和[网络]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/networking)。默认的基础设施服务会自动启动。
 
 ### 编辑 & 删除环境模版
 创建环境模版后，你可以在模版中编辑启用哪个基础设施服务。虽然环境模版是可以编辑的，但已经存在的基于模版创建的环境不会随模版自动更新。

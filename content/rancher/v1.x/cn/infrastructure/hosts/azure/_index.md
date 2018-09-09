@@ -55,8 +55,8 @@ Follow the steps below to create an App registration and the corresponding **Cli
 1. 选择一个你想要使用的**镜像**。任何Azure支持的`docker-machine`在Rancher中也同样支持。如果你设置了镜像，请不要忘记修改**SSH User**为正确的用户。
 1. 选择镜像的**大小**。
 1. 你可以修改**Docker端口**和**存储类型**。
-1. (可选)向主机添加**[标签](/docs/rancher/v1.x/cn/infrastructure/hosts/#labels)**，以帮助组织主机并[调度服务/负载均衡器](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/)或者是[使用除主机IP之外的其他IP解析外部DNS记录](/docs/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/#为外部dns使用特定的ip).
+1. (可选)向主机添加**[标签]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/#labels)**，以帮助组织主机并[调度服务/负载均衡器]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/)或者是[使用除主机IP之外的其他IP解析外部DNS记录]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/#为外部dns使用特定的ip).
 1. (可选)在**高级选项**中，你可以利用[Docker引擎选项](https://docs.docker.com/machine/reference/create/#specifying-configuration-options-for-the-created-docker-engine)定制你的`docker-machine create`工具。
 1. 所有的完成之后，点击**创建**。
 
-一旦你点击创建，Rancher将会创建Azure虚拟机，并在实例中开启 _rancher-agent_ 容器。几分钟之后，主机将会启动并可以[添加服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/)。
+一旦你点击创建，Rancher将会创建Azure虚拟机，并在实例中开启 _rancher-agent_ 容器。几分钟之后，主机将会启动并可以[添加服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/)。

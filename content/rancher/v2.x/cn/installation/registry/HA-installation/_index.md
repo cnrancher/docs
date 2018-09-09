@@ -5,7 +5,7 @@ weight: 2
 
 {{% accordion id="option-1" label="一、说明" %}}
 
-本文档翻译至Harbor官方文档[Harbor High Availability Guide](https://github.com/goharbor/harbor/blob/master/docs/high_availability_installation_guide.md)。介绍如何安装和配置Harbour以实现高可用性,它补充了[单节点镜像仓库安装](/docs/rancher/v2.x/cn/installation/registry/single-node-installation/)。
+本文档翻译至Harbor官方文档[Harbor High Availability Guide](https://github.com/goharbor/harbor/blob/master/docs/high_availability_installation_guide.md)。介绍如何安装和配置Harbour以实现高可用性,它补充了[单节点镜像仓库安装]({{< baseurl >}}/rancher/v2.x/cn/installation/registry/single-node-installation/)。
 
 **重要** 本文档基于Harbor1.5.0版本，它不适用于1.4.0之前的版本。本指南仅供参考。
 

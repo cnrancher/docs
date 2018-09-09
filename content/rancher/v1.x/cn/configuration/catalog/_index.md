@@ -2,7 +2,7 @@
 title: 应用商店
 ---
 
-Rancher提供了一个应用商店，通过商店中的应用程序模版的可以简化部署复杂应用的过程。进入**应用商店**页面，你可以看到所有的[应用](/docs/rancher/v1.x/cn/configuration/settings/#应用商店)的应用模版。在**官方认证**应用商店下包含了[Rancher认证的应用](https://github.com/rancher/rancher-catalog)中的应用模版，在**社区共享**应用商店下包含了[社区贡献的应用](https://github.com/rancher/community-catalog)的应用模版。Rancher只维护官方认证的 _认证_ 模版。
+Rancher提供了一个应用商店，通过商店中的应用程序模版的可以简化部署复杂应用的过程。进入**应用商店**页面，你可以看到所有的[应用]({{< baseurl >}}/rancher/v1.x/cn/configuration/settings/#应用商店)的应用模版。在**官方认证**应用商店下包含了[Rancher认证的应用](https://github.com/rancher/rancher-catalog)中的应用模版，在**社区共享**应用商店下包含了[社区贡献的应用](https://github.com/rancher/community-catalog)的应用模版。Rancher只维护官方认证的 _认证_ 模版。
 
 ### 添加应用商店 Catalogs
 
@@ -10,15 +10,15 @@ Rancher提供了一个应用商店，通过商店中的应用程序模版的可�
 
 目前有两类的应用商店可以添加到Rancher。全局应用商店以及环境应用商店。在全局的应用商店中，应用商店的模版会在所有的环境中。在环境应用商店中，应用商店的模版只会在对应的环境中生效。
 
-Rancher的[管理员](/docs/rancher/v1.x/cn/configuration/access-control/#管理员)可以在 **系统管理** -> **系统设置** 添加或者移除全局应用商店。
+Rancher的[管理员]({{< baseurl >}}/rancher/v1.x/cn/configuration/access-control/#管理员)可以在 **系统管理** -> **系统设置** 添加或者移除全局应用商店。
 
 Rancher环境的用户可以在特定的Rancher环境中通过**应用商店**页面，右上角的**管理**去添加或者删除环境应用商店。
 
-如果你在一个代理后方运行Rancher Server，你需要[把HTTP代理设置在Rancher Server运行的环境变量中](/docs/rancher/v1.x/cn/installing-rancher/installing-server/#http-proxy)，使得Rancher应用商店可以正常运行。
+如果你在一个代理后方运行Rancher Server，你需要[把HTTP代理设置在Rancher Server运行的环境变量中]({{< baseurl >}}/rancher/v1.x/cn/installing-rancher/installing-server/#http-proxy)，使得Rancher应用商店可以正常运行。
 
 ### 应用商店中的基础设施服务
 
-在[环境模版](/docs/rancher/v1.x/cn/configuration/environments/#什么是环境模版)里的[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)来自Rancher中生效的应用商店中的 `infra-templates` 文件夹。
+在[环境模版]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/#什么是环境模版)里的[基础设施服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/)来自Rancher中生效的应用商店中的 `infra-templates` 文件夹。
 
 在**应用商店**中也可以看到这些服务。你可以看到全部的基础设施服务，即使这些服务可能和你当前所选择的编排引擎不兼容。建议在创建环境的时候通过环境模版来选择基础设施服务而不是从应用商店中手动部署这些服务。
 

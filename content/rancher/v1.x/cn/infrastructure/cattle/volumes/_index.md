@@ -12,7 +12,7 @@ title: 数据卷
 
 ### 管理卷
 
-在这一部分，你将会了解如何创建一个可以被容器之间共享的持久化卷。在这里我们将专门使用[Rancher命令行](/docs/rancher/v1.x/cn/infrastructure/cli/)。
+在这一部分，你将会了解如何创建一个可以被容器之间共享的持久化卷。在这里我们将专门使用[Rancher命令行]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cli/)。
 
 > **注意:** UI可以用来管理除了由`local`卷驱动创建的卷。
 
@@ -161,7 +161,7 @@ volumes:
 
 直到这里，我们讨论的一直是[Docker V2 Compose](https://docs.docker.com/compose/compose-file/compose-file-v2/#volumes-volume_driver)的卷。如果你没有在V2 compose文件中的最顶层定义volumes，它将会按照Docker V1 Compose的方式来处理卷。
 
-你也可能用到了[Docker V1 Compose](https://docs.docker.com/compose/compose-file/compose-file-v1/#volumes-volume_driver)。在V1 compose文件中，不支持最顶层的volume部分。所以这时卷只能被定义在服务里。Rancher会把V1的卷定义直接传递给Docker。所以，卷不会被自动删除同时也无法确保可以正常调度到卷所在的主机。为了解决这个在V1卷下的调度问题，你需要使用[调度标签](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#字段-1)。
+你也可能用到了[Docker V1 Compose](https://docs.docker.com/compose/compose-file/compose-file-v1/#volumes-volume_driver)。在V1 compose文件中，不支持最顶层的volume部分。所以这时卷只能被定义在服务里。Rancher会把V1的卷定义直接传递给Docker。所以，卷不会被自动删除同时也无法确保可以正常调度到卷所在的主机。为了解决这个在V1卷下的调度问题，你需要使用[调度标签]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/#字段-1)。
 
 > **注意:** 请尽可能不要使用V1版本的Compose。
 

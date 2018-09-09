@@ -64,10 +64,10 @@ Rancher附带两个默认的Pod安全策略: `restricted`和`unrestricted`。
 
 您可以在以下上下文中添加Pod安全策略:
 
-- [创建集群](/docs/rancher/v2.x/cn/configuration/global/clusters/creating-cluster/create-cluster-custom/)
-- [编辑已有集群](/docs/rancher/v2.x/cn/configuration/global/clusters/editing-clusters/)
-- [创建项目](/docs/rancher/v2.x/cn/configuration/clusters/projects-namespaces/create-project/)
-- [编辑已有项目](/docs/rancher/v2.x/cn/configuration/clusters/projects-namespaces/editing-project/)
+- [创建集群]({{< baseurl >}}/rancher/v2.x/cn/configuration/global/clusters/creating-cluster/create-cluster-custom/)
+- [编辑已有集群]({{< baseurl >}}/rancher/v2.x/cn/configuration/global/clusters/editing-clusters/)
+- [创建项目]({{< baseurl >}}/rancher/v2.x/cn/configuration/clusters/projects-namespaces/create-project/)
+- [编辑已有项目]({{< baseurl >}}/rancher/v2.x/cn/configuration/clusters/projects-namespaces/editing-project/)
 
 > **Note:** 我们建议在创建群集和项目时添加Pod安全策略，而不是编辑现有的集群或者项目。
 

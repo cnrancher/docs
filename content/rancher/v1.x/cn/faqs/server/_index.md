@@ -190,7 +190,7 @@ mysql> select * from setting;
 
 ###  15、我怎么样在代理服务器后运行Rancher Server?
 
-请参照[在HTTP代理后方启动Rancher Server](/docs/rancher/v1.x/cn/installing-rancher/installing-server/#在http代理后方启动-rancher-server).
+请参照[在HTTP代理后方启动Rancher Server]({{< baseurl >}}/rancher/v1.x/cn/installing-rancher/installing-server/#在http代理后方启动-rancher-server).
 
 ###  16、为什么在日志中看到Go-Machine-Service在不断重新启动？ 我该怎么办？
 
@@ -273,17 +273,17 @@ https://{username}:{password}@github.com/{repo}
 
 通过打开 http://rancher_url:8080/v2-beta/settings/auth.service.log.level ,
 
-![mage-20180329174623](/img/server.assets/image-201803291746238.png)
+![mage-20180329174623]({{< baseurl >}}/img/1.x/server.assets/image-201803291746238.png)
 
 点击编辑 修改
 
-![mage-20180329174705](/img/server.assets/image-201803291747058.png)
+![mage-20180329174705]({{< baseurl >}}/img/1.x/server.assets/image-201803291747058.png)
 
-![mage-20180329174723](/img/server.assets/image-201803291747230.png)
+![mage-20180329174723]({{< baseurl >}}/img/1.x/server.assets/image-201803291747230.png)
 
 点击show Request，再点击send Request.
 
-![mage-20180329174815](/img/server.assets/image-201803291748154.png)
+![mage-20180329174815]({{< baseurl >}}/img/1.x/server.assets/image-201803291748154.png)
 
 
 
@@ -293,10 +293,10 @@ https://{username}:{password}@github.com/{repo}
 
 通过打开 http://rancher_url:8080/v2-beta/settings/project.create.default
 
-![mage-20180329175124](/img/server.assets/image-201803291751248.png)
+![mage-20180329175124]({{< baseurl >}}/img/1.x/server.assets/image-201803291751248.png)
 
 
 
 修改value值为false
 
-![mage-20180329175151](/img/server.assets/image-201803291751511.png)
+![mage-20180329175151]({{< baseurl >}}/img/1.x/server.assets/image-201803291751511.png)

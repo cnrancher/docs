@@ -147,7 +147,7 @@ $ rancher-compose up
 $ rancher-compose up -d
 ```
 
-阅读更多关于 [利用Rancher Compose升级服务](/docs/rancher/v1.x/cn/infrastructure/cattle/upgrading/#通过rancher-compose命令行进行服务升级).
+阅读更多关于 [利用Rancher Compose升级服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/upgrading/#通过rancher-compose命令行进行服务升级).
 
 #### start命令
 
@@ -227,7 +227,7 @@ $ rancher-compose pull --cached
 
 #### upgrade 命令
 
-你可以使用 Rancher Compose 升级在 Rancher 里的服务。请阅读更多关于在何时和怎样[更新你的服务](/docs/rancher/v1.x/cn/infrastructure/cattle/upgrading/#通过rancher-compose命令行进行服务升级).
+你可以使用 Rancher Compose 升级在 Rancher 里的服务。请阅读更多关于在何时和怎样[更新你的服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/upgrading/#通过rancher-compose命令行进行服务升级).
 
 
 ### 删除服务／容器

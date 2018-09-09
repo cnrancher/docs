@@ -2,7 +2,7 @@
 title: 服务升级
 ---
 
-在部署[服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/)之后, 你可能想要通过修改服务来升级应用。例如，镜像已经被更新了，你想要部署服务的新版本。由于Docker容器是不可变的，为了修改服务，你需要销毁旧的容器并部署新的容器。Rancher提供了两种升级服务的方法。推荐的方式是[服务内升级](#服务内升级)，这种方式会停掉旧的容器并且在这个服务内启动新的容器。 Rancher[UI](#upgrading-services-in-the-ui)仅支持服务内升级。你也可以通过[Rancher Compose命令行](#通过rancher-compose命令行进行服务升级)进行服务内升级。 另一种升级方式为[替换式升级](#替换式升级)。这种升级方式会删除旧的服务并创建一个新的服务，只有通过[Rancher Compose命令行](#通过rancher-compose命令行进行服务升级)才能进行替换式升级。
+在部署[服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/)之后, 你可能想要通过修改服务来升级应用。例如，镜像已经被更新了，你想要部署服务的新版本。由于Docker容器是不可变的，为了修改服务，你需要销毁旧的容器并部署新的容器。Rancher提供了两种升级服务的方法。推荐的方式是[服务内升级](#服务内升级)，这种方式会停掉旧的容器并且在这个服务内启动新的容器。 Rancher[UI](#upgrading-services-in-the-ui)仅支持服务内升级。你也可以通过[Rancher Compose命令行](#通过rancher-compose命令行进行服务升级)进行服务内升级。 另一种升级方式为[替换式升级](#替换式升级)。这种升级方式会删除旧的服务并创建一个新的服务，只有通过[Rancher Compose命令行](#通过rancher-compose命令行进行服务升级)才能进行替换式升级。
 
 > **注意:** 如果你是想对你的服务进行扩容，你可以修改服务页面的数量参数，或者也可以用过Rancher Compose命令行来进行服务扩容。 `rancher-compose scale <服务名>=<新的容器数量>`.
 
@@ -10,7 +10,7 @@ title: 服务升级
 
 #### 通过UI进行升级
 
-任何服务都可以通过UI来进行升级。和[部署服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/)类似，你之前选择的全部Docker参数都会被保留，你可以修改这些参数的值。额外还有一些升级专用的选项:
+任何服务都可以通过UI来进行升级。和[部署服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/)类似，你之前选择的全部Docker参数都会被保留，你可以修改这些参数的值。额外还有一些升级专用的选项:
 
 * **批量大小**:服务中的容器升级会被分成几批，批量大小代表每次你想要停掉的旧容器数量和启动的新容器数量。例如一共有10个容器要升级，当批量大小为2时，每次会升级2个容器，停掉2个旧的，启动2个新的，分5批完成升级。
 * **批量间隔**:每次批量升级间隔的时间，例如10个容器，每次升级5个，批量时间为5秒。在完成5个容器升级后，在等待5秒后，会升级剩下的5个容器。
@@ -140,7 +140,7 @@ services:
     - db:mysql
 ```
 
-默认情况下，全部的指向`service1`的负载均衡或者是服务连接都会被自动更新并指向`service2`。如果你不想创建这些连接，你可以通过设置来[禁止连接创建](/docs/rancher/v1.x/cn/infrastructure/cattle/upgrading/#更新连接)。
+默认情况下，全部的指向`service1`的负载均衡或者是服务连接都会被自动更新并指向`service2`。如果你不想创建这些连接，你可以通过设置来[禁止连接创建]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/upgrading/#更新连接)。
 
 > **注意:** 升级服务时并不需要`rancher-compose.yml`文件。 在默认情况下，新服务中的容器数量和旧服务中的容器数量相同。你可以通过传递`--scale`参数来设置容器的数量。
 

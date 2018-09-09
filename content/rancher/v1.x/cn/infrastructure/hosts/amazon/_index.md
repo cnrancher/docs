@@ -23,8 +23,8 @@ Rancher支持使用`docker machine`部署[Amazon EC2](http://aws.amazon.com/ec2/
 ### Rancher需要用到的端口:
 
 * Rancher Server访问的TCP端口 `22` (通过SSH安装和配置Docker)
-* 如果你正在使用IPsec [网络驱动](/docs/rancher/v1.x/cn/rancher-services/networking/), 所有主机都需要打开UDP端口`500`和`4500`
-* 如果你正在使用VXLAN [网络驱动](/docs/rancher/v1.x/cn/rancher-services/networking/), 所有主机需要打开UDP端口`4789`
+* 如果你正在使用IPsec [网络驱动]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/networking/), 所有主机都需要打开UDP端口`500`和`4500`
+* 如果你正在使用VXLAN [网络驱动]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/networking/), 所有主机需要打开UDP端口`4789`
 
 > **注意:** 如果你再次使用`rancher-machine`安全组, 之前任何丢失的端口都不会再次打开。如果主机没有正常启动，你需要检查一下AWS上的安全组。
 
@@ -40,9 +40,9 @@ Rancher支持使用`docker machine`部署[Amazon EC2](http://aws.amazon.com/ec2/
    1. 在前面选中的区域中是可访问的；
    2. 定义正确的**SSH User**。如果是使用的[RancherOS AMI](https://github.com/rancher/os#amazon)，SSH User就应该是`rancher`。
 6. (可选)提供用作实例概要的**IAM简介**。
-7. (可选)向主机添加**[标签](/docs/rancher/v1.x/cn/infrastructure/hosts/#labels)**，以帮助组织主机并[调度服务/负载均衡器](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/)或者是[使用除主机IP之外的其他IP解析外部DNS记录](/docs/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/#为外部dns使用特定的ip)。
+7. (可选)向主机添加**[标签]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/#labels)**，以帮助组织主机并[调度服务/负载均衡器]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/)或者是[使用除主机IP之外的其他IP解析外部DNS记录]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/#为外部dns使用特定的ip)。
 8. (可选)在***高级选项**中，你可以定制`docker-machine create`命令[Docker引擎配置选项](https://docs.docker.com/machine/reference/create/#specifying-configuration-options-for-the-created-docker-engine)。
 9. 完成之后，点击**创建**。
 
 
-Rancher将会创建EC2的实例，并在实例中开启 _rancher-agent_ 容器。几分钟之后，主机将会启动并正常提供[服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/)。
+Rancher将会创建EC2的实例，并在实例中开启 _rancher-agent_ 容器。几分钟之后，主机将会启动并正常提供[服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/)。

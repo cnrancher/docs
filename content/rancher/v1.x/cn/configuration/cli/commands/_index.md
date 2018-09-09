@@ -125,7 +125,7 @@ $ rancher catalog install library/route53:v0.6.0-rancher1 --name route53 --syste
 
 ### Rancher Config 说明
 
-`rancher config` 命令用于设置你的[Rancher Server的配置](/docs/rancher/v1.x/cn/infrastructure/cli/#configuring-the-rancher-command-line-interface).
+`rancher config` 命令用于设置你的[Rancher Server的配置]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cli/#configuring-the-rancher-command-line-interface).
 
 ```
 $ rancher config
@@ -385,7 +385,7 @@ $ rancher hosts ls -q
 
 #### Rancher Hosts Create
 
-`rancher hosts create`命令用于创建 [主机](/docs/rancher/v1.x/cn/infrastructure/hosts/). 当创建主机时，需要调用Docker Machine命令，因此需要提供该命令所需要的选项。
+`rancher hosts create`命令用于创建 [主机]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/). 当创建主机时，需要调用Docker Machine命令，因此需要提供该命令所需要的选项。
 
 ### Rancher Logs 说明
 
@@ -512,7 +512,7 @@ $ rancher scale <stackName>/<serviceName>=5 <serviceID>=3
 
 ### Rancher ssh 说明
 
-`rancher ssh` 用于ssh到UI创建的某个主机中。它无法ssh通过[自定义](/docs/rancher/v1.x/cn/infrastructure/hosts/custom/) 命令添加的主机。
+`rancher ssh` 用于ssh到UI创建的某个主机中。它无法ssh通过[自定义]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/custom/) 命令添加的主机。
 
 ```
 $ rancher ssh <hostID>

@@ -68,4 +68,4 @@ We do plan to continue to support Rancher 1.6.x for at least another year after 
 
 ## Rancher CLI Downloads
 
-[rancher-cli](/docs/rancher/v2.x/cn/installation/download/#rancher-cli)
+[rancher-cli]({{< baseurl >}}/rancher/v2.x/cn/installation/download/#rancher-cli)

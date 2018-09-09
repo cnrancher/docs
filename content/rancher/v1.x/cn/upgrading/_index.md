@@ -11,7 +11,7 @@ weight: 300
 * [Rancher服务 - 多活HA模式](#multi-nodes)
 * [Rancher服务 - 无因特网访问](#没有互联网访问的Rancher Server)
 
-> **注意:** 如果你在原始的Rancher服务中设置了任何的环境变量或者传了一个[ldap证书](/docs/rancher/v1.x/cn/installing-rancher/installing-server/#tls认证使用adopenldap)，则需要在任何新的命令中添加这些环境变量或者证书。
+> **注意:** 如果你在原始的Rancher服务中设置了任何的环境变量或者传了一个[ldap证书]({{< baseurl >}}/rancher/v1.x/cn/installing-rancher/installing-server/#tls认证使用adopenldap)，则需要在任何新的命令中添加这些环境变量或者证书。
 
 ### Rancher Server标签
 
@@ -24,7 +24,7 @@ Rancher Server当前版本中有2个不同的标签。对于每一个主要的re
 
 ### 基础设施服务
 
-当Rancher Server升级之后，你的[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)可能也需要升级。我们建议在升级Rancher Server之后检查一下基础设施服务，看是否有可升级的。如果有可升级的，那么按照下面的顺序一个个升级:
+当Rancher Server升级之后，你的[基础设施服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/)可能也需要升级。我们建议在升级Rancher Server之后检查一下基础设施服务，看是否有可升级的。如果有可升级的，那么按照下面的顺序一个个升级:
 
 1. `network-policy-manager`  (如果安装了，这是一个可选的Rancher组件)
 2. `network-services`
@@ -71,7 +71,7 @@ _从v1.6.1开始_
    $ docker pull rancher/server:latest
    ```
 
-4. 用`rancher-data`中的数据库启动一个Rancher Server容器。启动之后，Rancher中的任何变化将会被保存在`rancher-data`容器中。如果你在服务器中看到有关日志锁的异常，请参考[如何修复日志锁](/docs/rancher/v1.x/cn/faqs/server/#databaselock)。
+4. 用`rancher-data`中的数据库启动一个Rancher Server容器。启动之后，Rancher中的任何变化将会被保存在`rancher-data`容器中。如果你在服务器中看到有关日志锁的异常，请参考[如何修复日志锁]({{< baseurl >}}/rancher/v1.x/cn/faqs/server/#databaselock)。
 
     > **注意:** 根据你Rancher Server时间的长短，某些数据库迁移可能需要比预期的更长的时间。 升级过程中请不要停止升级，因为下次升级时会遇到数据库迁移错误。
    ```
@@ -85,7 +85,7 @@ _从v1.6.1开始_
 
 ### 单独升级一个容器(non-HA) - 外部数据库
 
-如果你使用外部数据库启动Rancher Server，你可以先停止原来的Rancher Server容器，并使用相同的[使用外部数据库的安装说明](/docs/rancher/v1.x/cn/installing-rancher/installing-server/#single-container-external-database)。升级你的Rancher Server之前，建议你备份外部数据库。 新服务器启动并运行后，可以删除旧的Rancher Server容器。
+如果你使用外部数据库启动Rancher Server，你可以先停止原来的Rancher Server容器，并使用相同的[使用外部数据库的安装说明]({{< baseurl >}}/rancher/v1.x/cn/installing-rancher/installing-server/#single-container-external-database)。升级你的Rancher Server之前，建议你备份外部数据库。 新服务器启动并运行后，可以删除旧的Rancher Server容器。
 
 <a id="single-container-bind-mount"></a>
 
@@ -125,13 +125,13 @@ _从v1.6.1开始_
 
 ### 升级HA架构
 
-当以[高可用(HA)](/docs/rancher/v1.x/cn/installing-rancher/installing-server/#multi-nodes)的方式启动Rancher Server，新的Rancher HA设置将继续使用用于安装原始HA设置的外部数据库。
+当以[高可用(HA)]({{< baseurl >}}/rancher/v1.x/cn/installing-rancher/installing-server/#multi-nodes)的方式启动Rancher Server，新的Rancher HA设置将继续使用用于安装原始HA设置的外部数据库。
 
 > **注意:** 当升级HA架构的Rancher Server时，Rancher Server在升级过程中将会停止服务。
 
 1. 升级你的Rancher Server之前，建议你备份外部数据库。
 
-2. 在HA架构中的每台Server节点上，停止并删除正在运行的Rancher Server容器，然后按照相同的[安装HA模式的Rancher Server说明](/docs/rancher/v1.x/cn/installing-rancher/installing-server/#multi-nodes)来启动一个新的Rancher服务容器，但是使用的是一个新的Rancher Server镜像版本。
+2. 在HA架构中的每台Server节点上，停止并删除正在运行的Rancher Server容器，然后按照相同的[安装HA模式的Rancher Server说明]({{< baseurl >}}/rancher/v1.x/cn/installing-rancher/installing-server/#multi-nodes)来启动一个新的Rancher服务容器，但是使用的是一个新的Rancher Server镜像版本。
 
    ```
    # On all nodes, stop all Rancher Server containers
@@ -140,8 +140,8 @@ _从v1.6.1开始_
    $ docker run -d --restart=unless-stopped -p 8080:8080 -p 9345:9345 rancher/server --db-host myhost.example.com --db-port 3306 --db-user username --db-pass password --db-name cattle --advertise-address <IP_of_the_Node>
    ```
    <br>
-   > **注意:** 当你正在一个运行[Rancher Server 1.2之前版本的HA](/docs/rancher/v1.x/cn/v1.1/en/installing-rancher/installing-server/multi-nodes/)时，你需要删除所有的正在运行的Rancher HA容器。`$ sudo docker rm -f $(sudo docker ps -a | grep rancher | awk {'print $1'})`
+   > **注意:** 当你正在一个运行[Rancher Server 1.2之前版本的HA]({{< baseurl >}}/rancher/v1.x/cn/v1.1/en/installing-rancher/installing-server/multi-nodes/)时，你需要删除所有的正在运行的Rancher HA容器。`$ sudo docker rm -f $(sudo docker ps -a | grep rancher | awk {'print $1'})`
 
 ### 没有互联网访问的Rancher Server
 
-在没有互联网的情况下，为了能够升级成功，用户需要下载最新的[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)镜像 。
+在没有互联网的情况下，为了能够升级成功，用户需要下载最新的[基础设施服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/)镜像 。

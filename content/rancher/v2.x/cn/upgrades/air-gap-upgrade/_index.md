@@ -7,9 +7,9 @@ weight: 3
 
 ## 离线升级Rancher Server
 
-  1. 按照[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)需求，拉取最新稳定版本镜像并同步到私有镜像仓库；
+  1. 按照[离线安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)需求，拉取最新稳定版本镜像并同步到私有镜像仓库；
 
-  2. 按照[单节点安装升级](/docs/rancher/v2.x/cn/upgrades/single-node-upgrade/)的操作步骤完成升级
+  2. 按照[单节点安装升级]({{< baseurl >}}/rancher/v2.x/cn/upgrades/single-node-upgrade/)的操作步骤完成升级
 
       >**注意:** 在单节点升级时，请在运行docker run命令时将私有镜像仓库地址添加到镜像名中。
       >

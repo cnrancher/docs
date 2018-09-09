@@ -3,25 +3,25 @@ title: 服务
 ---
 
 
-* Cattle对服务采用标准Docker Compose术语，并将基本服务定义为从同一Docker镜像创建的一个或多个容器。一旦服务(消费者)链接到同一个[应用](/docs/rancher/v1.x/cn/infrastructure/cattle/stacks/)中的另一个服务(生产者)相关的[DNS记录](/docs/rancher/v1.x/cn/infrastructure/cattle/internal-dns-service/) 会被自动创建，“消费”服务的容器可以发现这些容器。在Rancher创建服务的其他好处包括:
+* Cattle对服务采用标准Docker Compose术语，并将基本服务定义为从同一Docker镜像创建的一个或多个容器。一旦服务(消费者)链接到同一个[应用]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/stacks/)中的另一个服务(生产者)相关的[DNS记录]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/internal-dns-service/) 会被自动创建，“消费”服务的容器可以发现这些容器。在Rancher创建服务的其他好处包括:
 
 * 服务高可用性(HA):Rancher会不断监控服务中的容器状态，并主动管理以确保所需的服务实例规模。当健康的容器小于(或者多于)正常服务所需容器规模，主机不可用，容器故障或者不能满足健康检查就会被触发。
 
-* [健康检查](/docs/rancher/v1.x/cn/infrastructure/cattle/health-checks/): Rancher通过在主机上运行`healthcheck`的基础设施服务，从而实现了容器和服务的分布式健康检查系统。这个`healthcheck`服务内部使用HAProxy来检查应用程序的运行状况。当在单个容器或服务上启用健康检查时，Rancher将监控每个容器。
+* [健康检查]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/health-checks/): Rancher通过在主机上运行`healthcheck`的基础设施服务，从而实现了容器和服务的分布式健康检查系统。这个`healthcheck`服务内部使用HAProxy来检查应用程序的运行状况。当在单个容器或服务上启用健康检查时，Rancher将监控每个容器。
 
 ### 用户界面中的服务选项
 
-在以下示例中，我们假设你已经创建了一个[应用](/docs/rancher/v1.x/cn/infrastructure/cattle/stacks/), 设置了你的[主机](/docs/rancher/v1.x/cn/infrastructure/hosts/)，并准备好开始构建应用程序来。
+在以下示例中，我们假设你已经创建了一个[应用]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/stacks/), 设置了你的[主机]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/)，并准备好开始构建应用程序来。
 
 我们将在添加服务的过程中了解一些服务的选项，最后将介绍如何创建一个连接到Mongo数据库的[LetsChat](http://sdelements.github.io/lets-chat/)应用程序。
 
 在`应用`中，你可以通过单击`添加服务`按钮添加服务。也可以在`应用`列表中添加服务 ，每个单个`应用`都可以看到`添加服务`按钮。
 
-在**数量**部分，你可以使用滑块来指定要为服务启动的容器的数量。或者，你可以选择**总是在每台主机上运行一个此容器的实例**。使用此选项时，你的服务将被部署到该[环境](/docs/rancher/v1.x/cn/configuration/environments/)中的任何主机上。如果你在**调度**选项卡中创建了调度规则，则Rancher将仅在符合调度规则的主机上启动容器。
+在**数量**部分，你可以使用滑块来指定要为服务启动的容器的数量。或者，你可以选择**总是在每台主机上运行一个此容器的实例**。使用此选项时，你的服务将被部署到该[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)中的任何主机上。如果你在**调度**选项卡中创建了调度规则，则Rancher将仅在符合调度规则的主机上启动容器。
 
 你还需要输入**名称**，如果需要，还可以输入服务**描述**。
 
-为服务设置所需的**镜像**。你可以使用[DockerHub](https://hub.docker.com/)上的任何镜像，以及已添加到你的[环境](/docs/rancher/v1.x/cn/configuration/environments/)中的任何[镜像仓库](/docs/rancher/v1.x/cn/configuration/environments/registries)。镜像名称的语法与`docker run`命令中使用的语法相同。
+为服务设置所需的**镜像**。你可以使用[DockerHub](https://hub.docker.com/)上的任何镜像，以及已添加到你的[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)中的任何[镜像仓库]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/registries)。镜像名称的语法与`docker run`命令中使用的语法相同。
 
 镜像名称的语法。默认情况下，我们从Dockerhub中拉取。如果没有指定标签，我们将拉取标签为tag的镜像。
 
@@ -51,7 +51,7 @@ Rancher努力与Docker保持一致，我们的目标是，支持任何`docker ru
 
 如果你的环境中已经创建了其他服务，则可以将已有服务链接到你正在创建的服务。正在创建的服务中的所有容器都会链接到目标服务中的所有容器。链接就像`docker run`命令中的`--link`功能一样。
 
-链接是基于Rancher[内部DNS](/docs/rancher/v1.x/cn/infrastructure/cattle/internal-dns-service/)的附加功能，当你不需要按服务名称解析服务时，可以使用链接。
+链接是基于Rancher[内部DNS]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/internal-dns-service/)的附加功能，当你不需要按服务名称解析服务时，可以使用链接。
 
 #### Rancher 选项
 
@@ -65,13 +65,13 @@ Rancher努力与Docker保持一致，我们的目标是，支持任何`docker ru
 
 在**健康检查**选项卡中，你可以选择检查服务的TCP连接或HTTP响应。
 
-阅读有关Rancher如何处理[健康检查](/docs/rancher/v1.x/cn/infrastructure/cattle/health-checks/)的更多详细信息。
+阅读有关Rancher如何处理[健康检查]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/health-checks/)的更多详细信息。
 
 ##### 标签/调度
 
-在**标签**选项卡中，Rancher允许将任何标签添加到服务的容器中。标签在创建调度规则时非常有用。在**调度**选项卡中，你可以使用[主机标签](/docs/rancher/v1.x/cn/infrastructure/hosts/#主机标签)，容器/服务标签，和容器/服务名称来创建你服务需要的调度规则。
+在**标签**选项卡中，Rancher允许将任何标签添加到服务的容器中。标签在创建调度规则时非常有用。在**调度**选项卡中，你可以使用[主机标签]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/#主机标签)，容器/服务标签，和容器/服务名称来创建你服务需要的调度规则。
 
-阅读有关[标签与调度](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/)的更多细节。
+阅读有关[标签与调度]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/)的更多细节。
 
 ### 在UI中添加服务
 
@@ -81,7 +81,7 @@ Rancher努力与Docker保持一致，我们的目标是，支持任何`docker ru
 
 ### Rancher Compose中的服务选项
 
-阅读更多关于[配置Rancher Compose](/docs/rancher/v1.x/cn/infrastructure/cattle/rancher-compose/)的细节。
+阅读更多关于[配置Rancher Compose]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/rancher-compose/)的细节。
 
 Rancher Compose工具的工作方式和Docker Compose一样，并支持V1和V2版本的docker-compose.yml文件。要启用Rancher支持的功能，你还可以使用扩展或重写了docker-compose.yml的rancher-compose.yml文档。例如，rancher-compose.yml文档包含了服务的`scale`和`healthcheck`。
 
@@ -91,7 +91,7 @@ Rancher Compose工具的工作方式和Docker Compose一样，并支持V1和V2�
 
 在Rancher中，环境中的所有服务都是可以通过DNS解析的，因此不需要明确设置服务链接，除非你希望使用特定的别名进行DNS解析。
 
-> **注意:** 我们目前不支持将从服务与主服务相关联，反之亦然。阅读更多关于[Rancher内部DNS工作原理](/docs/rancher/v1.x/cn/infrastructure/cattle/internal-dns-service/)。
+> **注意:** 我们目前不支持将从服务与主服务相关联，反之亦然。阅读更多关于[Rancher内部DNS工作原理]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/internal-dns-service/)。
 
 应用中的服务都是可以通过服务名称`service_name`来解析的，当然，你也可以通过链接来使用其他名称进行解析。
 
@@ -139,7 +139,7 @@ services:
 
 ### 使用 Rancher Compose 添加服务
 
-阅读更多关于[配置Rancher Compose](/docs/rancher/v1.x/cn/infrastructure/cattle/rancher-compose/)的详情.
+阅读更多关于[配置Rancher Compose]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/rancher-compose/)的详情.
 
 我们将创建与上面通过UI创建的相同示例。首先，你将需要创建一个`docker-compose.yml`文件和一个`rancher-compose.yml`文件。使用Rancher Compose，我们可以一次启动应用程序中的所有服务。如果没有`rancher-compose.yml`文件，则所有服务将以1个容器的规模启动。
 
@@ -199,8 +199,8 @@ Rancher支持通过使用从服务的概念对服务进行分组，从而使一�
 
 当给一个服务定义一个从服务时，你不需要链接该服务，因为从服务会自动被DNS解析到。
 
-当在服务中使用[负载均衡](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)时，而该服务又拥有从服务的时候，你需要使用主服务作为负载均衡器的目标。从服务**不能**成为目标。
-了解更多关于[Rancher内部DNS](/docs/rancher/v1.x/cn/infrastructure/cattle/internal-dns-service/)的详情。
+当在服务中使用[负载均衡]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)时，而该服务又拥有从服务的时候，你需要使用主服务作为负载均衡器的目标。从服务**不能**成为目标。
+了解更多关于[Rancher内部DNS]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/internal-dns-service/)的详情。
 
 #### 在UI中添加从服务
 

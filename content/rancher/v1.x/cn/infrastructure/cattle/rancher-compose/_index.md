@@ -2,7 +2,7 @@
 title: Rancher Compose
 ---
 
-Rancher Compose是一个多主机版本的Docker Compose。它运行于Rancher UI里属于一个[环境](/docs/rancher/v1.x/cn/configuration/environments/)多个[主机](/docs/rancher/v1.x/cn/infrastructure/hosts/)的[应用](/docs/rancher/v1.x/cn/infrastructure/cattle/stacks/)里。Rancher Compose启动的容器会被部署在满足[调度规则](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/)的同一环境中的任意主机里。如果没有设置调度规则，那么这些服务容器会被调度至最少容器运行的主机上运行。这些被Rancher Compose启动的容器的运行效果是和在UI上启动的效果是一致的.
+Rancher Compose是一个多主机版本的Docker Compose。它运行于Rancher UI里属于一个[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)多个[主机]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/)的[应用]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/stacks/)里。Rancher Compose启动的容器会被部署在满足[调度规则]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/)的同一环境中的任意主机里。如果没有设置调度规则，那么这些服务容器会被调度至最少容器运行的主机上运行。这些被Rancher Compose启动的容器的运行效果是和在UI上启动的效果是一致的.
 
 Rancher Compose工具的工作方式是跟Docker Compose的工作方式是相似的，并且兼容版本V1和V2的 `docker-compose.yml` 文件。为了启用Rancher的特性，你需要额外一份`rancher-compose.yml`文件，这份文件扩展并覆盖了`docker-compose.yml`文件。例如，服务缩放和健康检查这些功能就会在`rancher-compose.yml`中体现。
 
@@ -37,7 +37,7 @@ $ rancher-compose --url http://server_ip:8080 --access-key <username_of_environm
 
 <br>
 
-现在你可以使用Rancher Compose 配合`docker-compose.yml`文件来[启动服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/#使用-rancher-compose-添加服务)了。这些服务会在环境API keys对应的[环境](/docs/rancher/v1.x/cn/configuration/environments/)中启动服务的。
+现在你可以使用Rancher Compose 配合`docker-compose.yml`文件来[启动服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/#使用-rancher-compose-添加服务)了。这些服务会在环境API keys对应的[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)中启动服务的。
 
 就像Docker Compose，你可以在命令后面加上服务名称来选择启动全部或者仅启动指定某些`docker-compose.yml`中服务
 
@@ -71,4 +71,4 @@ $ rancher-compose --debug up -d
 
 构建docker镜像可以有两种方法。第一种方法是通过给build命令一个git或者http URL参数来利用远程资源构建，另一种方法则是让 build 利用本地目录，那么会上传构建上下文到 S3 并在需要时在各个节点执行
 
-为了可以基于S3来创建，你需要[设置 AWS 认证](https://github.com/aws/aws-sdk-go/#configuring-credentials)。我们提供了一个说明怎样利用在Rancher Compose 里使用S3[详细例子](/docs/rancher/v1.x/cn/infrastructure/cattle/rancher-compose/build/)供你参考
+为了可以基于S3来创建，你需要[设置 AWS 认证](https://github.com/aws/aws-sdk-go/#configuring-credentials)。我们提供了一个说明怎样利用在Rancher Compose 里使用S3[详细例子]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/rancher-compose/build/)供你参考

@@ -3,7 +3,7 @@ title:  Windows (实验性)
 weight: 440
 ---
 
-在Rancher中部署Windows，你首先需要添加一个新的[环境](/docs/rancher/v1.x/cn/configuration/environments/)。这个环境需要使用编排引擎为**Windows**的[环境模版](/docs/rancher/v1.x/cn/configuration/environments/#什么是环境模版)进行创建。
+在Rancher中部署Windows，你首先需要添加一个新的[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)。这个环境需要使用编排引擎为**Windows**的[环境模版]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/#什么是环境模版)进行创建。
 
 目前Rancher只支持在特定主机上创建容器。大多数在Cattle和Rancher UI上有的特性目前都不支持**Windows**(如 服务发现, 健康检查, 元数据, DNS, 负载均衡)。
 
@@ -11,7 +11,7 @@ weight: 440
 
 ### 创建一个 Windows 环境
 
-在左上角的环境的下拉菜单中，点击**环境管理**。通过点击**添加环境**去创建一个新的环境，需要填写**名称**，**描述**(可选)，并选择Windows作为编排引擎的环境模版。如果启用了[访问控制](/docs/rancher/v1.x/cn/configuration/access-control/)，你可以在环境中[编辑成员](/docs/rancher/v1.x/cn/configuration/environments/#成员编辑)并选择他们的[成员角色](/docs/rancher/v1.x/cn/configuration/environments/#成员角色)。所有被添加到成员列表的用户都能访问你的环境。
+在左上角的环境的下拉菜单中，点击**环境管理**。通过点击**添加环境**去创建一个新的环境，需要填写**名称**，**描述**(可选)，并选择Windows作为编排引擎的环境模版。如果启用了[访问控制]({{< baseurl >}}/rancher/v1.x/cn/configuration/access-control/)，你可以在环境中[编辑成员]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/#成员编辑)并选择他们的[成员角色]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/#成员角色)。所有被添加到成员列表的用户都能访问你的环境。
 
 在创建Windows环境后，你可以在左上角环境的下拉菜单中切换到你的环境，或者在环境管理页面中，在对应环境的下拉选项中点击**切换到此环境**。
 

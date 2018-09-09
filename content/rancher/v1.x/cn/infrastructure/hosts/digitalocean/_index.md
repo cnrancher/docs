@@ -24,8 +24,8 @@ Rancher 通过使用 `docker machine` 来管理 [DigitalOcean](https://www.digit
 5. 输入 **Size(大小)**；
 6. 选择希望主机启动时所在的 **Region(地域)**，Rancher 是通过调用 DigitalOcean 的metadata来获取合适的地域列表，因此无法支持不在这个列表内的地域；
 7. 接下来是可选的。必要时，可以选择启用例如backups(备份)，IPv6，private networking(私有网络)等高级选项操作；
-8. 必要时，添加 **[labels(标签)](/docs/rancher/v1.x/cn/infrastructure/hosts/#labels)** 来辅助管理主机以及 [调度服务或负载均衡](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/)，也可以 [通过DNS-IP映射来管理不在 Rancher 内启动的服务](/docs/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/#为外部dns使用特定的ip)；
+8. 必要时，添加 **[labels(标签)]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/#labels)** 来辅助管理主机以及 [调度服务或负载均衡]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/)，也可以 [通过DNS-IP映射来管理不在 Rancher 内启动的服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/#为外部dns使用特定的ip)；
 9. 必要时，通过 **Advanced Options(高级选项)**，定制化 [Docker engine options(Docker引擎选项)](https://docs.docker.com/machine/reference/create/#specifying-configuration-options-for-the-created-docker-engine) 来控制 `docker-machine create` 时用到的选项指令；
 10. 一切准备就绪后, 点击 **Create(创建)**。
 
-点击创建后，Rancher 将创建 DigitalOcean 的 droplet(主机)，接着在 droplet 上启动一个 _rancher-agent_ 的容器。几分钟之后，就可以通过 [services(服务)](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/) 页面看到一个Rancher的主机被启动了。
+点击创建后，Rancher 将创建 DigitalOcean 的 droplet(主机)，接着在 droplet 上启动一个 _rancher-agent_ 的容器。几分钟之后，就可以通过 [services(服务)]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/) 页面看到一个Rancher的主机被启动了。

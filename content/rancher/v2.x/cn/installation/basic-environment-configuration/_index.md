@@ -5,7 +5,7 @@ weight: 1
 
 {{% accordion id="option-a" label="一、主机配置" %}}
 
-## 1、配置要求
+### 1、配置要求
 
 硬件需求根据Rancher部署的规模进行扩展。根据需求配置每个节点。
 
@@ -59,7 +59,7 @@ weight: 1
 
 - 端口放行
 
-    端口放行请查看[端口需求](/docs/rancher/v2.x/cn/installation/references/)
+    端口放行请查看[端口需求]({{< baseurl >}}/rancher/v2.x/cn/installation/references/)
 
 ### 8、配置主机时间、时区、系统语言
 
@@ -108,7 +108,7 @@ EOF
 {{% /accordion %}}
 {{% accordion id="option-b" label="二、Docker安装与配置" %}}
 
-## 1、Docker安装
+### 1、Docker安装
 
 ### Ubuntu
 
@@ -140,7 +140,7 @@ EOF
 
 - **Docker-ce**
 
-    >因为CentOS的安全限制，通过RKE安装K8S集群时候无法使用`root`账户。所以，建议`CentOS`用户使用非`root`用户来运行docker,不管是`RKE`还是`custom`安装k8s,详情查看[无法为主机配置SSH隧道](/docs/rancher/v2.x/cn/installation/troubleshooting-ha/ssh-tunneling/)。
+    >因为CentOS的安全限制，通过RKE安装K8S集群时候无法使用`root`账户。所以，建议`CentOS`用户使用非`root`用户来运行docker,不管是`RKE`还是`custom`安装k8s,详情查看[无法为主机配置SSH隧道]({{< baseurl >}}/rancher/v2.x/cn/installation/troubleshooting-ha/ssh-tunneling/)。
 
     ```
     # 添加用户(可选)
@@ -183,7 +183,7 @@ EOF
 
     Docker-Engine Docker官方已经不推荐使用，请安装Docker-CE。
 
-## 2、Docker配置
+### 2、Docker配置
 
 对于通过systemd来管理服务的系统(比如CentOS7.X、Ubuntu16.X), Docker有两处可以配置参数: 一个是`docker.service`服务配置文件,一个是Docker daemon配置文件daemon.json。
 
@@ -269,7 +269,7 @@ OverlayFS是一个新一代的联合文件系统，类似于AUFS，但速度更�
 }
 ```
 
-## 3、Ubuntu系统 ，docker info提示WARNING: No swap limit support
+### 3、Ubuntu系统 ，docker info提示WARNING: No swap limit support
 
 Ubuntu系统下，默认cgroups未开启swap account功能，将会导致需要swap的容器出错。通过修改grub启动参数来开启swap account功能:
 
@@ -282,7 +282,6 @@ sudo update-grub
 
 {{% /accordion %}}
 {{% accordion id="option-c" label="三、仓库配置" %}}
-
 
 - 离线安装镜像仓库配置
 

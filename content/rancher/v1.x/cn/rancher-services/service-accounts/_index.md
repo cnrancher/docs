@@ -13,6 +13,6 @@ Key | Value |描述
 
 Key| Value
 ---|---
-`CATTLE_URL` | [主机注册地址](/docs/rancher/v1.x/cn/configuration/settings/#主机注册)的URL。
-`CATTLE_ACCESS_KEY` | 启动的服务所在[环境](/docs/rancher/v1.x/cn/configuration/environments/)的访问密钥。
+`CATTLE_URL` | [主机注册地址]({{< baseurl >}}/rancher/v1.x/cn/configuration/settings/#主机注册)的URL。
+`CATTLE_ACCESS_KEY` | 启动的服务所在[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)的访问密钥。
 `CATTLE_SECRET_KEY` | 访问密钥对应的安全密钥。

@@ -7,20 +7,21 @@ Rancher支持从私有镜像仓库进行安装。在每个发行版中，我们�
 
 >**先决条件:** 1.假设你有自己的私有镜像仓库或其他方式将镜像分发到你的主机。如果你在创建私有镜像仓库方面需要帮助, 请参考: [Docker documentation for private registries](https://docs.docker.com/registry/)。\
 > 2.在Rancher v2.0.0中，从私有仓库安装不支持使用具有身份验证的私有仓库，仓库需要为公开。\
-> 3.如果想开启API审计日志功能，请访问[API审计日志](/docs/rancher/v2.x/cn/installation/server-installation/api-auditing/)。
+> 3.如果想开启API审计日志功能，请访问[API审计日志]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/api-auditing/)。
 
-## Release文件
+{{% accordion id="1" label="一、Release文件" %}}
 
 - **rancher-images.txt**: 包含该版本所需的所有镜像；
 - **rancher-save-images.sh**: 该脚本将从**DockerHub中**拉取所有需要的镜像，并将所有镜像保存为一个名为`rancher-images.tar.gz`的压缩文件。拷贝`rancher-images.tar.gz`文件到可以访问内部私有镜像仓库的主机上；
 - **rancher-load-images.sh**: 这个脚本会从rancher-images.tar.gz导入镜像，并将它们推送到私有仓库。你必须添加私有仓库地址作为脚本的第一个参数。`rancher-load-images.sh registry.yourdomain.com:5000`;
 
-### 我们将介绍两种离线安装方案:
+{{% /accordion %}}
+{{% accordion id="2" label="二、离线安装方案" %}}
 
 - **方案1**:一台可访问DockerHub的主机来拉取和保存镜像，另一台可以访问私有仓库的主机来推送镜像；
 - **方案2**:有一台可以同时访问DockerHub和私有仓库的主机；
 
-#### **方案1**:一台可访问DockerHub的主机来拉取和保存镜像，另一台可以访问私有仓库的主机来推送镜像；
+### **方案1**:一台可访问DockerHub的主机来拉取和保存镜像，另一台可以访问私有仓库的主机来推送镜像；
 
 ![Scenario1]({{< baseurl >}}/img/rancher/airgap/privateregistry.svg)
 
@@ -37,7 +38,7 @@ Rancher支持从私有镜像仓库进行安装。在每个发行版中，我们�
     > <registry.yourdomain.com:port>/rancher/rancher:latest
     > ```
 
-#### 方案2:有一台可以同时访问DockerHub和私有仓库的主机
+### 方案2:有一台可以同时访问DockerHub和私有仓库的主机
 
 ![Scenario2]({{< baseurl >}}/img/rancher/airgap/privateregistrypushpull.svg)
 
@@ -71,8 +72,9 @@ Rancher支持从私有镜像仓库进行安装。在每个发行版中，我们�
     > -p 80:80 -p 443:443 \
     > <registry.yourdomain.com:port>/rancher/rancher:latest
     > ```
-  
-### 配置Rancher使用私有仓库
+
+{{% /accordion %}}
+{{% accordion id="3" label="三、配置Rancher使用私有仓库" %}}
 
 Rancher需要配置使用私有镜像仓库作为默认是仓库
 
@@ -95,3 +97,5 @@ Rancher需要配置使用私有镜像仓库作为默认是仓库
     >-e CATTLE_SYSTEM_DEFAULT_REGISTRY=<registry.yourdomain.com:port>
     ><registry.yourdomain.com:port>/>rancher/rancher:v2.0.0
     >```
+
+{{% /accordion %}}

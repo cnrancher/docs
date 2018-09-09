@@ -10,25 +10,25 @@ Rancher在服务/容器和主机上使用标签来帮助管理Rancher的不同�
 
 Key | Value |描述
 ---|---|---
-`io.rancher.sidekicks` |  `服务名称`  | 用来定义哪些服务属于[从容器](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/#sidekick-服务)
-`io.rancher.loadbalancer.target.SERVICE_NAME` | `REQUEST_HOST:SOURCE_PORT/REQUEST_PATH=TARGET_PORT` |用于判定 [L7 Load Balancing](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/#load-balancer-example-l7)
+`io.rancher.sidekicks` |  `服务名称`  | 用来定义哪些服务属于[从容器]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/#sidekick-服务)
+`io.rancher.loadbalancer.target.SERVICE_NAME` | `REQUEST_HOST:SOURCE_PORT/REQUEST_PATH=TARGET_PORT` |用于判定 [L7 Load Balancing]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/#load-balancer-example-l7)
 `io.rancher.container.dns`| `true` | 服务能够使用基于Rancher DNS的服务发现来解析其他服务，并能被其他服务解析。 如果你需要此DNS服务，且网络设置为`主机`，则此标签是必需的.
 `io.rancher.container.hostname_override` | `容器名称` | 用于将容器的主机名设置为容器的名称 (例如: StackName_ServiceName_CreateIndex)
 `io.rancher.container.start_once` |`true` | 用于设置容器只运行一次，并在容器为停止状态时显示`active`状态。
 `io.rancher.container.pull_image` | `always` | 用于在部署容器之前始终拉取新的镜像.
 `io.rancher.container.requested_ip` | IP于`10.42.0.0/16`的地址空间 | 允许你选择容器的特定IP。从v1.6.6版本开始，服务内的容器将会使用配置的多个IP地址中的可用地址，直到这些地址全被占用。这些地址要用逗号隔开，例如`10.42.100.100, 10.42.100.101`。 在v1.6.6之前，只有服务中的一个容器可以使用这个特定IP。**注意:如果IP在主机上不可用，则容器将以随机IP开始.**
 `io.rancher.container.dns.priority` | `service_last` | 在服务域之前使用主机的DNS搜索路径。 保证主机将从`/etc/resolv.conf`搜索后再对`*.rancher.internal`搜索。
-`io.rancher.service.selector.container` |  [_Selector Label_ Values](/docs/rancher/v1.x/cn/infrastructure/cattle/labels/#选择器标签) | 用于服务，以支持选择独立的容器来加入DNS服务。 注意:作为独立容器，任何服务操作都不会影响独立容器(即停用/删除/编辑服务，健康检查等)。
-`io.rancher.service.selector.link` | [_Selector Label_ Values](/docs/rancher/v1.x/cn/infrastructure/cattle/labels/#选择器标签) | 用于服务以允许服务基于服务标签链接到服务。 例如: Service1具有标签`io.rancher.service.selector.link:foo = bar`。 任何添加到Rancher的具有`foo=bar`标签的服务将自动链接到Service1。
-`io.rancher.scheduler.global` | `true` | 用于设置[全局服务](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#全局服务)
-`io.rancher.scheduler.affinity:host_label` | 主机标签的Key Value配对| 用于根据[主机标签](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#使用主机标签查找主机)在主机上编排容器
-`io.rancher.scheduler.affinity:container_label` | 容器标签的Key Value配对 | 用于根据[容器标签或服务名称](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#用容器标签查找主机)在主机上编排容器
-`io.rancher.scheduler.affinity:container` | 容器名称 | 用于根据[容器名称](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#查找具有容器名称的主机)在主机上安排容器
+`io.rancher.service.selector.container` |  [_Selector Label_ Values]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/labels/#选择器标签) | 用于服务，以支持选择独立的容器来加入DNS服务。 注意:作为独立容器，任何服务操作都不会影响独立容器(即停用/删除/编辑服务，健康检查等)。
+`io.rancher.service.selector.link` | [_Selector Label_ Values]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/labels/#选择器标签) | 用于服务以允许服务基于服务标签链接到服务。 例如: Service1具有标签`io.rancher.service.selector.link:foo = bar`。 任何添加到Rancher的具有`foo=bar`标签的服务将自动链接到Service1。
+`io.rancher.scheduler.global` | `true` | 用于设置[全局服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/#全局服务)
+`io.rancher.scheduler.affinity:host_label` | 主机标签的Key Value配对| 用于根据[主机标签]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/#使用主机标签查找主机)在主机上编排容器
+`io.rancher.scheduler.affinity:container_label` | 容器标签的Key Value配对 | 用于根据[容器标签或服务名称]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/#用容器标签查找主机)在主机上编排容器
+`io.rancher.scheduler.affinity:container` | 容器名称 | 用于根据[容器名称]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/#查找具有容器名称的主机)在主机上安排容器
 `io.rancher.lb_service.target` | [_Target Service Label_ Values](#目标服务标签) | 用于配置负载均衡，以便将流量转发到与负载均衡位于同一主机上的容器。
 
 <br>
 
-> **注意:** 对于以`io.rancher.scheduler.affinity`为前缀的标签，根据你想要匹配的方式(即相等或不相等，hard或soft规则)会有轻微的变化。 更多细节可以在这里找到[这里](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#table-of-scheduling-labels).
+> **注意:** 对于以`io.rancher.scheduler.affinity`为前缀的标签，根据你想要匹配的方式(即相等或不相等，hard或soft规则)会有轻微的变化。 更多细节可以在这里找到[这里]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/#table-of-scheduling-labels).
 
 #### 选择器标签
 
@@ -88,15 +88,15 @@ Key | 描述
 
 ### 主机标签
 
-[主机标签](/docs/rancher/v1.x/cn/infrastructure/hosts/#主机标签) 可以在主机注册期间添加到主机，创建后可通过**编辑**在主机中添加。
+[主机标签]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/#主机标签) 可以在主机注册期间添加到主机，创建后可通过**编辑**在主机中添加。
 
 Key | Value |描述
 ----|-----|---
-`io.rancher.host.external_dns_ip` | 用于[外部DNS](/docs/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/)的IP, 例如: a.b.c.d | 用于外部DNS服务，并需要对DNS记录进行编程[使用主机IP以外的IP](/docs/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/#为外部dns使用特定的ip)
+`io.rancher.host.external_dns_ip` | 用于[外部DNS]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/)的IP, 例如: a.b.c.d | 用于外部DNS服务，并需要对DNS记录进行编程[使用主机IP以外的IP]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/#为外部dns使用特定的ip)
 
 ### 自动创建的主机标签
 
-Rancher会自动创建与主机的linux内核版本和Docker Engine版本相关的主机标签。 这些标签可以用于[调度](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/).
+Rancher会自动创建与主机的linux内核版本和Docker Engine版本相关的主机标签。 这些标签可以用于[调度]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/).
 
 Key | Value | 描述
 ----|----|----

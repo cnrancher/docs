@@ -3,9 +3,9 @@ title: Cluster.ymls
 weight: 1
 ---
 
-有许多不同的[配置选项](/docs/rke/v0.1.x/cn/config-options/)可以在集群配置文件中为RKE设置。以下是一些示例配置:
+有许多不同的[配置选项]({{< baseurl >}}/rke/v0.1.x/cn/config-options/)可以在集群配置文件中为RKE设置。以下是一些示例配置:
 
->**Rancher 2用户注意事项** 如果在创建[Rancher Launched Kubernetes](/docs/rancher/v2.x/en/cluster-provisioning/rke-clusters/)时使用[配置文件](/docs/rancher/v2.x/en/cluster-provisioning/rke-clusters/options/#config-file)配置群集选项，则`kube_api`、`kube_controller`服务名称应仅包含`下划线`。这仅适用于`Rancher v2.0.5和v2.0.6`。
+>**Rancher 2用户注意事项** 如果在创建[Rancher Launched Kubernetes]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/)时使用[配置文件]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/options/#config-file)配置群集选项，则`kube_api`、`kube_controller`服务名称应仅包含`下划线`。这仅适用于`Rancher v2.0.5和v2.0.6`。
 
 ## 最小化`cluster.yml`示例
 

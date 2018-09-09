@@ -44,7 +44,7 @@ title: Webhooks
 
 ##### 安装 Prometheus
 
-[Rancher 应用商店](/docs/rancher/v1.x/cn/configuration/catalog/) 提供了 Prometheus 监控服务，在 **应用商店** 中可以找到这个服务。选中**Prometheus** 然后启动应用商店入口。 在 Prometheus 应用中找到一个名为 `prometheus` 的服务，这个服务暴露了 `9090` 端口。在容器中找到 `/etc/prom-conf`。 Prometheus 的配置文件`prometheus.yml` 就在 `/etc/prom-conf` 目录。为了添加告警， 单独创建一个告警文件，在 `prometheus.yml` 中提供文件的路径。 比如，如果你创建了一个名为 `rules.conf` 的告警文件，把它加入到 `prometheus.yml`，在 `prometheus.yml` 末尾加入如下两行:
+[Rancher 应用商店]({{< baseurl >}}/rancher/v1.x/cn/configuration/catalog/) 提供了 Prometheus 监控服务，在 **应用商店** 中可以找到这个服务。选中**Prometheus** 然后启动应用商店入口。 在 Prometheus 应用中找到一个名为 `prometheus` 的服务，这个服务暴露了 `9090` 端口。在容器中找到 `/etc/prom-conf`。 Prometheus 的配置文件`prometheus.yml` 就在 `/etc/prom-conf` 目录。为了添加告警， 单独创建一个告警文件，在 `prometheus.yml` 中提供文件的路径。 比如，如果你创建了一个名为 `rules.conf` 的告警文件，把它加入到 `prometheus.yml`，在 `prometheus.yml` 末尾加入如下两行:
 
 ```
 rule_files:
@@ -100,9 +100,9 @@ receivers:
 Prometheus和告警管理程序随告警钩子更新后，重启服务器，以确保配置处于最新的激活状态。对于已经添加了告警的服务，服务会自动根据创建的更新器钩子自动扩容或缩容。
 
 #### 主机弹性伸缩
-Rancher 可以通过克隆用 Rancherc 创建的， 并且已经存在的主机来增加主机的数量。(即 Docker Machine)。这意味这通过 [自定义命令](/docs/rancher/v1.x/cn/infrastructure/hosts/custom/) 添加的主机不能进行伸缩。
+Rancher 可以通过克隆用 Rancherc 创建的， 并且已经存在的主机来增加主机的数量。(即 Docker Machine)。这意味这通过 [自定义命令]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/custom/) 添加的主机不能进行伸缩。
 
-使用 [主机上的标签](/docs/rancher/v1.x/cn/infrastructure/hosts/#主机标签)，
+使用 [主机上的标签]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/#主机标签)，
 主机可以被分组到一起组成一个弹性伸缩组。我们推荐在主机上使用唯一的标签来方便区分弹性伸缩组。任何标签相同的主机，不管它是如何被添加到Rancher的，都会被当作是同一个弹性伸缩组的一部分。创建 webhook 时, 主机上不要求有标签，但是当在弹性伸缩组中使用webhook时，至少要有一个主机带有标签，这样 webhook 才能有一个可以克隆的主机。总之， Rancher 会选择一台在弹性伸缩组中的可克隆主机
 
 要弹性伸缩主机，你必须配置你的 webhook:
@@ -117,7 +117,7 @@ Rancher 可以通过克隆用 Rancherc 创建的， 并且已经存在的主机�
 
 * **主机标签:** 标签被用把主机划分为不同的弹性伸缩组。因为这些标签是由用户添加的，在选择，添加，编辑，标签时必须要非常小心。任何添加在主机上的标签都会自动地把这台主机到添加到一个弹性伸缩组。如果这台主机是可克隆的，它可能会被用于克隆出更多主机。任何主机标签的移除都会自动地把相应的主机从弹性伸缩组移除，这台主机也将不再能够被 webhook 服务克隆或移除。
 
-* **[自定义主机](/docs/rancher/v1.x/cn/infrastructure/hosts/custom/):** 任何类型的主机都可以被添加到弹性伸缩组中，你只需要在主机上添加一个标签。Rancher 不能用这些主机来克隆或创建出更多主机。
+* **[自定义主机]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/custom/):** 任何类型的主机都可以被添加到弹性伸缩组中，你只需要在主机上添加一个标签。Rancher 不能用这些主机来克隆或创建出更多主机。
 * **主机克隆:** 因为主机扩增既是主机克隆，所有配置，包括资源分配，Docker 引擎等都会在新主机被复制。Rancher 总是会用克隆最旧的主机。
 * **处于错误状态的主机:** 任何处于 `Error` 状态的主机都不会被添加到弹性伸缩组中.
 * **移除主机的顺序:** 从 Rancher 中删除主机时，Rancher会根据主机的状态，按一下的顺序删除弹性伸缩组中的主机(`Inactive`， `Deactivating`，`Reconnecting` 或 `Disconnected`)，最后才会删除处于 `active` 状态的主机

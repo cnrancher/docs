@@ -9,50 +9,14 @@ weight: 2
 
 ![Rancher HA]({{< baseurl >}}/img/rancher/ha/rancher2ha-l7.svg)
 
-## 二、Linux主机要求
+{{% accordion id="1" label="一、Linux主机要求" %}}
 
-在安装Rancher之前，请确认符合主机要求,使用以下要求配置3个新的Linux主机。
+### 1、[基础环境配置]({{< baseurl >}}/rancher/v2.x/cn/installation/basic-environment-configuration/)
 
-### 1、操作系统
+### 2、[端口需求]({{< baseurl >}}/rancher/v2.x/cn/installation/references/)
 
-- Ubuntu 16.04(64位)
-- Centos/RedHat Linux 7.5+(64位)
-- RancherOS 1.3.0+(64位)
-
-### 2、硬件
-
-硬件需求根据Rancher部署的规模进行扩展。根据需求配置每个节点。
-
-| 部署大小 | 集群(个)  | 节点(个) | vCPU                                            | 内存 |
-| -------- | --------- | -------- |     ------------------------------------------- | ---- |
-| 小       | 不超过10  | 最多50   | 2C                                              | 4GB  |
-| 中       | 不超过100 | 最多500  | 8C                                              | 32GB |
-| 大       | 超过100   | 超过500  | [联系Rancher](https://www.cnrancher.com/contact/) |      |
-
-### 3、软件
-
-- Docker
-
-    >**注意:**如果你使用的是RancherOS，请确保你将Docker引擎切换为受支持的版本`sudo ros engine switch docker-17.03.2-ce`
-
-    **支持的Docker版本**
-
-  - `1.12.6`
-  - `1.13.1`
-  - `17.03.2`
-
-    [Docker安装说明](https://docs.docker.com/install/)
-
-    >**注意:**1.该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请查阅[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。\
-    >2.更多Rancher server tag列表，请查阅[Rancher server tags](/docs/rancher/v2.x/cn/installation/server-tags/)。
-
-### 4、端口
-
-下图描述了Rancher的基本端口要求。有关全面列表，请查阅[端口要求](/docs/rancher/v2.x/cn/installation/references/)。
-
-![基本端口要求](/docs/img/rancher/port-communications.png)
-
-## 三、配置负载均衡器(以NGINX为例)
+{{% /accordion %}}
+{{% accordion id="2" label="二、配置负载均衡器(以NGINX为例)" %}}
 
 默认情况下，通过`docker run`运行的Rancher server容器会自动把端口80重定向到443，但是通过负载均衡器来代理Rancher server容器后，不再需要将Rancher server容器端口从80重定向到443。通过在负载均衡器上配置`X-Forwarded-Proto: https`参数后，Rancher server容器端口重定向功能将自动被禁用。
 
@@ -74,7 +38,8 @@ weight: 2
 - [Amazon ALB](./alb)
 - [nginx](./nginx)
 
-## 四、配置DNS
+{{% /accordion %}}
+{{% accordion id="3" label="三、配置DNS" %}}
 
 选择一个用于访问Rancher的域名(FQDN)(例如，demo.rancher.com).
 
@@ -109,13 +74,14 @@ weight: 2
 
 如果环境为内部网络且无DNS服务器，可以通过修改客户端的`/etc/hosts`文件，添加相应的条目。比如:
 
-![image-20180711140926370](/docs/img/rancher/ha/image-20180711140926370.png)
+![image-20180711140926370]({{< baseurl >}}/img/rancher/ha/image-20180711140926370.png)
 
-## 五、下载 RKE
+{{% /accordion %}}
+{{% accordion id="4" label="四、下载 RKE" %}}
 
 RKE是一种快速，通用的Kubernetes安装程序，可用于在Linux主机上安装Kubernetes。我们将使用RKE来配置Kubernetes集群并运行Rancher。
 
-1、打开浏览器访问[下载文件](/docs/rancher/v2.x/cn/installation/download/)页面，根据你操作系统类型下载最新版本的RKE:
+1、打开浏览器访问[下载文件]({{< baseurl >}}/rancher/v2.x/cn/installation/download/)页面，根据你操作系统类型下载最新版本的RKE:
 
 - **MacOS**: `rke_darwin-amd64`
 - **Linux**: `rke_linux-amd64`
@@ -147,7 +113,8 @@ $ chmod +x rke_linux-amd64
 rke version v<N.N.N>
 ```
 
-## 六、下载RKE配置模板
+{{% /accordion %}}
+{{% accordion id="5" label="五、下载RKE配置模板" %}}
 
 RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板可供选择，具体取决于使用的SSL证书类型。
 
@@ -157,9 +124,10 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 
 - [Template for certificate signed by recognized CA<br/> `3-node-externalssl-recognizedca.yml`](https://raw.githubusercontent.com/rancher/rancher/58e695b51096b1f404188379cea6f6a35aea9e4c/rke-templates/3-node-externalssl-recognizedca.yml)
 
-### 2、重命名模板文件为 `rancher-cluster.yml`.
+### 2、重命名模板文件为 `rancher-cluster.yml`
 
-## 七、节点配置
+{{% /accordion %}}
+{{% accordion id="6" label="六、节点配置" %}}
 
 获得rancher-cluster.yml配置文件模板后，编辑节点部分以指向Linux主机。
 
@@ -203,13 +171,14 @@ nodes:
 
 > **注意** 使用RHEL/CentOS系统时，因为系统安全限制，`ssh`不能使用root账户。
 
-## 八、证书配置
+{{% /accordion %}}
+{{% accordion id="7" label="七、证书配置" %}}
 
 出于安全考虑，使用Rancher需要SSL加密。 SSL可以保护所有Rancher网络通信，例如登录或与集群交互时。
 
 ### 1、方案A — 使用自签名证书
 
->**先决条件:** 1.证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型](/docs/rancher/v2.x/cn/installation/self-signed-ssl/)；\
+>**先决条件:** 1.证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型]({{< baseurl >}}/rancher/v2.x/cn/installation/self-signed-ssl/)；\
 > 2.证书必须通过`base64`加密；\
 > 3.在你的证书文件中，包含链中的所有中间证书；
 
@@ -237,7 +206,8 @@ data:
 
 如果你使用的是权威CA机构颁发的证书，则不需要做任何操作。
 
-## 九、域名配置
+{{% /accordion %}}
+{{% accordion id="8" label="八、域名配置" %}}
 
 RKE配置文件中有一个`<FQDN>`引用,编辑配置文件替换`<FQDN>`:
 
@@ -263,11 +233,13 @@ apiVersion: extensions/v1beta1
             servicePort: 80
 ```
 
-## 十、备份配置文件
+{{% /accordion %}}
+{{% accordion id="9" label="九、备份配置文件" %}}
 
 保存关闭.yml文件后，将其备份到安全位置。升级Rancher时，你需要再次使用此文件。
 
-## 十一、运行RKE
+{{% /accordion %}}
+{{% accordion id="10" label="十、运行RKE" %}}
 
 完成所有配置后，你可以通过运行rke up命令并使用--config参数指定配置文件来完成Rancher 集群的安装。
 
@@ -295,17 +267,22 @@ INFO[0000] [network] Pulling image [alpine:latest] on host [1.1.1.1]
 INFO[0101] Finished building Kubernetes cluster successfully
 ```
 
-## 十二、备份自动生成的kubectl配置文件
+{{% /accordion %}}
+{{% accordion id="11" label="十一、备份自动生成的kubectl配置文件" %}}
 
 在安装过程中，RKE会自动生成一个kube_config_rancher-cluster.yml与RKE二进制文件位于同一目录中的配置文件。此文件很重要，它可以在Rancher server故障时，利用kubectl通过此配置文件管理Kubernetes集群。复制此文件将其备份到安全位置。
 
-## 十三、下一步？
+{{% /accordion %}}
+{{% accordion id="12" label="十二、下一步？" %}}
 
 你有几个选择:
 
-- 创建Rancher server的备份:[单节点备份和恢复](/docs/rancher/v2.x/cn/backups-and-restoration/backups/single-node-backups/)。
-- 创建一个Kubernetes集群:[创建一个集群](/docs/rancher/v2.x/cn/configuration/clusters/creating-a-cluster/)。
+- 创建Rancher server的备份:[单节点备份和恢复]({{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/backups/single-node-backups/)。
+- 创建一个Kubernetes集群:[创建一个集群]({{< baseurl >}}/rancher/v2.x/cn/configuration/clusters/creating-a-cluster/)。
 
-## 十四、FAQ和故障排除
+{{% /accordion %}}
+{{% accordion id="13" label="十三、FAQ和故障排除" %}}
 
-[FAQ](/docs/rancher/v2.x/cn/faq/)中整理了常见的问题与解决方法。
+[FAQ]({{< baseurl >}}/rancher/v2.x/cn/faq/)中整理了常见的问题与解决方法。
+
+{{% /accordion %}}

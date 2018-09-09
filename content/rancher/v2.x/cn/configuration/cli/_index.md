@@ -7,7 +7,7 @@ Rancher CLI是一个统一的工具，可用于与Rancher进行交互。使用�
 
 ## 一、下载Rancher CLI
 
-`Rancher CLI`二进制文件可以直接从Rancher UI下载，下载链接可以从`Rancher UI`右下角找到。`Rancher CLI`有Windows，Mac和Linux的二进制文件。你还可以从[文件下载](/docs/rancher/v2.x/cn/installation/download/)页面下载最新版本的二进制文件。
+`Rancher CLI`二进制文件可以直接从Rancher UI下载，下载链接可以从`Rancher UI`右下角找到。`Rancher CLI`有Windows，Mac和Linux的二进制文件。你还可以从[文件下载]({{< baseurl >}}/rancher/v2.x/cn/installation/download/)页面下载最新版本的二进制文件。
 
 ## 二、运行要求
 

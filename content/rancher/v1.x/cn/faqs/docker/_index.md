@@ -59,12 +59,13 @@ update-grub
 ```
 ## 4、我怎么通过rancher让docker里的程序代理上网呢？
 
-启动容器的时候 加一下 
+启动容器的时候添加：
+
 ```
 -e http_proxy=  -e https_proxy=
 ```
 
-![proxy](/img/proxy.png)
+![proxy]({{< baseurl >}}/img/1.x/proxy.png)
 
 ## 5、Docker Error: Unable to remove filesystem
 Some container-based utilities, such as Google cAdvisor, mount Docker system directories, such as /var/lib/docker/, into a container. For instance, the documentation for cadvisor instructs you to run the cadvisor container as follows:
@@ -80,6 +81,7 @@ $ sudo docker run \
   --name=cadvisor \
   google/cadvisor:latest
 ````
+
 When you bind-mount `/var/lib/docker/`, this effectively mounts all resources of all other running containers as filesystems within the container which mounts `/var/lib/docker/`. When you attempt to remove any of these containers, the removal attempt may fail with an error like the following:
 
 ```

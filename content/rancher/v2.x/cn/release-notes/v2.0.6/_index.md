@@ -62,4 +62,4 @@ Our next major milestone will be our 2.1 release that will include a tool that w
 
 ## Rancher CLI Downloads
 
-[rancher-cli](/docs/rancher/v2.x/cn/installation/download/#rancher-cli)
+[rancher-cli]({{< baseurl >}}/rancher/v2.x/cn/installation/download/#rancher-cli)

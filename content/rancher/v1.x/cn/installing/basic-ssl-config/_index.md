@@ -7,9 +7,9 @@ weight: 202
 
 ### 需求
 
-除了一般的Rancher Server[需求](/docs/rancher/v1.x/cn/installing-rancher/installing-server/#安装需求)外，你还需要:
+除了一般的Rancher Server[需求]({{< baseurl >}}/rancher/v1.x/cn/installing-rancher/installing-server/#安装需求)外，你还需要:
 
-* 有效的SSL证书:如果你的证书并不是标准的Ubuntu CA bundle，请参考以下内容[使用自签名证书](/docs/rancher/v1.x/cn/installing-rancher/installing-server/basic-ssl-config/#使用自签名证书-beta)。
+* 有效的SSL证书:如果你的证书并不是标准的Ubuntu CA bundle，请参考以下内容[使用自签名证书]({{< baseurl >}}/rancher/v1.x/cn/installing-rancher/installing-server/basic-ssl-config/#使用自签名证书-beta)。
 * 相关域名的DNS配置
 
 ### Rancher Server 标签
@@ -36,8 +36,8 @@ $ sudo docker run -d --restart=unless-stopped --name=rancher-server rancher/serv
 
 如果你需要复用现有的Rancher Server实例，升级的步骤会根据你如何运行原有的Rancher实例而不同。
 
-* 使用 [挂载MYSQL数据库的数据目录](/docs/rancher/v1.x/cn/installing-rancher/installing-server/#single-container-bind-mount) 的实例，请参考 [升级Rancher Server - 绑定挂载的MYSQL卷](/docs/rancher/v1.x/cn/upgrading/#单独升级一个容器non-ha---绑定挂载的mysql卷)。
-* 对于使用外部数据库的Rancher实例，停止并移除现有的Rancher容器，新建一个容器即可 [启动 RANCHER SERVER - 使用外部数据库](/docs/rancher/v1.x/cn/installing-rancher/installing-server/#single-container-external-database)。
+* 使用 [挂载MYSQL数据库的数据目录]({{< baseurl >}}/rancher/v1.x/cn/installing-rancher/installing-server/#single-container-bind-mount) 的实例，请参考 [升级Rancher Server - 绑定挂载的MYSQL卷]({{< baseurl >}}/rancher/v1.x/cn/upgrading/#单独升级一个容器non-ha---绑定挂载的mysql卷)。
+* 对于使用外部数据库的Rancher实例，停止并移除现有的Rancher容器，新建一个容器即可 [启动 RANCHER SERVER - 使用外部数据库]({{< baseurl >}}/rancher/v1.x/cn/installing-rancher/installing-server/#single-container-external-database)。
 
 ### Nginx 配置模版
 
@@ -255,7 +255,7 @@ Rancher Compose CLI 将需要CA证书，这个CA证书需要被添加到操作�
 
 3. 使用 `https` 地址访问Rancher，例如 `https://rancher.server.domain`。
 
-4. 为SSL更新[主机注册地址](/docs/rancher/v1.x/cn/configuration/settings/#主机注册)配置
+4. 为SSL更新[主机注册地址]({{< baseurl >}}/rancher/v1.x/cn/configuration/settings/#主机注册)配置
 
 > **注意:** 除非你的浏览器信任了该用于给Rancher Server签名的CA证书，否则在你访问UI的时候，浏览器会显示一个未信任的网站警告。
 
@@ -263,4 +263,4 @@ Rancher Compose CLI 将需要CA证书，这个CA证书需要被添加到操作�
 
 1. 在你准备添加到Rancher集群的主机上，使用PEM格式保存CA证书，并放入 `/var/lib/rancher/etc/ssl` 文件夹下并改名为 `ca.crt`。
 
-2. 添加 [自定义主机](/docs/rancher/v1.x/cn/infrastructure/hosts/custom/), 使用UI上提示的命令复制到主机上. 命令会自动挂载目录 `-v /var/lib/rancher:/var/lib/rancher`, 所以文件会自动的复制到你的主机上。
+2. 添加 [自定义主机]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/custom/), 使用UI上提示的命令复制到主机上. 命令会自动挂载目录 `-v /var/lib/rancher:/var/lib/rancher`, 所以文件会自动的复制到你的主机上。

@@ -14,7 +14,7 @@ Rancher支持各类集中式身份验证系统来管理Kubernetes集群。例如
 
 Rancher为DevOps工程师提供了一个直观的用户界面来管理他们的服务容器，用户不需要深入了解Kubernetes概念就可以开始使用Rancher。 Rancher包含应用商店，支持一键式部署Helm和Compose模板。Rancher通过各种云、本地生态系统产品认证，其中包括安全工具，监控系统，容器仓库以及存储和网络驱动程序。下图说明了Rancher在IT和DevOps组织中扮演的角色。每个团队都会在他们选择的公共云或私有云上部署应用程序。 
 
-{{< figure src="/docs/img/rancher/platform.png" title="Rancher Platform">}}
+![Platform]({{< baseurl >}}/img/rancher/platform.png)
 
 ## What's New？
 

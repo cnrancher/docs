@@ -5,7 +5,7 @@ weight: 4
 
 Rancher也支持使用Kubernetes的Helm包管理器镜像安装。
 
-## 一、添加Chart仓库地址
+{{% accordion id="1" label="一、添加Chart仓库地址" %}}
 
 使用`helm repo add`命令添加Rancher chart仓库地址.
 
@@ -13,7 +13,8 @@ Rancher也支持使用Kubernetes的Helm包管理器镜像安装。
 helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
 ```
 
-## 二、安装证书管理
+{{% /accordion %}}
+{{% accordion id="2" label="二、安装证书管理" %}}
 
 >**注意** 只有Rancher自动生成的证书和LetsEncrypt颁发的证书才需要cert-manager。如果是你自己的证书，可使用`ingress.tls.source=secret`参数指定证书，并跳过此步骤。
 
@@ -27,7 +28,8 @@ helm install stable/cert-manager \
   --namespace kube-system
 ```
 
-## 三、选择SSL配置
+{{% /accordion %}}
+{{% accordion id="3" label="三、选择SSL配置" %}}
 
 Rancher server设计默认需要开启SSL/TLS配置来保证安全。
 
@@ -98,4 +100,9 @@ Rancher chart有许多配置选项,可用于自定义安装以适合你的特定
 
 确保保存了所有的配置参数，Rancher下一次升级时，helm需要使用相同的配置参数来运行新版本Rancher。
 
-### 6、[故障排除](/docs/rancher/v2.x/cn/faq/troubleshooting-helm/)
+{{% /accordion %}}
+{{% accordion id="4" label="四、故障排除" %}}
+
+### 1、[故障排除]({{< baseurl >}}/rancher/v2.x/cn/faq/troubleshooting-helm/)
+
+{{% /accordion %}}

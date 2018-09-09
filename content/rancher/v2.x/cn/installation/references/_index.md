@@ -5,7 +5,7 @@ weight: 3
 
 要保证Rancher正常运行，需要主机或者安全策略打开以下端口。使用云服务创建集群(如Amazon EC2或DigitalOcean),Rancher会自动打开这些端口。下图显示了Rancher的基本端口要求。如果需要了解更多，请查阅下表。
 
-![Basic port Requirements]({{< baseurl >}}/img/rancher/port-communications.png)
+![Basic port Requirements]({{< baseurl >}}/img/rancher/port-communications.svg)
 
 {{% accordion id="option-1" label="一、Rancher nodes" %}}
 

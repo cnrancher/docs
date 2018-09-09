@@ -58,7 +58,7 @@ Rancher支持创建密文并在容器中使用该密文(在容器中使用该密
       -e VAULT_ADDR=https://<VAULT_SERVER> -e VAULT_TOKEN=<TOKEN_FOR_VAULT_ACCCESS> rancher/server
    ```
 
-    > **注意:** 请检查运行的[Rancher Server版本](/docs/rancher/v1.x/cn/installing-rancher/installing-server/#rancher-server-标签)是否是你想要的。
+    > **注意:** 请检查运行的[Rancher Server版本]({{< baseurl >}}/rancher/v1.x/cn/installing-rancher/installing-server/#rancher-server-标签)是否是你想要的。
 
 4. 在Rancher服务启动成功之后，你需要修改Rancher中的`service-backend`设置。在**系统管理** -> **系统设置** -> **高级设置**中，找到`secrets.backend`。它的默认值是`localkey`，你可以把它修改为`vault`。
 
@@ -95,7 +95,7 @@ $ rancher secrets create name-of-secret file-with-secret
 
 ### 在Rancher中启用密文
 
-为了在容器中使用密文，你要先部署**Rancher Secrets**服务。你可以把这个服务加到[环境模版](/docs/rancher/v1.x/cn/configuration/environments/#什么是环境模版)中，在添加该服务之后部署的新[环境](/docs/rancher/v1.x/cn/configuration/environments/)里都会含有**Rancher Secrets**服务。你也可以直接通过[应用商店](/docs/rancher/v1.x/cn/configuration/catalog/)部署该服务。如果你想在现有的环境中部署**Rancher Secrets**服务，你可以通过**应用商店** -> **官方认证**，然后搜索**Rancher Secrets**找到**Rancher Secrets**服务。如果不部署**Rancher Secrets**服务的话，你仅仅可以创建密文，但是不能在你的容器里使用这些密文。
+为了在容器中使用密文，你要先部署**Rancher Secrets**服务。你可以把这个服务加到[环境模版]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/#什么是环境模版)中，在添加该服务之后部署的新[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)里都会含有**Rancher Secrets**服务。你也可以直接通过[应用商店]({{< baseurl >}}/rancher/v1.x/cn/configuration/catalog/)部署该服务。如果你想在现有的环境中部署**Rancher Secrets**服务，你可以通过**应用商店** -> **官方认证**，然后搜索**Rancher Secrets**找到**Rancher Secrets**服务。如果不部署**Rancher Secrets**服务的话，你仅仅可以创建密文，但是不能在你的容器里使用这些密文。
 
 ### 向服务／容器中添加密文
 

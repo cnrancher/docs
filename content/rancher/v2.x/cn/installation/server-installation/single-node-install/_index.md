@@ -3,59 +3,22 @@ title: 1 - 独立容器安装
 weight: 1
 ---
 
-对于开发环境，我们推荐直接在主机上通过`docker run`的形式运行Rancher server容器。可能有的主机无法直接通过公网IP来访问主机，需要通过代理去访问，这种场景请参考[使用外部负载平衡器进行单一节点安装](/docs/rancher/v2.x/cn/installation/server-installation/single-node-install-external-lb/)。
+对于开发环境，我们推荐直接在主机上通过`docker run`的形式运行Rancher server容器。可能有的主机无法直接通过公网IP来访问主机，需要通过代理去访问，这种场景请参考[使用外部负载平衡器进行单一节点安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/single-node-install-external-lb/)。
 
-## 一、Linux主机要求
+{{% accordion id="1" label="一、Linux主机要求" %}}
 
-配置一台Linux主机来运行Rancher server。
+### 1、[基础环境配置]({{< baseurl >}}/rancher/v2.x/cn/installation/basic-environment-configuration/)
 
-### 1、操作系统
+### 2、[端口需求]({{< baseurl >}}/rancher/v2.x/cn/installation/references/)
 
-- Ubuntu 16.04(64位)
-- Centos/RedHat Linux 7.5+(64位)
-- RancherOS 1.3.0+(64位)
-
-### 2、硬件
-
-硬件需求根据Rancher部署的规模进行扩展。根据需求配置每个节点。
-
-| 部署大小 | 集群(个)  | 节点(个) | vCPU                                        | 内存 |
-| -------- | --------- | -------- | ------------------------------------------- | ---- |
-| 小       | 不超过10  | 最多50   | 2C                                          | 4GB  |
-| 中       | 不超过100 | 最多500  | 8C                                          | 32GB |
-| 大       | 超过100   | 超过500  | [联系Rancher](https://www.cnrancher.com/contact/) |      |
-
-### 3、软件
-
-- Docker
-
-    > **注意:**如果你使用的是RancherOS，请确保你将Docker引擎切换为受支持的版本`sudo ros engine switch docker-17.03.2-ce`
-
-    **支持的版本**
-
-  - `1.12.6`
-  - `1.13.1`
-  - `17.03.2`
-  
-    [Docker文档:安装说明](https://docs.docker.com/install/)
-
-    > **注意:**该`rancher/rancher`镜像托管在[DockerHub上](https://hub.docker.com/r/rancher/rancher/tags/)。如果你无法访问DockerHub，或者离线环境下安装Rancher，请参考[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。
-    >
-    > 更多Rancher server tag列表，请参考[Rancher server tags](/docs/rancher/v2.x/cn/installation/server-tags/)。
-
-### 4、端口
-
-下图描述了Rancher的基本端口要求。有关全面列表，请参考[端口要求](/docs/rancher/v2.x/cn/installation/references/)。
-
-![基本端口要求](/docs/img/rancher/port-communications.png)
-
-## 二、安装Rancher并配置SSL证书
+{{% /accordion %}}
+{{% accordion id="2" label="二、安装Rancher并配置SSL证书" %}}
 
 出于安全考虑，使用Rancher时需要SSL进行加密。SSL可以保护所有Rancher网络通信，例如登录或与集群交互。
 
-> **注意** 如果你正在访问此页面以完成[离线安装](/docs/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)，在运行安装命令时，必须在Rancher镜像前面加上你私有仓库的地址，替换`<REGISTRY.DOMAIN.COM:PORT>`为你的私有仓库地址。\
+> **注意** 如果你正在访问此页面以完成[离线安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)，在运行安装命令时，必须在Rancher镜像前面加上你私有仓库的地址，替换`<REGISTRY.DOMAIN.COM:PORT>`为你的私有仓库地址。\
 > 例如:`<REGISTRY.DOMAIN.COM:PORT>/rancher/rancher:latest` \
-> 如果想开启API审计日志功能，请访问[API审计日志](/docs/rancher/v2.x/cn/installation/server-installation/api-auditing/)。
+> 如果想开启API审计日志功能，请访问[API审计日志]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/api-auditing/)。
 
 ### 1、方案A-使用默认自签名证书
 
@@ -77,8 +40,8 @@ Rancher安装可以使用自己生成的自签名证书。
 
 > **先决条件** 创建一个自签名证书。
 > - 这里的证书不需要进行`base64`加密;
-> - 证书文件必须是[PEM](/docs/rancher/v2.x/cn/installation/server-installation/single-node-install/#我如何知道我的证书是否为pem格式)格式;
-> - 在你的证书文件中，包含链中的所有中间证书。有关示例，请参考[SSL常见问题/故障排除](/docs/rancher/v2.x/cn/installation/server-installation/single-node-install/#如果我想添加我的中间证书-证书的顺序是什么);
+> - 证书文件必须是[PEM]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/single-node-install/#我如何知道我的证书是否为pem格式)格式;
+> - 在你的证书文件中，包含链中的所有中间证书。有关示例，请参考[SSL常见问题/故障排除]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/single-node-install/#如果我想添加我的中间证书-证书的顺序是什么);
 
 **使用自己生成的自签名证书安装Rancher:**
 
@@ -97,7 +60,7 @@ docker run -d --restart=unless-stopped \
 
 如果你公开发布你的应用，理想情况下应该使用由权威CA机构颁发的证书。
 
-> **先决条件:**1.证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型](/docs/rancher/v2.x/cn/installation/self-signed-ssl/)；\
+> **先决条件:**1.证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型]({{< baseurl >}}/rancher/v2.x/cn/installation/self-signed-ssl/)；\
 >2.确保容器包含你的证书文件和密钥文件。由于你的证书是由认可的CA签署的，因此不需要安装额外的CA证书文件;\
 >3.给容器添加`--no-cacerts`参数禁止Rancher生成默认CA证书；\
 >4.这里的证书不需要进行`base64`加密;
@@ -143,13 +106,17 @@ docker run -d --restart=unless-stopped \
 
 >**注意:Let’s Encrypt 平台对证书的申请和销毁有一定频率限制。有关更多信息，请参考[Let’s Encrypt documentation on rate limits](https://letsencrypt.org/docs/rate-limits/)。
 
-## 三、下一步？
+{{% /accordion %}}
+{{% accordion id="3" label="三、下一步" %}}
 
 你有几个选择:
 
-- 创建Rancher server的备份: [单节点备份和恢复](/docs/rancher/v2.x/cn/backups-and-restoration/backups/single-node-backups/)。
-- 创建一个Kubernetes集群: [创建一个集群](/docs/rancher/v2.x/cn/configuration/clusters/creating-a-cluster/)。
+- 创建Rancher server的备份: [单节点备份和恢复]({{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/backups/single-node-backups/)。
+- 创建一个Kubernetes集群: [创建一个集群]({{< baseurl >}}/rancher/v2.x/cn/configuration/clusters/creating-a-cluster/)。
 
-## 四、FAQ和故障排除
+{{% /accordion %}}
+{{% accordion id="4" label="四、FAQ和故障排除" %}}
 
-[FAQ](/docs/rancher/v2.x/cn/faq/)中整理了常见的问题与解决方法。
+[FAQ]({{< baseurl >}}/rancher/v2.x/cn/faq/)中整理了常见的问题与解决方法。
+
+{{% /accordion %}}

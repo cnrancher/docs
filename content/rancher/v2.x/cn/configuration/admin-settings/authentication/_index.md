@@ -32,23 +32,23 @@ Rancher提供本地身份验证，也可以`同时`与以下`一个或者多个`
 
 1. 以`本地管理员`登录Rancher，对外部身份验证服务进行完整配置。
 
-    ![Sign In](/docs/img/rancher/sign-in.png)
+    ![Sign In]({{< baseurl >}}/img/rancher/sign-in.png)
 
 2. Rancher将外部服务账号与本地管理员账号联系在一起。这两个账号共享本地管理员用户的用户ID。
 
-    ![Principal ID Sharing](/docs/img/rancher/principal-ID.png)
+    ![Principal ID Sharing]({{< baseurl >}}/img/rancher/principal-ID.png)
 
 3. 完成配置后，Rancher会自动注销本地管理员账号。
 
-    ![Sign Out Local Principal](/docs/img/rancher/sign-out-local.png)
+    ![Sign Out Local Principal]({{< baseurl >}}/img/rancher/sign-out-local.png)
 
 4. 然后，Rancher将自动以外部服务用户登录。
 
-    ![Sign In External Principal](/docs/img/rancher/sign-in-external.png)
+    ![Sign In External Principal]({{< baseurl >}}/img/rancher/sign-in-external.png)
 
 5. 由于外部服务账号和本地管理员账号共享一个ID，因此在`用户`页面上不会显示外部服务账号的唯一标识。
 
-    ![Sign In External Principal](/docs/img/rancher/users-page.png)
+    ![Sign In External Principal]({{< baseurl >}}/img/rancher/users-page.png)
 
 6. 外部服务账号和本地管理员账号共享相同的访问权限。
 

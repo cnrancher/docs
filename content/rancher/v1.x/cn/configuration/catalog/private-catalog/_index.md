@@ -11,12 +11,12 @@ title: 私有应用商店
 #### 基于不同调度引擎的模板
 
 * _Cattle_ 调度引擎: 界面中的应用模板来自`templates`文件夹
-* _[Swarm](/docs/rancher/v1.x/cn/infrastructure/swarm/)_ 调度引擎: 界面中的应用模板来自`swarm-templates`文件夹
-* _[Mesos](/docs/rancher/v1.x/cn/infrastructure/mesos/)_ 调度引擎: 界面中的应用模板来自`mesos-templates`文件夹
+* _[Swarm]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/swarm/)_ 调度引擎: 界面中的应用模板来自`swarm-templates`文件夹
+* _[Mesos]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/mesos/)_ 调度引擎: 界面中的应用模板来自`mesos-templates`文件夹
 
 ### 基础设施服务模板
 
-Rancher的[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)可以从[环境模板](/docs/rancher/v1.x/cn/configuration/environments/#什么是环境模版)中启用, 这些模板来自于`infra-templates`文件夹。
+Rancher的[基础设施服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/)可以从[环境模板]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/#什么是环境模版)中启用, 这些模板来自于`infra-templates`文件夹。
 
 这些服务从**应用商店**菜单中也可以看到, 你可以看到全部的基础设施服务包括那些和当前的编排调度引擎不兼容的服务. 我们建议从环境模板中启用基础设施服务，而不是直接从应用商店中启动。
 
@@ -67,7 +67,7 @@ projectURL: # 和模板相关的URL
 
 ### Rancher 应用商店模板
 
- `docker-compose.yml`以及`rancher-compose.yml`为在Rancher中使用[Rancher Compose](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/#使用-rancher-compose-添加服务)启动服务**必须**提供的两个文件. 该文件将被保存在版本文件夹中。 (如: `0`, `1`, 等等)。
+ `docker-compose.yml`以及`rancher-compose.yml`为在Rancher中使用[Rancher Compose]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/#使用-rancher-compose-添加服务)启动服务**必须**提供的两个文件. 该文件将被保存在版本文件夹中。 (如: `0`, `1`, 等等)。
 
  `docker-compose.yml`为一个可以使用 `docker-compose up`来启动的文件。 该服务遵循docker-compose格式。
 

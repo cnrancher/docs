@@ -2,7 +2,7 @@
 title: 外部DNS服务
 ---
 
-在[应用商店](/docs/rancher/v1.x/cn/configuration/catalog/)中，Rancher提供了多种的DNS服务并且这些服务可以监听rancher-metadata的事件，并根据metadata的更变生成DNS记录。我们会以Route53作为例子说明外部DNS是如何工作的，但Rancher还有其他由其他DNS服务商提的供社区版服务。
+在[应用商店]({{< baseurl >}}/rancher/v1.x/cn/configuration/catalog/)中，Rancher提供了多种的DNS服务并且这些服务可以监听rancher-metadata的事件，并根据metadata的更变生成DNS记录。我们会以Route53作为例子说明外部DNS是如何工作的，但Rancher还有其他由其他DNS服务商提的供社区版服务。
 
 ### 最佳实践
 
@@ -88,7 +88,7 @@ fqdn=<serviceName>.<stackName>.<environmentName>.<yourHostedZoneName>
 
 ### 为外部DNS使用特定的IP
 
-在默认下，Rancher DNS选择注册在Rancher Server中的主机IP去暴露服务。其中会有一个应用场景是主机在一个私有网络中，但主机将需要使用外部DNS在公网中暴露服务。你需要在启动外部DNS服务前添加一个[主机标签](/docs/rancher/v1.x/cn/infrastructure/hosts/#主机标签)，来指定在外部DNS中使用的IP地址。
+在默认下，Rancher DNS选择注册在Rancher Server中的主机IP去暴露服务。其中会有一个应用场景是主机在一个私有网络中，但主机将需要使用外部DNS在公网中暴露服务。你需要在启动外部DNS服务前添加一个[主机标签]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/#主机标签)，来指定在外部DNS中使用的IP地址。
 
 在启动外部服务前，需要添加以下标签到主机上。标签的值需要是Rancher的Route53 DNS服务上要用到的IP。如果这个标签没有设置在主机上，Rancher的Route53服务将会默认使用主机注册在Rancher上的IP的地址。
 

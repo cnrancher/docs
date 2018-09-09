@@ -8,15 +8,15 @@ title: 应用栈
 
 在**应用**页，点击**添加应用**。你需要输入一个**名称**然后点击**创建**.
 
-之后会进到这个刚创建的应用页面里。你可以开始在应用里[添加服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/)，[添加负载均衡](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)，[添加服务别名](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-service-alias)，或者[添加外部服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-external-services)。
+之后会进到这个刚创建的应用页面里。你可以开始在应用里[添加服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/)，[添加负载均衡]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)，[添加服务别名]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-service-alias)，或者[添加外部服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-external-services)。
 
-> **注意:** 在启动服务之前，你需要至少向Rancher环境添加一台主机。更多添加主机的内容，请查看[文档](/docs/rancher/v1.x/cn/infrastructure/hosts/)。
+> **注意:** 在启动服务之前，你需要至少向Rancher环境添加一台主机。更多添加主机的内容，请查看[文档]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/)。
 
 你也可以通过导入`compose`文件来创建应用。在应用创建页面可以导入`docker-compose.yml`和`rancher-compose.yml`文件。你可以在创建应用页面里直接上传文件，也可以把文件中的内容通过复制粘贴输入到创建页面上。当你点击**创建**之后，一个由相关服务组成的应用就创建成功了。通过`docker-compose.yml`文件来创建的服务，仅会被创建但并不会被启动。你需要手动启动他们。
 
 ## 查看应用中的服务
 
-在应用列表页面，你可以轻松的监控该[环境](/docs/rancher/v1.x/cn/configuration/environments/)内所有应用的状态。
+在应用列表页面，你可以轻松的监控该[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)内所有应用的状态。
 你可以点击应用左侧的加号来展开应用，并查看应用里面的每个服务。 你也可以点击应用名称，进入应用详情页面。
 
 应用详情页面展示了应用内的全部服务。你可以点击服务名称，进入服务详情页面。在服务详情页面，可以点击容器名称，进入容器详情页面。
@@ -27,7 +27,7 @@ title: 应用栈
 
 `rancher-compose.yml`文件包含了Rancher启动服务时所需的额外信息。`docker-compose`文件内并不支持这些参数。
 
-有了这两个文件，你也用可以用[Rancher Compose命令行](/docs/rancher/v1.x/cn/infrastructure/cattle/rancher-compose/)来启动服务。
+有了这两个文件，你也用可以用[Rancher Compose命令行]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/rancher-compose/)来启动服务。
 
 ### 查看配置
 

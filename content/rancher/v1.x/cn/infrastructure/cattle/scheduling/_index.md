@@ -6,29 +6,29 @@ title: 服务调度
 
 默认情况下，Rancher将检测主机上的端口冲突，如果端口不可用，则不会将需要此端口的容器调度到这一主机上。
 
-这个核心调度逻辑内置于Rancher，但Rancher还支持位于我们[外部调度器](/docs/rancher/v1.x/cn/rancher-services/scheduler/)中的其他调度能力，这是我们[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)的一部分。其他调度能力包括:
+这个核心调度逻辑内置于Rancher，但Rancher还支持位于我们[外部调度器]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/scheduler/)中的其他调度能力，这是我们[基础设施服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/)的一部分。其他调度能力包括:
 
-* [多个IP的主机调度能力](/docs/rancher/v1.x/cn/rancher-services/scheduler/#multiple-ips)
-* [基于资源约束的调度能力 (例如 CPU和内存)](/docs/rancher/v1.x/cn/rancher-services/scheduler/#resource-constraints)
-* [能够限制在主机上安排哪些服务](/docs/rancher/v1.x/cn/rancher-services/scheduler/#restrict-services-on-host)
+* [多个IP的主机调度能力]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/scheduler/#multiple-ips)
+* [基于资源约束的调度能力 (例如 CPU和内存)]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/scheduler/#resource-constraints)
+* [能够限制在主机上安排哪些服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/scheduler/#restrict-services-on-host)
 
 ### 标签和调度规则
 
-不管是通过[服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/)或者[负载均衡](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)来创建容器时，我们都提供了为容器创建标签的选项，并且可以安排你想要放置容器的主机。 对于本节的剩余部分，我们将使用服务这个术语，但这些标签也适用于负载均衡器(即特定类型的服务)
+不管是通过[服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/)或者[负载均衡]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)来创建容器时，我们都提供了为容器创建标签的选项，并且可以安排你想要放置容器的主机。 对于本节的剩余部分，我们将使用服务这个术语，但这些标签也适用于负载均衡器(即特定类型的服务)
 
 调度规则提供了让Rancher选择要使用哪个主机的灵活性。 在Rancher中，我们使用标签来帮助定义调度规则。 你可以根据需要在容器上创建任意数量的标签。 通过多个调度规则，你可以完全控制容器在哪些主机上创建。 你可以要求在具有特定主机标签，容器标签或名称或特定服务的主机上启动该容器。 这些调度规则可以帮助你创建容器对主机的黑名单和白名单。
 
 ### 在UI中添加标签
 
-对于[添加服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/)，可以在`标签`选项卡中添加标签。 对于添加负载均衡，也可以在`标签`选项卡中找到添加标签。
+对于[添加服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/)，可以在`标签`选项卡中添加标签。 对于添加负载均衡，也可以在`标签`选项卡中找到添加标签。
 
-通过向[负载均衡](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)添加标签，每个负载均衡容器将接收该标签，该标签是一个键值对。 在Rancher中，我们使用这些容器标签来帮助定义调度规则。 你可以根据需要在负载均衡上创建任意数量的标签。 默认情况下，Rancher已经在每个容器上添加了系统相关的标签。
+通过向[负载均衡]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)添加标签，每个负载均衡容器将接收该标签，该标签是一个键值对。 在Rancher中，我们使用这些容器标签来帮助定义调度规则。 你可以根据需要在负载均衡上创建任意数量的标签。 默认情况下，Rancher已经在每个容器上添加了系统相关的标签。
 
 ### 在UI中调度选项
 
-对于[服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/)和[负载均衡](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)，标签可以在**调度**选项卡中找到。
+对于[服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/)和[负载均衡]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)，标签可以在**调度**选项卡中找到。
 
-对于 [服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/),
+对于 [服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/),
 我们提供了两个选项来确定在哪里启动容器。
 
 #### 选项1:在指定主机上运行 _全部_ 容器
@@ -38,11 +38,11 @@ title: 服务调度
 #### 选项2:为每一个容器自动选择符合调度规则的主机
 通过选择此选项，你可以灵活地选择调度规则。 遵循所有规则的任何主机都是可以启动容器的主机。 你可以通过点击 **+** 按钮添加规则。
 
-对于[负载均衡](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)，只有选项2可用，因为端口冲突。 你只能添加调度规则。 点击 **调度** 选项卡。 你可以通过点击 **添加调度规则** 按钮添加任意数量的调度规则。
+对于[负载均衡]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)，只有选项2可用，因为端口冲突。 你只能添加调度规则。 点击 **调度** 选项卡。 你可以通过点击 **添加调度规则** 按钮添加任意数量的调度规则。
 
 对于每个规则，你可以选择规则的**条件**。 有四种不同的条件，它们定义了遵守规则的严格程度。 **字段**确定要应用规则的字段。 **键**和**值**是要检查字段的值。 如果你启动了一个服务或负载均衡，Rancher将根据每个主机的负载来扩展容器在适用主机上的分发。 根据所选择的条件将确定适用的主机是什么。
 
-> **注意:** 对于[添加服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/)/[添加负载均衡](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)，如果你在数量那里选择了 **总是在每台主机上运行一个此容器的实例**，则只有主机标签将显示为可能的字段。
+> **注意:** 对于[添加服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/)/[添加负载均衡]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)，如果你在数量那里选择了 **总是在每台主机上运行一个此容器的实例**，则只有主机标签将显示为可能的字段。
 
 #### 条件
 
@@ -99,7 +99,7 @@ labels:
 
 #### 全局服务
 
-将服务提供到全局服务中相当于在UI中的每个主机上选择**总是在每台主机上运行一个此容器的实例**。 这意味着将在[环境](/docs/rancher/v1.x/cn/configuration/environments/)中的任何主机上启动一个容器。 如果将新主机添加到环境中，并且主机满足全局服务的主机要求，则该服务将自动启动。
+将服务提供到全局服务中相当于在UI中的每个主机上选择**总是在每台主机上运行一个此容器的实例**。 这意味着将在[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)中的任何主机上启动一个容器。 如果将新主机添加到环境中，并且主机满足全局服务的主机要求，则该服务将自动启动。
 
 目前，全局服务只支持使用硬条件的主机标签字段。 这意味着只有在调度时才会遵守与`主机标签`相关的标签，并且**必须**或**不能**等于该值。 任何其他标签类型将被忽略。
 
@@ -124,7 +124,7 @@ services:
 
 #### 使用主机标签查找主机
 
-将主机添加到Rancher时，你可以添加[主机标签](/docs/rancher/v1.x/cn/infrastructure/hosts/#主机标签)。 调度服务时，你可以利用这些标签来创建规则来选择要部署服务的主机。
+将主机添加到Rancher时，你可以添加[主机标签]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/#主机标签)。 调度服务时，你可以利用这些标签来创建规则来选择要部署服务的主机。
 
 ##### 使用主机标签的示例
 

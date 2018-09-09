@@ -50,5 +50,3 @@ curl -i <Host Registration URL you set in UI>/v1
 而Rancher部署的Kuberbetes应用栈属于Kuberbetes的基础框架，相关的镜像通过dockerhub/rancher 仓库拉取。默认Rancher-catalog Kuberbetes YML中服务镜像都是从谷歌仓库拉取，在没有科学上网的情况下，国内环境几乎无法成功拉取镜像。
 
 为了解决这一问题，优化中国区用户的使用体验，在RANCHER v1.6.11之前的版本，我们修改了 ```http://git.oschina.net/rancher/rancher-catalog```  仓库中的YML文件，将相关的镜像也同步到国内仓库，通过替换默认商店地址来实现加速部署；在RANCHER v1.6.11及之后的版本，不用替换商店catalog地址，直接通过在模板中定义仓库地址和命名空间就行实现加速；在后期的版本种，Kuberbetes需要的镜像都会同步到docker hub中。
-
-安装方法见:[K8S加速安装](/blog/K8S-install)

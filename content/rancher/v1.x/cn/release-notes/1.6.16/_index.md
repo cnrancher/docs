@@ -17,7 +17,7 @@ weight: 3003
 * Docker 17.03.0-ce/ee 
 * Docker 17.06.0-ce/ee 
 
-> Note: Kubernetes 1.7 only supports up to Docker 1.12.6 
+> Note: Kubernetes 1.7 only supports up to Docker 1.12.6
 
 ## Rancher Server Tags
 

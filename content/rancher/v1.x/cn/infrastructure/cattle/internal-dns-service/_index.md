@@ -2,15 +2,15 @@
 title: 内部DNS服务
 ---
 
-在Rancher中，我们拥有自己的内部DNS服务，允许同一个[环境](/docs/rancher/v1.x/cn/configuration/environments/)中的任何服务都可以解析环境中的任何其他服务.
+在Rancher中，我们拥有自己的内部DNS服务，允许同一个[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)中的任何服务都可以解析环境中的任何其他服务.
 
 应用中的所有服务都可以通过`<服务名称>`解析，并且不需要在服务之间设置服务链接。 创建服务时，你可以定义`服务链接`以将服务链接在一起。 对于任何不同应用的服务，你可以通过`<服务名称>.<应用名称>`而不是`<服务名称>`来解析。 如果你想以不同的名称解析服务，你可以设置服务链接，以便服务可以由服务别名解析.
 
 ### 通过链接设置服务别名
 
-在UI中，[添加服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/#在ui中添加服务)时，展开**服务链接**部分，选择服务，并提供别名.
+在UI中，[添加服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/#在ui中添加服务)时，展开**服务链接**部分，选择服务，并提供别名.
 
-如果你使用Rancher Compose[添加服务](/docs/rancher/v1.x/cn/infrastructure/cattle/services/#使用-rancher-compose-添加服务)，`docker-compose.yml`将使用`links`或`external_links`指令.
+如果你使用Rancher Compose[添加服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/services/#使用-rancher-compose-添加服务)，`docker-compose.yml`将使用`links`或`external_links`指令.
 
 ```
 version: '2'
@@ -29,7 +29,7 @@ services:
 
 ### `从容器`和服务连接
 
-在启动服务时，你可能需要指定只在同一台主机上一起启动服务。 具体的用例包括尝试使用另一个服务中的`volume_from`或`net`时。 当添加一个[从容器](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/#sidekick-服务)时，这些服务可以通过他们的名字自动地相互解析。 我们目前不支持通过从容器中的links/external_links来创建服务别名。
+在启动服务时，你可能需要指定只在同一台主机上一起启动服务。 具体的用例包括尝试使用另一个服务中的`volume_from`或`net`时。 当添加一个[从容器]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/#sidekick-服务)时，这些服务可以通过他们的名字自动地相互解析。 我们目前不支持通过从容器中的links/external_links来创建服务别名。
 
 当添加一个从容器时，总是有一个主服务和从容器。 它们一起被认为是单个启动配置。 此启动配置将作为一组容器部署到主机上，1个来自主服务器，另一个从每个从容器中定义。 在启动配置的任何服务中，你可以按其名称解析主服务和从容器。 对于启动配置之外的任何服务，主服务可以通过名称解析，但是从容器只能通过`<从容器名称>.<主服务名称>`来解析。
 

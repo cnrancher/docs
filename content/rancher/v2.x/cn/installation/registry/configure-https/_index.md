@@ -4,7 +4,7 @@ weight: 3
 ---
 {{% accordion id="option-a" label="一、获得证书" %}}
 
-证书可以选择权威机构颁发的证书，也可以通过[自签名ssl](/docs/rancher/v2.x/cn/installation/self-signed-ssl/)生成需要的自签名ssl证书。
+证书可以选择权威机构颁发的证书，也可以通过[自签名ssl]({{< baseurl >}}/rancher/v2.x/cn/installation/self-signed-ssl/)生成需要的自签名ssl证书。
 
 {{% /accordion %}}
 {{% accordion id="option-b" label="二、配置和安装" %}}

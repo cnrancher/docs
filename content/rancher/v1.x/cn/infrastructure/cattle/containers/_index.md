@@ -4,12 +4,12 @@ title: 容器
 
 ### 添加容器
 
-通常，我们建议人们使用[services(服务)](/docs/rancher/v1.x/cn/rancher-ui/applications/stacks/adding-services) 添加容器，因为它为用户提供了一些更大的灵活性，但有时我们理解你可能需要升级一个容器。
+通常，我们建议人们使用[services(服务)]({{< baseurl >}}/rancher/v1.x/cn/rancher-ui/applications/stacks/adding-services) 添加容器，因为它为用户提供了一些更大的灵活性，但有时我们理解你可能需要升级一个容器。
 
 在**Infrastructure(基础设施)** -> **Container(容器)**页面中，单击**Add Container(添加容器)**。任何docker run 支持的参数，同样的Rancher也支持。
 
 1. 提供**Name(名称)**，如果需要，也可提供容器的**Description(描述)**。
-2. 提供**Image(镜像)**使用。你可以使用DockerHub上的任何镜像以及已添加到Rancher的[registries](/docs/rancher/v1.x/cn/configuration/registries) 。镜像名称的语法与任何`docker run`命令相匹配。
+2. 提供**Image(镜像)**使用。你可以使用DockerHub上的任何镜像以及已添加到Rancher的[registries]({{< baseurl >}}/rancher/v1.x/cn/configuration/registries) 。镜像名称的语法与任何`docker run`命令相匹配。
 
 
     镜像名称的语法。默认情况下，我们从docker register中拉取。如果没有指定标签，我们将拉取标签为tag的镜像。
@@ -33,7 +33,7 @@ title: 容器
 
     如果你选择从**Infrastructure(基础设施)** -> **Containers(容器)**页面添加容器，则Rancher会自动为你选择一个主机。否则，如果你选择了一个主机来添加容器，主机将被安装在**Security/Host**选项卡中。
 
-    你还可以向容器添加标签以及应用调度规则。有关标签和调度的更多细节参考[这里](/docs/rancher/v1.x/cn/rancher-ui/scheduling/)。
+    你还可以向容器添加标签以及应用调度规则。有关标签和调度的更多细节参考[这里]({{< baseurl >}}/rancher/v1.x/cn/rancher-ui/scheduling/)。
 5. 当你的填写容器选项完成后，单击**Create(创建)**。
 
 

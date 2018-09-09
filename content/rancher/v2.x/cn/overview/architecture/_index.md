@@ -29,7 +29,7 @@ Kubernetes已成为容器集群管理标准，通过YAML文件来管理配置应
 
   工作负载在工作节点上运行。
   
-  默认情况下Master节点也会有工作负载调度上去， 可通过命令设置其不加入调度[了解详情](/docs/rancher/v2.x/cn/configuration/clusters/creating-a-cluster/create-cluster-custom/)
+  默认情况下Master节点也会有工作负载调度上去， 可通过命令设置其不加入调度[了解详情]({{< baseurl >}}/rancher/v2.x/cn/configuration/clusters/creating-a-cluster/create-cluster-custom/)
 
 ## Rancher
 

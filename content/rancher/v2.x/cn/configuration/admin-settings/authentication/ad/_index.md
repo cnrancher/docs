@@ -8,7 +8,7 @@ weight: 3
 Rancher使用LDAP与Active Directory服务通信。因此，Active Directory的身份验证流程与[OpenLDAP](../openldap)身份验证集成方法相同。
 
 > **注意**
-> 在开始之前，请熟悉[外部身份验证配置和主要用户](/docs/rancher/v2.x/cn/configuration/admin-settings/authentication/#外部身份验证配置和主要用户)的概念。
+> 在开始之前，请熟悉[外部身份验证配置和主要用户]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/authentication/#外部身份验证配置和主要用户)的概念。
 
 ## 一、先决条件
 
@@ -172,4 +172,4 @@ ldapsearch -x -D "acme\jdoe" -w "secret" -p 389 \
 
 ## 七、附件二：故障排除
 
-如果在测试与Active Directory服务器的连接时遇到问题，请检查为服务帐户输入的凭据以及`Search Base`配置。还可以检查Rancher日志以帮助查明问题原因。调试日志可能包含有关错误的更多详细信息，请参考[如何开启debug模式](/docs/rancher/v2.x/cn/faq/technical/#怎么样开启debug模式)。
+如果在测试与Active Directory服务器的连接时遇到问题，请检查为服务帐户输入的凭据以及`Search Base`配置。还可以检查Rancher日志以帮助查明问题原因。调试日志可能包含有关错误的更多详细信息，请参考[如何开启debug模式]({{< baseurl >}}/rancher/v2.x/cn/faq/technical/#怎么样开启debug模式)。

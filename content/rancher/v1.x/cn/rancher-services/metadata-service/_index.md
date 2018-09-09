@@ -8,7 +8,7 @@ Rancher通过基础设施中的Metadata服务为服务和容器提供数据。�
 
 通过Rancher的Metadata服务，你可以进到任何使用Rancher托管网络的容器的命令行中，并查看运行在Rancher中的容器的信息。通过Metadata服务你可以获取容器，服务，容器所在的应用，容器所在的主机。Metadata是JSON格式的。
 
-有多种方式可以将容器运行在Rancher托管网络中。Rancher网络的原理详见[网络相关文档](/docs/rancher/v1.x/cn/rancher-services/networking)。
+有多种方式可以将容器运行在Rancher托管网络中。Rancher网络的原理详见[网络相关文档]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/networking)。
 
 ### 如何获取Metadata
 
@@ -164,17 +164,17 @@ $ curl --header 'Accept: application/json' 'http://rancher-metadata/2015-12-19/s
 | `dns_search` | 容器的搜索域。
 | `external_id`  | 在主机上的Docker容器ID。
 | `health_check_hosts` | 列出运行健康检查的主机的的UUIDs。
-| `health_state` | 开启健康检查的容器的健康状态 [健康检查](/docs/rancher/v1.x/cn/infrastructure/cattle/health-checks/)。
+| `health_state` | 开启健康检查的容器的健康状态 [健康检查]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/health-checks/)。
 | `host_uuid` | Rancher Server分配给主机的唯一标识。
 | `hostname` | 容器的hostname。
 | `ips` | 支持多NIC时的IP列表
-| `labels` | [容器标签](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#labels)列表。格式为`key`:`value`。
+| `labels` | [容器标签]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/#labels)列表。格式为`key`:`value`。
 | `memory_reservation` | 容器可以使用内存的软限制。
 | `milli_cpu_reservation` | 容器可以使用CPU的软限制，值为正整数，1代表1/1000CPU。所以，1000 代表1个CPU，500代表半个CPU。
 | `name` | 容器的名字。
 | `network_from_container_uuid` | 容器网络来源的容器UUID。
 | `network_uuid` | Rancher分配的网络唯一标识
-| `ports` | 列出[容器使用的端口](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/#port-mapping)。格式为: `hostIP:publicIP:privateIP[/protocol]`.
+| `ports` | 列出[容器使用的端口]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/#port-mapping)。格式为: `hostIP:publicIP:privateIP[/protocol]`.
 | `primary_ip` | 容器IP
 | `primary_mac_address` | 容器的MAC地址
 | `service_index` | 服务中容器名称的最后一个数字
@@ -183,7 +183,7 @@ $ curl --header 'Accept: application/json' 'http://rancher-metadata/2015-12-19/s
 | `stack_uuid` | Rancher分配的应用的唯一标识
 | `start_count` | 容器启动的次数
 | `state` | 容器状态
-| `system` | 容器是否是Rancher[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)
+| `system` | 容器是否是Rancher[基础设施服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/)
 | `uuid` | Rancher分配容器唯一标识
 
 #### 服务
@@ -193,34 +193,34 @@ $ curl --header 'Accept: application/json' 'http://rancher-metadata/2015-12-19/s
 `containers` | 列出服务中的容器名称
 `create_index` | 服务中最后启动的容器的序号 例如 2代表的是服务中启动的第二个容器。注意: Create_index不会被重用。 如果你的服务包含2个容器，删除了第二个容器，下一个启动的容器的`create_index`会是3，即使服务中只包含2个容器
 `expose` | 对主机暴露，但是不对外暴露的端口
-`external_ips` | [内部服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-external-services/)的IP列表
+`external_ips` | [内部服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-external-services/)的IP列表
 `fqdn` | 服务的全称域名
-`health_check` | 服务的[健康检查配置](/docs/rancher/v1.x/cn/infrastructure/cattle/health-checks/)
-`hostname` | [内部服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-external-services/)的CNAME
+`health_check` | 服务的[健康检查配置]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/health-checks/)
+`hostname` | [内部服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-external-services/)的CNAME
 `kind` | Rancher的服务类型
-`labels` | [服务标签](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/#labels)列表，格式为 `key:value`.
-`lb_config` | [负载均衡](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)的配置
+`labels` | [服务标签]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/#labels)列表，格式为 `key:value`.
+`lb_config` | [负载均衡]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)的配置
 `links` | 列出服务的链接，格式为`stack_name/service∂_name:service_alias`. `links`(例如 `stack_name/service_name` 获取所有链接)根据返回的`service_alias`,获取进一步的详细信息。
-`metadata` | [用户添加的metadata](/docs/rancher/v1.x/cn/rancher-services/metadata-service/#adding-user-metadata-to-a-service)
+`metadata` | [用户添加的metadata]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/metadata-service/#adding-user-metadata-to-a-service)
 `name` | 服务名称
-`ports` | [服务使用的端口](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/#port-mapping)。格式`hostIP:publicIP:privateIP[/protocol]`.
+`ports` | [服务使用的端口]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/#port-mapping)。格式`hostIP:publicIP:privateIP[/protocol]`.
 `primary_service_name` | 主服务名，如果有从服务
 `scale` | 服务中容器的规模数量
-`sidekicks` | [从容器](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/#sidekick-服务)服务的名称列表
+`sidekicks` | [从容器]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/#sidekick-服务)服务的名称列表
 `stack_name` | 服务所在的应用的名称
 `stack_uuid` | Rancher分配的应用的唯一标识
-`system` | 是否是[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)
+`system` | 是否是[基础设施服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/)
 `uuid` | Rancher分配的服务的唯一标识
 
 #### 应用
 
 属性 | 描述
 ----|----
-`environment_name` | 应用所在的[环境](/docs/rancher/v1.x/cn/configuration/environments/)的名字
+`environment_name` | 应用所在的[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)的名字
 `environment_uuid` | Rancher分配的环境的唯一标识
-`name` | [应用](/docs/rancher/v1.x/cn/infrastructure/cattle/stacks/)名称
+`name` | [应用]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/stacks/)名称
 `services` | 应用中的服务列表
-`system` | 应用是否为[基础设施服务](/docs/rancher/v1.x/cn/rancher-services/)
+`system` | 应用是否为[基础设施服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/)
 `uuid` | Rancher分配的应用的唯一标识
 
 #### 主机
@@ -228,17 +228,17 @@ $ curl --header 'Accept: application/json' 'http://rancher-metadata/2015-12-19/s
 属性 | 描述
 ----|----
 `agent_ip` | Rancher Agent的IP，例如 `CATTLE_AGENT_IP`环境变量值。
-`hostname` | [主机](/docs/rancher/v1.x/cn/infrastructure/hosts/)的名称
-`labels` | [主机标签](/docs/rancher/v1.x/cn/infrastructure/hosts/#主机标签)列表。格式为`key:value`.
+`hostname` | [主机]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/)的名称
+`labels` | [主机标签]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/#主机标签)列表。格式为`key:value`.
 `local_storage_mb` | 主机的存储大小，单位为MB
 `memory` | 主机的内存大小，单位为MB
 `milli_cpu` | 主机的CPU。数值为整数，1代表1/1000的cpu。所以，1000代表1 CPU.
-`name` | [主机](/docs/rancher/v1.x/cn/infrastructure/hosts/)的名称
+`name` | [主机]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/)的名称
 `uuid` | Rancher分配的主机的唯一标识
 
 ### 为服务添加用户自定义Metadata
 
-Rancher支持为服务添加用户metadata。现在只支持通过[Rancher Compose](/docs/rancher/v1.x/cn/infrastructure/cattle/rancher-compose/)添加，metadata是`rancher-compose.yml`的一部分。`metadata`key对应的部分，yaml会被转化成在metadata-service中使用的JSON格式
+Rancher支持为服务添加用户metadata。现在只支持通过[Rancher Compose]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/rancher-compose/)添加，metadata是`rancher-compose.yml`的一部分。`metadata`key对应的部分，yaml会被转化成在metadata-service中使用的JSON格式
 
 #### Example `rancher-compose.yml`
 

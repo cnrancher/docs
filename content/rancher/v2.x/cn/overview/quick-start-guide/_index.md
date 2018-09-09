@@ -3,7 +3,7 @@ title: 3 - 快速入门
 weight: 3
 ---
 
->**注意:** 本入门指南的目的是让你快速的运行一个Rancher2.0环境，它不适用于生产。有关更全面的说明，请查阅[Rancher安装](/docs/rancher/v2.x/cn/installation/server-installation/).
+>**注意:** 本入门指南的目的是让你快速的运行一个Rancher2.0环境，它不适用于生产。有关更全面的说明，请查阅[Rancher安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/).
 
 本教程将指导你完成:
 
@@ -29,7 +29,7 @@ weight: 3
 - 本地虚拟机
 - 本地物理机
 
-  >**注意:** 在使用云主机时，你需要允许TCP/80和TCP/443入站通信端口。请查阅你的云主机文档以获取有关端口配置的信息。有关端口要求的完整列表，请查阅[端口需求](/docs/rancher/v2.x/cn/installation/references/).
+  >**注意:** 在使用云主机时，你需要允许TCP/80和TCP/443入站通信端口。请查阅你的云主机文档以获取有关端口配置的信息。有关端口要求的完整列表，请查阅[端口需求]({{< baseurl >}}/rancher/v2.x/cn/installation/references/).
 
 根据以下要求配置主机:
 
@@ -57,7 +57,7 @@ weight: 3
 
   >**注意:** 有关Docker安装说明,请访问其[文档](https://docs.docker.com/install/)。软件需求要应用于所有节点。
   >
-  > 主机的更详细配置说明，请查看[基础环境配置](/docs/rancher/v2.x/cn/installation/basic-environment-configuration/)
+  > 主机的更详细配置说明，请查看[基础环境配置]({{< baseurl >}}/rancher/v2.x/cn/installation/basic-environment-configuration/)
 
 ## 三、安装Rancher
 

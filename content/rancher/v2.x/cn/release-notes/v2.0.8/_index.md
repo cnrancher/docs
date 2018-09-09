@@ -57,4 +57,4 @@ Rancher supports both upgrade and rollback starting with v2.0.2.  Please note th
 
 ## Rancher CLI Downloads
 
-[rancher-cli](/docs/rancher/v2.x/cn/installation/download/#rancher-cli)
+[rancher-cli]({{< baseurl >}}/rancher/v2.x/cn/installation/download/#rancher-cli)

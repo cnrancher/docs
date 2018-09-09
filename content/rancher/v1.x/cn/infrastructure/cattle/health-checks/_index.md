@@ -39,11 +39,11 @@ Rancher利用了不同网络位置的主机进行健康检查，这种方式比�
 
 ### 在UI中添加Health Checks
 
-对于[服务](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/)或[负载均衡](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)，可以通过导航到**Health Check**选项卡来添加Health check服务。你可以检查服务的TCP连接或HTTP响应，并更改health check配置的默认值。
+对于[服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/)或[负载均衡]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)，可以通过导航到**Health Check**选项卡来添加Health check服务。你可以检查服务的TCP连接或HTTP响应，并更改health check配置的默认值。
 
 ### 通过Rancher Compose添加 Health Checks
 
-使用[Rancher Compose](/docs/rancher/v1.x/cn/infrastructure/cattle/rancher-compose/)，health checks能添加在`rancher-compose.yml`文件中。
+使用[Rancher Compose]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/rancher-compose/)，health checks能添加在`rancher-compose.yml`文件中。
 
 在我们的示例中，如果容器发现不健康，我们会显示三种不同策略的健康检查配置。
 ```

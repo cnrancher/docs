@@ -5,7 +5,7 @@ weight: 2
 
 Kubernetes将为Rancher创建所有对象和服务，但在我们使用证书和secret填充命名空间中的tls-rancher-ingress secret之前，它将无法使用cattle-system
 
-## 权威CA机构颁发的证书
+{{% accordion id="1" label="一、权威CA机构颁发的证书" %}}
 
 将`服务证书`和`CA中间证书链`合并到一个名为`tls.crt`的文件中,将`私钥`复制到名为`tls.key`的文件中。
 
@@ -17,7 +17,8 @@ kubectl -n cattle-system create secret tls tls-rancher-ingress \
   --key=./tls.key
 ```
 
-## 私有CA签名证书(可选)
+{{% /accordion %}}
+{{% accordion id="2" label="二、私有CA签名证书(可选)" %}}
 
 如果你使用的是私有CA，则需要传递CA文件给Rancher。
 
@@ -27,3 +28,5 @@ kubectl -n cattle-system create secret tls tls-rancher-ingress \
 kubectl -n cattle-system create secret generic tls-ca \
   --from-file=cacerts.pem
 ```
+
+{{% /accordion %}}

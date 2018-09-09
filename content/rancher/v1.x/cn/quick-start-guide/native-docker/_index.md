@@ -20,11 +20,11 @@ Rancher通过实时监控所有主机上Docker事件来更新自己的状态。�
 $ docker run -l io.rancher.container.network=true -itd ubuntu bash
 ```
 
-请查阅[Rancher中的网络](/docs/rancher/v1.x/cn/rancher-services/networking/)了解更多关于Rancher管理的网络和夸主机网络的详情。
+请查阅[Rancher中的网络]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/networking/)了解更多关于Rancher管理的网络和夸主机网络的详情。
 
 ### 导入已有容器
 
-Rancher支持在注册主机的时候倒入已有的容器。当你用Rancher UI上的[自定义命令](/docs/rancher/v1.x/cn/infrastructure/hosts/custom/)注册主机时， 任何当前在该主机上的容器都能被检测到，并且会被导入到Rancher。
+Rancher支持在注册主机的时候倒入已有的容器。当你用Rancher UI上的[自定义命令]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/custom/)注册主机时， 任何当前在该主机上的容器都能被检测到，并且会被导入到Rancher。
 
 ### 周期性同步状态
 除了实时监控Docker事件之外，Rancher还会周期性地和主机同步状态。每5秒钟主机就会向Rancher报告主机上的所有容器的状态，以保证Rancher中的状态和主机中的状态同步。这能够防止由于网络中断或服务器重启而导致Rancher遗漏某些Docker事件。 用这种方式来保持同步，主机上的容器的状态为单一数据源。比如, 如果Rancher认为一个容器正在运行，但它在主机上实际是停止的，Rancher会把容器的状态更新为`停止`，但Rancher不会尝试重启容器。

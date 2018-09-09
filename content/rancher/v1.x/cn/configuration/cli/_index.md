@@ -3,7 +3,7 @@ title: 命令行工具
 weight: 700
 ---
 
-Rancher的命令行界面(CLI)是用来管理Rancher Server的工具。 使用此工具，你可以管理你的[环境](/docs/rancher/v1.x/cn/configuration/environments/)，[主机](/docs/rancher/v1.x/cn/infrastructure/hosts/)，应用，服务和容器。
+Rancher的命令行界面(CLI)是用来管理Rancher Server的工具。 使用此工具，你可以管理你的[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)，[主机]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/)，应用，服务和容器。
 
 ### 安装
 
@@ -11,7 +11,7 @@ Rancher的命令行界面(CLI)是用来管理Rancher Server的工具。 使用�
 
 ### 配置Rancher命令行界面
 
-有几种方法可以配置Rancher命令行界面与Rancher进行交互时使用的参数。这些参数包括Rancher URL和帐户[API密钥](/docs/rancher/v1.x/cn/api/v2-beta/api-keys/)等。帐户的API密钥可以在UI中的**API**中创建。
+有几种方法可以配置Rancher命令行界面与Rancher进行交互时使用的参数。这些参数包括Rancher URL和帐户[API密钥]({{< baseurl >}}/rancher/v1.x/cn/api/v2-beta/api-keys/)等。帐户的API密钥可以在UI中的**API**中创建。
 
 参数配置有如下的加载优先级。
 
@@ -228,4 +228,4 @@ $ rancher run --name stackA/service1 nginx
 
 ### 命令参考
 
-要了解更多的命令行支持，请查看我们的[Rancher命令](/docs/rancher/v1.x/cn/infrastructure/cli/commands/)文档.
+要了解更多的命令行支持，请查看我们的[Rancher命令]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cli/commands/)文档.

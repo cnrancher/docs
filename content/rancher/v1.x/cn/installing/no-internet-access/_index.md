@@ -7,12 +7,12 @@ weight: 203
 
 需要注意的是，在内网中启动一个 Rancher 服务会导致一些特性无效，比如:
 
-* 使用操作界面来启动云公有云提供商(例如AWS，DigitalOcean，阿里云，vSphere等)提供的主机。只能添加[自定义主机](/docs/rancher/v1.x/cn/infrastructure/hosts/custom/) 来初始化Rancher；
+* 使用操作界面来启动云公有云提供商(例如AWS，DigitalOcean，阿里云，vSphere等)提供的主机。只能添加[自定义主机]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/custom/) 来初始化Rancher；
 * Github 授权认证。
 
 ### 前提条件
 
-为了支持这种拓扑，有些 [前提条件](/docs/rancher/v1.x/cn/installing-rancher/installing-server/#安装需求) 是必须要满足的。
+为了支持这种拓扑，有些 [前提条件]({{< baseurl >}}/rancher/v1.x/cn/installing-rancher/installing-server/#安装需求) 是必须要满足的。
 
 ### Rancher Server标签
 
@@ -29,9 +29,9 @@ Rancher Server当前版本中有2个不同的标签。对于每一个主要的re
 
 #### 将镜像上传到镜像仓库仓库
 
-在安装或升级Rancher服务之前，**必须保证**对应版本号的所有镜像(例如: `rancher/server`，`rancher/agent`，以及任何 [基础服务](/docs/rancher/v1.x/cn/rancher-services/) 涉及的镜像) 都必须上传到私有仓库或者类似的服务中。如果这些镜像不存在或者版本信息不对，Rancher服务将无法正常完成安装或升级。
+在安装或升级Rancher服务之前，**必须保证**对应版本号的所有镜像(例如: `rancher/server`，`rancher/agent`，以及任何 [基础服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/) 涉及的镜像) 都必须上传到私有仓库或者类似的服务中。如果这些镜像不存在或者版本信息不对，Rancher服务将无法正常完成安装或升级。
 
-对于每次发布的 Rancher 服务(`rancher/server`)和对应的 Rancher 代理(`rancher/agent`)的镜像版本信息，都在发布记录中摘记。而针对其他基础服务用到的镜像版本信息，就需要查看 [官方模板](https://github.com/rancher/rancher-catalog) 的`infra-templates`目录和 [社区模板](https://github.com/rancher/community-catalog) 来获取所关联的镜像。如果用到 [应用商店](/docs/rancher/v1.x/cn/configuration/catalog/)，还需要关注具体应用使用的docker-compose.yml来获取镜像版本信息。
+对于每次发布的 Rancher 服务(`rancher/server`)和对应的 Rancher 代理(`rancher/agent`)的镜像版本信息，都在发布记录中摘记。而针对其他基础服务用到的镜像版本信息，就需要查看 [官方模板](https://github.com/rancher/rancher-catalog) 的`infra-templates`目录和 [社区模板](https://github.com/rancher/community-catalog) 来获取所关联的镜像。如果用到 [应用商店]({{< baseurl >}}/rancher/v1.x/cn/configuration/catalog/)，还需要关注具体应用使用的docker-compose.yml来获取镜像版本信息。
 
 ##### 使用命令行将镜像上传到镜像仓库仓库
 
@@ -85,7 +85,7 @@ $ sudo docker run -d --privileged -v /var/run/docker.sock:/var/run/docker.sock <
 
 #### 为基础设施服务配置默认仓库
 
-默认在 Rancher 中, 所有 [基础服务](/docs/rancher/v1.x/cn/rancher-services/) 都默认从 DockerHub上拉取镜像。可以通过 **API settings(接口设置)**改变默认的的仓库，比如改成私有的镜像仓库。
+默认在 Rancher 中, 所有 [基础服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/) 都默认从 DockerHub上拉取镜像。可以通过 **API settings(接口设置)**改变默认的的仓库，比如改成私有的镜像仓库。
 
 * **添加一个私有镜像仓库:** 在 **基础架构** 中选择 **镜像库**，添加可以为基础设施服务提供镜像的仓库服务。
 

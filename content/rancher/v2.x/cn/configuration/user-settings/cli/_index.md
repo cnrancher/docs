@@ -9,4 +9,4 @@ Rancher CLI有Windows，Mac和Linux的二进制文件。Rancher CLI二进制文�
 
 ![image-20180822225223112](_index.assets/image-20180822225223112.png)
 
-但是，UI上的下载链接是在Github上，可能网络原因会下载很慢。因此，你还可以从[文件下载](/docs/rancher/v2.x/cn/installation/download/)页面下载最新版本的二进制文件。
+但是，UI上的下载链接是在Github上，可能网络原因会下载很慢。因此，你还可以从[文件下载]({{< baseurl >}}/rancher/v2.x/cn/installation/download/)页面下载最新版本的二进制文件。

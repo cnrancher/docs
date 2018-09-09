@@ -21,8 +21,8 @@ Rancher 支持使用 `docker machine` 来管理 [Exoscale](https://www.exoscale.
 ### Rancher代理运行需要的端口:
 
 * 需要打开TCP端口 `22`来接收Rancher服务管理以及运行Docker守护进程的 `2376`端口；
-* 如果使用IPsec [networking driver(网络驱动)](/docs/rancher/v1.x/cn/rancher-services/networking/)，需要打开UDP端口 `500` 和 `4500`；
-* 如果使用VXLAN [networking driver(网络驱动)](/docs/rancher/v1.x/cn/rancher-services/networking/)，需要打开UDP端口 `4789`。
+* 如果使用IPsec [networking driver(网络驱动)]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/networking/)，需要打开UDP端口 `500` 和 `4500`；
+* 如果使用VXLAN [networking driver(网络驱动)]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/networking/)，需要打开UDP端口 `4789`。
 
 > **注意:** 当选用安全组 `rancher-machine`时，那些在安全组中匹配的端口不会被重新打开。这就意味着，当发现运行不正常时(有可能是因为主机上的端口打开不正确或者没有被打开导致的)，需要检查Exoscale上面的端口的情况。
 
@@ -34,10 +34,10 @@ Rancher 支持使用 `docker machine` 来管理 [Exoscale](https://www.exoscale.
 2. 输入 **Name(名称)**，需要详细备注的时候就填写 **Description(描述)**；
 3. 选择 **Instance Profile(实例描述)**；
 4. 输入磁盘大小到 **Root Size(主机大小)**；
-5.  必要时，添加 **[labels(标签)](/docs/rancher/v1.x/cn/infrastructure/hosts/#labels)** 来辅助管理主机以及 [调度服务或负载均衡](/docs/rancher/v1.x/cn/infrastructure/cattle/scheduling/)，也可以 [通过DNS-IP映射来管理不在 Rancher 内启动的服务](/docs/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/#为外部dns使用特定的ip)；
+5.  必要时，添加 **[labels(标签)]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/#labels)** 来辅助管理主机以及 [调度服务或负载均衡]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/)，也可以 [通过DNS-IP映射来管理不在 Rancher 内启动的服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/#为外部dns使用特定的ip)；
 6.  必要时，通过 **Advanced Options(高级选项)**，定制化 [Docker engine options(Docker引擎选项)](https://docs.docker.com/machine/reference/create/#specifying-configuration-options-for-the-created-docker-engine) 来控制 `docker-machine create` 时用到的选项指令；
 7. 一切准备就绪后, 点击 **Create(创建)**。
 
 > **注意:** 目前 Exoscale 的操作界面上并没有显示所有 `docker machine`的选项。Rancher默认使用的 Exoscale 的终端(`https://api.exoscale.ch/compute`)，镜像(`ubuntu-14.04`)以及可用地域(`ch-gva-2`)。
 
-点击创建以后，Rancher将会创建一个 Exoscale 的主机，接着在主机上启动一个 _rancher-agent_ 的容器。几分钟之后，就可以通过 [services(服务)](/docs/rancher/v1.x/cn/infrastructure/cattle/adding-services/) 页面看到一个Rancher的主机被启动了。
+点击创建以后，Rancher将会创建一个 Exoscale 的主机，接着在主机上启动一个 _rancher-agent_ 的容器。几分钟之后，就可以通过 [services(服务)]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/) 页面看到一个Rancher的主机被启动了。
