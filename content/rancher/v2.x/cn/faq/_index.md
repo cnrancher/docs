@@ -1,5 +1,5 @@
 ---
-title: FAQ
+title: FAQ(持续更新)
 weight: 8
 ---
 

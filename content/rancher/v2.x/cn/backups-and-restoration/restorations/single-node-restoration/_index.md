@@ -5,21 +5,49 @@ weight: 1
 
 如果Rancher数据损坏、丢失，或在升级时遇到问题，可通过备份的数据进行恢复。
 
-1. 停止当前运行的Rancher容器.可通过`docker ps`查看`<RANCHER_CONTAINER_ID>`
+{{% accordion id="1" label="一、恢复准备" %}}
 
-    ```
-    docker stop <RANCHER_CONTAINER_ID>
-    ```
+以下信息需要提前准备，在备份时替换相应的值。
 
-2. 通过创建的数据卷容器`rancher-backup-<RANCHER_IMAGES_TAG>`，创建新的Rancher容器:
+| Placeholder                | Example                    | Description                                               |
+| -------------------------- | -------------------------- | --------------------------------------------------------- |
+| `<RANCHER_CONTAINER_TAG>`  | `v2.0.5`                   | 初始安装Rancher时使用的`rancher/rancher`镜像版本|
+| `<RANCHER_CONTAINER_NAME>` | `festive_mestorf`          | Rancher容器名称                       |
+| `<RANCHER_VERSION>`        | `v2.0.5`                   |创建的Rancher数据备份对应的Rancher版本|
+| `<DATE>`                   | `9-27-18`                  | 备份创建时间   |
+<br/>
 
-    有关数据备份方法，请查阅[单节点备份](../../backups/single-node-backups/).
+在终端中输入`docker ps`查询`<RANCHER_CONTAINER_TAG>`和`<RANCHER_CONTAINER_NAME>`
 
-    ```
-    docker run -d --restart=unless-stopped \
-    -p 80:80 -p 443:443 \
-    --name rancher-server-`date +%Y%m%d%H%M%S` \
-    --volumes-from rancher-backup-<RANCHER_IMAGES_TAG>  \
-    rancher/rancher:<RANCHER_IMAGES_TAG>
-    ```
-    >注: 设置容器名，可以快速定位容器，`date +%Y%m%d%H%M%S` 会精确到秒，防止容器名冲突。
+![Placeholder Reference]({{< baseurl >}}/img/rancher/placeholder-ref.png)
+
+{{% /accordion %}}
+{{% accordion id="2" label="二、集群恢复" %}}
+
+1、停止当前运行的Rancher容器.可通过`docker ps`查看`<RANCHER_CONTAINER_NAME>`
+
+```
+docker stop <RANCHER_CONTAINER_NAME>
+```
+
+2、复制[单节点备份](../../backups/single-node-backups/)的压缩文件(`rancher-data-backup-<RANCHER_VERSION>-<DATE>.tar.gz`)到rancher主机上，通过`cd`命令切换到压缩文件所在的目录，并执行以下命令：
+
+>**警告!** 此命令将从Rancher Server容器中删除所有数据。
+
+```
+docker run  \
+--volumes-from <RANCHER_CONTAINER_NAME> \
+-v $PWD:/backup \
+alpine \
+sh -c "rm /var/lib/rancher/* -rf && tar zxvf /backup/rancher-data-backup-<RANCHER_VERSION>-<DATE>.tar.gz"
+```
+
+>**注意** 需要替换`<RANCHER_CONTAINER_NAME>,<RANCHER_VERSION>,<DATE>`
+
+3、重新启动Rancher Server容器
+
+```
+docker start <RANCHER_CONTAINER_NAME>
+```
+
+{{% /accordion %}}

@@ -15,7 +15,7 @@ weight: 2
 
 - 在运行`etcd snapshot-restore`命令之前，必须保证每个`etcd`节点拥有最新相同版本的快照文件，快照需要存放在每个ETCD节点的`/opt/rke/etcd-snapshots/`目录下
 
-## 1. 创建`etcd`数据快照
+{{% accordion id="1" label="一、创建ETCD数据快照" %}}
 
 有两种方案创建`etcd`快照: 定时自动创建快照和或手动创建快照，每种方式对应特定的场景。
 
@@ -27,7 +27,7 @@ weight: 2
 
     我们建议在升级或恢复其他快照等事件之前创建一次性快照。
 
-### 方案 A: 定时自动创建快照
+{{% accordion id="1-1" label="方案 A: 定时自动创建快照" %}}
 
 对于通过RKE高可用安装的Rancher，我们建议开启定时自动创建快照，以便始终拥有安全的恢复点。
 
@@ -47,7 +47,7 @@ weight: 2
         retention: 24h  # 快照有效期，此时间后快照将被删除；
     ```
 
-3. 根据实际需求跳转以上代码参数；
+3. 根据实际需求修改以上参数；
 
 4. 保存并关闭`rancher-cluster.yml`；
 
@@ -61,9 +61,10 @@ weight: 2
     # Linux
     ./rke_linux-amd64 up --config rancher-cluster.yml
     ```
->**结果:** RKE会在每个etcd节点上重复获取快照，并将快照将保存到每个etcd节点的:`/opt/rke/etcd-snapshots/`目录下
+>**结果:** RKE会在每个etcd节点上定时获取快照，并将快照将保存到每个etcd节点的:`/opt/rke/etcd-snapshots/`目录下
 
-### 方案 B: 手动创建快照
+{{% /accordion %}}
+{{% accordion id="1-2" label="方案 B: 手动创建快照" %}}
 
 当你即将升级Rancher或将其恢复到以前的快照时，你应该对数据手动创建快照，以便数据异常时可供恢复。
 
@@ -83,6 +84,10 @@ weight: 2
     ```
 >**结果:** RKE会获取每个`etcd`节点的快照，并保存在每个etcd节点的`/opt/rke/etcd-snapshots`目录下；
 
-## 2. 备份快照到安全位置
+{{% /accordion %}}
+{{% /accordion %}}
+{{% accordion id="2" label="二、备份快照到安全位置" %}}
 
 在创建快照后，应该把它保存到安全的地方，以便在集群遇到灾难情况时快照不受影响，这个位置应该是持久的。
+
+{{% /accordion %}}

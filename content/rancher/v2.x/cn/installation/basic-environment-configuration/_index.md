@@ -3,7 +3,7 @@ title: 1 - 基础环境配置
 weight: 1
 ---
 
-{{% accordion id="option-a" label="一、主机配置" %}}
+{{% accordion id="1" label="一、主机配置" %}}
 
 ### 1、配置要求
 
@@ -269,9 +269,9 @@ OverlayFS是一个新一代的联合文件系统，类似于AUFS，但速度更�
 }
 ```
 
-### 3、Ubuntu系统 ，docker info提示WARNING: No swap limit support
+### 3、Ubuntu\Debian系统 ，docker info提示WARNING: No swap limit support
 
-Ubuntu系统下，默认cgroups未开启swap account功能，将会导致需要swap的容器出错。通过修改grub启动参数来开启swap account功能:
+Ubuntu\Debian系统下，默认cgroups未开启swap account功能，这样会导致设置容器内存或者swap资源限制不生效。可以通过以下命令解决:
 
 ```
 sudo sed -i 's/GRUB_CMDLINE_LINUX=".*"/GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1 net.ifnames=0"/g'  /etc/default/grub

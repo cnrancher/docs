@@ -1,112 +1,180 @@
 ---
-title: 2 - 集群恢复
+title: 2 - HA集群恢复
 weight: 2
 ---
 
-此节描述了如何在灾难情形下丢失Rancher数据时恢复etcd快照。
+{{% accordion id="1" label="一、 恢复准备" %}}
 
-## 1. ETCD集群容错表
+1、需要在进行操作的主机上提前[安装RKE]({{< baseurl >}}/rke/v0.1.x/en/installation/)([RKE下载]({{< baseurl >}}/rancher/v2.x/cn/installation/download/#rancher-rke))和[kubectl]({{< baseurl >}}/rancher/v2.x/cn/installation/kubectl/)。
 
-建议在ETCD集群中使用奇数个成员,通过添加额外成员可以获得更高的失败容错。在比较偶数和奇数大小的集群时，你可以在实践中看到这一点:
+2、在开始还原之前，请确保已停止旧群集节点上的所有kubernetes服务。
 
-| 集群大小 | MAJORITY | 失败容错 |
-| ------------ | -------- | ----------------- |
-| 1            | 1        | 0                 |
-| 2            | 2        | 0                 |
-| 3            | 2        | **1**             |
-| 4            | 3        | 1                 |
-| 5            | 3        | **2**             |
-| 6            | 4        | 2                 |
-| 7            | 4        | **3**             |
-| 8            | 5        | 3                 |
-| 9            | 5        | **4**             |
+{{% /accordion %}}
+{{% accordion id="2" label="二、添加新ETCD节点并复制最新快照" %}}
 
-## 2. 创建新节点并获取最新快照
+假设集群中一个或者多个etcd节点发生故障，或者整个集群数据丢失，则需要进行etcd集群恢复。
 
-假设集群中一个或者多个etcd节点发生故障，导致ectd集群挂掉， 则需要进行etcd集群恢复。然后将最新的etcd快照拷贝到该节点。
+**添加新ETCD节点并复制最新快照:**
 
-**创建新节点并获取最新快照:**
+1、添加你选择的`新ETCD节点`，可以是物理主机、本地虚拟机、云主机等；
 
-1. 创建你选择的新节点，可以是物理主机、本地虚拟机、云主机等；
+2、通过远程终端登录新主机；
 
-2. 通过远程终端登录新主机；
+3、创建快照目录:
 
-3. 创建快照目录:
+```
+mkdir -p /opt/rke/etcd-snapshots/
+```
 
-    ```
-    mkdir -p /opt/rke/etcd-snapshots/
-    ```
+4、复制备份的最新快照到`新etcd节点`的`/opt/rke/etcd-snapshots/`目录下:
 
-4. 复制备份的最新快照到每个`etcd`节点`/opt/rke/etcd-snapshots/`目录下:
+```
+cp $PWD/<SNAPSHOT.db> /opt/rke/etcd-snapshots/<SNAPSHOT.db>
+```
 
-    ```
-    s3cmd get s3://rke-etcd-snapshots/<SNAPSHOT.db> /opt/rke/etcd-snapshots/<SNAPSHOT.db>
-    ```
+{{% /accordion %}}
+{{% accordion id="3" label="三、配置RKE配置文件" %}}
 
-## 3. 恢复 `etcd` 数据
+制作原始`rancher-cluster.yml`文件的副本
 
-要还原`etcd`节点上的最新快照，请运行RKE命令`rke etcd snapshot-restore`。此命令将恢复`/opt/rke/etcd-snapshots`明确定义的快照。当你运行时`rke etcd snapshot-restore`，RKE会删除旧`etcd`容器(如果它仍然存在)。
+`cp rancher-cluster.yml rancher-cluster-restore.yml`
 
->**警告:** 还原`etcd`快照会删除当前`etcd`集群并将其替换为新集群。在运行该`rke etcd snapshot-restore`命令之前，请备份当前集群中的所有重要数据。
+对副本配置文件进行以下修改:
 
-### **先决条件**
+- 删除或注释掉整个`addons:`部分。
+- 将`nodes:`部分更改为`新etcd节点`,注释掉其他节点。
 
-- Rancher Kubernetes Engine 等于v0.1.7或更高版本
+`例: rancher-cluster-restore.yml`
 
-    RKE v0.1.7及更高版本才支持创建etcd快照功能。
+```
+nodes:
+- address: 52.15.238.179     # 新etcd节点
+  user: ubuntu
+  role: [ etcd, controlplane, worker ]
+# - address: 52.15.23.24
+#   user: ubuntu
+#   role: [ etcd, controlplane, worker ]
+# - address: 52.15.238.133
+#   user: ubuntu
+#   role: [ etcd, controlplane, worker ]
 
-- rancher-cluster.yml
+# addons: |-
+#   ---
+#   kind: Namespace
+#   apiVersion: v1
+#   metadata:
+#     name: cattle-system
+#   ---
+...
+```
 
-    你需要把用于Rancher安装的RKE配置文件`rancher-cluster.yml`，放在与RKE二进制文件相同的目录中。
+{{% /accordion %}}
+{{% accordion id="4" label="四、恢复ETCD数据" %}}
 
-- 你必须将每个`etcd`节点还原到*同一*快照版本。在运行`etcd snapshot-restore`命令之前，将最新的快照从一个节点复制到其他节点。
+1、打开`shell终端`，切换到RKE二进制文件所在的目录，并且上一步修改的`rancher-cluster-restore.yml`文件也需要放在同一路径下。
 
-1. 在笔记本或者其他远程电脑上用编辑器打开`rancher-cluster.yml`
+2、根据系统类型，选择运行以下命令还原`etcd`数据：
 
-2. 用新节点替换旧节点地址,假设旧节点为`3.3.3.3`,新节点为`4.4.4.4`:
+```
+# MacOS
+./rke_darwin-amd64 etcd snapshot-restore --name <snapshot>.db --config ./rancher-cluster-restore.yml
 
-    ```
-    nodes:
-      - address: 1.1.1.1
-        user: root
-        role: [controlplane,etcd,worker]
-        ssh_key_path: ~/.ssh/id_rsa
-      - address: 2.2.2.2
-        user: root
-        role: [controlplane,etcd,worker]
-        ssh_key_path: ~/.ssh/id_rsa
-      - address: 4.4.4.4 #3.3.3.3旧节点
-        user: root
-        role: [controlplane,etcd,worker]
-        ssh_key_path: ~/.ssh/id_rsa
-    ```
+# Linux
+./rke_linux-amd64 etcd snapshot-restore --name <snapshot>.db --config ./rancher-cluster-restore.yml
+```
 
-3. 保存`rancher-cluster.yml`
+>RKE将在`新ETCD节点`上创建包含已还原数据的`ETCD`容器。此容器将保持运行状态，但无法完成etcd初始化并。
 
-4. 打开``shell终端``,切换路径到RKE二进制文件所在的位置，并且上一步修改的`rancher-cluster.yml`文件也需要放在同一路径下。
+{{% /accordion %}}
+{{% accordion id="5" label="五、恢复集群" %}}
 
-5. 根据系统类型，选择运行以下命令还原`etcd`数据库：
+使用RKE并在`新ETCD节点`单节点上启动集群。根据系统类型，选择运行以下命令更新集群：
 
-    ```
-    # MacOS
-    ./rke_darwin-amd64 etcd snapshot-restore --name <SNAPSHOT.db> --config rancher-cluster.yml
-    # Linux
-    ./rke_linux-amd64 etcd snapshot-restore --name <SNAPSHOT.db> --config rancher-cluster.yml
-    ```
+```
+# MacOS
+./rke_darwin-amd64 up --config ./rancher-cluster-restore.yml
+# Linux
+./rke_linux-amd64 up --config ./rancher-cluster-restore.yml
+```
 
-6. 根据系统类型，选择运行以下命令更新集群：
+1、测试群集
 
-    ```
-    # MacOS
-    ./rke_darwin-amd64 up --config rancher-cluster.yml
-    # Linux
-    ./rke_linux-amd64 up --config rancher-cluster.yml
-    ```
+RKE运行完成后会创建`kubectl`的配置文件`kube_config_rancher-cluster-restore.yml`，可通过这个配置文件查询K8S集群节点状态：
 
-7. 最后，重新启动所有集群节点上的Kubernetes组件，以防止潜在的`etcd`冲突。在每个节点上运行以下命令：
+```
+kubectl  --kubeconfig=kube_config_rancher-cluster-restore.yml  get nodes
 
-    ```
-    docker restart kube-apiserver kubelet kube-controller-manager kube-scheduler  kube-proxy
-    docker ps | grep flannel | cut -f 1 -d " " | xargs docker restart
-    docker ps | grep calico | cut -f 1 -d " " | xargs docker restart
-    ```
+NAME            STATUS    ROLES                      AGE       VERSION
+52.15.238.179   Ready     controlplane,etcd,worker    1m       v1.10.5
+18.217.82.189   NotReady  controlplane,etcd,worker   16d       v1.10.5
+18.222.22.56    NotReady  controlplane,etcd,worker   16d       v1.10.5
+18.191.222.99   NotReady  controlplane,etcd,worker   16d       v1.10.5
+```
+
+2、清理旧节点
+
+通过kubectl从群集中删除旧节点
+
+```
+kubectl --kubeconfig=kube_config_rancher-cluster-restore.yml  delete node 18.217.82.189 18.222.22.56 18.191.222.99
+```
+
+3、重新启动`新ETCD节点`
+
+4、`新ETCD节点`运行起来后，检查`Kubernetes Pods`的状态
+
+```
+kubectl --kubeconfig=kube_config_rancher-cluster-restore.yml  get pods --all-namespaces
+
+NAMESPACE       NAME                                    READY     STATUS    RESTARTS   AGE
+cattle-system   cattle-cluster-agent-766585f6b-kj88m    0/1       Error     6          4m
+cattle-system   cattle-node-agent-wvhqm                 0/1       Error     8          8m
+cattle-system   rancher-78947c8548-jzlsr                0/1       Running   1          4m
+ingress-nginx   default-http-backend-797c5bc547-f5ztd   1/1       Running   1          4m
+ingress-nginx   nginx-ingress-controller-ljvkf          1/1       Running   1          8m
+kube-system     canal-4pf9v                             3/3       Running   3          8m
+kube-system     cert-manager-6b47fc5fc-jnrl5            1/1       Running   1          4m
+kube-system     kube-dns-7588d5b5f5-kgskt               3/3       Running   3          4m
+kube-system     kube-dns-autoscaler-5db9bbb766-s698d    1/1       Running   1          4m
+kube-system     metrics-server-97bc649d5-6w7zc          1/1       Running   1          4m
+kube-system     tiller-deploy-56c4cf647b-j4whh          1/1       Running   1          4m
+```
+
+>直到Rancher服务器启动并且DNS/负载均衡器指向新群集，`cattle-cluster-agent和cattle-node-agent`pods将处于`Error或者CrashLoopBackOff`状态。
+
+5、添加其他节点
+
+编辑RKE配置文件`rancher-cluster-restore.yml`,添加或者取消其他节点的注释。
+
+`例：rancher-cluster-restore.yml`
+
+```
+nodes:
+- address: 52.15.238.179     # 新ETCD节点
+  user: ubuntu
+  role: [ etcd, controlplane, worker ]
+- address: 52.15.23.24
+  user: ubuntu
+  role: [ etcd, controlplane, worker ]
+- address: 52.15.238.133
+  user: ubuntu
+  role: [ etcd, controlplane, worker ]
+
+# addons: |-
+#   ---
+#   kind: Namespace
+...
+```
+
+6、更新集群
+
+根据系统类型，选择运行以下命令更新集群：
+
+```
+# MacOS
+./rke_darwin-amd64 up --config ./rancher-cluster-restore.yml
+# Linux
+./rke_linux-amd64 up --config ./rancher-cluster-restore.yml
+```
+
+{{% /accordion %}}
