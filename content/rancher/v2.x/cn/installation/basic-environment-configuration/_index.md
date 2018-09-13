@@ -142,7 +142,7 @@ EOF
 
     >因为CentOS的安全限制，通过RKE安装K8S集群时候无法使用`root`账户。所以，建议`CentOS`用户使用非`root`用户来运行docker,不管是`RKE`还是`custom`安装k8s,详情查看[无法为主机配置SSH隧道]({{< baseurl >}}/rancher/v2.x/cn/installation/troubleshooting-ha/ssh-tunneling/)。
 
-    ```
+    ```bash
     # 添加用户(可选)
     sudo adduser `<new_user>`
     # 为新用户设置密码

@@ -24,7 +24,7 @@ Rancher附带API审计功能，用以记录每个用户发起的系统事件信�
 
 下表显示了每个`AUDIT_LEVEL`设置，记录的API事务具体内容。
 
-| `AUDIT_LEVEL`设置 | Request Header | Request Body | Response Header | Response Header |
+| `AUDIT_LEVEL`设置 | Request Header | Request Body | Response Header | Response Body |
 | ----------------- | -------------- | ------------ | --------------- | --------------- |
 | `0`               |                |              |                 |                 |
 | `1`               | ✓              |              |                 |                 |
