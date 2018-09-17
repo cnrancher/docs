@@ -16,6 +16,6 @@ This kubeconfig file and its contents are specific to the cluster you are viewin
 For more information, see [Using kubectl to Access a Cluster]({{< baseurl >}}/rancher/v2.x/en//k8s-in-rancher/kubectl).
 
 >**Note:** By default, kubectl checks `~/.kube/config` for kubeconfig files, but you can use any directory you want using the `--kubeconfig` flag. For example:
->```
+>```bash
 kubectl --kubeconfig /custom/path/kube.config get pods
 ```

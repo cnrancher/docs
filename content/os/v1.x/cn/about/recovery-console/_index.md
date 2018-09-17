@@ -20,7 +20,7 @@ In order to demonstrate how to use the recovery console, we choose a scene that 
 
 Start this VM to check disk usage:
 
-```
+```bash
 /dev/sda1            ext4            1.8G    567.2M      1.2G  32% /opt
 /dev/sda1            ext4            1.8G    567.2M      1.2G  32% /mnt
 ...
@@ -29,7 +29,7 @@ Start this VM to check disk usage:
 
 Fill the remaining space with `dd`:
 
-```
+```bash
 $ cd /opt/
 $ dd if=/dev/zero of=2GB.img bs=1M count=2000
 dd: writing '2GB.img': No space left on device
@@ -45,8 +45,8 @@ drwxr-xr-x    1 root     root        4.0K Jul 19 06:58 ..
 
 At this point you cannot reboot in the OS,  but you can reboot via Virtualbox:
 
-```
-$ shutdown -h now
+```bash
+shutdown -h now
 Failed to write to log, write /var/log/boot/shutdown.log: no space left on device
 [            ] shutdown:info: Setting shutdown timeout to 60 (rancher.shutdown_timeout set to 60)
 Failed to write to log, write /var/log/boot/shutdown.log: no space left on device
@@ -71,9 +71,9 @@ You need add `rancher.autologin=tty1` to the end, then press `<Enter>`. If all g
 
 We need to mount the root disk in the recovery console and delete some data:
 
-```
-$ mkdir /mnt/root-disk
-$ mount /dev/sda1 /mnt/root-disk
+```bash
+mkdir /mnt/root-disk
+mount /dev/sda1 /mnt/root-disk
 
 # delete data previously generated using dd
 $ ls -ahl /mnt/root-disk/opt

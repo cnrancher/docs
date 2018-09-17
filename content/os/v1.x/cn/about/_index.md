@@ -15,8 +15,8 @@ Development is easiest done with QEMU on Linux. OS X works too, although QEMU do
 * make
 * Docker 1.10.3+
 
-```
-$ make
+```bash
+make
 ```
 
 The build will run in Docker containers, and when the build is done, the vmlinuz, initrd, and ISO should be in `dist/artifacts`.
@@ -29,8 +29,8 @@ Run `make integration-tests` to run the all integration tests in a container, or
 
 To run just one integration test, or a group of them (using regex's like `.*Console.*`, you can set the `RUNTEST` environment variable:
 
-```
-$ RUNTEST=TestPreload make integration-test
+```bash
+RUNTEST=TestPreload make integration-test
 ```
 
 ### Running

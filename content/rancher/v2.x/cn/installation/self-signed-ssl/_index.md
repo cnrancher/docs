@@ -79,13 +79,13 @@ x509的证书编码格式有两种:
 
 - 1.创建root CA私钥
 
-    ```
+    ```bash
     openssl req \
     -newkey rsa:4096 -nodes -sha256 -keyout ca.key \
     -x509 -days 365 -out ca.crt
     ```
 
-    ```
+    ```bash
     Country Name(2 letter code)[AU]: CN
     State or Province Name(full name)[Some-State]: Beijing
     Locality Name(eg, city)[]: Beijing
@@ -99,13 +99,13 @@ x509的证书编码格式有两种:
 
     如果你使用类似`demo.rancher.com`的FQDN域名访问，则需要设置`demo.rancher.com`作为CN；如果你使用IP地址访问，CN则为IP地址：
 
-    ```
+    ```bash
     openssl req \
     -newkey rsa:4096 -nodes -sha256 -keyout demo.rancher.com.key \
     -out  demo.rancher.com.csr
     ```
 
-    ```
+    ```bash
     Country Name(2 letter code)[AU]: CN
     State or Province Name(full name)[Some-State]: Beijing
     Locality Name(eg, city)[]: Beijing
@@ -118,12 +118,12 @@ x509的证书编码格式有两种:
 
 - 3.用`第一步`创建的CA证书给`第二步`生成的签名请求进行签名
 
-    ```
+    ```bash
     openssl x509 -req -days 365 -in demo.rancher.com.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out demo.rancher.com.crt
     ```
 - 4.如果你使用IP，例如192.168.1.101来连接，则可以改为运行以下命令：
 
-    ```
+    ```bash
     echo 'subjectAltName = IP:192.168.1.101' > extfile.cnf
     openssl x509 -req -days 365 -in demo.rancher.com.csr -CA ca.crt -CAkey ca.key -CAcreateserial -extfile extfile.cnf -out  demo.rancher.com.crt
     ```
@@ -138,14 +138,14 @@ x509的证书编码格式有两种:
 
 - 不加CA证书验证
 
-    ```
+    ```bash
     openssl s_client -connect demo.rancher.com:443 -servername demo.rancher.com
     ```
     ![image-20180805213034249] (_index.assets/image-20180805213034249.png)
 
 - 添加CA证书验证
 
-    ```
+    ```bash
     openssl s_client -connect demo.rancher.com:443 -servername demo.rancher.com -CAfile server-ca.crt
     ```
     ![image-20180805213123781](_index.assets/image-20180805213123781.png)

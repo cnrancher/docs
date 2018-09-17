@@ -26,7 +26,7 @@ weight: 1
 
 1、停止当前运行的Rancher容器.可通过`docker ps`查看`<RANCHER_CONTAINER_NAME>`
 
-```
+```bash
 docker stop <RANCHER_CONTAINER_NAME>
 ```
 
@@ -34,7 +34,7 @@ docker stop <RANCHER_CONTAINER_NAME>
 
 >**警告!** 此命令将从Rancher Server容器中删除所有数据。
 
-```
+```bash
 docker run  \
 --volumes-from <RANCHER_CONTAINER_NAME> \
 -v $PWD:/backup \
@@ -46,7 +46,7 @@ sh -c "rm /var/lib/rancher/* -rf && tar zxvf /backup/rancher-data-backup-<RANCHE
 
 3、重新启动Rancher Server容器
 
-```
+```bash
 docker start <RANCHER_CONTAINER_NAME>
 ```
 

@@ -19,7 +19,7 @@ For the **IAM Role**, you'll need to be sure to select the ECS Container Instanc
 
 For the **User Data**, you'll need to pass in the [cloud-config]({{< baseurl >}}/os/v1.x/en/installation/configuration/#cloud-config) file.
 
-```
+```bash
 #cloud-config
 rancher:
   environment:

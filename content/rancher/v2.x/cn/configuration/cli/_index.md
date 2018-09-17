@@ -22,7 +22,7 @@ Rancher CLI是一个统一的工具，可用于与Rancher进行交互。使用�
 
 使用以下命令登录:
 
-```
+```bash
 ./rancher login https://<SERVER_URL> --token <BEARER_TOKEN>
 ```
 
@@ -50,7 +50,7 @@ Rancher CLI是一个统一的工具，可用于与Rancher进行交互。使用�
 
 如果需要操作其他项目，需要先进行项目切换，通过 `./rancher context switch` 切换到其他项目，输入编号进行项目选择：
 
-```
+```bash
 User:rancher-cli-directory user$ ./rancher context switch
 NUMBER    CLUSTER NAME   PROJECT ID              PROJECT NAME
 1         cluster-2      c-7q96s:p-h4tmb         project-2
@@ -62,7 +62,7 @@ Select a Project:
 
 输入编号后，控制台会显示一条消息，表明你已切换到其他项目，并生成新的配置文件。
 
-```
+```bash
 INFO[0005] Setting new context to project project-1
 INFO[0005] Saving config to /Users/markbishop/.rancher/cli2.json
 ```

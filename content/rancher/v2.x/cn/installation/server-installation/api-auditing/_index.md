@@ -36,7 +36,7 @@ Rancher附带API审计功能，用以记录每个用户发起的系统事件信�
 
 要启用API审计日志，请停止运行的Rancher容器，然后使用以下命令重新启动它。此命令包含打开API审计的参数，有关与API审计相关的每个`AUDIT_LEVEL`使用的详细信息，请参阅[API审计日志使用方法](#API审计日志使用方法)。
 
-```
+```bash
 docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
   -v /root/var/log/auditlog:/var/log/auditlog \
@@ -53,7 +53,7 @@ docker run -d --restart=unless-stopped \
 
 默认情况下，你可以使用自己熟悉的文本编辑器在Rancher server节点上查看审计日志。例如：
 
-```
+```bash
 less /root/var/log/auditlog/rancher-api-audit.log
 ```
 
@@ -66,7 +66,7 @@ less /root/var/log/auditlog/rancher-api-audit.log
 
 如果设置`AUDIT_LEVEL`为`1`，Rancher会记录每个API请求的元数据标头，但不会记录正文内容。标题提供有关API事务的基本信息，例如事务的ID，发起事务的人员，事件发生的时间等。
 
-```
+```json
 {
     "auditID": "30022177-9e2e-43d1-b0d0-06ef9d3db183",
     "requestURI": "/v3/schemas",
@@ -91,7 +91,7 @@ less /root/var/log/auditlog/rancher-api-audit.log
 
 下面的代码示例描述了一个API请求，包含其元数据头和正文内容。
 
-```
+```json
 {
     "auditID": "ef1d249e-bfac-4fd0-a61f-cbdcad53b9bb",
     "requestURI": "/v3/project/c-bcz5t:p-fdr4s/workloads/deployment:default:nginx",
@@ -261,7 +261,7 @@ less /root/var/log/auditlog/rancher-api-audit.log
 
 下面的代码示例描述了一个API请求，包含其元数据头和正文内容。 
 
-```
+```json
 {
     "auditID": "a886fd9f-5d6b-4ae3-9a10-5bff8f3d68af",
     "requestURI": "/v3/project/c-bcz5t:p-fdr4s/workloads/deployment:default:nginx",
@@ -424,7 +424,7 @@ less /root/var/log/auditlog/rancher-api-audit.log
 
 下面的代码示例描述了API响应，包括其元数据头和正文内容。 
 
-```
+```json
 {
     "auditID": "a886fd9f-5d6b-4ae3-9a10-5bff8f3d68af",
     "responseStatus": "200",

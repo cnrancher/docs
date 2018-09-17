@@ -82,7 +82,7 @@ weight: 1
 
 - **Email settings**:Harbor需要这些参数才能向用户发送“密码重置”电子邮件，并且仅在需要该功能时才做配置。另外，**请注意**，在默认情况下SSL连接`没有启用`，如果你的SMTP服务器需要SSL，那么你应该通过设置`email_ssl = TRUE`参数来启用SSL，但`不支持STARTTLS`。如果电子邮件服务器使用自签名证书或不受信任证书，则需要设置`email_insecure = true`。有关`email_identity`的详细说明，请参阅[rfc2595](https://tools.ietf.org/rfc/rfc2595.txt)
 
-  ```
+  ```bash
     - email_server = smtp.mydomain.com
     - email_server_port = 25
     - email_identity =
@@ -123,7 +123,7 @@ weight: 1
 
 默认情况下，Harbor将镜像存储在本地文件系统中。在生产环境中，你可以考虑使用其他存储后端而不是本地文件系统，如S3，OpenStack Swift，Ceph等。你需要更新的是storage文件中的部分common/templates/registry/config.yml。例如，如果你使用Openstack Swift作为存储后端，则该部分可能如下所示:
 
-```
+```yaml
 storage:
   swift:
     username: admin
@@ -147,7 +147,7 @@ storage:
 
   将第一个`80`修改为自定义端口，例如`8888:80`。
 
-  ```
+  ```yaml
   proxy:
       image: library/nginx:1.11.5
       restart: always
@@ -193,7 +193,7 @@ storage:
 
   登录管理门户并创建一个新项目，例如: myproject。然后，你可以使用docker命令登录和推送镜像。默认情况下，Harbor的默认安装使用HTTP协议，而Docker默认信任https协议。所以，要想docker命令登录和推送镜像，需要添加`--insecure-registry`到docker 配置文件并重启docker服务。
 
-  ```
+  ```bash
   docker login reg.yourdomain.com
   docker push reg.yourdomain.com/myproject/myrepo:mytag
   ```
@@ -236,7 +236,7 @@ Harbor不附带任何证书，默认情况下使用HTTP来处理请求。虽然�
 
   要更改Harbour的配置，请先停止现有的Harbor实例并进行更新harbor.cfg。然后运行prepare脚本以填充配置。最后重新创建并启动Harbor的实例:
 
-  ```
+  ```bash
   sudo docker-compose down -v
   sudo vim harbor.cfg
   sudo prepare
@@ -249,7 +249,7 @@ Harbor不附带任何证书，默认情况下使用HTTP来处理请求。虽然�
 
 - 删除Harbor的数据库和图像数据(用于干净的重新安装)
 
-  ```
+  ```bash
   rm -r /data/database
   rm -r /data/registry
   ```
@@ -258,24 +258,24 @@ Harbor不附带任何证书，默认情况下使用HTTP来处理请求。虽然�
 
 当Harbour与Notary或者Clair一起安装时，docker-compose命令需要指定一个或者两个额外的模板文件。用于管理Harbour生命周期的docker-compose命令是:
 
-```
+```bash
 sudo docker-compose -f ./docker-compose.yml -f ./docker-compose.notary.yml [ up|down|ps|stop|start ]
 ```
 
-```
+```bash
 sudo docker-compose -f ./docker-compose.yml -f ./docker-compose.notary.yml -f ./docker-compose.clair.yml [ up|down|ps|stop|start ]
 ```
 
 - 如果要在使用Notary安装Harbor时更改配置并重新部署Harbour，则应使用以下命令:
 
-  ```
+  ```bash
   sudo docker-compose -f ./docker-compose.yml -f ./docker-compose.notary.yml down -v
   sudo vim harbor.cfg
   sudo prepare --with-notary
   sudo docker-compose -f ./docker-compose.yml -f ./docker-compose.notary.yml up -d
   ```
 
-  ```
+  ```bash
   sudo docker-compose -f ./docker-compose.yml -f ./docker-compose.notary.yml -f   ./docker-compose.clair.yml down -v
   sudo vim harbor.cfg
   sudo prepare --with-notary --with-clair

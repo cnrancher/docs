@@ -31,7 +31,7 @@ If your organization uses Microsoft Active Directory Federation Services (AD FS)
     
         You can generate one using an openssl command. For example:
     
-        ```
+        ```bash
         openssl req -x509 -newkey rsa:2048 -keyout myservice.key -out myservice.cert -days 365 -nodes -subj "/CN=myservice.example.com"
         ```
     1. **Metadata XML**: The `federationmetadata.xml` file exported from your AD FS server. You can find this file at `https://your-AD-Server/federationmetadata/2007-06/federationmetadata.xml`.

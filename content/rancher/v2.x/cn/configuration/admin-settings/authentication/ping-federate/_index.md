@@ -31,7 +31,7 @@ If your organization uses Ping Identity Provider (IdP) for user authentication, 
     
         You can generate one using an openssl command. For example:
     
-        ```
+        ```bash
         openssl req -x509 -newkey rsa:2048 -keyout myservice.key -out myservice.cert -days 365 -nodes -subj "/CN=myservice.example.com"
         ```
     1. **IDP-metadata**: The `metadata.xml` file that you [exported from your IdP server](https://documentation.pingidentity.com/pingfederate/pf83/index.shtml#concept_exportingMetadata.html).

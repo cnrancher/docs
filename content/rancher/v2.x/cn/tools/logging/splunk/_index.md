@@ -74,7 +74,7 @@ If you're a [project owner or member]({{< baseurl >}}/rancher/v2.x/en/admin-sett
 
 You can use curl to see if **HEC** is listening for HTTP event data.
 
-```
+```json
 $ curl http://splunk-server:8088/services/collector/event \
     -H 'Authorization: Splunk 8da70994-b1b0-4a79-b154-bfaae8f93432' \
     -d '{"event": "hello world"}'

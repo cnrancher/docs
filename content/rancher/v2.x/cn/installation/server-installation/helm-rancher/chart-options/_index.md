@@ -32,7 +32,7 @@ weight: 1
 
 访问cluster IP、Pod IP、以及其他内部网络IP，可以通过`noProxy`排除代理列表外：
 
-```
+```json
 --set proxy="http://<username>:<password>@<proxy_url>:<proxy_port>/"
 --set noProxy="127.0.0.1,localhost,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
 ```
@@ -51,7 +51,7 @@ Populate your private registry with Rancher images.
 
 用`kubectl`在`cattle-system`命名空间中创建docker-registry secret 。
 
-```
+```bash
 kubectl -n cattle-system create secret docker-registry regcred \
   --docker-server="reg.example.com:5000" \
   --docker-email=<email>
@@ -61,7 +61,7 @@ kubectl -n cattle-system create secret docker-registry regcred \
 
 添加`rancherImage`指向私有镜像仓库镜像和`imagePullSecrets`。
 
-```
+```bash
 --set rancherImage=reg.example.com:5000/rancher/rancher \
 --set imagePullSecrets[0].name=regcred
 ```

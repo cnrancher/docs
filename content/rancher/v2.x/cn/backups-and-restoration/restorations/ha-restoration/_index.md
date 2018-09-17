@@ -22,13 +22,13 @@ weight: 2
 
 3、创建快照目录:
 
-```
+```bash
 mkdir -p /opt/rke/etcd-snapshots/
 ```
 
 4、复制备份的最新快照到`新etcd节点`的`/opt/rke/etcd-snapshots/`目录下:
 
-```
+```bash
 cp $PWD/<SNAPSHOT.db> /opt/rke/etcd-snapshots/<SNAPSHOT.db>
 ```
 
@@ -46,7 +46,7 @@ cp $PWD/<SNAPSHOT.db> /opt/rke/etcd-snapshots/<SNAPSHOT.db>
 
 `例: rancher-cluster-restore.yml`
 
-```
+```bash
 nodes:
 - address: 52.15.238.179     # 新etcd节点
   user: ubuntu
@@ -75,7 +75,7 @@ nodes:
 
 2、根据系统类型，选择运行以下命令还原`etcd`数据：
 
-```
+```bash
 # MacOS
 ./rke_darwin-amd64 etcd snapshot-restore --name <snapshot>.db --config ./rancher-cluster-restore.yml
 
@@ -90,7 +90,7 @@ nodes:
 
 使用RKE并在`新ETCD节点`单节点上启动集群。根据系统类型，选择运行以下命令更新集群：
 
-```
+```bash
 # MacOS
 ./rke_darwin-amd64 up --config ./rancher-cluster-restore.yml
 # Linux
@@ -101,7 +101,7 @@ nodes:
 
 RKE运行完成后会创建`kubectl`的配置文件`kube_config_rancher-cluster-restore.yml`，可通过这个配置文件查询K8S集群节点状态：
 
-```
+```bash
 kubectl  --kubeconfig=kube_config_rancher-cluster-restore.yml  get nodes
 
 NAME            STATUS    ROLES                      AGE       VERSION
@@ -115,7 +115,7 @@ NAME            STATUS    ROLES                      AGE       VERSION
 
 通过kubectl从群集中删除旧节点
 
-```
+```bash
 kubectl --kubeconfig=kube_config_rancher-cluster-restore.yml  delete node 18.217.82.189 18.222.22.56 18.191.222.99
 ```
 
@@ -123,7 +123,7 @@ kubectl --kubeconfig=kube_config_rancher-cluster-restore.yml  delete node 18.217
 
 4、`新ETCD节点`运行起来后，检查`Kubernetes Pods`的状态
 
-```
+```bash
 kubectl --kubeconfig=kube_config_rancher-cluster-restore.yml  get pods --all-namespaces
 
 NAMESPACE       NAME                                    READY     STATUS    RESTARTS   AGE
@@ -148,7 +148,7 @@ kube-system     tiller-deploy-56c4cf647b-j4whh          1/1       Running   1   
 
 `例：rancher-cluster-restore.yml`
 
-```
+```bash
 nodes:
 - address: 52.15.238.179     # 新ETCD节点
   user: ubuntu
@@ -170,7 +170,7 @@ nodes:
 
 根据系统类型，选择运行以下命令更新集群：
 
-```
+```bash
 # MacOS
 ./rke_darwin-amd64 up --config ./rancher-cluster-restore.yml
 # Linux

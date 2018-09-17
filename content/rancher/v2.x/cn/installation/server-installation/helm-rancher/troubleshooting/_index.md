@@ -24,7 +24,7 @@ Things to check
 
 Use `kubectl` to check the `cattle-system` system namespace and see if the Rancher pods are in a Running state.
 
-```
+```bash
 kubectl -n cattle-system get pods
 
 NAME                           READY     STATUS    RESTARTS   AGE
@@ -33,7 +33,7 @@ pod/rancher-784d94f59b-vgqzh   1/1       Running   0          10m
 
 If the state is not `Running`, run a `describe` on the pod and check the Events.
 
-```
+```bash
 kubectl -n cattle-system describe pod
 
 ...
@@ -52,7 +52,7 @@ Events:
 
 Use `kubectl` to list the pods.
 
-```
+```bash
 kubectl -n cattle-system get pods
 
 NAME                           READY     STATUS    RESTARTS   AGE
@@ -61,7 +61,7 @@ pod/rancher-784d94f59b-vgqzh   1/1       Running   0          10m
 
 Use `kubectl` and the pod name to list the logs from the pod.
 
-```
+```bash
 kubectl -n cattle-namespace logs -f rancher-784d94f59b-vgqzh
 ```
 
@@ -83,7 +83,7 @@ Work backwards and do a `kubectl describe` on each object and check the events. 
 
 For example there is a problem with the Issuer:
 
-```
+```bash
 kubectl -n cattle-system describe certificate
 ...
 Events:
@@ -92,7 +92,7 @@ Events:
   Warning  IssuerNotReady  18s (x23 over 19m)  cert-manager  Issuer rancher not ready
 ```
 
-```
+```bash
 kubectl -n cattle-system describe issuer
 ...
 Events:
@@ -108,7 +108,7 @@ Your certs get applied directly to the Ingress object in the `cattle-system` nam
 
 Check the status of the Ingress object and see if its ready.
 
-```
+```bash
 kubectl -n cattle-system describe ingress
 ```
 
@@ -116,7 +116,7 @@ If its ready and the SSL is still not working you may have a malformed cert or s
 
 Check the nginx-ingress-controller logs. Because the nginx-ingress-controller has multiple containers in its pod you will need to specify the name of the container.
 
-```
+```bash
 kubectl -n ingress-nginx logs -f nginx-ingress-controller-rfjrq nginx-ingress-controller
 ...
 W0705 23:04:58.240571       7 backend_ssl.go:49] error obtaining PEM from secret cattle-system/tls-rancher-ingress: error retrieving secret cattle-system/tls-rancher-ingress: secret cattle-system/tls-rancher-ingress was not found

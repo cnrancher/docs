@@ -7,7 +7,7 @@ weight: 1
 
 1. 运行以下命令，停止当前运行Rancher Server的容器
 
-      ```
+      ```bash
       docker stop <RANCHER_CONTAINER_ID>
       ```
       >**提示:** 你可以输入`docker ps`命令获取Rancher容器的ID
@@ -17,7 +17,7 @@ weight: 1
     - 替换`<RANCHER_CONTAINER_ID>`为上一步中的相同容器ID。
     - 替换`<RANCHER_CONTAINER_TAG>`为你当前正在运行的Rancher版本，如上面的先决条件中所述。
 
-    ```
+    ```bash
     docker create --volumes-from <RANCHER_CONTAINER_ID> \
     --name rancher-data rancher/rancher:<RANCHER_CONTAINER_TAG>
     ```
@@ -30,13 +30,13 @@ weight: 1
     - 替换`<CURRENT_VERSION>`为当前安装的Rancher版本的标记。
     - 替换`<RANCHER_CONTAINER_TAG>`为当前正在运行的Rancher版本，如先决条件中所述 。
 
-    ```
+    ```bash
     docker create --volumes-from <RANCHER_CONTAINER_ID> \
     --name rancher-data-snapshot-<CURRENT_VERSION> rancher/rancher:<RANCHER_CONTAINER_TAG>
     ```
 4. 拉取Rancher的最新镜像。
 
-      ```
+      ```bash
       docker pull rancher/rancher:latest
       ```
     >**注意** 如果你正在进行[离线升级]({{< baseurl >}}/rancher/v2.x/cn/upgrades/air-gap-upgrade/)，请在运行docker run命令时将你的私有镜像仓库URL添加到镜像名中
@@ -45,7 +45,7 @@ weight: 1
 
 5. 通过`rancher-data`数据卷容器启动新的`Rancher Server`容器。
 
-    ```
+    ```bash
     docker run -d --volumes-from rancher-data --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher:latest
     ```
 

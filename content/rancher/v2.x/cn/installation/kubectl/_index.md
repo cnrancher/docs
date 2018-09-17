@@ -11,7 +11,7 @@ weight: 12
 
 - Ubuntu, Debian or HypriotOS
 
-```
+```bash
 sudo apt-get update && sudo apt-get install -y apt-transport-https
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 sudo touch /etc/apt/sources.list.d/kubernetes.list
@@ -22,7 +22,7 @@ sudo apt-get install -y kubectl
 
 - CentOS, RHEL or Fedora
 
-```
+```bash
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
@@ -42,13 +42,13 @@ yum install -y kubectl
 
 1、切换到snap用户并运行安装命令:
 
-```
+```bash
 sudo snap install kubectl --classic
 ```
 
 2、测试以确保您安装的是最新的版本：
 
-```
+```bash
 kubectl version
 ```
 
@@ -59,13 +59,13 @@ kubectl version
 
 1、运行安装命令:
 
-```
+```bash
 brew install kubernetes-cli
 ```
 
 2、测试以确保您安装的是最新的版本:
 
-```
+```bash
 kubectl version
 ```
 
@@ -76,13 +76,13 @@ kubectl version
 
 1、运行安装命令:
 
-```
+```bash
 port install kubectl
 ```
 
 2、测试以确保您安装的是最新的版本:
 
-```
+```bash
 kubectl version
 ```
 
@@ -95,7 +95,7 @@ kubectl version
 
     运行安装命令(确保指定`DownloadLocation`):
 
-    ```
+    ```bash
     Install-Script -Name install-kubectl -Scope CurrentUser -Force
     install-kubectl.ps1 [-DownloadLocation <path>]
     ```
@@ -119,13 +119,13 @@ kubectl version
 
 1、运行安装命令:
 
-```
+```bash
 choco install kubernetes-cli
 ```
 
 2、测试以确保您安装的是最新的版本:
 
-```
+```bash
 kubectl version
 ```
 
@@ -135,13 +135,13 @@ kubectl version
 
 4、创建`.kube`目录:
 
-```
+```bash
 mkdir .kube
 ```
 
 5、切换到创建的.kube目录:
 
-```
+```bash
 cd .kube
 ```
 
@@ -156,13 +156,13 @@ cd .kube
 
 2、运行`kubectl`安装命令:
 
-```
+```bash
 gcloud components install kubectl
 ```
 
 3、测试以确保您安装的是最新的版本:
 
-```
+```bash
 kubectl version
 ```
 
@@ -177,13 +177,13 @@ kubectl version
 
 2、确保`kubectl`二进制文件是可执行文件。
 
-```
+```bash
 chmod +x ./kubectl
 ```
 
 3、将`kubectl`二进制文件移动到PATH路径下。
 
-```
+```bash
 sudo mv ./kubectl /usr/local/bin/kubectl
 ```
 
@@ -195,13 +195,13 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 
 2、确保`kubectl`二进制文件是可执行文件。
 
-```
+```bash
 chmod +x ./kubectl
 ```
 
 3、将`kubectl`二进制文件移动到PATH路径下。
 
-```
+```bash
 sudo mv ./kubectl /usr/local/bin/kubectl
 ```
 
@@ -221,13 +221,13 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 
 您可以将此文件复制到`$HOME/.kube/config`或者如果您正在使用多个Kubernetes群集，请将`KUBECONFIG`环境变量设置为路径`kube_config_rancher-cluster.yml`。
 
-```
+```bash
 export KUBECONFIG=$(pwd)/kube_config_rancher-cluster.yml
 ```
 
 测试您的连接，看看是否可以返回节点列表。
 
-```
+```bash
 kubectl get nodes
  NAME                          STATUS    ROLES                      AGE       VERSION
 165.227.114.63                Ready     controlplane,etcd,worker   11m       v1.10.1
@@ -239,7 +239,7 @@ kubectl get nodes
 
 通过获取群集状态来检查kubectl是否已正确配置：
 
-```
+```bash
 kubectl cluster-info
 ```
 
@@ -247,7 +247,7 @@ kubectl cluster-info
 
 如果您看到类似于以下内容的消息，则kubectl配置不正确或无法连接到Kubernetes群集。
 
-```
+```bash
 The connection to the server <server-name:port> was refused - did you specify the right host or port?
 ```
 
@@ -255,7 +255,7 @@ The connection to the server <server-name:port> was refused - did you specify th
 
 如果kubectl cluster-info返回url响应但您无法访问群集，要检查它是否配置正确，请使用：
 
-```
+```bash
 kubectl cluster-info dump
 ```
 
@@ -268,13 +268,13 @@ kubectl包括自动补全支持，可以节省大量的输入！完成脚本本�
 
 在CentOS Linux上，您可能需要安装默认情况下未安装的bash-completion软件包。
 
-```
+```bash
 yum install bash-completion -y
 ```
 
 运行`source <(kubectl completion bash)`可将kubectl自动补全添加到当前shell，要使kubectl自动补全命令自动加载:
 
-```
+```bash
 echo "source <(kubectl completion bash)" >> ~/.bashrc
 ```
 
@@ -282,7 +282,7 @@ echo "source <(kubectl completion bash)" >> ~/.bashrc
 
 在macOS上，您需要先通过Homebrew安装`bash-completion`:
 
-```
+```bash
 # If running Bash 3.2 included with macOS
 brew install bash-completion
 # or, if running Bash 4.1+
@@ -295,7 +295,7 @@ If you installed kubectl using the [Homebrew instructions](#install-with-homebre
 
 If you have installed kubectl manually, you need to add kubectl autocompletion to the bash-completion:
 
-```
+```bash
 kubectl completion bash > $(brew --prefix)/etc/bash_completion.d/kubectl
 ```
 
@@ -305,7 +305,7 @@ The Homebrew project is independent from Kubernetes, so the bash-completion pack
 
 If you are using zsh edit the ~/.zshrc file and add the following code to enable kubectl autocompletion:
 
-```
+```bash
 if [ $commands[kubectl] ]; then
   source <(kubectl completion zsh)
 fi
@@ -313,7 +313,7 @@ fi
 
 Or when using [Oh-My-Zsh](http://ohmyz.sh/), edit the ~/.zshrc file and update the `plugins=` line to include the kubectl plugin.
 
-```
+```bash
 plugins=(kubectl)
 ```
 

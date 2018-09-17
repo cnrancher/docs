@@ -31,7 +31,7 @@ The custom catalog can contain native Helm charts, Rancher charts, or a combinat
     <br/>
     **Example**:
 
-    ```
+    ```bash
     $ cat ./app-readme.md
 
     # Wordpress ROCKS!

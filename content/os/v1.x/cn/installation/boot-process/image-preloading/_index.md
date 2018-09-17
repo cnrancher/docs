@@ -7,8 +7,8 @@ On boot, RancherOS scans `/var/lib/rancher/preload/docker` and `/var/lib/rancher
 
 The archives are `.tar` files, optionally compressed with `xz` or `gzip`. These can be produced by `docker save` command, e.g.:
 
-```
-$ docker save my-image1 my-image2 some-other/image3 | xz > my-images.tar.xz
+```bash
+docker save my-image1 my-image2 some-other/image3 | xz > my-images.tar.xz
 ```
 
 The resulting files should be placed into `/var/lib/rancher/preload/docker` or `/var/lib/rancher/preload/system-docker` (depending on whether you want it preloaded into Docker or System Docker).
@@ -20,14 +20,14 @@ Pre-loading process is `asynchronous` by default, optionally this can be set to 
 _Available as of v1.4_
 
 cloud-config file, e.g.:
-```
+```bash
 #cloud-config
 rancher:
   preload_wait: true
 ```
 
 `ros config set` command, e.g.:
-```
+```bash
 $ ros config set rancher.preload_wait true
 ```
 

@@ -11,7 +11,7 @@ Kubernetes将为Rancher创建所有对象和服务，但在我们使用证书和
 
 使用`kubectl`与`tls`类型来创建`secrets`.
 
-```
+```bash
 kubectl -n cattle-system create secret tls tls-rancher-ingress \
   --cert=./tls.crt \
   --key=./tls.key
@@ -24,7 +24,7 @@ kubectl -n cattle-system create secret tls tls-rancher-ingress \
 
 将CA证书复制到名为`cacerts.pem`的文件中，并用`kubectl`在命名空间`cattle-system`中创建`tls-ca`secret。
 
-```
+```bash
 kubectl -n cattle-system create secret generic tls-ca \
   --from-file=cacerts.pem
 ```

@@ -64,7 +64,7 @@ You can create, manage, and delete HPAs using kubectl:
 
 The following snippet demonstrates use of different directives in an HPA manifest. See the list below the sample to understand the purpose of each directive.
 
-```yml
+```yaml
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
@@ -102,7 +102,7 @@ Directive | Description
 
 Before you can use HPA in your Kubernetes cluster, you must fulfill some requirements.
 
-#### Requirements 
+#### Requirements
 
 Be sure that your Kubernetes cluster services are running with these flags at minimum:
 
@@ -116,7 +116,7 @@ Be sure that your Kubernetes cluster services are running with these flags at mi
 
 For an RKE Kubernetes cluster definition, add this snippet in the `services` section. To add this snippet using the Rancher v2.0 UI, open the **Clusters** view and select **Ellipsis (...) > Edit** for the cluster in which you want to use HPA. Then, from **Cluster Options**, click **Edit as YAML**. Add the following snippet to the `services` section:
 
-```
+```yaml
 services:
 ...
   kube-api: 
@@ -145,30 +145,34 @@ To create HPA resources based on resource metrics such as CPU and memory use, yo
 1. Connect to your Kubernetes cluster using kubectl.
 
 1. Clone the GitHub `metrics-server` repo:
-  ```
-  # git clone https://github.com/kubernetes-incubator/metrics-server
+
+  ```bash
+  git clone https://github.com/kubernetes-incubator/metrics-server
   ```
 
 1. Install the `metrics-server` package.
-  ```
-  # kubectl create -f metrics-server/deploy/1.8+/
+
+  ```bash
+  kubectl create -f metrics-server/deploy/1.8+/
   ```
 
 1. Check that `metrics-server` is running properly. Check the service pod and logs in the `kube-system` namespace.
 
   1. Check the service pod for a status of `running`. Enter the following command:
-    ```
-    # kubectl get pods -n kube-system
+
+    ```bash
+    kubectl get pods -n kube-system
     ```
     Then check for the status of `running`.
-    ``` 
+
+    ```bash
     NAME                                  READY     STATUS    RESTARTS   AGE
     ...
     metrics-server-6fbfb84cdd-t2fk9       1/1       Running   0          8h
     ...
     ```
   1. Check the service logs for service availability. Enter the following command:
-    ```
+    ```bash
     # kubectl -n kube-system logs metrics-server-6fbfb84cdd-t2fk9
     ```
     Then review the log to confirm that that the `metrics-server` package is running.
@@ -189,20 +193,20 @@ To create HPA resources based on resource metrics such as CPU and memory use, yo
 1. Check that the metrics api is accessible from kubectl.
 
   - If you are accessing the cluster directly, enter your Server URL in the kubectl config in the following format: `https://<K8s_URL>:6443`. 
-    ```
+    ```bash
     # kubectl get --raw /apis/metrics.k8s.io/v1beta1
     ```
     If the the API is working correctly, you should receive output similar to the output below.
-    ```
+    ```json
     {"kind":"APIResourceList","apiVersion":"v1","groupVersion":"metrics.k8s.io/v1beta1","resources":[{"name":"nodes","singularName":"","namespaced":false,"kind":"NodeMetrics","verbs":["get","list"]},{"name":"pods","singularName":"","namespaced":true,"kind":"PodMetrics","verbs":["get","list"]}]}
     ```
 
   - If you are accessing the cluster through Rancher, enter your Server URL in the kubectl config in the following format: `https://<RANCHER_URL>/k8s/clusters/<CLUSTER_ID>`. Add the suffix `/k8s/clusters/<CLUSTER_ID>` to API path.
-    ```
+    ```bash
     # kubectl get --raw /k8s/clusters/<CLUSTER_ID>/apis/metrics.k8s.io/v1beta1
     ```
     If the the API is working correctly, you should receive output similar to the output below.
-    ```
+    ```json
     {"kind":"APIResourceList","apiVersion":"v1","groupVersion":"metrics.k8s.io/v1beta1","resources":[{"name":"nodes","singularName":"","namespaced":false,"kind":"NodeMetrics","verbs":["get","list"]},{"name":"pods","singularName":"","namespaced":true,"kind":"PodMetrics","verbs":["get","list"]}]}
     ```
 
@@ -221,14 +225,14 @@ Prometheus is available for deployment in the Rancher v2.0 catalog. Deploy it fr
 For HPA to use custom metrics from Prometheus, package [k8s-prometheus-adapter](https://github.com/DirectXMan12/k8s-prometheus-adapter) is required in the `kube-system` namespace of your cluster. To install `k8s-prometheus-adapter`, we are using the Helm chart available at [banzai-charts](https://github.com/banzaicloud/banzai-charts).
 
 1. Initialize Helm in your cluster.
-  ```
+  ```bash
   # kubectl -n kube-system create serviceaccount tiller
   kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
   helm init --service-account tiller
   ```
 
 1. Clone the `banzai-charts` repo from GitHub:
-  ```
+  ```bash
   # git clone https://github.com/banzaicloud/banzai-charts
   ```
 
@@ -240,18 +244,18 @@ For HPA to use custom metrics from Prometheus, package [k8s-prometheus-adapter](
 1. Check that `prometheus-adapter` is running properly. Check the service pod and logs in the `kube-system` namespace.
   
   1. Check that the service pod is `Running`. Enter the following command.
-    ```
+    ```bash
     # kubectl get pods -n kube-system
     ```
     From the resulting output, look for a status of `Running`.
-    ```
+    ```bash
     NAME                                  READY     STATUS    RESTARTS   AGE
     ...
     prometheus-adapter-prometheus-adapter-568674d97f-hbzfx   1/1       Running   0          7h
     ...
     ```
   1. Check the service logs to make sure the service is running correctly by entering the command that follows.
-    ```
+    ```bash
     # kubectl logs prometheus-adapter-prometheus-adapter-568674d97f-hbzfx -n kube-system
     ```
     Then review the log output to confirm the service is running.
@@ -275,7 +279,7 @@ For HPA to use custom metrics from Prometheus, package [k8s-prometheus-adapter](
 1. Check that the metrics API is accessible from kubectl.
 
   - If you are accessing the cluster directly, enter your Server URL in the kubectl config in the following format: `https://<Kubernetes_URL>:6443`.
-    ```
+    ```bash
     # kubectl get --raw /apis/custom.metrics.k8s.io/v1beta1
     ```
     If the API is accessible, you should receive output that's similar to what follows.
@@ -284,14 +288,13 @@ For HPA to use custom metrics from Prometheus, package [k8s-prometheus-adapter](
     {{% /accordion %}}
     
   - If you are accessing the cluster through Rancher, enter your Server URL in the kubectl config in the following format: `https://<RANCHER_URL>/k8s/clusters/<CLUSTER_ID>`. Add the suffix `/k8s/clusters/<CLUSTER_ID>` to API path.
-    ```
+    ```bash
     # kubectl get --raw /k8s/clusters/<CLUSTER_ID>/apis/custom.metrics.k8s.io/v1beta1
     ```
     If the API is accessible, you should receive output that's similar to what follows.
     {{% accordion id="custom-metrics-api-response-rancher" label="API Response" %}}
     {"kind":"APIResourceList","apiVersion":"v1","groupVersion":"custom.metrics.k8s.io/v1beta1","resources":[{"name":"pods/fs_usage_bytes","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/memory_rss","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/spec_cpu_period","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/cpu_cfs_throttled","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/fs_io_time","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/fs_read","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/fs_sector_writes","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/cpu_user","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/last_seen","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/tasks_state","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/spec_cpu_quota","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/start_time_seconds","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/fs_limit_bytes","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/fs_write","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/memory_cache","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/memory_usage_bytes","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/cpu_cfs_periods","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/cpu_cfs_throttled_periods","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/fs_reads_merged","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/memory_working_set_bytes","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/network_udp_usage","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/fs_inodes_free","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/fs_inodes","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/fs_io_time_weighted","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/memory_failures","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/memory_swap","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/spec_cpu_shares","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/spec_memory_swap_limit_bytes","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/cpu_usage","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/fs_io_current","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/fs_writes","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/memory_failcnt","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/fs_reads","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/fs_writes_bytes","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/fs_writes_merged","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/network_tcp_usage","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/memory_max_usage_bytes","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/spec_memory_limit_bytes","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/spec_memory_reservation_limit_bytes","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/cpu_load_average_10s","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/cpu_system","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/fs_reads_bytes","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]},{"name":"pods/fs_sector_reads","singularName":"","namespaced":true,"kind":"MetricValueList","verbs":["get"]}]} 
     {{% /accordion %}}
-   
 
 #### Assigning Additional Required Roles to Your HPA
 
@@ -333,7 +336,7 @@ To do it, follow these steps:
     {{% /accordion %}}
 {{% accordion id="cluster-role-custom-resources" label="Custom Metrics: ApiGroups custom.metrics.k8s.io" %}}
  
-  ```
+```yaml
   apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRole
   metadata:
@@ -360,14 +363,15 @@ To do it, follow these steps:
     - apiGroup: rbac.authorization.k8s.io
       kind: User
       name: system:anonymous
-  ```
+```
 {{% /accordion %}}
+
 1. Create them in your cluster using one of the follow commands, depending on the metrics you're using.
- ```
+
+```bash
   # kubectl create -f <RESOURCE_METRICS_MANIFEST>
   # kubectl create -f <CUSTOM_METRICS_MANIFEST>
-  ```
-
+```
 
 ### Testing HPAs with a Service Deployment
 
@@ -376,6 +380,7 @@ For HPA to work correctly, service deployments should have resources request def
 1. Configure kubectl to connect to your Kubernetes cluster.
 
 2. Copy the `hello-world` deployment manifest below.
+
 {{% accordion id="hello-world" label="Hello World Manifest" %}}
       apiVersion: apps/v1beta2
               kind: Deployment
@@ -425,12 +430,10 @@ For HPA to work correctly, service deployments should have resources request def
                 selector:
                   app: hello-world
 {{% /accordion %}}  
-        
-  
 
 1. Deploy it to your cluster.
 
-    ```
+    ```bash
     # kubectl create -f <HELLO_WORLD_MANIFEST>
     ```
 
@@ -489,11 +492,12 @@ For HPA to work correctly, service deployments should have resources request def
 1. View the HPA info and description. Confirm that metric data is shown.
     {{% accordion id="hpa-info-resource-metrics" label="Resource Metrics" %}}
 1. Enter the following command.
-    ```
+
+    ```bash
     # kubectl get hpa
     ```
     You should receive the output that follows:
-    ```
+    ```bash
     NAME          REFERENCE                TARGETS                     MINPODS   MAXPODS   REPLICAS   AGE
     hello-world   Deployment/hello-world   1253376 / 100Mi, 0% / 50%   1         10        1          6m
         # kubectl describe hpa
@@ -518,12 +522,13 @@ For HPA to work correctly, service deployments should have resources request def
     ```
     {{% /accordion %}}
     {{% accordion id="hpa-info-custom-metrics" label="Custom Metrics" %}}
+
 1. Enter the following command.
-    ```
+    ```bash
     # kubectl describe hpa
     ```
     You should receive the output that follows.
-    ```
+    ```bash
     Name:                                                  hello-world
     Namespace:                                             default
     Labels:                                                <none>
@@ -546,7 +551,6 @@ For HPA to work correctly, service deployments should have resources request def
     ```
     {{% /accordion %}}
 
-  
 1. Generate a load for the service to test that your pods autoscale as intended. You can use any load-testing tool (Hey, Gatling, etc.), but we're using [Hey](https://github.com/rakyll/hey).
 
 1. Test that pod autoscaling works as intended.<br/></br>
@@ -555,11 +559,11 @@ For HPA to work correctly, service deployments should have resources request def
 Use your load testing tool to to scale up to two pods based on CPU Usage.  
   
 1. View your HPA.
-    ```
+    ```bash
     # kubectl describe hpa
     ```
     You should receive output similar to what follows.
-    ```
+    ```bash
     Name:                                                  hello-world
     Namespace:                                             default
     Labels:                                                <none>
@@ -583,25 +587,27 @@ Use your load testing tool to to scale up to two pods based on CPU Usage.
       Normal  SuccessfulRescale  13s   horizontal-pod-autoscaler  New size: 2; reason: cpu resource utilization (percentage of request) above target
       ```
 1. Enter the following command to confirm you've scaled to two pods.
-   ```
-      # kubectl get pods
-   ```
-   You should receive output similar to what follows:
-   ```  
+
+    ```bash
+    kubectl get pods
+    ```
+  
+    You should receive output similar to what follows:
+    ```bash
       NAME                                                     READY     STATUS    RESTARTS   AGE
       hello-world-54764dfbf8-k8ph2                             1/1       Running   0          1m
       hello-world-54764dfbf8-q6l4v                             1/1       Running   0          3h
-   ```
+    ```
   {{% /accordion %}}
   {{% accordion id="observe-upscale-3-pods-cpu-cooldown" label="Upscale to 3 pods: CPU Usage Up to Target" %}}
 Use your load testing tool to upspace to 3 pods based on CPU usage with `horizontal-pod-autoscaler-upscale-delay` set to 3 minutes.
 
 1. Enter the following command.
-   ```
-   # kubectl describe hpa
-   ```
-   You should receive output similar to what follows
-   ```
+    ```bash
+    # kubectl describe hpa
+    ```
+    You should receive output similar to what follows
+    ```bash
       Name:                                                  hello-world
       Namespace:                                             default
       Labels:                                                <none>
@@ -626,26 +632,26 @@ Use your load testing tool to upspace to 3 pods based on CPU usage with `horizon
         Normal  SuccessfulRescale  16s   horizontal-pod-autoscaler  New size: 3; reason: cpu resource utilization (percentage of request) above target
     ```
 2. Enter the following command to confirm three pods are running.
-   ```
-   # kubectl get pods
-   ```
+    ```bash
+    # kubectl get pods
+    ```
     You should receive output similar to what follows.
-     ```
+    ```bash
       NAME                                                     READY     STATUS    RESTARTS   AGE
       hello-world-54764dfbf8-f46kh                             0/1       Running   0          1m
       hello-world-54764dfbf8-k8ph2                             1/1       Running   0          5m
       hello-world-54764dfbf8-q6l4v                             1/1       Running   0          3h
-      ```
+    ```
   {{% /accordion %}}
   {{% accordion id="observe-downscale-1-pod" label="Downscale to 1 Pod: All Metrics Below Target" %}}
 Use your load testing to to scale down to 1 pod when all metrics are below target for `horizontal-pod-autoscaler-downscale-delay` (5 minutes by default).
 
 1. Enter the following command.
-  ```
-  # kubectl describe hpa
-  ```
-  You should receive output similar to what follows.
-  ```
+    ```bash
+    # kubectl describe hpa
+    ```
+    You should receive output similar to what follows.
+    ```bash
       Name:                                                  hello-world
       Namespace:                                             default
       Labels:                                                <none>
@@ -669,19 +675,21 @@ Use your load testing to to scale down to 1 pod when all metrics are below targe
         Normal  SuccessfulRescale  10m   horizontal-pod-autoscaler  New size: 2; reason: cpu resource utilization (percentage of request) above target
         Normal  SuccessfulRescale  6m    horizontal-pod-autoscaler  New size: 3; reason: cpu resource utilization (percentage of request) above target
         Normal  SuccessfulRescale  1s    horizontal-pod-autoscaler  New size: 1; reason: All metrics below target
-  ```
+    ```
   {{% /accordion %}}
+
 <br/>  
+
 **To Test Autoscaling Using Custom Metrics:**
   {{% accordion id="custom-observe-upscale-2-pods-cpu" label="Upscale to 2 Pods: CPU Usage Up to Target" %}}
 Use your load testing tool to upscale two pods based on CPU usage.
 
 1. Enter the following command.
-  ```  
+    ```bash
     # kubectl describe hpa
-  ```
-  You should receive output similar to what follows.
-  ```
+    ```
+    You should receive output similar to what follows.
+    ```bash
     Name:                                                  hello-world
     Namespace:                                             default
     Labels:                                                <none>
@@ -704,27 +712,27 @@ Use your load testing tool to upscale two pods based on CPU usage.
       Type    Reason             Age   From                       Message
       ----    ------             ----  ----                       -------
       Normal  SuccessfulRescale  16s   horizontal-pod-autoscaler  New size: 2; reason: cpu resource utilization (percentage of request) above target
-  ```
+    ```
 1. Enter the following command to confirm two pods are running.
-  ```
+    ```bash
     # kubectl get pods
-  ```
-  You should receive output similar to what follows.
-  ```  
+    ```
+    You should receive output similar to what follows.
+    ```bash
         NAME                           READY     STATUS    RESTARTS   AGE
         hello-world-54764dfbf8-5pfdr   1/1       Running   0          3s
         hello-world-54764dfbf8-q6l82   1/1       Running   0          6h
-  ```
+    ```
   {{% /accordion %}}
 {{% accordion id="observe-upscale-3-pods-cpu-cooldown-2" label="Upscale to 3 Pods: CPU Usage Up to Target" %}}
 Use your load testing tool to scale up to three pods when the cpu_system usage limit is up to target.
 
 1. Enter the following command.
-   ```
-   # kubectl describe hpa
-   ```
-   You should receive output similar to what follows:
-   ```
+    ```bash
+    # kubectl describe hpa
+    ```
+    You should receive output similar to what follows:
+    ```bash
       Name:                                                  hello-world
       Namespace:                                             default
       Labels:                                                <none>
@@ -750,27 +758,27 @@ Use your load testing tool to scale up to three pods when the cpu_system usage l
         Normal  SuccessfulRescale  3s    horizontal-pod-autoscaler  New size: 3; reason: pods metric cpu_system above target
     ```
 1. Enter the following command to confirm three pods are running.
-   ```
-   # kubectl get pods
-   ```    
-   You should receive output similar to what follows:
-   ```
+    ```bash
+    # kubectl get pods
+    ```
+    You should receive output similar to what follows:
+    ```bash
       # kubectl get pods
       NAME                           READY     STATUS    RESTARTS   AGE
       hello-world-54764dfbf8-5pfdr   1/1       Running   0          3m
       hello-world-54764dfbf8-m2hrl   1/1       Running   0          1s
       hello-world-54764dfbf8-q6l82   1/1       Running   0          6h
-   ``` 
+    ``` 
 {{% /accordion %}}
 {{% accordion id="observe-upscale-4-pods" label="Upscale to 4 Pods: CPU Usage Up to Target" %}}
 Use your load testing tool to upscale to four pods based on CPU usage. `horizontal-pod-autoscaler-upscale-delay` is set to three minutes by default.
 
 1. Enter the following command.
-  ```
-  # kubectl describe hpa
-  ```
-  You should receive output similar to what follows.
-  ```
+    ```bash
+    # kubectl describe hpa
+    ```
+    You should receive output similar to what follows.
+    ```bash
       Name:                                                  hello-world
       Namespace:                                             default
       Labels:                                                <none>
@@ -797,11 +805,11 @@ Use your load testing tool to upscale to four pods based on CPU usage. `horizont
         Normal  SuccessfulRescale  4s    horizontal-pod-autoscaler  New size: 4; reason: cpu resource utilization (percentage of request) above target
     ```
 1.  Enter the following command to confirm four pods are running.
-    ```
+    ```bash
     # kubectl get pods
     ```
     You should receive output similar to what follows.
-    ```
+    ```bash
       NAME                           READY     STATUS    RESTARTS   AGE
       hello-world-54764dfbf8-2p9xb   1/1       Running   0          5m
       hello-world-54764dfbf8-5pfdr   1/1       Running   0          2m
@@ -813,11 +821,11 @@ Use your load testing tool to upscale to four pods based on CPU usage. `horizont
 Use your load testing tool to scale down to one pod when all metrics below target for `horizontal-pod-autoscaler-downscale-delay`.
 
 1. Enter the following command.
-    ```
+    ```bash
     # kubectl describe hpa
     ```
     You should receive similar output to what follows.
-    ```
+    ```bash
         Name:                                                  hello-world
         Namespace:                                             default
         Labels:                                                <none>
@@ -845,14 +853,14 @@ Use your load testing tool to scale down to one pod when all metrics below targe
           Normal   SuccessfulRescale             13s               horizontal-pod-autoscaler  New size: 1; reason: All metrics below target
     ```
 1. Enter the following command to confirm a single pods is running.
-    ```
+    ```bash
         # kubectl get pods
     ```
     You should receive output similar to what follows.
-    ```        
-        NAME                           READY     STATUS    RESTARTS   AGE
-        hello-world-54764dfbf8-q6l82   1/1       Running   0          6h
-    ```    
+    ```bash
+    NAME                           READY     STATUS    RESTARTS   AGE
+    hello-world-54764dfbf8-q6l82   1/1       Running   0          6h
+    ```
 {{% /accordion %}}
 
 ### Conclusion

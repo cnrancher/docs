@@ -67,7 +67,7 @@ weight: 3
 
   2. 在shell中执行以下命令:
 
-      ```
+      ```bash
       sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher
       ```
 

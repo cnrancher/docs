@@ -9,7 +9,7 @@ weight: 1
 
 ## 最小化`cluster.yml`示例
 
-```
+```yaml
 nodes:
     - address: 1.2.3.4
       user: ubuntu
@@ -21,7 +21,7 @@ nodes:
 
 ## 完整 `cluster.yml` 示例
 
-```
+```yaml
 nodes:
     - address: 1.1.1.1
       user: ubuntu

@@ -38,7 +38,7 @@ Alternatively, you can access your clusters by installing kubectl on your workst
 
         >**Note:** The default location that kubectl uses for the kubeconfig file is `~/.kube/config`, but you can use any directory and specify it using the `--kubeconfig` flag, as in the sample that follows:
         >
-        >```
+        >```bash
         kubectl --kubeconfig /custom/path/kube.config get pods
         ```
 4. From your workstation, launch kubectl. Use it to interact with your kubernetes cluster.

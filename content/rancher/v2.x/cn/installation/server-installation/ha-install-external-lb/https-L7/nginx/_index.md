@@ -15,7 +15,7 @@ NGINX拥有所有主流操作系统的软件包，通过包管理器可以很轻
 
     **NGIN示例配置:**
 
-    ```
+    ```json
     upstream rancher {
         server IP_NODE_1:80;
         server IP_NODE_2:80;
@@ -62,14 +62,14 @@ NGINX拥有所有主流操作系统的软件包，通过包管理器可以很轻
 
 - 重新加载或者重启NGINX
 
-    ````
+    ```bash
     # Reload NGINX
     nginx -s reload
     # Restart NGINX
     # Depending on your Linux distribution
     service nginx restart
     systemctl restart nginx
-    ````
+    ```
 
 ## 三、访问Rancher UI
 

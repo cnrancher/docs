@@ -11,7 +11,7 @@ When you have made changes to `rancher-cluster.yml`, you will have to run `rke r
 
 Something is wrong in the addons definitions, you can run the following command to get the root cause in the logging of the job:
 
-```
+```bash
 kubectl --kubeconfig kube_config_rancher-cluster.yml logs -l job-name=rke-user-addon-deploy-job -n kube-system
 ```
 
@@ -37,7 +37,7 @@ The base64 string of one of the certificate strings is wrong. The log message wi
 <ul>
 <li>Check if the base64 string is valid by running one of the commands below:</li>
 
-```
+```bash
 # MacOS
 echo BASE64_CRT | base64 -D
 # Linux

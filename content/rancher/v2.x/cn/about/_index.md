@@ -56,7 +56,7 @@ loglevel repository | `https://github.com/rancher/loglevel` | 储库loglevel二�
 
     - `Single node`
 
-    ```
+    ```bash
     docker logs \
     --tail=all \
     --timestamps \
@@ -64,7 +64,7 @@ loglevel repository | `https://github.com/rancher/loglevel` | 储库loglevel二�
     ```
     - `High Availability`
 
-    ```
+    ```bash
     kubectl --kubeconfig $KUBECONFIG logs \
     -n cattle-system \
     --timestamps=true \

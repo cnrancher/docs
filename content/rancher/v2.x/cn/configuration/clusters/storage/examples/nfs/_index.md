@@ -19,13 +19,13 @@ Before you can use the NFS storage volume plug-in with Rancher deployments, you 
 
 1. Enter the following command:
 
-    ```
+    ```bash
     sudo apt-get install nfs-kernel-server
     ```
 
 1. Enter the command below, which sets the directory used for storage, along with user access rights. Modify the command if you'd like to keep storage at a different directory.
 
-    ```
+    ```bash
     mkdir -p /nfs && chown nobody:nogroup /nfs
     ```
     - The `-p /nfs` parameter creates a directory named `nfs` at root.
@@ -36,7 +36,7 @@ Before you can use the NFS storage volume plug-in with Rancher deployments, you 
     1. Open `/etc/exports` using your text editor of choice.
     1. Add the path of the `/nfs` folder that you created in step 3, along with the IP addresses of your cluster nodes. Add an entry for each IP address in your cluster. Follow each address and its accompanying parameters with a single space that is a delimiter.
 
-        ```
+        ```bash
         /nfs <IP_ADDRESS1>(rw,sync,no_subtree_check) <IP_ADDRESS2>(rw,sync,no_subtree_check) <IP_ADDRESS3>(rw,sync,no_subtree_check)
         ```
 
@@ -44,7 +44,7 @@ Before you can use the NFS storage volume plug-in with Rancher deployments, you 
 
     1. Update the NFS table by entering the following command:
 
-        ```
+        ```bash
         exportfs -ra
         ```
 
@@ -52,12 +52,12 @@ Before you can use the NFS storage volume plug-in with Rancher deployments, you 
 
     1. To find out what ports NFS is using, enter the following command:
 
-        ```
+        ```bash
         rpcinfo -p | grep nfs
         ```
     2. [Open the ports](https://help.ubuntu.com/lts/serverguide/firewall.html.en) that the previous command outputs. For example, the following command opens port 2049:
 
-        ```
+        ```bash
         sudo ufw allow 2049
         ```
 

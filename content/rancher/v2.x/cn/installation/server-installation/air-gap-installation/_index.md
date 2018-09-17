@@ -44,7 +44,7 @@ Rancher支持从私有镜像仓库进行安装。在每个发行版中，我们�
 
 1. 保存以下示例脚本，假设命名为:mirror-rancher-images.sh
 
-    ```
+    ```bash
     #!/bin/sh
      version=v2.0.0
      privateregistry=$1
@@ -60,14 +60,14 @@ Rancher支持从私有镜像仓库进行安装。在每个发行版中，我们�
 
 2. 执行脚本时以参数的形式把私有仓库地址传递给脚本，
 
-    ```
+    ```bash
     bash mirror-rancher-images.sh <registry.yourdomain.com:port>
     ```
 
 3. 使用[单节点安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/single-node-install).中的说明完成Rancher的安装；
 
     >**注意:** 在进行单节点安装，运行`docker run`命令时，需要将私有仓库地址添加到镜像中。例如:
-    > ```
+    > ```bash
     >docker run -d --restart=unless-stopped \
     > -p 80:80 -p 443:443 \
     > <registry.yourdomain.com:port>/rancher/rancher:latest
@@ -91,7 +91,7 @@ Rancher需要配置使用私有镜像仓库作为默认是仓库
 
     >**注意:** 如果要在启动rancher/rancher容器时配置``system-default-registry`，可以使用环境变量
     >`CATTLE_SYSTEM_DEFAULT_REGISTRY`
-    >```
+    >```bash
     >#!/bin/sh
     >docker run -d -p 80:80 -p 443:443
     >-e CATTLE_SYSTEM_DEFAULT_REGISTRY=<registry.yourdomain.com:port>
