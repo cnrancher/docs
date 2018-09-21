@@ -19,7 +19,7 @@ Rancher supports two different types of charts:
 
 - **Rancher Charts**
 
-	Rancher charts mirror native helm charts, although they add two files that enhance user experience: `app-readme.md` and `questions.yaml`. Read more about them in [Rancher Chart Additional Files](#rancher-chart-additional-files).
+	Rancher charts mirror native helm charts, although they add two files that enhance user experience: `app-readme.md` and `questions.yaml`. 了解更多 about them in [Rancher Chart Additional Files](#rancher-chart-additional-files).
 
 	Advantages of Rancher charts include:
 

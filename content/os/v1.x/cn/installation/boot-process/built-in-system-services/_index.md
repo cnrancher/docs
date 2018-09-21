@@ -7,7 +7,7 @@ To launch RancherOS, we have built-in system services. They are defined in the [
 
 ### preload-user-images
 
-Read more about [image preloading]({{< baseurl >}}/os/v1.x/en/installation/boot-process/image-preloading/).
+了解更多 about [image preloading]({{< baseurl >}}/os/v1.x/en/installation/boot-process/image-preloading/).
 
 ### network
 
