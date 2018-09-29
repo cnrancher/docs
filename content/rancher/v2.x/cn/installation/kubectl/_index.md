@@ -307,7 +307,7 @@ If you are using zsh edit the ~/.zshrc file and add the following code to enable
 
 ```bash
 if [ $commands[kubectl] ]; then
-  source <(kubectl completion zsh)
+    source <(kubectl completion zsh)
 fi
 ```
 

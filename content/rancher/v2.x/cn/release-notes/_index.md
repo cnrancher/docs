@@ -1,6 +1,6 @@
 ---
 title: 版本记录
-weight: 9
+weight: 10
 ---
 
 [Release v2.0.0]({{< baseurl >}}/rancher/v2.x/cn/release-notes/v2.0.0/)

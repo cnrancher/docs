@@ -7,9 +7,9 @@ weight: 1
 
 {{% accordion id="1" label="一、Linux主机要求" %}}
 
-### 1、[基础环境配置]({{< baseurl >}}/rancher/v2.x/cn/installation/basic-environment-configuration/)
+1、[基础环境配置]({{< baseurl >}}/rancher/v2.x/cn/installation/basic-environment-configuration/)
 
-### 2、[端口需求]({{< baseurl >}}/rancher/v2.x/cn/installation/references/)
+2、[端口需求]({{< baseurl >}}/rancher/v2.x/cn/installation/references/)
 
 {{% /accordion %}}
 {{% accordion id="2" label="二、安装Rancher并配置SSL证书" %}}
@@ -87,7 +87,7 @@ docker run -d --restart=unless-stopped \
 
 Rancher支持Let’s Encrypt 证书。Let’s Encrypt 使用一个`http-01 challenge`来验证你是否是该域名的所有者。你可以通过将想要用于Rancher访问的主机名(例如，`rancher.mydomain.com`)指向正Rancher server主机IP，以此来确认你是否是该域名的所有者。你可以通过在DNS中创建A记录来将主机名绑定到IP地址。
 
-> **先决条件:**1.Let's Encrypt是一项在线互联网服务，因此不能用于内部/离线网络。\
+> **先决条件:**1.Let's Encrypt是一项在线互联网服务，因此不能用于内部/离线网络。**注意：有的let's证书不支持HTTP2协议，请确认你的证书是否支持。**\
 >2.在你的DNS中创建一条记录，将你的Linux主机IP地址绑定到你想要用于Rancher访问的主机名(例如:`rancher.mydomain.com`)。\
 >3.在你的Linux主机上打开`TCP/80`端口,Let's Encrypt http-01检查可能来自任意的源IP地址，因此端口`TCP/80`必须对所有IP地址开放。
 

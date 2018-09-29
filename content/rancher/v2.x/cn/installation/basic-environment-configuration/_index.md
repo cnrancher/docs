@@ -11,7 +11,7 @@ weight: 1
 
 | 部署大小 | 集群(个)  | 节点(个) | vCPU                                            | 内存 |
 | -------- | --------- | -------- |     ------------------------------------------- | ---- |
-| 小       | 不超过10  | 最多50   | 2C                                              | 4GB  |
+| 小       | 不超过5  | 最多50   | 4C                                              | 16GB  |
 | 中       | 不超过100 | 最多500  | 8C                                              | 32GB |
 | 大       | 超过100   | 超过500  | [联系Rancher](https://www.cnrancher.com/contact/) |      |
 
@@ -21,7 +21,9 @@ weight: 1
 - Centos/RedHat Linux 7.5+(64位)
 - RancherOS 1.3.0+(64位)
 
-> Ubuntu操作系统有Desktop和Server版本，选择安装server版本。
+> 1. Ubuntu操作系统有Desktop和Server版本，选择安装server版本。\
+> 2. 如果你正在使用RancherOS，请确保切换到一个支持的Docker引擎版本:\
+> `sudo ros engine switch docker-17.03.2-ce`
 
 ### 3、Docker版本选择
 
