@@ -1,6 +1,6 @@
 ---
-title:  1 - 告警和通知
-weight: 1
+title:  Alerts and Notifiers
+weight: 5010
 ---
 
 Notifiers and alerts are two features that work together to inform you of events in the Rancher system. Notifiers are objects that you configure to leverage popular IT services, which send you notification of Rancher events. Alerts are rule sets that trigger when those notifications are sent.

@@ -1,5 +1,5 @@
 ---
-title: 8 - API
+title: API
 weight: 8
 ---
 

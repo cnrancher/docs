@@ -1,5 +1,5 @@
 ---
-title: Rancher工具
+title: Rancher Tools
 weight: 7
 ---
 
@@ -51,7 +51,7 @@ For more information, see [Notifiers]({{< baseurl >}}/rancher/v2.x/en/tools/noti
 Rancher can integrate with popular external services used for event streams, telemetry, or search. Rancher can integrate with the following services:
 
 - Embedded Elasticsearch (experimental)
-    
+
     >**Note:** This option is available only at the cluster level.
 
 - Elasticsearch

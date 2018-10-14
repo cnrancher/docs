@@ -21,8 +21,6 @@ The following table introduces and defines some key Kubernetes concepts.
 | Pod         | The smallest and simplest Kubernetes object. A pod represents a set of running [containers](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/#why-containers) on your cluster. |
 | Deployment  | An API object that manages a replicated application.                                                                                                                                          |
 | Workload    | Units of work that are running on the cluster, these can be pods or deployments.                                                                                                             |
-
-
 ## Migration Cheatsheet
 
 Because Rancher 1.6 defaulted to our Cattle container orchestrator, it primarily used terminology related to Cattle. However, because Rancher 2.0 uses Kubernetes, it aligns with the Kubernetes naming standard. This shift could be confusing for people unfamiliar with Kubernetes, so we've created a table that maps terms commonly used in Rancher 1.6 to their equivalents in Rancher 2.0.
@@ -40,7 +38,6 @@ Because Rancher 1.6 defaulted to our Cattle container orchestrator, it primarily
 More detailed information on Kubernetes concepts can be found in the
 [Kubernetes Concepts Documentation](https://kubernetes.io/docs/concepts/).
 
-
 ## Migration Plan
 
 <!-- TOC -->
@@ -51,8 +48,7 @@ More detailed information on Kubernetes concepts can be found in the
 - [4. Monitor Your Applications](#4-monitor-your-applications)
 - [5. Schedule Deployments](#5-schedule-deployments)
 - [6. Service Discovery](#6-service-discovery)
-<!--- [7. Load Balancing](#7-load-balancing)-->
-
+- [7. Load Balancing](#7-load-balancing)
 
 <!-- /TOC -->
 
@@ -97,11 +93,10 @@ Rancher 1.6 provides service discovery within and across stacks using its own in
 
 Blog Post: [From Cattle to Kubernetes—Service Discovery in Rancher 2.0](https://rancher.com/blog/2018/2018-09-04-service_discovery_2dot0/)
 
-<!--## 7. Load Balancing
+## 7. Load Balancing
 
 How to achieve TCP/HTTP load balancing and configure hostname/path-based routing in Rancher 2.0.
 
-Blog Post: Coming soon!
+Blog Post: [From Cattle to Kubernetes-How to Load Balance Your Services in Rancher 2.0](https://rancher.com/blog/2018/2018-09-13-load-balancing-options-2dot0/)
 
-In Rancher 1.6, a Load Balancer was used to expose your applications from within the Rancher environment for access externally. In Rancher 2.0, the concept is the same. There is a Load Balancer option to expose your services. In the language of Kubernetes, this function is more often referred to as an **Ingress**. In short, Load Balancer and Ingress play the same role.-->
-
+In Rancher 1.6, a Load Balancer was used to expose your applications from within the Rancher environment for external access. In Rancher 2.0, the concept is the same. There is a Load Balancer option to expose your services. In the language of Kubernetes, this function is more often referred to as an **Ingress**. In short, Load Balancer and Ingress play the same role.

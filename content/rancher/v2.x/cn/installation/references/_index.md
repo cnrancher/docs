@@ -7,145 +7,105 @@ weight: 3
 
 ![Basic port Requirements]({{< baseurl >}}/img/rancher/port-communications.svg)
 
-{{% accordion id="option-1" label="一、Rancher nodes" %}}
+## Rancher节点
 
-运行 `rancher/rancher` 容器的主机
+The following table lists the ports that need to be open to and from nodes that are running the Rancher server container for [single node installs]({{< baseurl >}}/rancher/v2.x/en/installation/single-node-install/) or pods for [high availability installs]({{< baseurl >}}/rancher/v2.x/en/installation/ha-server-install/).
 
-### Rancher nodes-入站规则
+{{< ports-rancher-nodes >}}
 
-| 协议 | 端口 | Source                                                       | Description                                          |
-| -------- | ---- | ------------------------------------------------------------ | ---------------------------------------------------- |
-| TCP      | 80   | Load balancer/proxy that does external SSL termination       | Rancher UI/API when external SSL termination is used |
-| TCP      | 443  | etcd nodes <br />controlplane nodes<br />worker nodes<br />Hosted/Imported Kubernetes<br />any that needs to be able to use UI/API | Rancher agent, Rancher UI/API, kubectl               |
+## Kubernetes集群节点
 
-### Rancher nodes-出站规则
+The ports required to be open for cluster nodes changes depending on how the cluster was launched. Each of the tabs below list the ports that need to be opened for different [cluster creation options]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/#cluster-creation-options).
 
-| 协议 | 端口 | Destination                                                  | Description                                   |
-| -------- | ---- | ------------------------------------------------------------ | --------------------------------------------- |
-| TCP      | 22   | Any node IP from a node created using Node Driver            | SSH provisioning of nodes using Node Driver   |
-| TCP      | 443  | 35.160.43.145/32  <br />35.167.242.46/32 <br />52.33.59.17/32 | git.rancher.io (catalogs)                     |
-| TCP      | 2376 | Any node IP from a node created using Node Driver            | Docker daemon TLS port used by Docker Machine |
-| TCP      | 6443 | Hosted/Imported Kubernetes API                               | Kubernetes apiserver                          |
+>**Tip:**
+>
+>If security isn't a large concern and you're okay with opening a few additional ports, you can use the table in [Commonly Used Ports](#commonly-used-ports) as your port reference instead of the comprehensive tables below.
 
-{{% /accordion %}}
-{{% accordion id="option-2" label="二、Etcd nodes" %}}
+{{% tabs %}}
 
-具有**etcd**角色的节点
+{{% tab "Node Pools" %}}
 
-### etcd nodes-入站规则
+The following table depicts the port requirements for [Rancher Launched Kubernetes]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/) with nodes created in an [Infrastructure Provider]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools/).
 
-| 协议 | 端口  | Source                                                       | Description                                                  |
-| -------- | ----- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| TCP      | 2376  | Rancher nodes                                                | Docker daemon TLS port used by Docker Machine (only needed when using Node Driver/Templates) |
-| TCP      | 2379  | etcd nodes<br />controlplane nodes                           | etcd client requests                                         |
-| TCP      | 2380  | etcd nodes<br />controlplane nodes                           | etcd peer communication                                      |
-| UDP      | 8472  | etcd nodes<br />controlplane nodes<br />worker nodes         | Canal/Flannel VXLAN overlay networking                       |
-| TCP      | 9099  | etcd node itself (local traffic, not across nodes)See [Local node traffic](https://www.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Canal/Flannel livenessProbe/readinessProbe                   |
-| TCP      | 10250 | controlplane nodes                                           | kubelet                                                      |
+>**Note:**
+>The required ports are automatically opened by Rancher during creation of clusters in cloud providers like Amazon EC2 or DigitalOcean.
 
-### etcd nodes-出站规则
+{{< ports-iaas-nodes >}}
 
-| 协议 | 端口 | Destination                                                  | Description                                |
-| -------- | ---- | ------------------------------------------------------------ | ------------------------------------------ |
-| TCP      | 443  | Rancher nodes                                                | Rancher agent                              |
-| TCP      | 2379 | etcd nodes                                                   | etcd client requests                       |
-| TCP      | 2380 | etcd nodes                                                   | etcd peer communication                    |
-| TCP      | 6443 | controlplane nodes                                           | Kubernetes apiserver                       |
-| UDP      | 8472 | etcd nodes<br />controlplane nodes<br />worker nodes         | Canal/Flannel VXLAN overlay networking     |
-| TCP      | 9099 | etcd node itself (local traffic, not across nodes)See [Local node traffic](https://www.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Canal/Flannel livenessProbe/readinessProbe |
+{{% /tab %}}
 
-{{% /accordion %}}
-{{% accordion id="option-3" label="三、Controlplane nodes" %}}
+{{% tab "Custom Nodes" %}}
 
-具有**controlplane**角色的主机
+The following table depicts the port requirements for [Rancher Launched Kubernetes]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/) with [Custom Nodes]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/custom-nodes/).
 
-### controlplane nodes-入站规则
+{{< ports-custom-nodes >}}
 
-| 协议 | 端口        | Source                                                       | Description                                                  |
-| -------- | ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| TCP      | 80          | Any that consumes Ingress services                           | Ingress controller (HTTP)                                    |
-| TCP      | 443         | Any that consumes Ingress services                           | Ingress controller (HTTPS)                                   |
-| TCP      | 2376        | Rancher nodes                                                | Docker daemon TLS port used by Docker Machine (only needed when using Node Driver/Templates) |
-| TCP      | 6443        | etcd nodes<br />controlplane nodes<br />worker nodes         | Kubernetes apiserver                                         |
-| UDP      | 8472        | etcd nodes<br />controlplane nodes<br />worker nodes         | Canal/Flannel VXLAN overlay networking                       |
-| TCP      | 9099        | controlplane node itself (local traffic, not across nodes)See [Local node traffic](https://www.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Canal/Flannel livenessProbe/readinessProbe                   |
-| TCP      | 10250       | controlplane nodes                                           | kubelet                                                      |
-| TCP      | 10254       | controlplane node itself (local traffic, not across nodes)See [Local node traffic](https://www.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Ingress controller livenessProbe/readinessProbe              |
-| TCP/UDP  | 30000-32767 | Any source that consumes NodePort services                   | NodePort port range                                          |
+{{% /tab %}}
 
-### controlplane nodes-出站规则
+{{% tab "Hosted Clusters" %}}
 
-| 协议 | 端口  | Destination                                                  | Description                                     |
-| -------- | ----- | ------------------------------------------------------------ | ----------------------------------------------- |
-| TCP      | 443   | Rancher nodes                                                | Rancher agent                                   |
-| TCP      | 2379  | etcd nodes                                                   | etcd client requests                            |
-| TCP      | 2380  | etcd nodes                                                   | etcd peer communication                         |
-| UDP      | 8472  | etcd nodes<br />controlplane node<br />sworker nodes        | Canal/Flannel VXLAN overlay networking          |
-| TCP      | 9099  | controlplane node itself (local traffic, not across nodes)See [Local node traffic](https://www.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Canal/Flannel livenessProbe/readinessProbe      |
-| TCP      | 10250 | etcd nodescontrolplane nodesworker nodes                     | kubelet                                         |
-| TCP      | 10254 | controlplane node itself (local traffic, not across nodes)See [Local node traffic](https://www.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Ingress controller livenessProbe/readinessProbe |
+The following table depicts the port requirements for [hosted clusters]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/hosted-kubernetes-clusters). 
 
-{{% /accordion %}}
-{{% accordion id="option-4" label="四、Worker nodes" %}}
+{{< ports-imported-hosted >}}
 
-具有**worker**角色的主机
+{{% /tab %}}
 
-### worker nodes-入站规则
+{{% tab "Imported Clusters" %}}
 
-| 协议 | 端口        | Source                                                       | Description                                                  |
-| -------- | ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| TCP      | 80          | Any that consumes Ingress services                           | Ingress controller (HTTP)                                    |
-| TCP      | 443         | Any that consumes Ingress services                           | Ingress controller (HTTPS)                                   |
-| TCP      | 2376        | Rancher nodes                                                | Docker daemon TLS port used by Docker Machine (only needed when using Node Driver/Templates) |
-| UDP      | 8472        | etcd nodes<br />controlplane node<br />sworker nodes         | Canal/Flannel VXLAN overlay networking                       |
-| TCP      | 9099        | worker node itself (local traffic, not across nodes)See [Local node traffic](https://www.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Canal/Flannel livenessProbe/readinessProbe                   |
-| TCP      | 10250       | controlplane nodes                                           | kubelet                                                      |
-| TCP      | 10254       | worker node itself (local traffic, not across nodes)See [Local node traffic](https://www.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Ingress controller livenessProbe/readinessProbe              |
-| TCP/UDP  | 30000-32767 | Any source that consumes NodePort services                   | NodePort port range                                          |
+The following table depicts the port requirements for [imported clusters]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/imported-clusters/).
 
-### worker nodes-出站规则
+{{< ports-imported-hosted >}}
 
-| 协议 | 端口  | Destination                                                  | Description                                     |
-| -------- | ----- | ------------------------------------------------------------ | ----------------------------------------------- |
-| TCP      | 443   | Rancher nodes                                                | Rancher agent                                   |
-| TCP      | 6443  | controlplane nodes                                           | Kubernetes apiserver                            |
-| UDP      | 8472  | etcd nodes<br />controlplane nodes<br />worker nodes         | Canal/Flannel VXLAN overlay networking          |
-| TCP      | 9099  | worker node itself (local traffic, not across nodes)See [Local node traffic](https://www.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Canal/Flannel livenessProbe/readinessProbe      |
-| TCP      | 10254 | worker node itself (local traffic, not across nodes)See [Local node traffic](https://www.cnrancher.com/docs/rancher/v2.x/cn/installation/references/#有关本地节点流量信息) | Ingress controller livenessProbe/readinessProbe |
+{{% /tab %}}
 
-{{% /accordion %}}
-{{% accordion id="option-5" label="五、有关本地节点流量信息" %}}
+{{% /tabs %}}
 
-Kubernetes healthchecks (`livenessProbe` and `readinessProbe`) are executed on the host itself. On most nodes, this is allowed by default. When you have applied strict host firewall (i.e. `iptables`) policies on the node, or when you are using nodes that have multiple interfaces (multihomed), this traffic gets blocked. In this case, you have to explicitely allow this traffic in your host firewall, or in case of public/private cloud hosted machines (i.e. AWS or OpenStack), in your security group configuration. Keep in mind that when using a security group as Source or Destination in your security group, that this only applies to the private interface of the nodes/instances.
+## 其他端口注意事项
 
-{{% /accordion %}}
-{{% accordion id="option-6" label="六、使用节点驱动程序时的Amazon EC2安全组" %}}
+### 常用端口
 
-If you are [Creating an Amazon EC2 Cluster](https://rancher.com/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools/ec2/), you can choose to let Rancher create a Security Group called `rancher-nodes`. The following rules are automatically added to this Security Group.
+这些端口通常需要在Kubernetes节点上打开，而不管它是什么类型的集群。
 
-**安全组: rancher-nodes**
+| Protocol |       Port       | Description                                     |
+|:--------:|:----------------:|-------------------------------------------------|
+|    TCP   |        22        | Node driver SSH provisioning                    |
+|    TCP   |       2376       | Node driver Docker daemon TLS port              |
+|    TCP   |       2379       | etcd client requests                            |
+|    TCP   |       2380       | etcd peer communication                         |
+|    UDP   |       8472       | Canal/Flannel VXLAN overlay networking          |
+|    TCP   |       9099       | Canal/Flannel livenessProbe/readinessProbe      |
+|    TCP   |       10250      | kubelet API                                     |
+|    TCP   |       10254      | Ingress controller livenessProbe/readinessProbe |
+| TCP/UDP  | 30000-</br>32767 | NodePort port range                             |
 
-### 入站规则 
+### 本地节点流量
 
-| Type            | 协议 | 端口 Range  | Source                 |
-| --------------- | -------- | ----------- | ---------------------- |
-| SSH             | TCP      | 22          | 0.0.0.0/0              |
-| HTTP            | TCP      | 80          | 0.0.0.0/0              |
-| Custom TCP Rule | TCP      | 443         | 0.0.0.0/0              |
-| Custom TCP Rule | TCP      | 2376        | 0.0.0.0/0              |
-| Custom TCP Rule | TCP      | 2379-2380   | sg-xxx (rancher-nodes) |
-| Custom UDP Rule | UDP      | 4789        | sg-xxx (rancher-nodes) |
-| Custom TCP Rule | TCP      | 6443        | 0.0.0.0/0              |
-| Custom UDP Rule | UDP      | 8472        | sg-xxx (rancher-nodes) |
-| Custom TCP Rule | TCP      | 10250-10252 | sg-xxx (rancher-nodes) |
-| Custom TCP Rule | TCP      | 10256       | sg-xxx (rancher-nodes) |
-| Custom TCP Rule | TCP      | 30000-32767 | 0.0.0.0/0              |
-| Custom UDP Rule | UDP      | 30000-32767 | 0.0.0.0/0              |
+标记为`local traffic`的端口(即在上述要求中，Kubernetes healthchecking (`livenessProbe` and`readinessProbe`)使用。
+这些healthcheck是在节点本身上执行的。在大多数云环境中，默认情况下允许本地通信。
 
-### 出站规则 
+然而，当以下情况出现时，该流量可能会被阻塞:
 
-| Type        | 协议 | 端口 Range | Destination |
-| ----------- | -------- | ---------- | ----------- |
-| All traffic | All      | All        | 0.0.0.0/0   |
+- 节点上应用了严格的主机防火墙策略。
+- 节点具有多个接口(multihomed)。
 
-{{% /accordion %}}
+在这些情况下，您必须在您的主机防火墙中允许这类流量，或者在您的安全组配置中，在公共/私有云托管主机(如AWS或OpenStack)中允许这类流量。
+
+### Rancher AWS EC2安全组
+
+使用[AWS EC2 node driver]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools/ec2/)提供Rancher中的集群节点，您可以选择让Rancher创建一个名为`rancher-nodes`的安全组，以下规则将自动添加到此安全组。
+
+|       Type      | Protocol |  Port Range | Source/Destination     | Rule Type |
+|-----------------|:--------:|:-----------:|------------------------|:---------:|
+|       SSH       |    TCP   | 22          | 0.0.0.0/0              | Inbound   |
+|       HTTP      |    TCP   | 80          | 0.0.0.0/0              | Inbound   |
+| Custom TCP Rule |    TCP   | 443         | 0.0.0.0/0              | Inbound   |
+| Custom TCP Rule |    TCP   | 2376        | 0.0.0.0/0              | Inbound   |
+| Custom TCP Rule |    TCP   | 2379-2380   | sg-xxx (rancher-nodes) | Inbound   |
+| Custom UDP Rule |    UDP   | 4789        | sg-xxx (rancher-nodes) | Inbound   |
+| Custom TCP Rule |    TCP   | 6443        | 0.0.0.0/0              | Inbound   |
+| Custom UDP Rule |    UDP   | 8472        | sg-xxx (rancher-nodes) | Inbound   |
+| Custom TCP Rule |    TCP   | 10250-10252 | sg-xxx (rancher-nodes) | Inbound   |
+| Custom TCP Rule |    TCP   | 10256       | sg-xxx (rancher-nodes) | Inbound   |
+| Custom TCP Rule |    TCP   | 30000-32767 | 30000-32767            | Inbound   |
+| Custom UDP Rule |    UDP   | 30000-32767 | 30000-32767            | Inbound   |
+| All traffic     |    All   | All         | 0.0.0.0/0              | Outbound  |

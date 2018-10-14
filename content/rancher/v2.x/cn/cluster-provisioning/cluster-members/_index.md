@@ -1,6 +1,6 @@
 ---
-title: 添加集群成员
-weight: 2500
+title: 5 - 添加集群成员
+weight: 5
 ---
 
 If you want to provide a user with access and permissions to _all_ projects, nodes, and resources within a cluster, assign the user a cluster membership.

@@ -1,6 +1,8 @@
 ---
-title: 2 - 日志收集
-weight: 2
+title: Logging
+weight: 5015
+aliases:
+  - /rancher/v2.x/en/tasks/logging/
 ---
 
 Rancher can integrate with a variety of popular logging services and tools that exist outside of your Kubernetes clusters.
@@ -11,6 +13,15 @@ Rancher supports the following services:
 - [Splunk]({{< baseurl >}}/rancher/v2.x/en/tools/logging/splunk)
 - [Kafka]({{< baseurl >}}/rancher/v2.x/en/tools/logging/kafka)
 - [Syslog]({{< baseurl >}}/rancher/v2.x/en/tools/logging/syslog) 
+
+## Requirements
+
+Docker daemon should be [configured](https://docs.docker.com/config/containers/logging/configure/) with the (default) log-driver: `json-file`. You can check the log-driver by running the following command:
+
+```
+$ docker info | grep 'Logging Driver'
+Logging Driver: json-file
+```
 
 ## Advantages
 

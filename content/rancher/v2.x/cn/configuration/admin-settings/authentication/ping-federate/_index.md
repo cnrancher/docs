@@ -1,5 +1,5 @@
 ---
-title: 配置PingIdentity(SAML)认证
+title: 配置PingIdentity(SAML)
 weight: 8
 ---
 _Available as of v2.0.7_

@@ -1,6 +1,6 @@
 ---
-title: CLI下载
-weight: 2
+title: 5 - CLI下载
+weight: 5
 ---
 
 Rancher CLI是一个统一的工具，可用于与Rancher进行交互。使用此工具，你可以使用命令行而不是GUI来操作Rancher。

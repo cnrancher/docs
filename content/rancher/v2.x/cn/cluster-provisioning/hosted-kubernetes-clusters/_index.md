@@ -1,6 +1,6 @@
 ---
-title: Kubernetes服务提供商
-weight: 2100
+title: 1 - Kubernetes服务提供商
+weight: 1
 ---
 
 You can use Rancher to create clusters in a hosted Kubernetes provider, such as Google GKE.

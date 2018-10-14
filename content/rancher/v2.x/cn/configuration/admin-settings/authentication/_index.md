@@ -11,13 +11,16 @@ Rancher为Kubernetes增强的一个关键功能是集中用户身份验证，此
 
 Rancher提供本地身份验证，也可以`同时`与以下`一个或者多个`外部身份验证服务集成：
 
-- Microsoft Active Directory
-- Microsoft Azure AD
-- GitHub
-- PingIdentity
-- Microsoft AD FS
-- FreeIPA
-- OpenLDAP
+| Auth Service                                                                                     | Available as of  |
+| ------------------------------------------------------------------------------------------------ | ---------------- |
+| [Microsoft Active Directory]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/ad/)  | v2.0.0           |
+| [GitHub]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/github/)                  | v2.0.0           |
+| [Microsoft Azure AD]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/azure-ad/)    | v2.0.3           |
+| [FreeIPA]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/freeipa/)                | v2.0.5           |
+| [OpenLDAP]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/openldap/)              | v2.0.5           |
+| [Microsoft AD FS]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/microsoft-adfs/) | v2.0.7           |
+| [PingIdentity]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/ping-federate/)     | v2.0.7           |
+| [Keycloak]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/keycloak/)              | v2.1.0           |
 
 在大多数情况下，你应该使用外部身份验证服务，因为外部验证服务可以统一的进行用户管理。如果没有外部身份验证服务，你也可以通过本地身份验证来管理Rancher用户。
 

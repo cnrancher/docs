@@ -1,5 +1,5 @@
 ---
-title: 配置Azure AD认证
+title: 配置Azure AD
 weight: 2
 ---
 

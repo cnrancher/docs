@@ -1,5 +1,5 @@
 ---
-title: 配置OpenLDAP认证
+title: 配置OpenLDAP
 weight: 4
 ---
 

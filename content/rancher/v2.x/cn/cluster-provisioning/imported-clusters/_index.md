@@ -1,8 +1,7 @@
 ---
-title: 导入Kubernetes Clusters
-weight: 2300
-aliases:
-  - /rancher/v2.x/en/tasks/clusters/import-cluster/
+title: 4 - 导入Kubernetes Clusters
+weight: 4
+
 ---
 
 You can import an existing Kubernetes cluster and then manage it using Rancher.

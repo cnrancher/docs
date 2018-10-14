@@ -20,6 +20,7 @@ weight: 1
 - Ubuntu 16.04(64位)
 - Centos/RedHat Linux 7.5+(64位)
 - RancherOS 1.3.0+(64位)
+- Windows Server 1803(64位)
 
 > 1. Ubuntu操作系统有Desktop和Server版本，选择安装server版本。\
 > 2. 如果你正在使用RancherOS，请确保切换到一个支持的Docker引擎版本:\
@@ -32,6 +33,7 @@ weight: 1
 - 1.12.6
 - 1.13.1
 - 17.03.2
+- 17.06 (for Windows)
 
 ### 4、主机名配置
 

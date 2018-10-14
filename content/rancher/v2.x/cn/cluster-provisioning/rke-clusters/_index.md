@@ -1,6 +1,6 @@
 ---
-title: Rancher Kubernetes
-weight: 2200
+title: 2 - Rancher Kubernetes
+weight: 2
 ---
 
 If you don't want to use a hosted Kubernetes provider, you can have Rancher launch a Kubernetes cluster using any nodes you want. When Rancher deploys Kubernetes onto these nodes, it uses [Rancher Kubernetes Engine]({{< baseurl >}}/rke/v0.1.x/en/) (RKE), which is Rancher's own lightweight Kubernetes installer. It can launch Kubernetes on any computers, including:

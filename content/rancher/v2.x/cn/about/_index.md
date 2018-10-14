@@ -50,44 +50,43 @@ loglevel repository | `https://github.com/rancher/loglevel` | 储库loglevel二�
   - 环境(Are you in a proxy environment, are you using recognized CA/self signed certificates, are you using an external loadbalancer)
   - Rancher(What version of Rancher are you using, this can be found on the bottom left of the UI or be retrieved from the image tag you are running on the host)
   - 集群(What kind of cluster did you create, how did you create it, what did you specify when you were creating it)
-- 提供手动步骤或自动化脚本，用于重新复现问题
+- 提供手动步骤或自动化脚本，用于重新复现问题。
 - 从使用的资源中提供`数据/日志`
   - Rancher
+        - `Single node`
 
-    - `Single node`
+            ```bash
+            docker logs \
+            --tail=all \
+            --timestamps \
+            $(docker ps  -q -f label=org.label-schema.vcs-url=https://github.com/rancher/rancher.git)
+            ```
+        - `High Availability`
 
-    ```bash
-    docker logs \
-    --tail=all \
-    --timestamps \
-    $(docker ps  -q -f label=org.label-schema.vcs-url=https://github.com/rancher/rancher.git)
-    ```
-    - `High Availability`
-
-    ```bash
-    kubectl --kubeconfig $KUBECONFIG logs \
-    -n cattle-system \
-    --timestamps=true \
-    -f $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name="cattle-server") | .metadata.name')
-    ```
+            ```bash
+            kubectl --kubeconfig $KUBECONFIG logs \
+            -n cattle-system \
+            --timestamps=true \
+            -f $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name="cattle-server") | .metadata.name')
+            ```
   - System logging(这些可能并非全部存在，具体取决于操作系统)
 
-    - `/var/log/messages`
-    - `/var/log/syslog`
-    - `/var/log/kern.log`
+        - `/var/log/messages`
+        - `/var/log/syslog`
+        - `/var/log/kern.log`
 
   - Docker daemon logging(这些可能并非全部存在，具体取决于操作系统)
-    - Ubuntu (old using upstart ) - `/var/log/upstart/docker.log`
-    - Ubuntu (new using systemd ) - `sudo journalctl -fu docker.service`
-    - Boot2Docker - `/var/log/docker.log`
-    - Debian GNU/Linux - `/var/log/daemon.log`
-    - CentOS - `cat /var/log/daemon.log | grep docker`
-    - CoreOS - `journalctl -u docker.service`
-    - Fedora - `journalctl -u docker.service`
-    - Red Hat Enterprise Linux Server - `cat /var/log/messages | grep docker`
-    - OpenSuSE - `journalctl -u docker.service`
-    - OSX - `~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/log/d‌​ocker.log`
-    - Windows - `Get-EventLog -LogName Application -Source Docker -After (Get-Date).AddMinutes(-5) | Sort-Object Time`
+        - Ubuntu (old using upstart ) - `/var/log/upstart/docker.log`
+        - Ubuntu (new using systemd ) - `sudo journalctl -fu docker.service`
+        - Boot2Docker - `/var/log/docker.log`
+        - Debian GNU/Linux - `/var/log/daemon.log`
+        - CentOS - `cat /var/log/daemon.log | grep docker`
+        - CoreOS - `journalctl -u docker.service`
+        - Fedora - `journalctl -u docker.service`
+        - Red Hat Enterprise Linux Server - `cat /var/log/messages | grep docker`
+        - OpenSuSE - `journalctl -u docker.service`
+        - OSX - `~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/log/d‌​ocker.log`
+        - Windows - `Get-EventLog -LogName Application -Source Docker -After (Get-Date).AddMinutes(-5) | Sort-Object Time`
 
 如果你遇到性能问题，请提供尽可能多的指标数据(文件或屏幕截图)。如果你有关于机器的问题，提供`top、free -hm、df -h、iostat`的输出信息，这表明进程/内存/磁盘空间/磁盘IO的使用情况。
 
