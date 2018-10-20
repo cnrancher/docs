@@ -45,17 +45,31 @@ rancher-stable/rancher    2018.10.1            v2.1.0      Install Rancher Serve
     helm repo update
     ```
 
-1. Fetch the latest `rancher-stable/rancher` chart.
+2. Get the [repository name that you installed Rancher]({{< baseurl >}}/rancher/v2.x/en/installation/server-tags/#helm-chart-repositories) with.
 
-    This will pull down the chart and save it in the current directory as a `.tgz` file.
+    ```
+    helm repo list
 
-    ```plain
-    helm fetch rancher-stable/rancher
+    NAME          	      URL                                              
+    stable        	      https://kubernetes-charts.storage.googleapis.com
+    rancher-<CHART_REPO>	https://releases.rancher.com/server-charts/<CHART_REPO>
     ```
 
-1. Render the upgrade template.
+    > **Note:** If you want to switch to a different Helm chart repository, please follow the [steps on how to switch repositories]({{< baseurl >}}/rancher/v2.x/en/installation/server-tags/#switching-to-a-different-helm-chart-repository). If you switch repositories, make sure to list the repositories again before continuing onto Step 3 to ensure you have the correct one added.
 
-    Use the same `--set` values you used for the install. Remember to set the `--is-upgrade` flag for `helm`. This will create a `rancher` directory with the Kubernetes manifest files.
+
+3. Fetch the latest chart to install Rancher from the Helm chart repository.
+
+    This command will pull down the latest chart and save it in the current directory as a `.tgz` file. Replace `<CHART_REPO>` with the name of the repository name that was listed (i.e. `latest` or `stable`).
+
+
+    ```plain
+    helm fetch rancher-<CHART_REPO>/rancher
+    ```
+
+3. Render the upgrade template.
+
+    Use the same `--set` values that you used for the install. Remember to set the `--is-upgrade` flag for `helm`. This will create a `rancher` directory with the Kubernetes manifest files.
 
     ```plain
     helm template ./rancher-<version>.tgz --output-dir . --is-upgrade \
@@ -64,7 +78,7 @@ rancher-stable/rancher    2018.10.1            v2.1.0      Install Rancher Serve
     --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher
     ```
 
-1. Copy and apply the rendered manifests.
+4. Copy and apply the rendered manifests.
 
     Copy the files to a server with access to the Rancher server cluster and apply the rendered templates.
 
