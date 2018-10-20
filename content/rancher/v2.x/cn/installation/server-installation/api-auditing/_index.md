@@ -1,6 +1,6 @@
 ---
-title: 6 - API审计日志
-weight: 6
+title: 1 - API审计日志
+weight: 1
 ---
 
 Rancher附带API审计功能，用以记录每个用户发起的系统事件信息。你可以知道发生了什么、何时发生、谁发起的、以及事件对集群的影响。API审计也记录Rancher API的所有请求和响应，包括使用Rancher UI和通过编程使用Rancher API的所有其他用途。

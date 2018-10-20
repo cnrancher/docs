@@ -22,10 +22,6 @@ weight: 1
 - RancherOS 1.3.0+(64位)
 - Windows Server 1803(64位)
 
-> 1. Ubuntu操作系统有Desktop和Server版本，选择安装server版本。\
-> 2. 如果你正在使用RancherOS，请确保切换到一个支持的Docker引擎版本:\
-> `sudo ros engine switch docker-17.03.2-ce`
-
 ### 3、Docker版本选择
 
 支持的Docker版本
@@ -34,6 +30,11 @@ weight: 1
 - 1.13.1
 - 17.03.2
 - 17.06 (for Windows)
+
+> **注意**
+> 1. Ubuntu操作系统有Desktop和Server版本，选择安装server版本。\
+> 2. 如果你正在使用RancherOS，请确保切换到一个支持的Docker引擎版本:\
+> `sudo ros engine switch docker-17.03.2-ce`
 
 ### 4、主机名配置
 
@@ -85,6 +86,7 @@ weight: 1
 
 ```bash
 cat >> /etc/sysctl.conf<<EOF
+net.ipv4.ip_forward=1
 net.ipv4.neigh.default.gc_thresh1=4096
 net.ipv4.neigh.default.gc_thresh2=6144
 net.ipv4.neigh.default.gc_thresh3=8192
@@ -99,14 +101,14 @@ EOF
 
 | 集群大小 | MAJORITY | 失败容错 |
 | ------------ | -------- | ----------------- |
-| 1            | 1        | 0                 |
-| 2            | 2        | 0                 |
+| 1            | 1        | **0**                 |
+| 2            | 2        | **0**                 |
 | 3            | 2        | **1**             |
-| 4            | 3        | 1                 |
+| 4            | 3        | **1**                 |
 | 5            | 3        | **2**             |
-| 6            | 4        | 2                 |
+| 6            | 4        | **2**               |
 | 7            | 4        | **3**             |
-| 8            | 5        | 3                 |
+| 8            | 5        | **3**                 |
 | 9            | 5        | **4**             |
 
 {{% /accordion %}}
@@ -123,7 +125,7 @@ EOF
     export docker_version=17.03.2
     # step 1: 安装必要的一些系统工具
     sudo apt-get update
-    sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common
+    sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common bash-completion
     # step 2: 安装GPG证书
     sudo curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
     # Step 3: 写入软件源信息
@@ -169,7 +171,7 @@ EOF
     export docker_version=17.03.2
     # step 1: 安装必要的一些系统工具
     sudo yum update -y
-    sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+    sudo yum install -y yum-utils device-mapper-persistent-data lvm2 bash-completion
     # Step 2: 添加软件源信息
     sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
     # Step 3: 更新并安装 Docker-CE
