@@ -15,7 +15,7 @@ The images used for ingress controller is under the [`system_images` directive](
 
 If you only wanted ingress controllers to be deployed on specific nodes, you can set a `node_selector` for the ingress. The label in the `node_selector` would need to match the label on the nodes for the ingress controller to be deployed.
 
-```
+```yaml
 nodes:
     - address: 1.1.1.1
       role: [controlplane,worker,etcd]
@@ -33,7 +33,7 @@ ingress:
 
 You can disable the default controller by specifying `none` to  the ingress `provider` directive in the cluster configuration.
 
-```
+```yaml
 ingress:
     provider: none
 ```
@@ -41,7 +41,7 @@ ingress:
 
 For the configuration of nginx, there are configuration options available in Kubernetes. There are a [list of options for the NGINX config map](https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/configmap.md) , [command line extra_args](https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/cli-arguments.md) and [annotations](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/).
 
-```
+```yaml
 ingress:
     provider: nginx
     options:
@@ -71,7 +71,7 @@ Setting up a default certificate is especially helpful in environments where a w
     ```
 3. Include the contents of `ingress-default-cert.yml` inline with your RKE `cluster.yml` file. For example:
 
-    ```
+    ```yaml
     addons: |-
       ---
       apiVersion: v1
@@ -87,7 +87,7 @@ Setting up a default certificate is especially helpful in environments where a w
     ```
 4. Define your ingress resource with the following `default-ssl-certificate` argument, which references the secret we created earlier under `extra_args` in your `cluster.yml`:
 
-    ```
+    ```yaml
     ingress: 
       provider: "nginx"
       extra_args:

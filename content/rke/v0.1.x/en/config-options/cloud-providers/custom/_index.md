@@ -16,7 +16,7 @@ password = admin
 
 To add this cloud config file to RKE, the `cloud_provider` would be need to be set.
 
-```
+```yaml
 cloud_provider:
     name: ovirt
     # Note the pipe as this is what indicates a multiline string

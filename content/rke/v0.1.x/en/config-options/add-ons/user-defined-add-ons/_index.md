@@ -24,7 +24,7 @@ Prior to v0.1.8, update any add-ons by by using `kubectl edit`.
 
 To define an add-on directly in the YAML file, make sure to use the YAML's block indicator `|-` as the `addons` directive is a multi-line string option. It's possible to specify multiple YAML resource definitions by separating them using the `---` directive.
 
-```
+```yaml
 addons: |-
     ---
     apiVersion: v1
@@ -43,7 +43,7 @@ addons: |-
 ## Referencing YAML files for Add-ons
 Use the `addons_include` directive to reference a local file or a URL for any user-defined add-ons.  
 
-```
+```yaml
 addons_include:
     - https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/rook-operator.yaml
     - https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/rook-cluster.yaml

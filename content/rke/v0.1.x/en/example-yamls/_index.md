@@ -11,7 +11,7 @@ There are lots of different [configuration options]({{< baseurl >}}/rke/v0.1.x/e
 
 ## Minimal `cluster.yml` example
 
-```
+```yaml
 nodes:
     - address: 1.2.3.4
       user: ubuntu
@@ -23,7 +23,7 @@ nodes:
 
 ## Full `cluster.yml` example
 
-```
+```yaml
 nodes:
     - address: 1.1.1.1
       user: ubuntu

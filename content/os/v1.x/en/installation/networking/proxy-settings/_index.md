@@ -5,7 +5,7 @@ weight: 172
 
 HTTP proxy settings can be set directly under the `network` key. This will automatically configure proxy settings for both Docker and System Docker.
 
-```
+```yaml
 #cloud-config
 rancher:
   network:
@@ -20,7 +20,7 @@ rancher:
 
 To add the `HTTP_PROXY`, `HTTPS_PROXY`, and `NO_PROXY` environment variables to a system service, specify each under the `environment` key for the service.
 
-```
+```yaml
 #cloud-config
 rancher:
   services:

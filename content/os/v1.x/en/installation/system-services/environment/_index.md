@@ -7,7 +7,7 @@ The [environment key](https://docs.docker.com/compose/yml/#environment) can be u
 
 In the example below, `ETCD_DISCOVERY` will be set to `https://discovery.etcd.io/d1cd18f5ee1c1e2223aed6a1734719f7` for the `etcd` service.
 
-```
+```yaml
 rancher:
   environment:
     ETCD_DISCOVERY: https://discovery.etcd.io/d1cd18f5ee1c1e2223aed6a1734719f7
@@ -20,7 +20,7 @@ rancher:
 
 Wildcard globbing is also supported. In the example below, `ETCD_DISCOVERY` will be set as in the previous example, along with any other environment variables beginning with `ETCD_`.
 
-```
+```yaml
 rancher:
   environment:
     ETCD_DISCOVERY: https://discovery.etcd.io/d1cd18f5ee1c1e2223aed6a1734719f7
@@ -35,7 +35,7 @@ _Available as of v1.2_
 
 There is also a way to extend PATH environment variable, `PATH` or `path` can be set, and multiple values can be comma-separated. Note that need to reboot before taking effect.
 
-```
+```yaml
 rancher:
   environment:
     path: /opt/bin,/home/rancher/bin

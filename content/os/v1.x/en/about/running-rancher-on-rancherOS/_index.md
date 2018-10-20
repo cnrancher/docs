@@ -11,7 +11,7 @@ You can easily add hosts into Rancher by using [cloud-config]({{< baseurl >}}/os
 
 After Rancher is launched and host registration has been saved, you will be able to find use the custom option to add Rancher OS nodes.
 
-```
+```bash
 $ sudo docker run --d --privileged -v /var/run/docker.sock:/var/run/docker.sock \
     rancher/agent:v0.8.2  http://<rancher-server-ip>:8080/v1/projects/1a5/scripts/<registrationToken>
 ```
@@ -24,7 +24,7 @@ _Cloud-Config Example_
 
 Here's using the command above and converting it into a cloud-config file to launch the rancher/agent in docker when RancherOS boots up.
 
-```
+```yaml
 #cloud-config
 rancher:
   services:
@@ -37,7 +37,7 @@ rancher:
 ```
 <br>
 
-> **Note:** You can not name the service `rancher-agent` as this will not allow the rancher/agent container to be launched correctly. Please 了解更多 about why [you can't name your container as `rancher-agent`](https://rancher.com/docs/rancher/v1.6/en/faqs/agents/#adding-in-name-rancher-agent).
+> **Note:** You can not name the service `rancher-agent` as this will not allow the rancher/agent container to be launched correctly. Please read more about why [you can't name your container as `rancher-agent`](https://rancher.com/docs/rancher/v1.6/en/faqs/agents/#adding-in-name-rancher-agent).
 
 ### Adding in Host Labels
 
@@ -49,7 +49,7 @@ When adding a custom host, you can add the labels using the UI and it will autom
 
 #### Native Docker Commands Example
 
-```
+```bash
 # Adding one host label to the rancher/agent command
 $  sudo docker run -e CATTLE_HOST_LABELS='foo=bar' -d --privileged \
   -v /var/run/docker.sock:/var/run/docker.sock rancher/agent:v0.8.2 \
@@ -65,7 +65,7 @@ $  sudo docker run -e CATTLE_HOST_LABELS='foo=bar&hello=world' -d --privileged \
 
 Adding one host label
 
-```
+```yaml
 #cloud-config
 rancher:
   services:
@@ -82,7 +82,7 @@ rancher:
 
 Adding more than one host label requires joining the additional host labels with an `&`
 
-```
+```yaml
 #cloud-config
 rancher:
   services:

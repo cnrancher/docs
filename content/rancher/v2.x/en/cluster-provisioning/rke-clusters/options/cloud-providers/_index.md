@@ -40,7 +40,7 @@ All nodes added to the cluster must be able to interact with EC2 so that they ca
 
 The following IAM role can be created:
 
-```
+```json
 {
   "Version": "2012-10-17",
   "Statement": [

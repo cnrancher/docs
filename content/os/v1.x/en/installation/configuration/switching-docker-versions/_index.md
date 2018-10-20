@@ -22,7 +22,7 @@ current  docker-1.12.1
 
 RancherOS supports defining which Docker engine to use through the cloud-config file. To change the Docker version from the default packaged version, you can use the following cloud-config setting and select one of the available engines. In the following example, we'll use the cloud-config file to set RancherOS to use Docker 1.10.3 for User Docker.
 
-```
+```yaml
 #cloud-config
 rancher:
   docker:
@@ -87,7 +87,7 @@ Once the image is built a [system service]({{< baseurl >}}/os/v1.x/en/installati
 
 All of the previously mentioned methods of switching Docker engines are now available. For example, if your service file is located at `https://myservicefile` then the following cloud-config file could be used to use your custom Docker engine.
 
-```
+```yaml
 #cloud-config
 rancher:
   docker:

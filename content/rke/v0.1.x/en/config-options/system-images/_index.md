@@ -12,7 +12,7 @@ This is the example of the full list of system images used to deploy Kubernetes 
 
 > **Note:** As versions of RKE are released, the tags on these images will no longer be up to date. This list is specific for `v1.10.3-rancher2`.
 
-```
+```yaml
 system_images:
     kubernetes: rancher/hyperkube:v1.10.3-rancher2
     etcd: rancher/coreos-etcd:v3.1.12
@@ -51,7 +51,7 @@ system_images:
 
 Prior to `v0.1.6`, instead of using the `rancher/rke-tools` image, we used the following images:
 
-```
+```yaml
 system_images:
     alpine: alpine:latest
     nginx_proxy: rancher/rke-nginx-proxy:v0.1.1

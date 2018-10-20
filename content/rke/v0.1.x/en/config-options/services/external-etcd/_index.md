@@ -7,7 +7,7 @@ By default, RKE will launch etcd servers, but RKE also supports being able to us
 
 > **Note:** RKE will not accept having external etcd servers in conjunction with [nodes]({{< baseurl >}}/rke/v0.1.x/en/config-options/nodes/) with the `etcd` role.
 
-```
+```yaml
 services:
     etcd:
       path: /etcdcluster

@@ -113,7 +113,7 @@ You can add SSH keys by adding them into the cloud config file. Follow the direc
 
 Example of cloud config file that has only SSH keys:
 
-```
+```yaml
 #cloud-config
 
 ssh_authorized_keys:

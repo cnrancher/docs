@@ -54,7 +54,7 @@ Modify the copy and make the following changes.
 
 *Example* `rancher-cluster-restore.yml`
 
-```
+```yaml
 nodes:
 - address: 52.15.238.179     # New Target Node
   user: ubuntu
@@ -152,7 +152,7 @@ Edit the `rancher-cluster-restore.yml` RKE config file and uncomment the additio
 
 *Example* `rancher-cluster-restore.yml`
 
-```
+```yaml
 nodes:
 - address: 52.15.238.179     # New Target Node
   user: ubuntu

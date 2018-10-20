@@ -5,7 +5,7 @@ weight: 253
 
 To enable the Openstack cloud provider, besides setting the name as `openstack`, there are specific configuration options that must be set. The Openstack configuration options are grouped into different sections.
 
-```
+```yaml
 cloud_provider:
     name: openstack
     openstackCloudProvider:

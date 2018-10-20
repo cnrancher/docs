@@ -38,7 +38,7 @@ There are several options that can be configured in cluster configuration option
 
 By default, the name of your cluster will be `local`. If you want a different name, you would use the `cluster_name` directive to change the name of your cluster. The name will be set in your cluster's generated kubeconfig file.
 
-```
+```yaml
 cluster_name: mycluster
 ```
 
@@ -48,7 +48,7 @@ By default, RKE will check the installed Docker version on all hosts and fail wi
 
 The default value is `false`.
 
-```
+```yaml
 ignore_docker_version: true
 ```
 
@@ -90,7 +90,7 @@ RKE connects to host(s) using `ssh`. Typically, each node will have an independe
 
 If ssh key paths are defined at the cluster level and at the node level, the node-level key will take precedence.
 
-```
+```yaml
 ssh_key_path: ~/.ssh/test
 ```
 
@@ -98,7 +98,7 @@ ssh_key_path: ~/.ssh/test
 
 RKE supports using ssh connection configuration from a local ssh agent. The default value for this option is `false`. If you want to set using a local ssh agent, you would set this to `true`.
 
-```
+```yaml
 ssh_agent_auth: true
 ```
 
@@ -118,6 +118,6 @@ $ echo $SSH_AUTH_SOCK
 
 You can define [add-ons]({{< baseurl >}}/rke/v0.1.x/en/config-options/add-ons/) to be deployed after the Kubernetes cluster comes up, which uses Kubernetes [jobs](https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/). RKE will stop attempting to retrieve the job status after the timeout, which is in seconds. The default timeout value is `30` seconds.
 
-```
+```yaml
 addon_job_timeout: 30
 ```

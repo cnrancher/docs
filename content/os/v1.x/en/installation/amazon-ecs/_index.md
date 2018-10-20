@@ -19,7 +19,7 @@ For the **IAM Role**, you'll need to be sure to select the ECS Container Instanc
 
 For the **User Data**, you'll need to pass in the [cloud-config]({{< baseurl >}}/os/v1.x/en/installation/configuration/#cloud-config) file.
 
-```
+```yaml
 #cloud-config
 rancher:
   environment:
@@ -39,7 +39,7 @@ By default, the ECS agent will be using the `latest` tag for the `amazon-ecs-age
 
 To select the version, you can update your [cloud-config]({{< baseurl >}}/os/v1.x/en/installation/configuration/#cloud-config) file.
 
-```
+```yaml
 #cloud-config
 rancher:
   environment:

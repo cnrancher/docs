@@ -9,7 +9,7 @@ You can also create your own system service in [Docker Compose](https://docs.doc
 
 If you want to boot RancherOS with a system service running, you can add the service to the cloud-config that is passed to RancherOS. When RancherOS starts, this service will automatically be started.
 
-```
+```yaml
 #cloud-config
 rancher:
   services:
@@ -22,7 +22,7 @@ rancher:
 
 If you already have RancherOS running, you can start a system service by saving a `docker-compose.yml` file at `/var/lib/rancher/conf/`.
 
-```
+```yaml
 nginxapp:
   image: nginx
   restart: always
@@ -191,7 +191,7 @@ Key | Value |Description
 
 RancherOS uses labels to determine if the container should be deployed in System Docker. By default without the label, the container will be deployed in User Docker.
 
-```
+```yaml
 labels:
   - io.rancher.os.scope=system
 ```
@@ -199,7 +199,7 @@ labels:
 
 ### Example of how to order container deployment
 
-```
+```yaml
 foo:
   labels:
     # Start foo before bar is launched

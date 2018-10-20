@@ -75,8 +75,6 @@ The following instructions will guide you through upgrading a high-availability 
     helm upgrade rancher rancher-<CHART_REPO>/rancher --set hostname=rancher.my.org
     ```
 
-    > **Important:** For any values listed from Step 2, you must use `--set key=value` to apply the same values to the helm chart.
-
 ## Rolling Back
 
 Should something go wrong, follow the [HA Rollback]({{< baseurl >}}/rancher/v2.x/en/upgrades/rollbacks/ha-server-rollbacks/) instructions to restore the snapshot you took before you preformed the upgrade.

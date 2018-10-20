@@ -5,7 +5,7 @@ weight: 171
 
 If you wanted to configure the DNS through the cloud config file, you'll need to place DNS configurations within the `rancher` key.
 
-```
+```yaml
 #cloud-config
 
 #Remember, any changes for rancher will be within the rancher key

@@ -1,6 +1,7 @@
 ---
 title: Node Requirements
 weight: 1
+aliases:
 ---
 
 Whether you're configuring Rancher to run in a single-node or high-availability setup, each node running Rancher Server must meet the following requirements.

@@ -46,7 +46,7 @@ Use {{< product >}} to create a Kubernetes cluster in Amazon EC2.
 
 ### Example IAM Policy
 
-```
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -98,7 +98,7 @@ Use {{< product >}} to create a Kubernetes cluster in Amazon EC2.
 
 ### Example IAM Policy with PassRole
 
-```
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
