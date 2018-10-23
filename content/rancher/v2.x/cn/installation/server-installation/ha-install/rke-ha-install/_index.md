@@ -2,7 +2,7 @@
 title: 2 - RKE HA安装
 weight: 2
 ---
->**重要提示:**
+>### **重要提示:**
 >RKE HA安装仅支持Rancher v2.0.8之前的版本，Rancher v2.1.0之后的版本使用[helm安装Rancher]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-install/helm-rancher/)。
 
 本章节将介绍在开发和生产环境中通过4层负载均衡和7层负载均衡来部署Rancher HA。

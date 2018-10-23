@@ -35,7 +35,7 @@ weight: 1
 
     **NGINX配置示例:**
 
-    ```json
+    ```bash
     worker_processes 4;
     worker_rlimit_nofile 40000;
 
@@ -206,7 +206,10 @@ nodes:
     ssh_key_path: ~/.ssh/id_rsa
 ```
 
->**注意** 使用RHEL/CentOS系统时，因为系统安全限制，`ssh`不能使用root账户。
+>**注意**
+>1、使用RHEL/CentOS系统时，因为系统安全限制，`ssh`不能使用root账户。\
+>2、需要开启[API审计日志？]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/api-auditing/)\
+>3、了解RKE[配置参数]({{< baseurl >}}/rke/v0.1.x/en/config-options/)
 
 {{% /accordion %}}
 {{% accordion id="7" label="七、证书配置" %}}

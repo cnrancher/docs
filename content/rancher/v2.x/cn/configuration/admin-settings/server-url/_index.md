@@ -1,6 +1,6 @@
 ---
-title: Rancher Server URL
-weight: 1
+title: 2 - Rancher Server URL
+weight: 2
 ---
 
 此`URL`地址可以是IP也可以是域名，集群所有节点将使用该URL来注册到Rancher，所以需要保证所有节点能访问该地址。

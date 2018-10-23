@@ -1,0 +1,1475 @@
+<div>
+    <style type="text/css">
+    
+    
+        a.comment-indicator:hover+div.comment {
+            background: #ffd;
+            position: absolute;
+            display: block;
+            border: 1px solid black;
+            padding: 0.5em
+        }
+    
+        a.comment-indicator {
+            background: red;
+            display: inline-block;
+            border: 1px solid black;
+            width: 0.5em;
+            height: 0.5em
+        }
+    
+        div.comment {
+            display: none
+        }
+    
+        table {
+            border-collapse: collapse;
+            page-break-after: always
+        }
+    
+        .gridlines td {
+            border: 1px dotted black
+        }
+    
+        .gridlines th {
+            border: 1px dotted black
+        }
+    
+        .b {
+            text-align: center
+        }
+    
+        .e {
+            text-align: center
+        }
+    
+        .f {
+            text-align: right
+        }
+    
+        .inlineStr {
+            text-align: left
+        }
+    
+        .n {
+            text-align: right
+        }
+    
+        .s {
+            text-align: left
+        }
+    
+        td.style0 {
+            vertical-align: middle;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: none #000000;
+            border-right: none #000000;
+            color: #000000;
+            font-family: '宋体';
+            font-size: 12pt;
+            background-color: white
+        }
+    
+        th.style0 {
+            vertical-align: middle;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: none #000000;
+            border-right: none #000000;
+            color: #000000;
+            font-family: '宋体';
+            font-size: 12pt;
+            background-color: white
+        }
+    
+        td.style1 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        th.style1 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        td.style2 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        th.style2 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        td.style3 {
+            vertical-align: middle;
+            text-align: left;
+            padding-left: 0px;
+            border-bottom: 1px solid #000000 !important;
+            border-top: none #000000;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        th.style3 {
+            vertical-align: middle;
+            text-align: left;
+            padding-left: 0px;
+            border-bottom: 1px solid #000000 !important;
+            border-top: none #000000;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        td.style4 {
+            vertical-align: middle;
+            text-align: left;
+            padding-left: 0px;
+            border-bottom: 1px solid #000000 !important;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        th.style4 {
+            vertical-align: middle;
+            text-align: left;
+            padding-left: 0px;
+            border-bottom: 1px solid #000000 !important;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        td.style5 {
+            vertical-align: middle;
+            border-bottom: 1px solid #000000 !important;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: white
+        }
+    
+        th.style5 {
+            vertical-align: middle;
+            border-bottom: 1px solid #000000 !important;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: white
+        }
+    
+        td.style6 {
+            vertical-align: middle;
+            border-bottom: 1px solid #000000 !important;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        th.style6 {
+            vertical-align: middle;
+            border-bottom: 1px solid #000000 !important;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        td.style7 {
+            vertical-align: middle;
+            border-bottom: 1px solid #000000 !important;
+            border-top: none #000000;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        th.style7 {
+            vertical-align: middle;
+            border-bottom: 1px solid #000000 !important;
+            border-top: none #000000;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        td.style8 {
+            vertical-align: middle;
+            text-align: left;
+            padding-left: 0px;
+            border-bottom: 1px solid #000000 !important;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        th.style8 {
+            vertical-align: middle;
+            text-align: left;
+            padding-left: 0px;
+            border-bottom: 1px solid #000000 !important;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        td.style9 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: 1px solid #000000 !important;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            font-weight: bold;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFF99
+        }
+    
+        th.style9 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: 1px solid #000000 !important;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            font-weight: bold;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFF99
+        }
+    
+        td.style10 {
+            vertical-align: middle;
+            text-align: left;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: none #000000;
+            border-right: none #000000;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: white
+        }
+    
+        th.style10 {
+            vertical-align: middle;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: none #000000;
+            border-right: none #000000;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: white
+        }
+    
+        td.style11 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: none #000000;
+            border-right: none #000000;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: white
+        }
+    
+        th.style11 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: none #000000;
+            border-right: none #000000;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: white
+        }
+    
+        td.style12 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: none #000000;
+            border-right: none #000000;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        th.style12 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: none #000000;
+            border-right: none #000000;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        td.style13 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: 1px solid #000000 !important;
+            border-top: none #000000;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        th.style13 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: 1px solid #000000 !important;
+            border-top: none #000000;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        td.style14 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        th.style14 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        td.style15 {
+            vertical-align: middle;
+            border-bottom: 1px solid #000000 !important;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        th.style15 {
+            vertical-align: middle;
+            border-bottom: 1px solid #000000 !important;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        td.style16 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        th.style16 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        td.style17 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: 1px solid #000000 !important;
+            border-top: none #000000;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        th.style17 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: 1px solid #000000 !important;
+            border-top: none #000000;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        td.style18 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        th.style18 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        td.style19 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        th.style19 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        td.style20 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: 1px solid #000000 !important;
+            border-top: none #000000;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        th.style20 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: 1px solid #000000 !important;
+            border-top: none #000000;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        td.style21 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: none #000000;
+            border-right: none #000000;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: white
+        }
+    
+        th.style21 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: none #000000;
+            border-right: none #000000;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: white
+        }
+    
+        td.style22 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            font-weight: bold;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFF99
+        }
+    
+        th.style22 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            font-weight: bold;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFF99
+        }
+    
+        td.style23 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: none #000000;
+            border-right: none #000000;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        th.style23 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: none #000000;
+            border-right: none #000000;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        td.style24 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        th.style24 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: 1px solid #000000 !important;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        td.style25 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        th.style25 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        td.style26 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: 1px solid #000000 !important;
+            border-top: none #000000;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        th.style26 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: 1px solid #000000 !important;
+            border-top: none #000000;
+            border-left: 1px solid #000000 !important;
+            border-right: 1px solid #000000 !important;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: #FFFFFF
+        }
+    
+        td.style27 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: none #000000;
+            border-right: none #000000;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: white
+        }
+    
+        th.style27 {
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: none #000000;
+            border-top: none #000000;
+            border-left: none #000000;
+            border-right: none #000000;
+            color: #000000;
+            font-family: '微软雅黑';
+            font-size: 11pt;
+            background-color: white
+        }
+    
+        table.sheet0 col.col0 {
+            width: 134.87777623pt
+        }
+    
+        table.sheet0 col.col1 {
+            width: 189.09999783pt
+        }
+    
+        table.sheet0 col.col2 {
+            width: 460.21110583pt
+        }
+    
+        table.sheet0 tr {
+            height: 17pt
+        }
+    
+        table.sheet0 tr.row0 {
+            height: 18pt
+        }
+    
+        table.sheet0 tr.row1 {
+            height: 54pt
+        }
+    
+        table.sheet0 tr.row2 {
+            height: 72pt
+        }
+    
+        table.sheet0 tr.row3 {
+            height: 54pt
+        }
+    
+        table.sheet0 tr.row4 {
+            height: 54pt
+        }
+    
+        table.sheet0 tr.row5 {
+            height: 36pt
+        }
+    
+        table.sheet0 tr.row6 {
+            height: 36pt
+        }
+    
+        table.sheet0 tr.row7 {
+            height: 18pt
+        }
+    
+        table.sheet0 tr.row8 {
+            height: 36pt
+        }
+    
+        table.sheet0 tr.row9 {
+            height: 54pt
+        }
+    
+        table.sheet0 tr.row10 {
+            height: 18pt
+        }
+    
+        table.sheet0 tr.row11 {
+            height: 54pt
+        }
+    
+        table.sheet0 tr.row12 {
+            height: 54pt
+        }
+    
+        table.sheet0 tr.row13 {
+            height: 41pt
+        }
+    
+        table.sheet0 tr.row14 {
+            height: 43pt
+        }
+    
+        table.sheet0 tr.row15 {
+            height: 42pt
+        }
+    
+        table.sheet0 tr.row16 {
+            height: 42pt
+        }
+    
+        table.sheet0 tr.row17 {
+            height: 60pt
+        }
+    
+        table.sheet0 tr.row18 {
+            height: 43pt
+        }
+    
+        table.sheet0 tr.row19 {
+            height: 36pt
+        }
+    
+        table.sheet0 tr.row20 {
+            height: 42pt
+        }
+    
+        table.sheet0 tr.row21 {
+            height: 31pt
+        }
+    
+        table.sheet0 tr.row22 {
+            height: 64pt
+        }
+    
+        table.sheet0 tr.row23 {
+            height: 30pt
+        }
+    
+        table.sheet0 tr.row24 {
+            height: 43pt
+        }
+    
+        table.sheet0 tr.row25 {
+            height: 31pt
+        }
+    
+        table.sheet0 tr.row26 {
+            height: 43pt
+        }
+    
+        table.sheet0 tr.row27 {
+            height: 63pt
+        }
+    
+        table.sheet0 tr.row28 {
+            height: 63pt
+        }
+    
+        table.sheet0 tr.row29 {
+            height: 108pt
+        }
+    
+        table.sheet0 tr.row30 {
+            height: 47pt
+        }
+    
+        table.sheet0 tr.row31 {
+            height: 50pt
+        }
+    
+        table.sheet0 tr.row32 {
+            height: 43pt
+        }
+    
+        table.sheet0 tr.row33 {
+            height: 83pt
+        }
+    
+        table.sheet0 tr.row34 {
+            height: 50pt
+        }
+    
+        table.sheet0 tr.row35 {
+            height: 42pt
+        }
+    
+        table.sheet0 tr.row36 {
+            height: 50pt
+        }
+    
+        table.sheet0 tr.row37 {
+            height: 50pt
+        }
+    
+        table.sheet0 tr.row38 {
+            height: 43pt
+        }
+    
+        table.sheet0 tr.row39 {
+            height: 42pt
+        }
+    
+        table.sheet0 tr.row40 {
+            height: 39pt
+        }
+    
+        table.sheet0 tr.row41 {
+            height: 39pt
+        }
+    
+        table.sheet0 tr.row42 {
+            height: 50pt
+        }
+    
+        table.sheet0 tr.row43 {
+            height: 70pt
+        }
+    
+        table.sheet0 tr.row44 {
+            height: 50pt
+        }
+    
+        table.sheet0 tr.row45 {
+            height: 58pt
+        }
+    
+        table.sheet0 tr.row46 {
+            height: 50pt
+        }
+    
+        table.sheet0 tr.row47 {
+            height: 90pt
+        }
+    
+        table.sheet0 tr.row48 {
+            height: 97pt
+        }
+    
+        table.sheet0 tr.row49 {
+            height: 60pt
+        }
+    
+        table.sheet0 tr.row50 {
+            height: 64pt
+        }
+    
+        table.sheet0 tr.row51 {
+            height: 50pt
+        }
+    
+        table.sheet0 tr.row52 {
+            height: 37pt
+        }
+    
+        table.sheet0 tr.row53 {
+            height: 50pt
+        }
+    
+        table.sheet0 tr.row54 {
+            height: 50pt
+        }
+    
+        table.sheet0 tr.row55 {
+            height: 50pt
+        }
+    
+        table.sheet0 tr.row56 {
+            height: 50pt
+        }
+    
+        table.sheet0 tr.row57 {
+            height: 50pt
+        }
+    
+        table.sheet0 tr.row58 {
+            height: 50pt
+        }
+    
+        table.sheet0 tr.row59 {
+            height: 34pt
+        }
+    
+        table.sheet0 tr.row60 {
+            height: 32pt
+        }
+    
+        table.sheet0 tr.row61 {
+            height: 44pt
+        }
+    
+        table.sheet0 tr.row62 {
+            height: 44pt
+        }
+    
+        table.sheet0 tr.row63 {
+            height: 108pt
+        }
+    
+        table.sheet0 tr.row64 {
+            height: 108pt
+        }
+    
+        table.sheet0 tr.row65 {
+            height: 33pt
+        }
+    
+        table.sheet0 tr.row66 {
+            height: 36pt
+        }
+    
+        table.sheet0 tr.row67 {
+            height: 108pt
+        }
+    
+        table.sheet0 tr.row68 {
+            height: 41pt
+        }
+    
+        table.sheet0 tr.row69 {
+            height: 23pt
+        }
+    
+        table.sheet0 tr.row70 {
+            height: 18pt
+        }
+    
+        table.sheet0 tr.row71 {
+            height: 18pt
+        }
+    
+        table.sheet0 tr.row72 {
+            height: 54pt
+        }
+    
+        table.sheet0 tr.row73 {
+            height: 54pt
+        }
+    
+        table.sheet0 tr.row74 {
+            height: 36pt
+        }
+    
+        table.sheet0 tr.row75 {
+            height: 36pt
+        }
+    
+        table.sheet0 tr.row76 {
+            height: 36pt
+        }
+    
+        table.sheet0 tr.row77 {
+            height: 36pt
+        }
+    </style>
+        
+        <table border="0" cellpadding="0" cellspacing="0" id="sheet0" class="sheet0 gridlines">
+            <col class="col0">
+            <col class="col1">
+            <col class="col2">
+            <tbody>
+                <tr class="row0">
+                    <td class="column0 style22 s">对比内容</td>
+                    <td class="column1 style9 s">分类</td>
+                    <td class="column2 style9 s">描述　</td>
+                </tr>
+                <tr class="row1">
+                    <td class="column0 style1 s style13" rowspan="7">K8S集群管理</td>
+                    <td class="column1 style8 s">多集群管理</td>
+                    <td class="column2 style5 s">容器平台能同时对多个Kubernetes集群进行管理，包括创建集群、删除集群、集群搜索、为集群添加主机等。每个集群有自己独立的管理视图，包括控制面板、主机视图、容器视图、应用视图，可图形化显示其所包含的节点状态和容器运行状态，并可以对节点和容器操作。每个集群上运行的应用和其他集群隔离。</td>
+                </tr>
+                <tr class="row2">
+                    <td class="column1 style3 s">集群基础设施管理和部署</td>
+                    <td class="column2 style7 s">容器云平台能够指定Kubernetes集群的部署角色，包括etcd数据节点、API Server、Controller
+                        Manager控制节点、worker计算节点等。不同集群能够指定不同的容器网络模式，灵活支持目前社区主流的容器网络解决方案，包括flannel、Calico、Canal等。平台能够提供自动化部署工具，快速灵活的部署kubernetes集群。</td>
+                </tr>
+                <tr class="row3">
+                    <td class="column1 style3 s">集群管理权限设定</td>
+                    <td class="column2 style7 s">可设定每个集群的用户角色和权限，除默认内置角色外，支持在图形界面进行细粒度的RBAC权限自定义和角色创建。管理员可以创建自定义角色，指定对平台内各种资源对象（包括但不限于Cluster、Pod、Deployment、ConfigMap等）的创建、删除、编辑、枚举等各种细粒度的操作权限。</td>
+                </tr>
+                <tr class="row4">
+                    <td class="column1 style3 s">导入外部Kubernetes集群管理</td>
+                    <td class="column2 style7 s">容器云平台必须能够导入外部Kubernetes集群并进行管理的功能，以满足对各种Kubernetes集群统一纳管的需求。导入的Kubernetes集群能够通过容器云平台界面进行统一的角色管理，应用部署等各种操作。</td>
+                </tr>
+                <tr class="row5">
+                    <td class="column1 style3 s">Kubernetes多版本支持</td>
+                    <td class="column2 style7 s">支持Kubernetes目前的主要稳定开源版本，包括1.9、1.10、1.11、1.12。用户在部署Kubernetes集群时可以根据需要选择相应的版本进行部署。</td>
+                </tr>
+                <tr class="row6">
+                    <td class="column1 style3 s">集群升级</td>
+                    <td class="column2 style7 s">通过平台创建的Kubernetes集群，集群的系统软件，如Kubernetes版本、网络等系统服务软件，可通过图形界面在线升级或回退，不影响集群环境中业务的使用。</td>
+                </tr>
+                <tr class="row7">
+                    <td class="column1 style3 s">Windows 集群支持</td>
+                    <td class="column2 style7 s">可管理 Windows Kubernetes 集群主机。</td>
+                </tr>
+                <tr class="row8">
+                    <td class="column0 style14 s style17" rowspan="3">多租户功能</td>
+                    <td class="column1 style8 s">基于独立集群的多租户支持</td>
+                    <td class="column2 style15 s">容器云平台支持基于独立集群的多租户隔离，可以为不同租户创建并使用独立的Kubernetes集群。各集群可以按需配置独立的管理员、用户及自定义角色，彼此之间完全隔离。</td>
+                </tr>
+                <tr class="row9">
+                    <td class="column1 style3 s">基于共享集群的多租户支持</td>
+                    <td class="column2 style7 s">容器云平台应支持集群内部的多租户隔离，集群内租户支持设置管理员、用户及自定义RBAC角色，以满足权限管理需求。当基于单个集群实现多租户隔离时，同一个集群内部的租户应用彼此隔离，单个租户内部的用户仅能查看和管理自己租户内部的应用，且不同租户应用容器之间需要实现网络隔离。</td>
+                </tr>
+                <tr class="row10">
+                    <td class="column1 style3 s">&nbsp;租户权限管理</td>
+                    <td class="column2 style7 s">支持租户内用户角色的管理和设置，支持RBAC自定义创建租户内用户角色和权限，以实现灵活的权限管理。</td>
+                </tr>
+                <tr class="row11">
+                    <td class="column0 style24 s style26" rowspan="7">容器主机管理</td>
+                    <td class="column1 style4 s">纳管虚拟机</td>
+                    <td class="column2 style15 s">支持以图形界面在线添加虚拟机主机，新的主机被添加成功后将会显示活动状态，并可在图形界查看主机的具体配置信息，包括但不限于主机名，IP地址，docker引擎版本号，操作系统版本，CPU/内存/磁盘配置信息等。</td>
+                </tr>
+                <tr class="row12">
+                    <td class="column1 style4 s">纳管物理机</td>
+                    <td class="column2 style7 s">支持以图形界面在线添加物理机主机，新的主机被添加成功后将会显示活动状态，并可在图形界面看到主机的具体配置信息，包括但不限于主机名，IP地址，docker引擎版本号，操作系统版本，CPU/内存/磁盘配置信息等。</td>
+                </tr>
+                <tr class="row13">
+                    <td class="column1 style4 s">内置Docker Machine驱动管理</td>
+                    <td class="column2 style7 s">内置Docker Machine驱动，可以对各类Docker的machine
+                        drivers进行配置和管理，方便用户对接各类云平台、vSphere环境、OpenStack环境等。</td>
+                </tr>
+                <tr class="row14">
+                    <td class="column1 style4 s">主机分组管理</td>
+                    <td class="column2 style7 s">支持对不同的主机进行分组管理，可以使用标签（或类似方式）标识，如按物理区域、安全区域、组织架构、项目、应用划分打标签逻辑分组，支持多标签。</td>
+                </tr>
+                <tr class="row15">
+                    <td class="column1 style4 s">查看主机性能状态信息</td>
+                    <td class="column2 style7 s">系统提供便捷的图形化界面，以实现对容器主机相关性能和状态信息的监控和查看。可以查看的主机性能信息包括，CPU、内存、网络和磁盘，容器分配情况、端口使用情况、标签、存储等关键信息。</td>
+                </tr>
+                <tr class="row16">
+                    <td class="column1 style4 s">驱散容器功能</td>
+                    <td class="column2 style7 s">在对主机进行维护时，例如升级内核，硬件维护等，这个功能首先会禁止新的容器调度到这个节点，然后会对该节点上的容器有规则的进行驱散。完成主机维护后，可以恢复节点功能。</td>
+                </tr>
+                <tr class="row17">
+                    <td class="column1 style4 s">容器主机故障自动检测和自动应用漂移</td>
+                    <td class="column2 style7 s">当某个主机故障时，无法和管理节点时间正常通信时，则该主机将被表示为不可用状态，并在图形界面显示。该状态下管理节点将视图重连该主机，同时会将该主机上运行的容器自动漂移到其他正常主机节点，以保证该情况下相关容器的服务访问正常。</td>
+                </tr>
+                <tr class="row18">
+                    <td class="column0 style24 s style26" rowspan="5">容器调度与管理</td>
+                    <td class="column1 style4 s">容器生命周期管理</td>
+                    <td class="column2 style15 s">平台提供便捷操作容器服务图形化界面，可以编辑容器信息，可以启动、重启、停止、删除、克隆容器。<br />
+                        并可在图形界面上展示容器的信息和运行状态，包括健康状态，容器名、IP地址、所在主机、镜像和命令等</td>
+                </tr>
+                <tr class="row19">
+                    <td class="column1 style4 s">查看容器状态和性能</td>
+                    <td class="column2 style7 s">管理平台可以通过图形界面查看容器关键性能和配置信息，可以查看标签、存储卷、端口映射、实时监控信等关键信息，包括但不限于: CPU、内存、网络和磁盘、容器IP、Image、所使用主机等情况。</td>
+                </tr>
+                <tr class="row20">
+                    <td class="column1 style4 s">容器控制台</td>
+                    <td class="column2 style7 s">图形化界面可以直接调出该容器控制台，管理界面可以操作容器的CLI，方便后台控制人员执行命令行操作容器。</td>
+                </tr>
+                <tr class="row21">
+                    <td class="column1 style4 s">查看容器日志</td>
+                    <td class="column2 style7 s">管理平台图形化界面可以直接展示容器日志信息，并实时刷新。</td>
+                </tr>
+                <tr class="row22">
+                    <td class="column1 style4 s">指定容器运行的主机</td>
+                    <td class="column2 style7 s">支持标签或其它方式唯一限定容器运行主机。系统提供图形化界面，设置容器编排调度规则。支持亲和性/反亲和性容器调度设置，系统提供图形化界面，设置容器编排调度规则，支持基于标签的亲和性/反亲和性调度，支持全部满足/部分等过滤条件。</td>
+                </tr>
+                <tr class="row23">
+                    <td class="column0 style24 s style26" rowspan="5">容器应用管理</td>
+                    <td class="column1 style8 s">容器应用堆栈管理</td>
+                    <td class="column2 style15 s">支持使用应用模板一键创建容器应用栈。可以从应用集合，服务集合的角度对容器进行集中的管理和配置。</td>
+                </tr>
+                <tr class="row24">
+                    <td class="column1 style3 s">应用管理视图</td>
+                    <td class="column2 style7 s">支持以不同方式查看、展现应用容器。至少支持根据命令空间Namespace、应用分类、容器运行节点、列表等方式展示容器列表。</td>
+                </tr>
+                <tr class="row25">
+                    <td class="column1 style3 s">通过上传编排文件直接部署应用</td>
+                    <td class="column2 style7 s">支持通过上yaml编排 文件，一键部署和启动应用。极大提高部署效率，降低部署难度和时间。</td>
+                </tr>
+                <tr class="row26">
+                    <td class="column1 style3 s">查看、下载编排配置文件</td>
+                    <td class="column2 style7 s">支持实时查看kubernetes编排文件配置内容。支持下载和保存kubernetes编排文件，方便配置编辑、保存、重新部署和故障恢复。</td>
+                </tr>
+                <tr class="row27">
+                    <td class="column1 style3 s">统一调用非容器化服务或系统</td>
+                    <td class="column2 style7 s">管理平台可方便的实现容器访问外部的应用和服务，容器可以访问如不适合进行容器化的大型应用（如MySQL/Oracle数据库）。支持通过图形界面创建相应的服务发现记录，包括外部IP地址、外部主机名、DNS别名等多种方</td>
+                </tr>
+                <tr class="row28">
+                    <td class="column0 style24 s style26" rowspan="7">容器管理</td>
+                    <td class="column1 style3 s">项目管理功能</td>
+                    <td class="column2 style7 s">项目是一个或多个 namespace
+                        集合，集群管理员和项目管理员可以从项目层级设置配额。可以配置该项目的CPU，内存，存储，Pod数量等等的配额。同时，在每个项目里，管理员也可以对每个namespace的配额进行控制。</td>
+                </tr>
+                <tr class="row29">
+                    <td class="column1 style4 s">容器服务健康检查</td>
+                    <td class="column2 style6 s">系统内置对容器服务的健康检查功能，支持在图形界面进行以下健康检查设置，包括: <br />
+                        •  可以设定基于HTTP的健康检查。<br />
+                        •  可以设定基于TCP的健康检查。<br />
+                        •  可以设定基于命令行命令的健康检查。<br />
+                        •  可以设定健康检查的颗粒度，如检查次数、间隔、超时时间等。<br />
+                        支持通过图形界面对容器设置不同的Liveness Check和Readniess check规则。</td>
+                </tr>
+                <tr class="row30">
+                    <td class="column1 style4 s">容器服务伸缩</td>
+                    <td class="column2 style6 s">提供图形界面，可以便捷手动进行容器扩容和收缩。还提供容器基于CPU、内存等资源使用率状态数值触发的自动扩容缩容。</td>
+                </tr>
+                <tr class="row31">
+                    <td class="column1 style4 s">容器升级和回滚功能</td>
+                    <td class="column2 style6 s">提供图形界面，可以便捷实现容器的升级和回滚操作。部署应用时可以设置应用的升级策略，包括新旧容器启停顺序、批量大小、最小就绪时间等等。</td>
+                </tr>
+                <tr class="row32">
+                    <td class="column1 style4 s">支持灰度发布</td>
+                    <td class="column2 style6 s">可以实现灰度升级，升级过程中服务不中断。升级后，图形界面提供UI回滚到之前版本。当部署之前包括多个版本时，可提供多个版本进行回滚选择。</td>
+                </tr>
+                <tr class="row33">
+                    <td class="column1 style4 s">伴随容器服务</td>
+                    <td class="column2 style6 s">可以为主容器提供伴随容器服务，在进行复杂应用部署时，可以提供支持。支持通过图形界面创建伴随容器。<br />
+                        1.可以为主容器创建伴随容器。<br />
+                        2.伴随容器可以和主容器同时启动和同时关闭。<br />
+                        3.伴随容器可以和主容器共享容器数据卷和容器网络。</td>
+                </tr>
+                <tr class="row34">
+                    <td class="column1 style4 s">容器可用性保障机制</td>
+                    <td class="column2 style6 s">可以设定服务容器的需要保证的有效数量，当系统故障时，平台可保证有效的的容器数量。可以保证应用服务维持一定的容器数量，用来保证服务正常。服务故障时可以重新创建容器，保证服务正常。</td>
+                </tr>
+                <tr class="row35">
+                    <td class="column0 style18 s style20" rowspan="3">容器网络管理</td>
+                    <td class="column1 style4 s">容器网络访问策略控制</td>
+                    <td class="column2 style6 s">容器网络支持多租户隔离和策略控制，同集群内部的不同租户可以实现网络的隔离和限制。</td>
+                </tr>
+                <tr class="row36">
+                    <td class="column1 style4 s">支持容器基本网络模式</td>
+                    <td class="column2 style6 s">支持容器共享主机网络方式，可以在管理界面上设置容器网络为主机共享网路模式，容器共享主机网络namespace，使用主机网卡进行容器内外部通信。</td>
+                </tr>
+                <tr class="row37">
+                    <td class="column1 style4 s">支持高级网络模式</td>
+                    <td class="column2 style6 s">支持多种网络模式，容器平台提供网络插件，实现对容器IP和容器网络的管理，支持容器网络IP的自定义和跨主机容器网络互访。至少同时支持Flannel/Calico、Canal主流网络技术。</td>
+                </tr>
+                <tr class="row38">
+                    <td class="column0 style24 s style26" rowspan="5">负载均衡服务</td>
+                    <td class="column1 style4 s">内置负载均衡服务</td>
+                    <td class="column2 style6 s">内置容器负载均衡服务。通过图形界面创建负载均衡，可以进行端口指定、服务指定、SSL证书、会话保持、自定义负载均衡配置、标签及调度等各项功能。</td>
+                </tr>
+                <tr class="row39">
+                    <td class="column1 style4 s">可定义负载均衡会话保持策略</td>
+                    <td class="column2 style6 s">内置负载均衡服务可以配置可以配置并使用基于cookie的会话保持功能。</td>
+                </tr>
+                <tr class="row40">
+                    <td class="column1 style4 s">支持SSL终结功能</td>
+                    <td class="column2 style6 s">内置负载均衡服务可以配置可以配置并使用基于HTTPS的SSL终结功能。</td>
+                </tr>
+                <tr class="row41">
+                    <td class="column1 style4 s">负载均衡后端支持</td>
+                    <td class="column2 style6 s">提供图形界面，负载均衡后端同时支持Kubernetes Service对象和Pod直连，以支持话保持设置。</td>
+                </tr>
+                <tr class="row42">
+                    <td class="column1 style4 s">支持高级访问路由功能</td>
+                    <td class="column2 style6 s">提供图形界面，可以配置负载均衡高级路由功能，实现根据URL头信息、Domain name、访问路径等不同实现七层信息的转发。</td>
+                </tr>
+                <tr class="row43">
+                    <td class="column0 style24 s style26" rowspan="4">容器存储服务</td>
+                    <td class="column1 style4 s">存储类型支持</td>
+                    <td class="column2 style6 s">容器云平台应支持Kubernetes社区版本内置支持的所有存储类型，包括FC、iSCSI、Ceph、Cinder、GlusterFS、AzureDisk、AWS
+                        EBS、ScaleIO等等。<br />
+                        方案提供方应该能够提供自主产权且开源的分布式块存储方案，以满足业务上对持久化存储的要求</td>
+                </tr>
+                <tr class="row44">
+                    <td class="column1 style4 s">Persistent Volume支持</td>
+                    <td class="column2 style6 s">支持通过图形界面创建Persistent
+                        Volume，支持的类型包括上述所列Kubernetes标准版本内置的存储类型。用户可以通过图形界面方便的设置相关存储参数。PV创建后可以在应用部署时通过图形界面创建PVC使用。</td>
+                </tr>
+                <tr class="row45">
+                    <td class="column1 style4 s">Storage Class支持</td>
+                    <td class="column2 style6 s">支持通过图形界面创建Storage
+                        Class以满足存储动态自动创建需求，支持的类型包括上述所列Kubernetes标准版本内置的存储类型。用户可以通过图形界面方便的设置相关存储参数。Storage
+                        Class创建后可以在应用部署时通过图形界面使用。</td>
+                </tr>
+                <tr class="row46">
+                    <td class="column1 style4 s">超融合存储支持</td>
+                    <td class="column2 style6 s">提供超融合存储解决方案，支持基于容器集群宿主机本地磁盘构建存储池并与容器集群进行集成。容器可利用本集群内部的存储池实现数据的持久化和高可用。</td>
+                </tr>
+                <tr class="row47">
+                    <td class="column0 style24 s style26" rowspan="4">系统监控及日志</td>
+                    <td class="column1 style4 s">系统监控</td>
+                    <td class="column2 style6 s">支持集群和集群内部租户不同层级的监控设置，监控内容至少应包括: <br />
+                        •  系统组件健康状态，如etcd、API Server等<br />
+                        •  系统部署事件，如创建Deployment、Service对象等。<br />
+                        •  主机资源利用率，如CPU、内存等<br />
+                        •  应用可用状态，如Deployment中可用容器低于一定比例等。</td>
+                </tr>
+                <tr class="row48">
+                    <td class="column1 style4 s">系统告警</td>
+                    <td class="column2 style6 s">•  需要提供系统内建的告警系统<br />
+                        •  告警系统支持通过图形界面设置告警目标，不同告警规则可按需设置告警目标。告警目标应支持多种企业级集成，至少要同时支持对电子邮件、Slack、PageDuty系统的支持。同时需要提供
+                        Webhook扩展方式，实现对其他告警方式的支持和扩展。<br />
+                        •  告警规则支持临时暂停、恢复，初始发送延迟、发送间隔等高级设置，以按需控制告警信息的发送。</td>
+                </tr>
+                <tr class="row49">
+                    <td class="column1 style4 s">系统日志</td>
+                    <td class="column2 style6 s">平台提供日志收集代理，支持自动收集容器和应用程序日志。<br />
+                        • 日志系统能够在集群层面、项目层面分别对应不同的日志平台，以满足用户部门对日志功能使用的灵活性，以满足不同应用场景需求。</td>
+                </tr>
+                <tr class="row50">
+                    <td class="column1 style4 s">日志平台集成</td>
+                    <td class="column2 style6 s">• 日志代理应支持业内主流日志平台集成，可以同时支持对ElasticSearch、Kafka、Splunk和Syslog的对接，用户在图形界面即可设置与上述平台的自动化集成对接。<br />
+                        • 日志系统能够在集群层面、项目层面分别对应不同的日志平台，以满足用户部门对日志功能使用的灵活性</td>
+                </tr>
+                <tr class="row51">
+                    <td class="column0 style24 s style26" rowspan="5">应用商店管理</td>
+                    <td class="column1 style4 s">容器应用商店</td>
+                    <td class="column2 style6 s">容器平台支持容器化应用商店，实现容器应用的模板化展示和快速部署。应用商店应支持Kubernetes社区的Helm Charts模板。</td>
+                </tr>
+                <tr class="row52">
+                    <td class="column1 style4 s">企业级应用商店展示、组织及管理</td>
+                    <td class="column2 style6 s">提供图形界面，可以查看应用商店、实现应用模板的组织和管理。支持搜索和分类选择展示。</td>
+                </tr>
+                <tr class="row53">
+                    <td class="column1 style4 s">支持用户交互的参数配置</td>
+                    <td class="column2 style6 s">在应用商店配置页面中可配置模板版本和自定义参数，在配置过程中可以通过界面进行自定义配置。在启动应用过程中，进行交互的参数可以自定义。同时不同的应用可以定义不同的参数。支持在应用商店模板中定义参数的类型、提示信息、默认值等相关设置，应用部署展示UI可根据参数定义动态生成并展示相关页面。</td>
+                </tr>
+                <tr class="row54">
+                    <td class="column1 style4 s">支持应用发布版本管理</td>
+                    <td class="column2 style6 s">可以在应用商店中选择应用的不同发布版本，并启动运行。应用商店出现该应用的新版本时，可自动提示正在运行的应用实例有新版本可以升级。</td>
+                </tr>
+                <tr class="row55">
+                    <td class="column1 style4 s">支持部署私有隔离的应用商店</td>
+                    <td class="column2 style6 s">管理平台可以设置不同的应用商店路径。每个路径都可以指向一个独立的应用商店，可以设置多个应用商店，应用可以放在不同的应用商店中进行隔离管理。</td>
+                </tr>
+                <tr class="row56">
+                    <td class="column0 style24 s style26" rowspan="6">&nbsp;系统管理及安全</td>
+                    <td class="column1 style4 s">认证方式</td>
+                    <td class="column2 style6 s">容器云平台支持多种认证集成方式，除本地认证外，需支持主流的认证系统如微软活动目录、OpenLDAP、Github、Keycloak等，支持自定义认证插件实现集成认证。</td>
+                </tr>
+                <tr class="row57">
+                    <td class="column1 style4 s">容器安全策略</td>
+                    <td class="column2 style6 s">容器云平台支持设置容器安全策略，对创建的容器进行安全管控，例如限制启动特权容器、限制容器使用主机IPC模式、主机网络模式，限制容器可以映射的主机数据卷路径等。容器安全策略应当支持绑定到特定集群和集群内部的多租户隔离实现。</td>
+                </tr>
+                <tr class="row58">
+                    <td class="column1 style4 s">API秘钥管理</td>
+                    <td class="column2 style6 s">容器云平台支持为不同用户创建独立的API秘钥，API秘钥仅当首次创建时可查看。且支持进行API秘钥自动过期设置，以确保系统安全。</td>
+                </tr>
+                <tr class="row59">
+                    <td class="column1 style4 s">配置映射（configmap)</td>
+                    <td class="column2 style6 s">提供图形化界面，配置configmap以供服务调用。</td>
+                </tr>
+                <tr class="row60">
+                    <td class="column1 style4 s">密文管理（secret）</td>
+                    <td class="column2 style6 s">提供图形化界面，配置secret以供服务调用。</td>
+                </tr>
+                <tr class="row61">
+                    <td class="column1 style4 s">证书管理</td>
+                    <td class="column2 style6 s">平台提供图形界面，可以对SSL证书进行管理。包括导入证书、删除证书等。证书可用于应用访问SSL加密。</td>
+                </tr>
+                <tr class="row62">
+                    <td class="column0 style24 s style26" rowspan="4">镜像库功能</td>
+                    <td class="column1 style4 s">对接外部私有镜像仓库</td>
+                    <td class="column2 style6 s">提供图形界面，设置连接外部的镜像仓库，可设置外部仓库的认证信息实现认证集成。可以设置默认镜像库，设置镜像库白名单等。</td>
+                </tr>
+                <tr class="row63">
+                    <td class="column1 style4 s">项目管理</td>
+                    <td class="column2 style6 s">支持公有和私有项目类型: <br />
+                        •  公有: 公有项目中的镜像所有用户均有下载权限；<br />
+                        •  私有: 私有项目中的镜像只有项目内的成员有相应的操作权限；<br />
+                        新建项目: 每当新建一个用户时，系统都会默认创建一个以该用户的用户名为项目名称的私有项目；系统管理员可以创建新的项目，项目详情页，可查看镜像和访问控制列表。<br />
+                        搜索项目: 支持输入关键字进行项目搜索；</td>
+                </tr>
+                <tr class="row64">
+                    <td class="column1 style4 s">镜像生命周期管理</td>
+                    <td class="column2 style6 s">镜像生命生命周期主要功能如下所示: <br />
+                        镜像下载: 若镜像为私有镜像，用户至少要获得对应项目的下载权限才能成功下载镜像；<br />
+                        镜像上传: 用户首先要拥有对应项目的提交权限才能在该项目下上传镜像；<br />
+                        镜像修改: 用户可以修改镜像的描述信息，以及dockerfile；<br />
+                        镜像复制: 实现镜像在不同项目间的复制，用户至少必须同时拥有源项目与目标项目的提交权限；<br />
+                        镜像删除: 在镜像列表可以选择删除镜像的某个版本，也可以直接删除整个镜像。</td>
+                </tr>
+                <tr class="row65">
+                    <td class="column1 style4 s">异地镜像仓库同步</td>
+                    <td class="column2 style6 s">支持设置好同步关系，并且多镜像仓库之间镜像自动同步。镜像同步的最小颗粒度是容器项目。</td>
+                </tr>
+                <tr class="row66">
+                    <td class="column0 style24 s style26" rowspan="3">系统集成支持</td>
+                    <td class="column1 style4 s">支持通过纯命令行方式进行配置和管理</td>
+                    <td class="column2 style6 s">容器平台提供命令行管理工具，可以通过命令行对容器管理平台进行配置和管理。 方便运维人员开发自动化运维脚本。</td>
+                </tr>
+                <tr class="row67">
+                    <td class="column1 style4 s">提供API接口</td>
+                    <td class="column2 style6 s">容器云平台应支持Restful API调用，以方便的与内部系统进行集成。API接口需求如下: <br />
+                        ＊支持页面直接展现API调用内容<br />
+                        ＊所有页面上的操作都能通过API支持<br />
+                        支持基于多租户API调用的访问授权。<br />
+                        针对不同的用户，都可以生成Access key和Secret key秘钥对，在获取正确的秘钥对后方能对API接口进行访问。</td>
+                </tr>
+                <tr class="row68">
+                    <td class="column1 style4 s">容器操作系统</td>
+                    <td class="column2 style6 s">容器云厂商在提供容器平台的同时，还拥有知名的自主品牌的容器化操作系统平台，以实现容器宿主机的快速创建和部署，降低系统资源消耗和受攻击面。</td>
+                </tr>
+                <tr class="row69">
+                    <td class="column0 style24 s style26" rowspan="4">CI/CD功能</td>
+                    <td class="column1 style4 s">同时支持多源码管理</td>
+                    <td class="column2 style6 s">CI/CD支持公有Github、Gitlab和私有Gitlab代码库的对接。 </td>
+                </tr>
+                <tr class="row70">
+                    <td class="column1 style4 s">自动部署镜像</td>
+                    <td class="column2 style6 s">打通了从代码提交，自动测试，自动构建镜像，自动部署镜像的全流程。</td>
+                </tr>
+                <tr class="row71">
+                    <td class="column1 style4 s">与应用商店集成</td>
+                    <td class="column2 style6 s">打通与应用商店的集成，可根据CI/CD的产物动态更新应用商店中的配置文件，应用商店提示有更新可用。</td>
+                </tr>
+                <tr class="row72">
+                    <td class="column1 style4 s">灵活的流程控制</td>
+                    <td class="column2 style6 s">可以在最初的设置阶段配置符合某既定要求的表达式或标签，而系统会在执行阶段根据执行情况自动跳过不符合该表达式或标签的阶段或步骤。如此一来，不同的代码分支可以自动匹配不同的CI流程，从而支持较为复杂的流程控制。</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    
+
+</div>

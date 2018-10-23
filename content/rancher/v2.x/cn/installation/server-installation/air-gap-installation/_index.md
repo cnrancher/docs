@@ -1,13 +1,13 @@
 ---
-title: 4 - 离线安装
-weight: 4
+title: 3 - 离线安装
+weight: 3
 ---
 
 Rancher支持从私有镜像仓库进行安装。在每个发行版中，我们都会提供所需的Docker镜像清单和脚本，通过这些脚本你可以把镜像同步到你的私有仓库中。当主机添加到集群时，或启用CI/CD或启用日志收集功能时，将使用这些Docker镜像。
 
 >**先决条件:** 1.假设你有自己的私有镜像仓库或其他方式将镜像分发到你的主机。如果你在创建私有镜像仓库方面需要帮助, 请参考: [Docker documentation for private registries](https://docs.docker.com/registry/)。\
 > 2.在Rancher v2.0.0中，从私有仓库安装不支持使用具有身份验证的私有仓库，仓库需要为公开。\
-> 3.如果想开启API审计日志功能，请访问[API审计日志]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/api-auditing/)。
+> 3.如果想开启API审计日志功能，请访问[API审计日志]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/api-auditing/)。
 
 {{% accordion id="1" label="一、Release文件" %}}
 
@@ -21,7 +21,7 @@ Rancher支持从私有镜像仓库进行安装。在每个发行版中，我们�
 - **方案1**:一台可访问DockerHub的主机来拉取和保存镜像，另一台可以访问私有仓库的主机来推送镜像；
 - **方案2**:有一台可以同时访问DockerHub和私有仓库的主机；
 
-### **方案1**:一台可访问DockerHub的主机来拉取和保存镜像，另一台可以访问私有仓库的主机来推送镜像；
+### **方案1**: 一台可访问DockerHub的主机来拉取和保存镜像，另一台可以访问私有仓库的主机来推送镜像；
 
 ![Scenario1]({{< baseurl >}}/img/rancher/airgap/privateregistry.svg)
 
@@ -31,10 +31,12 @@ Rancher支持从私有镜像仓库进行安装。在每个发行版中，我们�
 4. 使用[单节点安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/single-node-install)，中的说明完成Rancher的安装；
 
     >**注意:** 在进行单节点安装，运行`docker run`命令时，需要将私有仓库地址添加到镜像中。
-    > 例如:
-    > ```
+    >例如:
+    >```
     >docker run -d --restart=unless-stopped \
     >-p 80:80 -p 443:443 \
+    >-v /root/var/log/auditlog:/var/log/auditlog \
+    >-e AUDIT_LEVEL=3 \
     > <registry.yourdomain.com:port>/rancher/rancher:latest
     > ```
 
@@ -70,6 +72,8 @@ Rancher支持从私有镜像仓库进行安装。在每个发行版中，我们�
     > ```bash
     >docker run -d --restart=unless-stopped \
     > -p 80:80 -p 443:443 \
+    >-v /root/var/log/auditlog:/var/log/auditlog \
+    >-e AUDIT_LEVEL=3 \
     > <registry.yourdomain.com:port>/rancher/rancher:latest
     > ```
 
@@ -94,6 +98,8 @@ Rancher需要配置使用私有镜像仓库作为默认是仓库
     >```bash
     >#!/bin/sh
     >docker run -d -p 80:80 -p 443:443
+    >-v /root/var/log/auditlog:/var/log/auditlog \
+    >-e AUDIT_LEVEL=3 \
     >-e CATTLE_SYSTEM_DEFAULT_REGISTRY=<registry.yourdomain.com:port>
     ><registry.yourdomain.com:port>/>rancher/rancher:v2.0.0
     >```

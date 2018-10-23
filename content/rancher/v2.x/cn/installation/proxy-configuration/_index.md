@@ -1,6 +1,6 @@
 ---
-title: 6 - HTTP代理配置
-weight: 6
+title: 7 - HTTP代理配置
+weight: 7
 ---
 
 如果你的环境需要通过代理才可以连接互联网，那么需要配置`HTTP_PROXY`或者`HTTPS_PROXY`代理,Rancher才能获取网络资源。

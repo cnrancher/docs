@@ -1,6 +1,6 @@
 ---
-title: 8 - 文件下载
-weight: 8
+title: 10 - 文件下载
+weight: 10
 ---
 
 ### Rancher CLI

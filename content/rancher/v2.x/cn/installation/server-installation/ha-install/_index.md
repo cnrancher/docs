@@ -1,4 +1,4 @@
 ---
-title: 3 - Rancher HA安装
-weight: 3
+title: 2 - Rancher HA安装
+weight: 2
 ---

@@ -1,6 +1,6 @@
 ---
-title: 2 - 独立容器安装
-weight: 2
+title: 1 - 独立容器安装
+weight: 1
 ---
 
 对于开发环境，我们推荐直接在主机上通过`docker run`的形式运行Rancher server容器。可能有的主机无法直接通过公网IP来访问主机，需要通过代理去访问，这种场景请参考[使用外部负载平衡器进行单一节点安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/single-node-install-external-lb/)。
@@ -16,7 +16,7 @@ weight: 2
 
 > **注意:**
 > 1、需要[离线安装？]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/air-gap-installation/) \
-> 2、需要开启[API审计日志？]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/api-auditing/) \
+> 2、需要开启[API审计日志？]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/api-auditing/) \
 > 3、需要[代理上网?]({{< baseurl >}}/rancher/v2.x/cn/installation/proxy-configuration/)
 
 {{% accordion id="1" label="方案A-使用默认自签名证书" %}}
@@ -26,6 +26,8 @@ weight: 2
 ```bash
 docker run -d --restart=unless-stopped \
 -p 80:80 -p 443:443 \
+-v /root/var/log/auditlog:/var/log/auditlog \
+-e AUDIT_LEVEL=3 \
 rancher/rancher:latest
 ```
 
@@ -45,6 +47,8 @@ Rancher安装可以使用自己生成的自签名证书。
 ```bash
 docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
+  -v /var/log/rancher/auditlog:/var/log/auditlog \
+  -e AUDIT_LEVEL=3 \
   -v /etc/<CERT_DIRECTORY>/<FULL_CHAIN.pem>:/etc/rancher/ssl/cert.pem \
   -v /etc/<CERT_DIRECTORY>/<PRIVATE_KEY.pem>:/etc/rancher/ssl/key.pem \
   -v /etc/<CERT_DIRECTORY>/<CA_CERTS.pem>:/etc/rancher/ssl/cacerts.pem \
@@ -67,6 +71,8 @@ docker run -d --restart=unless-stopped \
 ```bash
 docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
+  -v /root/var/log/auditlog:/var/log/auditlog \
+  -e AUDIT_LEVEL=3 \
   -v /etc/your_certificate_directory/fullchain.pem:/etc/rancher/ssl/cert.pem \
   -v /etc/your_certificate_directory/privkey.pem:/etc/rancher/ssl/key.pem \
   rancher/rancher:latest --no-cacerts
@@ -91,6 +97,8 @@ Rancher支持Let’s Encrypt 证书。Let’s Encrypt 使用一个`http-01 chall
 ```bash
 docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
+  -v /root/var/log/auditlog:/var/log/auditlog \
+  -e AUDIT_LEVEL=3 \
   rancher/rancher:latest \
   --acme-domain rancher.mydomain.com
 ```

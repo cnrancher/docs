@@ -1,6 +1,6 @@
 ---
-title: 5 - 自签名ssl证书
-weight: 5
+title: 6 - 自签名ssl证书
+weight: 6
 ---
 
 {{% accordion id="option-a" label="一、HTTP over SSL" %}}

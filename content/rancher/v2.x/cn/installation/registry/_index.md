@@ -1,6 +1,6 @@
 ---
-title: 4 - 镜像仓库安装
-weight: 4
+title: 5 - 镜像仓库安装
+weight: 5
 ---
 
 Harbor 是一个企业级的 Docker Registry，可以实现images的私有存储和日志统计权限控制等功能，并支持创建多项目(Harbor 提出的概念)，基于官方Registry实现。 通过地址:`https://github.com/vmware/harbor/releases/`可以下载最新的版本。官方提供了三种版本:在线版、离线版、OVA虚拟镜像版。

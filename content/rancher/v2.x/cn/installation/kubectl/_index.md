@@ -1,6 +1,6 @@
 ---
-title: 12 - 安装和配置kubectl
-weight: 12
+title: 9 - 安装和配置kubectl
+weight: 9
 ---
 
 `kubectl`是一个CLI命令行工具，用于运行Kubernetes集群的命令。Rancher 2.x中的许多维护和管理都需要它。

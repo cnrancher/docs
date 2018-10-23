@@ -1,6 +1,6 @@
 ---
-title: 登录认证
-weight: 4
+title: 5 - 登录认证
+weight: 5
 ---
 
 Rancher为Kubernetes增强的一个关键功能是集中用户身份验证，此功能允许你的用户使用一组凭据对所有Kubernetes集群进行身份验证。

@@ -1,6 +1,6 @@
 ---
-title: Node Requirements
-weight: 1
+title: 3 - 节点需求
+weight: 3
 aliases:
 ---
 
@@ -82,6 +82,7 @@ When deploying Rancher in an HA cluster, certain ports on your nodes must be ope
 
 <sup>Cluster Type Port Requirements</sup>
 ![Basic Port Requirements]({{< baseurl >}}/img/rancher/port-communications.svg)
+
 
 {{< requirements_ports_rancher >}}
 {{< requirements_ports_rke >}}

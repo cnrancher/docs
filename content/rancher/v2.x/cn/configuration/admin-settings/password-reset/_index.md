@@ -1,6 +1,6 @@
 ---
-title: 管理员密码重置
-weight: 5
+title: 6 - 管理员密码重置
+weight: 6
 ---
 
 ## Rancher单节点安装

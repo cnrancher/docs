@@ -1,6 +1,6 @@
 ---
-title: 3 - 故障诊断
-weight: 3
+title: 4 - 故障诊断
+weight: 4
 ---
 
 ### Where is everything
