@@ -43,7 +43,7 @@ weight: 3
 
 - CPU: 2C
 - 内存: 4GB
-> **注意:** 此配置仅为满足小规模测试环境的最低配置。如用于生产，请参考[基础配置要求](/rancher/v2.x/cn/installation/basic-environment-configuration/)。
+> **注意:** 此配置仅为满足小规模测试环境的最低配置。如用于生产，请参考[基础配置要求]({{< baseurl >}}/rancher/v2.x/cn/installation/basic-environment-configuration/)。
 
 ### 2、**软件需求**:
 
@@ -108,7 +108,7 @@ weight: 3
       ![image-20180703155616051](_index.assets/image-20180703155616051.png)
 
   4. 选择节点运行的角色
-  
+
       默认会勾选**Worker**角色，根据需要可以一次勾选多种角色。比如，假设我只有一个节点，那就需要把所有角色都选择上，选择后上面的命令行会自动添加相应的命令参数；
 
       ![image-20180703160014756](_index.assets/image-20180703160014756.png)
@@ -151,7 +151,7 @@ weight: 3
 
 ## 六、部署工作负载
 
-工作负载是一个对象，包括pod以及部署应用程序所需的其他文件和信息。我们以nginx作为例如: 
+工作负载是一个对象，包括pod以及部署应用程序所需的其他文件和信息。我们以nginx作为例如:
 
   1. 在Default视图下，点击工作负载—部署服务
 
