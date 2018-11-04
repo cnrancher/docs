@@ -1,6 +1,6 @@
 ---
-title: 4 - Helm安装Rancher
-weight: 4
+title: 3 - Helm安装Rancher
+weight: 3
 ---
 
 >**注意：** 对于没有Internet访问的系统，请参考[离线安装Rancher]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。
@@ -15,7 +15,7 @@ weight: 4
 helm repo add rancher-<CHART_REPO> https://releases.rancher.com/server-charts/<CHART_REPO>
 ```
 
-## 二、安装证书管理（可选）
+## 二、安装证书管理器(可选)
 
 >**注意:** 只有Rancher自动生成的证书和LetsEncrypt颁发的证书才需要`cert-manager`。如果是你自己的证书，可使用`ingress.tls.source=secret`参数指定证书，并跳过此步骤。
 
@@ -29,21 +29,23 @@ helm install stable/cert-manager \
   --namespace kube-system
 ```
 
-## 三、选择SSL配置
+## 三、选择SSL配置方式并安装Rancher server
 
 Rancher server设计默认需要开启SSL/TLS配置来保证安全。
 
 证书来源有三种选择：
 
-- `rancher` - 使用Rancher自动生成`CA/Certificates`(默认)。
+- `rancher` - 使用Rancher自动生成`CA/Certificates`证书(默认)。
 - `letsEncrypt` - 使用`LetsEncrypt`颁发证书。
 - `secret` - 使用`Kubernetes Secret`证书配置文件。
 
 ### 1、Rancher自动生成证书(默认)
 
-默认情况下，Rancher会自动生成CA并使用`cert-manager`颁发证书以访问Rancher server界面。
+默认情况下，Rancher会自动生成`CA根证书`并使用`cert-manager`颁发证书以访问Rancher server界面。
 
-唯一的要求是将`hostname`指向访问Rancher的域名地址。
+唯一的要求是将`hostname`配置为访问Rancher的域名地址，使用这种SSL证书配置方式需提前安装[证书管理器](#二-安装证书管理器-可选)。
+
+>修改`hostname`
 
 ```bash
 helm install rancher-stable/rancher \
@@ -54,9 +56,9 @@ helm install rancher-stable/rancher \
 
 ### 2、LetsEncrypt
 
-使用[LetsEncrypt](https://letsencrypt.org/)的免费服务发布可信的SSL证书。此配置需要使用http验证，因此给Rancher配置的访问域名地址必须是能够在公网访问。
+使用[LetsEncrypt](https://letsencrypt.org/)的免费服务发布可信的SSL证书。此配置需要使用http验证，因此给Rancher配置的访问域名地址必须是能够被`互联网访问`。使用这种SSL证书配置方式需提前安装[证书管理器](#二-安装证书管理器-可选)。
 
->配置`hostname`、`ingress.tls.source=letEncrypt`和`LetsEncrypt`设置选项。
+>修改`hostname`、`LetsEncrypt`
 
 ```bash
 helm install rancher-stable/rancher \
@@ -71,13 +73,7 @@ helm install rancher-stable/rancher \
 
 通过你自己的证书创建`Kubernetes Secrets`，以供Rancher使用。
 
-首先，请参阅添加[TLS密文](./tls-secrets)创建证书密文，以便`Rancher和Ingress Controller`可以使用。
-
->**注意:**
->1.证书对应的`域名`需要与`hostname`选项匹配，否则`ingress`将无法代理访问Rancher。\
->2.如果你使用的是私有CA签名证书，需要添加`--set privateCA=true`
-
-配置`hostname`和`ingress.tls.source=secret`
+>修改`hostname`
 
 ```bash
 helm install rancher-stable/rancher \
@@ -86,6 +82,12 @@ helm install rancher-stable/rancher \
   --set hostname=rancher.my.org \
   --set ingress.tls.source=secret
 ```
+
+接着根据[添加TLS密文](./tls-secrets)创建证书密文，以便`Rancher和Ingress Controller`可以使用。
+
+>**注意:**
+>1.证书对应的`域名`需要与`hostname`选项匹配，否则`ingress`将无法代理访问Rancher。\
+>2.如果你使用的是私有CA签名证书，需要添加`--set privateCA=true`
 
 ### 4、高级配置
 

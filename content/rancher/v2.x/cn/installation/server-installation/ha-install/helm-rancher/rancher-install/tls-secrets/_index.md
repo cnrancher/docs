@@ -1,6 +1,6 @@
 ---
-title: 2 - 添加TLS secret
-weight: 2
+title: 1 - 添加TLS secret
+weight: 1
 ---
 
 Kubernetes将为Rancher创建所有对象和服务，但在我们使用证书和secret填充命名空间中的`tls-rancher-ingress secret`之前，它将无法使用`cattle-system`。

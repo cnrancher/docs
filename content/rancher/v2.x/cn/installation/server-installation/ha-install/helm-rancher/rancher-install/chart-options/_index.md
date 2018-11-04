@@ -1,6 +1,6 @@
 ---
-title: 3 - Chart设置选项
-weight: 3
+title: 2 - Chart设置选项
+weight: 2
 ---
 
 ## 常见选项
