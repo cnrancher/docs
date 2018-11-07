@@ -3,6 +3,8 @@ title: 3 - 安装helm
 weight: 3
 ---
 
+>**注意** helm使用需要kubectl，点击了解[安装和配置kubectl]({{< baseurl >}}/rancher/v2.x/cn/installation/kubectl/)。
+
 Helm是Kubernetes首选的包管理工具。Helm`charts`为Kubernetes YAML清单文档提供模板语法。使用Helm，我们可以创建可配置的部署，而不仅仅是使用静态文件。有关创建自己的`charts`的更多信息，请查看[https://helm.sh/](https://helm.sh/)文档。Helm有两个部分：Helm客户端(helm)和Helm服务端(Tiller)。
 
 ## 一、配置tiller访问权限
@@ -10,7 +12,7 @@ Helm是Kubernetes首选的包管理工具。Helm`charts`为Kubernetes YAML清单
 Helm在集群上安装`tiller`服务以管理`charts`. 由于RKE默认启用RBAC, 因此我们需要使用`kubectl`来创建一个`serviceaccount`，`clusterrolebinding`才能让`tiller`具有部署到集群的权限。
 
 - 在kube-system命名空间中创建`ServiceAccount`；
-- 创建`ClusterRoleBinding`以授予tiller帐户对集群的访问权限 
+- 创建`ClusterRoleBinding`以授予tiller帐户对集群的访问权限
 - `helm`初始化`tiller`服务
 
     ```bash

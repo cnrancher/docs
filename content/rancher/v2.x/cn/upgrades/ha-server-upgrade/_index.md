@@ -1,7 +1,9 @@
 ---
-title: 2 - HA升级
+title: 2 - RKE HA升级
 weight: 2
 ---
+
+>此方法仅适用于Rancher:v2.0.8及之前的版本
 
 ### 先决条件
 

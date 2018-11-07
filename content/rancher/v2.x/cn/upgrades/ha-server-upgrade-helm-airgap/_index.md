@@ -1,6 +1,6 @@
 ---
-title: High Availability (HA) Upgrade - Air Gap
-weight: 1021
+title: 5 - helm HA离线升级
+weight: 5
 ---
 
 The following instructions will guide you through upgrading a high-availability Rancher Server installed in an air gap environment.
@@ -37,7 +37,7 @@ The following instructions will guide you through upgrading a high-availability 
     ```
     helm repo list
 
-    NAME          	      URL                                              
+    NAME          	      URL
     stable        	      https://kubernetes-charts.storage.googleapis.com
     rancher-<CHART_REPO>	https://releases.rancher.com/server-charts/<CHART_REPO>
     ```

@@ -118,7 +118,29 @@ EOF
 
 ### Ubuntu
 
-- **Docker-ce**
+- **修改系统源**
+
+    ```bash
+    sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+    cat > /etc/apt/sources.list << EOF
+
+    deb http://mirrors.aliyun.com/ubuntu/ xenial main
+    deb-src http://mirrors.aliyun.com/ubuntu/ xenial main
+    deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main
+    deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates main
+    deb http://mirrors.aliyun.com/ubuntu/ xenial universe
+    deb-src http://mirrors.aliyun.com/ubuntu/ xenial universe
+    deb http://mirrors.aliyun.com/ubuntu/ xenial-updates universe
+    deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates universe
+    deb http://mirrors.aliyun.com/ubuntu/ xenial-security main
+    deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security main
+    deb http://mirrors.aliyun.com/ubuntu/ xenial-security universe
+    deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security universe
+
+    EOF
+    ```
+
+- **Docker-ce安装**
 
     ```bash
     # 定义安装版本
@@ -144,7 +166,67 @@ EOF
 
 ### CentOS
 
-- **Docker-ce**
+- **修改系统源**
+
+    ```bash
+    sudo cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak
+    cat > /etc/yum.repos.d/CentOS-Base.repo << EOF
+
+    [base]
+    name=CentOS-$releasever - Base - mirrors.aliyun.com
+    failovermethod=priority
+    baseurl=http://mirrors.aliyun.com/centos/$releasever/os/$basearch/
+            http://mirrors.aliyuncs.com/centos/$releasever/os/$basearch/
+            http://mirrors.cloud.aliyuncs.com/centos/$releasever/os/$basearch/
+    gpgcheck=1
+    gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7
+
+    #released updates
+    [updates]
+    name=CentOS-$releasever - Updates - mirrors.aliyun.com
+    failovermethod=priority
+    baseurl=http://mirrors.aliyun.com/centos/$releasever/updates/$basearch/
+            http://mirrors.aliyuncs.com/centos/$releasever/updates/$basearch/
+            http://mirrors.cloud.aliyuncs.com/centos/$releasever/updates/$basearch/
+    gpgcheck=1
+    gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7
+
+    #additional packages that may be useful
+    [extras]
+    name=CentOS-$releasever - Extras - mirrors.aliyun.com
+    failovermethod=priority
+    baseurl=http://mirrors.aliyun.com/centos/$releasever/extras/$basearch/
+            http://mirrors.aliyuncs.com/centos/$releasever/extras/$basearch/
+            http://mirrors.cloud.aliyuncs.com/centos/$releasever/extras/$basearch/
+    gpgcheck=1
+    gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7
+
+    #additional packages that extend functionality of existing packages
+    [centosplus]
+    name=CentOS-$releasever - Plus - mirrors.aliyun.com
+    failovermethod=priority
+    baseurl=http://mirrors.aliyun.com/centos/$releasever/centosplus/$basearch/
+            http://mirrors.aliyuncs.com/centos/$releasever/centosplus/$basearch/
+            http://mirrors.cloud.aliyuncs.com/centos/$releasever/centosplus/$basearch/
+    gpgcheck=1
+    enabled=0
+    gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7
+
+    #contrib - packages by Centos Users
+    [contrib]
+    name=CentOS-$releasever - Contrib - mirrors.aliyun.com
+    failovermethod=priority
+    baseurl=http://mirrors.aliyun.com/centos/$releasever/contrib/$basearch/
+            http://mirrors.aliyuncs.com/centos/$releasever/contrib/$basearch/
+            http://mirrors.cloud.aliyuncs.com/centos/$releasever/contrib/$basearch/
+    gpgcheck=1
+    enabled=0
+    gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7
+
+    EOF
+    ```
+
+- **Docker-ce安装**
 
     >因为CentOS的安全限制，通过RKE安装K8S集群时候无法使用`root`账户。所以，建议`CentOS`用户使用非`root`用户来运行docker,不管是`RKE`还是`custom`安装k8s,详情查看[无法为主机配置SSH隧道]({{< baseurl >}}/rancher/v2.x/cn/faq/troubleshooting-ha/ssh-tunneling/)。
 

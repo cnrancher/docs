@@ -1,6 +1,6 @@
 ---
-title: 3 - Helm安装Rancher
-weight: 3
+title: 4 - Helm安装Rancher
+weight: 4
 ---
 
 >**注意：** 对于没有Internet访问的系统，请参考[离线安装Rancher]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)。

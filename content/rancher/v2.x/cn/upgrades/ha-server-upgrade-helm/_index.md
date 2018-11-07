@@ -1,6 +1,6 @@
 ---
-title: High Availability (HA) Upgrade
-weight: 1020
+title: 3 - helm HA升级
+weight: 3
 ---
 
 The following instructions will guide you through upgrading a high-availability Rancher Server that was [installed using Helm package manager]({{< baseurl >}}/rancher/v2.x/en/installation/ha/).
@@ -49,7 +49,7 @@ The following instructions will guide you through upgrading a high-availability 
     ```
     helm repo list
 
-    NAME          	      URL                                              
+    NAME          	      URL
     stable        	      https://kubernetes-charts.storage.googleapis.com
     rancher-<CHART_REPO>	https://releases.rancher.com/server-charts/<CHART_REPO>
     ```

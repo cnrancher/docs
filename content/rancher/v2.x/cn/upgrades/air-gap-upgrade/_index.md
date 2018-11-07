@@ -1,7 +1,9 @@
 ---
-title: 3 - 离线升级
-weight: 3
+title: 4 - RKE离线升级
+weight: 4
 ---
+
+>此方法仅适用于Rancher:v2.0.8及之前的版本
 
 要离线升级Rancher Server，需要先把最新稳定版本的 `Rancher Server`镜像以及其他系统组件镜像同步到私有镜像仓库，然后运行upgrade命令。
 
