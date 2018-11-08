@@ -33,9 +33,11 @@ weight: 10
 - [docker-compose-Linux-x86_64](/download/compose/docker-compose-Linux-x86_64)
 - [docker-compose-Windows-x86_64](/download/compose/docker-compose-Windows-x86_64.exe)
 
+<!--
 ### Harbor
 
 - [harbor-online-installer.tgz](/download/harbor/harbor-online-installer.tgz)
+-->
 
 ### Helm
 
