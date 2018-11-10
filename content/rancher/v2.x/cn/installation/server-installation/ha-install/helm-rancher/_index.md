@@ -25,13 +25,6 @@ weight: 1
 - [rke]({{< baseurl >}}/rancher/v2.x/cn/installation/download/#rancher-rke) - Rancher Kubernetes Engine用于构建Kubernetes集群。
 - [helm]({{< baseurl >}}rancher/v2.x/cn/installation/download/#helm) - Kubernetes的包管理。
 
-## Installation Outline
-
-1. [创建Load Balancer](./create-nodes-lb/)
-1. [安装Kubernetes](./rke-install-k8s/)
-1. [安装Helm (tiller)](./helm-install/)
-1. [安装Rancher](./rancher-install/)
-
 ## 附加安装选项
 
 - [从HA RKE Add-on安装迁移]({{< baseurl >}}/rancher/v2.x/cn/upgrades/migrating-from-rke-add-on/)
@@ -39,8 +32,6 @@ weight: 1
 ## 以前的安装方法
 
 > **重要提示: RKE add-on安装方法仅支持Rancher v2.0.8**
->
->请使用helm chart安装Rancher HA， 详细信息查看[Rancher HA安装大纲]({{< baseurl >}}/rancher/v2.x/en/installation/ha/#installation-outline)。
 >
 >如果您目前正在使用`RKE add-on`安装的集群，请参阅[从HA RKE Add-on安装迁移]({{< baseurl >}}/rancher/v2.x/cn/upgrades/migrating-from-rke-add-on/)进行升级迁移。
 

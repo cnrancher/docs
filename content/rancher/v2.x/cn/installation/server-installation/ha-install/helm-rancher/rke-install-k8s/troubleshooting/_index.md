@@ -19,7 +19,7 @@ The most common cause of this issue is the `canal` pods have failed to establish
 
 * User specified to connect with does not have permission to access the Docker socket. This can be checked by logging into the host and running the command `docker ps`:
 
-```
+```bash
 $ ssh user@server
 user@server$ docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
@@ -30,7 +30,8 @@ See [Manage Docker as a non-root user](https://docs.docker.com/install/linux/lin
 * When using RedHat/CentOS as operating system, you cannot use the user `root` to connect to the nodes because of [Bugzilla #1527565](https://bugzilla.redhat.com/show_bug.cgi?id=1527565). You will need to add a separate user and configure it to access the Docker socket. See [Manage Docker as a non-root user](https://docs.docker.com/install/linux/linux-postinstall/#manage-docker-as-a-non-root-user) how to set this up properly.
 
 * SSH server version is not version 6.7 or higher. This is needed for socket forwarding to work, which is used to connect to the Docker socket over SSH. This can be checked using `sshd -V` on the host you are connecting to, or using netcat:
-```
+
+```bash
 $ nc xxx.xxx.xxx.xxx 22
 SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.10
 ```

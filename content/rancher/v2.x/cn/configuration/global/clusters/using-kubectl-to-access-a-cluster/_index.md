@@ -13,7 +13,7 @@ You can access and manage your Kubernetes clusters using kubectl in two ways:
 You can access and manage your clusters by logging into Rancher and opening the kubectl shell. No further configuration necessary.
 
 1. From the **Global** view, open the cluster that you want to access with kubectl.
-    
+
 2. Click **Launch kubectl**. Use the window that opens to interact with your Kubernetes cluster.
 
     For more information on using kubectl, see [Kubernetes Documentation: Overview of kubectl](https://kubernetes.io/docs/reference/kubectl/overview/).
@@ -27,7 +27,7 @@ Alternatively, you can access your clusters by installing kubectl on your workst
 
 2. Log into Rancher. From the **Global** view, open the cluster that you want to access with kubectl.
 
-3. Copy the cluster's kubeconfig file to your workstation. 
+3. Copy the cluster's kubeconfig file to your workstation.
 
     1. Click **Kubeconfig File**.
 
@@ -37,7 +37,7 @@ Alternatively, you can access your clusters by installing kubectl on your workst
 
         >**Note:** The default location that kubectl uses for the kubeconfig file is `~/.kube/config`, but you can use any directory and specify it using the `--kubeconfig` flag, as in the sample that follows:
         >
-        >```
+        >```bash
         kubectl --kubeconfig /custom/path/kube.config get pods
         ```
 4. From your workstation, launch kubectl. Use it to interact with your kubernetes cluster.

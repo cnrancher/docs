@@ -1,6 +1,6 @@
 ---
-title: 6 - 从RKE HA迁移
-weight: 6
+title: 7 - 从RKE HA迁移
+weight: 7
 ---
 
 > #### **Important: RKE add-on install is only supported up to Rancher v2.0.8**

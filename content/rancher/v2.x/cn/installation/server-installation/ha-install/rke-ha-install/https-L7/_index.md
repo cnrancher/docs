@@ -261,7 +261,7 @@ apiVersion: extensions/v1beta1
 
 **结果:** 应该会有以下日志输出:
 
-```json
+```bash
 INFO[0000] Building Kubernetes cluster
 INFO[0000] [dialer] Setup tunnel for host [1.1.1.1]
 INFO[0000] [network] Deploying port listener containers

@@ -289,7 +289,7 @@ EOF
 
 从Docker1.12开始，支持自定义下载和上传镜像的并发数，默认值上传为3个并发，下载为5个并发。通过添加"max-concurrent-downloads"和"max-concurrent-uploads"参数对其修改:
 
-```json
+```bash
 "max-concurrent-downloads": 3,
 "max-concurrent-uploads": 5
 ```

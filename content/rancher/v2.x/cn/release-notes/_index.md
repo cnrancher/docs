@@ -11,5 +11,6 @@ weight: 10
 [Release v2.0.5]({{< baseurl >}}/rancher/v2.x/cn/release-notes/v2.0.5/)\
 [Release v2.0.6]({{< baseurl >}}/rancher/v2.x/cn/release-notes/v2.0.6/)\
 [Release v2.0.7]({{< baseurl >}}/rancher/v2.x/cn/release-notes/v2.0.7/)\
-[Release v2.0.7]({{< baseurl >}}/rancher/v2.x/cn/release-notes/v2.0.8/)\
-[Release v2.0.7]({{< baseurl >}}/rancher/v2.x/cn/release-notes/v2.1.0/)
+[Release v2.0.8]({{< baseurl >}}/rancher/v2.x/cn/release-notes/v2.0.8/)\
+[Release v2.1.0]({{< baseurl >}}/rancher/v2.x/cn/release-notes/v2.1.0/)\
+[Release v2.1.1]({{< baseurl >}}/rancher/v2.x/cn/release-notes/v2.1.1/)

@@ -25,7 +25,7 @@ weight: 2
 
 ### 外部四层负载均衡 + Rancher HA部署
 
-- [四层负载均衡HA部署(TCP-L4)]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-install-external-lb/tcp-l4/)
+- [四层负载均衡HA部署(TCP-L4)](./tcp-l4/)
 
 所谓的四层负载均衡，就是让负载均衡器工作在传输层上，在这个层面上主要以TCP协议来传输数据。而我们平时给网站配置的ssl证书需要运行在http协议，所以四层负载均衡模式下将无法在负载均衡层面配置ssl证书。
 
@@ -33,10 +33,10 @@ weight: 2
 
 ### 外部七层负载均衡 + Rancher HA部署
 
-- [七层负载均衡HA部署(HTTPS-L7]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-install-external-lb/https-l7/)
+- [七层负载均衡HA部署(HTTPS-L7](./https-l7/)
 
 七层负载运行在应用层，在这个层面上主要以http协议来传输数据，比如我们常用的WEB浏览器。我们平时用的HTTPS(也就是HTTP over TLS),就是在HTTP基础上利用SSL/TLS来加密。所以，以外部七层负载均衡器作为代理层，后端(ingress或者Rancher server)就不需要配置ssl证书，外部七层负载均衡器将作为ssl的终点。
 
-默认情况，如果以`docker run -p 80:80 -p 443:443`运行一个Rancher server容器，访问80端口时会自动重定向到443端口上，也就是Rancher必须要求运行在`HTTPS`协议上。当外部七层负载均衡配置ssl证书后，后端的服务可以不用配置ssl证书，让它运行在`HTTP`协议上。 
+默认情况，如果以`docker run -p 80:80 -p 443:443`运行一个Rancher server容器，访问80端口时会自动重定向到443端口上，也就是Rancher必须要求运行在`HTTPS`协议上。当外部七层负载均衡配置ssl证书后，后端的服务可以不用配置ssl证书，让它运行在`HTTP`协议上。
 
-对应此架构，在Rancher的开发设计中预制了一个功能开关，可以通过外部负载均衡器传递一个`X-Forwarded-Proto`参数给Rancher,这样Rancher容器就能知道外部已启用HTTPS，就会禁用Rancher server容器自身`80→443`的重定向功能,具体配置请查阅[七层负载均衡HA部署(HTTPS-L7]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-install-external-lb/https-l7/)。
+对应此架构，在Rancher的开发设计中预制了一个功能开关，可以通过外部负载均衡器传递一个`X-Forwarded-Proto`参数给Rancher,这样Rancher容器就能知道外部已启用HTTPS，就会禁用Rancher server容器自身`80→443`的重定向功能,具体配置请查阅[七层负载均衡HA部署(HTTPS-L7](./https-l7/)。

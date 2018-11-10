@@ -15,7 +15,7 @@ NGINX拥有所有主流操作系统的软件包，通过包管理器可以很轻
 
     **NGIN示例配置:**
 
-    ```json
+    ```bash
     upstream rancher {
         server IP_NODE_1:80;
         server IP_NODE_2:80;

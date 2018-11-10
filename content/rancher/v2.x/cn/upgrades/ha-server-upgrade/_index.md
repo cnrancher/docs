@@ -1,6 +1,6 @@
 ---
-title: 2 - RKE HA升级
-weight: 2
+title: 3 - RKE HA升级
+weight: 3
 ---
 
 >此方法仅适用于Rancher:v2.0.8及之前的版本

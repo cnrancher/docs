@@ -1,6 +1,6 @@
 ---
-title: 3 - helm HA升级
-weight: 3
+title: 5 - helm HA升级
+weight: 5
 ---
 
 The following instructions will guide you through upgrading a high-availability Rancher Server that was [installed using Helm package manager]({{< baseurl >}}/rancher/v2.x/en/installation/ha/).
@@ -31,22 +31,25 @@ The following instructions will guide you through upgrading a high-availability 
 
     Update the helm agent, Tiller, on your cluster.
 
-    ```
+    ```bash
     helm init --upgrade --service-account tiller
     ```
+- **Upgrades to v2.0.7+ only: check system namespace locations**
+     Starting in v2.0.7, Rancher introduced the `System` project, which is a project that's automatically created to store important namespaces that Kubernetes needs to operate. During upgrade to v2.0.7+, Rancher expects these namespaces to be unassigned from all projects. Before beginning upgrade, check your system namespaces to make sure that they're unassigned to [prevent cluster networking issues]({{< baseurl >}}/rancher/v2.x/en/upgrades/upgrades/namespace-migration/#preventing-cluster-networking-issues).
+
 ## Upgrade Rancher
 
 > **Note:** For Air Gap installs see [Upgrading HA Rancher - Air Gap]({{< baseurl >}}/rancher/v2.x/en/installation/air-gap-installation/install-rancher/#upgrading-rancher)
 
 1. Update your local helm repo cache.
 
-    ```
+    ```bash
     helm repo update
     ```
 
 2. Get the [repository name that you installed Rancher]({{< baseurl >}}/rancher/v2.x/en/installation/server-tags/#helm-chart-repositories) with.
 
-    ```
+    ```bash
     helm repo list
 
     NAME          	      URL
@@ -58,7 +61,7 @@ The following instructions will guide you through upgrading a high-availability 
 
 3. Get the set values from the current Rancher install.
 
-    ```
+    ```bash
     helm get values rancher
 
     hostname: rancher.my.org
@@ -71,9 +74,15 @@ The following instructions will guide you through upgrading a high-availability 
     - Replace `<CHART_REPO>` with the repository that was listed (i.e. `latest` or `stable`).
     - Take all the values from the previous step and append them to the command using `--set key=value`.
 
-    ```
+    ```bash
     helm upgrade rancher rancher-<CHART_REPO>/rancher --set hostname=rancher.my.org
     ```
+
+**Result:** Rancher is upgraded. Log back into Rancher to confirm that the upgrade succeeded.
+
+>**Having Network Issues Following Upgrade?**
+>
+> See [Restoring Cluster Networking]({{< baseurl >}}/rancher/v2.x/en/upgrades/upgrades/namespace-migration/#restoring-cluster-networking).
 
 ## Rolling Back
 

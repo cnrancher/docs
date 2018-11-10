@@ -104,7 +104,7 @@ OverlayFS是一个新一代的联合文件系统，类似于AUFS，但速度更�
 
 6、综合配置
 
-```json
+```bash
 touch /etc/docker/daemon.json
 cat > /etc/docker/daemon.json <<EOF
 {
