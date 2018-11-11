@@ -1,8 +1,6 @@
 ---
-title: Logging
-weight: 5015
-aliases:
-  - /rancher/v2.x/en/tasks/logging/
+title: 1 - 日志收集
+weight: 1
 ---
 
 Rancher can integrate with a variety of popular logging services and tools that exist outside of your Kubernetes clusters.
@@ -18,7 +16,7 @@ Rancher supports the following services:
 
 Docker daemon should be [configured](https://docs.docker.com/config/containers/logging/configure/) with the (default) log-driver: `json-file`. You can check the log-driver by running the following command:
 
-```bash
+```
 $ docker info | grep 'Logging Driver'
 Logging Driver: json-file
 ```

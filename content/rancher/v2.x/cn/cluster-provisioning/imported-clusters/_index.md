@@ -1,5 +1,5 @@
 ---
-title: 4 - 导入Kubernetes Clusters
+title: 4 - 导入集群
 weight: 4
 
 ---

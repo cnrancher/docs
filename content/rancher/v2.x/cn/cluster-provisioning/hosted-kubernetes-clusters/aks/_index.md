@@ -1,7 +1,7 @@
 ---
-title: Creating an AKS Cluster
+title: 1 - AKS Cluster
 shortTitle: Azure Kubernetes Service
-weight: 2115
+weight: 1
 aliases:
   - /rancher/v2.x/en/tasks/clusters/creating-a-cluster/create-cluster-azure-container-service/
 ---

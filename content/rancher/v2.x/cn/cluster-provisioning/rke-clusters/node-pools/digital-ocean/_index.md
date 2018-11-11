@@ -1,7 +1,7 @@
 ---
-title: Creating a DigitalOcean Cluster
+title: 2 - DigitalOcean
 shortTitle: DigitalOcean
-weight: 2215
+weight: 2
 aliases:
   - /rancher/v2.x/en/tasks/clusters/creating-a-cluster/create-cluster-digital-ocean/
 ---

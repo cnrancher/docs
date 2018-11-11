@@ -1,6 +1,6 @@
 ---
-title:  Alerts and Notifiers
-weight: 5010
+title:  2 - 告警和通知
+weight: 2
 ---
 
 Notifiers and alerts are two features that work together to inform you of events in the Rancher system. Notifiers are objects that you configure to leverage popular IT services, which send you notification of Rancher events. Alerts are rule sets that trigger when those notifications are sent.
@@ -47,8 +47,8 @@ Set up a notifier so that you can begin configuring and sending alerts.
 1. In the **Sender** field, enter an email address available on your mail server that you want to send the notification.
 1. In the **Host** field, enter the IP address or host name for your SMTP server. Example: `smtp.email.com`
 1. In the **Port** field, enter the port used for email. Typically, TLS uses `587` and SSL uses `465`. If you're using TLS, make sure **Use TLS** is selected.
-1. Enter a **Username** and **Password** that authenticate with the SMTP server. 
-1. In the **Default Recipient** field, enter the email address that you want to receive the notification. 
+1. Enter a **Username** and **Password** that authenticate with the SMTP server.
+1. In the **Default Recipient** field, enter the email address that you want to receive the notification.
 1. Click **Test**. If the test is successful, Rancher prints `settings validated` and you receive a test notification email.
 {{% /accordion %}}
 {{% accordion id="pagerduty" label="PagerDuty" %}}
@@ -62,7 +62,7 @@ Set up a notifier so that you can begin configuring and sending alerts.
 1. Enter a **Name** for the notifier.
 1. Using the app of your choice, create a webhook URL.
 1. Enter your webhook **URL**.
-1. Click **Test**. If the test is successfull, the URL you're configuring as a notifier outputs `Webhook setting validated`.
+1. Click **Test**. If the test is successful, the URL you're configuring as a notifier outputs `Webhook setting validated`.
 {{% /accordion %}}
 
 1. Click **Add** to complete adding the notifier.
@@ -209,7 +209,7 @@ This alert type monitors for events that occur on any node on marked with a labe
     <br/>
       Select the urgency level of the alert based on its impact on operations. For example, an alert triggered when a node's CPU raises above 60% deems a urgency of **Info**, but a node that is **Not Ready** deems an urgency of **Critical**.
 {{% /accordion %}}
-1. Finally, choose the notifiers that send you alerts. 
+1. Finally, choose the notifiers that send you alerts.
 
     - You can set up multiple notifiers.
     - You can change notifier recipients on the fly.
@@ -281,7 +281,7 @@ This alert type monitors for the availability of all workloads marked with tags 
     - **Info**: Least urgent
 
     Select the urgency level of the alert based on the percentage you choose and the importance of the workload.
-    
+
 {{% /accordion %}}
 
 1. Finally, choose the notifiers that send you alerts.

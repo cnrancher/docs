@@ -1,157 +1,159 @@
 ---
-title: Creating a vSphere Cluster
+title: 4 - vSphere
 shortTitle: vSphere
-weight: 2225
+weight: 4
 aliases:
   - /rancher/v2.x/en/tasks/clusters/creating-a-cluster/create-cluster-vsphere/
 ---
-Use {{< product >}} to create a Kubernetes cluster in vSphere.
 
-## Introduction
+使用Rancher通过主机驱动在vSphere中创建Kubernetes集群。
 
-When creating a vSphere cluster, Rancher first provisions the specified amount of virtual machines by communicating with the vCenter API. Then it installs Kubernetes on top of them. A vSphere cluster may consist of multiple groups of VMs with distinct properties, such as the amount of memory or the number of vCPUs. This grouping allows for fine-grained control over the sizing of nodes for the data, control, and worker plane respectively.
+## 一、介绍
 
->**Note:**
->The vSphere node driver included in Rancher currently only supports the provisioning of VMs with [RancherOS]({{< baseurl >}}/os/v1.x/en/) as the guest operating system.
+创建vSphere群集时，Rancher首先通过与vCenter API通信来配置指定数量的虚拟机，然后在虚拟机之上安装Kubernetes。vSphere群集可能包含多组具有不同属性的VM，例如内存或vCPU。该分组允许分别对`ETCD`，`Control`和`worker`节点大小进行细粒度控制。
 
-## Prerequisites
+>**注意:**
+>Rancher中包含的vSphere节点驱动程序目前仅支持使用`RancherOS`作为客户机操作系统来配置VM 。
 
-Before proceeding to create a cluster, you must ensure that you have a vSphere user with sufficient permissions. If you are planning to make use of vSphere volumes for persistent storage in the cluster, there are [additional requirements]({{< baseurl >}}/rke/v0.1.x/en/config-options/cloud-providers/vsphere/) that must be met.
-The following steps create a role with the required privileges and then assign it to a new user in the vSphere console:
+## 二、先决条件
 
-1. From the **vSphere** console, go to the **Administration** page.
+在继续创建群集之前，必须确保具有足够权限的vSphere用户。如果您计划将vSphere存储卷用于群集中的持久存储，则还必须满足[其他要求]({{< baseurl >}}/rke/v0.1.x/en/config-options/cloud-providers/vsphere/)。
 
-2. Go to the **Roles** tab.
+## 三、配置用户权限
 
-3. Create a new role.  Give it a name and select the privileges listed in the [permissions table](#annex-vsphere-permissions).
+通过以下步骤创建所需权限的角色，然后在vSphere控制台中将其分配给新用户：
 
-	![image]({{< baseurl >}}/img/rancher/rancherroles1.png)
+1. 在`vSphere控制台`中，转至`管理`页面。
 
-4. Go to the **Users and Groups** tab.
+2. 转到`角色`选项卡。
 
-5. Create a new user. Fill out the form and then click **OK**. Make sure to note the username and password, as you will need it when configuring node templates in Rancher.
+3. 创建一个新角色。为其命名并选择[权限表](#annex-vsphere-permissions)中列出的权限。
 
-	![image]({{< baseurl >}}/img/rancher/rancheruser.png)
+    ![image]({{< baseurl >}}/img/rancher/rancherroles1.png)
 
-6. Go to the **Global Permissions** tab.
+4. 转到`用户和组`选项卡。
 
-7. Create a new Global Permission.  Add the user you created earlier and assign it the role you created earlier. Click **OK**.
+5. 创建一个新用户。填写表单，然后单击`确定`。确保记下用户名和密码，因为在Rancher中配置节点模板时将需要设置它。
 
-	![image]({{< baseurl >}}/img/rancher/globalpermissionuser.png)
+    ![image]({{< baseurl >}}/img/rancher/rancheruser.png)
 
-	![image]({{< baseurl >}}/img/rancher/globalpermissionrole.png)
+6. 转到`全局权限`选项卡。
 
-## Creating vSphere Clusters
+7. 创建新的全局权限。添加您之前创建的用户，并为其分配您之前创建的角色，最后单击`确定`。
 
-### Create a vSphere Node Template
+    ![image]({{< baseurl >}}/img/rancher/globalpermissionuser.png)
 
-To create a cluster, you need to create at least one vSphere [node template]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools/#node-templates)  that specifies how VMs are created in vSphere.
+    ![image]({{< baseurl >}}/img/rancher/globalpermissionrole.png)
 
->**Note:**
->Once you create a node template, it is saved, and you can re-use it whenever you create additional vSphere clusters.
+## 四、创建主机模板
 
-1. Log in with an admin account to the Rancher UI.
+要创建群集，需要创建至少一个vSphere[主机模板]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools/#node-templates)，该模板指定如何创建VM。
 
-2. From the user settings menu, select **Node Templates**.
+>**注意:** 创建节点模板后，将保存该模板，并且可以在创建其他vSphere群集时重复使用它。
 
-3. Click **Add Template** and then click on the **vSphere** icon.
+1. 使用管理员帐户登录Rancher UI。
 
-4. Under [Account Access](#account-access) enter the vCenter FQDN or IP address and the credentials for the vSphere user account (see [Prerequisites](#prerequisites)).
+2. 从用户设置菜单中，选择`主机模板`。
 
-5. Under [Instance Options](#instance-options), configure the number of vCPUs, memory, and disk size for the VMs created by this template.
+3. 单击`添加模板`，然后单击`vSphere`图标。
 
-6. **Optional:** Enter the URL pointing to a [RancherOS]({{< baseurl >}}/os/v1.x/en/) cloud-config file in the [Cloud Init](#instance-options) field.
+4. 在[帐户访问](#account-access)中输入vCenter FQDN或IP地址以及vSphere用户帐户的凭据(查看[先决条件](#prerequisites))。
 
-7. Ensure that the [OS ISO URL](#instance-options) contains the URL of a VMware ISO release for RancherOS (`rancheros-vmware.iso`).
+5. 在[实例选项](#instance-options)中, 配置此模板创建的VM的vCPU数、内存和磁盘大小。
 
-	![image]({{< baseurl >}}/img/rancher/vsphere-node-template-1.png)
+6. **可选:** 在[Cloud Init](#instance-options)中输入[RancherOS]({{< baseurl >}}/os/v1.x/en/) cloud-config文件的URL地址。
 
-8. **Optional:** Provide a set of [Configuration Parameters](#instance-options) for the VMs.
+7. 确保[OS ISO URL](#instance-options)包含RancherOS(`rancheros-vmware.iso`)的VMware ISO版本的URL。
 
-9. Under **Scheduling**, enter the name/path of the **Data Center** to create the VMs in, the name of the **VM Network** to attach to, and the name/path of the **Datastore** to store the disks in.
+    >**注意:** 如果是离线环境，此URL可以设置为一个内部的`http URL`地址，默认是公网地址。
 
-	![image]({{< baseurl >}}/img/rancher/vsphere-node-template-2.png)
+    ![image]({{< baseurl >}}/img/rancher/vsphere-node-template-1.png)
 
-10. **Optional:** Assign labels to the VMs that can be used as a base for scheduling rules in the cluster.
+8. **可选:** 为虚拟机设置一组[配置参数](#instance-options)。
 
-11. **Optional:** Customize the configuration of the Docker daemon on the VMs that will be created.
+9. 在**调度**中, 输入要创建VM的数据中心的`名称`，虚拟机要使用的网络名称，以及用于存储磁盘的数据存储`名称`。
+    >资源池（pool）书写格式：`/<dataCenter>/host/<ClusterName>/Resources/<poolName>`, `< >`表示需要修改的参数，其他为固定格式。
+    >主机（host）书写格式：`<ClusterName>/<host_name>`, `< >`表示需要修改的参数。
 
-10. Assign a descriptive **Name** for this template and click **Create**.
+    ![image]({{< baseurl >}}/img/rancher/vsphere-node-template-2.png)
 
-___
+10. 为这个模板指定一个描述性的**名称**。
 
-### Create a vSphere Cluster
+11. **可选:** 为POD的调度设置主机标签。
 
-After you've created a template, you can use it stand up the vSphere cluster itself.
+12. **可选:** 在将要创建的vm上定制Docker守护进程的配置。
 
-1. From the **Global** view, click **Add Cluster**.
+    常见的配置有Docker存储驱动、私有仓库地址、加速镜像地址
 
-2. Choose **vSphere**.
+    ![image-20181110214427204](_index.assets/image-20181110214427204.png)
 
-3. Enter a **Cluster Name**.
+13. 最后点击`创建`。
 
-4. {{< step_create-cluster_member-roles >}}
+## 五、创建vSphere Cluster
 
-5. {{< step_create-cluster_cluster-options >}}
+创建模板后，可以使用它来创建vSphere虚拟机和K8S集群。
 
-6. {{< step_create-cluster_node-pools >}}
+1. 在`全局`视图中，单击`添加群集`。
 
-	![image]({{< baseurl >}}/img/rancher/vsphere-cluster-create-1.png)
+2. 选择`vSphere`图表。
 
-7. Review your configuration, then click **Create**.
+3. 设置`Cluster`名称。
 
-> **Note:**
-> 
-> If you have a cluster with DRS enabled, setting up [VM-VM Affinity Rules](https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.resmgmt.doc/GUID-7297C302-378F-4AF2-9BD6-6EDB1E0A850A.html) is recommended. These rules allow VMs  assigned the etcd and control-plane roles to operate on separate ESXi hosts when they are assigned to different node pools. This practice ensures that the failure of a single physical machine does not affect the availability of those planes.
+4. 使用`成员角色`配置群集的用户授权。
 
-{{< result_create-cluster >}}
+    - 单击`添加成员`以添加可以访问群集的用户。
+    - 使用`角色`下拉列表为每个用户设置权限。
 
-## Annex - Node Template Configuration Reference
+5. 根据实际需求配置`集群选项`。
 
-The tables below describe the configuration options available in the vSphere node template.
+6. 将一个或多个节点池添加到集群。
 
-### Account Access
+    ![image]({{< baseurl >}}/img/rancher/vsphere-cluster-create-1.png)
 
-| Parameter                | Required | Description |
-|:------------------------:|:--------:|:------------------------------------------------------------:|
-| vCenter or ESXi Server   |   *      | IP or FQDN of the vCenter or ESXi server used for managing VMs. |
-| Port                     |   *      | Port to use when connecting to the server. Defaults to `443`.  |
-| Username                 |   *      | vCenter/ESXi user to authenticate with the server. |
-| Password                 |   *      | User's password. |
+7. 检查配置，然后单击`创建`。
 
-___
+> **注意:** 如果您的群集启用了`DRS`, 建议设置[VM-VM关联规则](https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.resmgmt.doc/GUID-7297C302-378F-4AF2-9BD6-6EDB1E0A850A.html)。这些规则允许分配了`etcd`和`Control`角色的VM在分配给不同节点池时在不同的ESXi主机上运行,这种做法可确保单个物理机器的故障不会影响这些平面的可用性。
 
-### Instance Options
+## 附件-节点模板配置参考
 
-| Parameter                | Required | Description |
-|:------------------------:|:--------:|:------------------------------------------------------------:|
-| CPUs                     |   *      | Number of vCPUS to assign to VMs. |
-| Memory                   |   *      | Amount of memory to assign to VMs.  |
-| Disk                     |   *      | Size of the disk (in MB) to attach to the VMs. |
-| Cloud Init               |          | URL of a [RancherOS cloud-config]({{< baseurl >}}/os/v1.x/en/installation/configuration/) file to provision VMs with. This file allows further customization of the RancherOS operating system, such as network configuration, DNS servers, or system daemons.|
-| OS ISO URL               |   *      | URL of a RancherOS vSphere ISO file to boot the VMs from. You can find URLs for specific versions in the [Rancher OS GitHub Repo](https://github.com/rancher/os). |
-| Configuration Parameters |          | Additional configuration parameters for the VMs. These correspond to the [Advanced Settings](https://kb.vmware.com/s/article/1016098) in the vSphere console. Example use cases include providing RancherOS [guestinfo]({{< baseurl >}}/os/v1.x/en/installation/running-rancheros/cloud/vmware-esxi/#vmware-guestinfo) parameters or enabling disk UUIDs for the VMs (`disk.EnableUUID=TRUE`). |
+下表介绍了vSphere主机模板中可用的配置选项。
 
-___
+### 帐户访问权限
 
-### Scheduling Options
+| 参数                         | 需要 | 描述 |
+|:------------------------|:--------|:------------------------------------------------------------|
+| vCenter or ESXi Server   |   *      | 用于管理VM的vCenter或ESXi服务器的IP或FQDN |
+| Port                     |   *      | 连接到服务器时使用的端口，默认为`443`  |
+| Username                 |   *      | vCenter/ESXi用户要对服务器进行身份验证 |
+| Password                 |   *      | 用户密码|
 
-| Parameter                | Required | Description |
-|:------------------------:|:--------:|:------------------------------------------------------------:|
-| Data Center              |   *      | Name/path of the datacenter to create VMs in.          |
-| Pool                     |          | Name/path of the resource pool to schedule the VMs in. If not specified, the default resource pool is used.  |
-| Host                     |          | Name/path of the host system to schedule VMs in. If specified, the host system's pool will be used and the *Pool* parameter will be ignored. |
-| Network                  |   *      | Name of the VM network to attach VMs to. |
-| Data Store               |   *      | Datastore to store the VM disks. |
-| Folder                   |          | Name/path of folder in the datastore to create the VMs in. Must already exist. |
+### 实例选项
 
-___
+|   参数                    |  需要  | 描述 |
+|:-------------------------|:---------|:--------------------------------------------------------------|
+| CPUs                     |   *      | 分配给VM的vCPUS数 |
+| Memory                   |   *      | 分配给VM的内存大小 |
+| Disk                     |   *      | 要附加到VM的磁盘大小（以MB为单位） |
+| Cloud Init               |          | 用于配置VM的[RancherOS cloud-config]({{< baseurl >}}/os/v1.x/en/installation/configuration/)文件的URL 。此文件允许进一步自定义RancherOS操作系统，例如网络配置，DNS服务器或系统守护程序。|
+| OS ISO URL               |   *      | 用于引导VM的RancherOS vSphere ISO文件的URL，可以在 [Rancher OS GitHub Repo](https://github.com/rancher/os)中找到特定版本的URL 。 |
+| Configuration Parameters |          | VM的其他配置参数。这些对应于vSphere控制台中[Advanced Settings](https://kb.vmware.com/s/article/1016098) ，示例用例包括提供RancherOS [guestinfo]({{< baseurl >}}/os/v1.x/en/installation/running-rancheros/cloud/vmware-esxi/#vmware-guestinfo)参数或为VM（`disk.EnableUUID=TRUE`）启用磁盘UUID 。 |
 
-## Annex - vSphere Permissions
+### 调度选项
 
-The following table lists the permissions required for the vSphere user account configured in the node templates:
+| 参数                    | 需要 | 描述 |
+|:------------------------|:--------|:------------------------------------------------------------|
+| Data Center              |   *      | 用于创建VM的数据中心的`名称/路`       |
+| Pool                     |          | 用于调度VM的资源池的`名称/路径`,如果未指定，则使用默认资源池。 |
+| Host                     |          | 用于调度VM的主机的`名称/路径`, 如果指定，将使用主机的pool，并忽略Pool参数。 |
+| Network                  |   *      | VM需要使用的`网络名称` |
+| Data Store               |   *      | 用于分配VM磁盘的`数据存储` |
+| Folder                   |          | 数据存储中用于创建VM的文件夹的`名称/路径`。如果要配置，则路径必须已存在。 |
 
-| Privilege Group       | Operations  |
+## 附件- vSphere权限
+
+下表列出了节点模板中配置的vSphere用户帐户所需的权限：
+
+| 权限组     | 操作  |
 |:----------------------|:-----------------------------------------------------------------------|
 | Datastore             | AllocateSpace </br> Browse </br> FileManagement </br> UpdateVirtualMachineFiles </br> UpdateVirtualMachineMetadata |
 | Network               | Assign |

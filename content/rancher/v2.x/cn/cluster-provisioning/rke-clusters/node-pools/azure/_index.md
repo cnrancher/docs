@@ -1,7 +1,7 @@
 ---
-title: Creating an Azure Cluster
+title: 1 - Azure
 shortTitle: Azure
-weight: 2220
+weight: 1
 aliases:
   - /rancher/v2.x/en/tasks/clusters/creating-a-cluster/create-cluster-azure/
 ---

@@ -1,5 +1,5 @@
 ---
-title: Kubernetes云服务
+title: Provisioning Kubernetes Clusters
 weight: 6
 ---
 
@@ -13,7 +13,7 @@ A _Kubernetes Cluster_ is a cluster that uses the [Kubernetes container-orchestr
 
 Each computing resource in a Kubernetes Cluster is called a _node_. Nodes can be either bare-metal servers or virtual machines. Kubernetes classifies nodes into three types: _etcd_ nodes, _control plane_ nodes, and _worker_ nodes.
 
-#### etcd Nodes 
+#### etcd Nodes
 
 [etcd](https://kubernetes.io/docs/concepts/overview/components/#etcd) nodes run the etcd database. The etcd database component is a key value store used as Kubernetes storage for all cluster data, such as cluster coordination and state management.
 
@@ -46,8 +46,7 @@ Options include:
 
 - [Hosted Kubernetes Cluster](#hosted-kubernetes-cluster)
 - [Rancher Launched Kubernetes](#rancher-launched-kubernetes)
-
-    - [Node Pools](#node-pools)
+    - [Nodes Hosted by an Infrastructure Provider](#nodes-hosted-by-an-infrastructure-provider)
     - [Custom Nodes](#custom-nodes)
 - [Import Existing Cluster](#import-existing-cluster)
 
@@ -68,11 +67,11 @@ Alternatively, you can use Rancher to create a cluster on your own nodes, using 
 
 [Rancher Launched Kubernetes]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/)
 
-#### Node Pools
+#### Nodes Hosted by an Infrastructure Provider
 
-Using Rancher, you can create pools of nodes based on a [node template]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools/#node-templates). This template defines the parameters used to launch nodes in your cloud providers. The cloud providers available for creating a node template are decided based on the [node drivers]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools/#node-drivers) active in the Rancher UI. The benefit of using a node pool is that if a node loses connectivity with the cluster, Rancher automatically replaces it, thus maintaining the expected cluster configuration.
+Using Rancher, you can create pools of nodes based on a [node template]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools/#node-templates). This template defines the parameters used to launch nodes in your cloud providers. The cloud providers available for creating a node template are decided based on the [node drivers]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools/#node-drivers) active in the Rancher UI. The benefit of using nodes hosted by an infrastructure provider is that if a node loses connectivity with the cluster, Rancher automatically replaces it, thus maintaining the expected cluster configuration.
 
-[Node Pools]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools/)
+[Nodes Hosted by an Infrastructure Provider]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools/)
 
 #### Custom Nodes
 

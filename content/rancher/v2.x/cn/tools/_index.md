@@ -76,5 +76,5 @@ After configuring Rancher and GitHub, you can deploy containers running Jenkins 
 - Build your application from code to image.
 - Validate your builds.
 - Deploy your build images to your cluster.
-- Run unit tests.  
+- Run unit tests.
 - Run regression tests.

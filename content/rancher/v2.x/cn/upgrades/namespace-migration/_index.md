@@ -1,5 +1,5 @@
 ---
-title: 8 - 升级到v2.0.7+ — 名称空间迁移
+title: 8 - 升级到v2.0.7+ — 命名空间迁移
 weight: 8
 ---
 >This section applies only to Rancher upgrades from v2.0.6 or earlier to v2.0.7 or later. Upgrades from v2.0.7 to later version are unaffected.

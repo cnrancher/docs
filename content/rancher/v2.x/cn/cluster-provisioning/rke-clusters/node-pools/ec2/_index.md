@@ -1,7 +1,7 @@
 ---
-title: Creating an Amazon EC2 Cluster
+title: 3 - Amazon EC2
 shortTitle: Amazon EC2
-weight: 2210
+weight: 3
 aliases:
   - /rancher/v2.x/en/tasks/clusters/creating-a-cluster/create-cluster-amazon-ec2/
 ---
@@ -14,6 +14,7 @@ Use {{< product >}} to create a Kubernetes cluster in Amazon EC2.
   - [Example IAM Policy](#example-iam-policy)
   - [Example IAM Policy with PassRole](#example-iam-policy-with-passrole) (needed if you want to use [Kubernetes Cloud Provider]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/options/cloud-providers) or want to pass an IAM Profile to an instance)
 - IAM Policy added as Permission to the user. See [Amazon Documentation: Adding Permissions to a User (Console)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_change-permissions.html#users_change_permissions-add-console) how to attach it to an user.
+
 
 ## Create the cluster
 
@@ -77,7 +78,7 @@ Use {{< product >}} to create a Kubernetes cluster in Amazon EC2.
                 "arn:aws:ec2:REGION:AWS_ACCOUNT_ID:subnet/*",
                 "arn:aws:ec2:REGION:AWS_ACCOUNT_ID:key-pair/*",
                 "arn:aws:ec2:REGION:AWS_ACCOUNT_ID:network-interface/*",
-                "arn:aws:ec2:REGION:AWS_ACCOUNT_ID:security-group/*",
+                "arn:aws:ec2:REGION:AWS_ACCOUNT_ID:security-group/*"
             ]
         },
         {

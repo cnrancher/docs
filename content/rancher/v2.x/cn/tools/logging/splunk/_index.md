@@ -11,10 +11,10 @@ If your organization uses [Splunk](https://www.splunk.com/), you can configure R
 
 You can configure Rancher to send Kubernetes logs to your instance of Splunk.
 
->**Prerequisites:**
+>**Prerequisites:** 
 >
->- Configure HTTP event collection for your Splunk Server (Splunk Enterprise or Splunk Cloud).
->- Enable all tokens, and then create a new token.
+>- Configure HTTP event collection for your Splunk Server (Splunk Enterprise or Splunk Cloud). 
+>- Enable all tokens, and then create a new token. 
 >
 >For more information, see [Splunk Documentation](http://docs.splunk.com/Documentation/Splunk/7.1.2/Data/UsetheHTTPEventCollector#About_Event_Collector_tokens).
 
@@ -31,7 +31,7 @@ If you're a [project owner or member]({{< baseurl >}}/rancher/v2.x/en/admin-sett
 
 1. From the **Global** view, open the project that you want to configure logging for.
 
-1. From the main menu, select **Resources > Logging**.
+1. From the main menu, select **Resources > Logging**. 
 {{% /accordion %}}
 
 1. Select **Splunk**.
@@ -39,7 +39,7 @@ If you're a [project owner or member]({{< baseurl >}}/rancher/v2.x/en/admin-sett
 1. Complete the **Splunk HTTP Event Collector Configuration** form.
 
     1. From the **Endpoint** field, enter the IP address and port for you Splunk instance (i.e. `http://splunk-server:8088`)
-
+    
         Splunk usually uses port `8088`. If you're using Splunk Cloud, you'll need to work with [Splunk support](https://www.splunk.com/en_us/support-and-services.html) to get an endpoint URL.
 
     1. Enter the **Token** you obtained while completing the prerequisites (i.e., when you created a token in Splunk).
@@ -74,7 +74,7 @@ If you're a [project owner or member]({{< baseurl >}}/rancher/v2.x/en/admin-sett
 
 You can use curl to see if **HEC** is listening for HTTP event data.
 
-```bash
+```
 $ curl http://splunk-server:8088/services/collector/event \
     -H 'Authorization: Splunk 8da70994-b1b0-4a79-b154-bfaae8f93432' \
     -d '{"event": "hello world"}'
