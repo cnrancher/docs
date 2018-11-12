@@ -2,8 +2,6 @@
 title: 4 - vSphere
 shortTitle: vSphere
 weight: 4
-aliases:
-  - /rancher/v2.x/en/tasks/clusters/creating-a-cluster/create-cluster-vsphere/
 ---
 
 使用Rancher通过主机驱动在vSphere中创建Kubernetes集群。
@@ -27,7 +25,7 @@ aliases:
 
 2. 转到`角色`选项卡。
 
-3. 创建一个新角色。为其命名并选择[权限表](#annex-vsphere-permissions)中列出的权限。
+3. 创建一个新角色。为其命名并选择[权限表](#附件-vsphere权限)中列出的权限。
 
     ![image]({{< baseurl >}}/img/rancher/rancherroles1.png)
 
@@ -57,19 +55,19 @@ aliases:
 
 3. 单击`添加模板`，然后单击`vSphere`图标。
 
-4. 在[帐户访问](#account-access)中输入vCenter FQDN或IP地址以及vSphere用户帐户的凭据(查看[先决条件](#prerequisites))。
+4. 在[帐户访问](#帐户访问权限)中输入vCenter FQDN或IP地址以及vSphere用户帐户的凭据(查看[先决条件](#二-先决条件))。
 
-5. 在[实例选项](#instance-options)中, 配置此模板创建的VM的vCPU数、内存和磁盘大小。
+5. 在[实例选项](#实例选项)中, 配置此模板创建的VM的vCPU数、内存和磁盘大小。
 
-6. **可选:** 在[Cloud Init](#instance-options)中输入[RancherOS]({{< baseurl >}}/os/v1.x/en/) cloud-config文件的URL地址。
+6. **可选:** 在[Cloud Init](#实例选项)中输入[RancherOS]({{< baseurl >}}/os/v1.x/en/) cloud-config文件的URL地址。
 
-7. 确保[OS ISO URL](#instance-options)包含RancherOS(`rancheros-vmware.iso`)的VMware ISO版本的URL。
+7. 确保[OS ISO URL](#实例选项)包含RancherOS(`rancheros-vmware.iso`)的VMware ISO版本的URL。
 
     >**注意:** 如果是离线环境，此URL可以设置为一个内部的`http URL`地址，默认是公网地址。
 
     ![image]({{< baseurl >}}/img/rancher/vsphere-node-template-1.png)
 
-8. **可选:** 为虚拟机设置一组[配置参数](#instance-options)。
+8. **可选:** 为虚拟机设置一组[配置参数](#实例选项)。
 
 9. 在**调度**中, 输入要创建VM的数据中心的`名称`，虚拟机要使用的网络名称，以及用于存储磁盘的数据存储`名称`。
     >资源池（pool）书写格式：`/<dataCenter>/host/<ClusterName>/Resources/<poolName>`, `< >`表示需要修改的参数，其他为固定格式。

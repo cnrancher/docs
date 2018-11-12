@@ -26,7 +26,7 @@ weight: 1
 
 ### 单节点安装
 
-- Enable
+- 启用
 
   ```bash
   docker exec -ti <container_id> loglevel --set debug

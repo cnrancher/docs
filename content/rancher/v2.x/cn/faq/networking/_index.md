@@ -15,4 +15,6 @@ weight: 4
 
 3. 删除Canal Pod让它重建
 
+    ```bash
     kubectl get pod -n kube-system |grep canal |awk '{print $1}' | xargs kubectl delete -n kube-system pod
+    ```

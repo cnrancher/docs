@@ -3,7 +3,7 @@ title: 1 - 基础环境配置
 weight: 1
 ---
 
-{{% accordion id="1" label="一、主机配置" %}}
+## 一、主机配置
 
 ### 1、配置要求
 
@@ -42,7 +42,7 @@ weight: 1
 
 ### 5、Hosts
 
-配置每台主机的hosts(/etc/hosts),添加`$hostname host_ip`到hosts文件中。
+配置每台主机的hosts(/etc/hosts),添加`host_ip $hostname`到`/etc/hosts`文件中。
 
 ### 6、CentOS关闭selinux
 
@@ -111,8 +111,7 @@ EOF
 | 8            | 5        | **3**                 |
 | 9            | 5        | **4**             |
 
-{{% /accordion %}}
-{{% accordion id="option-b" label="二、Docker安装与配置" %}}
+## 二、Docker安装与配置
 
 ### 1、Docker安装
 
@@ -368,13 +367,10 @@ sudo update-grub
 
 > 通过以上命令可自动配置参数，如果`/etc/default/grub`非默认配置，需根据实际参数做调整。
 
-{{% /accordion %}}
-{{% accordion id="option-c" label="三、仓库配置" %}}
+## 三、仓库配置
 
 - 离线安装镜像仓库配置
 
     在线情况下，Rancher部署kubenetes或者部署其他系统组件时，都是通过dockerhub拉取镜像，Dockerhub上rancher仓库为公开仓库，不用登录即可拉取镜像。如果是在离线环境下安装kubenetes集群,那么对应的项目需要为公开权限，不用登录即可拉取镜像。因为在Rancher2.0全局部署kubenetes时,无法使用Registries功能，对于私有项目无法代理提供登录信息，从而导致无法拉取镜像。
 
     > **提示** 以上配置完成后，建议重启一次主机。
-
-{{% /accordion %}}

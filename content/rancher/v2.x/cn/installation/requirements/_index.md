@@ -4,7 +4,7 @@ weight: 3
 aliases:
 ---
 
-Whether you're configuring Rancher to run in a single-node or high-availability setup, each node running Rancher Server must meet the following requirements.
+不管是单节点安装Rancher server，或高可用安装Rancher server,所有节点都需要满足以下的节点要求。
 
 {{% tabs %}}
 {{% tab "Operating Systems" %}}

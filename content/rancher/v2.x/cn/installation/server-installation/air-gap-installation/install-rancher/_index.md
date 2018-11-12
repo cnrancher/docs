@@ -114,7 +114,7 @@ rke up --config ./rancher-cluster.yml
     --name cert-manager --namespace kube-system \
     --set image.repository=<REGISTRY.YOURDOMAIN.COM:PORT>/jetstack/cert-manager-controller
     ```
-    >**注意** 会在本地生成`cert-manager`文件夹
+    >**注意** 会在本地生成`cert-manager`文件夹 ，[cert-manager版本查询](https://github.com/helm/charts/blob/master/stable/cert-manager/values.yaml#L6)。
 
 #### 2、Rancher
 
