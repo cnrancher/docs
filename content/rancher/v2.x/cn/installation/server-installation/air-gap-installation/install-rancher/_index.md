@@ -46,7 +46,7 @@ rke up --config ./rancher-cluster.yml
 
 ### 测试K8S集群
 
-按照[检查群集Pod的运行状况l]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-install/helm-rancher/rke-install-k8s/#四-检查群集pod的运行状况)检查集群是健康状态。
+按照[检查集群Pod的运行状况l]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-install/helm-rancher/rke-install-k8s/#四-检查集群pod的运行状况)检查集群是健康状态。
 
 ## 二、Helm安装
 
@@ -98,7 +98,7 @@ rke up --config ./rancher-cluster.yml
 
 #### 1、Cert-Manager
 
-如果要使用Rancher自签名证书安装Rancher，则需要在群集上安装`cert-manager`。如果您要安装自己的证书，可以跳过本节。
+如果要使用Rancher自签名证书安装Rancher，则需要在集群上安装`cert-manager`。如果您要安装自己的证书，可以跳过本节。
 
 1. 获取`cert-manager`Charts离线包,访问[官方Helm chart仓库](https://github.com/helm/charts/tree/master/stable)查看查看信息。
 
@@ -151,6 +151,61 @@ kubectl -n kube-system apply -R -f ./cert-manager
 kubectl -n cattle-system apply -R -f ./rancher
 ```
 
+## (可选)为Agent Pod添加主机别名(/etc/hosts)
+
+如果你没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
+
+### 解决方法
+
+可以通过给`cattle-cluster-agent Pod`和`cattle-node-agent`添加主机别名(/etc/hosts)，让其可以正常通信`(前提是IP地址可以互通)`。
+
+1. cattle-cluster-agent pod
+
+    ```bash
+    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
+    kubectl -n cattle-system patch  deployments cattle-cluster-agent --patch '{
+        "spec": {
+            "template": {
+                "spec": {
+                    "hostAliases": [
+                        {
+                            "hostnames":
+                            [
+                                "demo.cnrancher.com"
+                            ],
+                                "ip": "192.168.1.100"
+                        }
+                    ]
+                }
+            }
+        }
+    }'
+    ```
+
+2. cattle-node-agent pod
+
+    ```bash
+    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
+    kubectl -n cattle-system patch  daemonsets cattle-node-agent --patch '{
+        "spec": {
+            "template": {
+                "spec": {
+                    "hostAliases": [
+                        {
+                            "hostnames":
+                            [
+                                "xxx.rancher.com"
+                            ],
+                                "ip": "192.168.1.100"
+                        }
+                    ]
+                }
+            }
+        }
+    }'
+    ```
+    > 注意json中的引号。
+
 {{% /tab %}}
 {{% tab "独立容器安装" %}}
 
@@ -164,6 +219,63 @@ docker run -d --restart=unless-stopped \
  -p 80:80 -p 443:443 \
  <REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:<RANCHER_VERSION_TAG>
 ```
+
+## (可选)为Agent Pod添加主机别名(/etc/hosts)
+
+如果你没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
+
+### 解决方法
+
+可以通过给`cattle-cluster-agent Pod`和`cattle-node-agent`添加主机别名(/etc/hosts)，让其可以正常通信`(前提是IP地址可以互通)`。
+
+1. cattle-cluster-agent pod
+
+    ```bash
+    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
+    kubectl -n cattle-system patch  deployments cattle-cluster-agent --patch '{
+        "spec": {
+            "template": {
+                "spec": {
+                    "hostAliases": [
+                        {
+                            "hostnames":
+                            [
+                                "demo.cnrancher.com"
+                            ],
+                                "ip": "192.168.1.100"
+                        }
+                    ]
+                }
+            }
+        }
+    }'
+    ```
+
+2. cattle-node-agent pod
+
+    ```bash
+    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
+    kubectl -n cattle-system patch  daemonsets cattle-node-agent --patch '{
+        "spec": {
+            "template": {
+                "spec": {
+                    "hostAliases": [
+                        {
+                            "hostnames":
+                            [
+                                "xxx.rancher.com"
+                            ],
+                                "ip": "192.168.1.100"
+                        }
+                    ]
+                }
+            }
+        }
+    }'
+    ```
+    > **注意**
+    >1、替换其中的域名和IP \
+    >2、别忘记json中的引号。
 
 {{% /tab %}}
 {{% /tabs %}}

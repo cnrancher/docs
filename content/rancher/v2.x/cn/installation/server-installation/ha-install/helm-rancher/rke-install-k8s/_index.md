@@ -5,13 +5,13 @@ weight: 2
 
 使用RKE以高可用etcd配置安装Kubernetes。
 
-> **注意:** 对于没有直接互联网访问的系统，请访问[RKE - Air Gap]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/air-gap-installation/) 了解安装详情。
+> **注意:** 对于没有互联网访问的环境，请访问[RKE - Air Gap]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/air-gap-installation/) 了解安装详情。
 
 ## 一、创建`rancher-cluster.yml`文件
 
 使用下面的示例创建`rancher-cluster.yml`文件，使用创建的3个节点的IP地址或域名替换列表中的IP地址。
 
-> **注意:**  如果您的节点有`public and internal`地址，建议设置`internal_address:`以便Kubernetes将其用于群集内通信。如果需要开启自动配置安全组或防火墙，某些服务(如AWS EC2)需要设置`internal_address:`。
+> **注意:**  如果您的节点有`public and internal`地址，建议设置`internal_address:`以便Kubernetes将其用于集群内通信。如果需要开启自动配置安全组或防火墙，某些服务(如AWS EC2)需要设置`internal_address:`。
 
 ```yaml
 nodes:
@@ -42,7 +42,7 @@ services:
 | `address` | yes | 公共域名或IP地址 |
 | `user` | yes | 可以运行docker命令的用户|
 | `role` | yes | 分配给节点的Kubernetes角色列表 |
-| `internal_address` | no | 内部群集通信的私有域名或IP地址 |
+| `internal_address` | no | 内部集群通信的私有域名或IP地址 |
 | `ssh_key_path` | no | 用于对节点进行身份验证的SSH私钥的路径（默认为~/.ssh/id_rsa） |
 
 ### 2、高级配置
@@ -59,13 +59,13 @@ rke up --config ./rancher-cluster.yml
 
 完成后，它应显示：`Finished building Kubernetes cluster successfully`。
 
-## 三、测试群集
+## 三、测试集群
 
 RKE应该已经创建了一个文件`kube_config_rancher-cluster.yml`。这个文件包含kubectl和helm访问K8S的凭据。
 
 >**注意:** 如果你使用的文件不叫`rancher-cluster.yml`, 那么这个`kube config`配置文件将被命名为`kube_config_<FILE_NAME>.yml`。
 
-您可以将此文件复制到`$HOME/.kube/config`，或者如果你正在使用多个Kubernetes群集，请将`KUBECONFIG`环境变量设置为`kube_config_rancher-cluster.yml`文件路径。
+您可以将此文件复制到`$HOME/.kube/config`，或者如果你正在使用多个Kubernetes集群，请将`KUBECONFIG`环境变量设置为`kube_config_rancher-cluster.yml`文件路径。
 
 ```bash
 export KUBECONFIG=$(pwd)/kube_config_rancher-cluster.yml
@@ -82,7 +82,7 @@ NAME                          STATUS    ROLES                      AGE       VER
 165.227.127.226               Ready     controlplane,etcd,worker   11m       v1.10.1
 ```
 
-## 四、检查群集Pod的运行状况
+## 四、检查集群Pod的运行状况
 
 Check that all the required pods and containers are healthy are ready to continue.
 

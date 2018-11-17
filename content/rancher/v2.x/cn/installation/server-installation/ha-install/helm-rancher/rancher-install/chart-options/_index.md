@@ -8,7 +8,7 @@ weight: 2
 | 选项 | 默认值| 描述 |
 | --- | --- | --- |
 | `hostname` | " " | `string` - Rancher Server的完全限定域名 |
-| `ingress.tls.source` | `rancher` | `string` - Where to get the cert for the ingress. - "rancher, letsEncrypt, secret" |
+| `ingress.tls.source` | `rancher` | `string` - 从哪里获得证书 - "rancher, letsEncrypt, secret" |
 | `letsEncrypt.email` | " " | `string` - 邮件地址 |
 | `letsEncrypt.environment` | `production` | `string` - 有效选项: "staging, production" |
 | `privateCA` | false | `bool` - 如果您的证书是自签名CA证书，则设置为true |
@@ -19,58 +19,54 @@ weight: 2
 
 | 选项 | 默认值   | 描述 |
 | --- | --- | --- |
-| `additionalTrustedCAs` | false | `bool` - See [Additional Trusted CAs](#additional-trusted-cas) |
+| `additionalTrustedCAs` | false | `bool` - 查看[额外的授信CA证书](#额外的授信ca证书) |
 | `auditLog.destination` | "sidecar" | `string` - Stream to sidecar container console or hostPath volume - "sidecar, hostPath" |
-| `auditLog.hostPath` | "/var/log/rancher/audit" | `string` - log file destination on host |
-| `auditLog.level` | 0 | `int` - set the [API Audit Log]({{< baseurl >}}/rancher/v2.x/en/installation/api-auditing) level. 0 is off. [0-3] |
-| `auditLog.maxAge` | 1 | `int` - maximum number of days to retain old audit log files |
-| `auditLog.maxBackups` | 1 | `int` - maximum number of audit log files to retain |
-| `auditLog.maxSize` | 100 | `int` - maximum size in megabytes of the audit log file before it gets rotated |
-| `debug` | false | `bool` - set debug flag on rancher server |
-| `imagePullSecrets` | [] | `list` - list of names of Secret resource containing private registry credentials |
-| `proxy` | "" | `string` - string - HTTP[S] proxy server for Rancher |
-| `noProxy` | "127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16" | `string` - comma separated list of hostnames or ip address not to use the proxy |
-| `resources` | {} | `map` - rancher pod resource requests & limits |
-| `rancherImage` | "rancher/rancher" | `string` - rancher image source |
-| `rancherImageTag` | same as chart version | `string` - rancher/rancher image tag |
-| `tls` | "ingress" | `string` - See [External TLS Termination](#external-tls-termination) for details. - "ingress, external" |
+| `auditLog.hostPath` | "/var/log/rancher/audit" | `string` - 主机上的目标日志文件|
+| `auditLog.level` | 0 | `int` - - 设置[API审核日志]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/api-auditing/)等级. 0是关闭。 [0-3] |
+| `auditLog.maxAge` | 1 | `int` - 保留旧审核日志文件的最大天数 |
+| `auditLog.maxBackups` | 1 | `int` - 要保留的最大审计日志文件数 |
+| `auditLog.maxSize` | 100 | `int` - 审计日志文件轮换前的最大大小（单位兆） |
+| `debug` | false | `bool` - 开启rancher server debug模式 |
+| `imagePullSecrets` | [] | `list` - 包含私有镜像仓库登录凭据的Secret资源的名称列表 |
+| `proxy` | "" | `string` - string - Rancher的HTTP[S]代理服务器|
+| `noProxy` | "127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16" | `string` - 逗号分隔的主机名列表或不使用代理的IP地址 |
+| `resources` | {} | `map` - rancher pod 资源请求和限制 |
+| `rancherImage` | "rancher/rancher" | `string` - rancher镜像名称 |
+| `rancherImageTag` | same as chart version | `string` - rancher/rancher镜像版本 |
+| `tls` | "ingress" | `string` - 有关详细信息，请参阅[外部TLS终止](#外部TLS终止). - "ingress, external" |
 
 <br/>
 
 ### API审计日志
 
-Enabling the [API Audit Log](https://rancher.com/docs/rancher/v2.x/en/installation/api-auditing/).
+启用[API审核日志]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/api-auditing/).
 
-You can collect this log as you would any container log. Enable the [Logging service under Rancher Tools](https://rancher.com/docs/rancher/v2.x/en/tools/logging/) for the `System` Project on the Rancher server cluster.
+可以在Rancher 集群的`system`项目中启用[rancher日志收集]({{< baseurl >}}/rancher/v2.x/cn/tools/logging/)，就像收集容器日志一样收集此日志
 
 ```plain
 --set auditLog.level=1
 ```
 
-By default enabling Audit Logging will create a sidecar container in the Rancher pod. This container (`rancher-audit-log`) will stream the log to `stdout`.  You can collect this log as you would any container log. Enable the [Logging service under Rancher Tools](https://rancher.com/docs/rancher/v2.x/en/tools/logging/) for the Rancher server cluster or System Project.
-
-Set the `auditLog.destination` to `hostPath` to forward logs to volume shared with the host system instead of streaming to a sidecar container. When setting the destination to `hostPath` you may want to adjust the other auditLog parameters for log rotation.
+默认情况下，启用审核日志记录将在Rancher pod中创建一个sidecar容器。此容器（`rancher-audit-log`）将日志传输到`stdout`。 你可以通过查看Pod日志一下查看审计日志，可以通过开启项目的[日志收集工具]({{< baseurl >}}/rancher/v2.x/cn/tools/logging/)把日志收集到其他地方。
 
 ### HTTP Proxy
 
-Rancher requires internet access for some functionality (helm charts). Use `proxy` to set your proxy server.
-
-Add your IP exceptions to the `noProxy` list. Make sure you add the Service cluster IP range (default: 10.43.0.1/16) and any worker cluster `controlplane` nodes. Rancher supports CIDR notation ranges in this list.
+Rancher需要互联网访问某些功能(helm charts)，如果你的环境需要代理上网，则需要配置 `proxy server`。有些不需要走代理的地址，需要将它们添加到`noProxy`列表中。
 
 ```plain
 --set proxy="http://<username>:<password>@<proxy_url>:<proxy_port>/"
 --set noProxy="127.0.0.0/8\,10.0.0.0/8\,172.16.0.0/12\,192.168.0.0/16"
 ```
 
-## 额外的受信任的ca
+## 额外的授信CA证书
 
-If you have private registries, catalogs or a proxy that intercepts certificates, you may need to add additional trusted CAs to Rancher.
+如果您有私有镜像仓库、应用商店或proxy代理，您可能需要向Rancher添加额外的授信CA证书
 
 ```plain
 --set additionalTrustedCAs=true
 ```
 
-Once the Rancher deployment is created, copy your CA certs in pem format into a file named `ca-additional.pem` and use `kubectl` to create the `tls-ca-additional` secret in the `cattle-system` namespace.
+部署Rancher后，将您的CA证书以pem格式复制到名为`ca-additional.pem`的文件中，并用`kubectl`在命名空间`cattle-system`中创建`tls-ca-additional`密文。
 
 ```plain
 kubectl -n cattle-system create secret generic tls-ca-additional --from-file=ca-additional.pem
@@ -78,15 +74,19 @@ kubectl -n cattle-system create secret generic tls-ca-additional --from-file=ca-
 
 ### 私有仓库和离线安装
 
-See [Installing Rancher - Air Gap]({{< baseurl >}}/rancher/v2.x/en/installation/air-gap-installation/install-rancher/) for details on installing Rancher with a private registry.
+有关使用私有镜像仓库安装Rancher的详细信息，查看[Rancher离线安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)
 
 ### 外部TLS终止
 
-我们建议将负载均衡器配置为第4层均衡器，将普通`80/tcp和443/tcp`转发到`Rancher Management`集群节点。群集上的`Ingress Controller`将端口80上的HTTP流量重定向到端口443上的https。
+我们建议将负载均衡器配置为第4层均衡器，将普通`80/tcp和443/tcp`转发到`Rancher Management`集群节点。集群上的`Ingress Controller`将端口80上的HTTP流量重定向到端口443上的https。
 
-You may terminate the SSL/TLS on a L7 load balancer external to the Rancher cluster (ingress). Use the `--set tls=external` option and point your load balancer at port http 80 on all of the Rancher cluster nodes. This will expose the Rancher interface on http port 80. Be aware that clients that are allowed to connect directly to the Rancher cluster will not be encrypted. If you choose to do this we recommend that you restrict direct access at the network level to just your load balancer.
+您可以在Rancher集群（ingress）外部的L7负载均衡器上终止SSL/TLS。设置`--set tls=external`选项并将负载均衡器指向所有Rancher集群节点上的`http 80`端口。这将在`http80`端口上公开Rancher入口。
 
-> **Note:** If you are using a Private CA signed cert, add `--set privateCA=true` and see [Adding TLS Secrets - Private CA Signed - Additional Steps]({{< baseurl >}}/rancher/v2.x/en/installation/ha/helm-rancher/tls-secrets/#private-ca-signed---additional-steps) to add the CA cert for Rancher.
+>[Nginx 七层代理配置参考](../../../rke-ha-install/https-l7/nginx/)
+>
+>**请注意** 允许直接连接到Rancher群集的客户端不会被加密。如果您选择这样做，我们建议您将网络访问权限限制为仅能访问负载均衡器。
+>
+> 如果您使用的是私有CA签名证书，配置`--set privateCA=true` 并[添加TLS密文](../tls-secrets/#二-私有ca签名证书-可选)
 
 您的负载均衡器必须支持长期的websocket连接，并且需要插入代理头，以便Rancher可以正确地路由链接。
 
@@ -105,4 +105,4 @@ You may terminate the SSL/TLS on a L7 load balancer external to the Rancher clus
 
 #### 健康检查
 
-Rancher will respond `200` to health checks on the `/healthz` endpoint.
+Rancher将响应端点`/healthz`上的运行状况码`200`进行检查。

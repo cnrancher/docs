@@ -5,12 +5,12 @@ weight: 1
 
 对于开发环境，我们推荐直接在主机上通过`docker run`的形式运行Rancher server容器。可能有的主机无法直接通过公网IP来访问主机，需要通过代理去访问，这种场景请参考[使用外部负载平衡器进行单一节点安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/single-node-install-external-lb/)。
 
-### 一、Linux主机要求
+## 一、Linux主机要求
 
 - [基础环境配置]({{< baseurl >}}/rancher/v2.x/cn/installation/basic-environment-configuration/)
 - [端口需求]({{< baseurl >}}/rancher/v2.x/cn/installation/references/)
 
-### 二、安装Rancher并配置SSL证书
+## 二、安装Rancher并配置SSL证书
 
 出于安全考虑，使用Rancher时需要SSL进行加密。SSL可以保护所有Rancher网络通信，例如登录或与集群交互。
 
@@ -107,13 +107,6 @@ docker run -d --restart=unless-stopped \
 
 {{% /accordion %}}
 
-### 三、下一步
-
-你有几个选择:
-
-- 创建Rancher server的备份: [单节点备份和恢复]({{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/backups/single-node-backups/)。
-- 创建一个Kubernetes集群: [创建一个集群]({{< baseurl >}}/rancher/v2.x/cn/configuration/clusters/creating-a-cluster/)。
-
-### 四、FAQ和故障排除
+## 三、FAQ和故障排除
 
 [FAQ]({{< baseurl >}}/rancher/v2.x/cn/faq/)中整理了常见的问题与解决方法。

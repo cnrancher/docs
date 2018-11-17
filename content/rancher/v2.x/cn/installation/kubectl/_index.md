@@ -219,7 +219,7 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 
 使用RKE创建Kubernetes集群时，RKE会在本地目录中创建一个包含认证信息的配置文件`kube_config_rancher-cluster.yml`，以使用`kubectl`或`helm`等工具连接到新集群。
 
-您可以将此文件复制到`$HOME/.kube/config`或者如果您正在使用多个Kubernetes群集，请将`KUBECONFIG`环境变量设置为路径`kube_config_rancher-cluster.yml`。
+您可以将此文件复制到`$HOME/.kube/config`或者如果您正在使用多个Kubernetes集群，请将`KUBECONFIG`环境变量设置为路径`kube_config_rancher-cluster.yml`。
 
 ```bash
 export KUBECONFIG=$(pwd)/kube_config_rancher-cluster.yml
@@ -237,7 +237,7 @@ kubectl get nodes
 {{% /accordion %}}
 {{% accordion id="3" label="三、检查kubectl配置" %}}
 
-通过获取群集状态来检查kubectl是否已正确配置：
+通过获取集群状态来检查kubectl是否已正确配置：
 
 ```bash
 kubectl cluster-info
@@ -245,15 +245,15 @@ kubectl cluster-info
 
 如果您看到URL响应，则kubectl已正确配置。
 
-如果您看到类似于以下内容的消息，则kubectl配置不正确或无法连接到Kubernetes群集。
+如果您看到类似于以下内容的消息，则kubectl配置不正确或无法连接到Kubernetes集群。
 
 ```bash
 The connection to the server <server-name:port> was refused - did you specify the right host or port?
 ```
 
-例如，如果您打算在笔记本电脑上（本地）运行Kubernetes群集，则需要首先安装minikube等工具，然后重新运行上述命令。
+例如，如果您打算在笔记本电脑上（本地）运行Kubernetes集群，则需要首先安装minikube等工具，然后重新运行上述命令。
 
-如果kubectl cluster-info返回url响应但您无法访问群集，要检查它是否配置正确，请使用：
+如果kubectl cluster-info返回url响应但您无法访问集群，要检查它是否配置正确，请使用：
 
 ```bash
 kubectl cluster-info dump

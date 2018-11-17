@@ -10,7 +10,7 @@ Rancher supports the following services:
 - [Elasticsearch]({{< baseurl >}}/rancher/v2.x/en/tools/logging/elasticsearch)
 - [Splunk]({{< baseurl >}}/rancher/v2.x/en/tools/logging/splunk)
 - [Kafka]({{< baseurl >}}/rancher/v2.x/en/tools/logging/kafka)
-- [Syslog]({{< baseurl >}}/rancher/v2.x/en/tools/logging/syslog)
+- [Syslog]({{< baseurl >}}/rancher/v2.x/en/tools/logging/syslog) 
 
 ## Requirements
 
@@ -38,11 +38,11 @@ You can configure logging at either cluster or project level.
 
 - If you're a [cluster owner or member]({{< baseurl >}}/rancher/v2.x/en/admin-settings/rbac/cluster-project-roles/#cluster-roles) who works in operations or security, configure cluster logging.
 
-    Cluster logging writes logs for every pod in the cluster and, in [RKE clusters]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters), Kubernetes system components. Logs from the following locations are sent to your logging service:
+    Cluster logging writes logs for every pod in the cluster and, in [RKE clusters]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters), Kubernetes system components. Logs from the following locations are sent to your logging service: 
 
 
   - The `/var/log/containers` path for pod logging.
-
+  
   - The `/var/lib/rancher/rke/logs/` path for Kubernetes system components.
 
 - If you're a [project owner or member]({{< baseurl >}}/rancher/v2.x/en/admin-settings/rbac/cluster-project-roles/#project-roles) who works on an application, configure project logging.

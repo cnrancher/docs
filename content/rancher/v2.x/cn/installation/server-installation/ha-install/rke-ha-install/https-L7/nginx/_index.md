@@ -49,6 +49,28 @@ NGINX拥有所有主流操作系统的软件包，通过包管理器可以很轻
         return 301 https://$server_name$request_uri;
     }
     ```
+    >为了减少网络传输的数据量，可以在七层代理的`http`定义中添加`GZIP`功能。
+
+    ```bash
+    # Gzip Settings
+    gzip on;
+    gzip_disable "msie6";
+    gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+    gzip_vary on;
+    gzip_static on;
+    gzip_proxied any;
+    gzip_min_length 0;
+    gzip_comp_level 8;
+    gzip_buffers 16 8k;
+    gzip_http_version 1.1;
+    gzip_types
+      text/xml application/xml application/atom+xml application/rss+xml application/xhtml+xml image/svg+xml     application/font-woff
+      text/javascript application/javascript application/x-javascript
+      text/x-json application/json application/x-web-app-manifest+json
+      text/css text/plain text/x-component
+      font/opentype application/x-font-ttf application/vnd.ms-fontobject font/woff2
+      image/x-icon image/png image/jpeg;
+    ```
 
 - 在`/etc/nginx/conf.d/rancher.conf`中, 替换 `IP_NODE_1`, `IP_NODE_2`,  `IP_NODE_3` 为需要添加到集群的Linux主机的IP；
 

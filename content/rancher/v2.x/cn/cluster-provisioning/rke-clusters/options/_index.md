@@ -37,7 +37,6 @@ From this section you can choose:
         >- In previous Rancher releases, Canal isolates project network communications with no option to disable it. If you are using any of these Rancher releases, be aware that using Canal prevents all communication between pods in different projects.
         >- If you are have clusters using Canal and are upgrading to v2.0.7, those clusters enable Project Network Isolation by default. If you want to disable Project Network Isolation, edit the cluster and disable the option.
 
-
     - [Flannel](https://github.com/coreos/flannel#flannel)
 
          In v2.0.5, this was the default option, which did not prevent any network isolation between projects.
@@ -54,7 +53,7 @@ From this section you can choose:
 
 - Whether or not to use a [pod security policy]({{< baseurl >}}/rancher/v2.x/en/admin-settings/pod-security-policies). You must have an existing pod security policy configured before you can use this option.
 
-## Config File
+## 配置文件
 
 >**Note:** In Rancher v2.0.5 and v2.0.6, the names of services in the Config File (YAML) should contain underscores only: `kube_api` and `kube_controller`.
 

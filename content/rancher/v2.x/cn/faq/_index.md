@@ -1,11 +1,9 @@
 ---
-title: FAQ(持续更新)
+title: FAQ
 weight: 9
 ---
 
-## 一、常见问题
-
-### 1、何为PEM格式？
+## 1、何为PEM格式？
 
 PEM格式通常用于数字证书认证机构(Certificate Authorities，CA)，扩展名为.pem, .crt, .cer, and .key。内容为Base64编码的ASCII码文件，有类似"-----BEGIN CERTIFICATE-----" 和 "-----END CERTIFICATE-----"的头尾标记。服务器认证证书，中级认证证书和私钥都可以储存为PEM格式(认证证书其实就是公钥)。Apache和类似的服务器使用PEM格式证书。
 
@@ -29,7 +27,7 @@ PEM格式通常用于数字证书认证机构(Certificate Authorities，CA)，�
   -----END CERTIFICATE-----
   ```
 
-### 2、如果我想添加我的中间证书，证书的顺序是什么？
+## 2、如果我想添加我的中间证书，证书的顺序是什么？
 
 添加证书的顺序如下:
 
@@ -42,7 +40,7 @@ PEM格式通常用于数字证书认证机构(Certificate Authorities，CA)，�
 -----END CERTIFICATE-----
 ```
 
-### 3、我如何验证我的证书链？
+## 3、我如何验证我的证书链？
 
 你可以使用`openssl`二进制验证证书链。如果该命令的输出(参见下面的命令示例)结束`Verify return code: 0 (ok)`，那么证书链是有效的。该`ca.pem`文件必须与你添加到`rancher/rancher`容器中的文件相同。当使用由认可的认证机构签署的证书时，可以省略该`-CAfile`参数。
 
@@ -54,7 +52,7 @@ openssl s_client -CAfile ca.pem -connect rancher.yourdomain.com:443
 Verify return code: 0 (ok)
 ```
 
-### 4、持久数据
+## 4、持久数据
 
 Rancher `etcd`用作数据存储，使用单节点安装时，将使用内置`etcd`。持久数据位于容器中的以下路径中: `/var/lib/rancher`。你可以将主机卷挂载到此位置以保留其运行的数据。
 
@@ -69,7 +67,7 @@ Rancher `etcd`用作数据存储，使用单节点安装时，将使用内置`et
   rancher/rancher:latest
 ```
 
-### 5、如何在同一个主机上运行`Rancher/Rancher`和`Rancher/Rancher-Agent`
+## 5、如何在同一个主机上运行`Rancher/Rancher`和`Rancher/Rancher-Agent`
 
 在你想要使用单个节点运行Rancher并且能够将相同节点添加到集群的情况下，你必须调整为`rancher/rancher`容器映射的主机端口。
 
@@ -85,117 +83,147 @@ docker run -d --restart=unless-stopped \
   rancher/rancher:latest
 ```
 
-### Kubernetes
+## 6、如何重置管理员密码？
 
-#### What does it mean when you say Rancher v2.0 is built on Kubernetes?
+- 单节点安装
 
-Rancher v2.0 is a complete container management platform built on 100% on Kubernetes leveraging its Custom Resource and Controller framework.  All features are written as a CustomResourceDefinition (CRD) which extends the existing Kubernetes API and can leverage native features such as RBAC.
+  ```bash
+  docker exec -ti <container_id> reset-password
+  New password for default admin user (user-xxxxx):
+  <new_password>
+  ```
 
-#### Do you plan to implement upstream Kubernetes, or continue to work on your own fork?
+- HA安装
 
-We're still going to provide our distribution when you select the default option of having us create your Kubernetes cluster, but it will be very close to upstream. 
+  ```bash
+  KUBECONFIG=./kube_config_rancher-cluster.yml
+  kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | .metadata.name') -- reset-password
+  New password for default admin user (user-xxxxx):
+  <new_password>
+  ```
 
-#### Does this release mean that we need to re-train our support staff in Kubernetes?
+## 7、我删除/停用了管理员，我该如何恢复？
 
-Yes.  Rancher will offer the native Kubernetes functionality via `kubectl` but will also offer our own UI dashboard to allow you to deploy Kubernetes workload without having to understand the full complexity of Kubernetes.  However, to fully leverage Kubernetes, we do recommend understanding Kubernetes.  We do plan on improving our UX with subsequent releases to make Kubernetes easier to use.
+- 单节点安装
 
-#### So, wait. Is a Rancher compose going to make a Kubernetes pod? Do we have to learn both now? We usually use the filesystem layer of files, not the UI.
+    ```bash
+    docker exec -ti <container_id> ensure-default-admin
+    New default admin user (user-xxxxx)
+    New password for default admin user (user-xxxxx):
+    <new_password>
+    ```
 
-No.  Unfortunately, the differences were enough such that we cannot support Rancher compose anymore in 2.0.  We will be providing both a tool and guides to help with this migration.
+- HA安装
 
-### Cattle
+    ```bash
+    KUBECONFIG=./kube_config_rancher-cluster.yml
+    kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl --kubeconfig KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | .metadata.name') -- ensure-default-admin
+    New password for default admin user (user-xxxxx):
+    <new_password>
+    ```
 
-### How does Rancher v2.0 affect Cattle?
+## 8、怎么样开启debug模式？
 
-Cattle will not supported in v2.0 as Rancher has been re-architected to be based on Kubernetes. You can, however, expect majority of Cattle features you use will exist and function similarly on Kubernetes. We will develop migration tools in Rancher v2.1 to help you transform your existing Rancher Compose files into Kubernetes YAML files.
+## 单节点安装
 
-#### Can I migrate existing Cattle workloads into Kubernetes?
+- 启用
 
-Yes. In the upcoming Rancher v2.1 release we will provide a tool to help translate existing Cattle workloads in Compose format to Kubernetes YAML format.  You will then be able to deploy those workloads on the v2.0 platform.
+  ```bash
+  docker exec -ti <container_id> loglevel --set debug
+  OK
+  docker logs -f <container_id>
+  ```
 
-### 环境和集群
+- 禁用
 
-#### 我还可以为环境和集群创建模板吗？
+  ```bash
+  docker exec -ti <container_id> loglevel --set info
+  OK
+  ```
 
-不可以. 从2.0开始，环境的概念已经改为Kubernetes集群，并且只支持Kubernetes调度引擎。
+## HA安装
 
-#### Can you still add an existing host to an environment? (i.e. not provisioned directly from Rancher)
+- 启用
 
-Yes. We still provide you with the same way of executing our Rancher agents directly on hosts.
+  ```bash
+  KUBECONFIG=./kube_config_rancher-cluster.yml
+  kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | .metadata.name') -- loglevel --set debug
+  OK
+  kubectl --kubeconfig $KUBECONFIG logs -n cattle-system -f $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name="cattle-server") | .metadata.name')
+  ```
 
-### 升级和迁移
+- 禁用
 
-#### 如何从v1.x迁移到v2.0？
+  ```bash
+  KUBECONFIG=./kube_config_rancher-cluster.yml
+  kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | .metadata.name') -- loglevel --set info
+  OK
+  ```
 
-由于将Docker容器转换为Kubernetes pod的技术难度，升级将要求用户将这些工作负载从v1.x迁移到新的v2.0环境中。我们计划在v2.1中增加一个工具，将现有的Rancher Compose文件转换为Kubernetes YAML文件。然后，你将能够在v2.0平台上部署这些工作负载。
+## 9、ClusterIP无法ping通？
 
-#### Is it possible to upgrade from Rancher v1.0 to v2.0 without any disruption to Cattle and Kubernetes clusters?
+ClusterIP是一个虚拟IP，不会响应ping。测试ClusterIP配置是否正确的最好方法是使用`curl`来访问IP和端口以查看它是否响应。
 
-At this time, we are still exploring this scenario and taking feedback. We anticipate that you will need to launch a new Rancher instance and then relaunch on v2.0. Once you've moved to v2.0, upgrades will be in place, as they are in v1.6.
+## 10、我在哪里可以管理主机模板？
 
-#### Can I import OpenShift Kubernetes clusters into v2.0?
+打开你的帐户菜单(右上角)，并选择`主机模板`。
 
-Our goal is to run any upstream Kubernetes clusters. Therefore, Rancher v2.0 should work with OpenShift, but we haven't tested it yet.
+## 11、为什么我的L4层负载均衡服务处于“挂起”状态？
 
-### Support
+L4层负载均衡器创建为`type:LoadBalancer`，在Kubernetes中，这需要云提供商或控制器能够满足这些请求，否则这些将永远处于“挂起”状态。 了解更多[云提供商]({{< baseurl >}}/rancher/v2.x/cn/concepts/clusters/cloud-providers/) 或者 [Create External Load Balancer](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/)
 
-#### What about Rancher v1.6? Are you planning some long-term support releases?
+## 12、Rancher的状态存储在什么地方？
 
-That is definitely the focus of the v1.6 stream. We're continuing to improve that release, fix bugs, and maintain it for the next 12 months at a minimum. We will extend that time period, if necessary, depending on how quickly users move to v2.1.
+- 单节点安装
 
-#### Does Rancher v2.0 support Docker Swarm and Mesos as environment types?
+  在rancher/rancher容器的内置etcd中，映射与宿主机的`/var/lib/rancher`目录下。
 
-When creating an environment in Rancher v2.0, Swarm and Mesos will no longer be standard options you can select. However, both Swarm and Mesos will continue to be available as Catalog applications you can deploy. It was a tough decision to make but, in the end, it came down to adoption. For example, out of more than 15,000 clusters, only about 200 or so are running Swarm.
+- HA安装
 
-#### Is it possible to manage Azure Container Services with Rancher v2.0?
-Yes.
+  RKE部署集群指定的ETCD中，默认与Kubernetes共有一套ETCD服务。
 
-#### What about Windows support?
+## 13、如何确定支持的Docker版本？
 
-We plan to provide Windows support for v2.1 based on Microsoft’s new approach to providing an overlay network using Kubernetes and CNI. This new approach matches well with what we are doing in v2.1 and, once that is complete, you will be able to leverage the same Rancher UX, or Kubernetes UX, but with Windows. We are in the middle of discussing how we can make this happen with Microsoft, and we will provide more information before the end of this year.
+我们遵循经过Kubernetes官方验证过的Docker版本，已验证的Docker版本可以在Kubernetes的[发版记录](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#external-dependencies)中找到。
 
-#### Are you planning on supporting Istio in Rancher v2.0?
+## 14、我如何访问Rancher创建的节点？
 
-We like Istio, and it's something we're looking at potentially integrating and supporting.
+可以通过**节点**视图下载用于访问节点的SSH密钥。选择要访问的节点，然后单击行末的垂直省略号按钮，然后选择**下载密钥**，如下图所示:
 
-#### Will Rancher v2.0 support Hashicorp's Vault for storing secrets?
+![下载Keys]({{< baseurl >}}/img/rancher/downloadsshkeys.png)
 
-Not yet. We currently support Hashicorp's Vault in v1.6 and plan on supporting it in an upcoming release post v2.0.
+解压缩下载的zip文件，并使用文件`id_rsa`连接到你的主机。一定要使用正确的用户名(`rancher` for RancherOS, `ubuntu` for Ubuntu, `ec2-user` for Amazon Linux)
 
-#### Does Rancher v2.0 support RKT containers as well?
+```bash
+ssh -i id_rsa user@ip_of_node
+```
 
-At this time, we only support Docker.
+## 15、如何在Rancher中自动执行任务
 
-#### Will Rancher v2.0 support Calico, Contiv, Contrail, Flannel, Weave net, etc., for embedded and imported Kubernetes?
+UI由静态文件组成，并且基于API的响应而工作。这意味着您可以在UI中执行的每个操作/任务都可以通过API自动执行。有两种方法可以做到这一点：
 
-We will initially only support Calico, Canal, and Flannel.
+- 访问`https://your_rancher_ip/v3`并浏览API选项。
+- 使用用户界面时捕获API调用（最常用的是[Chrome开发者工具，](https://developers.google.com/web/tools/chrome-devtools/#network)您可以使用您喜欢的浏览器）
 
-#### Are you planning on supporting Traefik for existing setups?
+## 16、节点的IP地址发生了变化，我该如何恢复？
 
-We don't currently plan on providing embedded Traefik support, but we're still exploring load-balancing approaches.
+节点需要配置静态IP（或通过DHCP保留IP）。如果节点的IP已更改，则必须将其从集群中删除。删除后，Rancher会将集群更新为正确的状态。如果集群不再处于`Provisioning`状态，则已经从集群中删除该节点。当节点的IP地址发生变化时，Rancher失去了与节点的连接，因此无法正常清理节点。请参阅[清理集群节点]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/remove-node/)以清除节点。
 
-### General
+从集群中删除节点并清除节点后，您可以将节点重新添加到集群。
 
-#### Can we still add our own infrastructure services, which had a separate view/filter in 1.6.x?
+## 17、如何在Rancher安装的Kubernetes集群中向Kubernetes组件添加额外的arguments/binds/environment？
 
-Yes. We plan to eventually enhance this feature so you can manage Kubernetes storage, networking, and its vast ecosystem of add-ons.
+可以通过`集群选项`中的[配置文件]({{< baseurl >}}/rancher/v2.x/cn/cluster-provisioning/rke-clusters/options/#配置文件)选项添加额外的arguments/binds/environment。有关更多信息，请参阅RKE文档中的[Extra Args，Extra Binds和Extra Environment Variables]({{< baseurl >}}/rke/v0.1.x/en/config-options/services/services-extras/)，或浏览[Example Cluster.ymls示例]({{< baseurl >}}/rke/v0.1.x/en/example-yamls/)。
 
-#### Are you going to integrate Longhorn?
+## 18、为什么在节点出现故障时重新安排pod需要5分钟以上？
 
-Yes. Longhorn was on a bit of a hiatus while we were working on v2.0. We plan to re-engage on the project once v2.0 reaches GA (general availability).
+这是由于以下默认Kubernetes设置的组合：
 
-#### Are there changes to default roles available now or going forward? Will the Kubernetes alignment impact plans for roles/RBAC?
+- kubelet
+  - `node-status-update-frequency`：指定kubelet将节点状态发布到master的频率（默认为10秒）
+- kube-controller-manager
+  - `node-monitor-period`：在NodeController中同步NodeStatus的时间段（默认5秒）
+  - `node-monitor-grace-period`：在标记运行节点不健康之前允许运行节点无响应的时间（默认为40秒）
+  - `pod-eviction-timeout`：删除失败节点上的pod的宽限期（默认为5m0）
 
-The default roles will be expanded to accommodate the new Rancher 2.0 features, and will also take advantage of the Kubernetes RBAC (Role-Based Access Control) capabilities to give you more flexibility.
-
-#### Will there be any functions like network policies to separate a front-end container from a back-end container through some kind of firewall in v2.0?
-
-Yes. You can do so by leveraging Kubernetes' network policies.
-
-#### What about the CLI? Will that work the same way with the same features?
-
-Yes. Definitely.
-
-#### If we use Kubernetes native YAML files for creating resources, should we expect that to work as expected, or do we need to use Rancher/Docker compose files to deploy infrastructure?
-
-Absolutely.
+有关这些设置的更多信息，请参阅[Kubernetes：kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/)和[Kubernetes：kube-controller-manager](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/)。

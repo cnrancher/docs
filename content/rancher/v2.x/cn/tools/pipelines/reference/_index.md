@@ -1,6 +1,6 @@
 ---
-title: Pipeline Variable Reference
-weight: 8000
+title: 4 - Pipeline 变量参数
+weight: 4
 ---
 
 For your convenience, the following variables are available for your pipeline configuration scripts. During pipeline executions, these variables are replaced by metadata. You can reference them in the form of `${VAR_NAME}`.

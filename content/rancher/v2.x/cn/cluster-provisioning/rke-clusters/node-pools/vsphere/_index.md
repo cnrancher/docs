@@ -8,14 +8,14 @@ weight: 4
 
 ## 一、介绍
 
-创建vSphere群集时，Rancher首先通过与vCenter API通信来配置指定数量的虚拟机，然后在虚拟机之上安装Kubernetes。vSphere群集可能包含多组具有不同属性的VM，例如内存或vCPU。该分组允许分别对`ETCD`，`Control`和`worker`节点大小进行细粒度控制。
+创建vSphere集群时，Rancher首先通过与vCenter API通信来配置指定数量的虚拟机，然后在虚拟机之上安装Kubernetes。vSphere集群可能包含多组具有不同属性的VM，例如内存或vCPU。该分组允许分别对`ETCD`，`Control`和`worker`节点大小进行细粒度控制。
 
 >**注意:**
 >Rancher中包含的vSphere节点驱动程序目前仅支持使用`RancherOS`作为客户机操作系统来配置VM 。
 
 ## 二、先决条件
 
-在继续创建群集之前，必须确保具有足够权限的vSphere用户。如果您计划将vSphere存储卷用于群集中的持久存储，则还必须满足[其他要求]({{< baseurl >}}/rke/v0.1.x/en/config-options/cloud-providers/vsphere/)。
+在继续创建集群之前，必须确保具有足够权限的vSphere用户。如果您计划将vSphere存储卷用于集群中的持久存储，则还必须满足[其他要求]({{< baseurl >}}/rke/v0.1.x/en/config-options/cloud-providers/vsphere/)。
 
 ## 三、配置用户权限
 
@@ -45,9 +45,9 @@ weight: 4
 
 ## 四、创建主机模板
 
-要创建群集，需要创建至少一个vSphere[主机模板]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools/#node-templates)，该模板指定如何创建VM。
+要创建集群，需要创建至少一个vSphere[主机模板]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools/#node-templates)，该模板指定如何创建VM。
 
->**注意:** 创建节点模板后，将保存该模板，并且可以在创建其他vSphere群集时重复使用它。
+>**注意:** 创建节点模板后，将保存该模板，并且可以在创建其他vSphere集群时重复使用它。
 
 1. 使用管理员帐户登录Rancher UI。
 
@@ -91,15 +91,15 @@ weight: 4
 
 创建模板后，可以使用它来创建vSphere虚拟机和K8S集群。
 
-1. 在`全局`视图中，单击`添加群集`。
+1. 在`全局`视图中，单击`添加集群`。
 
 2. 选择`vSphere`图表。
 
 3. 设置`Cluster`名称。
 
-4. 使用`成员角色`配置群集的用户授权。
+4. 使用`成员角色`配置集群的用户授权。
 
-    - 单击`添加成员`以添加可以访问群集的用户。
+    - 单击`添加成员`以添加可以访问集群的用户。
     - 使用`角色`下拉列表为每个用户设置权限。
 
 5. 根据实际需求配置`集群选项`。
@@ -110,7 +110,7 @@ weight: 4
 
 7. 检查配置，然后单击`创建`。
 
-> **注意:** 如果您的群集启用了`DRS`, 建议设置[VM-VM关联规则](https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.resmgmt.doc/GUID-7297C302-378F-4AF2-9BD6-6EDB1E0A850A.html)。这些规则允许分配了`etcd`和`Control`角色的VM在分配给不同节点池时在不同的ESXi主机上运行,这种做法可确保单个物理机器的故障不会影响这些平面的可用性。
+> **注意:** 如果您的集群启用了`DRS`, 建议设置[VM-VM关联规则](https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.resmgmt.doc/GUID-7297C302-378F-4AF2-9BD6-6EDB1E0A850A.html)。这些规则允许分配了`etcd`和`Control`角色的VM在分配给不同节点池时在不同的ESXi主机上运行,这种做法可确保单个物理机器的故障不会影响这些平面的可用性。
 
 ## 附件-节点模板配置参考
 

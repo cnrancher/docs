@@ -2,6 +2,8 @@
 title: 1 - 四层负载均衡HA部署
 weight: 1
 ---
+>### **重要提示:**
+>RKE HA安装仅支持Rancher v2.0.8以及之前的版本，Rancher v2.0.8之后的版本使用[helm安装Rancher]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-install/helm-rancher/)。
 
 以下步骤将创建一个新的Kubernetes集群，专用于Rancher高可用(HA)运行，本文档将引导你使用Rancher Kubernetes Engine(RKE)配置三个节点的集群。
 
@@ -9,14 +11,12 @@ weight: 1
 
 ![Rancher HA]({{< baseurl >}}/img/rancher/ha/rancher2ha.svg)
 
-{{% accordion id="1" label="一、Linux主机要求" %}}
+## 一、Linux主机要求
 
-### 1、[基础环境配置]({{< baseurl >}}/rancher/v2.x/cn/installation/basic-environment-configuration/)
+- [基础环境配置]({{< baseurl >}}/rancher/v2.x/cn/installation/basic-environment-configuration/)
+- [端口需求]({{< baseurl >}}/rancher/v2.x/cn/installation/references/)
 
-### 2、[端口需求]({{< baseurl >}}/rancher/v2.x/cn/installation/references/)
-
-{{% /accordion %}}
-{{% accordion id="2" label="二、配置负载均衡器(以NGINX为例)" %}}
+## 二、配置负载均衡器(以NGINX为例)
 
 我们将使用NGINX作为第4层负载均衡器(TCP)。NGINX会将所有连接转发到你的Rancher节点之一。如果要使用Amazon NLB，可以跳过此步骤并使用[Amazon NLB configuration]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-install-external-lb/tcp-l4/amazon-nlb-configuration/)配置。
 
@@ -80,47 +80,45 @@ docker run -d --restart=unless-stopped \
   nginx:1.14
 ```
 
-{{% /accordion %}}
-{{% accordion id="3" label="三、配置DNS" %}}
+## 三、配置DNS
 
 选择一个用于访问Rancher的域名(FQDN)(例如: demo.rancher.com).
 
-### 1、方案1 - 有DNS服务器
+- 方案1 - 有DNS服务器
 
-1、登录DNS服务，创建一条 `A` 记录指向负载均衡主机IP。
+1. 登录DNS服务，创建一条 `A` 记录指向负载均衡主机IP。
 
-2、在终端中执行一下命令来验证运行解析是否生效:
+2. 在终端中执行一下命令来验证运行解析是否生效:
 
-`nslookup HOSTNAME.DOMAIN.COM`
+    `nslookup HOSTNAME.DOMAIN.COM`
 
-- 如果解析生效:
+    - 如果解析生效:
 
-    ```bash
-    nslookup demo.rancher.com
-    DNS Server:         YOUR_HOSTNAME_IP_ADDRESS
-    DNS Address:        YOUR_HOSTNAME_IP_ADDRESS#53
-    Non-authoritative answer:
-    Name:   demo.rancher.com
-    Address: <负载均衡IP地址>
-    ```
-- 如果解析不生效
+        ```bash
+        nslookup demo.rancher.com
+        DNS Server:         YOUR_HOSTNAME_IP_ADDRESS
+        DNS Address:        YOUR_HOSTNAME_IP_ADDRESS#53
+        Non-authoritative answer:
+        Name:   demo.rancher.com
+        Address: <负载均衡IP地址>
+        ```
+    - 如果解析不生效
 
-    ```bash
-    nslookup demo.rancher.com
-    DNS Server:         YOUR_HOSTNAME_IP_ADDRESS
-    DNS Address:        YOUR_HOSTNAME_IP_ADDRESS#53
+        ```bash
+        nslookup demo.rancher.com
+        DNS Server:         YOUR_HOSTNAME_IP_ADDRESS
+        DNS Address:        YOUR_HOSTNAME_IP_ADDRESS#53
 
-    ** server can't find demo.rancher.com: NXDOMAIN
-    ```
+        ** server can't find demo.rancher.com: NXDOMAIN
+        ```
 
-### 2、方案2 - 无DNS服务器
+- 方案2 - 无DNS服务器
 
-如果环境为内部网络且无DNS服务器，可以通过修改客户端的`/etc/hosts`文件，添加相应的条目。例如:
+1. 如果环境为内部网络且无DNS服务器，可以通过修改客户端的`/etc/hosts`文件，添加相应的条目。例如:
 
-![image-20180711140926370]({{< baseurl >}}/img/rancher/ha/image-20180711140926370.png)
+    ![image-20180711140926370]({{< baseurl >}}/img/rancher/ha/image-20180711140926370.png)
 
-{{% /accordion %}}
-{{% accordion id="4" label="四、下载 RKE" %}}
+## 四、下载 RKE
 
 RKE是一种快速，通用的Kubernetes安装程序，可用于在Linux主机上安装Kubernetes。我们将使用RKE来配置Kubernetes集群并运行Rancher。
 
@@ -156,8 +154,7 @@ $ chmod +x rke_linux-amd64
 rke version v<N.N.N>
 ```
 
-{{% /accordion %}}
-{{% accordion id="5" label="五、下载RKE配置模板" %}}
+## 五、下载RKE配置模板
 
 RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板可供选择，具体取决于使用的SSL证书类型。
 
@@ -169,8 +166,7 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 
 2、重命名模板文件为 `rancher-cluster.yml`
 
-{{% /accordion %}}
-{{% accordion id="6" label="六、节点配置" %}}
+## 六、节点配置
 
 1、节点免密登录
 
@@ -211,25 +207,24 @@ nodes:
 >2、需要开启[API审计日志？]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/api-auditing/)\
 >3、了解RKE[配置参数]({{< baseurl >}}/rke/v0.1.x/en/config-options/)
 
-{{% /accordion %}}
-{{% accordion id="7" label="七、证书配置" %}}
+## 七、证书配置
 
 出于安全考虑，使用Rancher需要SSL加密。 SSL可以保护所有Rancher网络通信，例如登录或与集群交互时。
 
-### 1、方案A — 使用自签名证书
+- 方案A — 使用自签名证书
 
->**先决条件:** 1.证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型]({{< baseurl >}}/rancher/v2.x/cn/installation/self-signed-ssl/)；\
-> 2.证书必须通过`base64`加密；\
-> 3.在你的证书文件中，包含链中的所有中间证书；
+    >**先决条件:** 1.证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型]({{< baseurl >}} /rancher/v2.x/cn/installation/self-signed-ssl/)；\
+    > 2.证书必须通过`base64`加密；\
+    > 3.在你的证书文件中，包含链中的所有中间证书；
 
-- 1、在`kind: Secret`与`name: cattle-keys-ingress`中:
+1. 在`kind: Secret`与`name: cattle-keys-ingress`中:
 
   - 替换 `<BASE64_CRT>` 为证书文件经过base64加密的字符串(证书文件通常名为 `cert.pem` 或 `domain.crt`)
   - 替换 `<BASE64_KEY>` 为证书密钥文件经过base64加密的字符串(通过证书密钥文件名为`key.pem`或`domain.key`)
 
-  >**注意:** base64编码的字符串应与tls.crtor&tls.key在同一行，并且在开头，冒号后有一个空格，中间或末尾没有任何换行符。
+    >**注意:** base64编码的字符串应与tls.crtor&tls.key在同一行，并且在开头，冒号后有一个空格，中间或末尾没有任何换行符。
 
-  **结果:** 替换值后，文件应如下所示(base64编码的字符串应该不同)
+    **结果:** 替换值后，文件应如下所示(base64编码的字符串应该不同)
 
     ```yaml
     ---
@@ -244,7 +239,7 @@ nodes:
         tls.key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFb3dJQkFBS0NBUUVBdEY3WEN6TVZHaDF1aU5oWTBJZW
     ```
 
-- 2、在`kind: Secret` 和 `name: cattle-keys-server`中, 替换<BASE64_CA>为CA证书文件的base64加密字符串(通常称为ca.pem或ca.crt)。
+2. 在`kind: Secret` 和 `name: cattle-keys-server`中, 替换<BASE64_CA>为CA证书文件的base64加密字符串(通常称为ca.pem或ca.crt)。
 
     >**注意:** base64编码的字符串应该与cacerts.pem在同一行，冒号后一个空格，在开头，中间或结尾没有任何换行符。
 
@@ -262,11 +257,11 @@ nodes:
       cacerts.pem: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNvRENDQVlnQ0NRRHVVWjZuMEZWeU
     ```
 
-### 2、方案B — 使用权威CA机构颁发的SSL证书
+- 方案B — 使用权威CA机构颁发的SSL证书
 
-如果你使用的是由权威CA机构颁发的SSL证书，则需要为证书文件和证书密钥文件生成base64编码的字符串(确保你的证书文件包含链中的所有中间证书)。在这种情况下，证书的顺序首先是你自己的证书，然后是中间证书。请查阅CSP(证书服务提供商)的文档，了解需要包含哪些中间证书。
+    如果你使用的是由权威CA机构颁发的SSL证书，则需要为证书文件和证书密钥文件生成base64编码的字符串(确保你的证书文件包含链中的所有中间证书)。在这种情况下，证书的顺序首先是你自己的证书，然后是中间证书。请查阅CSP(证书服务提供商)的文档，了解需要包含哪些中间证书。
 
-- 1、在`kind: Secret`和 `name: cattle-keys-ingress`中:
+1. 在`kind: Secret`和 `name: cattle-keys-ingress`中:
 
   - 替换`<BASE64_CRT>`为证书文件的base64加密字符串(通常称为`cert.pem`或`domain.crt`);
 
@@ -289,8 +284,7 @@ nodes:
       tls.key:
     ```
 
-{{% /accordion %}}
-{{% accordion id="8" label="八、域名配置" %}}
+## 八、域名配置
 
 配置文件中有两个引用了`<FQDN>`，一个是在spec\rules\host处，tls\hosts处。
 
@@ -321,13 +315,11 @@ nodes:
       - demo.rancher.com
 ```
 
-{{% /accordion %}}
-{{% accordion id="9" label="九、备份配置文件" %}}
+## 九、备份配置文件
 
 保存关闭.yml文件后，将其备份到安全位置。升级Rancher时，你需要再次使用此文件。
 
-{{% /accordion %}}
-{{% accordion id="10" label="十、运行RKE" %}}
+## 十、运行RKE
 
 完成所有配置后，你可以通过运行rke up命令并使用--config参数指定配置文件来完成Rancher 集群的安装。
 
@@ -355,22 +347,67 @@ nodes:
   INFO[0101] Finished building Kubernetes cluster successfully
   ```
 
-{{% /accordion %}}
-{{% accordion id="11" label="十一、备份自动生成的kubectl配置文件" %}}
+## 十一、备份自动生成的kubectl配置文件
 
 在安装过程中，RKE会自动生成一个kube_config_rancher-cluster.yml与RKE二进制文件位于同一目录中的配置文件。此文件很重要，它可以在Rancher server故障时，利用kubectl通过此配置文件管理Kubernetes集群。复制此文件将其备份到安全位置。
 
-{{% /accordion %}}
-{{% accordion id="12" label="十二、下一步" %}}
+## 十二、(可选)为Agent Pod添加主机别名(/etc/hosts)
 
-你有几个选择:
+如果你没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
 
-- 创建Rancher server的备份:[单节点备份和恢复]({{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/backups/single-node-backups/)。
-- 创建一个Kubernetes集群:[创建一个集群]({{< baseurl >}}/rancher/v2.x/cn/configuration/clusters/creating-a-cluster/)。
+### 解决方法
 
-{{% /accordion %}}
-{{% accordion id="13" label="十三、FAQ和故障排除" %}}
+可以通过给`cattle-cluster-agent Pod`和`cattle-node-agent`添加主机别名(/etc/hosts)，让其可以正常通信`(前提是IP地址可以互通)`。
+
+1. cattle-cluster-agent pod
+
+    ```bash
+    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
+    kubectl -n cattle-system patch  deployments cattle-cluster-agent --patch '{
+        "spec": {
+            "template": {
+                "spec": {
+                    "hostAliases": [
+                        {
+                            "hostnames":
+                            [
+                                "demo.cnrancher.com"
+                            ],
+                                "ip": "192.168.1.100"
+                        }
+                    ]
+                }
+            }
+        }
+    }'
+    ```
+
+2. cattle-node-agent pod
+
+    ```bash
+    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
+    kubectl -n cattle-system patch  daemonsets cattle-node-agent --patch '{
+        "spec": {
+            "template": {
+                "spec": {
+                    "hostAliases": [
+                        {
+                            "hostnames":
+                            [
+                                "xxx.rancher.com"
+                            ],
+                                "ip": "192.168.1.100"
+                        }
+                    ]
+                }
+            }
+        }
+    }'
+    ```
+    > **注意**
+    >1、替换其中的域名和IP \
+    >2、别忘记json中的引号。
+
+## 十三、FAQ和故障排除
 
 [FAQ]({{< baseurl >}}/rancher/v2.x/cn/faq/)中整理了常见的问题与解决方法。
-
-{{% /accordion %}}

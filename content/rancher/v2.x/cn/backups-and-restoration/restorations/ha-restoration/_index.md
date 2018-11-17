@@ -7,7 +7,7 @@ weight: 2
 
 1、需要在进行操作的主机上提前[安装RKE]({{< baseurl >}}/rke/v0.1.x/en/installation/)([RKE下载]({{< baseurl >}}/rancher/v2.x/cn/installation/download/#rancher-rke))和[kubectl]({{< baseurl >}}/rancher/v2.x/cn/installation/kubectl/)。
 
-2、在开始还原之前，请确保已停止旧群集节点上的所有kubernetes服务。
+2、在开始还原之前，请确保已停止旧集群节点上的所有kubernetes服务。
 
 {{% /accordion %}}
 {{% accordion id="2" label="二、添加新ETCD节点并复制最新快照" %}}
@@ -97,7 +97,7 @@ nodes:
 ./rke_linux-amd64 up --config ./rancher-cluster-restore.yml
 ```
 
-1、测试群集
+1、测试集群
 
 RKE运行完成后会创建`kubectl`的配置文件`kube_config_rancher-cluster-restore.yml`，可通过这个配置文件查询K8S集群节点状态：
 
@@ -113,7 +113,7 @@ NAME            STATUS    ROLES                      AGE       VERSION
 
 2、清理旧节点
 
-通过kubectl从群集中删除旧节点
+通过kubectl从集群中删除旧节点
 
 ```bash
 kubectl --kubeconfig=kube_config_rancher-cluster-restore.yml  delete node 18.217.82.189 18.222.22.56 18.191.222.99
@@ -140,7 +140,7 @@ kube-system     metrics-server-97bc649d5-6w7zc          1/1       Running   1   
 kube-system     tiller-deploy-56c4cf647b-j4whh          1/1       Running   1          4m
 ```
 
->直到Rancher服务器启动并且DNS/负载均衡器指向新群集，`cattle-cluster-agent和cattle-node-agent`pods将处于`Error或者CrashLoopBackOff`状态。
+>直到Rancher服务器启动并且DNS/负载均衡器指向新集群，`cattle-cluster-agent和cattle-node-agent`pods将处于`Error或者CrashLoopBackOff`状态。
 
 5、添加其他节点
 

@@ -103,6 +103,63 @@ Rancher chart有许多配置选项,可用于自定义安装以适合你的特定
 
 确保保存了所有的配置参数，Rancher下一次升级时，helm需要使用相同的配置参数来运行新版本Rancher。
 
-## 四、故障排除
+## 6、(可选)为Agent Pod添加主机别名(/etc/hosts)
+
+如果你没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
+
+### 解决方法
+
+可以通过给`cattle-cluster-agent Pod`和`cattle-node-agent`添加主机别名(/etc/hosts)，让其可以正常通信`(前提是IP地址可以互通)`。
+
+1. cattle-cluster-agent pod
+
+    ```bash
+    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
+    kubectl -n cattle-system patch  deployments cattle-cluster-agent --patch '{
+        "spec": {
+            "template": {
+                "spec": {
+                    "hostAliases": [
+                        {
+                            "hostnames":
+                            [
+                                "demo.cnrancher.com"
+                            ],
+                                "ip": "192.168.1.100"
+                        }
+                    ]
+                }
+            }
+        }
+    }'
+    ```
+
+2. cattle-node-agent pod
+
+    ```bash
+    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
+    kubectl -n cattle-system patch  daemonsets cattle-node-agent --patch '{
+        "spec": {
+            "template": {
+                "spec": {
+                    "hostAliases": [
+                        {
+                            "hostnames":
+                            [
+                                "xxx.rancher.com"
+                            ],
+                                "ip": "192.168.1.100"
+                        }
+                    ]
+                }
+            }
+        }
+    }'
+    ```
+    > **注意**
+    >1、替换其中的域名和IP \
+    >2、别忘记json中的引号。
+
+四、故障排除
 
 [故障排除]({{< baseurl >}}/rancher/v2.x/cn/faq/troubleshooting-helm/)

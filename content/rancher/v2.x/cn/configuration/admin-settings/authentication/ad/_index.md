@@ -145,7 +145,7 @@ ldapsearch -x -D "acme\jdoe" -w "secret" -p 389 \
 
 > **注意**
 > 如果组织中的AD用户使用他们的UPN(例如`jdoe@acme.com` )而不是短登录名进行身份验证，那么我们必须将`Login Attribute`设置为`userPrincipalName`。\
-> 还可以`Search Attribute`参数设置为`sAMAccountName | name`。这样，通过输入用户名或全名，可以通过Rancher UI将用户添加到群集/项目中。
+> 还可以`Search Attribute`参数设置为`sAMAccountName | name`。这样，通过输入用户名或全名，可以通过Rancher UI将用户添加到集群/项目中。
 
 ### 3、识别组架构
 

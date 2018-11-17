@@ -1,88 +1,82 @@
 ---
-title:  3 - CI/CD
+title:  3 - Pipeline(CI/CD)
 weight: 3
 ---
->**Notes:**
+>**注意:**
 >
->- Pipelines are new and improved for Rancher v2.1! Therefore, if you configured pipelines while using v2.0.x, you'll have to reconfigure them after upgrading to v2.1.
->- Still using v2.0.x? See the pipeline documentation for [previous versions]({{< baseurl >}}/rancher/v2.x/en/tools/pipelines/docs-for-v2.0.x).
+>- 对于Rancher v2.1来说，CI/CD有新的改进。因此，如果在使用v2.0.x时配置了CI/CD，则必须在升级到v2.1后重新配置它们。
+>- 仍在使用v2.0.x？请参阅[以前的版本]({{< baseurl >}}/rancher/v2.x/cn/tools/pipelines/docs-for-v2.0.x).
 
-A _pipeline_ is a software delivery process that is broken into different stages, allowing developers to deliver new software as quickly and efficiently as possible. Within Rancher, you can configure a pipeline for each of your Rancher projects.
+`Pipeline`把软件交付过程分成几个不同的阶段，使开发人员能够尽可能快速、高效地提供新的软件。在Rancher中，您可以为每个Rancher项目配置`Pipeline`。
 
-The pipeline stages are:
+`Pipeline`阶段:
 
-- **Build:**
+- **克隆:**
 
-    Each time code is checked into your repository, the pipeline automatically clones the repo and builds a new iteration of your software. Throughout this process, the software is typically reviewed by automated tests.
+    每次将代码推送到存储库时，`Pipeline`都会自动克隆存储库到本地。
 
-- **Publish:**
+- **编译:**
 
-    After each build is completed, it's automatically published to a Docker registry, where it can be pulled for manual testing.
+    代码克隆完成后，根据编译参数自动进行代码编译。在编译过程中，通常会通过自动化工具来对代码的进行测试。
 
-- **Deploy:**
+- **构建:**
 
-    A natural extension of the publish stage, the deploy stage lets you release your software to customers with the click of a button.
+    编译完成并生成执行文件后，利用`Dockerfile`文件自动构建镜像。
 
+- **推送:**
 
-## Overview
+    镜像构建完成后，它会自动发布到Docker镜像仓库。
 
-Rancher Pipeline provides a simple CI/CD experience. Use it to automatically checkout code, run builds, perform tests, publish docker images, and deploy Kubernetes resources to your clusters.
+- **部署:**
 
-You can configure a pipeline for each project in Rancher. Every project can have individual configurations and setups.
+    对于在测试阶段的软件，在镜像推送镜像仓库后，可通过自动部署把应用部署到测试环境。
 
-Pipelines are represented as pipeline files that are checked into source code repositories. Users can read and edit the pipeline configuration by either:
+## 概述
 
-- Using the Rancher UI.
-- Updating the configuration in the repository, using tools like Git CLI to trigger a build with the latest CI definition.
+Rancher Pipeline提供简单的CI/CD体验。使用它自动签出代码、运行构建、执行测试、发布docker镜像，以及将应用部署到Kubernetes群集。
 
->**Note:** Rancher Pipeline provides a simple CI/CD experience, but it does not offer the full power and flexibility of and is not a replacement of enterprise-grade Jenkins or other CI tools your team uses.
+您可以在Rancher中为每个项目配置Pipeline，每个项目都可以有单独的配置和设置。
 
-## Supported Version Control Platforms
+用户可以通过以下任一方式读取和编辑管道配置：
 
-Rancher pipelines currently supports GitHub and GitLab (available as of Rancher v2.1.0).
+- 使用Rancher UI。
+- 使用Git CLI等工具更新存储库中的配置，以使用最新的CI定义触发构建。
 
->**Note:** Additions to pipelines are scoped for future releases of Rancher, such as:
->
->- Additional version control systems such as BitBucket
->- Deployment via Helm charts
->- Deployment via Rancher catalog
+>**注意:** Rancher Pipeline提供简单的CI/CD体验，但它不能提供全面的功能和灵活性，也不能替代您的团队使用的企业级Jenkins或其他CI工具。
 
+## 支持的代码管理平台
 
-## How Pipelines Work
+Rancher pipelines目前支持GitHub和GitLab(从Rancher v2.1.0开始提供)。
 
-When you configure a pipeline in one of your projects, a namespace specifically for the pipeline is automatically created. The following components are deployed to it:
+## Pipelines如何工作
 
-  - **Jenkins:**
+在某个项目中配置pipeline时，将自动创建专门用于pipeline的命名空间并部署以下组件：
 
-    The pipeline's build engine. Because project users do not directly interact with Jenkins, it's managed and locked.
+- **Jenkins:**
 
-    >**Note:**  There is no option to use existing Jenkins deployments as the pipeline engine.
+    Pipeline的构建引擎。由于项目用户不直接与Jenkins交互，因此它被管理和锁定。
 
-    <a id="reg"></a>
+    >**注意:**  目前暂不支持对接外部Jenkins。
 
-  - **Docker Registry:**
+- **Docker Registry:**
 
     Out-of-the-box, the default target for your build-publish step is an internal Docker Registry. However, you can make configurations to push to a remote registry instead. The internal Docker Registry is only accessible from cluster nodes and cannot be directly accessed by users. Images are not persisted beyond the lifetime of the pipeline and should only be used in pipeline runs. If you need to access your images outside of pipeline runs, please push to an external registry.
 
-    <a id="minio"></a>
+- **Minio:**
 
-  - **Minio:**
-
-    Minio storage is used to store the logs for pipeline executions.
+    Minio存储用于存储Pipeline执行的日志。
 
   >**Note:** The managed Jenkins instance works statelessly, so don't worry about its data persistency. The Docker Registry and Minio instances use ephemeral volumes by default, which is fine for most use cases. If you want to make sure pipeline logs can survive node failures, you can configure persistent volumes for them, as described in [data persistency for pipeline components]({{< baseurl >}}/rancher/v2.x/en/tools/pipelines/configurations/#data-persistency-for-pipeline-components).
 
-
-## Pipeline Triggers
+## Pipeline 触发
 
 After you configure a pipeline, you can trigger it using different methods:
 
-
-- **Manually:**
+- **手动:**
 
     After you configure a pipeline, you can trigger a build using the latest CI definition from either Rancher UI or Git CLI.  When a pipeline execution is triggered, Rancher dynamically provisions a Kubernetes pod to run your CI tasks and then remove it upon completion.
 
-- **Automatically:**
+- **自动:**
 
     When you enable a repository for a pipeline, webhooks are automatically added to the version control system. When project users interact with the repo—push code, open pull requests, or create a tag—the version control system sends a webhook to Rancher Server, triggering a pipeline execution.
 

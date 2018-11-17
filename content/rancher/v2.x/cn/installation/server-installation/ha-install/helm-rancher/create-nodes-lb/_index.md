@@ -71,7 +71,7 @@ docker run -d --restart=unless-stopped \
   nginx:1.14
 ```
 
-## 三、FAQ和故障排除"
+## 三、FAQ和故障排除
 
 [FAQ]({{< baseurl >}}/rancher/v2.x/cn/faq/)中整理了常见的问题与解决方法。
 

@@ -36,3 +36,5 @@ weight: 1
 >如果您目前正在使用`RKE add-on`安装的集群，请参阅[从HA RKE Add-on安装迁移]({{< baseurl >}}/rancher/v2.x/cn/upgrades/migrating-from-rke-add-on/)进行升级迁移。
 
 - [RKE add-on安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-install/rke-ha-install/)
+
+## [下一步：创建四层负载均衡](./create-nodes-lb/)

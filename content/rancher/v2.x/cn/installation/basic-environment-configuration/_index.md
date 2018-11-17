@@ -87,6 +87,7 @@ weight: 1
 ```bash
 cat >> /etc/sysctl.conf<<EOF
 net.ipv4.ip_forward=1
+net.bridge.bridge-nf-call-iptables=1
 net.ipv4.neigh.default.gc_thresh1=4096
 net.ipv4.neigh.default.gc_thresh2=6144
 net.ipv4.neigh.default.gc_thresh3=8192
@@ -95,7 +96,48 @@ EOF
 
 >数值根据实际环境自行配置，最后执行`sysctl –p`保存配置。
 
-### 10、ETCD集群容错表
+### 10、内核模块
+
+以下模块需要在主机上加载
+
+| 模块名称               |
+| ---------------------- |
+| br_netfilter           |
+| ip6_udp_tunnel         |
+| ip_set                 |
+| ip_set_hash_ip         |
+| ip_set_hash_net        |
+| iptable_filter         |
+| iptable_nat            |
+| iptable_mangle         |
+| iptable_raw            |
+| nf_conntrack_netlink   |
+| nf_conntrack           |
+| nf_conntrack_ipv4      |
+| nf_defrag_ipv4         |
+| nf_nat                 |
+| nf_nat_ipv4            |
+| nf_nat_masquerade_ipv4 |
+| nfnetlink              |
+| udp_tunnel             |
+| VETH                   |
+| VXLAN                  |
+| x_tables               |
+| xt_addrtype            |
+| xt_conntrack           |
+| xt_comment             |
+| xt_mark                |
+| xt_multiport           |
+| xt_nat                 |
+| xt_recent              |
+| xt_set                 |
+| xt_statistic           |
+| xt_tcpudp              |
+
+>模块查询: lsmod | grep <模块名> \
+模块加载: modprobe <模块名>
+
+### 11、ETCD集群容错表
 
 建议在ETCD集群中使用奇数个成员,通过添加额外成员可以获得更高的失败容错。具体详情可以查阅[optimal-cluster-size](https://coreos.com/etcd/docs/latest/v2/admin_guide.html#optimal-cluster-size)。
 
@@ -361,11 +403,11 @@ OverlayFS是一个新一代的联合文件系统，类似于AUFS，但速度更�
 Ubuntu\Debian系统下，默认cgroups未开启swap account功能，这样会导致设置容器内存或者swap资源限制不生效。可以通过以下命令解决:
 
 ```bash
-sudo sed -i 's/GRUB_CMDLINE_LINUX=".*"/GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1 net.ifnames=0"/g'  /etc/default/grub
+sudo sed -i 's/GRUB_CMDLINE_LINUX="/GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1  /g'  /etc/default/grub
 sudo update-grub
 ```
 
-> 通过以上命令可自动配置参数，如果`/etc/default/grub`非默认配置，需根据实际参数做调整。
+> **注意** 通过以上命令可自动配置参数，如果`/etc/default/grub`非默认配置，需根据实际参数做调整。
 
 ## 三、仓库配置
 

@@ -5,16 +5,16 @@ weight: 1
 
 对于开发环境，我们推荐直接在主机上通过`docker run`的形式运行Rancher server容器。如果主机可以通过公网IP直接访问，可以参考[单节点安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/single-node-install)。
 
-### 一、说明: 为什么使用外部七层负载平衡而不使用外部四层负载平衡？
+## 一、说明: 为什么使用外部七层负载平衡而不使用外部四层负载平衡？
 
 因为SSL需要运行在http七层协议上，所以如果外部负载均衡采用四层协议，那么SSL证书就只能安装在Rnacher server上，这种架构将达不到采用负载均衡器预期的效果。
 
-### 二、Linux主机要求
+## 二、Linux主机要求
 
 - [基础环境配置]({{< baseurl >}}/rancher/v2.x/cn/installation/basic-environment-configuration/)
 - [端口需求]({{< baseurl >}}/rancher/v2.x/cn/installation/references/)
 
-### 三、安装Rancher并配置SSL证书
+## 三、安装Rancher并配置SSL证书
 
 出于安全考虑，使用Rancher时需要SSL进行加密。SSL可以保护所有Rancher网络通信，例如登录或与集群交互。
 
@@ -65,9 +65,9 @@ rancher/rancher:latest --no-cacerts
 
 {{% /accordion %}}
 
-### 四、配置七层负载均衡器
+## 四、配置七层负载均衡器
 
-默认情况下，通过`docker run`运行的Rancher server容器会自动把端口80重定向到443，但是通过负载均衡器来代理Rancher server容器后，不再需要将Rancher server容器端口从80重定向到443。通过在负载均衡器上配置`X-Forwarded-Proto: https`参数后，Rancher server容器端口重定向功能将自动被禁用。
+默认情况下，通过`docker run`运行的Rancher server容器会自动把端口80重定向到443，但是通过负载均衡器来代理Rancher server容器后，不再需要将Rancher server容器80端口重定向到443端口。通过在负载均衡器上配置`X-Forwarded-Proto: https`参数后，Rancher server容器端口重定向功能将自动被禁用。
 
 负载均衡器或代理必须配置为支持以下内容:
 
@@ -82,7 +82,7 @@ rancher/rancher:latest --no-cacerts
     | `X-Forwarded-Port`  | Port used to reach Rancher.  | 识别客户端用于连接负载均衡器的协议。   |
     | `X-Forwarded-For`   | IP of the client connection.  | 识别客户端的原始IP地址。  |
 
-### 五、Nginx 配置文件示例
+## 五、Nginx 配置文件示例
 
 此Nginx配置文件在Nginx version 1.13 (mainline)和1.14(stable)通过测试
 
@@ -123,13 +123,86 @@ server {
 }
 ```
 
-### 六、下一步？
+>为了减少网络传输的数据量，可以在七层代理的`http`定义中添加`GZIP`功能。
 
-你有几个选择:
+```bash
+# Gzip Settings
+gzip on;
+gzip_disable "msie6";
+gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+gzip_vary on;
+gzip_static on;
+gzip_proxied any;
+gzip_min_length 0;
+gzip_comp_level 8;
+gzip_buffers 16 8k;
+gzip_http_version 1.1;
+gzip_types
+  text/xml application/xml application/atom+xml application/rss+xml application/xhtml+xml image/svg+xml application/font-woff
+  text/javascript application/javascript application/x-javascript
+  text/x-json application/json application/x-web-app-manifest+json
+  text/css text/plain text/x-component
+  font/opentype application/x-font-ttf application/vnd.ms-fontobject font/woff2
+  image/x-icon image/png image/jpeg;
+```
 
-- 创建Rancher server的备份:[单节点备份和恢复]({{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/backups/single-node-backups/)。
-- 创建一个Kubernetes集群:[创建一个集群]({{< baseurl >}}/rancher/v2.x/cn/configuration/clusters/creating-a-cluster/)。
+## (可选)为Agent Pod添加主机别名(/etc/hosts)
 
-### 七、FAQ和故障排除
+如果你没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
+
+### 解决方法
+
+可以通过给`cattle-cluster-agent Pod`和`cattle-node-agent`添加主机别名(/etc/hosts)，让其可以正常通信`(前提是IP地址可以互通)`。
+
+1. cattle-cluster-agent pod
+
+    ```bash
+    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
+    kubectl -n cattle-system patch  deployments cattle-cluster-agent --patch '{
+        "spec": {
+            "template": {
+                "spec": {
+                    "hostAliases": [
+                        {
+                            "hostnames":
+                            [
+                                "xxx.cnrancher.com"
+                            ],
+                                "ip": "192.168.1.100"
+                        }
+                    ]
+                }
+            }
+        }
+    }'
+    ```
+
+2. cattle-node-agent pod
+
+    ```bash
+    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
+    kubectl -n cattle-system patch  daemonsets cattle-node-agent --patch '{
+        "spec": {
+            "template": {
+                "spec": {
+                    "hostAliases": [
+                        {
+                            "hostnames":
+                            [
+                                "xxx.rancher.com"
+                            ],
+                                "ip": "192.168.1.100"
+                        }
+                    ]
+                }
+            }
+        }
+    }'
+    ```
+    > **注意**
+    >1、替换其中的域名和IP \
+    >2、别忘记json中的引号。
+
+## 七、FAQ和故障排除
 
 [FAQ]({{< baseurl >}}/rancher/v2.x/cn/faq/)中整理了常见的问题与解决方法。

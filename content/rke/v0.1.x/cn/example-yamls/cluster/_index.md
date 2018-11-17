@@ -5,7 +5,7 @@ weight: 1
 
 有许多不同的[配置选项]({{< baseurl >}}/rke/v0.1.x/cn/config-options/)可以在集群配置文件中为RKE设置。以下是一些示例配置:
 
->**Rancher 2用户注意事项** 如果在创建[Rancher Launched Kubernetes]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/)时使用[配置文件]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/options/#config-file)配置群集选项，则`kube_api`、`kube_controller`服务名称应仅包含`下划线`。这仅适用于`Rancher v2.0.5和v2.0.6`。
+>**Rancher 2用户注意事项** 如果在创建[Rancher Launched Kubernetes]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/)时使用[配置文件]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/options/#config-file)配置集群选项，则`kube_api`、`kube_controller`服务名称应仅包含`下划线`。这仅适用于`Rancher v2.0.5和v2.0.6`。
 
 ## 最小化`cluster.yml`示例
 
@@ -79,7 +79,7 @@ bastion_host:
 #
 #     -----END RSA PRIVATE KEY-----
 
-# 设置Kubernetes集群的名称  
+# 设置Kubernetes集群的名称
 cluster_name: mycluster
 
 # 定义kubernetes版本.
@@ -120,7 +120,7 @@ services:
       #   -----BEGIN PRIVATE KEY-----
       #   xxxxxxxxxx
       #   -----END PRIVATE KEY-----
-      # Rancher 2用户注意事项：如果在创建Rancher Launched Kubernetes时使用配置文件配置群集，则`kube_api`服务名称应仅包含下划线。这仅适用于Rancher v2.0.5和v2.0.6。
+      # Rancher 2用户注意事项：如果在创建Rancher Launched Kubernetes时使用配置文件配置集群，则`kube_api`服务名称应仅包含下划线。这仅适用于Rancher v2.0.5和v2.0.6。
     kube-api:
       # cluster_ip范围
       # 这必须与kube-controller中的service_cluster_ip_range匹配
@@ -139,7 +139,7 @@ services:
         delete-collection-workers: 3
         # 将日志输出的级别设置为debug模式
         v: 4
-    # Rancher 2用户注意事项：如果在创建Rancher Launched Kubernetes时使用配置文件配置群集，则`kube_controller`服务名称应仅包含下划线。这仅适用于Rancher v2.0.5和v2.0.6。
+    # Rancher 2用户注意事项：如果在创建Rancher Launched Kubernetes时使用配置文件配置集群，则`kube_controller`服务名称应仅包含下划线。这仅适用于Rancher v2.0.5和v2.0.6。
     kube-controller:
       # Pods_ip范围
       cluster_cidr: 10.42.0.0/16
@@ -153,7 +153,7 @@ services:
         # 修改节点最大Pod数量
         max-pods: "250"
 
-      # 群集搜索域
+      # 集群搜索域
       cluster_domain: cluster.local
 
       # 内部DNS服务器地址

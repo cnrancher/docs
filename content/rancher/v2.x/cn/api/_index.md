@@ -9,7 +9,7 @@ API具有自己的用户界面，可从Web浏览器访问。这是查看资源�
 
 ## 认证
 
-API请求必须包含身份验证信息，可使用API密钥通过HTTP基本身份验证完成身份验证。[API Keys]({{< baseurl >}}/rancher/v2.x/cn/configuration/user-settings/api-keys/)可以创建新群集、可以访问多个群集/v3/clusters/。API KEY适用于集群和项目角色，限制帐户可以看到的集群和项目以及它们可以采取的操作。
+API请求必须包含身份验证信息，可使用API密钥通过HTTP基本身份验证完成身份验证。[API Keys]({{< baseurl >}}/rancher/v2.x/cn/configuration/user-settings/api-keys/)可以创建新集群、可以访问多个集群/v3/clusters/。API KEY适用于集群和项目角色，限制帐户可以看到的集群和项目以及它们可以采取的操作。
 
 ## 请求
 
@@ -21,7 +21,7 @@ API通常是RESTful，但有几个功能可以定义客户端可发现的所有�
   - 可以在此类资源上执行的每个操作，包括其输入和输出（也作为模式）。
   - 允许过滤的每个字段。
   - 哪些HTTP谓词方法可用于集合本身或集合中的单个资源。
-  
+
 - So the theory is that you can load just the list of schemas and know everything about the API.  This is in fact how the UI for the API works, it contains no code specific to Rancher itself.  The URL to get Schemas is sent in every HTTP response as a `X-Api-Schemas` header.  From there you can follow the `collection` link on each schema to know where to list resources, and other `links` inside of the returned resources to get any other information.
 
 - In practice, you will probably just want to construct URL strings.  We highly suggest limiting this to the top-level to list a collection (`/v3/<type>`) or get a specific resource (`/v3/<type>/<id>`).  Anything deeper than that is subject to change in future releases.

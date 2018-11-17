@@ -1,11 +1,9 @@
 ---
-title: v2.0.x Pipeline Documentation
-weight: 9000
+title: 5 - v2.0.x Pipeline Documentation
+weight: 5
 ---
 
 >**Note:** This section describes the pipeline feature as implemented in Rancher v2.0.x. If you are using Rancher v2.1 or later, where pipelines have been significantly improved, please refer to the new documentation for [v2.1 or later]({{< baseurl >}}/rancher/v2.x/en/tools/pipelines).
-
-
 
 Pipelines help you automate the software delivery process. You can integrate Rancher with GitHub to create a pipeline.
 
