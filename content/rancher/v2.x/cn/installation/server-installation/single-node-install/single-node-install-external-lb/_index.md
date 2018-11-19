@@ -5,16 +5,12 @@ weight: 1
 
 对于开发环境，我们推荐直接在主机上通过`docker run`的形式运行Rancher server容器。如果主机可以通过公网IP直接访问，可以参考[单节点安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/single-node-install)。
 
-## 一、说明: 为什么使用外部七层负载平衡而不使用外部四层负载平衡？
-
-因为SSL需要运行在http七层协议上，所以如果外部负载均衡采用四层协议，那么SSL证书就只能安装在Rnacher server上，这种架构将达不到采用负载均衡器预期的效果。
-
-## 二、Linux主机要求
+## 一、Linux主机要求
 
 - [基础环境配置]({{< baseurl >}}/rancher/v2.x/cn/installation/basic-environment-configuration/)
 - [端口需求]({{< baseurl >}}/rancher/v2.x/cn/installation/references/)
 
-## 三、安装Rancher并配置SSL证书
+## 二、安装Rancher并配置SSL证书
 
 出于安全考虑，使用Rancher时需要SSL进行加密。SSL可以保护所有Rancher网络通信，例如登录或与集群交互。
 
@@ -65,7 +61,7 @@ rancher/rancher:latest --no-cacerts
 
 {{% /accordion %}}
 
-## 四、配置七层负载均衡器
+## 三、配置七层负载均衡器
 
 默认情况下，通过`docker run`运行的Rancher server容器会自动把端口80重定向到443，但是通过负载均衡器来代理Rancher server容器后，不再需要将Rancher server容器80端口重定向到443端口。通过在负载均衡器上配置`X-Forwarded-Proto: https`参数后，Rancher server容器端口重定向功能将自动被禁用。
 
@@ -82,7 +78,7 @@ rancher/rancher:latest --no-cacerts
     | `X-Forwarded-Port`  | Port used to reach Rancher.  | 识别客户端用于连接负载均衡器的协议。   |
     | `X-Forwarded-For`   | IP of the client connection.  | 识别客户端的原始IP地址。  |
 
-## 五、Nginx 配置文件示例
+## 四、Nginx 配置文件示例
 
 此Nginx配置文件在Nginx version 1.13 (mainline)和1.14(stable)通过测试
 
@@ -113,6 +109,7 @@ server {
         proxy_set_header Connection $connection_upgrade;
         # This allows the ability for the execute shell window to remain open for up to 15 minutes. Without this parameter, the default is 1 minute and will automatically close.
         proxy_read_timeout 900s;
+        proxy_buffering off;
     }
 }
 
@@ -146,7 +143,7 @@ gzip_types
   image/x-icon image/png image/jpeg;
 ```
 
-## (可选)为Agent Pod添加主机别名(/etc/hosts)
+## 五、(可选)为Agent Pod添加主机别名(/etc/hosts)
 
 如果你没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
 
@@ -203,6 +200,6 @@ gzip_types
     >1、替换其中的域名和IP \
     >2、别忘记json中的引号。
 
-## 七、FAQ和故障排除
+## 六、FAQ和故障排除
 
 [FAQ]({{< baseurl >}}/rancher/v2.x/cn/faq/)中整理了常见的问题与解决方法。

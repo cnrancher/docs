@@ -2,6 +2,7 @@
 title: 4 - 端口需求
 weight: 4
 ---
+>**注意** [端口需求]({{< baseurl >}}/rancher/v2.x/en/installation/references/)具体以英文文档为准。
 
 要保证Rancher正常运行，需要主机或者安全策略打开以下端口。使用云服务创建集群(如Amazon EC2或DigitalOcean),Rancher会自动打开这些端口。下图显示了Rancher的基本端口要求。如果需要了解更多，请查阅下表。
 
@@ -22,7 +23,6 @@ The ports required to be open for cluster nodes changes depending on how the clu
 >If security isn't a large concern and you're okay with opening a few additional ports, you can use the table in [Commonly Used Ports](#commonly-used-ports) as your port reference instead of the comprehensive tables below.
 
 {{% tabs %}}
-
 {{% tab "Node Pools" %}}
 
 The following table depicts the port requirements for [Rancher Launched Kubernetes]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/) with nodes created in an [Infrastructure Provider]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools/).
@@ -31,7 +31,6 @@ The following table depicts the port requirements for [Rancher Launched Kubernet
 >The required ports are automatically opened by Rancher during creation of clusters in cloud providers like Amazon EC2 or DigitalOcean.
 
 {{< ports-iaas-nodes >}}
-
 {{% /tab %}}
 
 {{% tab "Custom Nodes" %}}
@@ -44,7 +43,7 @@ The following table depicts the port requirements for [Rancher Launched Kubernet
 
 {{% tab "Hosted Clusters" %}}
 
-The following table depicts the port requirements for [hosted clusters]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/hosted-kubernetes-clusters). 
+The following table depicts the port requirements for [hosted clusters]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/hosted-kubernetes-clusters).
 
 {{< ports-imported-hosted >}}
 

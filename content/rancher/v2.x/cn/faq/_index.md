@@ -87,78 +87,114 @@ docker run -d --restart=unless-stopped \
 
 - 单节点安装
 
-  ```bash
-  docker exec -ti <container_id> reset-password
-  New password for default admin user (user-xxxxx):
-  <new_password>
-  ```
+    ```bash
+    docker exec -ti <container_id> reset-password
+    New password for default admin user (user-xxxxx):
+    <new_password>
+    ```
 
-- HA安装
+- HA安装(Helm)
 
-  ```bash
-  KUBECONFIG=./kube_config_rancher-cluster.yml
-  kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | .metadata.name') -- reset-password
-  New password for default admin user (user-xxxxx):
-  <new_password>
-  ```
+    ```bash
+    KUBECONFIG=./kube_config_rancher-cluster.yml
+    kubectl --kubeconfig $KUBECONFIG -n cattle-system exec $(kubectl --kubeconfig $KUBECONFIG -n cattle-system get pods -l app=rancher | grep '1/1' | head -1 | awk '{   print $1 }') -- reset-password
+    New password for default admin user (user-xxxxx):
+    <new_password>
+    ```
+
+- HA安装(RKE)
+
+    ```bash
+    KUBECONFIG=./kube_config_rancher-cluster.yml
+    kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | .metadata.name') -- reset-password
+    New password for default admin user (user-xxxxx):
+    <new_password>
+    ```
 
 ## 7、我删除/停用了管理员，我该如何恢复？
 
 - 单节点安装
 
+      ```bash
+      docker exec -ti <container_id> ensure-default-admin
+      New default admin user (user-xxxxx)
+      New password for default admin user (user-xxxxx):
+      <new_password>
+      ```
+- HA安装(Helm)
+
     ```bash
-    docker exec -ti <container_id> ensure-default-admin
-    New default admin user (user-xxxxx)
+    KUBECONFIG=./kube_config_rancher-cluster.yml
+    kubectl --kubeconfig $KUBECONFIG -n cattle-system exec $(kubectl --kubeconfig $KUBECONFIG -n cattle-system get pods -l app=rancher | grep '1/1' | head -1 | awk '{ print $1 }') -- ensure-default-admin
     New password for default admin user (user-xxxxx):
     <new_password>
     ```
 
-- HA安装
+- HA安装(RKE)
 
     ```bash
     KUBECONFIG=./kube_config_rancher-cluster.yml
-    kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl --kubeconfig KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | .metadata.name') -- ensure-default-admin
+    kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | .metadata.name') -- ensure-default-admin
     New password for default admin user (user-xxxxx):
     <new_password>
     ```
 
 ## 8、怎么样开启debug模式？
 
-## 单节点安装
+### 单节点安装
 
 - 启用
 
-  ```bash
-  docker exec -ti <container_id> loglevel --set debug
-  OK
-  docker logs -f <container_id>
-  ```
+    ```bash
+    docker exec -ti <container_id> loglevel --set debug
+    OK
+    docker logs -f <container_id>
+    ```
 
 - 禁用
 
-  ```bash
-  docker exec -ti <container_id> loglevel --set info
-  OK
-  ```
+    ```bash
+    docker exec -ti <container_id> loglevel --set info
+    OK
+    ```
 
-## HA安装
+### HA安装(RKE)
 
 - 启用
 
-  ```bash
-  KUBECONFIG=./kube_config_rancher-cluster.yml
-  kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | .metadata.name') -- loglevel --set debug
-  OK
-  kubectl --kubeconfig $KUBECONFIG logs -n cattle-system -f $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name="cattle-server") | .metadata.name')
-  ```
+    ```bash
+    KUBECONFIG=./kube_config_rancher-cluster.yml
+    kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | .metadata.name') -- loglevel --set debug
+    OK
+    kubectl --kubeconfig $KUBECONFIG logs -n cattle-system -f $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name="cattle-server") | .metadata.name')
+    ```
 
 - 禁用
 
-  ```bash
-  KUBECONFIG=./kube_config_rancher-cluster.yml
-  kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | .metadata.name') -- loglevel --set info
-  OK
-  ```
+    ```bash
+    KUBECONFIG=./kube_config_rancher-cluster.yml
+    kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | .metadata.name') -- loglevel --set info
+    OK
+    ```
+
+### HA安装(Helm)
+
+- 启用
+
+    ```bash
+    KUBECONFIG=./kube_config_rancher-cluster.yml
+    kubectl --kubeconfig $KUBECONFIG -n cattle-system get pods -l app=rancher | grep '1/1' | awk '{ print $1 }' | xargs -I{} kubectl --kubeconfig $KUBECONFIG -n    cattle-system exec {} -- loglevel --set debug
+    OK
+    kubectl --kubeconfig $KUBECONFIG -n cattle-system logs -l app=rancher
+    ```
+
+- 禁用
+
+    ```bash
+    KUBECONFIG=./kube_config_rancher-cluster.yml
+    kubectl --kubeconfig $KUBECONFIG -n cattle-system get pods -l app=rancher | grep '1/1' | awk '{ print $1 }' | xargs -I{} kubectl --kubeconfig $KUBECONFIG -n cattle-system exec {} -- loglevel --set info
+    OK
+    ```
 
 ## 9、ClusterIP无法ping通？
 
@@ -226,4 +262,20 @@ UI由静态文件组成，并且基于API的响应而工作。这意味着您可
   - `node-monitor-grace-period`：在标记运行节点不健康之前允许运行节点无响应的时间（默认为40秒）
   - `pod-eviction-timeout`：删除失败节点上的pod的宽限期（默认为5m0）
 
-有关这些设置的更多信息，请参阅[Kubernetes：kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/)和[Kubernetes：kube-controller-manager](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/)。
+    有关这些设置的更多信息，请参阅[Kubernetes：kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/)和[Kubernetes：kube-controller-manager](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/)。
+
+## 19、如何通过`证书`查询`Common Name`和`Subject Alternative Names`？
+
+- 检查`Common Name`：
+
+    ```bash
+    openssl x509 -noout -subject -in cert.pem
+    subject=/CN=rancher.my.org
+    ```
+
+- 检查`Subject Alternative Names`：
+
+    ```bash
+    openssl x509 -noout -in cert.pem -text | grep DNS
+    DNS: rancher.my.org
+    ```

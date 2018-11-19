@@ -17,19 +17,20 @@ NGINX拥有所有主流操作系统的软件包，通过包管理器可以很轻
 
     ```bash
     upstream rancher {
-        server IP_NODE_1:80;
-        server IP_NODE_2:80;
-        server IP_NODE_3:80;
+    server rancher-server:80;
     }
+
     map $http_upgrade $connection_upgrade {
         default Upgrade;
         ''      close;
     }
+
     server {
         listen 443 ssl http2;
-        server_name FQDN;
-        ssl_certificate /certs/fullchain.pem;
-        ssl_certificate_key /certs/privkey.pem;
+        server_name rancher.yourdomain.com;
+        ssl_certificate /etc/your_certificate_directory/fullchain.pem;
+        ssl_certificate_key /etc/your_certificate_directory/privkey.pem;
+
         location / {
             proxy_set_header Host $host;
             proxy_set_header X-Forwarded-Proto $scheme;
@@ -39,13 +40,15 @@ NGINX拥有所有主流操作系统的软件包，通过包管理器可以很轻
             proxy_http_version 1.1;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection $connection_upgrade;
-            # This allows the ability for the execute shell window to remain open for up to 15  minutes. Without this parameter, the default is 1 minute and will automatically close.
+            # This allows the ability for the execute shell window to remain open for up to 15 minutes. Without this     parameter, the default is 1 minute and will automatically close.
             proxy_read_timeout 900s;
+            proxy_buffering off;
         }
     }
+
     server {
         listen 80;
-        server_name FQDN;
+        server_name rancher.yourdomain.com;
         return 301 https://$server_name$request_uri;
     }
     ```
