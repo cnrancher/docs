@@ -6,7 +6,7 @@ aliases:
   - /rancher/v2.x/en/installation/removing-rancher/
   - /rancher/v2.x/en/faq/cleaning-cluster-nodes/
 ---
-When you use Rancher to [launch nodes for a cluster]({{< baseurl >}}rancher/v2.x/en/cluster-provisioning/#cluster-creation-in-rancher), resources (containers/virtual network interfaces) and configuration items (certificates/configuration files) are created. 
+When you use Rancher to [launch nodes for a cluster]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/#cluster-creation-in-rancher), resources (containers/virtual network interfaces) and configuration items (certificates/configuration files) are created.
 
 When removing nodes from your Rancher-launched cluster (provided that they are in `Active` state), those resources automatically cleaned, and the only action needed is to restart the node. When a node has become unreachable and the automatic cleanup process cannot be used, we describe the steps that need to be executed before the node can be added to a cluster again.
 
@@ -59,17 +59,17 @@ For imported clusters, the process for removing Rancher from its nodes is a litt
 
 After you initiate the removal of an [imported cluster]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/#import-existing-cluster) using the Rancher UI (or API), the following events occur.
 
-1. Rancher creates a `serviceAccount` that it uses to remove the cluster. This account is assigned the [clusterRole](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#role-and-clusterrole) and [clusterRoleBinding](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding) permissions, which are required to remove the cluster. 
+1. Rancher creates a `serviceAccount` that it uses to remove the cluster. This account is assigned the [clusterRole](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#role-and-clusterrole) and [clusterRoleBinding](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding) permissions, which are required to remove the cluster.
 
-1. Using the `serviceAccount`, Rancher schedules and runs a [job](https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/) that cleans the Rancher and Kubernetes components off of the node. This job also references the `serviceAccount` and its roles as dependencies, so the job deletes them before its completion. 
- 
-1. Rancher is removed from the cluster nodes. However, the cluster persists, running the native version of Kubernetes. 
+1. Using the `serviceAccount`, Rancher schedules and runs a [job](https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/) that cleans the Rancher and Kubernetes components off of the node. This job also references the `serviceAccount` and its roles as dependencies, so the job deletes them before its completion.
+
+1. Rancher is removed from the cluster nodes. However, the cluster persists, running the native version of Kubernetes.
 
  **Result:** All components listed for imported clusters in [What Gets Removed?](#what-gets-removed) are deleted.
 
 {{% /tab %}}
 {{% tab "By Script" %}}
-Rather than cleaning imported cluster nodes using the Rancher UI, you can run a script instead. 
+Rather than cleaning imported cluster nodes using the Rancher UI, you can run a script instead.
 
 >**Prerequisite:**
 >
@@ -89,7 +89,7 @@ Rather than cleaning imported cluster nodes using the Rancher UI, you can run a 
 
 1. From the same directory, run the script:
 
-    >**Tip:** 
+    >**Tip:**
     >
     >Add the `-dry-run` flag to preview the script's outcome without making changes.
 
@@ -98,7 +98,7 @@ Rather than cleaning imported cluster nodes using the Rancher UI, you can run a 
     ```
 
 **Result:** The script runs. All components listed for imported clusters in [What Gets Removed?](#what-gets-removed) are deleted.
- 
+
 {{% /tab %}}
 {{% /tabs %}}
 
@@ -179,9 +179,9 @@ rm -rf /etc/ceph \
 
 ### Network Interfaces and Iptables
 
-The remaining two components that are changed/configured are (virtual) network interfaces and iptables rules. Both are non-persistent to the node, meaning that they will be cleared after a restart of the node. 
+The remaining two components that are changed/configured are (virtual) network interfaces and iptables rules. Both are non-persistent to the node, meaning that they will be cleared after a restart of the node.
 
-This is the recommended method. 
+This is the recommended method.
 
 **To restart a node:**
 

@@ -23,7 +23,7 @@ weight: 1
 
 - [kubectl]({{< baseurl >}}/rancher/v2.x/cn/installation/download/#kubectl) - Kubernetes命令行工具。
 - [rke]({{< baseurl >}}/rancher/v2.x/cn/installation/download/#rancher-rke) - Rancher Kubernetes Engine用于构建Kubernetes集群。
-- [helm]({{< baseurl >}}rancher/v2.x/cn/installation/download/#helm) - Kubernetes的包管理。
+- [helm]({{< baseurl >}}/rancher/v2.x/cn/installation/download/#helm) - Kubernetes的包管理。
 
 ## 附加安装选项
 
