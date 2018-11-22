@@ -1,5 +1,5 @@
 ---
-title: 2 — 安装Rancher
+title: 2 — 离线安装Rancher
 weight: 2
 ---
 
@@ -52,40 +52,42 @@ rke up --config ./rancher-cluster.yml
 
 >**注意** Helm运行需要依赖`kubectl`，点击了解[安装和配置kubectl]({{< baseurl >}}/rancher/v2.x/cn/installation/kubectl/)。
 
-1. 配置tiller客户端访问权限
+1. 配置Helm客户端访问权限
 
-    Helm在集群上安装tiller服务以管理charts. 由于RKE默认启用RBAC, 因此我们需要使用kubectl来创建一个`serviceaccount`，clusterrolebinding才能让tiller具有部署到集群的权限。
+    Helm在Kubernetes集群上安装`Tiller`服务以管理charts,由于RKE默认启用RBAC, 因此我们需要使用kubectl来创建一个`serviceaccount`，`clusterrolebinding`才能让Tiller具有部署到集群的权限。
 
     ```bash
     kubectl -n kube-system create serviceaccount tiller
     kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
     ```
-2. 创建registry secret(可选）
+1. 创建registry secret(可选）
 
-    Helm初始化的时候会去拉取`tiller`镜像，如果镜像仓库为私有仓库，则需要配置登录凭证。
+    - Helm初始化的时候会去拉取`tiller`镜像，如果镜像仓库为私有仓库，则需要配置登录凭证。
 
-    ```bash
-    kubectl -n kube-system create secret docker-registry regcred \
-    --docker-server="reg.example.com" \
-    --docker-username=<user> \
-    --docker-password=<password> \
-    --docker-email=<email>
-    ```
-3. Patch the ServiceAccount
+        ```bash
+        kubectl -n kube-system create secret docker-registry regcred \
+        --docker-server="reg.example.com" \
+        --docker-username=<user> \
+        --docker-password=<password> \
+        --docker-email=<email>
+        ```
+    - Patch the ServiceAccount
 
-    ```bash
-    kubectl -n kube-system patch serviceaccount tiller -p '{"imagePullSecrets": [{"name\": "regcred"}]}'
-    ```
-4. 安装Helm客户端
+        ```bash
+        kubectl -n kube-system patch serviceaccount tiller -p '{"imagePullSecrets": [{"name\": "regcred"}]}'
+        ```
+1. 安装Helm客户端
 
     参考[安装Helm客户端]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-install/helm-rancher/helm-install/#二-安装helm客户端)了解Helm客户端安装。
 
-5. 安装Tiller Server
+1. 安装Helm Server(Tiller)
 
-    >**注意** 默认tiller镜像是从谷歌镜像仓库拉取，可在安装的时候自定义镜像地址。
+    >**注意:**
+1、`helm init`在缺省配置下，会去谷歌镜像仓库拉取`gcr.io/kubernetes-helm/tiller`镜像，并在Kubernetes集群上安装配置Tiller。离线环境下，可通过`--tiller-image`指定私有镜像仓库镜像。点击查询[tiller镜像版本](https://dev.aliyun.com/detail.html?spm=5176.1972343.2.18.ErFNgC&repoId=62085)。\
+2、`helm init`在缺省配置下，会利用`https://kubernetes-charts.storage.googleapis.com`作为缺省的`stable repository`地址,并去更新相关索引文件。如果你是离线安装`Tiller`, 如果有内部的`chart`仓库，可通过`--stable-repo-url`指定内部`chart`地址；如果没有内部的`chart`仓库, 可通过添加`--skip-refresh`参数禁止`Tiller`更新索引。
 
     ```bash
-    helm init --service-account tiller   --tiller-image reg.example.com/xxx/tiller:v2.11.0
+    helm init --skip-refresh --service-account tiller   --tiller-image reg.example.com/google_containers/tiller:v2.11.0
     ```
 
 ## 三、配置Rancher离线模板
@@ -118,7 +120,7 @@ rke up --config ./rancher-cluster.yml
 
 ### 2、打包Rancher Charts模板
 
-1. 添加Rancher Charts仓库。
+1. 添加`Rancher Charts`仓库。
 
     指定安装的版本(比如: `latest` or `stable`)，可通过[版本选择]({{< baseurl >}}/ancher/v2.x/cn/installation/server-tags/)查看版本说明。
 

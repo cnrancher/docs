@@ -59,9 +59,49 @@ Rancher HA安装需要使用来自3个源的镜像，将3个源合并到一个�
 
 1. 复制`rancher-load-images.sh`、`rancher-images.txt`、`rancher-images.tar.gz` 文件到可以访问私有镜像仓库的主机上。
 
-    >**注意**
-    >1、需要先通过`docker login`登录镜像仓库\
-    >2、如果是使用harbor镜像仓库，可能需要先在harbor中创建`rancher`项目
+1. (可选)如果你使用的是`harbor`镜像仓库，那么在上传镜像之前，需要创建仓库项目名称，否则无法上传。查看`rancher-images.txt`文件，可以看到有以下项目名:
+
+    ```plain
+    rancher
+    library
+    weaveworks
+    minio
+    munnerz
+    jetstack
+    ```
+    >**注意** 项目名随版本更新可能随之变化,以实际`rancher-images.txt`文件为准。
+
+    - 创建项目
+
+    修改`harbor_url、harbor_username、harbor_password`，并保存以下命令为: `create_project.sh`。
+
+    ```bash
+    #!/bin/bash
+
+    harbor_url=<harbor_url>
+    harbor_username=<harbor_username>
+    harbor_password=<harbor_password>
+
+    auth_token=$(echo "${harbor_username}:${harbor_password}" | base64)
+    list_project="rancher library weaveworks minio munnerz jetstack"
+    for project in ${list_project};
+    do
+        curl -X POST "http://${harbor_url}/api/projects"  \
+        -H "accept: application/json" \
+        -H "authorization: Basic ${auth_token}" \
+        -H "Content-Type: application/json"
+        -d
+        "{
+            "project_name": "${project}",
+            "metadata": {
+                "public": "true"
+            }
+        }"
+    done
+    ```
+    - 执行脚本: `bash create_project.sh`。
+
+1. 项目创建好之后，执行以下命令进行镜像同步上传
 
     ```plain
     ./rancher-load-images.sh --image-list ./rancher-images.txt --registry <REGISTRY.YOURDOMAIN.COM:PORT>

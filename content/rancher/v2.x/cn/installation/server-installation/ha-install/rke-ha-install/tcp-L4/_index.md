@@ -213,7 +213,7 @@ nodes:
 
 - 方案A — 使用自签名证书
 
-    >**先决条件:** 1.证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型]({{< baseurl >}} /rancher/v2.x/cn/installation/self-signed-ssl/)；\
+    >**先决条件:** 1.证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型]({{< baseurl >}}/rancher/v2.x/cn/installation/self-signed-ssl/)；\
     > 2.证书必须通过`base64`加密；\
     > 3.在你的证书文件中，包含链中的所有中间证书；
 
