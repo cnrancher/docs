@@ -2,27 +2,23 @@
 title: 2 - 单节点离线升级
 weight: 2
 ---
-To upgrade an air gapped Rancher Server, update your private registry with the latest Docker images, and then run the upgrade command.
 
-## Prerequisites
-**Upgrades to v2.0.7+ only:** Starting in v2.0.7, Rancher introduced the `system` project, which is a project that's automatically created to store important namespaces that Kubernetes needs to operate. During upgrade to v2.0.7+, Rancher expects these namespaces to be unassigned from all projects. Before beginning upgrade, check your system namespaces to make sure that they're unassigned to [prevent cluster networking issues]({{< baseurl >}}/rancher/v2.x/en/upgrades/upgrades/namespace-migration/#preventing-cluster-networking-issues).
+要离线升级Rancher Server，需要先同步最新的Rancher镜像到私有镜像仓库中，然后再进行下面的升级操作。
 
-## Upgrading An Air Gapped Rancher Server
+## 先决条件
 
-1. Follow the directions in Air Gap Installation to [pull the Docker images]({{< baseurl >}}/rancher/v2.x/en/installation/air-gap-installation/#release-files) required for the new version of Rancher.
+从v2.0.7开始，Rancher引入了`system`项目，该项目是自动创建的，用于存储Kubernetes需要运行的重要命名空间。在升级到`v2.0.7+`前，请检查环境中有没有创建`system`项目，如果有则删除。`并检查确认所有系统命名空间未分配到任何项目下，如果有则移到出去，以防止群集网络问题。`
 
-2. Follow the directions in [Single Node Upgrade]({{< baseurl >}}/rancher/v2.x/en/upgrades/single-node-upgrade/) to complete upgrade of your air gapped Rancher Server.
+## 离线升级Rancher Server
 
-	>**Note:**
-	> While completing [Single Node Upgrade]({{< baseurl >}}/rancher/v2.x/en/upgrades/single-node-upgrade/), prepend your private registry URL to the image when running the `docker run` command.
-	>
-	> Example: `<registry.yourdomain.com:port>/rancher/rancher:latest`
+1. 按照离线安装方法[准备离线镜像]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/air-gap-installation/prepare-private-reg/)。
 
-**Result:** Rancher is upgraded. Log back into Rancher to confirm that the  upgrade succeeded.
+2. 按照[单节点升级]({{< baseurl >}}/rancher/v2.x/cn/upgrades/single-node-upgrade/)的方法，进行Rancher server升级。
 
->**Having Network Issues Following Upgrade?**
+    >**注意:** 在执行单节点升级时，`docker run`参数中的镜像名，需要添加私有仓库地址。
+    >
+    > 例如: `<registry.yourdomain.com:port>/rancher/rancher:latest`
+
+>**升级后出现网络问题？**
 >
-> See  [Restoring Cluster Networking]({{< baseurl >}}/rancher/v2.x/en/upgrades/upgrades/namespace-migration/#restoring-cluster-networking).
-
-## Rolling Back
-If your upgrade does not complete successfully, you can roll Rancher Server and its data back to its last healthy state. For more information, see [Single Node Rollback]({{< baseurl >}}/rancher/v2.x/en/upgrades/rollbacks/single-node-rollbacks/).
+> 请查阅[Restoring Cluster Networking]({{< baseurl >}}/rancher/v2.x/en/upgrades/upgrades/namespace-migration/#restoring-cluster-networking)。

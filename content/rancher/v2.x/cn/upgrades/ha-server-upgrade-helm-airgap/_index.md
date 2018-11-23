@@ -1,5 +1,5 @@
 ---
-title: 6 - helm HA离线升级
+title: 6 - Helm HA离线升级
 weight: 6
 ---
 

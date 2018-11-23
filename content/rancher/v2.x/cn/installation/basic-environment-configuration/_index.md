@@ -32,8 +32,8 @@ weight: 1
 - 17.06 (for Windows)
 
 > **注意**
-> 1. Ubuntu操作系统有Desktop和Server版本，选择安装server版本。\
-> 2. 如果你正在使用RancherOS，请确保切换到一个支持的Docker引擎版本:\
+> 1. Ubuntu、Centos操作系统有Desktop和Server版本，选择请安装server版本，`别自己坑自己！`\
+> 2. 如果你正在使用RancherOS，请确保切换到受支持的Docker版本:\
 > `sudo ros engine switch docker-17.03.2-ce`
 
 ### 4、主机名配置
@@ -408,11 +408,4 @@ sudo update-grub
 ```
 
 > **注意** 通过以上命令可自动配置参数，如果`/etc/default/grub`非默认配置，需根据实际参数做调整。
-
-## 三、仓库配置
-
-- 离线安装镜像仓库配置
-
-    在线情况下，Rancher部署kubenetes或者部署其他系统组件时，都是通过dockerhub拉取镜像，Dockerhub上rancher仓库为公开仓库，不用登录即可拉取镜像。如果是在离线环境下安装kubenetes集群,那么对应的项目需要为公开权限，不用登录即可拉取镜像。因为在Rancher2.0全局部署kubenetes时,无法使用Registries功能，对于私有项目无法代理提供登录信息，从而导致无法拉取镜像。
-
-    > **提示** 以上配置完成后，建议重启一次主机。
+> **提示** 以上配置完成后，建议重启一次主机。

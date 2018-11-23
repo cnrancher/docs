@@ -3,7 +3,11 @@ title: 1 - 单节点升级
 weight: 1
 ---
 
-**先决条件:** 打开Rancher web并记下浏览器左下方显示的版本号(例如:`v2.0.0`) ，在升级过程中你需要此版本号
+## 先决条件
+
+从v2.0.7开始，Rancher引入了`system`项目，该项目是自动创建的，用于存储Kubernetes需要运行的重要命名空间。在升级到`v2.0.7+`前，请检查环境中有没有创建`system`项目，如果有则删除。`并检查确认所有系统命名空间未分配到任何项目下，如果有则移到出去，以防止群集网络问题。`
+
+> **注意:** 打开Rancher web并记下浏览器左下方显示的版本号(例如:`v2.0.0`) ，在升级过程中你需要此版本号
 
 1. 运行以下命令，停止当前运行Rancher Server的容器
 
@@ -14,7 +18,7 @@ weight: 1
 
 2. 创建当前Rancher Server容器的数据卷容器，以便在升级Rancher Server中使用，命名为rancher-data容器。
 
-    - 替换`<RANCHER_CONTAINER_ID>`为上一步中的相同容器ID。
+    - 替换`<RANCHER_CONTAINER_ID>`为上一步中的容器ID。
     - 替换`<RANCHER_CONTAINER_TAG>`为你当前正在运行的Rancher版本，如上面的先决条件中所述。
 
     ```bash
@@ -26,7 +30,7 @@ weight: 1
 
     如果升级失败，可以通过此备份还原Rancher Server，容器命名:`rancher-data-snapshot-<CURRENT_VERSION>`.
 
-    - 替换`<RANCHER_CONTAINER_ID>`为上一步中的相同ID。
+    - 替换`<RANCHER_CONTAINER_ID>`为上一步中的容器ID。
     - 替换`<CURRENT_VERSION>`为当前安装的Rancher版本的标记。
     - 替换`<RANCHER_CONTAINER_TAG>`为当前正在运行的Rancher版本，如先决条件中所述 。
 
