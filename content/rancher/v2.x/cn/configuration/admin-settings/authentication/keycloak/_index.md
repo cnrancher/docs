@@ -1,5 +1,5 @@
 ---
-title: Configuring Keycloak (SAML)
+title: 配置Keycloak (SAML)
 weight: 1200
 ---
 _Available as of v2.1.0_
@@ -29,7 +29,7 @@ If your organization uses Keycloak Identity Provider (IdP) for user authenticati
     | IDP-metadata              | The `metadata.xml` file that you exported from your IdP server.               |
 
     >**Tip:** You can generate a key/certificate pair using an openssl command. For example:
-    >    
+    >
     >        openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout myservice.key -out myservice.cert
 
 

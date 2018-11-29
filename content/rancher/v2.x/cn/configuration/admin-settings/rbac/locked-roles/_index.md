@@ -1,6 +1,6 @@
 ---
-title: Locked Roles
-weight: 1129
+title: 4 - 锁定角色
+weight: 4
 ---
 
 You can set roles to a status of `locked`. Locking roles prevent them from being assigned users in the future.

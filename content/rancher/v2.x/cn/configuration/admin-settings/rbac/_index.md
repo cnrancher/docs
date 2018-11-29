@@ -4,9 +4,9 @@ weight: 3
 
 ---
 
-Within Rancher, each person authenticates as a _user_, which is a login that grants you access to Rancher. As mentioned in [Authentication]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/), users can either be local or external.
+在Rancher中，每个人都以`用户`身份进行身份验证这是一个允许您访问Rancher的登录信息。如[Authentication]({{< baseurl >}}/rancher/v2.x/cn/admin-settings/authentication/)中所述，用户可以是本地的也可以是外部的。
 
-After you configure external authentication, the users that display on the **Users** page changes.
+配置外部身份验证后，`用户`页面上显示的用户将更改。
 
 - 如果以本地用户身份登录，则只显示本地用户。
 - 如果以外部用户登陆，则会显示外部用户和本地用户。
@@ -15,12 +15,12 @@ After you configure external authentication, the users that display on the **Use
 
 一旦用户登录到Rancher，他们的`_authorization_`或他们在系统中的访问权限由_global permissions_和_cluster和project roles_决定。
 
-- [Global Permissions]({{< baseurl >}}/rancher/v2.x/cn/admin-settings/rbac/global-permissions/):
+- [全局权限]({{< baseurl >}}/rancher/v2.x/cn/admin-settings/rbac/global-permissions/):
 
-    Define user authorization outside the scope of any particular cluster.
+    在特定集群的范围之外定义用户授权。
 
-- [Cluster and Project Roles]({{< baseurl >}}/rancher/v2.x/cn/admin-settings/rbac/cluster-project-roles/):
+- [集群和项目角色]({{< baseurl >}}/rancher/v2.x/cn/admin-settings/rbac/cluster-project-roles/):
 
-    Define user authorization inside the specific cluster or project where they are assigned the role.
+    在为其分配角色的特定集群或项目中定义用户授权。
 
-Both global permissions and cluster and project roles are implemented on top of [Kubernetes RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/). Therefore, enforcement of permissions and roles is performed by Kubernetes.
+全局权限以及集群和项目角色都在[Kubernetes RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)之上实现。

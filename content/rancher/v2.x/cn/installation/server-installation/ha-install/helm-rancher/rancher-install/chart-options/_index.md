@@ -84,7 +84,7 @@ kubectl -n cattle-system create secret generic tls-ca-additional --from-file=ca-
 
 >[Nginx 七层代理配置参考](../../../rke-ha-install/https-l7/nginx/)
 >
->**请注意** 允许直接连接到Rancher群集的客户端不会被加密。如果您选择这样做，我们建议您将网络访问权限限制为仅能访问负载均衡器。
+>**请注意** 允许直接连接到Rancher集群的客户端不会被加密。如果您选择这样做，我们建议您将网络访问权限限制为仅能访问负载均衡器。
 >
 > 如果您使用的是私有CA签名证书，配置`--set privateCA=true` 并[添加TLS密文](../tls-secrets/#二-私有ca签名证书-可选)
 

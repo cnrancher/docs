@@ -1,6 +1,6 @@
 ---
 title: Rancher Tools
-weight: 7
+weight: 9
 ---
 
 Rancher contains a variety of tools that aren't included in Kubernetes to assist in your DevOps operations. Rancher can integrate with external services to help your clusters run more efficiently. Tools are divided into four categories:
@@ -51,7 +51,7 @@ For more information, see [Notifiers]({{< baseurl >}}/rancher/v2.x/en/tools/noti
 Rancher can integrate with popular external services used for event streams, telemetry, or search. Rancher can integrate with the following services:
 
 - Embedded Elasticsearch (experimental)
-    
+
     >**Note:** This option is available only at the cluster level.
 
 - Elasticsearch
@@ -76,5 +76,5 @@ After configuring Rancher and GitHub, you can deploy containers running Jenkins 
 - Build your application from code to image.
 - Validate your builds.
 - Deploy your build images to your cluster.
-- Run unit tests.  
+- Run unit tests.
 - Run regression tests.

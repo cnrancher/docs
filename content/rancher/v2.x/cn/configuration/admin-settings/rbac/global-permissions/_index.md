@@ -1,6 +1,6 @@
 ---
-title: Global Permissions
-weight: 1126
+title: 1 - 全局权限
+weight: 1
 ---
 
 Global Permissions define user authorization outside the scope of any particular cluster. Out-of-the-box, there are two default global permissions: `Administrator` and `Standard User`.

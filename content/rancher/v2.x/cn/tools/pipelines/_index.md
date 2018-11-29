@@ -33,7 +33,7 @@ weight: 3
 
 ## 概述
 
-Rancher Pipeline提供简单的CI/CD体验。使用它自动签出代码、运行构建、执行测试、发布docker镜像，以及将应用部署到Kubernetes群集。
+Rancher Pipeline提供简单的CI/CD体验。使用它自动签出代码、运行构建、执行测试、发布docker镜像，以及将应用部署到Kubernetes集群。
 
 您可以在Rancher中为每个项目配置Pipeline，每个项目都可以有单独的配置和设置。
 

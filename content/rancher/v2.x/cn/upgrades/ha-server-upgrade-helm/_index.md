@@ -10,7 +10,7 @@ weight: 5
 
 ## 先决条件
 
-从v2.0.7开始，Rancher引入了System项目，该项目是自动创建的，用于存储Kubernetes需要运行的重要命名空间。在升级到v2.0.7 +期间，Rancher希望从所有项目中取消分配这些名称空间。在开始升级之前，请检查系统命名空间以确保它们未分配以防止群集网络问题。
+从v2.0.7开始，Rancher引入了System项目，该项目是自动创建的，用于存储Kubernetes需要运行的重要命名空间。在升级到v2.0.7 +期间，Rancher希望从所有项目中取消分配这些名称空间。在开始升级之前，请检查系统命名空间以确保它们未分配以防止集群网络问题。
 
 - **备份Rancher集群**
 
@@ -64,7 +64,7 @@ weight: 5
 
 >**升级后出现网络问题？**
 >
-> 请参阅[还原群集网络]({{< baseurl >}}/rancher/v2.x/en/upgrades/upgrades/namespace-migration/#restoring-cluster-networking).
+> 请参阅[还原集群网络]({{< baseurl >}}/rancher/v2.x/en/upgrades/upgrades/namespace-migration/#restoring-cluster-networking).
 
 ## Rolling Back
 

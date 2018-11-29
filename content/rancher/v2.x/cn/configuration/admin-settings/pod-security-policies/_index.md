@@ -1,5 +1,5 @@
 ---
-title: 4 - Pod Security Policies
+title: 4 - Pod 安全策略
 weight: 4
 
 ---
@@ -14,7 +14,7 @@ _Pod Security Policies_ (or PSPs) are objects that control security-sensitive as
     - You can override the default PSP by assigning a different PSP directly to the project.
 - Any workloads that are already running in a cluster or project before a PSP is assigned will not be checked if it complies with the PSP. Workloads would need to be cloned or upgraded to see if they pass the PSP.
 
-了解更多 about Pod Security Policies in the [Kubernetes Documentation](https://kubernetes.io/docs/concepts/policy/pod-security-policy/).
+Read more about Pod Security Policies in the [Kubernetes Documentation](https://kubernetes.io/docs/concepts/policy/pod-security-policy/).
 
 >**Best Practice:** Set pod security at the cluster level.
 
@@ -29,13 +29,13 @@ Rancher ships with two default Pod Security Policies (PSPs): the `restricted` an
 - `restricted`
 
 	 This policy is based on the Kubernetes [example restricted policy](https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/policy/restricted-psp.yaml). It significantly restricts what types of pods can be deployed to a cluster or project. This policy:
-	
+
 	- Prevents pods from running as a privileged user and prevents escalation of privileges.
-	- Validates that server-required security mechanisms are in place (such as restricting what volumes can be mounted to only the core volume types and preventing root supplemental groups from being added). 
+	- Validates that server-required security mechanisms are in place (such as restricting what volumes can be mounted to only the core volume types and preventing root supplemental groups from being added).
 
 - `unrestricted`
 
-	This policy is equivilent to running Kubernetes with the PSP controller disabled. It has no restrictions on what pods can be deployed into a cluster or project.
+	This policy is equivalent to running Kubernetes with the PSP controller disabled. It has no restrictions on what pods can be deployed into a cluster or project.
 
 ## Creating Pod Security Policies
 

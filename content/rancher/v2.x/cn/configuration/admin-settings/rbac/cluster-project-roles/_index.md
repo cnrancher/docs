@@ -1,6 +1,6 @@
 ---
-title: Cluster and Project Roles
-weight: 1127
+title: 2 - 集群和项目角色
+weight: 2
 ---
 
 Cluster and project roles define user authorization inside a cluster or project. You can manage these roles from the **Global > Security > Roles** page.
@@ -60,11 +60,11 @@ _Project roles_ are roles that can be used to grant users access to a project. T
 - **Read Only:**
 
     These users can view everything in the project but cannot create, update, or delete anything.
-    
+
     ><a id="caveat">**Caveat:**
-    >    
+    >
     >Users assigned the `Owner` or `Member` role for a project automatically inherit the `namespace creation` role. However, this role is a [Kubernetes ClusterRole](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#role-and-clusterrole), meaning its scope extends to all projects in the cluster. Therefore, users explicitly assigned the `owner` or `member` role for a project can create namespaces in other projects they're assigned to, even with only the `Read Only` role assigned.
-    
+
 
 #### Custom Project Roles
 
@@ -113,7 +113,7 @@ There are two methods for changing default cluster/project roles:
 
     For example, instead of assigning a role that inherits other roles (such as `cluster owner`), you can choose a mix of individual roles (such as `manage nodes` and `manage storage`).
 
->**Note:** 
+>**Note:**
 >
 >- Although you can [lock]({{< baseurl >}}/rancher/v2.x/en/admin-settings/rbac/locked-roles/) a default role, the system still assigns the role to users who create a cluster/project.
 >- Only users that create clusters/projects inherit their roles. Users added to the cluster/project membership afterward must be explicitly assigned their roles.
@@ -129,11 +129,11 @@ You can change the cluster or project role(s) that are automatically assigned to
 1. Enable the role as default.
 {{% accordion id="cluster" label="For Clusters" %}}
 1. From **Clustor Creator Default**, choose **Yes: Default role for new cluster creation**.
-1. Click **Save**. 
+1. Click **Save**.
 {{% /accordion %}}
 {{% accordion id="project" label="For Projects" %}}
 1. From **Project Creator Default**, choose **Yes: Default role for new project creation**.
-1. Click **Save**.  
+1. Click **Save**.
 {{% /accordion %}}
 
 1. If you want to remove a default role, edit the permission and select **No** from the default roles option.
