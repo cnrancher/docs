@@ -20,14 +20,14 @@ NO_PROXY                  | Network address(es), network address range(s) and do
 
 Passing environment variables to the Rancher container can be done using `-e KEY=VALUE` or `--env KEY=VALUE`. Required values for `NO_PROXY` in a [Single Node Installation]({{< baseurl >}}/rancher/v2.x/en/installation/single-node-install/) are:
 
-* `localhost`
-* `127.0.0.1`
-* `0.0.0.0`
+- `localhost`
+- `127.0.0.1`
+- `0.0.0.0`
 
 The example below is based on a proxy server accessible at `http://192.168.0.1:3128`, and excluding usage the proxy when accessing network range `192.168.10.0/24` and every hostname under the domain `example.com`.
 
-```
-docker run -d --restart=unless-stopped \
+```bash
+  docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
   -e HTTP_PROXY="http://192.168.10.1:3128" \
   -e HTTPS_PROXY="http://192.168.10.1:3128" \
