@@ -80,12 +80,13 @@ loglevel repository | `https://github.com/rancher/loglevel` | 储库loglevel二�
         - Ubuntu (new using systemd ) - `sudo journalctl -fu docker.service`
         - Boot2Docker - `/var/log/docker.log`
         - Debian GNU/Linux - `/var/log/daemon.log`
-        - CentOS - `cat /var/log/daemon.log | grep docker`
+        - CentOS - `journalctl -u docker.service`
         - CoreOS - `journalctl -u docker.service`
         - Fedora - `journalctl -u docker.service`
         - Red Hat Enterprise Linux Server - `cat /var/log/messages | grep docker`
         - OpenSuSE - `journalctl -u docker.service`
-        - OSX - `~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/log/d‌​ocker.log`
+        - macOS (Docker 18.01+) - `~/Library/Containers/com.docker.docker/Data/vms/0/console-ring`
+        - macOS (Docker <18.01) - `~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/console-ring`
         - Windows - `Get-EventLog -LogName Application -Source Docker -After (Get-Date).AddMinutes(-5) | Sort-Object Time`
 
 如果你遇到性能问题，请提供尽可能多的指标数据(文件或屏幕截图)。如果你有关于机器的问题，提供`top、free -hm、df -h、iostat`的输出信息，这表明进程/内存/磁盘空间/磁盘IO的使用情况。
