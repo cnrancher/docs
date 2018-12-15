@@ -3,11 +3,11 @@ title: Release v2.0.1
 weight: 2
 ---
 
-> **Note:** There is a major issue where v2.0.1 cannot be authenticated with Github auth. We've released v2.0.2 to fix this issue. 
+> **Note:** There is a major issue where v2.0.1 cannot be authenticated with Github auth. We've released v2.0.2 to fix this issue.
 
 ## Versions
 
-> **NOTE** Image Name Changes: Please note that as of v2.0.0, our images will be `rancher/rancher` and `rancher/rancher-agent`. If you are using v1.6, please continue to use `rancher/server` and `rancher/agent`.
+> **NOTE** - Image Name Changes: Please note that as of v2.0.0, our images will be `rancher/rancher` and `rancher/rancher-agent`. If you are using v1.6, please continue to use `rancher/server` and `rancher/agent`.
 
 - rancher/rancher:v2.0.1
 - rancher/rancher-agent:v2.0.1
@@ -17,26 +17,25 @@ weight: 2
 Rancher server has 2 different tags. For each major release tag, we will provide documentation for the specific version.
 
 - `rancher/rancher:latest` tag will be our latest development builds. These builds will have been validated through our CI automation framework. These releases are not meant for deployment in production.
-- `rancher/rancher:stable` tag will be our latest stable release builds. This tag is the version that we recommend for production.  
+- `rancher/rancher:stable` tag will be our latest stable release builds. This tag is the version that we recommend for production.
 
 Please do not use releases with a `rc{n}` suffix. These `rc` builds are meant for the Rancher team to test builds.
 
-### Latest - v2.0.1 - `rancher/rancher:latest`
-
-### Stable - v2.0.0 - `rancher/rancher:stable`
+- Latest - v2.0.1 - `rancher/rancher:latest`
+- Stable - v2.0.0 - `rancher/rancher:stable`
 
 ## Upgrades and Rollbacks
 
-Rancher supports both upgrade and rollback starting with v2.0.1.  Please note the version you would like to upgrade or rollback to and follow the [instructions](https://www.cnrancher.com/docs/rancher/v2.x/cn/upgrades/) to change the Rancher version.
+Rancher supports both upgrade and rollback starting with v2.0.1.  Please note the version you would like to upgrade or rollback to and follow the [instructions](https://rancher.com/docs/rancher/v2.x/en/upgrades/) to change the Rancher version.
 
-> **Note:** In the case of rolling back using a [Rancher single-node install](https://www.cnrancher.com/docs/rancher/v2.x/cn/installation/server-installation/single-node-install/), you must specify the exact version you want to change the Rancher version to, rather than using the default `:latest` tag.
+> **Note:** In the case of rolling back using a [Rancher single-node install](https://rancher.com/docs/rancher/v2.x/en/installation/single-node-install/), you must specify the exact version you want to change the Rancher version to, rather than using the default `:latest` tag.
 > **Note:** If you had the helm stable catalog enabled in previous releases, we've updated the catalog to start pointing directly to the kubernetes helm repo instead of an internal repo. Please delete the custom catalog that is now showing up and re-enable the helm stable. [[#13582](https://github.com/rancher/rancher/issues/13582)]
 
 ## New Enhancements
 
 - **Added ability to import/export Workloads/Services/Namespaces as a YAML [[#12371](https://github.com/rancher/rancher/issues/12371)]**
 - **Added ability to mark RoleTemplates as `protected` [[#13418](https://github.com/rancher/rancher/issues/13418)]** - This will allow admins to control the ability to select when adding members to clusters and projects.
-- **Rancher CLI Enhancements**  
+- **Rancher CLI Enhancements**
   - Added ability to inspect additional k8s resources [[#12831](https://github.com/rancher/rancher/issues/12831)]
   - Added ability to use catalog [[#13101](https://github.com/rancher/rancher/issues/13101)]
   - Added ability to change context [[#13235](https://github.com/rancher/rancher/issues/13235)]
@@ -45,9 +44,7 @@ Rancher supports both upgrade and rollback starting with v2.0.1.  Please note th
 
 ## Migrating from Rancher 1.6
 
-By embarking on the Rancher 2.0 project, all of the legacy Rancher 1.6 Java modules were completely rewritten in Go, and in the process touched just about every other module in the system. As such, there will not be a direct upgrade  from 1.6.x to 2.0.  
-
-Our next major milestone will be our 2.1 release that will include a tool that will convert Rancher Compose to Kubernetes YAML.  This will help our existing Cattle users from having to start the migration from scratch.  However, we know the biggest challenge will be having to leverage Cattle functionality in a Kubernetes environment as you deploy new workloads.  We plan to also release a guide that will act as a cheatsheet for those that enjoy Cattle's simplicity and want to quickly create those workloads in Kubernetes. 
+By embarking on the Rancher 2.0 project, all of the legacy Rancher 1.6 Java modules were completely rewritten in Go, and in the process touched just about every other module in the system. As such, there will not be a direct upgrade  from 1.6.x to 2.0.
 
 We do plan to continue to support Rancher 1.6.x for at least another year after 2.1 has been released to give our users time to plan this migration.
 
@@ -68,4 +65,4 @@ We do plan to continue to support Rancher 1.6.x for at least another year after 
 
 ## Rancher CLI Downloads
 
-[rancher-cli]({{< baseurl >}}/rancher/v2.x/cn/installation/download/#rancher-cli)
+https://github.com/rancher/cli/releases/tag/v2.0.1

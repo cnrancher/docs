@@ -1,9 +1,9 @@
 ---
 title: Release v2.1.0
-weight: 10
+weight: 11
 ---
 
-Rancher v2.1.0 introduces new improvements to Kubernetes cluster operations and app management, as well as a migration path for users moving from Rancher's Cattle orchestrator introduced in 1.x to Rancher Kubernetes.  Please refer to the following [link](https://rancher.com/docs/rancher/v2.x/en/v1.6-migration/) for guides, blogs, and how-tos to moving a 1.6 Cattle application into the next generation 2.0 Kubernetes equivalent.  
+Rancher v2.1.0 introduces new improvements to Kubernetes cluster operations and app management, as well as a migration path for users moving from Rancher's Cattle orchestrator introduced in 1.x to Rancher Kubernetes.  Please refer to the following [link](https://rancher.com/docs/rancher/v2.x/en/v1.6-migration/) for guides, blogs, and how-tos to moving a 1.6 Cattle application into the next generation 2.0 Kubernetes equivalent.
 
 With this release, the follow versions are now latest and stable:
 
@@ -12,7 +12,7 @@ With this release, the follow versions are now latest and stable:
 
 **`v2.1.0`** or a patched version of it will be promoted to stable after a period of hardening and bake-in in our open source community.
 
-Below is a list of the major items addressed in this release. For a comprehensive list of all features, enhancements, improvements, and bug fixes, see the [v2.1 GitHub Milestone](https://github.com/rancher/rancher/milestone/121). 
+Below is a list of the major items addressed in this release. For a comprehensive list of all features, enhancements, improvements, and bug fixes, see the [v2.1 GitHub Milestone](https://github.com/rancher/rancher/milestone/121).
 
 ## Major Features and Enhancements
 
@@ -57,15 +57,22 @@ Below is a list of the major items addressed in this release. For a comprehensiv
 
 The default number of replicas of the Rancher server in our Helm template has changed from 1 to 3. If you are running Rancher in HA mode, we recommend having three nodes available for the Rancher server pods to run on.
 
+### RKE add-on install is only supported up to Rancher v2.0.8
+
+Due to the HA improvements introduced in the v2.1.0 release, the Rancher helm chart is the only supported method for installing or upgrading Rancher. Please use the Rancher helm chart to install HA Rancher. For details, see the [HA Install - Installation Outline](https://rancher.com/docs/rancher/v2.x/en/installation/ha/#installation-outline).
+
+If you are currently using the RKE add-on install method, see [Migrating from a RKE add-on install](https://rancher.com/docs/rancher/v2.x/en/upgrades/upgrades/migrating-from-rke-add-on/) for details on how to move to using a helm chart.
+
 ### Known Major Issues
 
 - Clusters created through Rancher can sometimes get stuck in provisioning [[#15970](https://github.com/rancher/rancher/issues/15970)] [[#15969](https://github.com/rancher/rancher/issues/15969)] [[#15695](https://github.com/rancher/rancher/issues/15695)]
 - An issue with Flannel can break pods' cross-host communication [[#13644](https://github.com/rancher/rancher/issues/13644)]
 - Flannel does not work with Kubernetes 1.12 (EXPERIMENTAL) clusters [[#15955](https://github.com/rancher/rancher/issues/15955)]
+- Upgrading a Rancher HA installation when there is only 1 or 2 nodes with the "worker" role will result in the upgrade failing because the new default scale for Rancher server replicas is 3 [[#16068](https://github.com/rancher/rancher/issues/16068)]. To workaround this issue, ensure at least 3 nodes have the worker role before upgrading. For details on Rancher HA in general, see the [HA Install - Installation Outline](https://rancher.com/docs/rancher/v2.x/en/installation/ha/#installation-outline).
 
 ## Versions
 
-**NOTE** - Image Name Changes: Please note that as of v2.0.0, our images will be `rancher/rancher` and `rancher/rancher-agent`. If you are using v1.6, please continue to use `rancher/server` and `rancher/agent`. 
+**NOTE** - Image Name Changes: Please note that as of v2.0.0, our images will be `rancher/rancher` and `rancher/rancher-agent`. If you are using v1.6, please continue to use `rancher/server` and `rancher/agent`.
 
 ### Images
 
@@ -74,15 +81,15 @@ The default number of replicas of the Rancher server in our Helm template has ch
 
 ### Tools
 
-- cli - [rancher-cli]({{< baseurl >}}/rancher/v2.x/cn/installation/download/#rancher-cli)
-- rke - [rancher-rke]({{< baseurl >}}/rancher/v2.x/cn/installation/download/#rancher-rke)
+- cli - [v2.0.5](https://github.com/rancher/cli/releases/tag/v2.0.5)
+- rke - [v0.1.10](https://github.com/rancher/rke/releases/tag/v0.1.10)
 
 ## Rancher Server Tags
 
 Rancher server has 2 different tags. For each major release tag, we will provide documentation for the specific version.
 
 - **`rancher/rancher:latest`** tag will be our latest development builds. These builds will have been validated through our CI automation framework. These releases are not meant for deployment in production.
-- **`rancher/rancher:stable`** tag will be our latest stable release builds. This tag is the version that we recommend for production.  
+- **`rancher/rancher:stable`** tag will be our latest stable release builds. This tag is the version that we recommend for production.
 
 Please do not use releases with a `rc{n}` suffix. These `rc` builds are meant for the Rancher team to test builds.
 
@@ -90,7 +97,7 @@ Please do not use releases with a `rc{n}` suffix. These `rc` builds are meant fo
 
 Rancher supports both upgrade and rollback starting with v2.0.2.  Please note the version you would like to [upgrade](https://rancher.com/docs/rancher/v2.x/en/upgrades/) or [rollback](https://rancher.com/docs/rancher/v2.x/en/backups/rollbacks/) to change the Rancher version.
 
-**Any upgrade after v2.0.3, when scaling up workloads, new pods will be created [[#14136](https://github.com/rancher/rancher/issues/14136)]** - In order to update scheduling rules for workloads [[#13527](https://github.com/rancher/rancher/issues/13527)], a new field was added to all workloads on `update`, which will cause any pods in workloads from previous versions to re-create. 
+**Any upgrade after v2.0.3, when scaling up workloads, new pods will be created [[#14136](https://github.com/rancher/rancher/issues/14136)]** - In order to update scheduling rules for workloads [[#13527](https://github.com/rancher/rancher/issues/13527)], a new field was added to all workloads on `update`, which will cause any pods in workloads from previous versions to re-create.
 
 > **Note:** When rolling back, we are expecting you to rollback to the state at the time of your upgrade. Any changes post upgrade would not be reflected. In the case of rolling back using a [Rancher single-node install](https://rancher.com/docs/rancher/v2.x/en/installation/single-node-install/), you must specify the exact version you want to change the Rancher version to, rather than using the default `:latest` tag.
 > **Note:** If you had the helm stable catalog enabled in v2.0.0, we've updated the catalog to start pointing directly to the Kubernetes helm repo instead of an internal repo. Please delete the custom catalog that is now showing up and re-enable the helm stable. [[#13582](https://github.com/rancher/rancher/issues/13582)]

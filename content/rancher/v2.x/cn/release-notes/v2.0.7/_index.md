@@ -21,13 +21,12 @@ If you want to turn on network policies, which was the previous default behavior
 Rancher server has 2 different tags. For each major release tag, we will provide documentation for the specific version.
 
 - `rancher/rancher:latest` tag will be our latest development builds. These builds will have been validated through our CI automation framework. These releases are not meant for deployment in production.
-- `rancher/rancher:stable` tag will be our latest stable release builds. This tag is the version that we recommend for production.  
+- `rancher/rancher:stable` tag will be our latest stable release builds. This tag is the version that we recommend for production.
 
 Please do not use releases with a `rc{n}` suffix. These `rc` builds are meant for the Rancher team to test builds.
 
-### Latest - v2.0.7 - `rancher/rancher:latest`
-
-### Stable - v2.0.6 - `rancher/rancher:stable`
+- Latest - v2.0.7 - `rancher/rancher:latest`
+- Stable - v2.0.6 - `rancher/rancher:stable`
 
 ## Upgrades and Rollbacks
 
@@ -36,6 +35,7 @@ Rancher supports both upgrade and rollback starting with v2.0.2.  Please note th
 **Any upgrade after v2.0.3, when scaling up workloads, new pods will be created [[#14136](https://github.com/rancher/rancher/issues/14136)]** - In order to update scheduling rules for workloads [[#13527](https://github.com/rancher/rancher/issues/13527)], a new field was added to all workloads on `update`, which will cause any pods in workloads from previous versions to re-create.
 
 > **Note:** When rolling back, we are expecting you to rollback to the state at the time of your upgrade. Any changes post upgrade would not be reflected. In the case of rolling back using a [Rancher single-node install](https://rancher.com/docs/rancher/v2.x/en/installation/single-node-install/), you must specify the exact version you want to change the Rancher version to, rather than using the default `:latest` tag.
+
 > **Note:** If you had the helm stable catalog enabled in v2.0.0, we've updated the catalog to start pointing directly to the kubernetes helm repo instead of an internal repo. Please delete the custom catalog that is now showing up and re-enable the helm stable. [[#13582](https://github.com/rancher/rancher/issues/13582)]
 
 ## Enhancements
@@ -52,7 +52,7 @@ Rancher supports both upgrade and rollback starting with v2.0.2.  Please note th
 - **Added additional fields for GKE and EKS [[#14566](https://github.com/rancher/rancher/issues/14566), [#13789](https://github.com/rancher/rancher/issues/13789)]** - New fields have been exposed for GKE and EKS to allow better control over cluster creation
 
 - **Version Changes**
-  - **Added Kubernetes 1.11 Support [[#13837](https://github.com/rancher/rancher/issues/13837)] and dropped Kubernetes 1.8 as an option during cluster creation [[#14517](https://github.com/rancher/rancher/issues/14517)]**  
+  - **Added Kubernetes 1.11 Support [[#13837](https://github.com/rancher/rancher/issues/13837)] and dropped Kubernetes 1.8 as an option during cluster creation [[#14517](https://github.com/rancher/rancher/issues/14517)]**
   - **Updated Docker Machine to v0.15.0**
     - Adds cn-northwest support in for AWS [[#11192](https://github.com/rancher/rancher/issues/11192)]
   - **NGINX ingress controller updated to v1.16 [[#13294](https://github.com/rancher/rancher/issues/13294)]**
@@ -81,10 +81,6 @@ Rancher supports both upgrade and rollback starting with v2.0.2.  Please note th
 - Fixed an issue where adding members to a cluster with multiple custom roles were creating multiple user accounts and making it impossible for the user to log in [[#14822](https://github.com/rancher/rancher/issues/14822)]
 - Fixed an issue where control node taint might be missing on nodes after bringing up different nodes at different times with different roles [[#14896](https://github.com/rancher/rancher/issues/14896)]
 
-## Migrating from Rancher 1.6
-
-Our next major milestone will be our 2.1 release that will include a tool that will convert Rancher Compose to Kubernetes YAML.  This will help our existing Cattle users from having to start the migration from scratch.  However, we know the biggest challenge will be having to leverage Cattle functionality in a Kubernetes environment as you deploy new workloads.  We plan to also release a guide that will act as a cheatsheet for those that enjoy Cattle's simplicity and want to quickly create those workloads in Kubernetes.
-
 ## Rancher CLI Downloads
 
-[rancher-cli]({{< baseurl >}}/rancher/v2.x/cn/installation/download/#rancher-cli)
+https://github.com/rancher/cli/releases/tag/v2.0.4

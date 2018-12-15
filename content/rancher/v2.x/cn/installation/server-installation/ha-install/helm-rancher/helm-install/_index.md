@@ -30,13 +30,13 @@ Helm 客户端可以从源代码安装，也可以从预构建的二进制版本
 
 2. 解压缩(tar -zxvf helm-v2.x.x-linux-amd64.tgz)
 
-3. helm 在解压后的目录中找到二进制文件，并将其移动到所需的位置(mv linux-amd64/helm /usr/local/bin/helm)
+3. `helm`在解压后的目录中找到二进制文件，并将其移动到所需的位置(mv linux-amd64/helm /usr/local/bin/helm)
 
     到这里，你应该可以运行客户端了：`helm help`。
 
 ### 2、通过 Homebrew(macOS)安装
 
-Kubernetes 社区的成员为 Homebrew 贡献了 Helm。这个通常是最新的。
+Kubernetes社区的成员为Homebrew贡献了Helm,这个通常是最新的。
 
 ```bash
 brew install kubernetes-helm
@@ -46,7 +46,7 @@ brew install kubernetes-helm
 
 ### 3、从Chocolatey(Windows)
 
-Kubernetes 社区的成员为 Chocolatey 贡献了 Helm 包。这个软件包通常是最新的。
+Kubernetes社区成员为Chocolatey贡献了Helm包,这个软件包通常是最新的。
 
 ```bash
 choco install kubernetes-helm
@@ -54,7 +54,7 @@ choco install kubernetes-helm
 
 ### 4、从脚本
 
-Helm 现在有一个安装 shell 脚本，将自动获取最新版本的 Helm 客户端并在本地安装。可以获取该脚本，然后在本地执行它。这种方法也有文档指导，以便可以在运行之前仔细阅读并理解它在做什么。
+Helm现在有一个安装shell脚本，将自动获取最新版本的`Helm`客户端并在本地安装。可以获取该脚本，然后在本地执行它。这种方法也有文档指导，以便可以在运行之前仔细阅读并理解它在做什么。
 
 ```bash
 curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
@@ -109,7 +109,7 @@ Helm的服务器端部分Tiller,通常运行在Kubernetes集群内部。但是�
 - `--tiller-namespace` 用一个特定的命名空间(namespace)安装;
 
 >**注意:** 1、RKE默认启用RBAC,所以在安装`tiller`时需要指定`ServiceAccount`。\
-2、`helm init`在缺省配置下，会去谷歌镜像仓库拉取`gcr.io/kubernetes-helm/tiller`镜像，在Kubernetes集群上安装配置Tiller；由于在国内可能无法访问`gcr.io、storage.googleapis.com`等域名，可以通过`--tiller-image`指定私有镜像仓库镜像。点击查询[tiller镜像版本](https://dev.aliyun.com/detail.html?spm=5176.1972343.2.18.ErFNgC&repoId=62085)。 \
+2、`helm init`在缺省配置下，会去谷歌镜像仓库拉取`gcr.io/kubernetes-helm/tiller`镜像，在Kubernetes集群上安装配置Tiller；由于在国内可能无法访问`gcr.io、storage.googleapis.com`等域名，可以通过`--tiller-image`指定私有镜像仓库镜像。点击查询[tiller镜像版本](https://hub.docker.com/r/hongxiaolu/tiller/tags/)。 \
 3、`helm init`在缺省配置下，会利用`https://kubernetes-charts.storage.googleapis.com`作为缺省的`stable repository`地址,并去更新相关索引文件。在国内可能无法访问`storage.googleapis.com`地址, 可以通过`--stable-repo-url`指定`chart`国内加速镜像地址。 \
 4、如果你是离线安装`Tiller`, 假如没有内部的`chart`仓库, 可通过添加`--skip-refresh`参数禁止`Tiller`更新索引。
 
@@ -123,7 +123,7 @@ helm init --service-account tiller   --tiller-image registry.cn-hangzhou.aliyunc
 
 一旦安装了Tiller，运行helm version会显示客户端和服务器版本。(如果它仅显示客户端版本， helm则无法连接到服务器, 使用`kubectl`查看是否有任何tiller Pod 正在运行。)
 
-除非设置`--tiller-namespace`或`TILLER_NAMESPACE`参数，否则Helm将在命名空间 `kube-system`中查找Tiller。
+除非设置`--tiller-namespace`或`TILLER_NAMESPACE`参数，否则Helm将在命名空间`kube-system`中查找Tiller。
 
 ### 2、安装Tiller金丝雀版本
 
@@ -133,7 +133,7 @@ Canary镜像是从master分支建立的。他们可能不稳定，但他们提�
 helm init --service-account tiller --canary-image
 ```
 
-这将使用最近构建的容器镜像。可以随时使用`kubectl`删除`kube-system`命名空间中的Tiller deployment来卸载Tiller。
+这将使用最近构建的容器镜像。可以随时使用`kubectl`删除`kube-system`命名空间中的`Tiller deployment`来卸载Tiller。
 
 ### 3、本地运行Tiller
 
@@ -159,12 +159,19 @@ Tiller running on:44134
 
 ## 四、升级Tiller
 
-从Helm 2.2.0开始，Tiller可以升级使用`helm init --upgrade`。对于旧版本的Helm或手动升级，可以使用`kubectl`修改Tiller容器镜像：
+从Helm 2.2.0开始，Tiller可以升级使用`helm init --upgrade`。对于旧版本的Helm或手动升级，可以使用`kubectl`修改Tiller容器镜像
+
+> 点击查询[新版Tiller镜像](https://hub.docker.com/r/hongxiaolu/tiller/tags/)
 
 ```bash
-  export TILLER_TAG=v2.0.0-beta.1        # Or whatever version you want
+  export TILLER_TAG=<new_tag> ;
   kubectl --namespace=kube-system set image deployments/tiller-deploy tiller=gcr.io/kubernetes-helm/tiller:$TILLER_TAG
-  deployment "tiller-deploy" image updated
+```
+
+将显示以下信息：
+
+```bash
+deployment "tiller-deploy" image updated
 ```
 
 设置`TILLER_TAG=canary`将获得master版本的最新快照。

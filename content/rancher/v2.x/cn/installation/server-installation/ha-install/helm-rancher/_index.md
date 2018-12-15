@@ -3,6 +3,16 @@ title: 1 - Helm HA安装
 weight: 1
 ---
 
+> **注意** Rancher HA安装属于高级安装，部署前先了解以下基本技能：\
+> 1. 了解`域名与DNS解析`基本概念 \
+> 2. 了解`http七层代理和tcp四层代理`基本概念 \
+> 3. 了解`反向代理`的基本原理 \
+> 4. 了解`SSL证书与域名`的关系 \
+> 5. 了解`Helm`的安装使用 \
+> 6. 了解`kubectl`的使用
+> 7. 熟悉`Linux基本操作命令`
+> 8. 熟悉`Docker基本操作命令`
+
 对于生产环境，我们建议使用高可用安装Rancher，以便保证用户可以始终访问Rancher Server。当Rancher安装在Kubernetes集群中时，Rancher将使用集群的`etcd`存储数据，并利用Kubernetes调度实现高可用性。
 
 > **重要:** 为了获得最佳性能，我们建议这个Kubernetes集群只用于Rancher Server。

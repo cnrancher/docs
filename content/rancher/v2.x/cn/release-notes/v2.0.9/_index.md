@@ -1,9 +1,13 @@
 ---
-title: Release v2.0.8
-weight: 9
+title: Release v2.0.9
+weight: 10
 ---
 
 ## Important
+
+### Security fixes
+
+This release updates to the latest Kubernetes versions (i.e. v1.10.11 and v1.11.5) for clusters launched by Rancher to address [Kubernetes CVE-2018-1002105](https://github.com/kubernetes/kubernetes/issues/71411). We recommend upgrading your Kubernetes clusters to these versions.
 
 ### Network Policies
 
@@ -19,8 +23,8 @@ As of v2.0.7, we introduced a "System Project", which has specific namespaces, i
 
 > **NOTE** - Image Name Changes: Please note that as of v2.0.0, our images will be `rancher/rancher` and `rancher/rancher-agent`. If you are using v1.6, please continue to use `rancher/server` and `rancher/agent`.
 
-- rancher/rancher:v2.0.8
-- rancher/rancher-agent:v2.0.8
+- rancher/rancher:v2.0.9
+- rancher/rancher-agent:v2.0.9
 
 ## Rancher Server Tags
 
@@ -31,8 +35,8 @@ Rancher server has 2 different tags. For each major release tag, we will provide
 
 Please do not use releases with a `rc{n}` suffix. These `rc` builds are meant for the Rancher team to test builds.
 
-- Latest - v2.0.8 - `rancher/rancher:latest`
-- Stable - v2.0.8 - `rancher/rancher:stable`
+- Latest - v2.1.3 - `rancher/rancher:latest`
+- Stable - v2.1.3 - `rancher/rancher:stable`
 
 ## Upgrades and Rollbacks
 
@@ -46,14 +50,11 @@ Rancher supports both upgrade and rollback starting with v2.0.2.  Please note th
 
 ## Known Major Issues
 
-## Major Bug Fixes since v2.0.7
+- Sometimes new Kubernetes version doesn't get updated right away on the upgraded Kubernetes clusters; it gets fixed as soon as user application gets deployed on the node [[15831](https://github.com/rancher/rancher/issues/15831)]
 
-- Fixed an issue where Kubernetes 1.11.1 didn't have the correct cipher suite installed. All users using Kubernetes 1.11.1 is recommended to upgrade to Kubernetes 1.11.2  [[#15120](https://github.com/rancher/rancher/issues/15120)]
-- Fixed an issue where a single node installation might fail to come up if etcd took longer than 10 seconds to start up [[#15077](https://github.com/rancher/rancher/issues/15077)]
-- Fixed an issue where catalog refreshes would not back off if there was an error and cause installations to use up all the CPU and several GB of RAM [[#15103](https://github.com/rancher/rancher/issues/15103)]
-- Fixed an issue where helm charts with required values would fail when trying to generate notes [[#15167](https://github.com/rancher/rancher/issues/15167)]
-- Fixed an issue where a user was not completely being deleted from Rancher as a secret was still being stored for them [[#15067](https://github.com/rancher/rancher/issues/15067)]
-- Fixed an issue where the default base user had read only permissions for principals and users, but only admins should have this ability unless explicitly added to the default base user [[#15061](https://github.com/rancher/rancher/issues/15061)]
+## Major Bug Fixes since v2.0.8
+
+- Added updated Kubernetes versions (i.e. v1.10.11 and v1.11.5) to address [Kubernetes CVE-2018-1002105](https://github.com/kubernetes/kubernetes/issues/71411) for clusters launched by Rancher. The default Kubernetes version is v1.11.5. [[16835](https://github.com/rancher/rancher/issues/16835)]
 
 ## Rancher CLI Downloads
 

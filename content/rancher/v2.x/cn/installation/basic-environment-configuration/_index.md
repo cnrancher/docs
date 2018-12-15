@@ -94,7 +94,7 @@ net.ipv4.neigh.default.gc_thresh3=8192
 EOF
 ```
 
->数值根据实际环境自行配置，最后执行`sysctl –p`保存配置。
+>数值根据实际环境自行配置，最后执行`sysctl -p`保存配置。
 
 ### 10、内核模块
 

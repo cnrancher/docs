@@ -7,7 +7,7 @@ weight: 6
 
 ![image-20181114160553191](_index.assets/image-20181114160553191-2182753.png)
 
-主要是仓库是非`https`连接,导致Docker无法登陆镜像仓库。
+问题主要是仓库是非`https`地址,导致Docker无法验证登陆镜像仓库。
 
 解决方法:
 
@@ -25,6 +25,7 @@ weight: 6
             tag: example-helloserver:${CICD_EXECUTION_SEQUENCE}
           env:
             PLUGIN_DEBUG: "true"
+            PLUGIN_INSECURE: "true"
     ```
 
     ![image-20181114162723797](_index.assets/image-20181114162723797-2184043.png)
