@@ -74,7 +74,7 @@ rancher/rancher:latest --no-cacerts
     | Header       | Value       | 描述     |
     |-----------|-------------|:-----------|
     | `Host`              | 传递给Rancher的主机名| 识别客户端请求的主机名。          |
-    | `X-Forwarded-Proto` | `https`     | 识别客户端用于连接负载均衡器的协议。**注意：**如果存在此标头，`rancher/ancher`不会将HTTP重定向到HTTPS。 |
+    | `X-Forwarded-Proto` | `https`     | 识别客户端用于连接负载均衡器的协议。**注意：**如果存在此标头，`rancher/rancher`不会将HTTP重定向到HTTPS。 |
     | `X-Forwarded-Port`  | Port used to reach Rancher.  | 识别客户端用于连接负载均衡器的协议。   |
     | `X-Forwarded-For`   | IP of the client connection.  | 识别客户端的原始IP地址。  |
 

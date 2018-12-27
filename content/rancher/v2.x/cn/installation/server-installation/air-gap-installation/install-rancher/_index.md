@@ -87,8 +87,10 @@ rke up --config ./rancher-cluster.yml
 2、`helm init`在缺省配置下，会利用`https://kubernetes-charts.storage.googleapis.com`作为缺省的`stable repository`地址,并去更新相关索引文件。如果你是离线安装`Tiller`, 如果有内部的`chart`仓库，可通过`--stable-repo-url`指定内部`chart`地址；如果没有内部的`chart`仓库, 可通过添加`--skip-refresh`参数禁止`Tiller`更新索引。
 
     ```bash
-    helm init --skip-refresh --service-account tiller   --tiller-image reg.example.com/google_containers/tiller:v2.11.0
+    export tag=<修改版本号>
+    helm init --skip-refresh --service-account tiller   --tiller-image reg.example.com/google_containers/tiller:${tag}
     ```
+    >**注意** 修改镜像名和版本号
 
 ## 三、配置Rancher离线模板
 
@@ -96,7 +98,9 @@ rke up --config ./rancher-cluster.yml
 
 ### 1、打包Cert-Manager Charts模板（可选）
 
-如果要使用`Rancher自签名证书安装Rancher`，则需要在集群上安装`cert-manager`。如果您要使用自己的证书(`自签名或者权威证书`)，可以跳过本节。
+如果要使用`Rancher自签名证书安装Rancher`，则需要在集群上安装`cert-manager`。
+
+>如果您要使用自己的证书(`自签名或者权威证书`)，可以跳过本节。
 
 1. 获取`cert-manager`Charts离线包。
 
@@ -122,7 +126,7 @@ rke up --config ./rancher-cluster.yml
 
 1. 添加`Rancher Charts`仓库。
 
-    指定安装的版本(比如: `latest` or `stable`)，可通过[版本选择]({{< baseurl >}}/ancher/v2.x/cn/installation/server-tags/)查看版本说明。
+    指定安装的版本(比如: `latest` or `stable`)，可通过[版本选择]({{< baseurl >}}/rancher/v2.x/cn/installation/server-tags//)查看版本说明。
 
     ```plain
     helm repo add rancher-<CHART_REPO> https://releases.rancher.com/server-charts/<CHART_REPO>
@@ -130,24 +134,62 @@ rke up --config ./rancher-cluster.yml
 
 2. 获取`Rancher Charts`离线包。
 
-    指定安装的版本(比如: `latest` or `stable`)，可通过[版本选择]({{< baseurl >}}/ancher/v2.x/cn/installation/server-tags/)查看版本说明。
+    指定安装的版本(比如: `latest` or `stable`)，可通过[版本选择]({{< baseurl >}}/rancher/v2.x/cn/installation/server-tags/)查看版本说明。
 
     ```plain
     helm fetch rancher-<CHART_REPO>/rancher
     ```
     >打包下载`Rancher Charts`文件，将会在当前目录看到`rancher-vx.x.x.tgz`文件。
 
-3. 更新`Rancher`模板配置。
+### 3、更新`Rancher`模板配置。
 
-    参考[在线Helm安装Rancher]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-install/helm-rancher/rancher-install/)的方法，配置好相应的参数信息。通过执行`helm template`命令，生成相应的`yaml`配置文件。
+通过执行`helm template`命令，生成相应的`yaml`配置文件。
+
+1. 使用`Rancher自签名证书`
+
+      ```plain
+      helm template ./rancher-<version>.tgz --output-dir . \
+      --name rancher \
+      --namespace cattle-system \
+      --set hostname=<RANCHER.YOURDOMAIN.COM> \
+      --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:stable
+      ```
+1. 使用`权威证书或者自己的自签名证书`
+
+    - 添加`权威服务证书`secret
+
+    将服务证书和CA中间证书链合并到一个名为`tls.crt`的文件中,将私钥复制到名为`tls.key`的文件中。使用kubectl创建`tls`类型的`secrets`。
 
     ```plain
-    helm template ./rancher-<version>.tgz --output-dir . \
-    --name rancher --namespace cattle-system \
-    --set hostname=<RANCHER.YOURDOMAIN.COM> \
-    --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:stable
+    kubectl -n cattle-system create secret tls tls-rancher-ingress \
+    --cert=./tls.crt \
+    --key=./tls.key
     ```
-    >**注意** 执行`helm template`命令，会在当前目录生成`rancher`文件夹。替换镜像地址。
+
+    - 添加`自签名CA证书`secret
+
+    如果使用的是自己创建的自签名证书，`需要创建CA文件的secret`。在`添加权威服务证书secret`基础上，执行以下步骤添加`自签名CA证书`secret：
+
+    ```plain
+    kubectl -n cattle-system create secret generic tls-ca \
+    --from-file=cacerts.pem
+    ```
+    - **更新模板配置**
+
+    ```plain
+     helm template ./rancher-<version>.tgz --output-dir . \
+     --name rancher \
+     --namespace cattle-system \
+     --set hostname=<RANCHER.YOURDOMAIN.COM> \
+     --set ingress.tls.source=secret \
+     --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:stable
+     ```
+    >**注意** 执行`helm template`命令，会在当前目录生成`rancher`文件夹。
+
+1. 使用外部7层负载均衡器作为SSL终止
+
+
+
 
 ## 四、离线安装Rancher
 
@@ -159,7 +201,7 @@ kubectl -n kube-system apply -R -f ./cert-manager
 kubectl -n cattle-system apply -R -f ./rancher
 ```
 
-## 五、(可选)为Agent Pod添加主机别名(/etc/hosts)
+## 五、为Agent Pod添加主机别名(/etc/hosts)(可选)
 
 如果你没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
 
