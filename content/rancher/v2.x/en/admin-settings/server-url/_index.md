@@ -14,5 +14,3 @@ Even though you can edit the Rancher Server URL later in the **Settings** UI fro
 
 - You must also update the SSL certificates to match the new URL.
 - Unless you make sure the old URL continues to work, you will have to re-register all the nodes and clusters so that they point to the new Rancher Server URL.
-
-
