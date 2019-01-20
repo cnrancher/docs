@@ -116,7 +116,8 @@ Helm的服务器端部分Tiller,通常运行在Kubernetes集群内部。但是�
 执行以下命令在Rancher中安装Tiller：
 
 ```bash
-helm init --service-account tiller   --tiller-image registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.11.0 --stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts
+export TILLER_TAG=<new_tag> ;
+helm init --service-account tiller --tiller-image registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:$TILLER_TAG --stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts
 ```
 
 `helm init`以后，可以运行`kubectl get pods --namespace kube-system`并看到Tiller正在运行。
