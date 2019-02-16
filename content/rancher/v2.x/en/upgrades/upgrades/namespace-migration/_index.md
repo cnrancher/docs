@@ -72,14 +72,14 @@ Reset the cluster nodes' network policies to restore connectivity.
 1. Before repairing networking, run the following two commands to make sure that your nodes have a status of `Ready` and that your cluster components are `Healthy`.
 
     ```
-    kubectl get nodes --kubeconfig kube_config_rancher-cluster.yml
+    kubectl --kubeconfig kube_config_rancher-cluster.yml get nodes
 
     NAME                          STATUS    ROLES                      AGE       VERSION
     165.227.114.63                Ready     controlplane,etcd,worker   11m       v1.10.1
     165.227.116.167               Ready     controlplane,etcd,worker   11m       v1.10.1
     165.227.127.226               Ready     controlplane,etcd,worker   11m       v1.10.1
 
-    kubectl get cs --kubeconfig kube_config_rancher-cluster.yml
+    kubectl --kubeconfig kube_config_rancher-cluster.yml get cs
 
     NAME                 STATUS    MESSAGE              ERROR
     scheduler            Healthy   ok
@@ -91,38 +91,66 @@ Reset the cluster nodes' network policies to restore connectivity.
 
 1. Check the `networkPolicy` for all clusters by running the following command.
 
-        kubectl --kubeconfig kube_config_rancher-cluster.yml get cluster -o=custom-columns=ID:.metadata.name,NAME:.spec.displayName,NETWORKPOLICY:.spec.enableNetworkPolicy
+        kubectl --kubeconfig kube_config_rancher-cluster.yml get cluster -o=custom-columns=ID:.metadata.name,NAME:.spec.displayName,NETWORKPOLICY:.spec.enableNetworkPolicy,APPLIEDNP:.status.appliedSpec.enableNetworkPolicy,ANNOTATION:.metadata.annotations."networking\.management\.cattle\.io/enable-network-policy"
 
-        ID        NAME      NETWORKPOLICY
-        c-59ptz   custom    <nil>
-        local     local     <nil>
+        ID      NAME    NETWORKPOLICY   APPLIEDNP   ANNOTATION
+        c-59ptz custom  <nil>           <nil>       <none>
+        local   local   <nil>           <nil>       <none>
 
 
 1. Disable the `networkPolicy` for all clusters, still pointing toward your `kube_config_rancher-cluster.yml`.
 
-        kubectl --kubeconfig kube_config_rancher-cluster.yml get cluster -o jsonpath='{range .items[*]}{@.metadata.name}{"\n"}{end}' | xargs -I {} kubectl --kubeconfig kube_config_rancher-cluster.yml patch cluster {} --type merge -p '{"spec": {"enableNetworkPolicy": false}}'
+        kubectl --kubeconfig kube_config_rancher-cluster.yml get cluster -o jsonpath='{range .items[*]}{@.metadata.name}{"\n"}{end}' | xargs -I {} kubectl --kubeconfig kube_config_rancher-cluster.yml patch cluster {} --type merge -p '{"spec": {"enableNetworkPolicy": false},"status": {"appliedSpec": {"enableNetworkPolicy": false }}}'
 
     >**Tip:** If you want to keep `networkPolicy` enabled for all created clusters, you can run the following command to disable `networkPolicy` for `local` cluster (i.e., your Rancher Server nodes):
     >
     >```
-     kubectl --kubeconfig kube_config_rancher-cluster.yml patch cluster local --type merge -p '{"spec": {"enableNetworkPolicy": false}}'
+     kubectl --kubeconfig kube_config_rancher-cluster.yml patch cluster local --type merge -p '{"spec": {"enableNetworkPolicy": false},"status": {"appliedSpec": {"enableNetworkPolicy": false }}}'
+     ```
+
+1. Remove annotations for network policy for all clusters
+
+        kubectl --kubeconfig kube_config_rancher-cluster.yml get cluster -o jsonpath='{range .items[*]}{@.metadata.name}{"\n"}{end}' | xargs -I {} kubectl --kubeconfig kube_config_rancher-cluster.yml annotate cluster {} "networking.management.cattle.io/enable-network-policy"="false" --overwrite
+
+    >**Tip:** If you want to keep `networkPolicy` enabled for all created clusters, you can run the following command to disable `networkPolicy` for `local` cluster (i.e., your Rancher Server nodes):
+    >
+    >```
+     kubectl --kubeconfig kube_config_rancher-cluster.yml annotate cluster local "networking.management.cattle.io/enable-network-policy"="false" --overwrite
      ```
 
 1. Check the `networkPolicy` for all clusters again to make sure the policies have a status of `false `.
 
-        kubectl --kubeconfig kube_config_rancher-cluster.yml get cluster -o=custom-columns=ID:.metadata.name,NAME:.spec.displayName,NETWORKPOLICY:.spec.enableNetworkPolicy
+        kubectl --kubeconfig kube_config_rancher-cluster.yml get cluster -o=custom-columns=ID:.metadata.name,NAME:.spec.displayName,NETWORKPOLICY:.spec.enableNetworkPolicy,APPLIEDNP:.status.appliedSpec.enableNetworkPolicy,ANNOTATION:.metadata.annotations."networking\.management\.cattle\.io/enable-network-policy"
 
-        ID        NAME      NETWORKPOLICY
-        c-59ptz   custom    false
-        local     local     false
+        ID      NAME    NETWORKPOLICY   APPLIEDNP   ANNOTATION
+        c-59ptz custom  false           false       false
+        local   local   false           false       false
 
-1. Now remove all network policies from system namespaces.  Run this command for each cluster, using the kubeconfig generated by RKE.
+1. Remove all network policies from all namespaces.  Run this command for each cluster, using the kubeconfig generated by RKE.
 
     ```
-    for namespace in kube-system kube-public cattle-system cattle-alerting cattle-logging cattle-pipeline ingress-nginx; do
+    for namespace in $(kubectl --kubeconfig kube_config_rancher-cluster.yml get ns -o custom-columns=NAME:.metadata.name --no-headers); do
         kubectl --kubeconfig kube_config_rancher-cluster.yml -n $namespace delete networkpolicy --all;
     done
     ```
+
+1. Remove all the projectnetworkpolicies created for the clusters, to make sure networkpolicies are not recreated.
+
+    ```
+    for cluster in $(kubectl --kubeconfig kube_config_rancher-cluster.yml get clusters -o custom-columns=NAME:.metadata.name --no-headers); do
+        for project in $(kubectl --kubeconfig kube_config_rancher-cluster.yml get project -n $cluster -o custom-columns=NAME:.metadata.name --no-headers); do
+            kubectl --kubeconfig kube_config_rancher-cluster.yml delete projectnetworkpolicy -n $project --all
+        done
+    done
+    ```
+
+    >**Tip:** If you want to keep `networkPolicy` enabled for all created clusters, you can run the following command to disable `networkPolicy` for `local` cluster (i.e., your Rancher Server nodes):
+    >
+    >```
+     for project in $(kubectl --kubeconfig kube_config_rancher-cluster.yml get project -n local -o custom-columns=NAME:.metadata.name --no-headers); do
+         kubectl --kubeconfig kube_config_rancher-cluster.yml -n $project delete projectnetworkpolicy --all;
+     done
+     ```
 
 1. Wait a few minutes and then log into the Rancher UI.
 
@@ -146,7 +174,7 @@ If you can access Rancher, but one or more of the clusters that you launched usi
 - By [downloading the cluster kubeconfig file and running it]({{< baseurl >}}/rancher/v2.x/en/k8s-in-rancher/kubectl/#accessing-clusters-with-kubectl-and-a-kubeconfig-file) from your workstation.
 
     ```
-    for namespace in kube-system kube-public cattle-system cattle-alerting cattle-logging cattle-pipeline ingress-nginx; do
+    for namespace in $(kubectl --kubeconfig kube_config_rancher-cluster.yml get ns -o custom-columns=NAME:.metadata.name --no-headers); do
       kubectl --kubeconfig kube_config_rancher-cluster.yml -n $namespace delete networkpolicy --all;
     done
     ```
