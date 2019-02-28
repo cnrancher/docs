@@ -26,7 +26,8 @@ Helm 客户端可以从源代码安装，也可以从预构建的二进制版本
 
 ### 1、从二进制版本
 
-1. 下载你想要的版本[releases](https://github.com/kubernetes/helm/releases)
+1. 下载[Helm](https://github.com/kubernetes/helm/releases)
+	- 加速下载[Helm]({{< baseurl >}}/rancher/v2.x/cn/installation/download/#helm)
 
 2. 解压缩(tar -zxvf helm-v2.x.x-linux-amd64.tgz)
 
@@ -109,7 +110,7 @@ Helm的服务器端部分Tiller,通常运行在Kubernetes集群内部。但是�
 - `--tiller-namespace` 用一个特定的命名空间(namespace)安装;
 
 >**注意:** 1、RKE默认启用RBAC,所以在安装`tiller`时需要指定`ServiceAccount`。\
-2、`helm init`在缺省配置下，会去谷歌镜像仓库拉取`gcr.io/kubernetes-helm/tiller`镜像，在Kubernetes集群上安装配置Tiller；由于在国内可能无法访问`gcr.io、storage.googleapis.com`等域名，可以通过`--tiller-image`指定私有镜像仓库镜像。点击查询[tiller镜像版本](https://hub.docker.com/r/hongxiaolu/tiller/tags/)。 \
+2、`helm init`在缺省配置下，会去谷歌镜像仓库拉取`gcr.io/kubernetes-helm/tiller`镜像，在Kubernetes集群上安装配置Tiller；由于在国内可能无法访问`gcr.io、storage.googleapis.com`等域名，可以通过`--tiller-image`指定私有镜像仓库镜像。 \
 3、`helm init`在缺省配置下，会利用`https://kubernetes-charts.storage.googleapis.com`作为缺省的`stable repository`地址,并去更新相关索引文件。在国内可能无法访问`storage.googleapis.com`地址, 可以通过`--stable-repo-url`指定`chart`国内加速镜像地址。 \
 4、如果你是离线安装`Tiller`, 假如没有内部的`chart`仓库, 可通过添加`--skip-refresh`参数禁止`Tiller`更新索引。
 
@@ -117,8 +118,9 @@ Helm的服务器端部分Tiller,通常运行在Kubernetes集群内部。但是�
 
 ```bash
 export TILLER_TAG=<new_tag> ;
-helm init --service-account tiller --tiller-image registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:$TILLER_TAG --stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts
+helm init --service-account tiller --tiller-image hongxiaolu/tiller:$TILLER_TAG --stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts
 ```
+> 点击查询[Tiller镜像版本](https://hub.docker.com/r/hongxiaolu/tiller/tags/)。
 
 `helm init`以后，可以运行`kubectl get pods --namespace kube-system`并看到Tiller正在运行。
 
@@ -166,7 +168,7 @@ Tiller running on:44134
 
 ```bash
   export TILLER_TAG=<new_tag> ;
-  kubectl --namespace=kube-system set image deployments/tiller-deploy tiller=gcr.io/kubernetes-helm/tiller:$TILLER_TAG
+  kubectl --namespace=kube-system set image deployments/tiller-deploy tiller=hongxiaolu/tiller:$TILLER_TAG
 ```
 
 将显示以下信息：

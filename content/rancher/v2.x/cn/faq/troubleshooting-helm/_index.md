@@ -1,6 +1,6 @@
 ---
-title: 3 - helm故障诊断
-weight: 3
+title: 6 - Helm故障诊断
+weight: 6
 ---
 
 ### Where is everything

@@ -1,6 +1,6 @@
 ---
-title: 3 - RancherHA安装FAQ
-weight: 3
+title: 5 - RancherHA安装FAQ
+weight: 5
 ---
 
 本节包含安装RANCHER HA时出现的常见错误。

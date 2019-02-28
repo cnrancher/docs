@@ -1,6 +1,6 @@
 ---
-title: 1 - rancher相关问题
-weight: 1
+title: 2 - Rancher
+weight: 2
 ---
 ## Kubernetes
 

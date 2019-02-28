@@ -1,6 +1,6 @@
 ---
-title: 5 - ETCD
-weight: 5
+title: 3 - ETCD
+weight: 3
 ---
 
 ### Do clients have to send requests to the etcd leader?

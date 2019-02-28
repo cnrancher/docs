@@ -1,6 +1,6 @@
 ---
-title: 2 - 信息收集
-weight: 2
+title: 7 - 信息收集
+weight: 7
 ---
 
 ## 什么是信息收集
