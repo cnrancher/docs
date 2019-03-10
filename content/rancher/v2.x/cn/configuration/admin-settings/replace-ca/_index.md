@@ -15,7 +15,7 @@ weight: 9
 
 在存有RKE配置文件的目录执行以下命令:
 
-```
+```bash
 ./rke_linux-amd64 etcd snapshot-save --name SNAPSHOT-201903xx.db --config cluster.yml
 ```
 RKE会获取每个etcd节点的快照，并保存在每个etcd节点的`/opt/rke/etcd-snapshots`目录下。
@@ -24,19 +24,19 @@ RKE会获取每个etcd节点的快照，并保存在每个etcd节点的`/opt/rke
 
 证书过期一般是由于`ca.crt`过期，验证有效期的方法如下
 
-```
+```bash
 openssl x509 -in ca.crt -noout -dates
 ```
 CA证书文件一般路径在`/etc/kubernetes/ssl`，如果找不到，可以在`local`集群中执行如下命令获取
 
-```
+```bash
 kubectl get clusters <CLUSTER_ID> -o jsonpath={.status.caCert} | base64 -d
 ```
 >CLUSTER_ID，集群ID可在浏览器地址栏查看。
 
 ### 示例
 
-```
+```bash
 rancher-server1-root@rancher-server1:~# kubectl get clusters c-2xqt7 -o 
 
 jsonpath={.status.caCert} | base64 -d
@@ -94,7 +94,7 @@ HAR5R84cBjbGLG9qLWa+TTLQeZrHuq1NTmbDCttiJVwFM7bii5eTPsJAauRFS744
 
 删除其中的`cattle-token-xxx`，其会基于最新证书配置启动重建
 
-```
+```bash
 rancher-test-appuser@rancher-test:~/cacrt$ kubectl --kubeconfig=config-test2-new -n cattle-system get secret
 NAME                         TYPE                                  DATA      AGE
 cattle-credentials-096434b   Opaque                                2         61d
@@ -104,7 +104,7 @@ default-token-r2wtl          kubernetes.io/service-account-token   3         61d
 ```
 生成新`token`之后，取值解密备用。
 
-```
+```bash
 kubectl -n cattle-system get secret cattle-token-9n9f5 -o jsonpath={.data.token} | base64 -d 
 ```
 
@@ -112,7 +112,7 @@ kubectl -n cattle-system get secret cattle-token-9n9f5 -o jsonpath={.data.token}
 
 - 备份集群crd对象
 
-```
+```bash
 kubectl get clusters <cluster-id> -o yaml > <cluster-id>.yaml
 ```
 
@@ -120,7 +120,7 @@ kubectl get clusters <cluster-id> -o yaml > <cluster-id>.yaml
 
 直接cat完整的证书文件，然后base64加密。
 
-```
+```bash
 cat ca.crt | base64
 ```
 - `serviceAccountToken`字段的参数，使用步骤1中的token解密后替换。
