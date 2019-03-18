@@ -13,17 +13,26 @@ aliases:
 
 镜像下载地址: `registry.cn-shanghai.aliyuncs.com/rancher_cn/webhook:latest`
 
+- 支持镜像仓库类型:
+	
+	1. 阿里云镜像仓库: `https://cr.console.aliyun.com`
+	1. Docker Hub: `http://hub.docker.com`
+	1. 自定义webhooks
+
+- 支持邮件通知	
+
 ## 二、准备配置文件
 
 > 建议把webhooks作为系统服务运行在`system`项目下
 
 1. 登录Rancher UI切换到`system`项目下，然后依次进入 `资源\配置映射`，点击页面右上角的`添加配置映射`。
-1. 修改模板中`trigger-rule`对应的参数:
+1. 修改模板中对应的参数:
     - `<webhooks_id>`: 此`webhooks-id`具有唯一性，不能重复。建议设置为服务名，比如`cnrancher_website`;
     - `<token>`: 设置一个token值用于匹配校验;
     - `<workload>`: 指定一个应用，书写格式为`类型/Workload`,例如: `deployment/webhooks`、`daemonset/webhooks`;
     - `<namespaces>`: 指定服务所在的命名空间;
     - `<container>`: 指定容器名称，对于一个有多容器的Pod，升级时需要指定容器名称;
+    - `<MAIL_TO>`: 收件人邮箱地址;
 
     ```json
     [
@@ -69,6 +78,11 @@ aliases:
                     "envname": "REPO_TYPE",
                     "source": "url",
                     "name": "repo_type"
+                },
+                {
+                    "envname": "MAIL_TO",
+                    "source": "string",
+                    "name": "<MAIL_TO>"
                 }
             ],
             "trigger-rule":
@@ -104,7 +118,7 @@ aliases:
                         {
                             "type": "value",
                             "value": "<workload>",
-                            "parameter": 
+                            "parameter":
                             {
                                 "source": "url",
                                 "name": "workload"
@@ -134,6 +148,7 @@ aliases:
     - `键`: 以`.json`结尾的文件名，比如`cnrancher.json`;
     - `值`: 设置为上一步中修改的配置文件;
     - 如果有多个服务，可以添加多个键值对，如图:
+
     ![image-20190314173250612](_index.assets/image-20190314173250612.png)
 
 ## 三、webhooks安装
@@ -148,9 +163,25 @@ aliases:
 
 - 配置环境变量
 
-    `WEBHOOK_CMD=-template`
+  `WEBHOOK_CMD=-template`: 系统命令；\
+  `MAIL_SMTP_PORT=`: 邮箱SMTP服务器端口；\
+  `MAIL_SMTP_SERVER=`: 邮箱SMTP服务器地址；\
+  `MAIL_FROM=` : 发件人邮箱；\
+  `MAIL_PASSWORD=`: 发件人邮箱密码(需要base64加密: echo <密码> | base64 )；\
+  `MAIL_CACERT=`: 自签名CA证书，邮箱服务器采用自签名ssl证书时使用(需要base64加密: cat <ca文件> | base64 )；\
+  `MAIL_TLS_CHECK=`: 是否开启TLS认证(false/true,默认true)；
 
-    ![image-20190314174000963](_index.assets/image-20190314174000963.png)
+  - 常用邮箱配置(qq,163等)
+
+    ![image-20190315232842668](_index.assets/image-20190315232842668.png)
+
+  - 自签名证书邮箱服务器
+
+    ![image-20190315233201822](_index.assets/image-20190315233201822.png)
+
+  - 不启用TLS认证邮箱
+
+    ![image-20190315233320815](_index.assets/image-20190315233320815.png)
 
 - 配置健康检查
 
@@ -162,7 +193,7 @@ aliases:
 
   - 选择配置映射卷
 
-        ![image-20190314174524973](_index.assets/image-20190314174524973.png)
+    ![image-20190314174524973](_index.assets/image-20190314174524973.png)
 
   - 配置映射名: 选择前面创建的配置映射;
 
@@ -170,7 +201,7 @@ aliases:
 
   - 其他参数保持默认;
 
-        ![image-20190314174834334](_index.assets/image-20190314174834334.png)
+    ![image-20190314174834334](_index.assets/image-20190314174834334.png)
 
 - 最后点击启动，启动后查看日志，可以看到当前监听的服务
 
@@ -178,13 +209,13 @@ aliases:
 
 - 设置`serviceaccounts`
 
-    这一步相对比较重要，webhooks服务需要`serviceaccounts`才可以正常的与K8S通信。因为目前Rancher UI不支持设置`serviceaccounts`，所以需要编辑`yaml`文件来配置`serviceaccounts`。
+    这一步相对比较重要，webhooks服务需要`serviceaccounts`才可以正常的与K8S通信。因为目前Rancher UI不支持设置`serviceaccounts`，所以需要编辑`yaml`文件来配置`serviceaccounts`。为了方便，这里复用了rancher组件使用的`serviceaccounts`账号`cattle`，具有集群管理员角色，你也可以根据需要定制`serviceaccounts`角色。
 
   - 如图，选择 `查看/编辑YAML`
 
         ![image-20190314212013510](_index.assets/image-20190314212013510.png)
 
-  - 在`securityContext: {}` 下边添加`serviceAccount: cattle`和`serviceAccountName: cattle`
+  - 在`securityContext: {}` 下边添加`serviceAccount: cattle`和`serviceAccountName: cattle`；
 
       ![image-20190314212124745](_index.assets/image-20190314212124745.png)
 
@@ -205,12 +236,6 @@ repo_type=<repo_type>
 其中`<webhooks_id>、<namespaces>、<workload>、<container>`对应模板中的参数，`<repo_type>`支持:`aliyun`、`dockerhub`、`custom`。
 
 ## 五、配置仓库触发
-
-- 支持镜像仓库类型:
-
-    1. 阿里云镜像仓库: `https://cr.console.aliyun.com`
-    1. Docker Hub: `http://hub.docker.com`
-    1. 自定义webhooks
 
 ### 阿里云镜像仓库
 
