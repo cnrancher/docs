@@ -34,15 +34,19 @@ weight: 1
         worker_connections 8192;
     }
 
-    http {
-        server {
-            listen         80;
-            return 301 https://$host$request_uri;
-        }
-    }
-
     stream {
-        upstream rancher_servers {
+        upstream rancher_servers_http {
+            least_conn;
+            server <IP_NODE_1>:80 max_fails=3 fail_timeout=5s;
+            server <IP_NODE_2>:80 max_fails=3 fail_timeout=5s;
+            server <IP_NODE_3>:80 max_fails=3 fail_timeout=5s;
+        }
+        server {
+            listen     80;
+            proxy_pass rancher_servers_http;
+        }
+
+        upstream rancher_servers_https {
             least_conn;
             server <IP_NODE_1>:443 max_fails=3 fail_timeout=5s;
             server <IP_NODE_2>:443 max_fails=3 fail_timeout=5s;
@@ -50,7 +54,7 @@ weight: 1
         }
         server {
             listen     443;
-            proxy_pass rancher_servers;
+            proxy_pass rancher_servers_https;
         }
     }
     ```

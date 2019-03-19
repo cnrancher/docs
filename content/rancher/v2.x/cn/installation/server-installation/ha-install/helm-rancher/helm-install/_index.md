@@ -120,6 +120,7 @@ Helm的服务器端部分Tiller,通常运行在Kubernetes集群内部。但是�
 export TILLER_TAG=<new_tag> ;
 helm init --service-account tiller --tiller-image hongxiaolu/tiller:$TILLER_TAG --stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts
 ```
+
 > 点击查询[Tiller镜像版本](https://hub.docker.com/r/hongxiaolu/tiller/tags/)。
 
 `helm init`以后，可以运行`kubectl get pods --namespace kube-system`并看到Tiller正在运行。

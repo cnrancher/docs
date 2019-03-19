@@ -83,41 +83,51 @@ rancher/rancher:latest --no-cacerts
 此Nginx配置文件在Nginx version 1.13 (mainline)和1.14(stable)通过测试
 
 ```bash
-upstream rancher {
-    server rancher-server:80;
+worker_processes 4;
+worker_rlimit_nofile 40000;
+
+events {
+    worker_connections 8192;
 }
 
-map $http_upgrade $connection_upgrade {
-    default Upgrade;
-    ''      close;
-}
+http {
+    upstream rancher {
+        server rancher-server:80;
+    }
 
-server {
-    listen 443 ssl http2;
-    server_name rancher.yourdomain.com;
-    ssl_certificate /etc/your_certificate_directory/fullchain.pem;
-    ssl_certificate_key /etc/your_certificate_directory/privkey.pem;
+    map $http_upgrade $connection_upgrade {
+        default Upgrade;
+        ''      close;
+    }
 
-    location / {
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-Port $server_port;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass http://rancher;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection $connection_upgrade;
-        # This allows the ability for the execute shell window to remain open for up to 15 minutes. Without this parameter, the default is 1 minute and will automatically close.
-        proxy_read_timeout 900s;
-        proxy_buffering off;
+    server {
+        listen 443 ssl http2;
+        server_name FQDN;
+        ssl_certificate /certs/fullchain.pem;
+        ssl_certificate_key /certs/privkey.pem;
+
+        location / {
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header X-Forwarded-Port $server_port;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_pass http://rancher;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+            # This allows the ability for the execute shell window to remain open for up to 15 minutes. Without this parameter, the default is 1 minute and will automatically close.
+            proxy_read_timeout 900s;
+            proxy_buffering off;
+        }
+    }
+
+    server {
+        listen 80;
+        server_name FQDN;
+        return 301 https://$server_name$request_uri;
     }
 }
 
-server {
-    listen 80;
-    server_name rancher.yourdomain.com;
-    return 301 https://$server_name$request_uri;
-}
 ```
 
 >为了减少网络传输的数据量，可以在七层代理的`http`定义中添加`GZIP`功能。

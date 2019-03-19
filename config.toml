@@ -52,7 +52,7 @@ pre        = "<i class='material-icons'>keyboard_arrow_down</i>"
   weight     = "1"
 
   [[menu.main]]
-  name       = "What Rancher Adds to Kubernetes"
+  name       = "Rancher给Kubernetes功能增强"
   url        = "https://rancher.com/what-is-rancher/what-rancher-adds-to-kubernetes/"
   parent     = "what-is-rancher"
   weight     = "2"
@@ -95,7 +95,7 @@ pre        = "<i class='material-icons'>keyboard_arrow_down</i>"
   # weight     = "8"
 
   [[menu.main]]
-  # name       = "100% Open Source"
+  # name       = "100% 完全开源"
   # url        = "https://rancher.com/what-is-rancher/open-source/"
   # parent     = "what-is-rancher"
   # weight     = "9"

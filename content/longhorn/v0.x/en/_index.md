@@ -18,7 +18,7 @@ The latest release of Longhorn is **v0.4.0**, shipped with Longhorn Engine **v0.
 
 ## Source code
 
-Longhorn is 100% open source software. Project source code is spread across a number of repos:
+Longhorn is 100% 完全开源 software. Project source code is spread across a number of repos:
 
 1. Longhorn engine -- Core controller/replica logic https://github.com/rancher/longhorn-engine
 1. Longhorn manager -- Longhorn orchestration, includes Flexvolume driver for Kubernetes https://github.com/rancher/longhorn-manager
