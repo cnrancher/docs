@@ -3,6 +3,8 @@ title: Rancher 2.0 Docs
 insertOneSix: true
 shortTitle: Rancher 2.0-EN
 weight: 2
+ctaBanner: intro-k8s-rancher-online-training
+
 ---
 
 ## What's New?
