@@ -1,11 +1,11 @@
 ---
-title: 8 - webhooks(实验)
+title: 8 - webhooks
 weight: 8
 aliases:
   - /docs/webhooks
 ---
 
-> 警告：目前本工具仅适用于测试或开发环境。
+> 警告：目前本工具属于实验性，仅适用于测试或开发环境。
 
 ## 一、简述
 
@@ -14,12 +14,12 @@ aliases:
 镜像下载地址: `registry.cn-shanghai.aliyuncs.com/rancher_cn/webhook:latest`
 
 - 支持镜像仓库类型:
-	
-	1. 阿里云镜像仓库: `https://cr.console.aliyun.com`
-	1. Docker Hub: `http://hub.docker.com`
-	1. 自定义webhooks
 
-- 支持邮件通知	
+阿里云镜像仓库: `https://cr.console.aliyun.com`\
+Docker Hub: `http://hub.docker.com`\
+自定义webhooks
+
+- 支持邮件通知
 
 ## 二、准备配置文件
 
@@ -29,7 +29,7 @@ aliases:
 1. 修改模板中对应的参数:
     - `<webhooks_id>`: 此`webhooks-id`具有唯一性，不能重复。建议设置为服务名，比如`cnrancher_website`;
     - `<token>`: 设置一个token值用于匹配校验;
-    - `<workload>`: 指定一个应用，书写格式为`类型/Workload`,例如: `deployment/webhooks`、`daemonset/webhooks`;
+    - `<workload>`: 指定一个应用，书写格式为`类型/Workload`,例如: `deployment/webhooks、daemonset/webhooks`;
     - `<namespaces>`: 指定服务所在的命名空间;
     - `<container>`: 指定容器名称，对于一个有多容器的Pod，升级时需要指定容器名称;
     - `<MAIL_TO>`: 收件人邮箱地址;
@@ -271,7 +271,7 @@ repo_type=<repo_type>
 
 ### Docker Hub
 
-  1. 浏览器访问`https://cloud.docker.com/repository/list`，输入账号和密码后将进入仓库列表;
+  1. 浏览器访问https://cloud.docker.com/repository/list，输入账号和密码后将进入仓库列表;
 
   1. 点击需要添加webhooks仓库，然后点击webhooks;
 

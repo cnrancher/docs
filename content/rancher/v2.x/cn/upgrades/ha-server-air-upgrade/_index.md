@@ -13,7 +13,7 @@ weight: 4
 
 ## 离线升级Rancher Server
 
-  1. 按照[离线安装]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/air-gap-installation/)需求，拉取最新稳定版本镜像并同步到私有镜像仓库;
+  1. 按照[离线安装]({{< baseurl >}}/rancher/v2.x/cn/installation/air-gap-installation/)需求，拉取最新稳定版本镜像并同步到私有镜像仓库;
 
   2. 按照[RKE HA升级]({{< baseurl >}}/rancher/v2.x/cn/upgrades/ha-server-upgrade/)的操作步骤完成升级;
 

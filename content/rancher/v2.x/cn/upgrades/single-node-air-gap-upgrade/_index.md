@@ -11,7 +11,7 @@ weight: 2
 
 ## 离线升级Rancher Server
 
-1. 按照离线安装方法[准备离线镜像]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/air-gap-installation/prepare-private-reg/)。
+1. 按照离线安装方法[准备离线镜像]({{< baseurl >}}/rancher/v2.x/cn/installation/air-gap-installation/prepare-private-reg/)。
 
 2. 按照[单节点升级]({{< baseurl >}}/rancher/v2.x/cn/upgrades/single-node-upgrade/)的方法，进行Rancher server升级。
 

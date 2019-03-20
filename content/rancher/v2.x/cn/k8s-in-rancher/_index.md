@@ -1,6 +1,6 @@
 ---
 title: Kubernetes in Rancher
-weight: 7
+weight: 8
 ---
 
 After you provision a cluster in Rancher, you can begin using powerful Kubernetes features to deploy and scale your containerized applications in development, testing, or production environments.

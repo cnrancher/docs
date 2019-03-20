@@ -1,6 +1,6 @@
 ---
 title: Charts应用商店
-weight: 8
+weight: 9
 ---
 
 Rancher provides a catalog of charts that make it easy to repeatedly deploy any applications.

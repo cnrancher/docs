@@ -1,6 +1,6 @@
 ---
-title: 2 - 版本选择
-weight: 2
+title: 1 - 版本选择
+weight: 1
 ---
 
 ## 镜像标签

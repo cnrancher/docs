@@ -1,6 +1,6 @@
 ---
 title: 用户手册
-weight: 5
+weight: 6
 aliases:
   - /docs/config
 ---

@@ -17,7 +17,7 @@ weight: 3
 
 - `kubectl安装`
 
-    在主机或者远程访问的笔记本上安装[kubectl]({{< baseurl >}}/rancher/v2.x/cn/installation/download/)命令行工具
+    在主机或者远程访问的笔记本上安装[kubectl]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/download/)命令行工具
 
 - `rancher-cluster.yml(RKE配置文件)`
 

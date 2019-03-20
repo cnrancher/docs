@@ -1,6 +1,6 @@
 ---
 title: Rancher Tools
-weight: 9
+weight: 10
 aliases:
   - /docs/tools
 ---

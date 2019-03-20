@@ -95,7 +95,7 @@ docker run -d --restart=unless-stopped \
     启用日志审计:
 
     在通过`Chart`安装Rancher时，添加参数`--set auditLog.level=1`。\
-    参数使用可参考[Chart设置参数]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-install/helm-rancher/chart-options/)。
+    参数使用可参考[Chart设置参数]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/chart-options/)。
 
 ## 四、查看API审计日志
 

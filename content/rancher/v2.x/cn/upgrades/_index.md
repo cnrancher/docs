@@ -1,6 +1,6 @@
 ---
 title: 升级
-weight: 3
+weight: 4
 aliases:
   - /docs/upgrade
 ---

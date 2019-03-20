@@ -5,7 +5,7 @@ weight: 2
 
 你可以按照以下步骤定位集群错误。
 
-1. 检查防火墙是否放行了所需的端口，所需端口列表访问[端口需求]({{< baseurl >}}/rancher/v2.x/cn/installation/references/);
+1. 检查防火墙是否放行了所需的端口，所需端口列表访问[端口需求]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/references/);
 
 2. 所有节点都应该存在并处于`Ready`状态；
 
@@ -132,7 +132,7 @@ weight: 2
         => End
         ```
 
-        如果在输出结果中看到错误，则表明`overlay`网络无法正常通信。通常情况是因为端口未放行导致，查看[端口需求]({{< baseurl >}}/rancher/v2.x/cn/installation/references/)验证端口放行。
+        如果在输出结果中看到错误，则表明`overlay`网络无法正常通信。通常情况是因为端口未放行导致，查看[端口需求]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/references/)验证端口放行。
 
         错误示例:
 

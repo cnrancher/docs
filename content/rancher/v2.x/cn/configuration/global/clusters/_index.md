@@ -17,7 +17,7 @@ Kubernetes集群包含3种角色类型的节点：etcd节点，control plane节�
 
 1. etcd Nodes
 
-    etcd节点用于运行etcd数据库。 etcd是一个键值存储，用作Kubernetes对所有集群数据的后备存储。即使你可以在单个节点上运行etcd实例，也需要3个、5个或7个节点来实现冗余,具体参考[ETCD集群容错表]({{< baseurl >}}/rancher/v2.x/cn/installation/basic-environment-configuration/#7、ETCD集群容错表)。
+    etcd节点用于运行etcd数据库。 etcd是一个键值存储，用作Kubernetes对所有集群数据的后备存储。即使你可以在单个节点上运行etcd实例，也需要3个、5个或7个节点来实现冗余,具体参考[ETCD集群容错表]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/basic-environment-configuration/#7、ETCD集群容错表)。
 
 2. Control Plane Nodes
 

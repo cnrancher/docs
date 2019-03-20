@@ -1,6 +1,6 @@
 ---
 title: Provisioning Kubernetes Clusters
-weight: 6
+weight: 7
 ---
 
 ## What's a Kubernetes Cluster?

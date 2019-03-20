@@ -19,11 +19,11 @@ weight: 5
 
 - **kubectl**
 
-    安装配置[kubectl]({{< baseurl >}}/rancher/v2.x/cn/installation/kubectl/)，使其可以连接集群。
+    安装配置[kubectl]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/kubectl/)，使其可以连接集群。
 
 - **安装Helm Server和Helm 客户端**
 
-    根据[安装Helm Server和Helm 客户端]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/air-gap-installation/install-rancher/#二-安装helm-server和helm-客户端)安安装最新版本Helm Server和Helm 客户端
+    根据[安装Helm Server和Helm 客户端]({{< baseurl >}}/rancher/v2.x/cn/installation/air-gap-installation/install-rancher/#二-安装helm-server和helm-客户端)安安装最新版本Helm Server和Helm 客户端
 
 ## 升级 Rancher
 
@@ -51,7 +51,7 @@ weight: 5
     hostname: rancher.my.org
     ```
 
-    > **注意:** 根据您在安装Rancher时选择的[SSL配置选项]({{< baseurl >}}/rancher/v2.x/cn/installation/server-installation/ha-install/helm-rancher/rancher-install/#二-安装证书管理器-可选)，此命令可能会列出更多值。
+    > **注意:** 根据您在安装Rancher时选择的[SSL配置选项]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/rancher-install/#二-安装证书管理器-可选)，此命令可能会列出更多值。
 
 4. 根据前面步骤中的值将Rancher升级到最新版本。
 
