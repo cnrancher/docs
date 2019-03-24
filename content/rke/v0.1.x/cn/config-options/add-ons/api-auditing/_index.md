@@ -17,7 +17,7 @@ To enable API auditing:
 
 For more information about each argument, its syntax, and how to view API Audit logs, see [Rancher v2.0 Documentation: API Auditing]({{< baseurl >}}/rancher/v2.x/en/installation/api-auditing).
 
-```
+```yaml
 ...
 containers:
         - image: rancher/rancher:latest

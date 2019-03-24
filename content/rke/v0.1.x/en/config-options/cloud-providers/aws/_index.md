@@ -70,7 +70,7 @@ The following resources need to tagged with a `ClusterID`:
 
 The tag that should be used is:
 
-```
+```bash
 Key=kubernetes.io/cluster/<CLUSTERID>, Value=owned
 ```
 
@@ -78,6 +78,6 @@ Key=kubernetes.io/cluster/<CLUSTERID>, Value=owned
 
 If you share resources between clusters, you can change the tag to:
 
-```
+```bash
 Key=kubernetes.io/cluster/CLUSTERID, Value=shared
 ```

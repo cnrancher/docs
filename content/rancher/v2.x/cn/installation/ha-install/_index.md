@@ -1,6 +1,6 @@
 ---
-title: 3 - Rancher HA安装
-weight: 3
+title: 4 - Rancher HA安装
+weight: 4
 ---
 
 > **注意** Rancher HA安装属于高级安装，部署前先了解以下基本技能: \

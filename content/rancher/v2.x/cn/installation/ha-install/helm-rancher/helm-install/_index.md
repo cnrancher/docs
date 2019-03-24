@@ -118,7 +118,7 @@ Helm的服务器端部分Tiller,通常运行在Kubernetes集群内部。但是�
 
 ```bash
 export TILLER_TAG=<new_tag> ;
-helm init --service-account tiller --tiller-image hongxiaolu/tiller:$TILLER_TAG --stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts
+helm init --service-account tiller --tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:$TILLER_TAG --stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts
 ```
 
 > 点击查询[Tiller镜像版本](https://hub.docker.com/r/hongxiaolu/tiller/tags/)。
@@ -169,7 +169,7 @@ Tiller running on:44134
 
 ```bash
   export TILLER_TAG=<new_tag> ;
-  kubectl --namespace=kube-system set image deployments/tiller-deploy tiller=hongxiaolu/tiller:$TILLER_TAG
+  kubectl --namespace=kube-system set image deployments/tiller-deploy tiller=registry.cn-shanghai.aliyuncs.com/rancher/tiller:$TILLER_TAG
 ```
 
 将显示以下信息：

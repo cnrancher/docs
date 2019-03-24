@@ -1,6 +1,6 @@
 ---
-title: ConfigMaps
-weight: 3061
+title: 11 - 配置映射
+weight: 11
 aliases:
   - /rancher/v2.x/en/tasks/projects/add-configmaps
 ---

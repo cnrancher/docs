@@ -21,7 +21,7 @@ For in-place editing, you will need to run a container with an editor and a moun
 
 > To activate this setting, you will need to reboot.
 
-```
+```bash
 $ sudo system-docker run --rm -it -v /:/host alpine vi /host/boot/global.cfg
 ```
 
@@ -29,7 +29,7 @@ $ sudo system-docker run --rm -it -v /:/host alpine vi /host/boot/global.cfg
 
 If you want to set the extra kernel parameters when you are [Installing RancherOS to Disk]({{< baseurl >}}/os/v1.x/en/installation/running-rancheros/server/install-to-disk/) please use the `--append` parameter.
 
-```
+```bash
 $ sudo ros install -d /dev/sda --append "rancheros.autologin=tty1"
 ```
 

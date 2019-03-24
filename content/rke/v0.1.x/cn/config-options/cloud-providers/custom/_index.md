@@ -7,7 +7,7 @@ If you want to enable a different cloud provider, RKE allows for custom cloud pr
 
 For example, in order to use the oVirt cloud provider with Kubernetes, here's the following cloud provider information:
 
-```
+```yaml
 [connection]
 uri = https://localhost:8443/ovirt-engine/api
 username = admin@internal
@@ -16,7 +16,7 @@ password = admin
 
 To add this cloud config file to RKE, the `cloud_provider` would be need to be set.
 
-```
+```yaml
 cloud_provider:
     name: ovirt
     # Note the pipe as this is what indicates a multiline string

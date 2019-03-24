@@ -1,6 +1,6 @@
 ---
-title: Horizontal Pod Autoscaler
-weight: 2300
+title: 1 - Pod水平扩展
+weight: 1
 ---
 
 Using the Kubernetes [Horizontal Pod Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/) feature (HPA), you can configure your cluster to automatically scale the services it's running up or down.
@@ -31,7 +31,6 @@ Flag | Default | Description |
  `--horizontal-pod-autoscaler-sync-period` | `30s` | How often HPA audits resource/custom metrics in a deployment.
  `--horizontal-pod-autoscaler-downscale-delay` | `5m0s` | Following completion of a downscale operation, how long HPA must wait before launching another downscale operations.
  `--horizontal-pod-autoscaler-upscale-delay` | `3m0s` | Following completion of an upscale operation, how long HPA must wait before launching another upscale operation.
-
 
 For full documentation on HPA, refer to the [Kubernetes Documentation](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/).
 
@@ -88,7 +87,6 @@ spec:
       targetAverageValue: 100Mi
 ```
 
-
 Directive | Description  
 ---------|----------|
  `apiVersion: autoscaling/v2beta1` | The version of the Kubernetes `autoscaling` API group in use. This example manifest uses the beta version, so scaling by CPU and memory is enabled. | 
@@ -103,7 +101,7 @@ Directive | Description
 
 Clusters created in Rancher v2.0.7 and higher have all the requirements needed (metrics-server and Kubernetes cluster configuration) to use Horizontal Pod Autoscaler. Run the following commands to check if metrics are available in your installation:
 
-```
+```bashwq
 $ kubectl top nodes
 NAME                              CPU(cores)   CPU%      MEMORY(bytes)   MEMORY%
 node-controlplane   196m         9%        1623Mi          42%

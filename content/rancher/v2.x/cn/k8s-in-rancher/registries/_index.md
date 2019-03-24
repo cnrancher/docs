@@ -1,6 +1,6 @@
 ---
-title: Registries
-weight: 3063
+title: 13 - 仓库凭证
+weight: 13 
 aliases:
   - /rancher/v2.x/en/tasks/projects/add-registries/
 ---

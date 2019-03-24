@@ -32,7 +32,8 @@ Also, the event logs in the UI dashboard provides some information of probably i
 You can get the log from Longhorn Manager and Engines to help with the troubleshooting. The most useful logs are from `longhorn-manager-xxx`, and the log inside Longhorn Engine, e.g. `<volname>-e-xxxx` and `<volname>-r-xxxx`.
 
 Since normally there are multiple Longhorn Manager running at the same time, we recommend using [kubetail](https://github.com/johanhaleby/kubetail) which is a great tool to keep track of the logs of multiple pods. You can use:
-```
+
+```bash
 kubetail longhorn-manager -n longhorn-system
 ```
 To track the manager logs in real time.
@@ -48,16 +49,19 @@ For Flexvolume driver, first check where the driver has been installed on the no
 Then check the kubelet logs. Flexvolume driver itself doesn't run inside the container. It would run along with the kubelet process.
 
 If kubelet is running natively on the node, you can use the following command to get the log:
-```
+
+```bash
 journalctl -u kubelet
 ```
 
 Or if kubelet is running as a container (e.g. in RKE), use the following command instead:
-```
+
+```bash
 docker logs kubelet
 ```
 
 For even more detail logs of Longhorn Flexvolume, run following command on the node or inside the container (if kubelet is running as a container, e.g. in RKE):
-```
+
+```bash
 touch /var/log/longhorn_driver.log
 ```

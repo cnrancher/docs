@@ -1,6 +1,6 @@
 ---
-title: Secrets
-weight: 3062
+title: 12 - 密文
+weight: 12
 aliases:
   - /rancher/v2.x/en/tasks/projects/add-a-secret
 ---

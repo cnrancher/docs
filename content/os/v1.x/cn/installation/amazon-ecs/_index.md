@@ -39,7 +39,7 @@ By default, the ECS agent will be using the `latest` tag for the `amazon-ecs-age
 
 To select the version, you can update your [cloud-config]({{< baseurl >}}/os/v1.x/en/installation/configuration/#cloud-config) file.
 
-```
+```yaml
 #cloud-config
 rancher:
   environment:

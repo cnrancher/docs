@@ -1,5 +1,5 @@
 ---
-title: 自定义Charts商店
+title: 1 - 自定义Charts商店
 weight: 1
 aliases:
   - /rancher/v2.x/en/tasks/global-configuration/catalog/customizing-charts/
@@ -159,7 +159,7 @@ This reference contains variables that you can use in `questions.yml`.
     <br/>
     **Example**:
 
-    ```
+    ```bash
     $ cat ./app-readme.md
 
     # Wordpress ROCKS!

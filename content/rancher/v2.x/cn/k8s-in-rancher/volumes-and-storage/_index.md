@@ -1,6 +1,6 @@
 ---
-title: Volumes and Storage
-weight: 3050
+title: 9 - 卷和存储
+weight: 9
 aliases:
   - /rancher/v2.x/en/concepts/volumes-and-storage/
   - /rancher/v2.x/en/tasks/clusters/adding-storage/

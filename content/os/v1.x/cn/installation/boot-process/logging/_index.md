@@ -18,7 +18,7 @@ When you set this kernel boot parameter in RancherOS v1.1.0 and later, the Ranch
 
 To set up Linux kernel and RancherOS remote Syslog logging, you need to set both a local, and remote host IP address - even if this address isn't the final IP address of your system. The kernel setting looks like:
 
-```
+```bash
  netconsole=[+][src-port]@[src-ip]/[<dev>],[tgt-port]@<tgt-ip>/[tgt-macaddr]
 
    where
@@ -34,7 +34,7 @@ To set up Linux kernel and RancherOS remote Syslog logging, you need to set both
 For example, on my current test system, I have set the kernel boot line to:
 
 
-```
+```bash
 printk.devkmsg=on console=tty1 rancher.autologin=tty1 console=ttyS0 rancher.autologin=ttyS0    rancher.state.dev=LABEL=RANCHER_STATE rancher.state.autoformat=[/dev/sda,/dev/vda] rancher.rm_usr loglevel=8 netconsole=+9999@10.0.2.14/,514@192.168.42.223/
 ```
 

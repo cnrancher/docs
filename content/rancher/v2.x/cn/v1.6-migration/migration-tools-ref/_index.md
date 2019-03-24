@@ -1,6 +1,6 @@
 ---
-title: Migration Tools CLI Reference
-weight: 100
+title: 1 - 迁移工具CLI参考
+weight: 1
 ---
 
 The migration-tools CLI includes multiple commands and options to assist your migration from Rancher v1.6 to Rancher v2.x.
@@ -11,7 +11,7 @@ The migration-tools CLI for your platform can be downloaded from our [GitHub rel
 
 ## Usage
 
-```
+```bash
 migration-tools [global options] command [command options] [arguments...]
 ```
 
@@ -43,12 +43,11 @@ The `migration-tools export` command exports all stacks from your Rancher v1.6 s
 |`--all`, `--a`          |   | Export all stacks. Using this flag exports any stack in a state of inactive, stopped, or removing. |
 |`--system`, `--s`       |   | Export system and infrastructure stacks. |
 
-
 #### Usage
 
 Execute the following command, replacing each placeholder with your values. The access key and secret key are Account API keys, which will allow you to export from all Cattle environments.
 
-```
+```bash
 migration-tools export --url <RANCHER_URL> --access-key <RANCHER_ACCESS_KEY> --secret-key <RANCHER_SECRET_KEY> --export-dir <EXPORT_DIR>
 ```
 
@@ -76,7 +75,7 @@ The `migration-tools parse` command parses the Compose files for a stack and use
 
 Execute the following command, replacing each placeholder with the absolute path to your Stack's Compose files. For each stack, you'll have to re-run the command for each pair of Compose files that was exported.
 
-```
+```bash
 migration-tools parse --docker-file <DOCKER_COMPOSE_ABSOLUTE_PATH> --rancher-file <RANCHER_COMPOSE_ABSOLUTE_PATH>
 ```
 

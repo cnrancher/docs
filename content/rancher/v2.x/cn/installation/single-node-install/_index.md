@@ -1,6 +1,6 @@
 ---
-title: 2 - 独立容器安装
-weight: 2
+title: 3 - 独立容器安装
+weight: 3
 ---
 
 对于开发环境，我们推荐直接在主机上通过`docker run`的形式运行Rancher server容器。可能有的主机无法直接通过公网IP来访问主机，需要通过代理去访问，这种场景请参考[使用外部负载平衡器进行单一节点安装](./single-node-install-external-lb/)。

@@ -109,7 +109,7 @@ Rancher v2.x also places a convenient link to the workloads on the Ingress recor
 
 The Ingress address is the IP address in your cluster that the Ingress Controller allocates for your workload. You can reach your workload by browsing to this IP address. Use `kubectl` command below to see the Ingress address assigned by the controller:
 
-```
+```bash
 kubectl get ingress
 ```
 

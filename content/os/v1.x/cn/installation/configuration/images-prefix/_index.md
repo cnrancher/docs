@@ -13,14 +13,14 @@ RancherOS supports a global prefix you can add to force ROS to always use your m
 
 You can config a global image prefix:
 
-```
+```bash
 ros config set rancher.environment.REGISTRY_DOMAIN xxxx.yyy
 
 ```
 
 Then you check the os list:
 
-```
+```bash
 $ ros os list
 xxxx.yyy/rancher/os:v1.3.0 remote latest running
 xxxx.yyy/rancher/os:v1.2.0 remote available
@@ -30,7 +30,7 @@ xxxx.yyy/rancher/os:v1.2.0 remote available
 
 Also you can check consoles:
 
-```
+```bash
 $ ros console switch ubuntu
 Switching consoles will
 1. destroy the current console container
@@ -43,6 +43,6 @@ Pulling console (xxxx.yyy/rancher/os-ubuntuconsole:v1.3.0)...
 
 If you want to reset this setting:
 
-```
+```bash
 ros config set rancher.environment.REGISTRY_DOMAIN docker.io
 ```

@@ -1,6 +1,6 @@
 ---
-title: Load Balancing and Ingresses
-weight: 3040
+title: 7 - 负载均衡
+weight: 7
 ---
 
 Within Rancher, you can setup load balancers and ingress controllers to redirect service requests.

@@ -1,6 +1,6 @@
 ---
-title: Service Discovery
-weight: 3045
+title: 8 - 服务发现
+weight: 8
 aliases:
   - /rancher/v2.x/en/tasks/workloads/add-a-dns-record/
 ---

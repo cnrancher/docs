@@ -1,6 +1,6 @@
 ---
-title: Projects and Namespaces
-weight: 3020
+title: 5 - 项目和命名空间
+weight: 5
 aliases:
   - /rancher/v2.x/en/concepts/projects/
   - /rancher/v2.x/en/tasks/projects/

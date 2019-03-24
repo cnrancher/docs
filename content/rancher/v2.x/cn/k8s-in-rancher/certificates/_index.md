@@ -1,6 +1,6 @@
 ---
-title: SSL Certificates
-weight: 3060
+title: 10 SSL证书
+weight: 10
 aliases:
   - /rancher/v2.x/en/tasks/projects/add-ssl-certificates/
 ---

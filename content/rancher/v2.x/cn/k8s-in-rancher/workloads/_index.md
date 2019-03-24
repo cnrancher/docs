@@ -1,6 +1,6 @@
 ---
-title: Workloads
-weight: 3025
+title: 6 - 工作负载
+weight: 6
 aliases:
   - /rancher/v2.x/en/concepts/workloads/
   - /rancher/v2.x/en/tasks/workloads/

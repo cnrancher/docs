@@ -12,7 +12,7 @@ RKE supports the following network plug-ins that are deployed as add-ons:
 
 By default, the network plug-in is `canal`. If you want to use another network plug-in, you need to specify which network plug-in to enable at the cluster level in the `cluster.yml`.
 
-```
+```yaml
 # Setting the flannel network plug-in
 network:
     plugin: flannel
@@ -26,7 +26,7 @@ Besides the different images that could be used to deploy network plug-ins, cert
 
 ### Canal Network Plug-in Options
 
-```
+```yaml
 network:
     plugin: canal
     options:
@@ -39,7 +39,7 @@ By setting the `canal_iface`, you can configure the interface to use for inter-h
 
 ### Flannel Network Plug-in Options
 
-```
+```yaml
 network:
     plugin: flannel
     options:
@@ -50,10 +50,9 @@ network:
 
 By setting the `flannel_iface`, you can configure the interface to use for inter-host communication.
 
-
 ### Calico Network Plug-in Options
 
-```
+```yaml
 network:
     plugin: calico
     calico_cloud_provider: aws

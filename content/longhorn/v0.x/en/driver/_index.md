@@ -16,14 +16,18 @@ Longhorn can be used in Kubernetes to provide persistent storage through either 
 
 ### Check if your setup satisfied CSI requirement
 1. Use the following command to check your Kubernetes server version
-```
+
+```bash
 kubectl version
 ```
+
 Result:
-```
+
+```bash
 Client Version: version.Info{Major:"1", Minor:"10", GitVersion:"v1.10.3", GitCommit:"2bba0127d85d5a46ab4b778548be28623b32d0b0", GitTreeState:"clean", BuildDate:"2018-05-21T09:17:39Z", GoVersion:"go1.9.3", Compiler:"gc", Platform:"linux/amd64"}
 Server Version: version.Info{Major:"1", Minor:"10", GitVersion:"v1.10.1", GitCommit:"d4ab47518836c750f9949b9e0d387f20fb92260b", GitTreeState:"clean", BuildDate:"2018-04-12T14:14:26Z", GoVersion:"go1.9.3", Compiler:"gc", Platform:"linux/amd64"}
 ```
+
 The `Server Version` should be `v1.10` or above.
 
 2. The result of [environment check script](#environment-check-script) should contain `MountPropagation is enabled!`.
@@ -51,11 +55,14 @@ directory, as e.g. `/var/lib/kubelet/volumeplugins:/var/lib/kubelet/volumeplugin
 We've wrote a script to help user to gather enough information about the factors
 
 Before installing, run:
-```
+
+```bash
 curl -sSfL https://raw.githubusercontent.com/rancher/longhorn/master/scripts/environment_check.sh | bash
 ```
+
 Example result:
-```
+
+```bash
 daemonset.apps/longhorn-environment-check created
 waiting for pods to become ready (0/3)
 all pods ready (3/3)

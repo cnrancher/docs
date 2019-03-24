@@ -36,7 +36,7 @@ Redeploy the (same version) Longhorn App. Follow the uninstallation procedure ab
 
 If your CRD instances or the CRDs themselves can't be deleted for whatever reason, run the commands below to clean up. Caution: this will wipe all Longhorn state!
 
-```
+```bash
 # Delete CRD finalizers, instances and definitions
 for crd in $(kubectl get crd -o jsonpath={.items[*].metadata.name} | tr ' ' '\n' | grep longhorn.rancher.io); do
   kubectl -n ${NAMESPACE} get $crd -o yaml | sed "s/\- longhorn.rancher.io//g" | kubectl apply -f -

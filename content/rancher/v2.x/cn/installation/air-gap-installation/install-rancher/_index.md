@@ -60,6 +60,7 @@ rke up --config ./rancher-cluster.yml
     kubectl -n kube-system create serviceaccount tiller
     kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
     ```
+
 1. 创建registry secret(可选）
 
     - Helm初始化的时候会去拉取`tiller`镜像，如果镜像仓库为私有仓库，则需要配置登录凭证。
@@ -71,11 +72,13 @@ rke up --config ./rancher-cluster.yml
         --docker-password=<password> \
         --docker-email=<email>
         ```
+
     - Patch the ServiceAccount
 
         ```bash
         kubectl -n kube-system patch serviceaccount tiller -p '{"imagePullSecrets": [{"name\": "regcred"}]}'
         ```
+
 1. 安装Helm客户端
 
     参考[安装Helm客户端]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/helm-install/#二-安装helm客户端)了解Helm客户端安装。
@@ -90,6 +93,7 @@ rke up --config ./rancher-cluster.yml
     export tag=<修改版本号>
     helm init --skip-refresh --service-account tiller   --tiller-image reg.example.com/google_containers/tiller:${tag}
     ```
+
     >**注意** 修改镜像名和版本号
 
 ## 三、配置Rancher离线模板
@@ -109,6 +113,7 @@ rke up --config ./rancher-cluster.yml
     ```plain
     helm fetch stable/cert-manager
     ```
+
     >打包下载`cert-manager Charts`文件，将会在当前目录看到`cert-manager-vx.x.x.tgz`文件。
 
 2. 更新`cert-manager`模板配置。
@@ -120,6 +125,7 @@ rke up --config ./rancher-cluster.yml
     --name cert-manager --namespace kube-system \
     --set image.repository=<REGISTRY.YOURDOMAIN.COM:PORT>/jetstack/cert-manager-controller
     ```
+
     >**注意** 命令执行后，会在当前目录生成`cert-manager`文件夹 。替换镜像地址，点击[cert-manager镜像版本查询](https://github.com/helm/charts/blob/master/stable/cert-manager/values.yaml#L6)。
 
 ### 2、打包Rancher Charts模板
@@ -139,6 +145,7 @@ rke up --config ./rancher-cluster.yml
     ```plain
     helm fetch rancher-<CHART_REPO>/rancher
     ```
+
     >打包下载`Rancher Charts`文件，将会在当前目录看到`rancher-vx.x.x.tgz`文件。
 
 ### 3、更新`Rancher`模板配置。
@@ -154,6 +161,7 @@ rke up --config ./rancher-cluster.yml
       --set hostname=<RANCHER.YOURDOMAIN.COM> \
       --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:stable
       ```
+
 1. 使用`权威证书或者自己的自签名证书`
 
     - 添加`权威服务证书`secret
@@ -174,6 +182,7 @@ rke up --config ./rancher-cluster.yml
     kubectl -n cattle-system create secret generic tls-ca \
     --from-file=cacerts.pem
     ```
+
     - **更新模板配置**
 
     ```plain
@@ -184,12 +193,10 @@ rke up --config ./rancher-cluster.yml
      --set ingress.tls.source=secret \
      --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:stable
      ```
+
     >**注意** 执行`helm template`命令，会在当前目录生成`rancher`文件夹。
 
 1. 使用外部7层负载均衡器作为SSL终止
-
-
-
 
 ## 四、离线安装Rancher
 
@@ -254,6 +261,7 @@ kubectl -n cattle-system apply -R -f ./rancher
         }
     }'
     ```
+
     > 注意json中的引号。
 
 {{% /tab %}}
@@ -323,6 +331,7 @@ docker run -d --restart=unless-stopped \
         }
     }'
     ```
+
     > **注意**
     >1、替换其中的域名和IP \
     >2、别忘记json中的引号。

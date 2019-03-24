@@ -1,6 +1,6 @@
 ---
-title: Using kubectl to Access a Cluster
-weight: 3005
+title: 2 - 使用kubectl访问集群
+weight: 2
 aliases:
   - /rancher/v2.x/en/tasks/clusters/using-kubectl-to-access-a-cluster/
 ---
