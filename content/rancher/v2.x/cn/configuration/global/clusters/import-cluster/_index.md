@@ -1,6 +1,6 @@
 ---
-title: Importing a Cluster
-weight: 3400
+title: 2 - 导入集群
+weight: 2
 draft: true
 ---
 

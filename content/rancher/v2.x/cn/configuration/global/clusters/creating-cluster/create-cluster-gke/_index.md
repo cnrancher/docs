@@ -1,6 +1,5 @@
 ---
-title: Creating a GKE Cluster
-draft: true
+title: GKE集群
 weight: 3325
 ---
 ## Objectives

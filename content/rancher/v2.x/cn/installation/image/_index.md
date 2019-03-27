@@ -2,6 +2,7 @@
 title: 2 - 镜像选择
 weight: 2
 ---
+
 > 中国区镜像目前属于测试阶段
 
 Rancher 统一的基础镜像均设置为UTC时区，为了解决时差的问题，中国区单独维护了一套基础镜像。
@@ -10,7 +11,7 @@ Rancher 统一的基础镜像均设置为UTC时区，为了解决时差的问题
 
 镜像地址: `registry.cn-shanghai.aliyuncs.com`
 
-当前维护了三个版本的镜像：`rancherv2.1.5、rancherv2.1.6、rancherv2.1.7`, 可以点击查询每个版本对应的[镜像清单](images-list/)。其他版本的镜像清单可访问`https://github.com/rancher/rancher/releases/<version>`镜像查询。
+当前维护了三个版本的镜像：`rancher v2.1.5、rancher v2.1.6、rancher v2.1.7、rancher v2.2.0`, 可以点击查询每个版本对应的[镜像清单](images-list/)。其他版本的镜像清单可访问`https://github.com/rancher/rancher/releases/<version>`镜像查询。
 
 ![image-20190324185713963](assets/image-20190324185713963.png)
 

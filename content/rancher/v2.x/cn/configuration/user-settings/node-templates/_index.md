@@ -1,36 +1,58 @@
 ---
-title: 2 - 管理主机模板
+title: 2 - 主机模板
 weight: 2
 ---
 
-When you provision a [node pool]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools) cluster, [node templates]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools/#node-templates) are used to provision the cluster nodes. These templates use Docker Machine configuration options to define an operating system image and settings/parameters for the node. You can create node templates in two contexts:
+配置[由基础架构提供程序托管](https://rancher.com/docs/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools)的集群时，将使用`主机模板`来配置集群主机。这些模板使用`Docker Machine`配置选项来定义主机的`操作系统映像和设置/参数`。
 
-- While [provisioning a node pool cluster]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools).
-- At any time, from your [user settings](#creating-a-node-template-from-user-settings).
+创建主机模板时，它将绑定到您的用户配置文件。主机模板不能在用户之间共享。您可以从用户设置中删除不再使用的陈旧主机模板。
 
-When you create a node template, it is bound to your user profile. Node templates cannot be shared among users. You can delete stale node templates that you no longer user from your user settings.
+## 创建主机模板
 
-## Creating a Node Template from User Settings
+1. 从您的用户设置中，选择**用户头像>主机模板**![image-20190325121414923](assets/image-20190325121414923.png)
 
-1. From your user settings, select **User Avatar > Node Templates**.
-1. Click **Add Template**.
-1. Select one of the cloud providers available. Then follow the instructions on screen to configure the template.
+1. 单击**添加模板**![image-20190325121429594](assets/image-20190325121429594.png)
 
-**Result:** The template is configured. You can use the template later when you [provision a node pool cluster]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools).
+1. 添加模板参数（2.2以前的版本）
 
-## Cloning Node Templates
+   - 选择云提供商，并配置账户访问参数![image-20190325132752566](assets/image-20190325132752566.png)
 
-When creating new node templates from your user settings, you can clone an existing template and quickly update its settings rather than creating a new one from scratch. Cloning templates saves you the hassle of re-entering access keys for the cloud provider.
+     
 
-1. From your user settings, select **User Avatar > Node Templates**.
-1. Find the template you want to clone. Then select **Ellipsis > Clone**.
-1. Complete the rest of the form.
+   - 配置网络![image-20190325132854833](assets/image-20190325132854833.png)
 
-**Result:** The template is cloned and configured. You can use the template later when you [provision a node pool cluster]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools).
+   - 配置安全组![image-20190325132920980](assets/image-20190325132920980.png)
 
-## Deleting a Node Template
+   - 配置实例参数![image-20190325132954835](assets/image-20190325132954835.png)
 
-When you no longer use a node template, you can delete it from your user settings.
+   - RANCHER主机信息，这个主要是设置主机加入RANCHER后需要配置哪些参数,比如配置存储驱动、加速镜像地址等。![image-20190325133131192](assets/image-20190325133131192.png)![image-20190325133239889](assets/image-20190325133239889.png)
 
-1. From your user settings, select **User Avatar > Node Templates**.
-1. Select one or more template from the list. Then click **Delete**. Confirm the delete when prompted.
+1. 添加模板参数（2.2以后的版本）
+
+     2.2 版本引进了[云凭证](../cloud-credentials)的功能，主要是保存访问云供应商所需的凭证信息，避免每次创建模板都要输入凭证信息。
+
+  - 选择云提供商，如果从未保存过云凭证，那么在账户访问中可以看到`云凭证`选项是灰色的。![image-20190325135837661](assets/image-20190325135837661.png)如果有保存过云凭证，那么会可供选择![image-20190325135814458](assets/image-20190325135814458.png)
+
+  - `云凭证`选项下方的参数是用来保存云凭证的，填写凭证名称、对应的授权的云平台区域、以及Access Key和Secret Key。(凭证名称不能为中文字符)![image-20190325135155989](assets/image-20190325135155989.png)
+
+  - 点击创建并验证通过后，会自动跳转到云凭证选择页面![image-20190325135332051](assets/image-20190325135332051.png)
+
+  - 点击下一步认证并设置其他参数
+
+    
+
+## 克隆主机模板
+
+从`用户设置`创建新主机模板时，您可以克隆现有模板并快速更新其设置，而不是从头开始创建新模板，克隆模板可以减少重复输入参数的麻烦。
+
+1. 从您的用户设置中，选择**用户头像>主机模板**。
+1. 找到要克隆的模板。然后选择**省略号菜单>克隆**![image-20190325133436843](assets/image-20190325133436843.png)
+1. 输入Secret Key进行校验![image-20190325133601614](assets/image-20190325133601614.png)
+1. 后续的步骤与第一次创建主机模板相同
+
+## 删除主机模板
+
+当不再使用主机模板时，可以从用户设置中删除它。
+
+1. 进入用户设置，选择**用户头像>主机模板**。
+1. 从列表中选择一个或多个模板，然后单击**删除**，出现提示时确认删除。

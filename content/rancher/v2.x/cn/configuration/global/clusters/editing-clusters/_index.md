@@ -1,6 +1,6 @@
 ---
-title: Editing Clusters
-weight: 3015
+title: 3 - 编辑集群
+weight: 3
 ---
 
 After you provision a Kubernetes cluster using Rancher, you can still edit options and settings for the cluster. To edit your cluster, open the **Global** view, make sure the **Clusters** tab is selected, and then select **Ellipsis (...) > Edit** for the cluster that you want to edit.
@@ -38,12 +38,12 @@ Cluster administrators can edit the membership for a cluster, controlling which 
  	If external authentication is configured:
 
 	-  Rancher returns users from your [external authentication]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/) source as you type.
-
+	
 		>**Using AD but can't find your users?**
 		>There may be an issue with your search attribute configuration. See [Configuring Active Directory Authentication: Step 5]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/ad/).
-
+	
 	- A drop-down allows you to add groups instead of individual users. The drop-down only lists groups that you, the logged in user, are part of.
-
+	
 		>**Note:** If you are logged in as a local user, external users do not display in your search results. For more information, see [External Authentication Configuration and Principal Users]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/#external-authentication-configuration-and-principal-users).
 
 4. Assign the user or group **Cluster** roles.  

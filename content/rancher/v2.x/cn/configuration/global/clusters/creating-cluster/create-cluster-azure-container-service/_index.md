@@ -1,6 +1,5 @@
 ---
-title: Creating an AKS Cluster
-draft: true
+title: AKS集群
 weight: 3350
 ---
 

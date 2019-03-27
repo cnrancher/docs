@@ -18,7 +18,7 @@ This section contains information to help you troubleshoot issues when using Ran
 
 - [Kubernetes resources]({{< baseurl >}}/rancher/v2.x/en/troubleshooting/kubernetes-resources/)
 
-    Options for troubleshooting Kubernetes resources like Nodes, Ingress Controller and Rancher Agents are described in this section.
+    Options for tKubernetes故障排除 resources like Nodes, Ingress Controller and Rancher Agents are described in this section.
 
 - [Networking]({{< baseurl >}}/rancher/v2.x/en/troubleshooting/networking/)
 

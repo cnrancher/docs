@@ -121,7 +121,7 @@ kubectl -n cattle-system logs -f rancher-84d886bdbb-s4s69 rancher-audit-log
 
     ![Local Cluster: System Project]({{< baseurl >}}/img/rancher/audit_logs_gui/context_local_system.png)
 
-1. 从**工作负载**菜单中，找到`cattle-system`名称空间工作负载，并找到 `rancher` 工作负载。
+1. 从**工作负载**菜单中，找到`cattle-system`命名空间，并找到`rancher`工作负载。
 
     ![Rancher Workload]({{< baseurl >}}/img/rancher/audit_logs_gui/rancher_workload.png)
 

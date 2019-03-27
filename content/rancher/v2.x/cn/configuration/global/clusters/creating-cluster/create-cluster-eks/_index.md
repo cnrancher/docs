@@ -1,7 +1,6 @@
 ---
-title: Creating an EKS Cluster
+title: EKS集群
 weight: 3325
-draft: true
 ---
 ## Objectives
 

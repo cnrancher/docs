@@ -1,6 +1,6 @@
 ---
-title: 7 - 密文
-weight: 7
+title: 4 - 密文
+weight: 4
 ---
 
 [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/#overview-of-secrets) store sensitive data like passwords, tokens, or keys. They may contain one or more key value pairs.

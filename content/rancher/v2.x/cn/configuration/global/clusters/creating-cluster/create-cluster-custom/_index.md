@@ -1,5 +1,5 @@
 ---
-title: 创建自定义集群
+title: 自定义集群
 weight: 1
 ---
 

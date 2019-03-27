@@ -1,6 +1,6 @@
 ---
-title: 配置映射
-weight: 3
+title: 2 - 配置映射
+weight: 2
 ---
 
 

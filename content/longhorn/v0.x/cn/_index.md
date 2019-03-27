@@ -8,7 +8,7 @@ Longhorn is a distributed block storage system for Kubernetes. Longhorn is light
 
 Longhorn implements distributed block storage using containers and microservices. Longhorn creates a dedicated storage controller for each block device volume and sychronously replicates the volume across multiple replicas stored on multiple nodes. The storage controller and replicas are themselves orchestrated using Kubernetes. Longhorn supports snapshots, backups, and even allows you to schedule recurring snapshots and backups!
 
-You can read more details of Longhorn and its design [here](http://rancher.com/microservices-block-storage/).
+You can 了解更多 details of Longhorn and its design [here](http://rancher.com/microservices-block-storage/).
 
 ## Current status
 
