@@ -80,6 +80,7 @@ Rancher `etcd`用作数据存储，使用单节点安装时，将使用内置`et
 ```bash
 docker run -d --restart=unless-stopped \
   -p 8080:80 -p 8443:443 \
+  -v <主机路径>:/var/lib/rancher/ \
   rancher/rancher:latest
 ```
 

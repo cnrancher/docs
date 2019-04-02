@@ -92,8 +92,8 @@ cp xxx.crt tls.crt
 - 保存原有证书yaml文件
 
 ```bash
-kubectl -n cattle-system get secret tls-rancher-ingress  -o yaml > tls-ingress.yaml
-kubectl -n cattle-system get secret tls-ca  -o yaml > tls-ca.yaml
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system get secret tls-rancher-ingress  -o yaml > tls-ingress.yaml
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system get secret tls-ca  -o yaml > tls-ca.yaml
 ```
 
 - 删除旧的secret，然后创建新的secret
@@ -112,7 +112,7 @@ kubectl --kubeconfig=$kubeconfig -n cattle-system create secret tls tls-rancher-
 kubectl --kubeconfig=$kubeconfig -n cattle-system create secret generic tls-ca --from-file=cacerts.pem
 
 # 重启Pod
-kubectl  --kubeconfig=$kubeconfig -n cattle-system delete pod `kubectl --kubeconfig=$kubeconfig -n cattle-system get pod |grep -E "cattle-cluster-agent|cattle-node-agent|rancher" | awk '{print $1}'`
+kubectl --kubeconfig=$kubeconfig -n cattle-system delete pod `kubectl --kubeconfig=$kubeconfig -n cattle-system get pod |grep -E "cattle-cluster-agent|cattle-node-agent|rancher" | awk '{print $1}'`
 ```
 
 >**重要提示：**如果环境不是按照标准的rancher安装文档安装，secret名称可能不相同，请根据实际secret名称操作。

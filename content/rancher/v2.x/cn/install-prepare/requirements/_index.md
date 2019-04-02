@@ -7,74 +7,63 @@ aliases:
 不管是单节点安装Rancher server，或高可用安装Rancher server,所有节点都需要满足以下的节点要求。
 
 {{% tabs %}}
-{{% tab "Operating Systems and Docker" %}}
-Rancher is supported on the following operating systems and their subsequent non-major releases with a supported version of [Docker](https://www.docker.com/).
+{{% tab 操作系统和Docker %}}
 
+Rancher在以下操作系统及其后续的非主要发行版上受支持:
 
-*   Ubuntu 16.04 (64-bit)
-  * Docker Docker 17.03.2, 18.06.2, 18.09.2
-*   Red Hat Enterprise Linux (RHEL)/CentOS 7.5 (64-bit)
-  * RHEL Docker 1.13
-  * Docker 17.03.2, 18.06.2, 18.09.2
-*   RancherOS 1.4 (64-bit)
-  * Docker 17.03.2, 18.06.2, 18.09.2
-*   Windows Server version 1803 (64-bit)
-  * Docker 17.06
+- Ubuntu 16.04.x (64-bit)
+  - Docker 17.03.x, 18.06.x, 18.09.x
+- Ubuntu 18.04.x (64-bit)
+  - Docker 18.06.x, 18.09.x
+- Red Hat Enterprise Linux (RHEL)/CentOS 7.5+ (64-bit)
+  - RHEL Docker 1.13
+  - Docker 17.03.x, 18.06.x, 18.09.x
+- RancherOS 1.3.x+ (64-bit)
+  - Docker 17.03.x, 18.06.x, 18.09.x
+- Windows Server version 1803 (64-bit)
+  - Docker 17.06
 
-If you are using RancherOS, make sure you switch the Docker engine to a supported version using:<br>
-`sudo ros engine switch docker-17.03.2-ce`
-
-[Docker Documentation: Installation Instructions](https://docs.docker.com/)
+>1、Ubuntu、Centos操作系统有Desktop和Server版本，选择请安装server版本，`别自己坑自己！` \
+>2、如果你正在使用RancherOS，请确保切换到受支持的Docker版本:\
+`sudo ros engine switch docker-18.09.2`
 
 {{% /tab %}}
-{{% tab "Hardware" %}}
-Hardware requirements scale based on the size of your Rancher deployment. Provision each individual node according to the requirements.
+{{% tab 硬件 %}}
+硬件要求根据Rancher部署的K8S集群规模大小进行扩展，根据要求配置每个节点。
 
-<table>
-    <tr>
-    <th>Deployment Size</th>
-    <th>Clusters</th>
-    <th>Nodes</th>
-    <th>vCPUs</th>
-    <th>RAM</th>
-    </tr>
-    <tr>
-    <td>Small</td>
-    <td>Up to 5</td>
-    <td>Up to 50</td>
-    <td>4</td>
-    <td>16GB</td>
-    </tr>
-    <tr>
-    <td>Medium</td>
-    <td>Up to 100</td>
-    <td>Up to 500</td>
-    <td>8</td>
-    <td>32GB</td>
-    </tr>
-    <tr>
-    <td>Large</td>
-    <td>Over 100</td>
-    <td>Over 500</td>
-    <td colspan="2"><a href="https://rancher.com/contact/">Contact Rancher</a></td>
-    </tr>
-</table>
+**HA 节点需求(标准3节点)**
+
+| **部署规模** | 集群数     | Nodes       | vCPUs                                              | RAM                                                |
+| :----------- | :--------- | :---------- | :------------------------------------------------- | :------------------------------------------------- |
+| 小           | 最多5个    | 最多50个    | 2                                                  | 8 GB                                               |
+| 中           | 最多15个   | 最多200个   | 4                                                  | 16 GB                                              |
+| 大           | 最多50个   | 最多500个   | 8                                                  | 32 GB                                              |
+| 大+          | 最多100个  | 最多1000个  | 32                                                 | 128 GB                                             |
+| 大++         | 超过100+个 | 超过1000+个 | [联系 Rancher](https://www.cnrancher.com/contact/) | [联系 Rancher](https://www.cnrancher.com/contact/) |
+
+
+
+**Single 节点需求**
+
+| **部署规模** | Clusters | Nodes     | vCPUs | RAM  |
+| :----------- | :------- | :-------- | :---- | :--- |
+| 小           | 最多5个  | 最多50个  | 4     | 8 GB |
+| 中           | 最多15个 | 最多200个 | 8     | 16GB |
+
 <br/>
 
 {{% /tab %}}
-{{% tab  "Networking" %}}
+{{% tab  "网络" %}}
 
-<h2>Node IP address</h2>
+<h2>节点IP地址</h2>
 
-Each node used (either for the Single Node Install, High Availability (HA) Install or nodes that are used in clusters) should have a static IP configured. In case of DHCP, the nodes should have a DHCP reservation to make sure the node gets the same IP allocated.
+使用的每个节点（单节点安装，高可用性（HA）安装或群集中使用的worker节点）应配置静态IP。在DHCP的情况下，应配置DHCP IP保留以确保节点获得相同的IP分配。
 
-<h2>Port requirements</h2>
+<h2>端口需求</h2>
 
-When deploying Rancher in an HA cluster, certain ports on your nodes must be open to allow communication with Rancher. The ports that must be open change according to the type of machines hosting your cluster nodes. For example, if your are deploying Rancher on nodes hosted by an infrastructure, port `22` must be open for SSH. The following diagram depicts the ports that are opened for each [cluster type]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning).
+在HA群集中部署Rancher时，必须打开节点上的某些端口以允许与Rancher通信。必须打开的端口根据托管群集节点的计算机类型而变化，例如，如果要在基础结构托管的节点上部署Rancher，则必须为SSH打开`22`端口。下图描绘了需要为每种群集类型打开的端口。[集群类型]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning).
 
-<sup>Cluster Type Port Requirements</sup>
 ![Basic Port Requirements]({{< baseurl >}}/img/rancher/port-communications.svg)
-
 
 {{< requirements_ports_rancher >}}
 {{< requirements_ports_rke >}}

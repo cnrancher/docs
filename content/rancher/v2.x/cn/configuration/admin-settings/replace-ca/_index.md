@@ -30,14 +30,14 @@ openssl x509 -in ca.crt -noout -dates
 CA证书文件一般路径在`/etc/kubernetes/ssl`，如果找不到，可以在`local`集群中执行如下命令获取
 
 ```bash
-kubectl get clusters <CLUSTER_ID> -o jsonpath={.status.caCert} | base64 -d
+kubectl --kubeconfig=kube_configxxx.yml  get  clusters <CLUSTER_ID> -o jsonpath={.status.caCert} | base64 -d
 ```
 >CLUSTER_ID，集群ID可在浏览器地址栏查看。
 
 ### 示例
 
 ```bash
-rancher-server1-root@rancher-server1:~# kubectl get clusters c-2xqt7 -o 
+rancher-server1-root@rancher-server1:~# kubectl --kubeconfig=kube_configxxx.yml  get  clusters c-2xqt7 -o 
 
 jsonpath={.status.caCert} | base64 -d
 -----BEGIN CERTIFICATE-----
@@ -105,7 +105,7 @@ default-token-r2wtl          kubernetes.io/service-account-token   3         61d
 生成新`token`之后，取值解密备用。
 
 ```bash
-kubectl -n cattle-system get secret cattle-token-9n9f5 -o jsonpath={.data.token} | base64 -d 
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system get secret cattle-token-9n9f5 -o jsonpath={.data.token} | base64 -d 
 ```
 
 ### 2. 在local集群中编辑业务集群的crd clusters对象做二个变更
@@ -113,7 +113,7 @@ kubectl -n cattle-system get secret cattle-token-9n9f5 -o jsonpath={.data.token}
 - 备份集群crd对象
 
 ```bash
-kubectl get clusters <cluster-id> -o yaml > <cluster-id>.yaml
+kubectl --kubeconfig=kube_configxxx.yml  get  clusters <cluster-id> -o yaml > <cluster-id>.yaml
 ```
 
 - `caCert`字段参数，用新的ca证书文件base64加密后替换。

@@ -5,7 +5,7 @@ title: Node Failure Handling with Longhorn
 ## What to expect when a Kubernetes Node fails
 
 When a Kubernetes node fails with CSI driver installed (all the following are based on Kubernetes v1.12 with default setup):
-1. After **one minute**, `kubectl get nodes` will report `NotReady` for the failure node.
+1. After **one minute**, `kubectl --kubeconfig=kube_configxxx.yml  get  nodes` will report `NotReady` for the failure node.
 2. After about **five minutes**, the states of all the pods on the `NotReady` node will change to either `Unknown` or `NodeLost`.
 3. If you're deploying using StatefulSet or Deployment, you need to decide is if it's safe to force deletion the pod of the workload
 running on the lost node. See [here](https://kubernetes.io/docs/tasks/run-application/force-delete-stateful-set-pod/).

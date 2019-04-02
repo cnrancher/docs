@@ -111,31 +111,40 @@ DEFAULT_FORWARD_POLICY="ACCEPT"
 ### 2、我如何查看负载均衡的配置?
 如果要查看负载均衡器的配置，你需要用进入负载均衡器容器内部查找配置文件，你可以在页面选择负载均衡容器的**执行命令行**
 
-```
+```bash
 cat /etc/haproxy/haproxy.cfg
 ```
+
 该文件将提供负载均衡器的所有配置详细信息。
 
 ### 3、我在哪能找到HAproxy的日志?
+
 HAProxy的日志可以在负载均衡器容器内找到。 负载均衡器容器的`docker logs`只提供与负载均衡器相关的服务的详细信息，但不提供实际的HAProxy日志记录。
 
-```
+```bash
 cat /var/log/haproxy
 ```
+
 ### 4、如何自定义负载均衡的配置
-![自定义LB](img/custom_lb.png)
+
+![自定义LB](/img/1.x/custom_lb.png)
+
 如图，在自定义配置中，按照global、defaults、frontend、backend的格式配置，
 
 ## 五、健康检查
+
 ### 1、为什么健康检查服务一直显示黄色初始化状态？
+
 healthcheck不仅为其他服务提供健康检查，对系统组件(比如调度服务)也提供健康检查服务，healthcheck也对自己进行健康检查。多个healthcheck组件时，它们会相互交叉检查，只有健康检查通过后，容器状态才会变成绿色。
 而healthcheck一直显示黄色初始化状态，说明一直没有通过健康检查。健康检查都是通过网络访问的，所以一定是网络通信异常导致。
 
 ## 六、调度
+
 为什么节点关机后，应用没有自动调度到其他节点上？
 Rancher上应用的调度，需要配合健康检查功能。当健康检查检查到应用不健康才会重新调度，如果没有配置健康检查， 即使关机，cattle也不会对应用做调度处理。
 
 ## 七、CentOS
+
 ### 1、为什么容器无法连接到网络?
 
 如果你在主机上运行一个容器(如:`docker run -it ubuntu`)该容器不能与互联网或其他主机通信，那可能是遇到了网络问题。
@@ -143,32 +152,37 @@ Centos默认设置`/proc/sys/net/ipv4/ip_forward`为`0`，这从底层阻断了D
 
 解决办法:
 
-```
+```bash
 vi /usr/lib/sysctl.d/00-system.conf
 ```
+
 添加如下代码:
 
-```
+```bash
 net.ipv4.ip_forward=1
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 net.bridge.bridge-nf-call-arptables = 1
 ```
+
 重启network服务
 
-```
+```bash
 systemctl restart network
 ```
+
 查看是否修改成功
 
-```
+```bash
 sysctl net.ipv4.ip_forward
 ```
 
 如果返回为`net.ipv4.ip_forward = 1`则表示成功了
 
-## 八、京东云 
+## 八、京东云
+
 ### 1、京东云运行rancher server 出现以下问题
-![]( img/jd.jpg )
+
+![京东云]( /img/1.x/jd.jpg )
 
 解决办法:```sudo sysctl -w net.ipv4.tcp_mtu_probing=1```

@@ -7,48 +7,21 @@ weight: 1
 
 ### 1、配置要求
 
-硬件需求根据Rancher部署的规模进行扩展。根据需求配置每个节点。
+参考[节点要求](../requirements)
 
-| 部署大小 | 集群(个)  | 节点(个) | vCPU                                            | 内存 |
-| -------- | --------- | -------- |     ------------------------------------------- | ---- |
-| 小       | 不超过5  | 最多50   | 4C                                              | 16GB  |
-| 中       | 不超过100 | 最多500  | 8C                                              | 32GB |
-| 大       | 超过100   | 超过500  | [联系Rancher](https://www.cnrancher.com/contact/) |      |
-
-### 2、操作系统选择
-
-- Ubuntu 16.04(64位)
-- Centos/RedHat Linux 7.5+(64位)
-- RancherOS 1.3.0+(64位)
-- Windows Server 1803(64位)
-
-### 3、Docker版本选择
-
-支持的Docker版本
-
-- 1.12.6
-- 1.13.1
-- 17.03.2
-- 17.06 (for Windows)
-
-> **注意**
-> 1. Ubuntu、Centos操作系统有Desktop和Server版本，选择请安装server版本，`别自己坑自己！`\
-> 2. 如果你正在使用RancherOS，请确保切换到受支持的Docker版本:\
-> `sudo ros engine switch docker-17.03.2-ce`
-
-### 4、主机名配置
+### 2、主机名配置
 
 因为K8S的规定，主机名只支持包含 `-` 和 `.`(中横线和点)两种特殊符号，并且主机名不能出现重复。
 
-### 5、Hosts
+### 3、Hosts
 
 配置每台主机的hosts(/etc/hosts),添加`host_ip $hostname`到`/etc/hosts`文件中。
 
-### 6、CentOS关闭selinux
+### 4、CentOS关闭selinux
 
 `sudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config`
 
-### 7、关闭防火墙(可选)或者放行相应端口
+### 5、关闭防火墙(可选)或者放行相应端口
 
 对于刚刚接触Rancher的用户，建议在关闭防火墙的测试环境或桌面虚拟机来运行rancher，以避免出现网络通信问题。
 
@@ -66,7 +39,7 @@ weight: 1
 
     端口放行请查看[端口需求]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/references/)
 
-### 8、配置主机时间、时区、系统语言
+### 6、配置主机时间、时区、系统语言
 
 - 查看时区
 
@@ -82,7 +55,7 @@ weight: 1
 
 - 配置主机NTP时间同步
 
-### 9、Kernel性能调优
+### 7、Kernel性能调优
 
 ```bash
 cat >> /etc/sysctl.conf<<EOF
@@ -96,7 +69,7 @@ EOF
 
 >数值根据实际环境自行配置，最后执行`sysctl -p`保存配置。
 
-### 10、内核模块
+### 8、内核模块
 
 以下模块需要在主机上加载
 
@@ -137,7 +110,7 @@ EOF
 >模块查询: lsmod | grep <模块名> \
 模块加载: modprobe <模块名>
 
-### 11、ETCD集群容错表
+### 9、ETCD集群容错表
 
 建议在ETCD集群中使用奇数个成员,通过添加额外成员可以获得更高的失败容错。具体详情可以查阅[optimal-cluster-size](https://coreos.com/etcd/docs/latest/v2/admin_guide.html#optimal-cluster-size)。
 

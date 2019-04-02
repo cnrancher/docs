@@ -15,18 +15,19 @@ weight: 6
 
 ## Rancher单节点安装
 
-单容器安装Rancher时，可将代理参数以环境变量的形式传递给Rancher容器。比如:http://192.168.0.1:3128 是代理服务器地址，并且要求访问网络 `192.168.10.0/24`和`example.com`域名下的每个子域名时排除使用代理
+单容器安装Rancher时，可将代理参数以环境变量的形式传递给Rancher容器。比如:`http://192.168.0.1:3128`是代理服务器地址，并且要求访问网络 `192.168.10.0/24`和`example.com`域名下的每个子域名时排除使用代理
 
 ```bash
 docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
+  -v <主机路径>:/var/lib/rancher/ \
   -e HTTP_PROXY="http://192.168.10.1:3128" \
   -e HTTPS_PROXY="http://192.168.10.1:3128" \
   -e NO_PROXY="localhost,127.0.0.1,0.0.0.0,192.168.10.0/24,example.com" \
   rancher/rancher:latest
 ```
 
-## Rancher HA安装
+## Rancher RKE HA安装
 
 在Rancher HA安装时，需要将代理参数添加到RKE配置文件模板。
 
@@ -59,4 +60,11 @@ docker run -d --restart=unless-stopped \
             value: "localhost,127.0.0.1,0.0.0.0,10.43.0.0/16,192.168.10.0/24,example.com"
           ports:
 ...
+```
+
+## Rancher Helm HA安装
+
+```bash
+--set proxy="http://<username>:<password>@<proxy_url>:<proxy_port>/"
+--set noProxy="127.0.0.0/8\,10.0.0.0/8\,172.16.0.0/12\,192.168.0.0/16"
 ```

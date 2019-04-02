@@ -69,7 +69,7 @@ Rancher supports both upgrade and rollback starting with v2.0.2.  Please note th
 - Fixed an issue where defunct processes wouldn't be cleaned up [[#13858](https://github.com/rancher/rancher/issues/13858)]
 - Fixed an issue where you couldn't add a persistent volume with the local node disk option [[#13864](https://github.com/rancher/rancher/issues/13864)]
 - Fixed an issue where if you had multiple private registries, you couldn't clone or upgrade the workload to use a different private registry [[#13872](https://github.com/rancher/rancher/issues/13872)]
-- Fixed an issue where you couldn't use `kubectl top` in our kubectl shell [[#14025](https://github.com/rancher/rancher/issues/14025)]
+- Fixed an issue where you couldn't use `kubectl --kubeconfig=kube_configxxx.yml  top    ` in our kubectl shell [[#14025](https://github.com/rancher/rancher/issues/14025)]
 - Fixed an issue where subpaths for volume mounts were not being validated before creating workloads [[#14061](https://github.com/rancher/rancher/issues/14061)]
 - Fixed an issue where you couldn't change a worker and control plane node into a control plane only node [[#14133](https://github.com/rancher/rancher/issues/14133)]
 - Fixed an issue where service accounts were not getting the Pod Security Police role bindings assigned [[#14441](https://github.com/rancher/rancher/issues/14441)]

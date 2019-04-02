@@ -38,10 +38,10 @@ If your CRD instances or the CRDs themselves can't be deleted for whatever reaso
 
 ```bash
 # Delete CRD finalizers, instances and definitions
-for crd in $(kubectl get crd -o jsonpath={.items[*].metadata.name} | tr ' ' '\n' | grep longhorn.rancher.io); do
-  kubectl -n ${NAMESPACE} get $crd -o yaml | sed "s/\- longhorn.rancher.io//g" | kubectl apply -f -
-  kubectl -n ${NAMESPACE} delete $crd --all
-  kubectl delete crd/$crd
+for crd in $(kubectl --kubeconfig=kube_configxxx.yml  get  crd -o jsonpath={.items[*].metadata.name} | tr ' ' '\n' | grep longhorn.rancher.io); do
+  kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get $crd -o yaml | sed "s/\- longhorn.rancher.io//g" | kubectl --kubeconfig=kube_configxxx.yml  apply  -f -
+  kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} delete $crd --all
+  kubectl --kubeconfig=kube_configxxx.yml delete  crd/$crd
 done
 ```
 

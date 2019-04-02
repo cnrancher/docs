@@ -105,20 +105,20 @@ With Docker Machine, you can point the docker client on your host to the docker 
 
 To point your docker client to the docker daemon inside the VM, use the following command:
 
-```
-$ eval $(docker-machine env <MACHINE-NAME>)
+```bash
+eval $(docker-machine env <MACHINE-NAME>)
 ```
 
 After setting this up, you can run any docker command in your host, and it will execute the command in your RancherOS VM.
 
-```
-$ docker run -p 80:80 -p 443:443 -d nginx
+```bash
+docker run -p 80:80 -p 443:443 -d nginx
 ```
 
 In your VM, a nginx container will start on your VM. To access the container, you will need the IP address of the VM.
 
-```
-$ docker-machine ip <MACHINE-NAME>
+```bashs
+docker-machine ip <MACHINE-NAME>
 ```
 
 Once you obtain the IP address, paste it in a browser and a _Welcome Page_ for nginx will be displayed.

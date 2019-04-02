@@ -18,7 +18,7 @@ If the cattle-cluster-agent cannot connect to the configured `server-url`, the c
 Check if the cattle-node-agent pods are present on each node, have status **Running** and don't have a high count of Restarts:
 
 ```
-kubectl -n cattle-system get pods -l app=cattle-agent -o wide
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system get pods -l app=cattle-agent -o wide
 ```
 
 Example output:
@@ -37,7 +37,7 @@ cattle-node-agent-t8mtz   1/1       Running   0          2h        x.x.x.x      
 Check logging of a specific cattle-node-agent pod or all cattle-node-agent pods:
 
 ```
-kubectl -n cattle-system logs -l app=cattle-agent
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system logs -l app=cattle-agent
 ```
 
 #### cattle-cluster-agent
@@ -45,7 +45,7 @@ kubectl -n cattle-system logs -l app=cattle-agent
 Check if the cattle-cluster-agent pod is present in the cluster, has status **Running** and doesn't have a high count of Restarts:
 
 ```
-kubectl -n cattle-system get pods -l app=cattle-cluster-agent -o wide
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system get pods -l app=cattle-cluster-agent -o wide
 ```
 
 Example output:
@@ -58,5 +58,5 @@ cattle-cluster-agent-54d7c6c54d-ht9h4   1/1       Running   0          2h       
 Check logging of cattle-cluster-agent pod:
 
 ```
-kubectl -n cattle-system logs -l app=cattle-cluster-agent
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system logs -l app=cattle-cluster-agent
 ```

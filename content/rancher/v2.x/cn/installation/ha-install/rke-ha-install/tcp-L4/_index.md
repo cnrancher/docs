@@ -2,7 +2,7 @@
 title: 1 - 四层负载均衡HA部署
 weight: 1
 ---
->###**重要提示:** RKE HA安装仅支持Rancher v2.0.8以及之前的版本，Rancher v2.0.8之后的版本使用[helm安装Rancher]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/)。
+>**重要提示:** RKE HA安装仅支持Rancher v2.0.8以及之前的版本，Rancher v2.0.8之后的版本使用[helm安装Rancher]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/)。
 
 以下步骤将创建一个新的Kubernetes集群，专用于Rancher高可用(HA)运行，本文档将引导你使用Rancher Kubernetes Engine(RKE)配置三个节点的集群。
 
@@ -362,7 +362,7 @@ nodes:
 
     ```bash
     export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl -n cattle-system patch  deployments cattle-cluster-agent --patch '{
+    kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system patch  deployments cattle-cluster-agent --patch '{
         "spec": {
             "template": {
                 "spec": {
@@ -385,7 +385,7 @@ nodes:
 
     ```bash
     export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl -n cattle-system patch  daemonsets cattle-node-agent --patch '{
+    kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system patch  daemonsets cattle-node-agent --patch '{
         "spec": {
             "template": {
                 "spec": {

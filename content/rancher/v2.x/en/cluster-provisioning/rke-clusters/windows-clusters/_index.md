@@ -163,7 +163,7 @@ In Windows clusters, containers communicate with each other using the `host-gw` 
 To configure host subnet routing on GCE or Azure, first run the following command to find out the host subnets on each worker node:
 
 ```bash
-kubectl get nodes -o custom-columns=nodeName:.metadata.name,nodeIP:status.addresses[0].address,routeDestination:.spec.podCIDR
+kubectl --kubeconfig=kube_configxxx.yml  get  nodes -o custom-columns=nodeName:.metadata.name,nodeIP:status.addresses[0].address,routeDestination:.spec.podCIDR
 ```
 
 Then follow the instructions for each cloud provider to configure routing rules for each node:

@@ -10,7 +10,7 @@ Combine the server certificate followed by any intermediate certificate(s) neede
 Use `kubectl` with the `tls` secret type to create the secrets.
 
 ```
-kubectl -n cattle-system create secret tls tls-rancher-ingress \
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system create secret tls tls-rancher-ingress \
   --cert=tls.crt \
   --key=tls.key
 ```
@@ -24,6 +24,6 @@ Copy the CA certificate into a file named `cacerts.pem` and use `kubectl` to cre
 >**Important:** Make sure the file is called `cacerts.pem` as Rancher uses that filename to configure the CA certificate.
 
 ```
-kubectl -n cattle-system create secret generic tls-ca \
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system create secret generic tls-ca \
   --from-file=cacerts.pem
 ```

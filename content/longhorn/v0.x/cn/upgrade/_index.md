@@ -11,7 +11,7 @@ Here we cover how to upgrade to Longhorn v0.3.1 from all previous releases.
 
 If you didn't change any configuration during Longhorn v0.3.0 installation, follow [the official Longhorn Deployment instructions](../README.md#deployment) to upgrade.
 
-Otherwise you will need to download the yaml file from [the official Longhorn Deployment instructions](../README.md#deployment), modify it to your need, then use `kubectl apply -f` to upgrade.
+Otherwise you will need to download the yaml file from [the official Longhorn Deployment instructions](../README.md#deployment), modify it to your need, then use `kubectl --kubeconfig=kube_configxxx.yml  apply  -f` to upgrade.
 
 ### From Longhorn App (Rancher Catalog App) 
 On Rancher UI, navigate to the `Catalog Apps` screen and click the
@@ -36,7 +36,7 @@ We'll use NFS backupstore for this example.
 
 1. Execute following command to create the backupstore
 ```
-kubectl apply -f https://raw.githubusercontent.com/rancher/longhorn/master/deploy/backupstores/nfs-backupstore.yaml
+kubectl --kubeconfig=kube_configxxx.yml  apply  -f https://raw.githubusercontent.com/rancher/longhorn/master/deploy/backupstores/nfs-backupstore.yaml
 ```
 2. On Longhorn UI Settings page, set Backup Target to
 `nfs://longhorn-test-nfs-svc.default:/opt/backupstore` and click `Save`.
@@ -57,37 +57,37 @@ this is not desirable, some workloads may be suspended. We will cover how
 each workload can be modified to shut down its pods.
 
 #### Deployment
-Edit the deployment with `kubectl edit deploy/<name>`.
+Edit the deployment with `kubectl --kubeconfig=kube_configxxx.yml edit   deploy/<name>`.
 Set `.spec.replicas` to `0`.
 
 #### StatefulSet
-Edit the statefulset with `kubectl edit statefulset/<name>`.
+Edit the statefulset with `kubectl --kubeconfig=kube_configxxx.yml edit   statefulset/<name>`.
 Set `.spec.replicas` to `0`.
 
 #### DaemonSet
 There is no way to suspend this workload.
-Delete the daemonset with `kubectl delete ds/<name>`.
+Delete the daemonset with `kubectl --kubeconfig=kube_configxxx.yml delete  ds/<name>`.
 
 #### Pod
-Delete the pod with `kubectl delete pod/<name>`.
+Delete the pod with `kubectl --kubeconfig=kube_configxxx.yml delete  pod/<name>`.
 There is no way to suspend a pod not managed by a workload controller.
 
 #### CronJob
-Edit the cronjob with `kubectl edit cronjob/<name>`.
+Edit the cronjob with `kubectl --kubeconfig=kube_configxxx.yml edit   cronjob/<name>`.
 Set `.spec.suspend` to `true`.
 Wait for any currently executing jobs to complete, or terminate them by
 deleting relevant pods.
 
 #### Job
 Consider allowing the single-run job to complete.
-Otherwise, delete the job with `kubectl delete job/<name>`.
+Otherwise, delete the job with `kubectl --kubeconfig=kube_configxxx.yml delete  job/<name>`.
 
 #### ReplicaSet
-Edit the replicaset with `kubectl edit replicaset/<name>`.
+Edit the replicaset with `kubectl --kubeconfig=kube_configxxx.yml edit   replicaset/<name>`.
 Set `.spec.replicas` to `0`.
 
 #### ReplicationController
-Edit the replicationcontroller with `kubectl edit rc/<name>`.
+Edit the replicationcontroller with `kubectl --kubeconfig=kube_configxxx.yml edit   rc/<name>`.
 Set `.spec.replicas` to `0`.
 
 Wait for the volumes using by the Kubernetes to complete detaching.
@@ -104,12 +104,12 @@ Delete Longhorn components.
 
 For Longhorn `v0.1` (most likely installed using Longhorn App in Rancher 2.0):
 ```
-kubectl delete -f https://raw.githubusercontent.com/llparse/longhorn/v0.1/deploy/uninstall-for-upgrade.yaml
+kubectl --kubeconfig=kube_configxxx.yml delete  -f https://raw.githubusercontent.com/llparse/longhorn/v0.1/deploy/uninstall-for-upgrade.yaml
 ```
 
 For Longhorn `v0.2`:
 ```
-kubectl delete -f https://raw.githubusercontent.com/rancher/longhorn/v0.2/deploy/uninstall-for-upgrade.yaml
+kubectl --kubeconfig=kube_configxxx.yml delete  -f https://raw.githubusercontent.com/rancher/longhorn/v0.2/deploy/uninstall-for-upgrade.yaml
 ```
 
 If both commands returned `Not found` for all components, Longhorn is probably
@@ -118,7 +118,7 @@ adjust `NAMESPACE` here accordingly:
 ```
 NAMESPACE=<some_longhorn_namespace>
 curl -sSfL https://raw.githubusercontent.com/rancher/longhorn/v0.1/deploy/uninstall-for-upgrade.yaml|sed "s#^\( *\)namespace: longhorn#\1namespace: ${NAMESPACE}#g" > longhorn.yaml
-kubectl delete -f longhorn.yaml
+kubectl --kubeconfig=kube_configxxx.yml delete  -f longhorn.yaml
 ```
 
 ### Backup Longhorn System
@@ -130,10 +130,10 @@ User must backup the CRDs for v0.1 because we will change the default deploying 
 Check your backups to make sure Longhorn was running in namespace `longhorn`, otherwise change the value of `NAMESPACE` below.
 ```
 NAMESPACE=longhorn
-kubectl -n ${NAMESPACE} get volumes.longhorn.rancher.io -o yaml > longhorn-v0.1-backup-volumes.yaml
-kubectl -n ${NAMESPACE} get engines.longhorn.rancher.io -o yaml > longhorn-v0.1-backup-engines.yaml
-kubectl -n ${NAMESPACE} get replicas.longhorn.rancher.io -o yaml > longhorn-v0.1-backup-replicas.yaml
-kubectl -n ${NAMESPACE} get settings.longhorn.rancher.io -o yaml > longhorn-v0.1-backup-settings.yaml
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get volumes.longhorn.rancher.io -o yaml > longhorn-v0.1-backup-volumes.yaml
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get engines.longhorn.rancher.io -o yaml > longhorn-v0.1-backup-engines.yaml
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get replicas.longhorn.rancher.io -o yaml > longhorn-v0.1-backup-replicas.yaml
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get settings.longhorn.rancher.io -o yaml > longhorn-v0.1-backup-settings.yaml
 ```
 After it's done, check those files, make sure they're not empty (unless you have no existing volumes).
 
@@ -142,10 +142,10 @@ Check your backups to make sure Longhorn was running in namespace
 `longhorn-system`, otherwise change the value of `NAMESPACE` below.
 ```
 NAMESPACE=longhorn-system
-kubectl -n ${NAMESPACE} get volumes.longhorn.rancher.io -o yaml > longhorn-v0.2-backup-volumes.yaml
-kubectl -n ${NAMESPACE} get engines.longhorn.rancher.io -o yaml > longhorn-v0.2-backup-engines.yaml
-kubectl -n ${NAMESPACE} get replicas.longhorn.rancher.io -o yaml > longhorn-v0.2-backup-replicas.yaml
-kubectl -n ${NAMESPACE} get settings.longhorn.rancher.io -o yaml > longhorn-v0.2-backup-settings.yaml
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get volumes.longhorn.rancher.io -o yaml > longhorn-v0.2-backup-volumes.yaml
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get engines.longhorn.rancher.io -o yaml > longhorn-v0.2-backup-engines.yaml
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get replicas.longhorn.rancher.io -o yaml > longhorn-v0.2-backup-replicas.yaml
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get settings.longhorn.rancher.io -o yaml > longhorn-v0.2-backup-settings.yaml
 ```
 After it's done, check those files, make sure they're not empty (unless you have no existing volumes).
 
@@ -155,14 +155,14 @@ This is only required for Rancher users running Longhorn App `v0.1`. Delete all
 CRDs from your namespace which is `longhorn` by default.
 ```
 NAMESPACE=longhorn
-kubectl -n ${NAMESPACE} get volumes.longhorn.rancher.io -o yaml | sed "s/\- longhorn.rancher.io//g" | kubectl apply -f -
-kubectl -n ${NAMESPACE} get engines.longhorn.rancher.io -o yaml | sed "s/\- longhorn.rancher.io//g" | kubectl apply -f -
-kubectl -n ${NAMESPACE} get replicas.longhorn.rancher.io -o yaml | sed "s/\- longhorn.rancher.io//g" | kubectl apply -f -
-kubectl -n ${NAMESPACE} get settings.longhorn.rancher.io -o yaml | sed "s/\- longhorn.rancher.io//g" | kubectl apply -f -
-kubectl -n ${NAMESPACE} delete volumes.longhorn.rancher.io --all
-kubectl -n ${NAMESPACE} delete engines.longhorn.rancher.io --all
-kubectl -n ${NAMESPACE} delete replicas.longhorn.rancher.io --all
-kubectl -n ${NAMESPACE} delete settings.longhorn.rancher.io --all
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get volumes.longhorn.rancher.io -o yaml | sed "s/\- longhorn.rancher.io//g" | kubectl --kubeconfig=kube_configxxx.yml  apply  -f -
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get engines.longhorn.rancher.io -o yaml | sed "s/\- longhorn.rancher.io//g" | kubectl --kubeconfig=kube_configxxx.yml  apply  -f -
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get replicas.longhorn.rancher.io -o yaml | sed "s/\- longhorn.rancher.io//g" | kubectl --kubeconfig=kube_configxxx.yml  apply  -f -
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get settings.longhorn.rancher.io -o yaml | sed "s/\- longhorn.rancher.io//g" | kubectl --kubeconfig=kube_configxxx.yml  apply  -f -
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} delete volumes.longhorn.rancher.io --all
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} delete engines.longhorn.rancher.io --all
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} delete replicas.longhorn.rancher.io --all
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} delete settings.longhorn.rancher.io --all
 ```
 
 ### Install Longhorn
@@ -177,10 +177,10 @@ Don't change the NAMESPACE variable below, since the newly installed Longhorn sy
 
 ```
 NAMESPACE=longhorn-system
-sed "s#^\( *\)namespace: .*#\1namespace: ${NAMESPACE}#g" longhorn-v0.1-backup-settings.yaml | kubectl apply -f -
-sed "s#^\( *\)namespace: .*#\1namespace: ${NAMESPACE}#g" longhorn-v0.1-backup-replicas.yaml | kubectl apply -f -
-sed "s#^\( *\)namespace: .*#\1namespace: ${NAMESPACE}#g" longhorn-v0.1-backup-engines.yaml | kubectl apply -f -
-sed "s#^\( *\)namespace: .*#\1namespace: ${NAMESPACE}#g" longhorn-v0.1-backup-volumes.yaml | kubectl apply -f -
+sed "s#^\( *\)namespace: .*#\1namespace: ${NAMESPACE}#g" longhorn-v0.1-backup-settings.yaml | kubectl --kubeconfig=kube_configxxx.yml  apply  -f -
+sed "s#^\( *\)namespace: .*#\1namespace: ${NAMESPACE}#g" longhorn-v0.1-backup-replicas.yaml | kubectl --kubeconfig=kube_configxxx.yml  apply  -f -
+sed "s#^\( *\)namespace: .*#\1namespace: ${NAMESPACE}#g" longhorn-v0.1-backup-engines.yaml | kubectl --kubeconfig=kube_configxxx.yml  apply  -f -
+sed "s#^\( *\)namespace: .*#\1namespace: ${NAMESPACE}#g" longhorn-v0.1-backup-volumes.yaml | kubectl --kubeconfig=kube_configxxx.yml  apply  -f -
 ```
 
 ### Upgrade from v0.2
@@ -192,7 +192,7 @@ For Longhorn v0.2 users who are not using Rancher, follow
 
 Wait until the longhorn-ui and longhorn-manager pods are `Running`:
 ```
-kubectl -n longhorn-system get pod -w
+kubectl --kubeconfig=kube_configxxx.yml -n   longhorn-system get pod -w
 ```
 
 [Access the UI](../README.md#access-the-ui).

@@ -22,12 +22,12 @@ Because of the changes necessary to address [CVE-2018-20321](https://cve.mitre.o
 
     **Single Node Rancher Install**
     ```
-    docker exec <NAME OF RANCHER CONTAINER> kubectl get clusters -o json | jq '[.items[] | select(any(.status.conditions[]; .type == "ServiceAccountMigrated")) | {name: .metadata.name, token: .status.serviceAccountToken}]' > tokens.json
+    docker exec <NAME OF RANCHER CONTAINER> kubectl --kubeconfig=kube_configxxx.yml  get  clusters -o json | jq '[.items[] | select(any(.status.conditions[]; .type == "ServiceAccountMigrated")) | {name: .metadata.name, token: .status.serviceAccountToken}]' > tokens.json
     ```
 
     **HA Rancher Install**
     ```
-    kubectl get clusters -o json | jq '[.items[] | select(any(.status.conditions[]; .type == "ServiceAccountMigrated")) | {name: .metadata.name, token: .status.serviceAccountToken}]' > tokens.json
+    kubectl --kubeconfig=kube_configxxx.yml  get  clusters -o json | jq '[.items[] | select(any(.status.conditions[]; .type == "ServiceAccountMigrated")) | {name: .metadata.name, token: .status.serviceAccountToken}]' > tokens.json
     ```
 
 2. After executing the command a `tokens.json` file will be created.  Important! Back up this file in a safe place.** You will need it to restore functionality to your clusters after rolling back Rancher.  **If you lose this file, you may lose access to your clusters.**
@@ -49,7 +49,7 @@ Because of the changes necessary to address [CVE-2018-20321](https://cve.mitre.o
         name=$(echo $token | jq -r .name)
         value=$(echo $token | jq -r .token)
 
-        docker exec $1 kubectl patch --type=merge clusters $name -p "{\"status\": {\"serviceAccountToken\": \"$value\"}}"
+        docker exec $1 kubectl --kubeconfig=kube_configxxx.yml  patch     --type=merge clusters $name -p "{\"status\": {\"serviceAccountToken\": \"$value\"}}"
     done
     ```
      the script to allow execution (`chmod +x apply_tokens.sh`) and execute the script as follows:
@@ -69,7 +69,7 @@ Because of the changes necessary to address [CVE-2018-20321](https://cve.mitre.o
         name=$(echo $token | jq -r .name)
         value=$(echo $token | jq -r .token)
 
-       kubectl patch --type=merge clusters $name -p "{\"status\": {\"serviceAccountToken\": \"$value\"}}"
+       kubectl --kubeconfig=kube_configxxx.yml  patch     --type=merge clusters $name -p "{\"status\": {\"serviceAccountToken\": \"$value\"}}"
     done
     ```
     Set the script to allow execution (`chmod +x apply_tokens.sh`) and execute the script as follows:

@@ -15,9 +15,10 @@ weight: 1
 出于安全考虑，使用Rancher时需要SSL进行加密。SSL可以保护所有Rancher网络通信，例如登录或与集群交互。
 
 > **注意:**
-> 1、需要[离线安装？]({{< baseurl >}}/rancher/v2.x/cn/installation/air-gap-installation/) \
-> 2、需要开启[API审计日志？]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/api-auditing/) \
-> 3、需要[代理上网?]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/proxy-configuration/)
+1、[离线安装]({{< baseurl >}}/rancher/v2.x/cn/installation/air-gap-installation/)?\
+2、[API审计日志]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/api-auditing/)? \
+3、[代理上网]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/proxy-configuration/)?\
+4、[自定义CA根证书]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/custom-ca-root-certificate/)?
 
 {{% accordion id="1" label="方案A-使用你自己生成的自签名证书" %}}
 
@@ -33,6 +34,7 @@ weight: 1
 ```bash
 docker run -d --restart=unless-stopped \
 -p 80:80 -p 443:443 \
+-v <主机路径>:/var/lib/rancher/ \
 -v /root/var/log/auditlog:/var/log/auditlog \
 -e AUDIT_LEVEL=3 \
 -v /etc/your_certificate_directory/cacerts.pem:/etc/rancher/ssl/cacerts.pem \
@@ -54,6 +56,7 @@ rancher/rancher:latest
 ```bash
 docker run -d --restart=unless-stopped \
 -p 80:80 -p 443:443 \
+-v <主机路径>:/var/lib/rancher/ \
 -v /root/var/log/auditlog:/var/log/auditlog \
 -e AUDIT_LEVEL=3 \
 rancher/rancher:latest --no-cacerts
@@ -165,7 +168,7 @@ gzip_types
 
     ```bash
     export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl -n cattle-system patch  deployments cattle-cluster-agent --patch '{
+    kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system patch  deployments cattle-cluster-agent --patch '{
         "spec": {
             "template": {
                 "spec": {
@@ -188,7 +191,7 @@ gzip_types
 
     ```bash
     export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl -n cattle-system patch  daemonsets cattle-node-agent --patch '{
+    kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system patch  daemonsets cattle-node-agent --patch '{
         "spec": {
             "template": {
                 "spec": {

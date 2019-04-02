@@ -5,7 +5,7 @@ weight: 9
 
 Rancher提供了一个Charts应用商店，可以轻松地重复部署任何应用程序。
 
-*Catalogs是GitHub存储库，其中包含用于部署的应用程序模板。*Charts_ 是 [Helm](https://docs.helm.sh/)支持的包装格式，可将它们视为部署模板 。
+Catalogs是GitHub存储库，其中包含用于部署的应用程序模板。**Charts**是[Helm](https://docs.helm.sh/)支持的包装格式，可将它们视为部署模板 。
 
 Rancher改进了Helm catalogs and charts. 。所有本机Helm catalogs都可以在Rancher中运行，但Rancher增加并增强了一些功能以改善用户体验。
 

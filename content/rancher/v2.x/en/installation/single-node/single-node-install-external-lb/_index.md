@@ -47,9 +47,10 @@ If you elect to use a self-signed certificate to encrypt communication, you must
 
 1. While running the Docker command to deploy Rancher, point Docker toward your CA certificate file.
 
-    ```
+    ```bash
     docker run -d --restart=unless-stopped \
       -p 80:80 -p 443:443 \
+      -v <主机路径>:/var/lib/rancher/ \
       -v /etc/your_certificate_directory/cacerts.pem:/etc/rancher/ssl/cacerts.pem \
       rancher/rancher:latest
     ```
@@ -68,11 +69,13 @@ If you use a certificate signed by a recognized CA, installing your certificate 
 
 1. Enter the following command.
 
-    ```
+    ```bash
     docker run -d --restart=unless-stopped \
     -p 80:80 -p 443:443 \
+    -v <主机路径>:/var/lib/rancher/ \
     rancher/rancher:latest --no-cacerts
     ```
+
 {{% /accordion %}}
 
 ## 3. Configure Load Balancer

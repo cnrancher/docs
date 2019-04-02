@@ -97,7 +97,7 @@ nodes:
 RKE运行完成后会创建`kubectl`的配置文件`kube_config_rancher-cluster-restore.yml`，可通过这个配置文件查询K8S集群节点状态：
 
 ```bash
-kubectl  --kubeconfig=kube_config_rancher-cluster-restore.yml  get nodes
+kubectl --kubeconfig=kube_config_rancher-cluster-restore.yml  get nodes
 
 NAME            STATUS    ROLES                      AGE       VERSION
 52.15.238.179   Ready     controlplane,etcd,worker    1m       v1.10.5

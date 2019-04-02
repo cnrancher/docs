@@ -256,9 +256,9 @@ You can deploy the Kubernetes manifests created by migration-tools by importing 
 Use the following Rancher CLI commands to deploy your application using Rancher v2.x. For each Kubernetes manifest output by migration-tools CLI, enter one of the commands below to import it into Rancher v2.x.
 
 ```
-./rancher kubectl create -f <DEPLOYMENT_YAML_FILE> # DEPLOY THE DEPLOYMENT YAML
+./rancher kubectl --kubeconfig=kube_configxxx.yml create  -f <DEPLOYMENT_YAML_FILE> # DEPLOY THE DEPLOYMENT YAML
 
-./rancher kubectl create -f <SERVICE_YAML_FILE> # DEPLOY THE SERVICE YAML
+./rancher kubectl --kubeconfig=kube_configxxx.yml create  -f <SERVICE_YAML_FILE> # DEPLOY THE SERVICE YAML
 ```
 
 {{% /tab %}}

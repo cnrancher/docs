@@ -75,7 +75,7 @@ clean up complete
 在Kubernetes集群中创建Longhorn的部署非常简单，你可以通过`kubectl`工具直接运行一下命令镜进行安装。
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/rancher/longhorn/master/deploy/longhorn.yaml
+kubectl --kubeconfig=kube_configxxx.yml  apply  -f https://raw.githubusercontent.com/rancher/longhorn/master/deploy/longhorn.yaml
 ```
 
 For Google Kubernetes Engine (GKE) users, see [../gke](gke) before proceeding.
@@ -90,7 +90,7 @@ When you see those pods have started correctly as follows, you've deployed Longh
 
 If Longhorn was deployed with CSI driver (csi-attacher/csi-provisioner/longhorn-csi-plugin exists):
 ```
-# kubectl -n longhorn-system get pod
+# kubectl --kubeconfig=kube_configxxx.yml -n   longhorn-system get pod
 NAME                                        READY     STATUS    RESTARTS   AGE
 csi-attacher-0                              1/1       Running   0          6h
 csi-provisioner-0                           1/1       Running   0          6h
@@ -108,7 +108,7 @@ longhorn-ui-f849dcd85-cgkgg                 1/1       Running   0          5d
 ```
 Or with FlexVolume driver (longhorn-flexvolume-driver exists):
 ```
-# kubectl -n longhorn-system get pod
+# kubectl --kubeconfig=kube_configxxx.yml -n   longhorn-system get pod
 NAME                                        READY     STATUS    RESTARTS   AGE
 engine-image-ei-57b85e25-8v65d              1/1       Running   0          7d
 engine-image-ei-57b85e25-gjjs6              1/1       Running   0          7d
@@ -125,7 +125,7 @@ longhorn-ui-f849dcd85-cgkgg                 1/1       Running   0          5d
 
 ## Access the UI
 
-Use `kubectl -n longhorn-system get svc` to get the external service IP for UI:
+Use `kubectl --kubeconfig=kube_configxxx.yml -n   longhorn-system get svc` to get the external service IP for UI:
 
 ```
 NAME                TYPE           CLUSTER-IP      EXTERNAL-IP      PORT(S)        AGE
@@ -147,12 +147,12 @@ Longhorn provides the persistent volume directly to Kubernetes through one of th
 Use following command to create a default Longhorn StorageClass named `longhorn`.
 
 ```
-kubectl create -f https://raw.githubusercontent.com/rancher/longhorn/master/examples/storageclass.yaml
+kubectl --kubeconfig=kube_configxxx.yml create  -f https://raw.githubusercontent.com/rancher/longhorn/master/examples/storageclass.yaml
 ```
 
 Now you can create a pod using Longhorn like this:
 ```
-kubectl create -f https://raw.githubusercontent.com/rancher/longhorn/master/examples/pvc.yaml
+kubectl --kubeconfig=kube_configxxx.yml create  -f https://raw.githubusercontent.com/rancher/longhorn/master/examples/pvc.yaml
 ```
 
 The yaml contains two parts:
@@ -256,15 +256,15 @@ See [here](./docs/troubleshooting.md) for the troubleshooting guide.
 
 2. Create the uninstallation job to cleanly purge CRDs from the system and wait for success:
   ```
-  kubectl create -f https://raw.githubusercontent.com/rancher/longhorn/master/uninstall/uninstall.yaml
-  kubectl -n longhorn-system get job/longhorn-uninstall -w
+  kubectl --kubeconfig=kube_configxxx.yml create  -f https://raw.githubusercontent.com/rancher/longhorn/master/uninstall/uninstall.yaml
+  kubectl --kubeconfig=kube_configxxx.yml -n   longhorn-system get job/longhorn-uninstall -w
   ```
 
 Example output:
 ```
-$ kubectl create -f https://raw.githubusercontent.com/rancher/longhorn/master/uninstall/uninstall.yaml
+$ kubectl --kubeconfig=kube_configxxx.yml create  -f https://raw.githubusercontent.com/rancher/longhorn/master/uninstall/uninstall.yaml
 job.batch/longhorn-uninstall created
-$ kubectl -n longhorn-system get job/longhorn-uninstall -w
+$ kubectl --kubeconfig=kube_configxxx.yml -n   longhorn-system get job/longhorn-uninstall -w
 NAME                 DESIRED   SUCCESSFUL   AGE
 longhorn-uninstall   1         0            3s
 longhorn-uninstall   1         1            45s
@@ -273,7 +273,7 @@ longhorn-uninstall   1         1            45s
 
 3. Remove remaining components:
   ```
-  kubectl delete -f https://raw.githubusercontent.com/rancher/longhorn/master/deploy/longhorn.yaml
+  kubectl --kubeconfig=kube_configxxx.yml delete  -f https://raw.githubusercontent.com/rancher/longhorn/master/deploy/longhorn.yaml
   ```
 
 ## License

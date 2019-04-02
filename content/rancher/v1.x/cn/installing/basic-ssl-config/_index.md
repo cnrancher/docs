@@ -222,7 +222,7 @@ $ aws elb set-load-balancer-policies-for-backend-server --load-balancer-name <LB
 
 我们不再推荐使用AWS的Application Load Balancer (ALB)替代Elastic/Classic Load Balancer (ELB)。如果你依然选择使用ALB，你需要直接指定流量到Rancher Server节点上的HTTP端口，默认是8080。
 
-> **注意:** 如果你使用ALB配合Kubernetes，`kubectl exec` 并不能使用那个功能，你需要使用ELB。
+> **注意:** 如果你使用ALB配合Kubernetes，`kubectl --kubeconfig=kube_configxxx.yml  exec  ` 并不能使用那个功能，你需要使用ELB。
 
 ### 使用自签名证书 (Beta)
 

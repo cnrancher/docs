@@ -58,7 +58,7 @@ The `rancher-audit-log` container is part of the `rancher` pod in the `cattle-sy
 #### CLI
 
 ```bash
-kubectl -n cattle-system logs -f rancher-84d886bdbb-s4s69 rancher-audit-log
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system logs -f rancher-84d886bdbb-s4s69 rancher-audit-log
 ```
 
 #### Rancher Web GUI

@@ -25,7 +25,7 @@ Things to check
 Use `kubectl` to check the `cattle-system` system namespace and see if the Rancher pods are in a Running state.
 
 ```bash
-kubectl -n cattle-system get pods
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system get pods
 
 NAME                           READY     STATUS    RESTARTS   AGE
 pod/rancher-784d94f59b-vgqzh   1/1       Running   0          10m
@@ -34,7 +34,7 @@ pod/rancher-784d94f59b-vgqzh   1/1       Running   0          10m
 If the state is not `Running`, run a `describe` on the pod and check the Events.
 
 ```bash
-kubectl -n cattle-system describe pod
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system describe pod
 
 ...
 Events:
@@ -53,7 +53,7 @@ Events:
 Use `kubectl` to list the pods.
 
 ```bash
-kubectl -n cattle-system get pods
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system get pods
 
 NAME                           READY     STATUS    RESTARTS   AGE
 pod/rancher-784d94f59b-vgqzh   1/1       Running   0          10m
@@ -62,7 +62,7 @@ pod/rancher-784d94f59b-vgqzh   1/1       Running   0          10m
 Use `kubectl` and the pod name to list the logs from the pod.
 
 ```bash
-kubectl -n cattle-namespace logs -f rancher-784d94f59b-vgqzh
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-namespace logs -f rancher-784d94f59b-vgqzh
 ```
 
 ### Cert CN is "Kubernetes Ingress Controller Fake Certificate"
@@ -79,12 +79,12 @@ Use your browser to check the certificate details. If it says the Common Name is
 - `Issuer` object in the `cattle-system` namespace.
 - `Certificate` object in the `cattle-system` namespace.
 
-Work backwards and do a `kubectl describe` on each object and check the events. You can track down what might be missing.
+Work backwards and do a `kubectl --kubeconfig=kube_configxxx.yml  describe   ` on each object and check the events. You can track down what might be missing.
 
 For example there is a problem with the Issuer:
 
 ```bash
-kubectl -n cattle-system describe certificate
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system describe certificate
 ...
 Events:
   Type     Reason          Age                 From          Message
@@ -93,7 +93,7 @@ Events:
 ```
 
 ```bash
-kubectl -n cattle-system describe issuer
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system describe issuer
 ...
 Events:
   Type     Reason         Age                 From          Message
@@ -109,7 +109,7 @@ Your certs get applied directly to the Ingress object in the `cattle-system` nam
 Check the status of the Ingress object and see if its ready.
 
 ```bash
-kubectl -n cattle-system describe ingress
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system describe ingress
 ```
 
 If its ready and the SSL is still not working you may have a malformed cert or secret.
@@ -117,7 +117,7 @@ If its ready and the SSL is still not working you may have a malformed cert or s
 Check the nginx-ingress-controller logs. Because the nginx-ingress-controller has multiple containers in its pod you will need to specify the name of the container.
 
 ```bash
-kubectl -n ingress-nginx logs -f nginx-ingress-controller-rfjrq nginx-ingress-controller
+kubectl --kubeconfig=kube_configxxx.yml -n   ingress-nginx logs -f nginx-ingress-controller-rfjrq nginx-ingress-controller
 ...
 W0705 23:04:58.240571       7 backend_ssl.go:49] error obtaining PEM from secret cattle-system/tls-rancher-ingress: error retrieving secret cattle-system/tls-rancher-ingress: secret cattle-system/tls-rancher-ingress was not found
 ```

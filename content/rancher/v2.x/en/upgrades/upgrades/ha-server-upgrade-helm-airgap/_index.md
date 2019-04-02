@@ -83,7 +83,7 @@ Upgrades _to_ or _from_ any chart in the  [rancher-alpha repository]({{< baseurl
     Copy the files to a server with access to the Rancher server cluster and apply the rendered templates.
 
     ```plain
-    kubectl -n cattle-system apply -R -f ./rancher
+    kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system apply -R -f ./rancher
     ```
 
 **Result:** Rancher is upgraded. Log back into Rancher to confirm that the  upgrade succeeded.

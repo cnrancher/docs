@@ -228,7 +228,7 @@ export KUBECONFIG=$(pwd)/kube_config_rancher-cluster.yml
 测试您的连接，看看是否可以返回节点列表。
 
 ```bash
-kubectl get nodes
+kubectl --kubeconfig=kube_configxxx.yml  get  nodes
  NAME                          STATUS    ROLES                      AGE       VERSION
 165.227.114.63                Ready     controlplane,etcd,worker   11m       v1.10.1
 165.227.116.167               Ready     controlplane,etcd,worker   11m       v1.10.1
@@ -256,7 +256,7 @@ The connection to the server <server-name:port> was refused - did you specify th
 如果kubectl cluster-info返回url响应但您无法访问集群，要检查它是否配置正确，请使用：
 
 ```bash
-kubectl cluster-info dump
+kubectl --kubeconfig=kube_configxxx.yml  cluster-info    dump
 ```
 
 {{% /accordion %}}

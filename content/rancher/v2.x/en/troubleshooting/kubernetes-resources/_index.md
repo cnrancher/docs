@@ -20,7 +20,7 @@ Run the command below and check the following:
 
 
 ```
-kubectl get nodes
+kubectl --kubeconfig=kube_configxxx.yml  get  nodes
 ``` 
 
 Example output:
@@ -41,7 +41,7 @@ worker-1                          Ready     worker         2m        v1.11.5   <
 Run the command below to list nodes with [Node Conditions](https://kubernetes.io/docs/concepts/architecture/nodes/#condition) that are active that could prevent normal operation.
 
 ```
-kubectl get nodes -o go-template='{{range .items}}{{$node := .}}{{range .status.conditions}}{{if ne .type "Ready"}}{{if eq .status "True"}}{{$node.metadata.name}}{{": "}}{{.type}}{{":"}}{{.status}}{{"\n"}}{{end}}{{end}}{{end}}{{end}}'
+kubectl --kubeconfig=kube_configxxx.yml  get  nodes -o go-template='{{range .items}}{{$node := .}}{{range .status.conditions}}{{if ne .type "Ready"}}{{if eq .status "True"}}{{$node.metadata.name}}{{": "}}{{.type}}{{":"}}{{.status}}{{"\n"}}{{end}}{{end}}{{end}}{{end}}'
 ```
 
 Example output:
@@ -57,7 +57,7 @@ worker-0: DiskPressure:True
 The leader is determined by a leader election process. After the leader has been determined, the leader (`holderIdentity`) is saved in the `kube-controller-manager` endpoint (in this example, `controlplane-0`).
 
 ```
-kubectl -n kube-system get endpoints kube-controller-manager -o jsonpath='{.metadata.annotations.control-plane\.alpha\.kubernetes\.io/leader}'
+kubectl --kubeconfig=kube_configxxx.yml -n   kube-system get endpoints kube-controller-manager -o jsonpath='{.metadata.annotations.control-plane\.alpha\.kubernetes\.io/leader}'
 {"holderIdentity":"controlplane-0_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx","leaseDurationSeconds":15,"acquireTime":"2018-12-27T08:59:45Z","renewTime":"2018-12-27T09:44:57Z","leaderTransitions":0}>
 ```
 
@@ -66,7 +66,7 @@ kubectl -n kube-system get endpoints kube-controller-manager -o jsonpath='{.meta
 The leader is determined by a leader election process. After the leader has been determined, the leader (`holderIdentity`) is saved in the `kube-scheduler` endpoint (in this example, `controlplane-0`).
 
 ```
-kubectl -n kube-system get endpoints kube-scheduler -o jsonpath='{.metadata.annotations.control-plane\.alpha\.kubernetes\.io/leader}'
+kubectl --kubeconfig=kube_configxxx.yml -n   kube-system get endpoints kube-scheduler -o jsonpath='{.metadata.annotations.control-plane\.alpha\.kubernetes\.io/leader}'
 {"holderIdentity":"controlplane-0_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx","leaseDurationSeconds":15,"acquireTime":"2018-12-27T08:59:45Z","renewTime":"2018-12-27T09:44:57Z","leaderTransitions":0}>
 ```
 
@@ -77,13 +77,13 @@ The default Ingress Controller is NGINX and is deployed as a DaemonSet in the `i
 Check if the pods are running on all nodes:
 
 ```
-kubectl -n ingress-nginx get pods -o wide
+kubectl --kubeconfig=kube_configxxx.yml -n   ingress-nginx get pods -o wide
 ```
 
 Example output:
 
 ```
-kubectl -n ingress-nginx get pods -o wide
+kubectl --kubeconfig=kube_configxxx.yml -n   ingress-nginx get pods -o wide
 NAME                                    READY     STATUS    RESTARTS   AGE       IP               NODE
 default-http-backend-797c5bc547-kwwlq   1/1       Running   0          17m       x.x.x.x          worker-1
 nginx-ingress-controller-4qd64          1/1       Running   0          14m       x.x.x.x          worker-1
@@ -95,19 +95,19 @@ If a pod is unable to run (Status is not **Running**, Ready status is not showin
 #### Pod details
 
 ```
-kubectl -n ingress-nginx describe pods -l app=ingress-nginx
+kubectl --kubeconfig=kube_configxxx.yml -n   ingress-nginx describe pods -l app=ingress-nginx
 ```
 
 #### Pod container logs
 
 ```
-kubectl -n ingress-nginx logs -l app=ingress-nginx
+kubectl --kubeconfig=kube_configxxx.yml -n   ingress-nginx logs -l app=ingress-nginx
 ```
 
 #### Namespace events
 
 ```
-kubectl -n ingress-nginx get events
+kubectl --kubeconfig=kube_configxxx.yml -n   ingress-nginx get events
 ```
 
 ### Rancher agents
@@ -119,7 +119,7 @@ Communication to the cluster (Kubernetes API via `cattle-cluster-agent`) and com
 Check if the cattle-node-agent pods are present on each node, have status **Running** and don't have a high count of Restarts:
 
 ```
-kubectl -n cattle-system get pods -l app=cattle-agent -o wide
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system get pods -l app=cattle-agent -o wide
 ```
 
 Example output:
@@ -138,7 +138,7 @@ cattle-node-agent-t8mtz   1/1       Running   0          2h        x.x.x.x      
 Check logging of a specific cattle-node-agent pod or all cattle-node-agent pods:
 
 ```
-kubectl -n cattle-system logs -l app=cattle-agent
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system logs -l app=cattle-agent
 ```
 
 #### cattle-cluster-agent
@@ -146,7 +146,7 @@ kubectl -n cattle-system logs -l app=cattle-agent
 Check if the cattle-cluster-agent pod is present in the cluster, has status **Running** and doesn't have a high count of Restarts:
 
 ```
-kubectl -n cattle-system get pods -l app=cattle-cluster-agent -o wide
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system get pods -l app=cattle-cluster-agent -o wide
 ```
 
 Example output:
@@ -159,7 +159,7 @@ cattle-cluster-agent-54d7c6c54d-ht9h4   1/1       Running   0          2h       
 Check logging of cattle-cluster-agent pod:
 
 ```
-kubectl -n cattle-system logs -l app=cattle-cluster-agent
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system logs -l app=cattle-cluster-agent
 ```
 
 ### Generic
@@ -169,7 +169,7 @@ kubectl -n cattle-system logs -l app=cattle-cluster-agent
 To check, run the command:
 
 ```
-kubectl get pods --all-namespaces
+kubectl --kubeconfig=kube_configxxx.yml  get  pods --all-namespaces
 ```
 
 If a pod is not in **Running** state, you can dig into the root cause by running:
@@ -177,7 +177,7 @@ If a pod is not in **Running** state, you can dig into the root cause by running
 ##### Describe pod
 
 ```
-kubectl describe pod POD_NAME -n NAMESPACE
+kubectl --kubeconfig=kube_configxxx.yml  describe    pod POD_NAME -n NAMESPACE
 ```
 
 ##### Pod container logs
@@ -191,7 +191,7 @@ If a job is not in **Completed** state, you can dig into the root cause by runni
 ##### Describe job
 
 ```
-kubectl describe job JOB_NAME -n NAMESPACE
+kubectl --kubeconfig=kube_configxxx.yml  describe    job JOB_NAME -n NAMESPACE
 ```
 
 ##### Logs from the containers of pods of the job
@@ -207,17 +207,17 @@ Pods can be evicted based on [eviction signals](https://kubernetes.io/docs/tasks
 Retrieve a list of evicted pods (podname and namespace):
 
 ```
-kubectl get pods --all-namespaces -o go-template='{{range .items}}{{if eq .status.phase "Failed"}}{{if eq .status.reason "Evicted"}}{{.metadata.name}}{{" "}}{{.metadata.namespace}}{{"\n"}}{{end}}{{end}}{{end}}'
+kubectl --kubeconfig=kube_configxxx.yml  get  pods --all-namespaces -o go-template='{{range .items}}{{if eq .status.phase "Failed"}}{{if eq .status.reason "Evicted"}}{{.metadata.name}}{{" "}}{{.metadata.namespace}}{{"\n"}}{{end}}{{end}}{{end}}'
 ```
 
 To delete all evicted pods:
 
 ```
-kubectl get pods --all-namespaces -o go-template='{{range .items}}{{if eq .status.phase "Failed"}}{{if eq .status.reason "Evicted"}}{{.metadata.name}}{{" "}}{{.metadata.namespace}}{{"\n"}}{{end}}{{end}}{{end}}' | while read epod enamespace; do kubectl -n $enamespace delete pod $epod; done
+kubectl --kubeconfig=kube_configxxx.yml  get  pods --all-namespaces -o go-template='{{range .items}}{{if eq .status.phase "Failed"}}{{if eq .status.reason "Evicted"}}{{.metadata.name}}{{" "}}{{.metadata.namespace}}{{"\n"}}{{end}}{{end}}{{end}}' | while read epod enamespace; do kubectl --kubeconfig=kube_configxxx.yml -n   $enamespace delete pod $epod; done
 ```
 
 Retrieve a list of evicted pods, scheduled node and the reason:
 
 ```
-kubectl get pods --all-namespaces -o go-template='{{range .items}}{{if eq .status.phase "Failed"}}{{if eq .status.reason "Evicted"}}{{.metadata.name}}{{" "}}{{.metadata.namespace}}{{"\n"}}{{end}}{{end}}{{end}}' | while read epod enamespace; do kubectl -n $enamespace get pod $epod -o=custom-columns=NAME:.metadata.name,NODE:.spec.nodeName,MSG:.status.message; done
+kubectl --kubeconfig=kube_configxxx.yml  get  pods --all-namespaces -o go-template='{{range .items}}{{if eq .status.phase "Failed"}}{{if eq .status.reason "Evicted"}}{{.metadata.name}}{{" "}}{{.metadata.namespace}}{{"\n"}}{{end}}{{end}}{{end}}' | while read epod enamespace; do kubectl --kubeconfig=kube_configxxx.yml -n   $enamespace get pod $epod -o=custom-columns=NAME:.metadata.name,NODE:.spec.nodeName,MSG:.status.message; done
 ```

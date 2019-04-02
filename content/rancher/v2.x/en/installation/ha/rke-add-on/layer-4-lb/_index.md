@@ -107,7 +107,7 @@ After installing NGINX, you need to update the NGINX config file, `nginx.conf`, 
 
 4. Load the updates to your NGINX configuration by running the following command:
 
-    ```
+    ```bash
     # nginx -s reload
     ```
 
@@ -115,7 +115,7 @@ After installing NGINX, you need to update the NGINX config file, `nginx.conf`, 
 
 Instead of installing NGINX as a package on the operating system, you can rather run it as a Docker container. Save the edited **Example NGINX config** as `/etc/nginx.conf` and run the following command to launch the NGINX container:
 
-```
+```bash
 docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
   -v /etc/nginx.conf:/etc/nginx/nginx.conf \

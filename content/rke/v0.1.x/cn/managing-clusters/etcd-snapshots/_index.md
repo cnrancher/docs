@@ -212,7 +212,7 @@ $ rke up --config cluster.yml
 Confirm that your Kubernetes cluster is functional by checking the pods on your cluster.
 
 ```
-> kubectl get pods                                                    
+> kubectl --kubeconfig=kube_configxxx.yml  get  pods                                                    
 NAME                     READY     STATUS    RESTARTS   AGE
 nginx-65899c769f-kcdpr   1/1       Running   0          17s
 nginx-65899c769f-pc45c   1/1       Running   0          17s

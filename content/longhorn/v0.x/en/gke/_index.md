@@ -7,7 +7,7 @@ title: Google Kubernetes Engine
 2. GKE requires user to manually claim himself as cluster admin to enable RBAC. Before installing Longhorn, run the following command:
 
 ```
-kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=<name@example.com>
+kubectl --kubeconfig=kube_configxxx.yml create  clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=<name@example.com>
 
 ```
 

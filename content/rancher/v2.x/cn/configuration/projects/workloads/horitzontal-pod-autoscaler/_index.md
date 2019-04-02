@@ -46,19 +46,19 @@ You can create, manage, and delete HPAs using kubectl:
 
 - Creating HPA
 
-  - With manifest: `kubectl create -f <HPA_MANIFEST>`
+  - With manifest: `kubectl --kubeconfig=kube_configxxx.yml create  -f <HPA_MANIFEST>`
 
   - Without manifest (Just support CPU): `kubectl autoscale deployment hello-world --min=2 --max=5 --cpu-percent=50`
 
 - Getting HPA info
 
-  - Basic: `kubectl get hpa hello-world`
+  - Basic: `kubectl --kubeconfig=kube_configxxx.yml  get  hpa hello-world`
 
-  - Detailed description: `kubectl describe hpa hello-world`
+  - Detailed description: `kubectl --kubeconfig=kube_configxxx.yml  describe    hpa hello-world`
 
 - Deleting HPA
 
-  - `kubectl delete hpa hello-world`
+  - `kubectl --kubeconfig=kube_configxxx.yml delete  hpa hello-world`
 
 ### HPA Manifest Definition Example
 
@@ -153,7 +153,7 @@ To create HPA resources based on resource metrics such as CPU and memory use, yo
 1. Install the `metrics-server` package.
 
   ```bash
-  kubectl create -f metrics-server/deploy/1.8+/
+  kubectl --kubeconfig=kube_configxxx.yml create  -f metrics-server/deploy/1.8+/
   ```
 
 1. Check that `metrics-server` is running properly. Check the service pod and logs in the `kube-system` namespace.
@@ -161,7 +161,7 @@ To create HPA resources based on resource metrics such as CPU and memory use, yo
   1. Check the service pod for a status of `running`. Enter the following command:
 
     ```bash
-    kubectl get pods -n kube-system
+    kubectl --kubeconfig=kube_configxxx.yml  get  pods -n kube-system
     ```
     Then check for the status of `running`.
 
@@ -173,7 +173,7 @@ To create HPA resources based on resource metrics such as CPU and memory use, yo
     ```
   1. Check the service logs for service availability. Enter the following command:
     ```bash
-    # kubectl -n kube-system logs metrics-server-6fbfb84cdd-t2fk9
+    # kubectl --kubeconfig=kube_configxxx.yml -n   kube-system logs metrics-server-6fbfb84cdd-t2fk9
     ```
     Then review the log to confirm that that the `metrics-server` package is running.
     {{% accordion id="metrics-server-run-check" label="Metrics Server Log Output" %}}
@@ -194,7 +194,7 @@ To create HPA resources based on resource metrics such as CPU and memory use, yo
 
   - If you are accessing the cluster directly, enter your Server URL in the kubectl config in the following format: `https://<K8s_URL>:6443`.
     ```bash
-    # kubectl get --raw /apis/metrics.k8s.io/v1beta1
+    # kubectl --kubeconfig=kube_configxxx.yml  get  --raw /apis/metrics.k8s.io/v1beta1
     ```
     If the the API is working correctly, you should receive output similar to the output below.
     ```json
@@ -203,7 +203,7 @@ To create HPA resources based on resource metrics such as CPU and memory use, yo
 
   - If you are accessing the cluster through Rancher, enter your Server URL in the kubectl config in the following format: `https://<RANCHER_URL>/k8s/clusters/<CLUSTER_ID>`. Add the suffix `/k8s/clusters/<CLUSTER_ID>` to API path.
     ```bash
-    # kubectl get --raw /k8s/clusters/<CLUSTER_ID>/apis/metrics.k8s.io/v1beta1
+    # kubectl --kubeconfig=kube_configxxx.yml  get  --raw /k8s/clusters/<CLUSTER_ID>/apis/metrics.k8s.io/v1beta1
     ```
     If the the API is working correctly, you should receive output similar to the output below.
     ```json
@@ -227,8 +227,8 @@ For HPA to use custom metrics from Prometheus, package [k8s-prometheus-adapter](
 1. Initialize Helm in your cluster.
 
   ```bash
-  # kubectl -n kube-system create serviceaccount tiller
-  kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
+  # kubectl --kubeconfig=kube_configxxx.yml -n   kube-system create serviceaccount tiller
+  kubectl --kubeconfig=kube_configxxx.yml create  clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
   helm init --service-account tiller
   ```
 
@@ -249,7 +249,7 @@ For HPA to use custom metrics from Prometheus, package [k8s-prometheus-adapter](
   1. Check that the service pod is `Running`. Enter the following command.
 
     ```bash
-    # kubectl get pods -n kube-system
+    # kubectl --kubeconfig=kube_configxxx.yml  get  pods -n kube-system
     ```
     From the resulting output, look for a status of `Running`.
     ```bash
@@ -284,7 +284,7 @@ For HPA to use custom metrics from Prometheus, package [k8s-prometheus-adapter](
 
   - If you are accessing the cluster directly, enter your Server URL in the kubectl config in the following format: `https://<Kubernetes_URL>:6443`.
     ```bash
-    # kubectl get --raw /apis/custom.metrics.k8s.io/v1beta1
+    # kubectl --kubeconfig=kube_configxxx.yml  get  --raw /apis/custom.metrics.k8s.io/v1beta1
     ```
     If the API is accessible, you should receive output that's similar to what follows.
     {{% accordion id="custom-metrics-api-response" label="API Response" %}}
@@ -293,7 +293,7 @@ For HPA to use custom metrics from Prometheus, package [k8s-prometheus-adapter](
 
   - If you are accessing the cluster through Rancher, enter your Server URL in the kubectl config in the following format: `https://<RANCHER_URL>/k8s/clusters/<CLUSTER_ID>`. Add the suffix `/k8s/clusters/<CLUSTER_ID>` to API path.
     ```bash
-    # kubectl get --raw /k8s/clusters/<CLUSTER_ID>/apis/custom.metrics.k8s.io/v1beta1
+    # kubectl --kubeconfig=kube_configxxx.yml  get  --raw /k8s/clusters/<CLUSTER_ID>/apis/custom.metrics.k8s.io/v1beta1
     ```
     If the API is accessible, you should receive output that's similar to what follows.
     {{% accordion id="custom-metrics-api-response-rancher" label="API Response" %}}
@@ -373,8 +373,8 @@ To do it, follow these steps:
 1. Create them in your cluster using one of the follow commands, depending on the metrics you're using.
 
 ```bash
-  # kubectl create -f <RESOURCE_METRICS_MANIFEST>
-  # kubectl create -f <CUSTOM_METRICS_MANIFEST>
+  # kubectl --kubeconfig=kube_configxxx.yml create  -f <RESOURCE_METRICS_MANIFEST>
+  # kubectl --kubeconfig=kube_configxxx.yml create  -f <CUSTOM_METRICS_MANIFEST>
 ```
 
 ### Testing HPAs with a Service Deployment
@@ -438,7 +438,7 @@ For HPA to work correctly, service deployments should have resources request def
 1. Deploy it to your cluster.
 
     ```bash
-    # kubectl create -f <HELLO_WORLD_MANIFEST>
+    # kubectl --kubeconfig=kube_configxxx.yml create  -f <HELLO_WORLD_MANIFEST>
     ```
 
 1. Copy one of the HPAs below based on the metric type you're using:
@@ -498,13 +498,13 @@ For HPA to work correctly, service deployments should have resources request def
 1. Enter the following command.
 
     ```bash
-    # kubectl get hpa
+    # kubectl --kubeconfig=kube_configxxx.yml  get  hpa
     ```
     You should receive the output that follows:
     ```bash
     NAME          REFERENCE                TARGETS                     MINPODS   MAXPODS   REPLICAS   AGE
     hello-world   Deployment/hello-world   1253376 / 100Mi, 0% / 50%   1         10        1          6m
-        # kubectl describe hpa
+        # kubectl --kubeconfig=kube_configxxx.yml  describe    hpa
     Name:                                                  hello-world
     Namespace:                                             default
     Labels:                                                <none>
@@ -529,7 +529,7 @@ For HPA to work correctly, service deployments should have resources request def
 
 1. Enter the following command.
     ```bash
-    # kubectl describe hpa
+    # kubectl --kubeconfig=kube_configxxx.yml  describe    hpa
     ```
     You should receive the output that follows.
     ```bash
@@ -564,7 +564,7 @@ Use your load testing tool to to scale up to two pods based on CPU Usage.
 
 1. View your HPA.
     ```bash
-    # kubectl describe hpa
+    # kubectl --kubeconfig=kube_configxxx.yml  describe    hpa
     ```
     You should receive output similar to what follows.
     ```bash
@@ -593,7 +593,7 @@ Use your load testing tool to to scale up to two pods based on CPU Usage.
 1. Enter the following command to confirm you've scaled to two pods.
 
     ```bash
-    kubectl get pods
+    kubectl --kubeconfig=kube_configxxx.yml  get  pods
     ```
 
     You should receive output similar to what follows:
@@ -608,7 +608,7 @@ Use your load testing tool to upspace to 3 pods based on CPU usage with `horizon
 
 1. Enter the following command.
     ```bash
-    # kubectl describe hpa
+    # kubectl --kubeconfig=kube_configxxx.yml  describe    hpa
     ```
     You should receive output similar to what follows
     ```bash
@@ -637,7 +637,7 @@ Use your load testing tool to upspace to 3 pods based on CPU usage with `horizon
     ```
 2. Enter the following command to confirm three pods are running.
     ```bash
-    # kubectl get pods
+    # kubectl --kubeconfig=kube_configxxx.yml  get  pods
     ```
     You should receive output similar to what follows.
     ```bash
@@ -652,7 +652,7 @@ Use your load testing to to scale down to 1 pod when all metrics are below targe
 
 1. Enter the following command.
     ```bash
-    # kubectl describe hpa
+    # kubectl --kubeconfig=kube_configxxx.yml  describe    hpa
     ```
     You should receive output similar to what follows.
     ```bash
@@ -690,7 +690,7 @@ Use your load testing tool to upscale two pods based on CPU usage.
 
 1. Enter the following command.
     ```bash
-    # kubectl describe hpa
+    # kubectl --kubeconfig=kube_configxxx.yml  describe    hpa
     ```
     You should receive output similar to what follows.
     ```bash
@@ -719,7 +719,7 @@ Use your load testing tool to upscale two pods based on CPU usage.
     ```
 1. Enter the following command to confirm two pods are running.
     ```bash
-    # kubectl get pods
+    # kubectl --kubeconfig=kube_configxxx.yml  get  pods
     ```
     You should receive output similar to what follows.
     ```bash
@@ -733,7 +733,7 @@ Use your load testing tool to scale up to three pods when the cpu_system usage l
 
 1. Enter the following command.
     ```bash
-    # kubectl describe hpa
+    # kubectl --kubeconfig=kube_configxxx.yml  describe    hpa
     ```
     You should receive output similar to what follows:
     ```bash
@@ -763,11 +763,11 @@ Use your load testing tool to scale up to three pods when the cpu_system usage l
     ```
 1. Enter the following command to confirm three pods are running.
     ```bash
-    # kubectl get pods
+    # kubectl --kubeconfig=kube_configxxx.yml  get  pods
     ```
     You should receive output similar to what follows:
     ```bash
-      # kubectl get pods
+      # kubectl --kubeconfig=kube_configxxx.yml  get  pods
       NAME                           READY     STATUS    RESTARTS   AGE
       hello-world-54764dfbf8-5pfdr   1/1       Running   0          3m
       hello-world-54764dfbf8-m2hrl   1/1       Running   0          1s
@@ -779,7 +779,7 @@ Use your load testing tool to upscale to four pods based on CPU usage. `horizont
 
 1. Enter the following command.
     ```bash
-    # kubectl describe hpa
+    # kubectl --kubeconfig=kube_configxxx.yml  describe    hpa
     ```
     You should receive output similar to what follows.
     ```bash
@@ -810,7 +810,7 @@ Use your load testing tool to upscale to four pods based on CPU usage. `horizont
     ```
 1.  Enter the following command to confirm four pods are running.
     ```bash
-    # kubectl get pods
+    # kubectl --kubeconfig=kube_configxxx.yml  get  pods
     ```
     You should receive output similar to what follows.
     ```bash
@@ -826,7 +826,7 @@ Use your load testing tool to scale down to one pod when all metrics below targe
 
 1. Enter the following command.
     ```bash
-    # kubectl describe hpa
+    # kubectl --kubeconfig=kube_configxxx.yml  describe    hpa
     ```
     You should receive similar output to what follows.
     ```bash
@@ -858,7 +858,7 @@ Use your load testing tool to scale down to one pod when all metrics below targe
     ```
 1. Enter the following command to confirm a single pods is running.
     ```bash
-        # kubectl get pods
+        # kubectl --kubeconfig=kube_configxxx.yml  get  pods
     ```
     You should receive output similar to what follows.
     ```bash

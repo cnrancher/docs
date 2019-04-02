@@ -71,14 +71,14 @@ Reset the cluster nodes' network policies to restore connectivity.
 1. Before repairing networking, run the following two commands to make sure that your nodes have a status of `Ready` and that your cluster components are `Healthy`.
 
     ```
-    kubectl get nodes --kubeconfig kube_config_rancher-cluster.yml
+    kubectl --kubeconfig=kube_configxxx.yml  get  nodes --kubeconfig kube_config_rancher-cluster.yml
 
     NAME                          STATUS    ROLES                      AGE       VERSION
     165.227.114.63                Ready     controlplane,etcd,worker   11m       v1.10.1
     165.227.116.167               Ready     controlplane,etcd,worker   11m       v1.10.1
     165.227.127.226               Ready     controlplane,etcd,worker   11m       v1.10.1
 
-    kubectl get cs --kubeconfig kube_config_rancher-cluster.yml
+    kubectl --kubeconfig=kube_configxxx.yml  get  cs --kubeconfig kube_config_rancher-cluster.yml
 
     NAME                 STATUS    MESSAGE              ERROR
     scheduler            Healthy   ok

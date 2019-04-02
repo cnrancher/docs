@@ -12,7 +12,7 @@ Before running the DNS checks, make sure that [the overlay network is functionin
 ### Check if DNS pods are running
 
 ```
-kubectl -n kube-system get pods -l k8s-app=kube-dns
+kubectl --kubeconfig=kube_configxxx.yml -n   kube-system get pods -l k8s-app=kube-dns
 ```
 
 Example output:
@@ -24,7 +24,7 @@ kube-dns-5fd74c7488-h6f7n   3/3     Running   0          4m13s
 ### Check if the DNS service is present with the correct cluster-ip
 
 ```
-kubectl -n kube-system get svc -l k8s-app=kube-dns
+kubectl --kubeconfig=kube_configxxx.yml -n   kube-system get svc -l k8s-app=kube-dns
 ```
 
 ```
@@ -95,12 +95,12 @@ If you want to check resolving of domain names on all of the hosts, execute the 
             terminationMessagePath: /dev/termination-log
     ```
 
-2. Launch it using `kubectl create -f ds-dnstest.yml`
+2. Launch it using `kubectl --kubeconfig=kube_configxxx.yml create  -f ds-dnstest.yml`
 3. Wait until `kubectl rollout status ds/dnstest -w` returns: `daemon set "dnstest" successfully rolled out`.
 4. Configure the environment variable `DOMAIN` to a fully qualified domain name (FQDN) that the host should be able to resolve (`www.google.com` is used as an example) and run the following command to let each container on every host resolve the configured domain name (it's a single line command).
 
     ```
-    export DOMAIN=www.google.com; echo "=> Start DNS resolve test"; kubectl get pods -l name=dnstest --no-headers -o custom-columns=NAME:.metadata.name,HOSTIP:.status.hostIP | while read pod host; do kubectl exec $pod -- /bin/sh -c "nslookup $DOMAIN > /dev/null 2>&1"; RC=$?; if [ $RC -ne 0 ]; then echo $host cannot resolve $DOMAIN; fi; done; echo "=> End DNS resolve test"
+    export DOMAIN=www.google.com; echo "=> Start DNS resolve test"; kubectl --kubeconfig=kube_configxxx.yml  get  pods -l name=dnstest --no-headers -o custom-columns=NAME:.metadata.name,HOSTIP:.status.hostIP | while read pod host; do kubectl --kubeconfig=kube_configxxx.yml  exec   $pod -- /bin/sh -c "nslookup $DOMAIN > /dev/null 2>&1"; RC=$?; if [ $RC -ne 0 ]; then echo $host cannot resolve $DOMAIN; fi; done; echo "=> End DNS resolve test"
     ```
 
 5. When this command has finished running, the output indicating everything is correct is:
@@ -121,7 +121,7 @@ command terminated with exit code 1
 => End DNS resolve test
 ```
 
-Cleanup the alpine DaemonSet by running `kubectl delete ds/dnstest`.
+Cleanup the alpine DaemonSet by running `kubectl --kubeconfig=kube_configxxx.yml delete  ds/dnstest`.
 
 ### Check upstream nameservers in kubedns container
 
@@ -130,7 +130,7 @@ By default, the configured nameservers on the host (in `/etc/resolv.conf`) will 
 Use the following command to check the upstream nameservers used by the kubedns container:
 
 ```
-kubectl -n kube-system get pods -l k8s-app=kube-dns --no-headers -o custom-columns=NAME:.metadata.name,HOSTIP:.status.hostIP | while read pod host; do echo "Pod ${pod} on host ${host}"; kubectl -n kube-system exec $pod -c kubedns cat /etc/resolv.conf; done
+kubectl --kubeconfig=kube_configxxx.yml -n   kube-system get pods -l k8s-app=kube-dns --no-headers -o custom-columns=NAME:.metadata.name,HOSTIP:.status.hostIP | while read pod host; do echo "Pod ${pod} on host ${host}"; kubectl --kubeconfig=kube_configxxx.yml -n   kube-system exec $pod -c kubedns cat /etc/resolv.conf; done
 ```
 
 Example output:
@@ -157,7 +157,7 @@ services:
 See [Editing Cluster as YAML]({{< baseurl >}}/rancher/v2.x/en/k8s-in-rancher/editing-clusters/#editing-cluster-as-yaml) how to apply this change. When the provisioning of the cluster has finished, you have to remove the kube-dns pod to activate the new setting in the pod:
 
 ```
-kubectl delete pods -n kube-system -l k8s-app=kube-dns
+kubectl --kubeconfig=kube_configxxx.yml delete  pods -n kube-system -l k8s-app=kube-dns
 pod "kube-dns-5fd74c7488-6pwsf" deleted
 ```
 
@@ -166,7 +166,7 @@ Try to resolve name again using [Check if domain names are resolving](#check-if-
 If you want to check the kube-dns configuration in your cluster (for example, to check if there are different upstream nameservers configured), you can run the following command to list the kube-dns configuration:
 
 ```
-kubectl -n kube-system get configmap kube-dns -o go-template='{{range $key, $value := .data}}{{ $key }}{{":"}}{{ $value }}{{"\n"}}{{end}}'
+kubectl --kubeconfig=kube_configxxx.yml -n   kube-system get configmap kube-dns -o go-template='{{range $key, $value := .data}}{{ $key }}{{":"}}{{ $value }}{{"\n"}}{{end}}'
 ```
 
 Example output:

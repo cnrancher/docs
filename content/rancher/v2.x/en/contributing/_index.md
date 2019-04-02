@@ -71,7 +71,7 @@ Please follow this checklist when filing an issue which will helps us investigat
         > **Note:** Make sure you configured the correct kubeconfig (for example, `export KUBECONFIG=$PWD/kube_config_rancher-cluster.yml` for Rancher HA) or are using the embedded kubectl via the UI.
 
         ```
-        kubectl -n cattle-system \
+        kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system \
         logs \
         -l app=rancher \
         --timestamps=true
@@ -88,7 +88,7 @@ Please follow this checklist when filing an issue which will helps us investigat
         > **Note:** Make sure you configured the correct kubeconfig (for example, `export KUBECONFIG=$PWD/kube_config_rancher-cluster.yml` for Rancher HA) or are using the embedded kubectl via the UI.
 
         ```
-        kubectl -n cattle-system \
+        kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system \
         logs \
         --timestamps=true \
         -f $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name="cattle-server") | .metadata.name')

@@ -1,5 +1,5 @@
 ---
-title: 7 - 节点初始化
+title: 7 - 清理节点
 weight: 7
 aliases:
   - /docs/remove-node
@@ -19,6 +19,7 @@ aliases:
     #using shutdown
     sudo shutdown -r now
     ```
+
 {{% /accordion %}}
 {{% accordion id="option-2" label="二、手动清理节点" %}}
 

@@ -47,19 +47,19 @@ following example creates an nginx pod serving content from a flexvolume with
 a base image and is accessible from a service.
 
 ```
-kubectl create -f https://raw.githubusercontent.com/rancher/longhorn-manager/master/examples/flexvolume/example_baseimage.yaml
+kubectl --kubeconfig=kube_configxxx.yml create  -f https://raw.githubusercontent.com/rancher/longhorn-manager/master/examples/flexvolume/example_baseimage.yaml
 ```
 
 Wait until the pod is running.
 
 ```
-kubectl get po/flexvol-baseimage -w
+kubectl --kubeconfig=kube_configxxx.yml  get  po/flexvol-baseimage -w
 ```
 
 Query for the service you created.
 
 ```
-kubectl get svc/flexvol-baseimage
+kubectl --kubeconfig=kube_configxxx.yml  get  svc/flexvol-baseimage
 ```
 
 Your service should look similar.
@@ -88,7 +88,7 @@ http://<NODE-IP>:<NODE-PORT>/guests/hd/party-wizard.gif
 Finally, tear down the pod and service.
 
 ```
-kubectl delete -f https://raw.githubusercontent.com/rancher/longhorn-manager/master/examples/flexvolume/example_baseimage.yaml
+kubectl --kubeconfig=kube_configxxx.yml delete  -f https://raw.githubusercontent.com/rancher/longhorn-manager/master/examples/flexvolume/example_baseimage.yaml
 ```
 
 ### CSI Driver
@@ -112,7 +112,7 @@ parameters:
 Let's walk through an example. First, ensure the CSI Plugin is deployed.
 
 ```
-kubectl -n longhorn-system get daemonset.apps/longhorn-csi-plugin
+kubectl --kubeconfig=kube_configxxx.yml -n   longhorn-system get daemonset.apps/longhorn-csi-plugin
 ```
 
 The following example creates an nginx statefulset with two replicas serving
@@ -120,7 +120,7 @@ content from two csi-provisioned volumes backed by a base image. The
 statefulset is accessible from a service.
 
 ```
-kubectl create -f https://raw.githubusercontent.com/rancher/longhorn-manager/master/examples/provisioner_with_baseimage.yaml
+kubectl --kubeconfig=kube_configxxx.yml create  -f https://raw.githubusercontent.com/rancher/longhorn-manager/master/examples/provisioner_with_baseimage.yaml
 ```
 
 Wait until both pods are running.
@@ -132,7 +132,7 @@ kubectl -l app=provisioner-baseimage get po -w
 Query for the service you created.
 
 ```
-kubectl get svc/csi-baseimage
+kubectl --kubeconfig=kube_configxxx.yml  get  svc/csi-baseimage
 ```
 
 Your service should look similar.
@@ -161,7 +161,7 @@ http://<NODE-IP>:<NODE-PORT>/guests/hd/party-wizard.gif
 Finally, tear down the pod and service.
 
 ```
-kubectl delete -f https://raw.githubusercontent.com/rancher/longhorn-manager/master/examples/provisioner_with_baseimage.yaml
+kubectl --kubeconfig=kube_configxxx.yml delete  -f https://raw.githubusercontent.com/rancher/longhorn-manager/master/examples/provisioner_with_baseimage.yaml
 ```
 
 ## Building

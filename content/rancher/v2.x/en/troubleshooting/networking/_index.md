@@ -43,12 +43,12 @@ To test the overlay network, you can launch the following `DaemonSet` definition
             terminationMessagePath: /dev/termination-log
     ```
 
-2. Launch it using `kubectl create -f ds-overlaytest.yml`
+2. Launch it using `kubectl --kubeconfig=kube_configxxx.yml create  -f ds-overlaytest.yml`
 3. Wait until `kubectl rollout status ds/overlaytest -w` returns: `daemon set "overlaytest" successfully rolled out`.
 4. Run the following command to let each container on every host ping each other (it's a single line command).
 
     ```
-    echo "=> Start network overlay test"; kubectl get pods -l name=overlaytest -o jsonpath='{range .items[*]}{@.metadata.name}{" "}{@.spec.nodeName}{"\n"}{end}' | while read spod shost; do kubectl get pods -l name=overlaytest -o jsonpath='{range .items[*]}{@.status.podIP}{" "}{@.spec.nodeName}{"\n"}{end}' | while read tip thost; do kubectl --request-timeout='10s' exec $spod -- /bin/sh -c "ping -c2 $tip > /dev/null 2>&1"; RC=$?; if [ $RC -ne 0 ]; then echo $shost cannot reach $thost; fi; done; done; echo "=> End network overlay test"
+    echo "=> Start network overlay test"; kubectl --kubeconfig=kube_configxxx.yml  get  pods -l name=overlaytest -o jsonpath='{range .items[*]}{@.metadata.name}{" "}{@.spec.nodeName}{"\n"}{end}' | while read spod shost; do kubectl --kubeconfig=kube_configxxx.yml  get  pods -l name=overlaytest -o jsonpath='{range .items[*]}{@.status.podIP}{" "}{@.spec.nodeName}{"\n"}{end}' | while read tip thost; do kubectl --request-timeout='10s' exec $spod -- /bin/sh -c "ping -c2 $tip > /dev/null 2>&1"; RC=$?; if [ $RC -ne 0 ]; then echo $shost cannot reach $thost; fi; done; done; echo "=> End network overlay test"
     ```
 
 5. When this command has finished running, the output indicating everything is correct is:
@@ -75,7 +75,7 @@ NODE1 cannot reach NODE3
 => End network overlay test
 ```
 
-Cleanup the alpine DaemonSet by running `kubectl delete ds/overlaytest`.
+Cleanup the alpine DaemonSet by running `kubectl --kubeconfig=kube_configxxx.yml delete  ds/overlaytest`.
 
 ### Resolved issues
 
@@ -89,7 +89,7 @@ Cleanup the alpine DaemonSet by running `kubectl delete ds/overlaytest`.
 To check if your cluster is affected, the following command will list nodes that are broken (this command requires `jq` to be installed):
 
 ```
-kubectl get nodes -o json | jq '.items[].metadata | select(.annotations["flannel.alpha.coreos.com/public-ip"] == null or .annotations["flannel.alpha.coreos.com/kube-subnet-manager"] == null or .annotations["flannel.alpha.coreos.com/backend-type"] == null or .annotations["flannel.alpha.coreos.com/backend-data"] == null) | .name'
+kubectl --kubeconfig=kube_configxxx.yml  get  nodes -o json | jq '.items[].metadata | select(.annotations["flannel.alpha.coreos.com/public-ip"] == null or .annotations["flannel.alpha.coreos.com/kube-subnet-manager"] == null or .annotations["flannel.alpha.coreos.com/backend-type"] == null or .annotations["flannel.alpha.coreos.com/backend-data"] == null) | .name'
 ```
 
 If there is no output, the cluster is not affected.

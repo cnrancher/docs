@@ -128,10 +128,10 @@ Copy the rendered manifest directories to a system that has access to the Ranche
 Use `kubectl` to create namespaces and apply the rendered manifests.
 
 ```plain
-kubectl -n kube-system apply -R -f ./cert-manager
+kubectl --kubeconfig=kube_configxxx.yml -n   kube-system apply -R -f ./cert-manager
 
-kubectl create namespace cattle-system
-kubectl -n cattle-system apply -R -f ./rancher
+kubectl --kubeconfig=kube_configxxx.yml create  namespace cattle-system
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system apply -R -f ./rancher
 ```
 
 Make sure you follow any additional instructions required by SSL install options. See [Choose your SSL Configuration]({{< baseurl >}}/rancher/v2.x/en/installation/ha/helm-rancher/#choose-your-ssl-configuration) for details.
@@ -147,6 +147,7 @@ When you get to the section [Choose an SSL Option and Install Rancher]({{< baseu
 ```plain
 docker run -d --restart=unless-stopped \
  -p 80:80 -p 443:443 \
+ -v <主机路径>:/var/lib/rancher/ \
  <REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:<RANCHER_VERSION_TAG>
 ```
 

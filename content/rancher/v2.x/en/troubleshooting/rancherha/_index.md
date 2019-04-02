@@ -14,7 +14,7 @@ Rancher pods are deployed as a Deployment in the `cattle-system` namespace.
 Check if the pods are running on all nodes:
 
 ```
-kubectl -n cattle-system get pods -l app=rancher -o wide
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system get pods -l app=rancher -o wide
 ```
 
 Example output:
@@ -31,19 +31,19 @@ If a pod is unable to run (Status is not **Running**, Ready status is not showin
 #### Pod details
 
 ```
-kubectl -n cattle-system describe pods -l app=rancher
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system describe pods -l app=rancher
 ```
 
 #### Pod container logs
 
 ```
-kubectl -n cattle-system logs -l app=rancher
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system logs -l app=rancher
 ```
 
 #### Namespace events
 
 ```
-kubectl -n cattle-system get events
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system get events
 ```
 
 ### Check ingress
@@ -51,7 +51,7 @@ kubectl -n cattle-system get events
 Ingress should have the correct `HOSTS` (showing the configured FQDN) and `ADDRESS` (host address(es) it will be routed to).
 
 ```
-kubectl -n cattle-system get ingress
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system get ingress
 ```
 
 Example output:
@@ -66,5 +66,5 @@ rancher   rancher.yourdomain.com   x.x.x.x,x.x.x.x,x.x.x.x   80, 443   2m
 When accessing your configured Rancher FQDN does not show you the UI, check the ingress controller logging to see what happens when you try to access Rancher:
 
 ```
-kubectl -n ingress-nginx logs -l app=ingress-nginx
+kubectl --kubeconfig=kube_configxxx.yml -n   ingress-nginx logs -l app=ingress-nginx
 ```

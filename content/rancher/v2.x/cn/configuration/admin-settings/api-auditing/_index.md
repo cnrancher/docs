@@ -39,6 +39,7 @@ Rancher附带API审计功能，用以记录每个用户发起的系统事件信�
 ```bash
 docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
+  -v <主机路径>:/var/lib/rancher/ \
   -v /root/var/log/auditlog:/var/log/auditlog \
   -e AUDIT_LEVEL=3 \
   -e AUDIT_LOG_PATH=/var/log/auditlog/rancher-api-audit.log \
@@ -112,7 +113,7 @@ docker run -d --restart=unless-stopped \
 #### 通过CLI查看
 
 ```bash
-kubectl -n cattle-system logs -f rancher-84d886bdbb-s4s69 rancher-audit-log
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system logs -f rancher-84d886bdbb-s4s69 rancher-audit-log
 ```
 
 #### 通过Rancher Web GUI查看

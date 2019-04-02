@@ -6,7 +6,7 @@ title: 节点故障处理
 
 当`Kubernetes`节点因安装CSI驱动程序而失败时（以下所有内容均基于Kubernetes v1.12并使用默认设置）
 
-1. `一分钟`后，`kubectl get nodes`将报告`NotReady`故障节点。
+1. `一分钟`后，`kubectl --kubeconfig=kube_configxxx.yml  get  nodes`将报告`NotReady`故障节点。
 2. 大约`五分钟`后，`NotReady`节点上所有pod的状态将更改为`Unknown或NodeLost`。
 3. 如果使用StatefulSet或Deployment进行部署，则需要确定是否可以安全地删除丢失节点上运行的工作负载的pod。具体信息查看[force-delete-stateful-set-pod](https://kubernetes.io/docs/tasks/run-application/force-delete-stateful-set-pod/)
 

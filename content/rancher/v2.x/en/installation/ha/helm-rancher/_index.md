@@ -52,7 +52,7 @@ helm install stable/cert-manager \
 Wait for `cert-manager` to be rolled out:
 
 ```
-kubectl -n kube-system rollout status deploy/cert-manager
+kubectl --kubeconfig=kube_configxxx.yml -n   kube-system rollout status deploy/cert-manager
 Waiting for deployment "cert-manager" rollout to finish: 0 of 1 updated replicas are available...
 deployment "cert-manager" successfully rolled out
 ```
@@ -77,7 +77,7 @@ helm install rancher-<CHART_REPO>/rancher \
 Wait for Rancher to be rolled out:
 
 ```
-kubectl -n cattle-system rollout status deploy/rancher
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system rollout status deploy/rancher
 Waiting for deployment "rancher" rollout to finish: 0 of 3 updated replicas are available...
 deployment "rancher" successfully rolled out
 ```
@@ -102,7 +102,7 @@ helm install rancher-<CHART_REPO>/rancher \
 Wait for Rancher to be rolled out:
 
 ```
-kubectl -n cattle-system rollout status deploy/rancher
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system rollout status deploy/rancher
 Waiting for deployment "rancher" rollout to finish: 0 of 3 updated replicas are available...
 deployment "rancher" successfully rolled out
 ```
@@ -130,7 +130,7 @@ Now that Rancher is deployed, see [Adding TLS Secrets]({{< baseurl >}}/rancher/v
 After adding the secrets, check if Rancher was rolled out successfully:
 
 ```
-kubectl -n cattle-system rollout status deploy/rancher
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system rollout status deploy/rancher
 Waiting for deployment "rancher" rollout to finish: 0 of 3 updated replicas are available...
 deployment "rancher" successfully rolled out
 ```
@@ -138,7 +138,7 @@ deployment "rancher" successfully rolled out
 If you see the following error: `error: deployment "rancher" exceeded its progress deadline`, you can check the status of the deployment by running the following command:
 
 ```
-kubectl -n cattle-system get deploy rancher
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system get deploy rancher
 NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 rancher   3         3         3            3           3m
 ```

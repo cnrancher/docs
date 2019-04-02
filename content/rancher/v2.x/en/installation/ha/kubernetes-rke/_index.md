@@ -75,7 +75,7 @@ export KUBECONFIG=$(pwd)/kube_config_rancher-cluster.yml
 Test your connectivity with `kubectl` and see if all your nodes are in `Ready` state.
 
 ```
-kubectl get nodes
+kubectl --kubeconfig=kube_configxxx.yml  get  nodes
 
 NAME                          STATUS    ROLES                      AGE       VERSION
 165.227.114.63                Ready     controlplane,etcd,worker   11m       v1.10.1
@@ -92,7 +92,7 @@ Check that all the required pods and containers are healthy are ready to continu
 * Pods with `STATUS` `Completed` are run-once Jobs. For these pods `READY` should be `0/1`.
 
 ```
-kubectl get pods --all-namespaces
+kubectl --kubeconfig=kube_configxxx.yml  get  pods --all-namespaces
 
 NAMESPACE       NAME                                      READY     STATUS      RESTARTS   AGE
 ingress-nginx   nginx-ingress-controller-tnsn4            1/1       Running     0          30s

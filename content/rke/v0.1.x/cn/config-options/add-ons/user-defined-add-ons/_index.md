@@ -12,13 +12,13 @@ There are two ways that you can specify an add-on.
 
 > **Note:** When using user-defined add-ons, you *must* define a namespace for *all* your resources, otherwise they will end up in the `kube-system` namespace.
 
-RKE uploads the YAML manifest as a configmap to the Kubernetes cluster. Then, it runs a Kubernetes job that mounts the configmap and deploys the add-on using `kubectl apply -f`.
+RKE uploads the YAML manifest as a configmap to the Kubernetes cluster. Then, it runs a Kubernetes job that mounts the configmap and deploys the add-on using `kubectl --kubeconfig=kube_configxxx.yml  apply  -f`.
 
 RKE only adds additional add-ons when using `rke up` multiple times. RKE does **not** support removing of cluster add-ons when doing `rke up` with a different list of add-ons.
 
 As of v0.1.8, RKE will update an add-on if it is the same name.
 
-Prior to v0.1.8, update any add-ons by by using `kubectl edit`.
+Prior to v0.1.8, update any add-ons by by using `kubectl --kubeconfig=kube_configxxx.yml edit  `.
 
 ## In-line Addons
 To define an add-on directly in the YAML file, make sure to use the YAML's block indicator `|-` as the `addons` directive is a multi-line string option. It's possible to specify multiple YAML resource definitions by separating them using the `---` directive.

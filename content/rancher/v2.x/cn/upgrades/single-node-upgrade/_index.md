@@ -14,6 +14,7 @@ weight: 1
       ```bash
       docker stop <RANCHER_CONTAINER_ID>
       ```
+
       >**提示:** 你可以输入`docker ps`命令获取Rancher容器的ID
 
 2. 创建当前Rancher Server容器的数据卷容器，以便在升级Rancher Server中使用，命名为rancher-data容器。
@@ -38,11 +39,13 @@ weight: 1
     docker create --volumes-from <RANCHER_CONTAINER_ID> \
     --name rancher-data-snapshot-<CURRENT_VERSION> rancher/rancher:<RANCHER_CONTAINER_TAG>
     ```
+
 4. 拉取Rancher的最新镜像。
 
       ```bash
       docker pull rancher/rancher:latest
       ```
+
     >**注意** 如果你正在进行[离线升级]({{< baseurl >}}/rancher/v2.x/cn/upgrades/air-gap-upgrade/)，请在运行docker run命令时将你的私有镜像仓库URL添加到镜像名中
     >
     >例如: `<registry.yourdomain.com:port>/rancher/rancher:latest`

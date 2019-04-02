@@ -51,7 +51,7 @@ weight: 5
     hostname: rancher.my.org
     ```
 
-    > **注意:** 根据您在安装Rancher时选择的[SSL配置选项]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/rancher-install/#二-安装证书管理器-可选)，此命令可能会列出更多值。
+    > **注意:** 根据您在安装Rancher时选择的[SSL配置选项]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/rancher-install/#二-安装证书管理器-可选)，此命令可能会列出更多值。
 
 4. 根据前面步骤中的值将Rancher升级到最新版本。
 
@@ -59,7 +59,7 @@ weight: 5
     - 获取上一步中的所有值，并将它们附加到命令`--set key=value`。
 
     ```bash
-    helm upgrade rancher rancher-<CHART_REPO>/rancher --set hostname=rancher.my.org
+    helm upgrade rancher rancher-<CHART_REPO>/rancher --set hostname=<你自己的域名> \
     ```
 
 >**升级后出现网络问题？**

@@ -22,9 +22,23 @@ weight: 8
 ```bash
 docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
+  -v <主机路径>:/var/lib/rancher/ \
   -v /host/certs:/container/certs \
   -e SSL_CERT_DIR="/container/certs" \
   rancher/rancher:latest
 ```
 
 ### HA
+
+将您的CA证书以pem格式复制到名为`ca-additional.pem`的文件中，并用`kubectl`在命名空间`cattle-system`中创建`tls-ca-additional`密文。
+
+```plain
+kubectl --kubeconfig=kube_configxxx.yml create  namespace cattle-system
+kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system create secret generic tls-ca-additional --from-file=ca-additional.pem
+```
+然后，在Helm部署Rancher server时，添加以下参数
+
+```plain
+--set additionalTrustedCAs=true
+```
+

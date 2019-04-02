@@ -1,0 +1,190 @@
+---
+title: 4 - 安装Rancher
+weight: 4
+aliases:
+  - /rancher/v2.x/en/installation/air-gap-installation/install-rancher/
+---
+
+## 一、初始化Helm
+
+>**注意** Helm运行需要依赖`kubectl`，点击了解[安装和配置kubectl]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/kubectl/)。
+
+1. 配置Helm客户端访问权限
+
+    Helm在Kubernetes集群上安装`Tiller`服务以管理charts,由于RKE默认启用RBAC, 因此我们需要使用kubectl来创建一个`serviceaccount`，`clusterrolebinding`才能让Tiller具有部署到集群的权限。
+
+    `在离线环境中安装有kubectl的主机上执行以下命令`：
+
+    ```bash
+    kubectl --kubeconfig=kube_configxxx.yml -n kube-system create serviceaccount tiller
+    kubectl --kubeconfig=kube_configxxx.yml create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
+    ```
+
+1. 创建registry secret(可选）
+
+    - Helm初始化的时候会去拉取`tiller`镜像，如果镜像仓库为私有仓库，则需要配置登录凭证。在离线环境中安装有kubectl的主机上执行以下命令：
+
+        ```bash
+        kubectl --kubeconfig=kube_configxxx.yml -n kube-system create secret docker-registry regcred \
+        --docker-server="reg.example.com" \
+        --docker-username=<user> \
+        --docker-password=<password> \
+        --docker-email=<email>
+        ```
+
+    - Patch the ServiceAccount
+
+        ```bash
+        kubectl --kubeconfig=kube_configxxx.yml -n kube-system patch serviceaccount tiller -p '{"imagePullSecrets": [{"name\": "regcred"}]}'
+        ```
+
+1. 安装Helm客户端
+
+    在离线环境中安装有kubectl的主机上安装Helm客户端，参考[安装Helm客户端]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/helm-install/#二-安装helm客户端)了解Helm客户端安装。
+
+1. 安装Helm Server(Tiller)
+
+    >**注意:**
+1、`helm init`在缺省配置下，会去谷歌镜像仓库拉取`gcr.io/kubernetes-helm/tiller`镜像，并在Kubernetes集群上安装配置Tiller。离线环境下，可通过`--tiller-image`指定私有镜像仓库镜像。点击查询[tiller镜像版本](https://hub.docker.com/r/hongxiaolu/tiller/tags/)。\
+2、`helm init`在缺省配置下，会利用`https://kubernetes-charts.storage.googleapis.com`作为缺省的`stable repository`地址,并去更新相关索引文件。如果你是离线安装`Tiller`, 如果有内部的`chart`仓库，可通过`--stable-repo-url`指定内部`chart`地址；如果没有内部的`chart`仓库, 可通过添加`--skip-refresh`参数禁止`Tiller`更新索引。
+
+    `在离线环境中安装有kubectl和Helm客户端的主机上执行以下命令`
+
+    ```bash
+    export tag=<修改版本号>
+    helm init --skip-refresh --service-account tiller --tiller-image reg.example.com/google_containers/tiller:${tag}
+    ```
+
+    >**注意** 修改镜像名和版本号
+
+## 二、打包Rancher Charts模板
+
+此步骤需要在能连接互联网的主机上操作，在可访问互联网并安装有Helm客户端的主机上执行以下操作。
+
+1. 添加`Rancher Charts`仓库。
+
+    指定安装的版本(比如: `latest` or `stable`)，可通过[版本选择]({{< baseurl >}}/rancher/v2.x/cn/installation/server-tags//)查看版本说明。
+
+    ```plain
+    helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
+    ```
+
+2. 获取`Rancher Charts`离线包。
+
+    指定安装的版本(比如: `latest` or `stable`)，可通过[版本选择]({{< baseurl >}}/rancher/v2.x/cn/installation/server-tags/)查看版本说明。
+
+    ```plain
+    helm fetch rancher-stable/rancher
+    ```
+
+    >打包`Rancher Charts`文件，将会在当前目录生成`rancher-vx.x.x.tgz`文件。
+
+## 三、离线安装Rancher
+
+将生成的`rancher-vx.x.x.tgz`文件拷贝到离线环境安装有`kubectl`和Helm客户端的主机上，解压`rancher-vx.x.x.tgz`文件获得`rancher`文件夹。
+
+1. 使用`权威认证证书`
+
+    将服务证书和CA中间证书链合并到一个名为`tls.crt`的文件中,将私钥复制到名为`tls.key`的文件中。使用kubectl创建`tls`类型的`secrets`。
+
+    ```plain
+    kubectl --kubeconfig=kube_configxxx.yml -n cattle-system create secret tls tls-rancher-ingress \
+    --cert=./tls.crt --key=./tls.key
+    ```
+
+    > **注意** 必须把证书文件和key文件重命名为`tls.crt`和`tls.key`。
+
+    然后执行以下命令进行rancher安装:
+
+    ```plain
+      helm install ./rancher \
+        --name rancher \
+        --namespace cattle-system \
+        --set hostname=<修改为自己的域名> \
+        --set ingress.tls.source=secret
+        --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:stable
+      ```
+
+1. 使用`自己的自签名证书`
+
+    如果使用的是自己创建的自签名证书，`需要创建访问证书secret和CA证书secret`。
+
+    ```plain
+    kubectl --kubeconfig=kube_configxxx.yml -n cattle-system create secret tls tls-rancher-ingress \
+    --cert=./tls.crt --key=./tls.key
+
+    kubectl --kubeconfig=kube_configxxx.yml -n cattle-system create secret generic tls-ca \
+    --from-file=cacerts.pem
+    ```
+
+    > **注意** 必须把CA文件重命名为`cacerts.pem`。
+
+    然后执行以下命令进行rancher安装
+
+    ```plain
+    helm install ./rancher \
+      --name rancher \
+      --namespace cattle-system \
+      --set hostname=<修改为自己的域名> \
+      --set ingress.tls.source=secret \
+      --set privateCA=true \
+      --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:stable
+    ```
+
+## 四、为Cluster Pod添加主机别名(/etc/hosts)(可选)
+
+如果你没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
+
+### 解决方法
+
+可以通过给`cattle-cluster-agent Pod`和`cattle-node-agent`添加主机别名(/etc/hosts)，让其可以正常通信`(前提是IP地址可以互通)`。
+
+1. cattle-cluster-agent pod
+
+    ```plain
+    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
+    kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system patch  deployments cattle-cluster-agent --patch '{
+        "spec": {
+            "template": {
+                "spec": {
+                    "hostAliases": [
+                        {
+                            "hostnames":
+                            [
+                                "demo.cnrancher.com"
+                            ],
+                                "ip": "192.168.1.100"
+                        }
+                    ]
+                }
+            }
+        }
+    }'
+    ```
+
+2. cattle-node-agent pod
+
+    ```plain
+    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
+    kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system patch  daemonsets cattle-node-agent --patch '{
+        "spec": {
+            "template": {
+                "spec": {
+                    "hostAliases": [
+                        {
+                            "hostnames":
+                            [
+                                "xxx.rancher.com"
+                            ],
+                                "ip": "192.168.1.100"
+                        }
+                    ]
+                }
+            }
+        }
+    }'
+    ```
+
+    > 1、替换其中的域名和IP \
+      2、注意json中的引号。
+

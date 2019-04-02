@@ -102,7 +102,7 @@ Once RKE completes it will have created a credentials file in the local director
 Your new cluster will take a few minutes to stabilize. Once you see the new "target node" transition to `Ready` and three old nodes in `NotReady` you are ready to continue.
 
 ```
-kubectl get nodes
+kubectl --kubeconfig=kube_configxxx.yml  get  nodes
 
 NAME            STATUS    ROLES                      AGE       VERSION
 52.15.238.179   Ready     controlplane,etcd,worker    1m       v1.10.5
@@ -116,7 +116,7 @@ NAME            STATUS    ROLES                      AGE       VERSION
 Use `kubectl` to delete the old nodes from the cluster.
 
 ```
-kubectl delete node 18.217.82.189 18.222.22.56 18.191.222.99
+kubectl --kubeconfig=kube_configxxx.yml delete  node 18.217.82.189 18.222.22.56 18.191.222.99
 ```
 
 #### Reboot the Target Node
@@ -130,7 +130,7 @@ Wait for the pods running in `kube-system`, `ingress-nginx` and the `rancher` po
 > **Note:** `cattle-cluster-agent` and `cattle-node-agent` pods will be in an `Error` or `CrashLoopBackOff` state until Rancher server is up and the DNS/Load Balancer have been pointed at the new cluster.
 
 ```
-kubectl get pods --all-namespaces
+kubectl --kubeconfig=kube_configxxx.yml  get  pods --all-namespaces
 
 NAMESPACE       NAME                                    READY     STATUS    RESTARTS   AGE
 cattle-system   cattle-cluster-agent-766585f6b-kj88m    0/1       Error     6          4m

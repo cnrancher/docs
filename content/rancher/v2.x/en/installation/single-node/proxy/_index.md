@@ -29,6 +29,7 @@ The example below is based on a proxy server accessible at `http://192.168.0.1:3
 ```bash
   docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
+  -v <主机路径>:/var/lib/rancher/ \
   -e HTTP_PROXY="http://192.168.10.1:3128" \
   -e HTTPS_PROXY="http://192.168.10.1:3128" \
   -e NO_PROXY="localhost,127.0.0.1,0.0.0.0,192.168.10.0/24,example.com" \

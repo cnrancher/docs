@@ -51,7 +51,7 @@ helm install  --kubeconfig=kube_config_xxx.yml \
 >3. 如果使用自签名证书，需要设置参数: `--set privateCA=true`;\
 >4. 如果为离线安装，可通过`rancherImage`指定镜像名称;\
 >5. 默认安装`v2.1.7`版本，可通过`rancherImageTag`更换镜像版本;\
->6. 点击查看更多[Chart设置选项]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/rancher-install/chart-options/)。
+>6. 点击查看更多[Chart设置选项]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/rancher-install/chart-options/)。
 
 ### 2、主机NodePort访问(主机IP+端口)
 
@@ -89,7 +89,7 @@ helm install  --kubeconfig=kube_config_xxx.yml \
 >3. 如果使用自签名证书，需要设置参数: `--set privateCA=true`;\
 >4. 如果为离线安装，可通过`rancherImage`指定镜像名称;\
 >5. 默认安装`v2.1.7`版本，可通过`rancherImageTag`更换镜像版本;\
->6. 点击查看更多[Chart设置选项]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/rancher-install/chart-options/)。
+>6. 点击查看更多[Chart设置选项]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/rancher-install/chart-options/)。
 
 ### 3、外部七层负载均衡器+主机NodePort方式运行(禁用内部ingress)
 
@@ -127,7 +127,7 @@ helm install  --kubeconfig=kube_config_xxx.yml \
 >2. 如果使用自签名证书，需要设置参数: `--set privateCA=true`;\
 >3. 如果为离线安装，可通过`rancherImage`指定镜像名称;\
 >4. 默认安装`v2.1.7`版本，可通过`rancherImageTag`更换镜像版本;\
->5. 点击查看更多[Chart设置选项]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/rancher-install/chart-options/)。
+>5. 点击查看更多[Chart设置选项]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/rancher-install/chart-options/)。
 
 ## 三、Chart版本
 

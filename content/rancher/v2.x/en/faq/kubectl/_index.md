@@ -22,7 +22,7 @@ export KUBECONFIG=$(pwd)/kube_config_rancher-cluster.yml
 Test your connectivity with `kubectl` and see if you can get the list of nodes back.
 
 ```
-kubectl get nodes
+kubectl --kubeconfig=kube_configxxx.yml  get  nodes
  NAME                          STATUS    ROLES                      AGE       VERSION
 165.227.114.63                Ready     controlplane,etcd,worker   11m       v1.10.1
 165.227.116.167               Ready     controlplane,etcd,worker   11m       v1.10.1

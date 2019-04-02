@@ -67,7 +67,7 @@ Setting up a default certificate is especially helpful in environments where a w
 2. Generate a Kubernetes secret from your PEM encoded certificate with the following command, substituting your certificate for `mycert.cert` and `mycert.key`.
 
     ```
-    kubectl create secret tls ingress-default-cert --cert=mycert.cert --key=mycert.key -o yaml --dry-run=true > ingress-default-cert.yaml
+    kubectl --kubeconfig=kube_configxxx.yml create  secret tls ingress-default-cert --cert=mycert.cert --key=mycert.key -o yaml --dry-run=true > ingress-default-cert.yaml
     ```
 3. Include the contents of `ingress-default-cert.yml` inline with your RKE `cluster.yml` file. For example:
 
@@ -97,5 +97,5 @@ Setting up a default certificate is especially helpful in environments where a w
 5. **Optional:** If you want to apply the default certificate to ingress in a cluster that already exists, you must restart the Nginx ingress controller pods to apply the latest `extra_args`.
 
     ```
-    kubectl delete pod -l app=ingress-nginx -n ingress-nginx
+    kubectl --kubeconfig=kube_configxxx.yml delete  pod -l app=ingress-nginx -n ingress-nginx
     ```

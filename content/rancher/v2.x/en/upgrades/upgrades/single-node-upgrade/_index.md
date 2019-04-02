@@ -92,15 +92,15 @@ During upgrade, you create a copy of the data from your current Rancher containe
 
 1. Start a new Rancher Server container using the data from the `rancher-data` container.
 
-    ```
-    docker run -d --volumes-from rancher-data --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher:latest
+    ```bash
+    docker run -d --volumes-from rancher-data --restart=unless-stopped -v <主机路径>:/var/lib/rancher/ -p 80:80 -p 443:443 rancher/rancher:latest
     ```
 
     >**Attention Let’s Encrypt Users:**
     >
     >Remember to append `--acme-domain <YOUR.DNS.NAME>` to the run command, otherwise Rancher will fall back to using self signed certificates.
     >```
-    >docker run -d --volumes-from rancher-data --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher:latest --acme-domain <YOUR.DNS.NAME>
+    >docker run -d --volumes-from rancher-data --restart=unless-stopped -v <主机路径>:/var/lib/rancher/ -p 80:80 -p 443:443 rancher/rancher:latest --acme-domain <YOUR.DNS.NAME>
     >```
 
 
