@@ -40,10 +40,6 @@ After provisioning your node(s), install Rancher:
 
 After your Rancher v2.x Server is installed, we recommend configuring external authentication (like Active Directory or GitHub) so that users can log into Rancher using their single sign-on. For a full list of supported authentication providers and instructions on how to configure them, see [Authentication]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication).
 
-<figcaption>Rancher v2.x Authentication</figcaption>
-
-![Rancher v2.x Authentication]({{< baseurl >}}/img/rancher/auth-providers.svg)
-
 ### Local Users
 
 Although we recommend using an external authentication provider, Rancher v1.6 and v2.x both offer support for users local to Rancher. However, these users cannot be migrated from Rancher v1.6 to v2.x. If you used local users in Rancher v1.6 and want to continue this practice in v2.x, you'll need to [manually recreate these user accounts]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/) and assign them access rights.
@@ -70,8 +66,8 @@ In Rancher v1.6, compute nodes were added to an _environment_. Rancher v2.x esch
 Rancher v2.x lets you launch a Kubernetes cluster anywhere. Host your cluster using:
 
 - A [hosted Kubernetes provider]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/hosted-kubernetes-clusters/).
-- A [pool of nodes from an infrastructure provider]({{< baseurl >}}rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools/). Rancher launches Kubernetes on the nodes.
-- Any [custom node(s)]({{< baseurl >}}rancher/v2.x/en/cluster-provisioning/rke-clusters/custom-nodes/). Rancher can launch Kubernetes on the nodes, be they bare metal servers, virtual machines, or cloud hosts on a less popular infrastructure provider.
+- A [pool of nodes from an infrastructure provider]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools/). Rancher launches Kubernetes on the nodes.
+- Any [custom node(s)]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/custom-nodes/). Rancher can launch Kubernetes on the nodes, be they bare metal servers, virtual machines, or cloud hosts on a less popular infrastructure provider.
 
 ### Projects
 
@@ -82,7 +78,7 @@ When you create a cluster, two projects are automatically created:
 - The `System` project, which includes system namespaces where important Kubernetes resources are running (like ingress controllers and cluster dns services)
 - The `Default` project.
 
-However, for production environments, we recommend [creating your own project]({{< baseurl >}}/rancher/v2.x/en/k8s-in-rancher/projects-and-namespaces/#creating-projects) and giving it a descriptive name.
+However, for production environments, we recommend [creating your own project]({{< baseurl >}}/rancher/v2.x/en/project-admin/namespaces/#creating-projects) and giving it a descriptive name.
 
 After provisioning a new cluster and project, you can authorize your users to access and use project resources. Similarly to Rancher v1.6 environments, Rancher v2.x allows you to [assign users to projects]({{< baseurl >}}/rancher/v2.x/en/k8s-in-rancher/projects-and-namespaces/editing-projects/). By assigning users to projects, you can limit what applications and resources a user can access.
 
