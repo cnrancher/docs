@@ -29,14 +29,14 @@ If you have terminated ssl on the Rancher cluster ingress, recover your certific
 Use `kubectl` to get the secret, decode the value and direct the output to a file.
 
 ```
-kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system get secret cattle-keys-ingress -o jsonpath --template='{ .data.tls\.crt }' | base64 -d > tls.crt
-kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system get secret cattle-keys-ingress -o jsonpath --template='{ .data.tls\.key }' | base64 -d > tls.key
+kubectl --kubeconfig=kube_configxxx.yml -n cattle-system get secret cattle-keys-ingress -o jsonpath --template='{ .data.tls\.crt }' | base64 -d > tls.crt
+kubectl --kubeconfig=kube_configxxx.yml -n cattle-system get secret cattle-keys-ingress -o jsonpath --template='{ .data.tls\.key }' | base64 -d > tls.key
 ```
 
 If you specified a private CA root cert
 
 ```
-kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system get secret cattle-keys-server -o jsonpath --template='{ .data.cacerts\.pem }' | base64 -d > cacerts.pem
+kubectl --kubeconfig=kube_configxxx.yml -n cattle-system get secret cattle-keys-server -o jsonpath --template='{ .data.cacerts\.pem }' | base64 -d > cacerts.pem
 ```
 
 ### Remove previous Kubernetes objects
@@ -46,11 +46,11 @@ Remove the kubernetes objects created by the RKE install.
 > **Note:** Removing these Kubernetes components will not affect the Rancher configuration or database, but with any maintenance it is a good idea to create a backup of the data before hand. See [Creating Backups-HA Install]({{< baseurl >}}/rancher/v2.x/en/backups/backups/ha-backups) for details.
 
 ```
-kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system delete ingress cattle-ingress-http
-kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system delete service cattle-service
-kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system delete deployment cattle
-kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system delete clusterrolebinding cattle-crb
-kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system delete serviceaccount cattle-admin
+kubectl --kubeconfig=kube_configxxx.yml -n cattle-system delete ingress cattle-ingress-http
+kubectl --kubeconfig=kube_configxxx.yml -n cattle-system delete service cattle-service
+kubectl --kubeconfig=kube_configxxx.yml -n cattle-system delete deployment cattle
+kubectl --kubeconfig=kube_configxxx.yml -n cattle-system delete clusterrolebinding cattle-crb
+kubectl --kubeconfig=kube_configxxx.yml -n cattle-system delete serviceaccount cattle-admin
 ```
 
 ### Remove addons section from `rancher-cluster.yml`

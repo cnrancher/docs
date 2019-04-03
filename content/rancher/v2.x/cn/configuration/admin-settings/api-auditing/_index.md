@@ -113,7 +113,7 @@ docker run -d --restart=unless-stopped \
 #### 通过CLI查看
 
 ```bash
-kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system logs -f rancher-84d886bdbb-s4s69 rancher-audit-log
+kubectl --kubeconfig=kube_configxxx.yml -n cattle-system logs -f rancher-84d886bdbb-s4s69 rancher-audit-log
 ```
 
 #### 通过Rancher Web GUI查看

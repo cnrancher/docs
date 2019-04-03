@@ -3,7 +3,6 @@ title: 9 - 修改k8s证书后Rancher端需要做的操作
 weight: 9
 ---
 
-
 ## Rancher相关备份操作
 
 ### 备份yaml
@@ -18,6 +17,7 @@ weight: 9
 ```bash
 ./rke_linux-amd64 etcd snapshot-save --name SNAPSHOT-201903xx.db --config cluster.yml
 ```
+
 RKE会获取每个etcd节点的快照，并保存在每个etcd节点的`/opt/rke/etcd-snapshots`目录下。
 
 ## 进行业务集群的k8s证书升级
@@ -27,17 +27,20 @@ RKE会获取每个etcd节点的快照，并保存在每个etcd节点的`/opt/rke
 ```bash
 openssl x509 -in ca.crt -noout -dates
 ```
+
 CA证书文件一般路径在`/etc/kubernetes/ssl`，如果找不到，可以在`local`集群中执行如下命令获取
 
 ```bash
-kubectl --kubeconfig=kube_configxxx.yml  get  clusters <CLUSTER_ID> -o jsonpath={.status.caCert} | base64 -d
+kubectl --kubeconfig=kube_configxxx.yml  get clusters <CLUSTER_ID> \
+-o jsonpath={.status.caCert} | base64 -d
 ```
+
 >CLUSTER_ID，集群ID可在浏览器地址栏查看。
 
 ### 示例
 
 ```bash
-rancher-server1-root@rancher-server1:~# kubectl --kubeconfig=kube_configxxx.yml  get  clusters c-2xqt7 -o 
+kubectl --kubeconfig=kube_configxxx.yml  get  clusters c-2xqt7 -o
 
 jsonpath={.status.caCert} | base64 -d
 -----BEGIN CERTIFICATE-----
@@ -77,7 +80,6 @@ HAR5R84cBjbGLG9qLWa+TTLQeZrHuq1NTmbDCttiJVwFM7bii5eTPsJAauRFS744
 
 升级完业务集群的证书之后，Rancher中集群会报x509错误，需要执行以下步骤修复。
 
-
 ## 修复步骤
 
 需要准备的文件
@@ -86,26 +88,28 @@ HAR5R84cBjbGLG9qLWa+TTLQeZrHuq1NTmbDCttiJVwFM7bii5eTPsJAauRFS744
 - `kubeconfig` 更新证书后的集群链接配置文件
 
 >注: 假设kubeconfig文件位置
+
 - 老证书对应的文件位置:`207:/home/appuser/rke/new_dev/kubeconfig-new-dev-rancher`
 - 新证书对应的文件位置:`207:/home/appuser/cacrt/config-test2-new`
-
 
 ### 1. 在业务集群中删除`token`
 
 删除其中的`cattle-token-xxx`，其会基于最新证书配置启动重建
 
 ```bash
-rancher-test-appuser@rancher-test:~/cacrt$ kubectl --kubeconfig=config-test2-new -n cattle-system get secret
+kubectl --kubeconfig=config-test2-new -n cattle-system get secret
 NAME                         TYPE                                  DATA      AGE
 cattle-credentials-096434b   Opaque                                2         61d
 cattle-credentials-152dd17   Opaque                                2         61d
 cattle-token-2vff8           kubernetes.io/service-account-token   3         1d
 default-token-r2wtl          kubernetes.io/service-account-token   3         61d
 ```
+
 生成新`token`之后，取值解密备用。
 
 ```bash
-kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system get secret cattle-token-9n9f5 -o jsonpath={.data.token} | base64 -d 
+kubectl --kubeconfig=kube_configxxx.yml -n cattle-system \
+get secret cattle-token-9n9f5 -o jsonpath={.data.token} | base64 -d 
 ```
 
 ### 2. 在local集群中编辑业务集群的crd clusters对象做二个变更
@@ -113,7 +117,7 @@ kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system get secret cattle-tok
 - 备份集群crd对象
 
 ```bash
-kubectl --kubeconfig=kube_configxxx.yml  get  clusters <cluster-id> -o yaml > <cluster-id>.yaml
+kubectl --kubeconfig=kube_configxxx.yml get clusters <cluster-id> -o yaml > `<cluster-id>.yaml`
 ```
 
 - `caCert`字段参数，用新的ca证书文件base64加密后替换。
@@ -123,6 +127,5 @@ kubectl --kubeconfig=kube_configxxx.yml  get  clusters <cluster-id> -o yaml > <c
 ```bash
 cat ca.crt | base64
 ```
+
 - `serviceAccountToken`字段的参数，使用步骤1中的token解密后替换。
-
-

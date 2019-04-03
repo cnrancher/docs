@@ -1,6 +1,6 @@
 ---
 title: Release v2.1.1
-weight: 12
+weight: 101
 ---
 
 With this release, the following [versions](https://rancher.com/docs/rancher/v2.x/en/installation/server-tags/) are now latest and stable:

@@ -82,7 +82,7 @@ docker run -d --restart=unless-stopped \
 
     ```bash
     export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system patch  deployments cattle-cluster-agent --patch '{
+    kubectl --kubeconfig=kube_configxxx.yml -n cattle-system patch  deployments cattle-cluster-agent --patch '{
         "spec": {
             "template": {
                 "spec": {
@@ -105,7 +105,7 @@ docker run -d --restart=unless-stopped \
 
     ```bash
     export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system patch  daemonsets cattle-node-agent --patch '{
+    kubectl --kubeconfig=kube_configxxx.yml -n cattle-system patch  daemonsets cattle-node-agent --patch '{
         "spec": {
             "template": {
                 "spec": {

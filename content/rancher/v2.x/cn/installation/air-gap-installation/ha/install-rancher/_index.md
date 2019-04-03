@@ -16,8 +16,15 @@ aliases:
     `在离线环境中安装有kubectl的主机上执行以下命令`：
 
     ```bash
-    kubectl --kubeconfig=kube_configxxx.yml -n kube-system create serviceaccount tiller
-    kubectl --kubeconfig=kube_configxxx.yml create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
+    # 指定kubeconfig配置文件
+    kubeconfig=kube_configxxx.yml
+
+    kubectl --kubeconfig=$kubeconfig -n kube-system \
+        create serviceaccount tiller
+    kubectl --kubeconfig=$kubeconfig \
+        create clusterrolebinding tiller \
+        --clusterrole cluster-admin \
+        --serviceaccount=kube-system:tiller
     ```
 
 1. 创建registry secret(可选）
@@ -25,7 +32,10 @@ aliases:
     - Helm初始化的时候会去拉取`tiller`镜像，如果镜像仓库为私有仓库，则需要配置登录凭证。在离线环境中安装有kubectl的主机上执行以下命令：
 
         ```bash
-        kubectl --kubeconfig=kube_configxxx.yml -n kube-system create secret docker-registry regcred \
+        # 指定kubeconfig配置文件
+        kubeconfig=kube_configxxx.yml
+
+        kubectl --kubeconfig=$kubeconfig -n kube-system create secret docker-registry regcred \
         --docker-server="reg.example.com" \
         --docker-username=<user> \
         --docker-password=<password> \
@@ -35,7 +45,11 @@ aliases:
     - Patch the ServiceAccount
 
         ```bash
-        kubectl --kubeconfig=kube_configxxx.yml -n kube-system patch serviceaccount tiller -p '{"imagePullSecrets": [{"name\": "regcred"}]}'
+        # 指定kubeconfig配置文件
+        kubeconfig=kube_configxxx.yml
+
+        kubectl --kubeconfig=$kubeconfig -n kube-system \
+            patch serviceaccount tiller -p '{"imagePullSecrets": [{"name\": "regcred"}]}'
         ```
 
 1. 安装Helm客户端
@@ -51,11 +65,11 @@ aliases:
     `在离线环境中安装有kubectl和Helm客户端的主机上执行以下命令`
 
     ```bash
-    export tag=<修改版本号>
-    helm init --skip-refresh --service-account tiller --tiller-image reg.example.com/google_containers/tiller:${tag}
+    helm_version=`helm version |grep Client | awk -F""\" '{print $2}'`
+    helm init --skip-refresh \
+        --service-account tiller \
+        --tiller-image 192.168.1.100/rancher/tiller:${helm_version}
     ```
-
-    >**注意** 修改镜像名和版本号
 
 ## 二、打包Rancher Charts模板
 
@@ -63,7 +77,7 @@ aliases:
 
 1. 添加`Rancher Charts`仓库。
 
-    指定安装的版本(比如: `latest` or `stable`)，可通过[版本选择]({{< baseurl >}}/rancher/v2.x/cn/installation/server-tags//)查看版本说明。
+    指定安装的版本(比如: `latest` or `stable`)，可通过[版本选择]({{< baseurl >}}/rancher/v2.x/cn/installation/server-tags/)查看版本说明。
 
     ```plain
     helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
@@ -83,51 +97,122 @@ aliases:
 
 将生成的`rancher-vx.x.x.tgz`文件拷贝到离线环境安装有`kubectl`和Helm客户端的主机上，解压`rancher-vx.x.x.tgz`文件获得`rancher`文件夹。
 
+- 以TCP L4负载均衡器或者ingress作为访问入口
+
 1. 使用`权威认证证书`
 
-    将服务证书和CA中间证书链合并到一个名为`tls.crt`的文件中,将私钥复制到名为`tls.key`的文件中。使用kubectl创建`tls`类型的`secrets`。
+    将`服务证书和CA中间证书链`合并名为`tls.crt`的文件中,将`私钥`复制到名为`tls.key`的文件中。使用kubectl创建类型为`tls`的`secrets`。
 
     ```plain
-    kubectl --kubeconfig=kube_configxxx.yml -n cattle-system create secret tls tls-rancher-ingress \
-    --cert=./tls.crt --key=./tls.key
+    # 指定kubeconfig配置文件
+    kubeconfig=kube_configxxx.yml
+
+    kubectl --kubeconfig=$kubeconfig \
+        -n cattle-system create secret \
+        tls tls-rancher-ingress \
+        --cert=./tls.crt \
+        --key=./tls.key
     ```
 
-    > **注意** 必须把证书文件和key文件重命名为`tls.crt`和`tls.key`。
+    > **注意** 必须把服务证书文件和key文件重命名为`tls.crt`和`tls.key`。
 
     然后执行以下命令进行rancher安装:
 
     ```plain
-      helm install ./rancher \
-        --name rancher \
-        --namespace cattle-system \
-        --set hostname=<修改为自己的域名> \
-        --set ingress.tls.source=secret
-        --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:stable
-      ```
+    # 指定kubeconfig配置文件
+    kubeconfig=kube_configxxx.yml
+
+    helm $kubeconfig install ./rancher \
+      --name rancher \
+      --namespace cattle-system \
+      --set hostname=<修改为自己的域名> \
+      --set ingress.tls.source=secret
+      --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:stable
+    ```
 
 1. 使用`自己的自签名证书`
 
-    如果使用的是自己创建的自签名证书，`需要创建访问证书secret和CA证书secret`。
+    如果使用的是自己创建的自签名证书，则需要创建`证书secret和CA证书secret`。
 
     ```plain
-    kubectl --kubeconfig=kube_configxxx.yml -n cattle-system create secret tls tls-rancher-ingress \
-    --cert=./tls.crt --key=./tls.key
+    # 指定kubeconfig配置文件
+    kubeconfig=kube_configxxx.yml
 
-    kubectl --kubeconfig=kube_configxxx.yml -n cattle-system create secret generic tls-ca \
-    --from-file=cacerts.pem
+    kubectl --kubeconfig=$kubeconfig \
+        -n cattle-system create \
+        secret tls tls-rancher-ingress \
+        --cert=./tls.crt \
+        --key=./tls.key
+
+    kubectl --kubeconfig=$kubeconfig \
+        -n cattle-system \
+        create secret generic tls-ca \
+        --from-file=cacerts.pem
     ```
 
-    > **注意** 必须把CA文件重命名为`cacerts.pem`。
+    > **注意** 必须保证文件名为`cacerts.pem`、`tls.crt`和`tls.key`。
 
     然后执行以下命令进行rancher安装
 
     ```plain
-    helm install ./rancher \
+    # 指定kubeconfig配置文件
+    kubeconfig=kube_configxxx.yml
+
+    helm $kubeconfig install ./rancher \
       --name rancher \
       --namespace cattle-system \
       --set hostname=<修改为自己的域名> \
       --set ingress.tls.source=secret \
       --set privateCA=true \
+      --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:stable
+    ```
+
+- 以外部HTTP L7负载均衡器作为访问入口（nginx为例）
+
+1. 使用`权威认证证书`
+
+    使用外部七层负载均衡器作为访问入口，那么将需要把ssl证书配置在L7负载均衡器上面，如果是`权威认证证书`，rancher侧则无需配置证书。参考[nginx配置示例]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/https-l7/#nginx配置示例)了解L7负载均衡器证书配置方法。
+
+    ```plain
+    # 指定kubeconfig配置文件
+    kubeconfig=kube_configxxx.yml
+
+    helm $kubeconfig install ./rancher \
+      --name rancher \
+      --namespace cattle-system \
+      --set hostname=<修改为自己的域名> \
+      --set tls=external \
+      --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:stable
+    ```
+
+1. 使用`自己的自签名证书`
+
+    使用外部七层负载均衡器作为访问入口，那么将需要把ssl证书配置在L7负载均衡器上面，如果是`自己的自签名证书`，则需要把`CA证书`以密文的形式导入rancher。参考[nginx配置示例]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/https-l7/#nginx配置示例)了解L7负载均衡器证书配置方法。
+
+    ```plain
+    # 指定kubeconfig配置文件
+    kubeconfig=kube_configxxx.yml
+
+    kubectl --kubeconfig=$kubeconfig \
+        -n cattle-system \
+        create secret generic tls-ca \
+        --from-file=cacerts.pem
+    ```
+
+    > **注意** 必须保证文件名为`cacerts.pem`。
+
+    然后执行以下命令进行rancher安装
+
+    ```plain
+    # 指定kubeconfig配置文件
+    kubeconfig=kube_configxxx.yml
+
+    helm $kubeconfig install ./rancher \
+      --name rancher \
+      --namespace cattle-system \
+      --set hostname=<修改为自己的域名> \
+      --set privateCA=true \
+      --set tls=external \
       --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:stable
     ```
 
@@ -143,7 +228,7 @@ aliases:
 
     ```plain
     export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system patch  deployments cattle-cluster-agent --patch '{
+    kubectl --kubeconfig=$kubeconfig -n cattle-system patch  deployments cattle-cluster-agent --patch '{
         "spec": {
             "template": {
                 "spec": {
@@ -166,7 +251,7 @@ aliases:
 
     ```plain
     export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system patch  daemonsets cattle-node-agent --patch '{
+    kubectl --kubeconfig=$kubeconfig -n cattle-system patch  daemonsets cattle-node-agent --patch '{
         "spec": {
             "template": {
                 "spec": {

@@ -1,13 +1,13 @@
 ---
-title: Release v2.0.10
-weight: 11
+title: Release v2.0.12
+weight: 13
 ---
 
 ## Important
 
 ### Security fixes
 
-This release updates to the latest Kubernetes versions (i.e. v1.10.12 and v1.11.6) for clusters launched by Rancher to address [Kubernetes API server external IP address proxying security issue](https://github.com/kubernetes/kubernetes/pull/71980). We recommend upgrading your Kubernetes clusters to these versions. 
+This release updates to the latest Kubernetes version - i.e. v1.11.8 - for clusters launched by Rancher to address [Kubernetes CVE-2019-1002100](https://github.com/kubernetes/kubernetes/issues/74534). We recommend upgrading your Kubernetes clusters to this version. 
 
 ### Network Policies
 The default network selected when creating a Kubernetes cluster has been updated to `canal` with *no network policies*. With this change in default behavior, there are no network policy enforcements between projects, which means there *is* inter-project communication. 
@@ -21,8 +21,8 @@ As of v2.0.7, we introduced a "System Project", which has specific namespaces, i
 
 > **NOTE** - Image Name Changes: Please note that as of v2.0.0, our images will be `rancher/rancher` and `rancher/rancher-agent`. If you are using v1.6, please continue to use `rancher/server` and `rancher/agent`. 
 
-- rancher/rancher:v2.0.10
-- rancher/rancher-agent:v2.0.10
+- rancher/rancher:v2.0.12
+- rancher/rancher-agent:v2.0.12
 
 ## Rancher Server Tags
 
@@ -32,8 +32,8 @@ Rancher server has 2 different tags. For each major release tag, we will provide
 
 Please do not use releases with a `rc{n}` suffix. These `rc` builds are meant for the Rancher team to test builds.
 
-#### Latest - v2.1.5 - `rancher/rancher:latest`
-#### Stable - v2.1.5 - `rancher/rancher:stable`
+#### Latest - v2.1.7 - `rancher/rancher:latest`
+#### Stable - v2.1.7 - `rancher/rancher:stable`
 
 ## Upgrades and Rollbacks
 
@@ -48,8 +48,8 @@ Rancher supports both upgrade and rollback starting with v2.0.2.  Please note th
 ## Known Major Issues
 * Sometimes new Kubernetes version doesn't get updated right away on the upgraded Kubernetes clusters; it gets fixed as soon as user application gets deployed on the node [[15831](https://github.com/rancher/rancher/issues/15831)]
 
-## Major Bug Fixes since v2.0.9
-* Added updated Kubernetes versions (i.e. v1.10.12 and v1.11.6) for clusters launched by Rancher to address [Kubernetes API server external IP address proxying security issue](https://github.com/kubernetes/kubernetes/pull/71980). The default Kubernetes version is v1.11.6. [[17280](https://github.com/rancher/rancher/issues/17280)]
+## Major Bug Fixes since v2.0.11
+* Added updated Kubernetes version - i.e. v1.11.8 - for clusters launched by Rancher to address [Kubernetes CVE-2019-1002100](https://github.com/kubernetes/kubernetes/issues/74534). We recommend upgrading your Kubernetes clusters to this version. 
 
 ## Rancher CLI Downloads
 

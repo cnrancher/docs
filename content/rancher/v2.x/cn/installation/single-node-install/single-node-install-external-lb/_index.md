@@ -10,7 +10,7 @@ weight: 1
 - [基础环境配置]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/basic-environment-configuration/)
 - [端口需求]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/references/)
 
-## 二、安装Rancher并配置SSL证书
+## 二、配置SSL证书并安装Rancher
 
 出于安全考虑，使用Rancher时需要SSL进行加密。SSL可以保护所有Rancher网络通信，例如登录或与集群交互。
 
@@ -20,9 +20,9 @@ weight: 1
 3、[代理上网]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/proxy-configuration/)?\
 4、[自定义CA根证书]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/custom-ca-root-certificate/)?
 
-{{% accordion id="1" label="方案A-使用你自己生成的自签名证书" %}}
+### 方案A-使用你自己生成的自签名证书
 
-如果你选择使用自签名证书来加密通信，则必须将证书安装在负载均衡器上，并且将CA证书放置于Rancher容器中。
+采用外部七层负载均衡器来做代理，那么只需要把证书放在外部七层负载均衡器上，如果是自签名证书，则需要把CA文件映射到rancher server容器中。
 
 > **先决条件:**
 >1、创建一个自签名证书。\
@@ -41,8 +41,7 @@ docker run -d --restart=unless-stopped \
 rancher/rancher:latest
 ```
 
-{{% /accordion %}}
-{{% accordion id="2" label="方案B-使用权威CA机构颁发的证书" %}}
+### 方案B-使用权威CA机构颁发的证书
 
 如果你公开发布你的应用，理想情况下应该使用由权威CA机构颁发的证书。
 
@@ -62,11 +61,9 @@ docker run -d --restart=unless-stopped \
 rancher/rancher:latest --no-cacerts
 ```
 
-{{% /accordion %}}
-
 ## 三、配置七层负载均衡器
 
-默认情况下，通过`docker run`运行的Rancher server容器会自动把端口80重定向到443，但是通过负载均衡器来代理Rancher server容器后，不再需要将Rancher server容器80端口重定向到443端口。通过在负载均衡器上配置`X-Forwarded-Proto: https`参数后，Rancher server容器端口重定向功能将自动被禁用。
+默认情况下，如果rancher server通过负载均衡器来代理，这个时候请求是通过负载均衡器发送给rancher server，而并非客户端直接访问rancher server。在非全局`https`的环境中，如果以外部负载均衡器作为ssl终止，这个时候通过负载均衡器的`https`请求将需要被反向代理到rancher server http(80)上。在负载均衡器上配置`X-Forwarded-Proto: https`参数，rancher server http(80)上收到负载均衡器的请求后，就不会再重定向到https(443)上。
 
 负载均衡器或代理必须配置为支持以下内容:
 
@@ -81,7 +78,7 @@ rancher/rancher:latest --no-cacerts
     | `X-Forwarded-Port`  | Port used to reach Rancher.  | 识别客户端用于连接负载均衡器的协议。   |
     | `X-Forwarded-For`   | IP of the client connection.  | 识别客户端的原始IP地址。  |
 
-## 四、Nginx 配置文件示例
+- Nginx 配置文件示例
 
 此Nginx配置文件在Nginx version 1.13 (mainline)和1.14(stable)通过测试
 
@@ -118,7 +115,8 @@ http {
             proxy_http_version 1.1;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection $connection_upgrade;
-            # This allows the ability for the execute shell window to remain open for up to 15 minutes. Without this parameter, the default is 1 minute and will automatically close.
+            # This allows the ability for the execute shell window to remain open for up to 15 minutes. 
+            ## Without this parameter, the default is 1 minute and will automatically close.
             proxy_read_timeout 900s;
             proxy_buffering off;
         }
@@ -156,7 +154,7 @@ gzip_types
   image/x-icon image/png image/jpeg;
 ```
 
-## 五、(可选)为Agent Pod添加主机别名(/etc/hosts)
+## 四、(可选)为Agent Pod添加主机别名(/etc/hosts)
 
 如果你没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
 
@@ -168,7 +166,7 @@ gzip_types
 
     ```bash
     export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system patch  deployments cattle-cluster-agent --patch '{
+    kubectl --kubeconfig=kube_configxxx.yml -n cattle-system patch  deployments cattle-cluster-agent --patch '{
         "spec": {
             "template": {
                 "spec": {
@@ -191,7 +189,7 @@ gzip_types
 
     ```bash
     export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system patch  daemonsets cattle-node-agent --patch '{
+    kubectl --kubeconfig=kube_configxxx.yml -n cattle-system patch  daemonsets cattle-node-agent --patch '{
         "spec": {
             "template": {
                 "spec": {
@@ -209,10 +207,11 @@ gzip_types
         }
     }'
     ```
+
     > **注意**
     >1、替换其中的域名和IP \
     >2、别忘记json中的引号。
 
-## 六、FAQ和故障排除
+## 五、FAQ和故障排除
 
 [FAQ]({{< baseurl >}}/rancher/v2.x/cn/faq/)中整理了常见的问题与解决方法。

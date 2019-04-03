@@ -12,6 +12,3 @@ HA安装需要以下CLI工具, 确保这些工具安装在您的工作站或者�
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl) - Kubernetes命令行工具。
 - [rke](https://rancher.com/docs/rke/v0.1.x/en/installation/) - Rancher Kubernetes Engine，用于构建Kubernetes集群的cli。
 - [helm](https://docs.helm.sh/using_helm/#installing-helm) - Kubernetes的包管理。
-
-> **注意：**如果在气隙环境中的HA配置中安装Rancher，则在将来的升级过程中无法转换为单节点设置。
-

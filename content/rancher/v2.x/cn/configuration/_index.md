@@ -4,4 +4,3 @@ weight: 6
 aliases:
   - /docs/rancher/config
 ---
-

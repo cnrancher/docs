@@ -59,13 +59,5 @@ weight: 5
     - 获取上一步中的所有值，并将它们附加到命令`--set key=value`。
 
     ```bash
-    helm upgrade rancher rancher-<CHART_REPO>/rancher --set hostname=<你自己的域名> \
+    helm upgrade rancher rancher-<CHART_REPO>/rancher --set hostname=<你自己的域名> 
     ```
-
->**升级后出现网络问题？**
->
-> 请参阅[还原集群网络]({{< baseurl >}}/rancher/v2.x/en/upgrades/upgrades/namespace-migration/#restoring-cluster-networking).
-
-## Rolling Back
-
-Should something go wrong, follow the [HA Rollback]({{< baseurl >}}/rancher/v2.x/en/upgrades/rollbacks/ha-server-rollbacks/) instructions to restore the snapshot you took before you preformed the upgrade.

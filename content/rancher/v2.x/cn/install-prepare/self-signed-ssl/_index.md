@@ -68,231 +68,180 @@ x509的证书编码格式有两种:
 
 ## 四、生成自签名证书
 
-下面简单介绍如何通过openssl创建一个自签名SSL证书。
+- 一键生成ssl自签名证书脚本
 
-操作步骤:
+```bash
+#!/bin/bash -e
 
-### 私有CA签名证书
+# * 为必改项
+# * 更换为你自己的域名
+CN='' # 例如: demo.rancher.com
 
-1. 创建root CA私钥
+# 扩展信任IP或域名
+## 一般ssl证书只信任域名的访问请求，有时候需要使用ip去访问server，那么需要给ssl证书添加扩展IP，
+## 多个IP用逗号隔开。如果想多个域名访问，则添加扩展域名（SSL_DNS）,多个SSL_DNS用逗号隔开
+SSL_IP='' # 例如: 1.2.3.4
+SSL_DNS='' # 例如: demo.rancher.com
 
-    ```bash
-    openssl req \
-    -newkey rsa:4096 -nodes -sha256 -keyout ca.key \
-    -x509 -days 365 -out ca.crt
-    ```
+# 国家名(2个字母的代号)
+C=CN
 
-    ```bash
-    Country Name(2 letter code)[AU]: CN
-    State or Province Name(full name)[Some-State]: Beijing
-    Locality Name(eg, city)[]: Beijing
-    Organization Name(eg, company)[Internet Widgits Pty Ltd]: rancher
-    Organizational Unit Name(eg, section)[]: info technology
-    Common Name(e.g. server FQDN or YOUR name)[]: ca.rancher.com
-    Email Address []: xxx@qq.com
-    ```
+# 证书加密位数
+SSL_SIZE=2048
 
-1. 为服务端(web)生成证书签名请求文件
+# 证书有效期
+DATE=${DATE:-3650}
 
-    如果你使用类似`demo.rancher.com`的FQDN域名访问，则需要设置`demo.rancher.com`作为CN；如果你使用IP地址访问，CN则为IP地址：
+# 配置文件
+SSL_CONFIG='openssl.cnf'
 
-    ```bash
-    openssl req \
-    -newkey rsa:4096 -nodes -sha256 -keyout demo.rancher.com.key \
-    -out  demo.rancher.com.csr
-    ```
+if [[ -z $SILENT ]]; then
+echo "----------------------------"
+echo "| SSL Cert Generator |"
+echo "----------------------------"
+echo
+fi
 
-    ```bash
-    Country Name(2 letter code)[AU]: CN
-    State or Province Name(full name)[Some-State]: Beijing
-    Locality Name(eg, city)[]: Beijing
-    Organization Name(eg, company)[Internet Widgits Pty Ltd]: rancher
-    Organizational Unit Name(eg, section)[]: info technology
-    Common Name(e.g. server FQDN or YOUR name)[]: demo.rancher.com
-    Email Address []: xxx@qq.com
-    ```
+export CA_KEY=${CA_KEY-"cakey.pem"}
+export CA_CERT=${CA_CERT-"cacerts.pem"}
+export CA_SUBJECT=ca-$CN
+export CA_EXPIRE=${DATE}
 
-    >注意: `Commone Name`一定要是你要授予证书的FQDN域名或主机名，并且不能与生成root CA设置的`Commone Name`相同，challenge password可以不填。
+export SSL_CONFIG=${SSL_CONFIG}
+export SSL_KEY=$CN.key
+export SSL_CSR=$CN.csr
+export SSL_CERT=$CN.crt
+export SSL_EXPIRE=${DATE}
 
-1. 用`第一步`创建的CA证书给`第二步`生成的签名请求进行签名
+export SSL_SUBJECT=${CN}
+export SSL_DNS=${SSL_DNS}
+export SSL_IP=${SSL_IP}
 
-    ```bash
-    openssl x509 -req -days 365 -in demo.rancher.com.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out demo.rancher.com.crt
-    ```
+export K8S_SECRET_COMBINE_CA=${K8S_SECRET_COMBINE_CA:-'true'}
 
-1. 如果你使用IP，例如192.168.1.101来连接，则可以改为运行以下命令：
+[[ -z $SILENT ]] && echo "--> Certificate Authority"
 
-    ```bash
-    echo 'subjectAltName = IP:192.168.1.101' > extfile.cnf
-    openssl x509 -req -days 365 -in demo.rancher.com.csr -CA ca.crt -CAkey ca.key -CAcreateserial -extfile extfile.cnf -out  demo.rancher.com.crt
-    ```
+if [[ -e ./${CA_KEY} ]]; then
+    [[ -z $SILENT ]] && echo "====> Using existing CA Key ${CA_KEY}"
+else
+    [[ -z $SILENT ]] && echo "====> Generating new CA key ${CA_KEY}"
+    openssl genrsa -out ${CA_KEY} ${SSL_SIZE} > /dev/null
+fi
 
-    > **注意** `subjectAltName`后的IP不需添加端口。
+if [[ -e ./${CA_CERT} ]]; then
+    [[ -z $SILENT ]] && echo "====> Using existing CA Certificate ${CA_CERT}"
+else
+    [[ -z $SILENT ]] && echo "====> Generating new CA Certificate ${CA_CERT}"
+    openssl req -x509 -sha256 -new -nodes -key ${CA_KEY} \
+    -days ${CA_EXPIRE} -out ${CA_CERT} -subj "/CN=${CA_SUBJECT}" > /dev/null || exit 1
+fi
 
-1. 一键生成SSL证书脚本
+echo "====> Generating new config file ${SSL_CONFIG}"
+cat > ${SSL_CONFIG} <<EOM
+[req]
+req_extensions = v3_req
+distinguished_name = req_distinguished_name
+[req_distinguished_name]
+[ v3_req ]
+basicConstraints = CA:FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+extendedKeyUsage = clientAuth, serverAuth
+EOM
 
-    ```bash
-    #!/bin/bash -e
+if [[ -n ${SSL_DNS} || -n ${SSL_IP} ]]; then
+    cat >> ${SSL_CONFIG} <<EOM
+subjectAltName = @alt_names
+[alt_names]
+EOM
+    IFS=","
+    dns=(${SSL_DNS})
+    dns+=(${SSL_SUBJECT})
+    for i in "${!dns[@]}"; do
+      echo DNS.$((i+1)) = ${dns[$i]} >> ${SSL_CONFIG}
+    done
 
-    # * 为必改项
-    # * 服务器FQDN或颁发者名(更换为你自己的域名)
-    CN='demo.test.com'
-    # 扩展信任IP或域名
-    ## 一般ssl证书只信任域名的访问请求，有时候需要使用ip去访问server，那么需要给ssl证书添加扩展IP，用逗号隔开。
-    SSL_IP='172.16.91.145,172.16.155.36'
-    SSL_DNS='demo.cnrancher.com,www.rancher.com'
-
-    # 国家名(2个字母的代号)
-    C=CN
-
-    # 证书加密位数
-    SSL_SIZE=4096
-
-    # 证书有效期
-    DATE=${DATE:-3650}
-
-    # 配置文件
-    SSL_CONFIG='openssl.cnf'
-
-    if [[ -z $SILENT ]]; then
-    echo "----------------------------"
-    echo "| SSL Cert Generator |"
-    echo "----------------------------"
-    echo
-    fi
-
-    export CA_KEY=${CA_KEY-"cakey.pem"}
-    export CA_CERT=${CA_CERT-"cacerts.pem"}
-    export CA_SUBJECT=ca-$CN
-    export CA_EXPIRE=${DATE}
-    export SSL_CONFIG=${SSL_CONFIG}
-    export SSL_KEY=$CN.key
-    export SSL_CSR=$CN.csr
-    export SSL_CERT=$CN.crt
-    export SSL_EXPIRE=${DATE}
-    export SSL_SUBJECT=${CN}
-    export SSL_DNS=${SSL_DNS}
-    export SSL_IP=${SSL_IP}
-    export K8S_SECRET_COMBINE_CA=${K8S_SECRET_COMBINE_CA:-'true'}
-    [[ -z $SILENT ]] && echo "--> Certificate Authority"
-
-    if [[ -e ./${CA_KEY} ]]; then
-        [[ -z $SILENT ]] && echo "====> Using existing CA Key ${CA_KEY}"
-    else
-        [[ -z $SILENT ]] && echo "====> Generating new CA key ${CA_KEY}"
-        openssl genrsa -out ${CA_KEY} ${SSL_SIZE} > /dev/null
-    fi
-
-    if [[ -e ./${CA_CERT} ]]; then
-        [[ -z $SILENT ]] && echo "====> Using existing CA Certificate ${CA_CERT}"
-    else
-        [[ -z $SILENT ]] && echo "====> Generating new CA Certificate ${CA_CERT}"
-        openssl req -x509 -sha256 -new -nodes -key ${CA_KEY} -days ${CA_EXPIRE} -out ${CA_CERT} -subj "/CN=${CA_SUBJECT}" > /dev/null  || exit 1
-    fi
-
-    echo "====> Generating new config file ${SSL_CONFIG}"
-    cat > ${SSL_CONFIG} <<EOM
-    [req]
-    req_extensions = v3_req
-    distinguished_name = req_distinguished_name
-    [req_distinguished_name]
-    [ v3_req ]
-    basicConstraints = CA:FALSE
-    keyUsage = nonRepudiation, digitalSignature, keyEncipherment
-    extendedKeyUsage = clientAuth, serverAuth
-    EOM
-
-    if [[ -n ${SSL_DNS} || -n ${SSL_IP} ]]; then
-        cat >> ${SSL_CONFIG} <<EOM
-    subjectAltName = @alt_names
-    [alt_names]
-    EOM
-
-        IFS=","
-        dns=(${SSL_DNS})
-        dns+=(${SSL_SUBJECT})
-        for i in "${!dns[@]}"; do
-          echo DNS.$((i+1)) = ${dns[$i]} >> ${SSL_CONFIG}
+    if [[ -n ${SSL_IP} ]]; then
+        ip=(${SSL_IP})
+        for i in "${!ip[@]}"; do
+          echo IP.$((i+1)) = ${ip[$i]} >> ${SSL_CONFIG}
         done
-
-        if [[ -n ${SSL_IP} ]]; then
-            ip=(${SSL_IP})
-            for i in "${!ip[@]}"; do
-              echo IP.$((i+1)) = ${ip[$i]} >> ${SSL_CONFIG}
-            done
-        fi
     fi
+fi
 
-    [[ -z $SILENT ]] && echo "====> Generating new SSL KEY ${SSL_KEY}"
-    openssl genrsa -out ${SSL_KEY} ${SSL_SIZE} > /dev/null || exit 1
+[[ -z $SILENT ]] && echo "====> Generating new SSL KEY ${SSL_KEY}"
+openssl genrsa -out ${SSL_KEY} ${SSL_SIZE} > /dev/null || exit 1
 
-    [[ -z $SILENT ]] && echo "====> Generating new SSL CSR ${SSL_CSR}"
-    openssl req -sha256 -new -key ${SSL_KEY} -out ${SSL_CSR} -subj "/CN=${SSL_SUBJECT}" -config ${SSL_CONFIG} > /dev/null || exit 1
+[[ -z $SILENT ]] && echo "====> Generating new SSL CSR ${SSL_CSR}"
+openssl req -sha256 -new -key ${SSL_KEY} -out ${SSL_CSR} \
+-subj "/CN=${SSL_SUBJECT}" -config ${SSL_CONFIG} > /dev/null || exit 1
 
-    [[ -z $SILENT ]] && echo "====> Generating new SSL CERT ${SSL_CERT}"
-    openssl x509 -sha256 -req -in ${SSL_CSR} -CA ${CA_CERT} -CAkey ${CA_KEY} -CAcreateserial -out ${SSL_CERT} \
-        -days ${SSL_EXPIRE} -extensions v3_req -extfile ${SSL_CONFIG} > /dev/null || exit 1
+[[ -z $SILENT ]] && echo "====> Generating new SSL CERT ${SSL_CERT}"
+openssl x509 -sha256 -req -in ${SSL_CSR} -CA ${CA_CERT} \
+    -CAkey ${CA_KEY} -CAcreateserial -out ${SSL_CERT} \
+    -days ${SSL_EXPIRE} -extensions v3_req \
+    -extfile ${SSL_CONFIG} > /dev/null || exit 1
 
-    if [[ -z $SILENT ]]; then
-    echo "====> Complete"
-    echo "keys can be found in volume mapped to $(pwd)"
-    echo
-    echo "====> Output results as YAML"
-    echo "---"
-    echo "ca_key: |"
-    cat $CA_KEY | sed 's/^/  /'
-    echo
-    echo "ca_cert: |"
-    cat $CA_CERT | sed 's/^/  /'
-    echo
-    echo "ssl_key: |"
-    cat $SSL_KEY | sed 's/^/  /'
-    echo
-    echo "ssl_csr: |"
-    cat $SSL_CSR | sed 's/^/  /'
-    echo
-    echo "ssl_cert: |"
-    cat $SSL_CERT | sed 's/^/  /'
-    echo
-    fi
+if [[ -z $SILENT ]]; then
+echo "====> Complete"
+echo "keys can be found in volume mapped to $(pwd)"
+echo
+echo "====> Output results as YAML"
+echo "---"
+echo "ca_key: |"
+cat $CA_KEY | sed 's/^/  /'
+echo
+echo "ca_cert: |"
+cat $CA_CERT | sed 's/^/  /'
+echo
+echo "ssl_key: |"
+cat $SSL_KEY | sed 's/^/  /'
+echo
+echo "ssl_csr: |"
+cat $SSL_CSR | sed 's/^/  /'
+echo
+echo "ssl_cert: |"
+cat $SSL_CERT | sed 's/^/  /'
+echo
+fi
 
-    if [[ -n $K8S_SECRET_NAME ]]; then
+if [[ -n $K8S_SECRET_NAME ]]; then
 
-      if [[ -n $K8S_SECRET_COMBINE_CA ]]; then
-        [[ -z $SILENT ]] && echo "====> Adding CA to Cert file"
-        cat ${CA_CERT} >> ${SSL_CERT}
-      fi
+  if [[ -n $K8S_SECRET_COMBINE_CA ]]; then
+    [[ -z $SILENT ]] && echo "====> Adding CA to Cert file"
+    cat ${CA_CERT} >> ${SSL_CERT}
+  fi
 
-      [[ -z $SILENT ]] && echo "====> Creating Kubernetes secret: $K8S_SECRET_NAME"
-      kubectl --kubeconfig=kube_configxxx.yml delete  secret $K8S_SECRET_NAME --ignore-not-found
+  [[ -z $SILENT ]] && echo "====> Creating Kubernetes secret: $K8S_SECRET_NAME"
+  kubectl delete secret $K8S_SECRET_NAME --ignore-not-found
 
-      if [[ -n $K8S_SECRET_SEPARATE_CA ]]; then
-        kubectl --kubeconfig=kube_configxxx.yml create  secret generic \
-        $K8S_SECRET_NAME \
-        --from-file="tls.crt=${SSL_CERT}" \
-        --from-file="tls.key=${SSL_KEY}" \
-        --from-file="ca.crt=${CA_CERT}"
-      else
-        kubectl --kubeconfig=kube_configxxx.yml create  secret tls \
-        $K8S_SECRET_NAME \
-        --cert=${SSL_CERT} \
-        --key=${SSL_KEY}
-      fi
+  if [[ -n $K8S_SECRET_SEPARATE_CA ]]; then
+    kubectl create secret generic \
+    $K8S_SECRET_NAME \
+    --from-file="tls.crt=${SSL_CERT}" \
+    --from-file="tls.key=${SSL_KEY}" \
+    --from-file="ca.crt=${CA_CERT}"
+  else
+    kubectl create secret tls \
+    $K8S_SECRET_NAME \
+    --cert=${SSL_CERT} \
+    --key=${SSL_KEY}
+  fi
 
-      if [[ -n $K8S_SECRET_LABELS ]]; then
-        [[ -z $SILENT ]] && echo "====> Labeling Kubernetes secret"
-        IFS=$' \n\t' # We have to reset IFS or label secret will misbehave on some systems
-        kubectl label secret \
-          $K8S_SECRET_NAME \
-          $K8S_SECRET_LABELS
-      fi
-    fi
+  if [[ -n $K8S_SECRET_LABELS ]]; then
+    [[ -z $SILENT ]] && echo "====> Labeling Kubernetes secret"
+    IFS=$' \n\t' # We have to reset IFS or label secret will misbehave on some systems
+    kubectl label secret \
+      $K8S_SECRET_NAME \
+      $K8S_SECRET_LABELS
+  fi
+fi
 
-    echo "4. 重命名服务证书"
-    cp ${CN}.key tls.key
-    cp ${CN}.crt tls.crt
+echo "4. 重命名服务证书"
+mv ${CN}.key tls.key
+mv ${CN}.crt tls.crt
+```
 
-    ```
+> 复制以上代码另存为`create_self-signed-cert.sh`或者其他您喜欢的文件名。修改代码开头的`CN`(域名)，如果需要使用ip去访问rancher server，那么需要给ssl证书添加扩展IP，多个IP用逗号隔开。如果想实现多个域名访问rancher server，则添加扩展域名(SSL_DNS),多个`SSL_DNS`用逗号隔开。
 
 ## 五、验证证书
 
@@ -306,7 +255,7 @@ x509的证书编码格式有两种:
 
     ![image-20190328180337080](assets/image-20190328180337080.png)
 
-    `openssl x509 -in  tls.crt -noout -text `执行后查看对应的域名和扩展iP是否正确
+    `openssl x509 -in  tls.crt -noout -text`执行后查看对应的域名和扩展iP是否正确
 
     ![image-20190328180442226](assets/image-20190328180442226.png)![image-20190328180455485](assets/image-20190328180455485.png)
 

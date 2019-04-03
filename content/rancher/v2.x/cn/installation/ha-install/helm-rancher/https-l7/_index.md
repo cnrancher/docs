@@ -9,7 +9,7 @@ weight: 2
 
 ## 二、配置负载均衡器(以NGINX为例)
 
-默认情况下，通过`docker run`运行的Rancher server容器会自动把端口80重定向到443，但是通过负载均衡器来代理Rancher server容器后，不再需要将Rancher server容器端口从80重定向到443。通过在负载均衡器上配置`X-Forwarded-Proto: https`参数后，Rancher server容器端口重定向功能将自动被禁用。
+默认情况下，如果rancher server通过负载均衡器来代理，这个时候请求是通过负载均衡器发送给rancher server，而并非客户端直接访问rancher server。在非全局`https`的环境中，如果以外部负载均衡器作为ssl终止，这个时候通过负载均衡器的`https`请求将需要被反向代理到rancher server http(80)上。在负载均衡器上配置`X-Forwarded-Proto: https`参数，rancher server http(80)上收到负载均衡器的请求后，就不会再重定向到https(443)上。
 
 负载均衡器或代理必须支持以下参数:
 
@@ -20,7 +20,7 @@ weight: 2
 | Header              | Value             | 描述            |
 |---------------------|--------------------------|:------------|
 | `Host`              | 传递给Rancher的主机名| 识别客户端请求的主机名。      |
-| `X-Forwarded-Proto` | `https`       | 识别客户端用于连接负载均衡器的协议。**注意：**如果存在此标头，`rancher / rancher`不会将HTTP重定向到HTTPS。 |
+| `X-Forwarded-Proto` | `https`       | 识别客户端用于连接负载均衡器的协议。**注意：**如果存在此标头，`rancher/rancher`不会将HTTP重定向到HTTPS。 |
 | `X-Forwarded-Port`  | Port used to reach Rancher.   | 识别客户端用于连接负载均衡器的协议。      |
 | `X-Forwarded-For`   | IP of the client connection.   | 识别客户端的原始IP地址。            |
 
@@ -61,7 +61,8 @@ http {
             proxy_http_version 1.1;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection $connection_upgrade;
-            # This allows the ability for the execute shell window to remain open for up to 15 minutes. Without this parameter, the default is 1 minute and will automatically close.
+            # This allows the ability for the execute shell window to remain open for up to 15 minutes. 
+            ## Without this parameter, the default is 1 minute and will automatically close.
             proxy_read_timeout 900s;
             proxy_buffering off;
         }
@@ -98,30 +99,69 @@ https://releases.rancher.com/server-charts/stable
 
 Rancher server设计默认需要开启SSL/TLS配置来保证安全。
 
-因为选择外部七层负载均衡器作为ssl终止，那么后端的访问连接不就需要走https，所以，Rancher server只需要把`80`端口暴露出去。
+因为选择外部七层负载均衡器作为ssl终止，那么后端的访问连接不就需要走https，所以Rancher server只需要把`80`端口暴露出去。并且如果外部七层负载均衡器作为ssl终止，那么Rancher server就不需要绑定SSL证书。但如果使用的是自签名SSL证书，需要把CA证书传递给Rancher。
 
-因为SSL证书已经绑定到第二步中的外部负载均衡器中，所以Rancher server就不需要绑定SSL证书，但是如果使用的是自签名SSL证书，那么需要把CA证书传递给Rancher。
+- 使用权威CA机构颁发的证书
 
-```plain
-helm install rancher-stable/rancher \
-  --name rancher \
-  --namespace cattle-system \
-  --set tls=external \
-  --set hostname=<你自己的域名> \
-  --set privateCA=true #为自签名ssl证书才添加
-```
+1. 根据[配置负载均衡器](#二-配置负载均衡器-以nginx为例)配置`服务证书`和`私钥`；
 
-- 自签名ssl证书
+1. 安装rancher server
 
-如果使用的是自签名ssl证书，则需要把CA文件给Rancher。将CA证书复制到或者重命名为`cacerts.pem`，并用`kubectl`在命名空间`cattle-system`中创建`tls-ca`secret。
+    >修改`hostname`
 
->**注意：** 证书名称和密文名称不能改变
+    ```bash
+    # 指定配置文件
+    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml
 
-  ```bash
-  kubectl --kubeconfig=kube_configxxx.yml create namespace cattle-system
-  kubectl --kubeconfig=kube_configxxx.yml -n cattle-system \
-  create secret generic tls-ca --from-file=cacerts.pem
-  ```
+    helm --kubeconfig=$KUBECONFIG install rancher-stable/rancher \
+      --name rancher --namespace cattle-system \
+      --set hostname=<你自己的域名> \
+      --set tls=external
+    ```
+
+    >**注意:** 1.创建证书对应的`域名`需要与`hostname`选项匹配，否则`ingress`将无法代理访问Rancher。
+
+- 使用自签名ssl证书(可选)
+
+1. 如果没有自签名ssl证书，可以参考[自签名ssl证书]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/self-signed-ssl/#四-生成自签名证书)，一键生成ssl证书；
+
+1. 一键生成ssl自签名证书脚本将自动生成`tls.crt、tls.key、cacerts.pem`三个文件，如果使用你自己的自签名ssl证书，则需要将`服务证书`和`CA中间证书链`合并到`tls.crt`,将`私钥`复制到或者重命名为`tls.key`，将`CA证书`复制到或者重命名为`cacerts.pem`。
+
+1. 根据[配置负载均衡器](#二-配置负载均衡器-以nginx为例)配置`服务证书`和`私钥`；
+
+1. 使用`kubectl`在命名空间`cattle-system`中创建`tls-ca`secret。
+
+    >**注意:** `ca`文件名称必须是`cacerts.pem`。
+
+    ```bash
+    # 指定配置文件
+    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml
+
+    # 创建命名空间
+    kubectl --kubeconfig=$KUBECONFIG create namespace cattle-system
+
+    # ca证书密文
+    kubectl --kubeconfig=$KUBECONFIG -n cattle-system create secret \
+    generic tls-ca \
+    --from-file=cacerts.pem
+    ```
+
+1. 安装rancher server
+
+    >修改`hostname`
+
+    ```bash
+    # 指定配置文件
+    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml
+
+    helm --kubeconfig=$KUBECONFIG install rancher-stable/rancher \
+      --name rancher --namespace cattle-system \
+      --set hostname=<你自己的域名> \
+      --set tls=external \
+      --set privateCA=true
+    ```
+
+    >**注意:** 1.证书对应的`域名`需要与`hostname`选项匹配，否则`ingress`将无法代理访问Rancher。
 
 ### 3、高级配
 
@@ -139,7 +179,7 @@ Rancher chart有许多配置选项,可用于自定义安装以适合你的特定
 
     ```bash
     export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system patch  deployments cattle-cluster-agent --patch '{
+    kubectl --kubeconfig=$KUBECONFIG -n cattle-system patch  deployments cattle-cluster-agent --patch '{
         "spec": {
             "template": {
                 "spec": {
@@ -162,7 +202,7 @@ Rancher chart有许多配置选项,可用于自定义安装以适合你的特定
 
     ```bash
     export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system patch  daemonsets cattle-node-agent --patch '{
+    kubectl --kubeconfig=$KUBECONFIG -n cattle-system patch  daemonsets cattle-node-agent --patch '{
         "spec": {
             "template": {
                 "spec": {
@@ -180,6 +220,7 @@ Rancher chart有许多配置选项,可用于自定义安装以适合你的特定
         }
     }'
     ```
+
     > **注意**
     >1、替换其中的域名和IP \
     >2、别忘记json中的引号。

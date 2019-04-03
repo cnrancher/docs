@@ -1,6 +1,6 @@
 ---
 title: Release v2.0.11
-weight: 10.2
+weight: 12
 ---
 
 ## Important

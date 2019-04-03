@@ -42,7 +42,8 @@ NGINX拥有所有主流操作系统的软件包，通过包管理器可以很轻
             proxy_http_version 1.1;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection $connection_upgrade;
-            # This allows the ability for the execute shell window to remain open for up to 15 minutes. Without this     parameter, the default is 1 minute and will automatically close.
+            # This allows the ability for the execute shell window to remain open for up to 15 minutes. 
+            ## Without this parameter, the default is 1 minute and will automatically close.
             proxy_read_timeout 900s;
             proxy_buffering off;
         }

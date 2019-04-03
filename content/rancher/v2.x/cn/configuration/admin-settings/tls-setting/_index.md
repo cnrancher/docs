@@ -32,7 +32,7 @@ weight: 12
 ```bash
 docker run -d --restart=unless-stopped \
 -p 80:80 -p 443:443 \
- -v <主机路径>:/var/lib/rancher/ \
+-v <主机路径>:/var/lib/rancher/ \
 -e CATTLE_TLS_MIN_VERSION="1.0" \
 rancher/rancher:latest
 ```

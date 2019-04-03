@@ -79,12 +79,9 @@ tc filter add dev eth0 parent 1: protocol ip prio 2 u32 match ip dport 2739 0xff
 net.ipv4.neigh.default.gc_thresh1=<value1>
 net.ipv4.neigh.default.gc_thresh2=<value2>
 net.ipv4.neigh.default.gc_thresh3=<value3>
-udev.event-timeout=300
 ```
 
 > 根据主机资源大小来调整`<value>`值.
->
->**udev.event-timeout** When a system is under high load, there are situations when docker specific device mapper commands involving udev might time out. There is a lot of discussion happening how to handle such situations in a graceful way (but the problem is quite complex and also affecting DM operations not related to docker at all). Currently the best option to work around these kind of situations is to raise the udev timeout. This will make sure that docker will receive proper feedback on DM related commands in a timely manner and not get stuck.
 
 接着执行`sysctl -p`
 
@@ -145,7 +142,6 @@ systemctl daemon-reload && systemctl restart docker
 services:
   kube-api:
     extra_args:
-
 ```
 
 ### kube-controller
@@ -158,7 +154,9 @@ services:
     extra_args:
       # 控制器定时与节点通信以检查通信是否正常，周期默认5s
       node-monitor-period: '5s'
-      # 当节点通信失败后，再等一段时间kubernetes判定节点为notready状态。这个时间段必须是kubelet的nodeStatusUpdateFrequency(默认10s)的N倍，其中N表示允许kubelet同步节点状态的重试次数，默认40s。
+      # 当节点通信失败后，再等一段时间kubernetes判定节点为notready状态。
+      #$ 这个时间段必须是kubelet的nodeStatusUpdateFrequency(默认10s)的N倍，
+      ## 其中N表示允许kubelet同步节点状态的重试次数，默认40s。
       node-monitor-grace-period: '20s'
       # 再持续通信失败一段时间后，kubernetes判定节点为unhealthy状态，默认1m0s。
       node-startup-grace-period: '30s'
@@ -188,9 +186,11 @@ services:
     kube-api-burst: '30'
     # 与apiserver会话时的 QPS,默认是5
     kube-api-qps: '15'
-    # kubelet默认一次拉取一个镜像，设置为false可以同时拉取多个镜像，前提是存储驱动要为overlay2，对应的Dokcer也需要增加下载并发数，参考：三、Docker
+    # kubelet默认一次拉取一个镜像，设置为false可以同时拉取多个镜像，
+    ## 前提是存储驱动要为overlay2，对应的Dokcer也需要增加下载并发数，参考：三、Docker
     serialize-image-pulls: 'false'
-    # 拉取镜像的最大并发数，registry-burst不能超过registry-qps ，仅当registry-qps大于0(零)时生效，(默认10)。如果registry-qps为0则不限制(默认5)。
+    # 拉取镜像的最大并发数，registry-burst不能超过registry-qps ，
+    ## 仅当registry-qps大于0(零)时生效，(默认10)。如果registry-qps为0则不限制(默认5)。
     registry-burst: '10'
     registry-qps: '0'
 ```

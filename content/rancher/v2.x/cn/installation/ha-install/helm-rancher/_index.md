@@ -25,6 +25,7 @@ weight: 1
 - Ingress控制器将流量转发到Rancher pod的TCP/80端口。
 
 <sup>HA Rancher安装了第4层负载均衡器，描述了入口控制器的SSL终止 </sup>
+
 ![Rancher HA]({{< baseurl >}}/img/rancher/ha/rancher2ha.svg)
 
 ## 必备工具
@@ -47,4 +48,7 @@ weight: 1
 
 - [RKE add-on安装]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/rke-ha-install/)
 
-## [下一步：创建四层负载均衡](./create-nodes-lb/)
+## 下一步？
+
+- [四层负载均衡Helm HA部署](tcp-l4)
+- [七层负载均衡Helm HA部署](https-l7/)

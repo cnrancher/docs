@@ -18,8 +18,7 @@ Helm在集群上安装`tiller`服务以管理`charts`. 由于RKE默认启用RBAC
     ```bash
     kubectl --kubeconfig=kube_configxxx.yml -n   kube-system create serviceaccount tiller
     kubectl --kubeconfig=kube_configxxx.yml create  clusterrolebinding tiller \
-    --clusterrole cluster-admin \
-    --serviceaccount=kube-system:tiller
+    --clusterrole cluster-admin --serviceaccount=kube-system:tiller
     ```
 
 ## 二、安装Helm客户端
@@ -29,7 +28,8 @@ Helm 客户端可以从源代码安装，也可以从预构建的二进制版本
 ### 1、从二进制版本
 
 1. 下载[Helm](https://github.com/kubernetes/helm/releases)
-	- 加速下载[Helm]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/download/#helm)
+
+    - 加速下载[Helm]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/download/#helm)
 
 2. 解压缩(tar -zxvf helm-v2.x.x-linux-amd64.tgz)
 
@@ -119,9 +119,9 @@ Helm的服务器端部分Tiller,通常运行在Kubernetes集群内部。但是�
 执行以下命令在Rancher中安装Tiller：
 
 ```bash
-export TILLER_TAG=<new_tag> ;
+helm_version=`helm version |grep Client | awk -F""\" '{print $2}'`
 helm init --service-account tiller \
---tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:$TILLER_TAG \
+--tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:$helm_version \
 --stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts
 ```
 
@@ -172,10 +172,10 @@ Tiller running on:44134
 > 点击查询[新版Tiller镜像](https://hub.docker.com/r/hongxiaolu/tiller/tags/)
 
 ```bash
-  export TILLER_TAG=<new_tag> ;
+  helm_version=`helm version |grep Client | awk -F""\" '{print $2}'`
   kubectl --namespace=kube-system \
   set image deployments/tiller-deploy \
-  tiller=registry.cn-shanghai.aliyuncs.com/rancher/tiller:$TILLER_TAG
+  tiller=registry.cn-shanghai.aliyuncs.com/rancher/tiller:$helm_version
 ```
 
 将显示以下信息：

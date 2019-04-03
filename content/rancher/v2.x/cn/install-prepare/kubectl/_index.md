@@ -13,9 +13,11 @@ weight: 7
 
 ```bash
 sudo apt-get update && sudo apt-get install -y apt-transport-https
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | \
+    sudo apt-key add -
 sudo touch /etc/apt/sources.list.d/kubernetes.list
-echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | \
+    sudo tee -a /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update
 sudo apt-get install -y kubectl
 ```
@@ -30,7 +32,8 @@ baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
 enabled=1
 gpgcheck=1
 repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg \
+    https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 yum install -y kubectl
 ```
@@ -234,6 +237,7 @@ kubectl --kubeconfig=kube_configxxx.yml  get  nodes
 165.227.116.167               Ready     controlplane,etcd,worker   11m       v1.10.1
 165.227.127.226               Ready     controlplane,etcd,worker   11m       v1.10.1
 ```
+
 {{% /accordion %}}
 {{% accordion id="3" label="三、检查kubectl配置" %}}
 
@@ -248,7 +252,8 @@ kubectl cluster-info
 如果您看到类似于以下内容的消息，则kubectl配置不正确或无法连接到Kubernetes集群。
 
 ```bash
-The connection to the server <server-name:port> was refused - did you specify the right host or port?
+The connection to the server <server-name:port> was \
+    refused - did you specify the right host or port?
 ```
 
 例如，如果您打算在笔记本电脑上（本地）运行Kubernetes集群，则需要首先安装minikube等工具，然后重新运行上述命令。
@@ -256,7 +261,7 @@ The connection to the server <server-name:port> was refused - did you specify th
 如果kubectl cluster-info返回url响应但您无法访问集群，要检查它是否配置正确，请使用：
 
 ```bash
-kubectl --kubeconfig=kube_configxxx.yml  cluster-info    dump
+kubectl --kubeconfig=kube_configxxx.yml cluster-info dump
 ```
 
 {{% /accordion %}}

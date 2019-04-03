@@ -5,7 +5,7 @@ weight: 2
 
 使用RKE以高可用etcd配置安装Kubernetes。
 
-> **注意:** 对于没有互联网访问的环境，请访问[RKE - Air Gap]({{< baseurl >}}/rancher/v2.x/cn/installation/air-gap-installation/) 了解安装详情。
+> **注意:** 离线环境，请访问[离线安装]({{< baseurl >}}/rancher/v2.x/cn/installation/air-gap-installation/) 。
 
 ## 一、创建`rancher-cluster.yml`文件
 

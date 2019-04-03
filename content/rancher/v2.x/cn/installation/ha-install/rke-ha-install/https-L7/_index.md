@@ -19,7 +19,7 @@ weight: 2
 
 ## 二、配置负载均衡器(以NGINX为例)
 
-默认情况下，通过`docker run`运行的Rancher server容器会自动把端口80重定向到443，但是通过负载均衡器来代理Rancher server容器后，不再需要将Rancher server容器端口从80重定向到443。通过在负载均衡器上配置`X-Forwarded-Proto: https`参数后，Rancher server容器端口重定向功能将自动被禁用。
+默认情况下，如果rancher server通过负载均衡器来代理，这个时候请求是通过负载均衡器发送给rancher server，而并非客户端直接访问rancher server。在非全局`https`的环境中，如果以外部负载均衡器作为ssl终止，这个时候通过负载均衡器的`https`请求将需要被反向代理到rancher server http(80)上。在负载均衡器上配置`X-Forwarded-Proto: https`参数，rancher server http(80)上收到负载均衡器的请求后，就不会再重定向到https(443)上。
 
 负载均衡器或代理必须支持以下参数:
 
@@ -30,7 +30,7 @@ weight: 2
 | Header              | Value             | 描述            |
 |---------------------|--------------------------|:------------|
 | `Host`              | 传递给Rancher的主机名| 识别客户端请求的主机名。      |
-| `X-Forwarded-Proto` | `https`       | 识别客户端用于连接负载均衡器的协议。**注意：**如果存在此标头，`rancher / rancher`不会将HTTP重定向到HTTPS。 |
+| `X-Forwarded-Proto` | `https`       | 识别客户端用于连接负载均衡器的协议。**注意：**如果存在此标头，`rancher/rancher`不会将HTTP重定向到HTTPS。 |
 | `X-Forwarded-Port`  | Port used to reach Rancher.   | 识别客户端用于连接负载均衡器的协议。      |
 | `X-Forwarded-For`   | IP of the client connection.   | 识别客户端的原始IP地址。            |
 
@@ -165,6 +165,7 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
           role: [controlplane,etcd,worker]
           ssh_key_path: ~/.ssh/id_rsa
       ```
+
     >**注意**
     >1、使用RHEL/CentOS系统时，因为系统安全限制，`ssh`不能使用root账户。\
     >2、需要开启[API审计日志？]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/api-auditing/)\
@@ -278,7 +279,7 @@ apiVersion: extensions/v1beta1
 
     ```bash
     export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system patch  deployments cattle-cluster-agent --patch '{
+    kubectl --kubeconfig=kube_configxxx.yml -n cattle-system patch  deployments cattle-cluster-agent --patch '{
         "spec": {
             "template": {
                 "spec": {
@@ -301,7 +302,7 @@ apiVersion: extensions/v1beta1
 
     ```bash
     export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system patch  daemonsets cattle-node-agent --patch '{
+    kubectl --kubeconfig=kube_configxxx.yml -n cattle-system patch  daemonsets cattle-node-agent --patch '{
         "spec": {
             "template": {
                 "spec": {
@@ -319,6 +320,7 @@ apiVersion: extensions/v1beta1
         }
     }'
     ```
+
     > **注意**
     >1、替换其中的域名和IP \
     >2、别忘记json中的引号。

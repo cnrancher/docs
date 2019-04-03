@@ -1,6 +1,6 @@
 ---
 title: Release v2.1.0
-weight: 11
+weight: 100
 ---
 
 Rancher v2.1.0 introduces new improvements to Kubernetes cluster operations and app management, as well as a migration path for users moving from Rancher's Cattle orchestrator introduced in 1.x to Rancher Kubernetes.  Please refer to the following [link](https://rancher.com/docs/rancher/v2.x/en/v1.6-migration/) for guides, blogs, and how-tos to moving a 1.6 Cattle application into the next generation 2.0 Kubernetes equivalent.
