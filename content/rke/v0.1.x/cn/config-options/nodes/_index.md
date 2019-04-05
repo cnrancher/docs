@@ -23,6 +23,19 @@ nodes:
         -----BEGIN RSA PRIVATE KEY-----
 
         -----END RSA PRIVATE KEY-----
+    - address: 3.3.3.3
+      user: ubuntu
+      role:
+      - worker
+      ssh_key_path: /home/user/.ssh/id_rsa
+      ssh_cert_path: /home/user/.ssh/id_rsa-cert.pub
+    - address: 4.4.4.4
+      user: ubuntu
+      role:
+      - worker
+      ssh_key_path: /home/user/.ssh/id_rsa
+      ssh_cert: |-
+        ssh-rsa-cert-v01@openssh.com AAAAHHNza...
     - address: example.com
       user: ubuntu
       role:
@@ -69,6 +82,14 @@ For each node, you specify the path, i.e. `ssh_key_path`, for the SSH private ke
 
 Instead of setting the path to the SSH key, you can alternatively specify the actual key, i.e. `ssh_key`, to be used to connect to the node.
 
+### SSH Certificate Path
+
+For each node, you can specify the path, i.e. `ssh_cert_path`, for the signed SSH certificate to be used when connecting to this node.
+
+### SSH Certificate
+
+Instead of setting the path to the signed SSH certificate, you can alternatively specify the actual certificate, i.e. `ssh_cert`, to be used to connect to the node.
+
 ### Kubernetes Roles
 
 You can specify the list of roles that you want the node to be as part of the Kubernetes cluster. Three roles are supported: `controlplane`, `etcd` and `worker`. Node roles are not mutually exclusive. It's possible to assign any combination of roles to any node. It's also possible to change a node's role using the upgrade process.
@@ -101,4 +122,4 @@ If the Docker socket is different than the default, you can set the `docker_sock
 
 ### Labels
 
-You have the ability to add an arbitrary map of labels for each node. It can be used when using the [ingress controller's]({{< baseurl >}}/rke/v0.1.x/en/config-options/ingress-controllers/) `node_selector` option.
+You have the ability to add an arbitrary map of labels for each node. It can be used when using the [ingress controller's]({{< baseurl >}}/rke/v0.1.x/en/config-options/add-ons/ingress-controllers/) `node_selector` option.

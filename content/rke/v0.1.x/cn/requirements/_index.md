@@ -8,19 +8,19 @@ weight: 1
 
 - [Operating System](#operating-system)
 
-    - [RedHat Enterprise Linux (RHEL) / Oracle Enterprise Linux (OEL) / CentOS](#redhat-enterprise-linux-rhel--oracle-enterprise-linux-oel--centos)
-    
+    - [Red Hat Enterprise Linux (RHEL) / Oracle Enterprise Linux (OEL) / CentOS](#red-hat-enterprise-linux-rhel-oracle-enterprise-linux-oel-centos)
+
         - [Using upstream Docker](#using-upstream-docker)
-        - [Using RHEL/CentOS packaged Docker](#using-rhelcentos-packaged-docker)
+        - [Using RHEL/CentOS packaged Docker](#using-rhel-centos-packaged-docker)
+    - [Notes about Atomic Nodes](#red-hat-atomic)
+
+        - [OpenSSH version](#openssh-version)
+        - [Creating a Docker Group](#creating-a-docker-group)
 - [Software](#software)
 - [Ports](#ports)
-    - [Opening port TCP/6443 using `iptables``](#opening-port-tcp6443-using-iptables)
-    - [Opening port TCP/6443 using `firewalld`](#opening-port-tcp6443-using-firewalld)
-- [Notes about Atomic Nodes](#notes-about-atomic-nodes)
 
-    - [Container Volumes](#container-volumes)
-    - [OpenSSH version](#openssh-version)
-    - [Creating a Docker Group](#creating-a-docker-group)
+    - [Opening port TCP/6443 using `iptables`](#opening-port-tcp-6443-using-iptables)
+    - [Opening port TCP/6443 using `firewalld`](#opening-port-tcp-6443-using-firewalld)
 
 <!-- /TOC -->
 
@@ -38,7 +38,10 @@ RKE runs on almost any Linux OS with Docker installed. Most of the development a
 
 - Swap should be disabled on any worker nodes
 
-- Following kernel modules should be present
+- Following kernel modules should be present. This can be checked using:
+   * `modprobe module_name`
+   * `lsmod | grep module_name`
+   * `grep module_name /lib/modules/$(uname -r)/modules.builtin`, if it's a built-in module
 
 Module name |
 ------------|
@@ -80,9 +83,9 @@ xt_tcpudp |
 net.bridge.bridge-nf-call-iptables=1
 ```
 
-### RedHat Enterprise Linux (RHEL) / Oracle Enterprise Linux (OEL) / CentOS
+### Red Hat Enterprise Linux (RHEL) / Oracle Enterprise Linux (OEL) / CentOS
 
-If using RedHat Enterprise Linux, Oracle Enterprise Linux or CentOS, you cannot use the `root` user as [SSH user]({{< baseurl >}}/rke/v0.1.x/en/config-options/nodes/#ssh-user) due to [Bugzilla 1527565](https://bugzilla.redhat.com/show_bug.cgi?id=1527565). Please follow the instructions below how to setup Docker correctly, based on the way you installed Docker on the node.
+If using Red Hat Enterprise Linux, Oracle Enterprise Linux or CentOS, you cannot use the `root` user as [SSH user]({{< baseurl >}}/rke/v0.1.x/en/config-options/nodes/#ssh-user) due to [Bugzilla 1527565](https://bugzilla.redhat.com/show_bug.cgi?id=1527565). Please follow the instructions below how to setup Docker correctly, based on the way you installed Docker on the node.
 
 #### Using upstream Docker
 If you are using upstream Docker, the package name is `docker-ce` or `docker-ee`. You can check the installed package by executing:
@@ -94,13 +97,13 @@ rpm -q docker-ce
 When using the upstream Docker packages, please follow [Manage Docker as a non-root user](https://docs.docker.com/install/linux/linux-postinstall/#manage-docker-as-a-non-root-user).
 
 #### Using RHEL/CentOS packaged Docker
-If you are using the Docker Docker package supplied by RedHat / CentOS, the package name is `docker`. You can check the installed package by executing:
+If you are using the Docker Docker package supplied by Red Hat / CentOS, the package name is `docker`. You can check the installed package by executing:
 
 ```
 rpm -q docker
 ```
 
-If you are using the Docker package supplied by RedHat / CentOS, the `dockerroot` group is automatically added to the system. You will need to edit (or create) `/etc/docker/daemon.json` to include the following:
+If you are using the Docker package supplied by Red Hat / CentOS, the `dockerroot` group is automatically added to the system. You will need to edit (or create) `/etc/docker/daemon.json` to include the following:
 
 ```
 {
@@ -128,56 +131,58 @@ $ docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 ```
 
+### Red Hat Atomic
+
+Before trying to use RKE with Red Hat Atomic nodes, there are a couple of updates to the OS that need to occur in order to get RKE working.
+
+#### OpenSSH version
+
+By default, Atomic hosts ship with OpenSSH 6.4, which doesn't support SSH tunneling, which is a core RKE requirement. If you upgrade to the latest version of OpenSSH supported by Atomic, it will correct the SSH issue.
+
+#### Creating a Docker Group
+
+By default, Atomic hosts do not come with a Docker group. You can update the ownership of the Docker socket by enabling the specific user in order to launch RKE.
+
+```
+# chown <user> /var/run/docker.sock
+```
+
 ## Software
 
 - Docker - Each Kubernetes version supports different Docker versions.
 
-Kubernetes Version | Docker 1.12.6 | Docker 1.13.1 | Docker 17.03.2 |
-----|----|----|----|
-v1.10.x | X | X | X |
-v1.9.x | X | X | X |
-v1.8.x | X | X | X |
+Kubernetes Version | Supported Docker version(s) |
+----|----|
+v1.13.x | RHEL Docker 1.13, 17.03.2, 18.06.2, 18.09.2 |
+v1.12.x | RHEL Docker 1.13, 17.03.2, 18.06.2, 18.09.2 |
+v1.11.x | RHEL Docker 1.13, 17.03.2, 18.06.2, 18.09.2 |
 
-You can either follow the [Docker installation](https://docs.docker.com/install/) instructions or use one of Rancher's [install scripts](https://github.com/rancher/install-docker) to install Docker.
+You can either follow the [Docker installation](https://docs.docker.com/install/) instructions or use one of Rancher's [install scripts](https://github.com/rancher/install-docker) to install Docker. For RHEL, please see [How to install Docker on Red Hat Enterprise Linux 7](https://access.redhat.com/solutions/3727511).
 
 Docker Version   | Install Script |
 ----------|------------------
-17.03.2 |  <code>curl https://releases.rancher.com/install-docker/17.03.sh &#124; sh</code> |
-1.13.1  | <code>curl https://releases.rancher.com/install-docker/1.13.sh &#124; sh</code> |
-1.12.6  |  <code>curl https://releases.rancher.com/install-docker/1.12.sh &#124; sh</code> |
+18.09.2 |  <code>curl https://releases.rancher.com/install-docker/18.09.2.sh &#124; sh</code> |
+18.06.2 |  <code>curl https://releases.rancher.com/install-docker/18.06.2.sh &#124; sh</code> |
+17.03.2 |  <code>curl https://releases.rancher.com/install-docker/17.03.2.sh &#124; sh</code> |
 
-Confirm that a Kubernetes supported version of Docker is installed on your machine, by running  `docker version`.
+Confirm that a Kubernetes supported version of Docker is installed on your machine, by running `docker version --format '{{.Server.Version}}'`.
 
 ```
-$ docker version
-Client:
- Version:      17.03.2-ce
- API version:  1.27
- Go version:   go1.7.5
- Git commit:   f5ec1e2
- Built:        Tue Jun 27 03:35:14 2017
- OS/Arch:      linux/amd64
-
-Server:
- Version:      17.03.2-ce
- API version:  1.27 (minimum version 1.12)
- Go version:   go1.7.5
- Git commit:   f5ec1e2
- Built:        Tue Jun 27 03:35:14 2017
- OS/Arch:      linux/amd64
- Experimental: false
+docker version --format '{{.Server.Version}}'
+17.03.2-ce
 ```
 
 - OpenSSH 7.0+ - In order to SSH into each node, OpenSSH must be installed on each node.
 
 ## Ports
 
+{{< ports-rke-nodes >}}
 {{< requirements_ports_rke >}}
 
 If you are using an external firewall, make sure you have this port opened between the machine you are using to run `rke` and the nodes that you are going to use in the cluster.
 
 
-### Opening port TCP/6443 using `iptables``
+### Opening port TCP/6443 using `iptables`
 
 ```
 # Open TCP/6443 for all
@@ -200,32 +205,4 @@ firewall-cmd --permanent --zone=public --add-rich-rule='
   source address="your_ip_here/32"
   port protocol="tcp" port="6443" accept'
 firewall-cmd --reload
-```
-
-## Notes about Atomic Nodes
-
-Before trying to use RKE with Atomic nodes, there are a couple of updates to the OS that need to occur in order to get RKE working.
-
-### Container Volumes
-
-In RKE, most of the volumes are mounted with option `z`, but there are some container volumes that may have some issues in Atomic due to SELinux.
-
-Before running RKE, users will need to run the following commands to make some additional directories:
-
-```
-# mkdir /opt/cni /etc/cni
-# chcon -Rt svirt_sandbox_file_t /etc/cni
-# chcon -Rt svirt_sandbox_file_t /opt/cni
-```
-
-### OpenSSH version
-
-By default, Atomic hosts ship with OpenSSH 6.4, which doesn't support SSH tunneling, which is a core RKE requirement. If you upgrade to the latest version of OpenSSH supported by Atomic, it will correct the SSH issue.
-
-### Creating a Docker Group
-
-By default, Atomic hosts do not come with a Docker group. You can update the ownership of the Docker socket by enabling the specific user in order to launch RKE.
-
-```
-# chown <user> /var/run/docker.sock
 ```

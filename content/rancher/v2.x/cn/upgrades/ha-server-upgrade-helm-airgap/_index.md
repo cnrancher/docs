@@ -3,39 +3,36 @@ title: 6 - Helm HA离线升级
 weight: 6
 ---
 
-The following instructions will guide you through upgrading a high-availability Rancher Server installed in an air gap environment.
+## 先决条件
 
-## Prerequisites
+从v2.0.7开始，Rancher引入了System项目，该项目是自动创建的，用于存储Kubernetes需要运行的重要命名空间。在升级到v2.0.7 +期间，Rancher希望从所有项目中取消分配这些命名空间。在开始升级之前，请检查系统命名空间以确保它们未分配以防止集群网络问题。
 
-- **Populate Images**
+- **准备离线镜像**
 
-    Follow the guide to [Prepare the Private Registry]({{< baseurl >}}/rancher/v2.x/en/installation/air-gap-installation/prepare-private-reg/) with the images for the upgrade Rancher release.
+    按照[准备离线镜像]({{< baseurl >}}/rancher/v2.x/cn/installation/air-gap-installation/ha/prepare-private-registry/)方法, 同步新版本镜像到离线镜像仓库。
 
-- **Backup your Rancher Cluster**
+- **备份集群**
 
-    [Take a one-time snapshot]({{< baseurl >}}/rancher/v2.x/en/backups/backups/ha-backups/#option-b-one-time-snapshots)
-    of your Rancher Server cluster. You'll use the snapshot as a restoration point if something goes wrong during upgrade.
+    [创建快照]({{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/backups/ha-backups/)
+    如果在升级期间出现问题，可使用此快照进行恢复。
 
 - **kubectl**
 
-    Follow the kubectl [configuration instructions]({{< baseurl >}}/rancher/v2.x/en/faq/kubectl) and confirm that you can connect to the Kubernetes cluster running Rancher server.
+    安装配置[kubectl]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/kubectl/)，使其可以连接集群。
 
-- **helm**
+- **安装或者升级Helm Server和Helm 客户端**
 
-    [Install or update](https://docs.helm.sh/using_helm/#installing-helm) Helm to the latest version.
+    如果之前是通过RKE部署的rancher，那首先需要安装Helm Server和Helm 客户端，安装方法参考[安装Helm Server和Helm 客户端]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/helm-install/ "" target="_blank")安装最新版本Helm Server和Helm 客户端
 
-- **Upgrades to v2.0.7+ only: check system namespace locations**
-     Starting in v2.0.7, Rancher introduced the `system` project, which is a project that's automatically created to store important namespaces that Kubernetes needs to operate. During upgrade to v2.0.7+, Rancher expects these namespaces to be unassigned from all projects. Before beginning upgrade, check your system namespaces to make sure that they're unassigned to [prevent cluster networking issues]({{< baseurl >}}/rancher/v2.x/en/upgrades/upgrades/namespace-migration/#preventing-cluster-networking-issues).
+## 升级 Rancher
 
-## Upgrade Rancher
-
-1. Update your local helm repo cache.
+1. 更新本地helm repo缓存。
 
     ```bash
     helm repo update
     ```
 
-2. Get the [repository name that you installed Rancher]({{< baseurl >}}/rancher/v2.x/en/installation/server-tags/#helm-chart-repositories) with.
+1. 查看本地[helm repo]({{< baseurl >}}/rancher/v2.x/en/installation/server-tags/#helm-chart-repositories).
 
     ```bash
     helm repo list
@@ -45,43 +42,46 @@ The following instructions will guide you through upgrading a high-availability 
     rancher-<CHART_REPO>	https://releases.rancher.com/server-charts/<CHART_REPO>
     ```
 
-    > **Note:** If you want to switch to a different Helm chart repository, please follow the [steps on how to switch repositories]({{< baseurl >}}/rancher/v2.x/en/installation/server-tags/#switching-to-a-different-helm-chart-repository). If you switch repositories, make sure to list the repositories again before continuing onto Step 3 to ensure you have the correct one added.
+1. 打包下载最新版本Helm chart用于离线安装Rancher；
 
-
-3. Fetch the latest chart to install Rancher from the Helm chart repository.
-
-    This command will pull down the latest chart and save it in the current directory as a `.tgz` file. Replace `<CHART_REPO>` with the name of the repository name that was listed (i.e. `latest` or `stable`).
-
+    此命令将下载最新版本Helm chart并压缩为.tgz文件保存在当前目录中。
 
     ```plain
-    helm fetch rancher-<CHART_REPO>/rancher
+    helm fetch rancher-stable/rancher
     ```
 
-3. Render the upgrade template.
+1. 拷贝文件到离线环境中安装有helm客户端和kubectl客户端，并可以访问内网集群的主机上，解压.tgz得到rancher文件夹；
 
-    Use the same `--set` values that you used for the install. Remember to set the `--is-upgrade` flag for `helm`. This will create a `rancher` directory with the Kubernetes manifest files.
+1. 获取当前运行Rancher的配置参数；
 
-    ```plain
-    helm template ./rancher-<version>.tgz --output-dir . --is-upgrade \
-    --name rancher --namespace cattle-system \
-    --set hostname=<RANCHER.YOURDOMAIN.COM> \
-    --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher
+    ```bash
+    helm get values rancher
     ```
 
-4. Copy and apply the rendered manifests.
+    >返回结果示例
 
-    Copy the files to a server with access to the Rancher server cluster and apply the rendered templates.
-
-    ```plain
-    kubectl --kubeconfig=kube_configxxx.yml -n cattle-system apply -R -f ./rancher
+    ```plant
+    hostname: demo.cnrancher.com
+    ingress:
+      tls:
+        source: secret
+    service:
+      type: ClusterIP
     ```
 
-**Result:** Rancher is upgraded. Log back into Rancher to confirm that the  upgrade succeeded.
+    > 不通的安装方式显示的参数不相同
 
->**Having Network Issues Following Upgrade?**
->
-> See  [Restoring Cluster Networking]({{< baseurl >}}/rancher/v2.x/en/upgrades/upgrades/namespace-migration/#restoring-cluster-networking).
+1. 根据上一步骤中获取的值，将Rancher升级到最新版本。
 
-## Rolling Back
+    根据上一步骤中的获取的参数值，将它们以`--set key=value`的形式附加到升级命令中；
 
-Should something go wrong, follow the [HA Rollback]({{< baseurl >}}/rancher/v2.x/en/upgrades/rollbacks/ha-server-rollbacks/) instructions to restore the snapshot you took before you preformed the upgrade.
+    ```bash
+    helm upgrade rancher ./rancher \
+    --set hostname=demo.cnrancher.com \
+    --set ingress.tls.source=secret \
+    --set service.type=ClusterIP
+    --set rancherImage=<离线镜像仓库地址>/rancher/rancher
+    --set busyboxImage=<离线镜像仓库地址>/rancher/busybox
+    ```
+
+    > 因为是离线安装，所以需要指定离线镜像名称，镜像tag不用指定会自动根据chart版本获取。Rancher Pod中有两个容器，一个是rancher,一个是用于收集审计日志的busybox，更多配置参考[rancher高级设置]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/advanced-settings/)

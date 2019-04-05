@@ -101,6 +101,7 @@ docker run -d --restart=unless-stopped \
         Name:   demo.rancher.com
         Address: <负载均衡IP地址>
         ```
+
     - 如果解析不生效
 
         ```bash
@@ -362,7 +363,8 @@ nodes:
 
     ```bash
     export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl --kubeconfig=kube_configxxx.yml -n cattle-system patch  deployments cattle-cluster-agent --patch '{
+    kubectl --kubeconfig=kube_configxxx.yml -n cattle-system \
+    patch deployments cattle-cluster-agent --patch '{
         "spec": {
             "template": {
                 "spec": {
@@ -385,7 +387,8 @@ nodes:
 
     ```bash
     export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl --kubeconfig=kube_configxxx.yml -n cattle-system patch  daemonsets cattle-node-agent --patch '{
+    kubectl --kubeconfig=kube_configxxx.yml -n cattle-system \
+    patch  daemonsets cattle-node-agent --patch '{
         "spec": {
             "template": {
                 "spec": {
@@ -403,6 +406,7 @@ nodes:
         }
     }'
     ```
+
     > **注意**
     >1、替换其中的域名和IP \
     >2、别忘记json中的引号。

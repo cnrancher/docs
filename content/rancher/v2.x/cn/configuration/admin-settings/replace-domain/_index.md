@@ -203,7 +203,7 @@ cp xxx.crt tls.crt
 
 ## 二、更新证书
 
-### 1、Rancher独立容器运行
+### 1、Rancher单节点运行
 
 >注意：操作前先备份，{{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/backups/
 

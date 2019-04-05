@@ -3,37 +3,37 @@ title: 5 - Helm HA升级
 weight: 5
 ---
 
->**注意:** 如果之前使用RKE Add-on yaml安装Rancher，请参阅以下文档以进行迁移或升级。
+>**注意:** 如果之前使用RKE Add-on安装的Rancher，请参阅以下文档以进行迁移或升级。
 >
 >* [从RKE安装迁移]({{< baseurl >}}/rancher/v2.x/cn/upgrades/migrating-from-rke-add-on/)
-> 从版本v2.0.8开始，Rancher支持`Helm chart`安装和升级，但仍然支持RKE`安装/升级`。如果要将升级方法从RKE更改为Helm，请按照此过程操作。
+> 从版本v2.0.8开始，Rancher采用`Helm chart`安装和升级，但仍然支持RKE`安装/升级`。如果要将升级方法从RKE更改为Helm，请按照此过程操作。
 
 ## 先决条件
 
 从v2.0.7开始，Rancher引入了System项目，该项目是自动创建的，用于存储Kubernetes需要运行的重要命名空间。在升级到v2.0.7 +期间，Rancher希望从所有项目中取消分配这些命名空间。在开始升级之前，请检查系统命名空间以确保它们未分配以防止集群网络问题。
 
-- **备份Rancher集群**
+1. **备份Rancher集群**
 
     [创建快照]({{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/backups/ha-backups/)
     如果在升级期间出现问题，可使用此快照进行恢复。
 
-- **kubectl**
+1. **kubectl**
 
     安装配置[kubectl]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/kubectl/)，使其可以连接集群。
 
-- **安装Helm Server和Helm 客户端**
+1. **安装或者升级Helm Server和Helm 客户端**
 
-    根据[安装Helm Server和Helm 客户端]({{< baseurl >}}/rancher/v2.x/cn/installation/air-gap-installation/install-rancher/#二-安装helm-server和helm-客户端)安安装最新版本Helm Server和Helm 客户端
+    如果之前是通过RKE部署的rancher，那首先需要安装Helm Server和Helm 客户端，安装方法参考[安装Helm Server和Helm 客户端]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/helm-install/ "" target="_blank")安装最新版本Helm Server和Helm 客户端
 
 ## 升级 Rancher
 
-1. 更新本地helm repo缓存。
+1. 更新本地helm repo缓存；
 
     ```bash
     helm repo update
     ```
 
-2. 获取[安装Rancher的存储库名称]({{< baseurl >}}/rancher/v2.x/en/installation/server-tags/#helm-chart-repositories).
+1. 查看本地[helm repo]({{< baseurl >}}/rancher/v2.x/en/installation/server-tags/#helm-chart-repositories)；
 
     ```bash
     helm repo list
@@ -43,21 +43,30 @@ weight: 5
     rancher-<CHART_REPO>	https://releases.rancher.com/server-charts/<CHART_REPO>
     ```
 
-3. 获取Rancher当前运行版本的配置参数。
+1. 获取当前运行Rancher的配置参数；
 
-    ```bash
-    helm get values rancher
+    >返回结果示例
 
-    hostname: rancher.my.org
+    ```plant
+    hostname: demo.cnrancher.com
+    ingress:
+      tls:
+        source: secret
+    service:
+      type: ClusterIP
     ```
 
-    > **注意:** 根据您在安装Rancher时选择的[SSL配置选项]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/rancher-install/#二-安装证书管理器-可选)，此命令可能会列出更多值。
+    > 不通的安装方式显示的参数不相同
 
-4. 根据前面步骤中的值将Rancher升级到最新版本。
+1. 根据上一步骤中获取的值，将Rancher升级到最新版本。
 
-    - 替换`<CHART_REPO>`为列出的存储库(例如: `latest` or `stable`).
-    - 获取上一步中的所有值，并将它们附加到命令`--set key=value`。
+    根据上一步骤中的获取的参数值，将它们以`--set key=value`的形式附加到升级命令中；
 
     ```bash
-    helm upgrade rancher rancher-<CHART_REPO>/rancher --set hostname=<你自己的域名> 
+    helm upgrade rancher ./rancher \
+    --set hostname=demo.cnrancher.com \
+    --set ingress.tls.source=secret \
+    --set service.type=ClusterIP
     ```
+
+    > 更多配置参考[rancher高级设置]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/advanced-settings/)

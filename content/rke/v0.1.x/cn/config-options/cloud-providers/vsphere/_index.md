@@ -28,13 +28,13 @@ When provisioning clusters in Rancher using the [vSphere node driver]({{< baseur
 5. Assign **Member Roles** as required.
 6. Expand **Cluster Options** and configure as required.
 7. Set **Cloud Provider** option to `Custom`.
-    
+
     ![vsphere-node-driver-cloudprovider]({{< baseurl >}}/img/rancher/vsphere-node-driver-cloudprovider.png)
 
 8. Click on **Edit as YAML**
 9. Insert the following top-level structure to the pre-populated cluster YAML. Note that the `name` *must* be set to `vsphere`. Refer to the [configuration reference](#configuration-reference) to learn about the properties of the `vsphereCloudProvider` directive.
 
-    ```
+    ```yaml
     cloud_provider:
         name: vsphere
         vsphereCloudProvider:
@@ -58,7 +58,7 @@ The vSphere configuration options are divided into 5 groups:
 
 ### global
 
-The main purpose of global options is to be able to define a common set of configuration parameters that will be inherited by all vCenters defined under the `virtual_center` directive unless explicitely defined there.
+The main purpose of global options is to be able to define a common set of configuration parameters that will be inherited by all vCenters defined under the `virtual_center` directive unless explicitly defined there.
 
 Accordingly, the `global` directive accepts the same configuration options that are available under the `virtual_center` directive. Additionally it accepts a single parameter that can only be specified here:
 
@@ -70,7 +70,7 @@ ___
 
 **Example:**
 
-```
+```yaml
 (...)
     global:
       insecure-flag: true
@@ -103,7 +103,7 @@ ___
 
 **Example:**
 
-```
+```yaml
 (...)
     virtual_center:
       172.158.111.1: {}  # This vCenter inherits all it's properties from global options
@@ -130,7 +130,7 @@ ___
 
 **Example:**
 
-```
+```yaml
 (...)
     workspace:
       server: 172.158.111.1 # matches IP of vCenter defined in the virtual_center block
@@ -149,7 +149,7 @@ The following configuration options are available under the disk directive:
 
 ___
 
-### network 
+### network
 
 The following configuration options are available under the network directive:
 
@@ -169,7 +169,7 @@ Given the following:
 
 The corresponding configuration for the provider would then be as follows:
 
-```
+```yaml
 (...)
 cloud_provider:
   name: vsphere
@@ -184,7 +184,7 @@ cloud_provider:
       folder: k8s-dummy
       default-datastore: ds-1
       datacenter: eu-west-1
-    
+
 ```
 
 ## Annex
@@ -245,7 +245,7 @@ $ rancher ssh <nodeName>
     ```
 
 3. Inspect the logs of the controller-manager and kubelet containers looking for errors related to the vSphere cloud provider:
-    
+
     ```sh
     $ docker logs --since 15m kube-controller-manager
     $ docker logs --since 15m kubelet

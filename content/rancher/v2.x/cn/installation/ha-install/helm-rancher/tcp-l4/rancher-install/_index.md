@@ -117,7 +117,8 @@ Rancher chart有许多配置选项,可用于自定义安装以适合你的特定
 
     ```bash
     export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl --kubeconfig=$KUBECONFIG -n cattle-system patch  deployments cattle-cluster-agent --patch '{
+    kubectl --kubeconfig=$KUBECONFIG -n cattle-system \
+    patch deployments cattle-cluster-agent --patch '{
         "spec": {
             "template": {
                 "spec": {
@@ -140,7 +141,8 @@ Rancher chart有许多配置选项,可用于自定义安装以适合你的特定
 
     ```bash
     export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl --kubeconfig=$KUBECONFIG -n cattle-system patch  daemonsets cattle-node-agent --patch '{
+    kubectl --kubeconfig=$KUBECONFIG -n cattle-system \
+    patch  daemonsets cattle-node-agent --patch '{
         "spec": {
             "template": {
                 "spec": {

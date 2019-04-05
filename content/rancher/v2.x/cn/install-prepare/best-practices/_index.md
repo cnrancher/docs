@@ -155,7 +155,7 @@ services:
       # 控制器定时与节点通信以检查通信是否正常，周期默认5s
       node-monitor-period: '5s'
       # 当节点通信失败后，再等一段时间kubernetes判定节点为notready状态。
-      #$ 这个时间段必须是kubelet的nodeStatusUpdateFrequency(默认10s)的N倍，
+      ## 这个时间段必须是kubelet的nodeStatusUpdateFrequency(默认10s)的N倍，
       ## 其中N表示允许kubelet同步节点状态的重试次数，默认40s。
       node-monitor-grace-period: '20s'
       # 再持续通信失败一段时间后，kubernetes判定节点为unhealthy状态，默认1m0s。
@@ -172,25 +172,25 @@ services:
 services:
   kubelet:
     extra_args:
-    # 修改节点最大Pod数量,默认110个
-    max-pods: '250'
-    # 密文和配置映射同步时间，默认1分钟
-    sync-frequency: '3s'
-    # 自定义pause镜像,默认为rancher/pause:3.1
-    pod-infra-container-image: 'xxx/xxx/pause:3.1'
-    # 传递给网络插件的MTU值，以覆盖默认值，设置为0(零)则使用默认的1460
-    network-plugin-mtu: '1500'
-    # Kubelet进程可以打开的文件数（默认1000000）,根据节点配置情况调整
-    max-open-files: '2000000'
-    # 与apiserver会话时的并发数，默认是10
-    kube-api-burst: '30'
-    # 与apiserver会话时的 QPS,默认是5
-    kube-api-qps: '15'
-    # kubelet默认一次拉取一个镜像，设置为false可以同时拉取多个镜像，
-    ## 前提是存储驱动要为overlay2，对应的Dokcer也需要增加下载并发数，参考：三、Docker
-    serialize-image-pulls: 'false'
-    # 拉取镜像的最大并发数，registry-burst不能超过registry-qps ，
-    ## 仅当registry-qps大于0(零)时生效，(默认10)。如果registry-qps为0则不限制(默认5)。
-    registry-burst: '10'
-    registry-qps: '0'
+      # 修改节点最大Pod数量,默认110个
+      max-pods: '250'
+      # 密文和配置映射同步时间，默认1分钟
+      sync-frequency: '3s'
+      # 自定义pause镜像,默认为rancher/pause:3.1
+      pod-infra-container-image: 'xxx/xxx/pause:3.1'
+      # 传递给网络插件的MTU值，以覆盖默认值，设置为0(零)则使用默认的1460
+      network-plugin-mtu: '1500'
+      # Kubelet进程可以打开的文件数（默认1000000）,根据节点配置情况调整
+      max-open-files: '2000000'
+      # 与apiserver会话时的并发数，默认是10
+      kube-api-burst: '30'
+      # 与apiserver会话时的 QPS,默认是5
+      kube-api-qps: '15'
+      # kubelet默认一次拉取一个镜像，设置为false可以同时拉取多个镜像，
+      ## 前提是存储驱动要为overlay2，对应的Dokcer也需要增加下载并发数，参考：三、Docker
+      serialize-image-pulls: 'false'
+      # 拉取镜像的最大并发数，registry-burst不能超过registry-qps ，
+      ## 仅当registry-qps大于0(零)时生效，(默认10)。如果registry-qps为0则不限制(默认5)。
+      registry-burst: '10'
+      registry-qps: '0'
 ```

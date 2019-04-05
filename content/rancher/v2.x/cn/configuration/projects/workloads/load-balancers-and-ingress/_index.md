@@ -26,7 +26,6 @@ Load Balancers have a couple of limitations you should be aware of:
 
 - If you want to use a load balancer with a Hosted Kubernetes cluster (i.e., clusters hosted in GKE, EKS, or AKS), you must host your load balancer with the same cloud provider. Please review the compatibility tables regarding support for load balancers based on how you've provisioned your clusters:
 
-
     - [Support for Layer-4 Load Balancing]({{< baseurl >}}/rancher/v2.x/en/k8s-in-rancher/load-balancers-and-ingress/load-balancers/#support-for-layer-4-load-balancing)
 
     - [Support for Layer-7 Load Balancing]({{< baseurl >}}/rancher/v2.x/en/k8s-in-rancher/load-balancers-and-ingress/load-balancers/#support-for-layer-7-load-balancing)

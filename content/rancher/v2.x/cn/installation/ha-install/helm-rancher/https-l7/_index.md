@@ -76,6 +76,29 @@ http {
 }
 ```
 
+>为了减少网络传输的数据量，可以在七层代理的`http`定义中添加`GZIP`功能。
+
+```bash
+# Gzip Settings
+gzip on;
+gzip_disable "msie6";
+gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+gzip_vary on;
+gzip_static on;
+gzip_proxied any;
+gzip_min_length 0;
+gzip_comp_level 8;
+gzip_buffers 16 8k;
+gzip_http_version 1.1;
+gzip_types
+  text/xml application/xml application/atom+xml application/rss+xml application/xhtml+xml image/svg+xml application/font-woff
+  text/javascript application/javascript application/x-javascript
+  text/x-json application/json application/x-web-app-manifest+json
+  text/css text/plain text/x-component
+  font/opentype application/x-font-ttf application/vnd.ms-fontobject font/woff2
+  image/x-icon image/png image/jpeg;
+```
+
 ## 二、RKE安装Kubernetes
 
 参考[RKE安装Kubernetes]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/rke-install-k8s/)
@@ -178,8 +201,11 @@ Rancher chart有许多配置选项,可用于自定义安装以适合你的特定
 1. cattle-cluster-agent pod
 
     ```bash
-    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl --kubeconfig=$KUBECONFIG -n cattle-system patch  deployments cattle-cluster-agent --patch '{
+    #指定kubectl配置文件
+    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml
+
+    kubectl --kubeconfig=$KUBECONFIG -n cattle-system \
+    patch deployments cattle-cluster-agent --patch '{
         "spec": {
             "template": {
                 "spec": {
@@ -201,8 +227,11 @@ Rancher chart有许多配置选项,可用于自定义安装以适合你的特定
 2. cattle-node-agent pod
 
     ```bash
-    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl --kubeconfig=$KUBECONFIG -n cattle-system patch  daemonsets cattle-node-agent --patch '{
+    #指定kubectl配置文件
+    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml
+
+    kubectl --kubeconfig=$KUBECONFIG -n cattle-system \
+    patch  daemonsets cattle-node-agent --patch '{
         "spec": {
             "template": {
                 "spec": {

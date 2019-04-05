@@ -2,12 +2,11 @@
 title: 3 - Harbor配置HTTPS
 weight: 3
 ---
-{{% accordion id="option-a" label="一、获得证书" %}}
+## 一、获得证书
 
 证书可以选择权威机构颁发的证书，也可以通过[自签名ssl]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/self-signed-ssl/)生成需要的自签名ssl证书。
 
-{{% /accordion %}}
-{{% accordion id="option-b" label="二、配置和安装" %}}
+{## 二、配置和安装
 
 1、获取`yourdomain.com.crt和yourdomain.com.key`文件后，将它们放入以下目录`/root/cert/`
 
@@ -41,8 +40,7 @@ cp yourdomain.com.crt /root/cert/
 
 `docker-compose up -d`
 
-{{% /accordion %}}
-{{% accordion id="option-c" label="三、验证" %}}
+## 三、验证
 
 为Harbor设置HTTPS后，通过以下步骤进行验证:
 
@@ -57,5 +55,3 @@ cp yourdomain.com.crt /root/cert/
 如果你已将nginx 443端口映射到另一个端口，则需要将端口添加到登录命令中，如下所示:
 
 `docker login reg.yourdomain.com:port`
-
-{{% /accordion %}}

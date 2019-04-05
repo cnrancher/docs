@@ -1,6 +1,8 @@
 ---
-title: 5 - 集群管理
-weight: 5 
+title: 7 - 节点管理
+weight: 7
+aliases:
+  - /rke/v0.1.x/en/installation/managing-clusters/
 ---
 
 ### Adding/Removing Nodes

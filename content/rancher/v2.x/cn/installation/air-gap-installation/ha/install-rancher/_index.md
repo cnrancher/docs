@@ -35,7 +35,8 @@ aliases:
         # 指定kubeconfig配置文件
         kubeconfig=kube_configxxx.yml
 
-        kubectl --kubeconfig=$kubeconfig -n kube-system create secret docker-registry regcred \
+        kubectl --kubeconfig=$kubeconfig -n kube-system \
+        create secret docker-registry regcred \
         --docker-server="reg.example.com" \
         --docker-username=<user> \
         --docker-password=<password> \
@@ -227,8 +228,11 @@ aliases:
 1. cattle-cluster-agent pod
 
     ```plain
-    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl --kubeconfig=$kubeconfig -n cattle-system patch  deployments cattle-cluster-agent --patch '{
+    #指定kubectl配置文件
+    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml
+
+    kubectl --kubeconfig=$kubeconfig -n cattle-system \
+    patch deployments cattle-cluster-agent --patch '{
         "spec": {
             "template": {
                 "spec": {
@@ -250,8 +254,11 @@ aliases:
 2. cattle-node-agent pod
 
     ```plain
-    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl --kubeconfig=$kubeconfig -n cattle-system patch  daemonsets cattle-node-agent --patch '{
+    #指定kubectl配置文件
+    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml
+
+    kubectl --kubeconfig=$kubeconfig -n cattle-system \
+    patch daemonsets cattle-node-agent --patch '{
         "spec": {
             "template": {
                 "spec": {
@@ -272,4 +279,3 @@ aliases:
 
     > 1、替换其中的域名和IP \
       2、注意json中的引号。
-
