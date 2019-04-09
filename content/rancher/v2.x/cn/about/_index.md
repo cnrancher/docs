@@ -59,7 +59,7 @@ loglevel repository | `https://github.com/rancher/loglevel` | 储库loglevel二�
             docker logs \
             --tail=all \
             --timestamps \
-            $(docker ps  -q -f label=org.label-schema.vcs-url=https://github.com/rancher/rancher.git)
+            $(docker ps -q -f label=org.label-schema.vcs-url=https://github.com/rancher/rancher.git)
             ```
         - `High Availability`
 
@@ -67,7 +67,9 @@ loglevel repository | `https://github.com/rancher/loglevel` | 储库loglevel二�
             kubectl --kubeconfig $KUBECONFIG logs \
             -n cattle-system \
             --timestamps=true \
-            -f $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name="cattle-server") | .metadata.name')
+            -f $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system \
+            -o json | jq -r '.items[] | \
+            select(.spec.containers[].name="cattle-server") | .metadata.name')
             ```
   - System logging(这些可能并非全部存在，具体取决于操作系统)
 
@@ -94,5 +96,4 @@ loglevel repository | `https://github.com/rancher/loglevel` | 储库loglevel二�
 ## 文档
 
 - [Rancher 2.x Docs Repo](https://github.com/rancher/docs): Rancher 2.x文档仓库，它们位于`content`文件夹中。
-
 - [Rancher 1.x Docs Repo](https://github.com/rancher/rancher.github.io): Rancher 1.x文档仓库，它们位于`rancher`文件夹中。

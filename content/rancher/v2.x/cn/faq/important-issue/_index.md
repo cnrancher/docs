@@ -107,7 +107,12 @@ docker run -d --restart=unless-stopped \
 
     ```bash
     KUBECONFIG=./kube_config_rancher-cluster.yml
-    kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | .metadata.name') -- reset-password
+    kubectl --kubeconfig $KUBECONFIG exec -n cattle-system \
+    $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system \
+    -o json | jq -r '.items[] | \
+    select(.spec.containers[].name=="cattle-server") | \
+    .metadata.name') -- reset-password
+
     New password for default admin user (user-xxxxx):
     <new_password>
     ```
@@ -135,7 +140,11 @@ docker run -d --restart=unless-stopped \
 
     ```bash
     KUBECONFIG=./kube_config_rancher-cluster.yml
-    kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | .metadata.name') -- ensure-default-admin
+    kubectl --kubeconfig $KUBECONFIG exec -n cattle-system \
+    $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system \
+    -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | \
+    .metadata.name') -- ensure-default-admin
+
     New password for default admin user (user-xxxxx):
     <new_password>
     ```
@@ -165,16 +174,25 @@ docker run -d --restart=unless-stopped \
 
     ```bash
     KUBECONFIG=./kube_config_rancher-cluster.yml
-    kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | .metadata.name') -- loglevel --set debug
+    kubectl --kubeconfig $KUBECONFIG exec -n cattle-system \
+    $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system \
+    -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") \
+    | .metadata.name') -- loglevel --set debug
     OK
-    kubectl --kubeconfig $KUBECONFIG logs -n cattle-system -f $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name="cattle-server") | .metadata.name')
+    kubectl --kubeconfig $KUBECONFIG logs -n cattle-system -f \
+    $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system \
+    -o json | jq -r '.items[] | select(.spec.containers[].name="cattle-server") | \
+    .metadata.name')
     ```
 
 - 禁用
 
     ```bash
     KUBECONFIG=./kube_config_rancher-cluster.yml
-    kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | .metadata.name') -- loglevel --set info
+    kubectl --kubeconfig $KUBECONFIG exec -n cattle-system \
+    $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system \
+    -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | \
+    .metadata.name') -- loglevel --set info
     OK
     ```
 
@@ -184,8 +202,12 @@ docker run -d --restart=unless-stopped \
 
     ```bash
     KUBECONFIG=./kube_config_rancher-cluster.yml
-    kubectl --kubeconfig $KUBECONFIG -n cattle-system get pods -l app=rancher | grep '1/1' | awk '{ print $1 }' | xargs -I{} kubectl --kubeconfig $KUBECONFIG -n    cattle-system exec {} -- loglevel --set debug
-    OK
+
+    kubectl --kubeconfig $KUBECONFIG -n cattle-system \
+    get pods -l app=rancher | grep '1/1' | awk '{ print $1 }' | \
+    xargs -I{} kubectl --kubeconfig $KUBECONFIG -n cattle-system \
+    exec {} -- loglevel --set debug
+
     kubectl --kubeconfig $KUBECONFIG -n cattle-system logs -l app=rancher
     ```
 
@@ -193,8 +215,12 @@ docker run -d --restart=unless-stopped \
 
     ```bash
     KUBECONFIG=./kube_config_rancher-cluster.yml
-    kubectl --kubeconfig $KUBECONFIG -n cattle-system get pods -l app=rancher | grep '1/1' | awk '{ print $1 }' | xargs -I{} kubectl --kubeconfig $KUBECONFIG -n cattle-system exec {} -- loglevel --set info
-    OK
+
+    kubectl --kubeconfig $KUBECONFIG -n cattle-system \
+    get pods -l app=rancher | grep '1/1' | awk '{ print $1 }' | \
+    xargs -I{} kubectl --kubeconfig $KUBECONFIG -n cattle-system exec {} \
+    -- loglevel --set info
+
     ```
 
 ## 9、ClusterIP无法ping通？

@@ -23,7 +23,11 @@ New password for default admin user (user-xxxxx):
 High Availability install (RKE add-on):
 ```
 $ KUBECONFIG=./kube_config_rancher-cluster.yml
-$ kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | .metadata.name') -- reset-password
+$ kubectl --kubeconfig $KUBECONFIG exec -n cattle-system \
+$(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system \
+-o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | \
+.metadata.name') -- reset-password
+
 New password for default admin user (user-xxxxx):
 <new_password>
 ```
@@ -92,17 +96,28 @@ OK
 
 * High Availability install (RKE add-on)
  * Enable
-```
+
+```bash
 $ KUBECONFIG=./kube_config_rancher-cluster.yml
-$ kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | .metadata.name') -- loglevel --set debug
+$ kubectl --kubeconfig $KUBECONFIG exec -n cattle-system \
+$(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system \
+-o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | \
+.metadata.name') -- loglevel --set debug
 OK
-$ kubectl --kubeconfig $KUBECONFIG logs -n cattle-system -f $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name="cattle-server") | .metadata.name')
+$ kubectl --kubeconfig $KUBECONFIG logs -n cattle-system -f \
+$(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system \
+-o json | jq -r '.items[] | select(.spec.containers[].name="cattle-server") | \
+.metadata.name')
 ```
 
  * Disable
-```
+
+```bash
 $ KUBECONFIG=./kube_config_rancher-cluster.yml
-$ kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | .metadata.name') -- loglevel --set info
+$ kubectl --kubeconfig $KUBECONFIG exec -n cattle-system \
+$(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system \
+-o json | jq -r '.items[] | select(.spec.containers[].name=="cattle-server") | \
+.metadata.name') -- loglevel --set info
 OK
 ```
 

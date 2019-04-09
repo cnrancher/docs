@@ -25,7 +25,11 @@ New password for default admin user (user-xxxxx):
 
 ```bash
 KUBECONFIG=./kube_config_rancher-cluster.yml
-  kubectl --kubeconfig $KUBECONFIG exec -n cattle-system $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items [] | select(.spec.containers[].name=="cattle-server") | .metadata.name') --reset-password
+  kubectl --kubeconfig $KUBECONFIG exec -n cattle-system \
+  $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system \
+  -o json | jq -r '.items [] | \
+  select(.spec.containers[].name=="cattle-server") | .metadata.name') \
+  --reset-password
 ```
 
 运行结果：

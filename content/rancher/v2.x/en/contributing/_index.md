@@ -59,40 +59,46 @@ Please follow this checklist when filing an issue which will helps us investigat
   - Provide manual steps or automation scripts used to get from a newly created setup to the situation you reported.
 - Provide data/logs from the used resources.
   - Rancher
+
       - Single node
 
-        ```
+        ```bash
         docker logs \
         --timestamps \
         $(docker ps | grep -E "rancher/rancher:|rancher/rancher " | awk '{ print $1 }')
         ```
+
       - High Availability (HA) install using `kubectl`
 
         > **Note:** Make sure you configured the correct kubeconfig (for example, `export KUBECONFIG=$PWD/kube_config_rancher-cluster.yml` for Rancher HA) or are using the embedded kubectl via the UI.
 
-        ```
+        ```bash
         kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system \
         logs \
         -l app=rancher \
         --timestamps=true
         ```
+
       - High Availability (HA) install using `docker` on each of the nodes in the RKE cluster
 
-        ```
+        ```bash
         docker logs \
         --timestamps \
         $(docker ps | grep -E "rancher/rancher@|rancher_rancher" | awk '{ print $1 }')
         ```
+
       - High Availability (HA) RKE Add-On Install
 
         > **Note:** Make sure you configured the correct kubeconfig (for example, `export KUBECONFIG=$PWD/kube_config_rancher-cluster.yml` for Rancher HA) or are using the embedded kubectl via the UI.
 
-        ```
+        ```bash
         kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system \
         logs \
         --timestamps=true \
-        -f $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name="cattle-server") | .metadata.name')
+        -f $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system \
+        -o json | jq -r '.items[] | select(.spec.containers[].name="cattle-server") | .metadata.name')
         ```
+
   - System logging (these might not all exist, depending on operating system)
       - `/var/log/messages`
       - `/var/log/syslog`
