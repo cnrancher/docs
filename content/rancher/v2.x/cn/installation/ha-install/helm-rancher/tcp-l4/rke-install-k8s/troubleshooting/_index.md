@@ -1,9 +1,9 @@
 ---
-title: Troubleshooting
-weight: 276
+title: 故障诊断
+weight: 1
 ---
 
-### canal Pods show READY 2/3
+### canal Pods显示READY 2/3
 
 The most common cause of this issue is port 8472/UDP is not open between the nodes. Check your local firewall, network routing or security groups.
 

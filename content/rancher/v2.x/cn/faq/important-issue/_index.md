@@ -278,7 +278,7 @@ UI由静态文件组成，并且基于API的响应而工作。这意味着您可
 
 可以通过`集群选项`中的[配置文件]({{< baseurl >}}/rancher/v2.x/cn/cluster-provisioning/rke-clusters/options/#配置文件)选项添加额外的arguments/binds/environment。有关更多信息，请参阅RKE文档中的[Extra Args，Extra Binds和Extra Environment Variables]({{< baseurl >}}/rke/v0.1.x/en/config-options/services/services-extras/)，或浏览[Example Cluster.ymls示例]({{< baseurl >}}/rke/v0.1.x/en/example-yamls/)。
 
-## 18、为什么在节点出现故障时重新安排pod需要5分钟以上？
+## 18、为什么在节点出现故障时重新调度pod需要5分钟以上？
 
 这是由于以下默认Kubernetes设置的组合：
 
@@ -307,5 +307,3 @@ UI由静态文件组成，并且基于API的响应而工作。这意味着您可
     openssl x509 -noout -in cert.pem -text | grep DNS
     DNS: rancher.my.org
     ```
-
-## 20、

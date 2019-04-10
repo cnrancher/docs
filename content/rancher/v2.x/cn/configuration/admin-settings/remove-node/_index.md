@@ -32,8 +32,7 @@ aliases:
   docker volume rm $(docker volume ls -q)
 
   # 卸载mount目录
-  for mount in $(mount | grep tmpfs | grep '/var/lib/kubelet' | \
-  awk '{ print $3 }') /var/lib/kubelet /var/lib/rancher; do umount $mount; done
+  for mount in $(mount | grep tmpfs | grep '/var/lib/kubelet' | awk '{ print $3 }') /var/lib/kubelet /var/lib/rancher; do umount $mount; done
   
   # 删除残留路径
   rm -rf /etc/ceph \
@@ -66,8 +65,7 @@ aliases:
   port_list=`80 443 6443 2376 2379 2380 8472 9099 10250 10254`
   for port in $port_list
   do
-    pid=`netstat -atlnup|grep $port |awk '{print $7}'|\
-    awk -F '/' '{print $1}'|grep -v -|sort -rnk2|uniq`
+    pid=`netstat -atlnup|grep $port |awk '{print $7}'|awk -F '/' '{print $1}'|grep -v -|sort -rnk2|uniq`
     if [[ -n $pid ]];then
       kill -9 $pid
     fi
