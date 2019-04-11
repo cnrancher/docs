@@ -3,9 +3,7 @@ title: 1 - 单节点恢复
 weight: 1
 ---
 
-如果Rancher数据损坏、丢失，或在升级时遇到问题，可通过备份的数据进行恢复。
-
-{{% accordion id="1" label="一、恢复准备" %}}
+## 一、恢复准备
 
 以下信息需要提前准备，在备份时替换相应的值。
 
@@ -21,8 +19,7 @@ weight: 1
 
 ![Placeholder Reference]({{< baseurl >}}/img/rancher/placeholder-ref.png)
 
-{{% /accordion %}}
-{{% accordion id="2" label="二、集群恢复" %}}
+## 二、集群恢复
 
 1、停止当前运行的Rancher容器.可通过`docker ps`查看`<RANCHER_CONTAINER_NAME>`
 
@@ -49,5 +46,3 @@ sh -c "rm /var/lib/rancher/* -rf && tar zxvf /backup/rancher-data-backup-<RANCHE
 ```bash
 docker start <RANCHER_CONTAINER_NAME>
 ```
-
-{{% /accordion %}}

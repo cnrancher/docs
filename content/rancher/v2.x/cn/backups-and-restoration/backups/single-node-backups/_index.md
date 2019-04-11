@@ -5,7 +5,7 @@ weight: 1
 
 在完成Rancher的单节点安装后，或在升级Rancher到新版本之前，需要对Rancher进行数据备份。如果在Rancher数据损坏或者丢失，或者升级遇到问题时，可以通过最新的备份进行数据恢复。
 
-{{% accordion id="1" label="一、备份准备" %}}
+## 一、备份准备
 
 以下信息需要提前准备，在备份时替换相应的值。
 
@@ -21,8 +21,7 @@ weight: 1
 
 ![Placeholder Reference]({{< baseurl >}}/img/rancher/placeholder-ref.png)
 
-{{% /accordion %}}
-{{% accordion id="2" label="二、创建备份" %}}
+## 二、创建备份
 
 1. 浏览器访问Rancher UI，记下浏览器左下角显示的版本号(例如:`v2.0.0`),在后续备份过程中需要这个版本号
 
@@ -55,10 +54,8 @@ weight: 1
     -v $PWD:/backup \
     alpine \
     tar zcvf /backup/rancher-data-backup-<RANCHER_VERSION>-<DATE>.tar.gz /var/lib/rancher
-
     ```
+
 5. 备份完成后可重启Rancher服务容器
 
 6. 了解数据恢复，请点击[单节点数据恢复](../../restorations/single-node-restoration/)
-
-{{% /accordion %}}
