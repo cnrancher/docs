@@ -3,46 +3,43 @@ title: 3 - 升级
 weight: 3
 ---
 
-After RKE has deployed Kubernetes, you can upgrade the versions of the components in your Kubernetes cluster, [definition of the Kubernetes services]({{< baseurl >}}/rke/v0.1.x/en/config-options/services/) or [add-ons]({{< baseurl >}}/rke/v0.1.x/en/config-options/add-ons/).
+## 版本升级
 
-## Version Upgrades
+RKE通过更改[系统镜像]({{< baseurl >}}/rke/latest/cn/config-options/system-images//)的镜像版本来支持版本升级。
 
-RKE supports version upgrades by changing the image tags of the [system-images]({{< baseurl >}}/rke/v0.1.x/en/config-options/system-images/).
+例如，要改变已部署Kubernetes版本，只需在部署Kubernetes集群的cluster.yml中，修改`rancher/hyperkube`标签从`v1.9.7到v1.10.3`,
 
-For example, to change the deployed Kubernetes version, you update the `rancher/hyperkube` tag from `v1.9.7` to `v1.10.3` in the `cluster.yml` that was originally used to deploy your Kubernetes cluster.
-
-Original YAML
+原YAML
 
 ```bash
 system-images:
     kubernetes: rancher/hyperkube:v1.9.7
 ```
 
-Updated YAML
+更新后YAML
 
 ```bash
 system-images:
     kubernetes: rancherhyperkube:v1.10.3
 ```
 
-After updating your `cluster.yml` with the required changes, all you need to do is run `rke up` to upgrade Kubernetes.
+在`cluster.yml`配置文件更新后，执行`rke up`升级Kubernetes。
 
 ```bash
-$ rke up --config cluster.yml
+rke up --config cluster.yml
 ```
 
-First, RKE will use the local `kube_config_cluster.yml` to confirm the versions of the existing components in the Kubernetes cluster before upgrading to the latest image.
+首先，RKE将使用本地的`kube_config_cluster.yml`，在升级到最新的镜像之前，确认Kubernetes集群中现有组件的版本。
 
-> **Note:** RKE does not support rollback to previous versions.
+> **注意:** RKE不支持回滚到以前的版本。
 
-## Service Upgrades
+## 服务升级
 
-[Services]({{< baseurl >}}/rke/v0.1.x/en/config-options/services/) can be upgraded by changing any of the services arguments or `extra_args` and running `rke up` again with the updated configuration file.
+可以通过更改`Services参数或extra_args`并使用更新的配置文件重新运行rke up来[升级服务]({{< baseurl >}}/rke/latest/cn/config-options/services/)。
 
-> **Note:** The following arguments, `service_cluster_ip_range` or `cluster_cidr`, cannot be changed as any changes to these arguments will result in a broken cluster. Currently, network pods are not automatically upgraded.
+> **注意:** `service_cluster_ip_range`或者`cluster_cidr`不能更改，因为对这些参数的任何更改都将导致集群损坏。目前，网络容器不会自动升级。
 
-## Add-Ons Upgrades
+## 附加组件升级
 
-As of v0.1.8, upgrades to add-ons are supported.
-
-[Add-ons]({{< baseurl >}}/rke/v0.1.x/en/config-options/add-ons/) can also be upgraded by changing any of the add-ons and running `rke up` again with the updated configuration file.
+从v0.1.8开始，支持附加组件升级。
+ 

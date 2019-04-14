@@ -49,7 +49,7 @@ private_registries:
 
 RKE有许多配置选项可用于自定义安装以适合您的特定环境。
 
-有关选项和功能的完整列表，请查看[RKE文档]({{< baseurl >}}/rke/v0.1.x/en/config-options/) 。
+有关选项和功能的完整列表，请查看[RKE文档]({{< baseurl >}}/rke/latest/en/config-options/) 。
 
 ## 二、运行RKE命令
 

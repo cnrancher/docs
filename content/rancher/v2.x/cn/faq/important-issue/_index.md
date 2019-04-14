@@ -276,7 +276,7 @@ UI由静态文件组成，并且基于API的响应而工作。这意味着您可
 
 ## 17、如何在Rancher安装的Kubernetes集群中向Kubernetes组件添加额外的arguments/binds/environment？
 
-可以通过`集群选项`中的[配置文件]({{< baseurl >}}/rancher/v2.x/cn/cluster-provisioning/rke-clusters/options/#配置文件)选项添加额外的arguments/binds/environment。有关更多信息，请参阅RKE文档中的[Extra Args，Extra Binds和Extra Environment Variables]({{< baseurl >}}/rke/v0.1.x/en/config-options/services/services-extras/)，或浏览[Example Cluster.ymls示例]({{< baseurl >}}/rke/v0.1.x/en/example-yamls/)。
+可以通过`集群选项`中的[配置文件]({{< baseurl >}}/rancher/v2.x/cn/cluster-provisioning/rke-clusters/options/#配置文件)选项添加额外的arguments/binds/environment。有关更多信息，请参阅RKE文档中的[Extra Args，Extra Binds和Extra Environment Variables]({{< baseurl >}}/rke/latest/en/config-options/services/services-extras/)，或浏览[Example Cluster.ymls示例]({{< baseurl >}}/rke/latest/en/example-yamls/)。
 
 ## 18、为什么在节点出现故障时重新调度pod需要5分钟以上？
 

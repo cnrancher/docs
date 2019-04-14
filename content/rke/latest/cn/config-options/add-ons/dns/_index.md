@@ -7,7 +7,7 @@ By default, RKE deploys [kube-dns](https://github.com/kubernetes/dns) as DNS pro
 
 RKE will deploy kube-dns as a Deployment with the default replica count of 1. The pod consists of 3 containers: `kubedns`, `dnsmasq` and `sidecar`. RKE will also deploy kube-dns-autoscaler as a Deployment, which will scale the kube-dns Deployment by using the number of cores and nodes. Please see [Linear Mode](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler#linear-mode) for more information about this logic.
 
-The images used for kube-dns are under the [`system_images` directive]({{< baseurl >}}/rke/v0.1.x/en/config-options/system-images/). For each Kubernetes version, there are default images associated with kube-dns, but these can be overridden by changing the image tag in `system_images`.
+The images used for kube-dns are under the [`system_images` directive]({{< baseurl >}}/rke/latest/cn/config-options/system-images/). For each Kubernetes version, there are default images associated with kube-dns, but these can be overridden by changing the image tag in `system_images`.
 
 ## Scheduling kube-dns
 

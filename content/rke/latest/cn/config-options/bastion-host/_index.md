@@ -1,9 +1,9 @@
 ---
-title: Bastion/Jump Host Configuration
-weight: 220
+title: 4 - 堡垒/跳板主配置
+weight: 4
 ---
 
-Since RKE uses `ssh` to connect to [nodes]({{< baseurl >}}/rke/v0.1.x/en/config-options/nodes/), you can configure to use a bastion host. Keep in mind that the [port requirements]({{< baseurl >}}/rke/v0.1.x/en/os/#ports) for the RKE node move to the configured bastion host.
+由于RKE使用`ssh`连接到节点，所以可以配置为使用堡垒/跳板主机。
 
 ```yaml
 bastion_host:
@@ -23,32 +23,32 @@ bastion_host:
     #   ssh-rsa-cert-v01@openssh.com AAAAHHNza...
 ```
 
-## Bastion Host Options
+## 堡垒主机选项
 
-### Address
+### Adddress
 
-The `address` directive will be used to set the hostname or IP address of the bastion host. RKE must be able to connect to this address.
+该`address`参数用于设置堡垒主机的主机名或IP地址,RKE必须能够连接到此地址。
 
 ### SSH Port
 
-You specify which `port` to be used when connecting to the bastion host. The default port is `22`.
+指定连接到堡垒主机时要使用的节点port。默认端口是22。
 
 ### SSH Users
 
-You specify the `user` to be used when connecting to this node.
+指定连接到堡垒主机时要使用的节点user。
 
 ### SSH Key Path
 
-You specify the path, i.e. `ssh_key_path`, for the SSH private key to be used when connecting to the bastion host.
+`ssh_key_path`,指定连接到堡垒主机时要使用的SSH私钥路径，每个节点的默认密钥路径是~/.ssh/id_rsa。
 
 ### SSH Key
 
-Instead of setting the path to the SSH key, you can specify the actual key, i.e. `ssh_key`, to be used to connect to the bastion host.
+相对`ssh_key_path`，`ssh_key`可以设置实际密钥内容，而不是设置SSH密钥文件的路径。
 
 ### SSH Certificate Path
 
-You specify the path, i.e. `ssh_cert_path`, for the signed SSH certificate to be used when connecting to the bastion host.
+连接到节点时要使用的已签名SSH证书，可以通过`ssh_cert_path`指定ssh_cert路径。
 
 ### SSH Certificate
 
-Instead of setting the path to the signed SSH certificate, you can specify the actual certificate, i.e. `ssh_cert`, to be used to connect to the bastion host.
+相对`ssh_cert_path`，`ssh_cert`可以指定实际证书内容，而不是设置签名SSH证书的路径。

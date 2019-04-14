@@ -66,7 +66,8 @@ weight: 2
 
 ### 方案 B: 手动创建快照
 
-当你即将升级Rancher或将其恢复到以前的快照时，你应该对数据手动创建快照，以便数据异常时可供恢复。
+>**警告** 1、在rke v0.2.0以前的版本，RKE将备份证书和配置文件到`pki.bundle.tar.gz`文件中，并保存在`/opt/rke/etcd-snapshots`目录中。通过v0.2.0之前的版本恢复系统时，需要快照和pki文件。\
+2、从rke v0.2.0开始，因为架构调整不再需要`pki.bundle.tar.gz`文件，当rke 创建集群后，会在配置文件当前目录下生成`xxxx.rkestate`文件，文件中保存了集群的配置信息和各组件使用的证书信息。
 
 **手动创建快照:**
 
@@ -74,7 +75,7 @@ weight: 2
 
 2. 输入以下命令:
 
-    >注意:替换`<SNAPSHOT.db>`为你喜欢的名称，例如:<SNAPSHOT.db>
+    >注意:替换`<SNAPSHOT.db>`为你设置的快照名称，例如:<SNAPSHOT.db>
 
     ```bash
     # MacOS
@@ -89,4 +90,7 @@ weight: 2
 
 在创建快照后，应该把它保存到安全的地方，以便在集群遇到灾难情况时快照不受影响，这个位置应该是持久的。
 
-复制`/opt/rke/etcd-snapshots`目录下所有文件到一个安全的位置。
+复制`/opt/rke/etcd-snapshots`目录下所有文件到安全位置。
+
+- 在rke v0.2.0以前的版本，备份`/opt/rke/etcd-snapshots`目录中的快照文件和`pki.bundle.tar.gz`文件，以及rke 配置文件到安全位置，通过v0.2.0之前的版本恢复系统时，需要这些文件。
+- 在rke v0.2.0以及以后的版本，备份`/opt/rke/etcd-snapshots`目录中的快照文件和rke配置文件，以及配置文件当前目录下的`xxxx.rkestate`文件，通过v0.2.0之后版本恢复系统时，需要这些文件。

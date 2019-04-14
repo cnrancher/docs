@@ -1,14 +1,14 @@
 ---
-title: Authorization
-weight: 240
+title: 9 - RBAC授权
+weight: 9
 ---
 
-Kubernetes supports multiple [Authorization Modules](https://kubernetes.io/docs/reference/access-authn-authz/authorization/#authorization-modules). Currently, RKE only supports the [RBAC module](https://kubernetes.io/docs/reference/access-authn-authz/rbac/).
+Kubernetes支持多个[授权模块](https://kubernetes.io/docs/reference/access-authn-authz/authorization/#authorization-modules)。目前，RKE仅支持RBAC模块。
 
-By default, RBAC is already enabled. If you wanted to turn off RBAC support, **which isn't recommended**, you set the authorization mode to `none`.
+默认情况下，RBAC已启用。如果要关闭RBAC（不建议关闭），请将授权模式设置为`none`。
 
 ```yaml
 authorization:
-    # Use `mode: none` to disable authorization
+    # 设置`mode: none`禁用rbac认证
     mode: rbac
 ```

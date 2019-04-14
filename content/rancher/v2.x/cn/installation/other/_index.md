@@ -11,7 +11,20 @@ Chart地址: https://github.com/xiaoluhong/server-chart.git
 
 ## 一、制作自签名证书或重命名权威认证证书
 
-- 仓库根目录有一键创建自签名证书脚本，会自动创建`cacerts.pem`、`tls.key`、`tls.crt`。
+- 仓库根目录有一键创建自签名证书脚本，会自动创建`cacerts.pem`、`tls.key`、`tls.crt`；
+
+```bash
+脚本说明:
+--domain: 生成ssl证书需要的主域名，如不指定则默认为localhost，如果是ip访问服务，则可忽略；
+--trusted-ip: 一般ssl证书只信任域名的访问请求，有时候需要使用ip去访问server，那么需要给ssl证书添加扩展IP，多个IP用逗号隔开；
+--trusted-domain: 如果想多个域名访问，则添加扩展域名（SSL_DNS）,多个SSL_DNS用逗号隔开；
+--ssl-size: ssl加密位数，默认2048；
+--ssl-date: ssl有效期，默认10年；
+--ca-date: ca有效期，默认10年；
+使用示例:
+./create_self-signed-cert.sh --domain=www.test.com --trusted-ip=1.1.1.1,2.2.2.2,3.3.3.3 --ssl-size=2048 --ssl-date=3650
+```
+
 - 如果使用权威认证证书，需要重命名crt和key为`tls.crt`和`tls.key`。
 
 ## 二、部署架构
@@ -27,7 +40,7 @@ Chart地址: https://github.com/xiaoluhong/server-chart.git
 ```bash
 # 指定kubeconfig配置文件路径
 kubeconfig=xxx
-# 创建 cattle-system
+# 创建cattle-system命名空间
 kubectl --kubeconfig=$kubeconfig create namespace cattle-system
 # 创建ssl证书密文
 kubectl --kubeconfig=$kubeconfig -n cattle-system create \
@@ -77,7 +90,7 @@ helm install  --kubeconfig=kube_config_xxx.yml \
 ```bash
 # 指定kubeconfig配置文件路径
 kubeconfig=xxx
-# 创建 cattle-system
+# 创建cattle-system命名空间
 kubectl --kubeconfig=$kubeconfig create namespace cattle-system
 # 创建ssl证书密文
 kubectl --kubeconfig=$kubeconfig -n cattle-system create \
@@ -125,14 +138,14 @@ helm install  --kubeconfig=kube_config_xxx.yml \
 
 有的场景，外部有七层负载均衡器作为ssl终止，常见用法是把负载均衡器的`443`端口代理到内部应用的`非https端口上，比如80`。为了保证网络转发性能，这里禁用了内置的ingress服务，以`NodePort方式`把rancher server容器的`80`端口映射到宿主机`30303`端口上。外部七层负载均衡器再把`443`端口反向代理到Rancher的NodePort端口上,请求流量将转发到rancher server容器的`80`端口。
 
-- 把服务证书放在外部负载均衡器上，比如nginx.nginx配置参考: [NGIN示例配置]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/rke-ha-install/https-l7/nginx/#1-创建nginx配置)
+- 把服务证书放在外部负载均衡器上，比如nginx。配置参考: [NGIN配置示例]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/rke-ha-install/https-l7/nginx/#1-创建nginx配置)
 
 - 把CA证书作为密文导入K8S
 
 ```bash
 # 指定kubeconfig配置文件路径
 kubeconfig=xxx
-# 创建 cattle-system
+# 创建cattle-system命名空间
 kubectl --kubeconfig=$kubeconfig create namespace cattle-system
 # 创建ssl证书密文
 kubectl --kubeconfig=$kubeconfig -n cattle-system create \

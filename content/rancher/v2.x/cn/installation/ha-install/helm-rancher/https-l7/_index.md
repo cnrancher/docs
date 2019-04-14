@@ -148,7 +148,7 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全。
 
 1. 如果没有自签名ssl证书，可以参考[自签名ssl证书]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/self-signed-ssl/#四-生成自签名证书)，一键生成ssl证书；
 
-1. 一键生成ssl自签名证书脚本将自动生成`tls.crt、tls.key、cacerts.pem`三个文件，如果使用你自己的自签名ssl证书，则需要将`服务证书`和`CA中间证书链`合并到`tls.crt`,将`私钥`复制到或者重命名为`tls.key`，将`CA证书`复制到或者重命名为`cacerts.pem`。
+1. 一键生成ssl自签名证书脚本将自动生成`tls.crt、tls.key、cacerts.pem`三个文件，文件名称不能修改。如果使用你自己生成的自签名ssl证书，则需要将`服务证书`和`CA中间证书链`合并到`tls.crt`文件中,将`私钥`复制到或者重命名为`tls.key`文件，将`CA证书`复制到或者重命名为`cacerts.pem`。
 
 1. 根据[配置负载均衡器](#二-配置负载均衡器-以nginx为例)配置`服务证书`和`私钥`；
 

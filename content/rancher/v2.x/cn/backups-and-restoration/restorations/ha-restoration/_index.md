@@ -5,7 +5,7 @@ weight: 2
 
 ## 一、 恢复准备
 
-1、需要在进行操作的主机上提前[安装RKE]({{< baseurl >}}/rke/v0.1.x/en/installation/)([RKE下载]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/download/#rancher-rke))和[kubectl]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/kubectl/)。 \
+1、需要在进行操作的主机上提前[安装RKE]({{< baseurl >}}/rke/latest/en/installation/)([RKE下载]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/download/#rancher-rke))和[kubectl]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/kubectl/)。 \
 2、在开始还原之前，请确保已停止旧集群节点上的所有kubernetes服务。 \
 3、建议创建三个全新节点作为集群恢复的目标节点。有关节点要求，请参阅[HA安装]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/)。您也可以使用现有节点，清除Kubernetes和Rancher配置，`这将破坏这些节点上的数据请做好备份`，点击了解[节点初始化]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/remove-node/)。
 
@@ -25,11 +25,10 @@ weight: 2
     mkdir -p /opt/rke/etcd-snapshots/
     ```
 
-1. 复制备份的`最新快照`和`pki.bundle.tar.gz`文件到`全新ETCD节点`的`/opt/rke/etcd-snapshots/`目录下:
+1. 复制备份的`最新快照`到/opt/rke/etcd-snapshots/目录
 
-    ```bash
-    cp $PWD/<SNAPSHOT.db> $PWD/pki.bundle.tar.gz /opt/rke/etcd-snapshots/<SNAPSHOT.db>
-    ```
+  - 如果是通过`rke0.2之前的版本`做的备份，需要拷贝`pki.bundle.tar.gz`到`/opt/rke/etcd-snapshots/`目录下；
+  - 如果是使用`rke0.2以及之后的版本`做的备份，拷贝`xxx..rkestate`文件到rke 配置文件的当前目录下；
 
 ## 三、设置RKE配置文件
 

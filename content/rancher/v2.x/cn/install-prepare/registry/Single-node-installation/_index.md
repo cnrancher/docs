@@ -247,7 +247,7 @@ Harbor不附带任何证书，默认情况下使用HTTP来处理请求。虽然�
 
   `sudo docker-compose down -v`
 
-- 删除Harbor的数据库和图像数据(用于干净的重新安装)
+- 删除Harbor的数据库和镜像数据(用于干净的重新安装)
 
   ```bash
   rm -r /data/database

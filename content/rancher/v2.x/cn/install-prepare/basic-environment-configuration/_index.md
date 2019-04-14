@@ -71,6 +71,8 @@ EOF
 
 ### 8、内核模块
 
+>**警告** 如果要使用ceph存储相关功能，需保证worker节点加载`RBD模块`
+
 以下模块需要在主机上加载
 
 | 模块名称               |
@@ -108,7 +110,7 @@ EOF
 | xt_tcpudp              |
 
 >模块查询: lsmod | grep <模块名> \
-模块加载: modprobe <模块名>
+模块加载: modprobe <模块名>\
 
 ### 9、ETCD集群容错表
 
@@ -158,24 +160,25 @@ EOF
 
     ```bash
     # 定义安装版本
-    export docker_version=17.03.2
+    export docker_version=18.06.3;
     # step 1: 安装必要的一些系统工具
-    sudo apt-get update
+    sudo apt-get remove docker docker-engine docker.io containerd runc -y;
+    sudo apt-get update;
     sudo apt-get -y install apt-transport-https ca-certificates \
-        curl software-properties-common bash-completion
+        curl software-properties-common bash-completion  gnupg-agent;
     # step 2: 安装GPG证书
     sudo curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | \
-        sudo apt-key add -
+        sudo apt-key add -;
     # Step 3: 写入软件源信息
     sudo add-apt-repository "deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu \
-        $(lsb_release -cs) stable"
+        $(lsb_release -cs) stable";
     # Step 4: 更新并安装 Docker-CE
-    sudo apt-get -y update
-    version=$(apt-cache madison docker-ce|grep ${docker_version}|awk '{print $3}')
+    sudo apt-get -y update;
+    version=$(apt-cache madison docker-ce|grep ${docker_version}|awk '{print $3}');
     # --allow-downgrades 允许降级安装
-    sudo apt-get -y install docker-ce=${version} --allow-downgrades
+    sudo apt-get -y install docker-ce=${version} --allow-downgrades;
     # 设置开机启动
-    sudo systemctl enable docker
+    sudo systemctl enable docker;
     ```
 
     **Docker-engine**
@@ -208,22 +211,27 @@ EOF
                   docker-engine \
                   container*
     # 定义安装版本
-    export docker_version=17.03.2
+    export docker_version=18.06.3
     # step 1: 安装必要的一些系统工具
-    sudo yum update -y
-    sudo yum install -y yum-utils device-mapper-persistent-data lvm2 bash-completion
+    sudo yum remove docker docker-client docker-client-latest \
+        docker-common docker-latest docker-latest-logrotate \
+        docker-logrotate docker-engine -y;
+    sudo yum update -y;
+    sudo yum install -y yum-utils device-mapper-persistent-data \
+        lvm2 bash-completion;
     # Step 2: 添加软件源信息
-    sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+    sudo yum-config-manager --add-repo \
+        http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo;
     # Step 3: 更新并安装 Docker-CE
-    sudo yum makecache all
-    version=$(yum list docker-ce.x86_64 --showduplicates | sort -r|grep ${docker_version}|awk '{print $2}')
-    sudo yum -y install --setopt=obsoletes=0 docker-ce-${version} docker-ce-selinux-${version}
+    sudo yum makecache all;
+    version=$(yum list docker-ce.x86_64 --showduplicates | sort -r|grep ${docker_version}|awk '{print $2}');
+    sudo yum -y install --setopt=obsoletes=0 docker-ce-${version} docker-ce-selinux-${version};
     # 如果已经安装高版本Docker,可进行降级安装(可选)
-    yum downgrade --setopt=obsoletes=0 -y docker-ce-${version} docker-ce-selinux-${version}
+    yum downgrade --setopt=obsoletes=0 -y docker-ce-${version} docker-ce-selinux-${version};
     # 把当前用户加入docker组
-    sudo usermod -aG docker `<new_user>`
+    sudo usermod -aG docker `<new_user>`;
     # 设置开机启动
-    sudo systemctl enable docker
+    sudo systemctl enable docker;
     ```
 
     **Docker-engine**
@@ -321,8 +329,10 @@ OverlayFS是一个新一代的联合文件系统，类似于AUFS，但速度更�
 Ubuntu\Debian系统下，默认cgroups未开启swap account功能，这样会导致设置容器内存或者swap资源限制不生效。可以通过以下命令解决:
 
 ```bash
-sudo sed -i 's/GRUB_CMDLINE_LINUX="/GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1  /g'  /etc/default/grub
-sudo update-grub
+# 统一网卡名称为ethx
+sudo sed -i 's/en[[:alnum:]]*/eth0/g' /etc/network/interfaces;
+sudo sed -i 's/GRUB_CMDLINE_LINUX="\(.*\)"/GRUB_CMDLINE_LINUX="net.ifnames=0 cgroup_enable=memory swapaccount=1 biosdevname=0 \1"/g' /etc/default/grub;
+sudo update-grub;
 ```
 
 > **注意** 通过以上命令可自动配置参数，如果`/etc/default/grub`非默认配置，需根据实际参数做调整。

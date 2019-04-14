@@ -1,16 +1,13 @@
 ---
-title: System Images
-weight: 225
+title: 5 - 系统镜像
+weight: 5
 ---
-When RKE is deploying Kubernetes, there are several images that are pulled. These images are used as Kubernetes system components as well as helping to deploy these system components.  
 
-As of `v0.1.6`, the functionality of a couple of the system images were consolidated into a single `rancher/rke-tools` image to simplify and speed the deployment process.
+从`v0.1.6`之前，当RKE部署Kubernetes时，会提取几个镜像，这些镜像用作Kubernetes系统组件。从`v0.1.6`开始，几个系统镜像的功能合并到一个`rancher/rke-tools`镜像中，以简化和加快部署过程。
 
-You can configure the [network plug-ins]({{< baseurl >}}/rke/v0.1.x/en/config-options/add-ons/network-plugins/), [ingress controller]({{< baseurl >}}/rke/v0.1.x/en/config-options/add-ons/ingress-controllers/) and [dns provider]({{< baseurl >}}/rke/v0.1.x/en/config-options/add-ons/dns/) as well as the options for these add-ons separately.
+您可以分别配置[network plug-ins]({{< baseurl >}}/rke/latest/cn/config-options/add-ons/network-plugins/), [ingress controller]({{< baseurl >}}/rke/latest/cn/config-options/add-ons/ingress-controllers/)和[dns provider]({{< baseurl >}}/rke/latest/cn/config-options/add-ons/dns/)以及这些插件的设置选项。这是用于通过RKE部署Kubernetes的完整系统镜像列表的示例，镜像版本依赖于所使用的[Kubernetes image/version](https://github.com/rancher/types/blob/master/apis/management.cattle.io/v3/k8s_defaults.go)
 
-This is the example of the full list of system images used to deploy Kubernetes through RKE. The image tags are dependent on the [Kubernetes image/version used](https://github.com/rancher/types/blob/master/apis/management.cattle.io/v3/k8s_defaults.go).
-
-> **Note:** As versions of RKE are released, the tags on these images will no longer be up to date. This list is specific for `v1.10.3-rancher2`.
+> **Note:** 随着RKE版本的发布，这些镜像上的标签将不再是最新的。此列表是特定`v1.10.3-rancher2`版本。
 
 ```yaml
 system_images:
@@ -59,7 +56,7 @@ system_images:
   metrics_server: rancher/metrics-server-amd64:v0.3.1
 ```
 
-Prior to `v0.1.6`, instead of using the `rancher/rke-tools` image, we used the following images:
+在`v0.1.6`之前，我们使用以下镜像代替`rancher/rke-tools`镜像：
 
 ```yaml
 system_images:
@@ -68,7 +65,3 @@ system_images:
     cert_downloader: rancher/rke-cert-deployer:v0.1.1
     kubernetes_services_sidecar: rancher/rke-service-sidekick:v0.1.0
 ```
-
-### Air-gapped Setups
-
-If you have an air-gapped setup and cannot access `docker.io`, you will need to set up your [private registry]({{< baseurl >}}/rke/v0.1.x/en/config-options/private-registries/) in your cluster configuration file. After you set up private registry, you will need to update these images to pull from your private registry.

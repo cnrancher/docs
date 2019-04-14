@@ -1,11 +1,11 @@
 ---
-title: Kubernetes Default Services
-weight: 230
+title: 6 - Kubernetes Services
+weight: 6
 ---
 
-To deploy Kubernetes, RKE deploys several core components or services in Docker containers on the nodes. Based on the roles of the node, the containers deployed may be different.
+部署Kubernetes, RKE在节点上以Docker容器方式部署几个核心组件或服务，根据节点的角色，部署的容器不同。
 
-**All services support additional [custom arguments, Docker mount binds and extra environment variables]({{< baseurl >}}/rke/v0.1.x/en/config-options/services/services-extras/).**
+**所有服务都支持额外的[自定义参数、Docker卷和额外的环境变量]({{< baseurl >}}/rke/latest/cn/config-options/services/services-extras/).**
 
 ## etcd
 
@@ -13,9 +13,9 @@ Kubernetes uses [etcd](https://github.com/coreos/etcd/blob/master/Documentation/
 
 RKE supports running etcd in a single node mode or in HA cluster mode. It also supports adding and removing etcd nodes to the cluster.
 
-You can enable etcd to [take recurring snapshots]({{< baseurl >}}/rke/v0.1.x/en/etcd-snapshots/#recurring-snapshots). These snapshots can be used to [restore etcd]({{< baseurl >}}/rke/v0.1.x/en/etcd-snapshots/#etcd-disaster-recovery). 
+You can enable etcd to [take recurring snapshots]({{< baseurl >}}/rke/latest/cn/etcd-snapshots/#recurring-snapshots). These snapshots can be used to [restore etcd]({{< baseurl >}}/rke/latest/cn/etcd-snapshots/#etcd-disaster-recovery). 
 
-By default, RKE will deploy a new etcd service, but you can also run Kubernetes with an [external etcd service]({{< baseurl >}}/rke/v0.1.x/en/config-options/services/external-etcd/).
+By default, RKE will deploy a new etcd service, but you can also run Kubernetes with an [external etcd service]({{< baseurl >}}/rke/latest/cn/config-options/services/external-etcd/).
 
 ## Kubernetes API Server
 
@@ -65,7 +65,7 @@ services:
 
 ### Kubernetes Controller Manager Options
 
-RKE support the following options for the `kube-controller` service:
+RKE supports the following options for the `kube-controller` service:
 
 - **Cluster CIDR** (`cluster_cidr`) - The CIDR pool used to assign IP addresses to pods in the cluster. By default, each node in the cluster is assigned a `/24` network from this pool for pod IP assignments. The default value for this option is `10.42.0.0/16`.
 - **Service Cluster IP Range** (`service_cluster_ip_range`) - This is the virtual IP address that will be assigned to services created on Kubernetes. By default, the service cluster IP range is `10.43.0.0/16`. If you change this value, then it must also be set with the same value on the Kubernetes API server (`kube-api`).

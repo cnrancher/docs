@@ -9,9 +9,9 @@ weight: 6
 
 ## 生成证书签名请求(CSRs)和密钥
 
-如果希望使用权威CA机构颁发的证书，可以使用RKE[生成证书签名请求(CSRs)文件和密钥]({{< baseurl >}}/rke/v0.1.x/en/installation/certs/#generating-certificate-signing-requests-csrs-and-keys).
+如果希望使用权威CA机构颁发的证书，可以使用RKE[生成证书签名请求(CSRs)文件和密钥]({{< baseurl >}}/rke/latest/cn/installation/certs/#generating-certificate-signing-requests-csrs-and-keys).
 
-您可以把`证书签名请求(CSRs)文件和密钥`交给权威CA机构进行签名颁发证书。在证书签名之后，RKE可以通过[自定义证书]({{< baseurl >}}/rke/v0.1.x/en/installation/certs/) 功能来使用这些证书。
+您可以把`证书签名请求(CSRs)文件和密钥`交给权威CA机构进行签名颁发证书。在证书签名之后，RKE可以通过[自定义证书]({{< baseurl >}}/rke/latest/cn/installation/certs/) 功能来使用这些证书。
 
 ## 证书轮换
 

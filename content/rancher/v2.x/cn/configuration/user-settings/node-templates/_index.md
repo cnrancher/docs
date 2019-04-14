@@ -3,7 +3,7 @@ title: 2 - 主机模板
 weight: 2
 ---
 
-配置[由基础架构提供程序托管](https://rancher.com/docs/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools)的集群时，将使用`主机模板`来配置集群主机。这些模板使用`Docker Machine`配置选项来定义主机的`操作系统映像和设置/参数`。
+配置[由基础架构提供程序托管](https://rancher.com/docs/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools)的集群时，将使用`主机模板`来配置集群主机。这些模板使用`Docker Machine`配置选项来定义主机的`操作系统镜像和设置/参数`。
 
 创建主机模板时，它将绑定到您的用户配置文件。主机模板不能在用户之间共享。您可以从用户设置中删除不再使用的陈旧主机模板。
 

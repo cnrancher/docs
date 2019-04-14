@@ -10,15 +10,15 @@ RKE集群可以设置成自动创建etcd快照，在灾难发生时可以通过�
 
 > v0.2.0版本可用
 
-RKE还可以将快照上传到S3兼容的后端。此外,**pki.bundle.tar.gz**文件不再需要，因为v0.2.0使用[存储Kubernetes集群状态]({{< baseurl >}}/rke/v0.1.x/en/installation/#kubernetes-cluster-state)保存证书。
+RKE还可以将快照上传到S3兼容的后端。此外,**pki.bundle.tar.gz**文件不再需要，因为v0.2.0使用[存储Kubernetes集群状态]({{< baseurl >}}/rke/latest/cn/installation/#kubernetes-cluster-state)保存证书。
 
-## 一次性快照
+## 一、动手创建快照
 
 `rke etcd snapshot-save`命令将从集群中的每个etcd节点保存etcd快照，快照保存在`/opt/rke/etcd-snapshots`中。运行该命令时，将创建一个附加容器来获取快照。快照完成后，容器将自动删除。
 
 在v0.2.0之前，RKE保存了证书的备份，名为`pki.bundle.tar.gz`，也保存在`/opt/rke/etcd-snapshots`中。在v0.2.0之前的版本中，系统恢复需要快照和`pki包`文件。
 
-### rke etcd snapshot-save 命令选项
+### 1、rke etcd snapshot-save 命令选项
 
 | 选项 | 描述 | S3特有 |
 | --- | --- | --- |
@@ -30,10 +30,10 @@ RKE还可以将快照上传到S3兼容的后端。此外,**pki.bundle.tar.gz**�
 |   `--secret-key` value   |    指定s3 secretKey |  * |
 |   `--bucket-name` value  |    指定s3 bucket name |   * |
 |   `--region` value       |    指定s3 bucket位置 (可选) |   * |
-|   `--ssh-agent-auth`      |   [使用SSH Agent认证]({{< baseurl >}}/rke/v0.1.x/en/config-options/#ssh-agent) | |
-|   `--ignore-docker-version`  | [禁止Docker版本检查]({{< baseurl >}}/rke/v0.1.x/en/config-options/#supported-docker-versions) | |
+|   `--ssh-agent-auth`      |   [使用SSH Agent认证]({{< baseurl >}}/rke/latest/cn/config-options/#ssh-agent) | |
+|   `--ignore-docker-version`  | [禁止Docker版本检查]({{< baseurl >}}/rke/latest/cn/config-options/#supported-docker-versions) | |
 
-### 本地一次性快照示例
+### 2、本地手动快照示例
 
 ```bash
 rke etcd snapshot-save --config <cluster.yml> --name <snapshot-name>
@@ -41,7 +41,7 @@ rke etcd snapshot-save --config <cluster.yml> --name <snapshot-name>
 
 快照将保存在:  `/opt/rke/etcd-snapshots`
 
-### 一次性快照上传到S3示例
+### 3、手动快照上传到S3示例
 
 > v0.2.0版本可用
 
@@ -53,13 +53,11 @@ rke etcd snapshot-save --config cluster.yml --name <snapshot-name>  \
 
 快照将保存在:`/opt/rke/etcd-snapshots`，同时也将上传到S3。
 
-## 自动定时快照
+## 二、自动定时快照
 
-To schedule automatic recurring etcd snapshots, you can enable the `etcd-snapshot` service with [extra configuration options the etcd service](#options-for-the-etcd-snapshot-service). `etcd-snapshot` runs in a service container alongside the `etcd` container. By default, the `etcd-snapshot` service takes a snapshot for every node that has the `etcd` role and stores them to local disk in `/opt/rke/etcd-snapshots`. If you set up the [options for S3](#options-for-the-etcd-snapshot-service), the snapshot will also be uploaded to the S3 backend.
+需要使用额外的配置选项启用etcd-snapshot服务，默认情况下，etcd-snapshot服务为具有`etcd角色`的每个节点获取快照，并将它们存储到本地磁盘`/opt/rke/etcd-snapshot`目录中。如果有配置S3相关参数，快照也将被上传到S3存储后端。
 
-Prior to v0.2.0, along with the snapshots, RKE saves a backup of the certificates, i.e. a file named `pki.bundle.tar.gz`, in the same location. The snapshot and pki bundle file are required for the restore process in versions prior to v0.2.0.
-
-When a cluster is launched with the `etcd-snapshot` service enabled, you can view the `etcd-rolling-snapshots` logs to confirm backups are being created automatically.
+当集群启用了`etcd-snapshot`服务时，可以查看`etcd-roll-snapshot`容器日志，以确认是否自动创建备份。
 
 ```bash
 docker logs etcd-rolling-snapshots
@@ -71,59 +69,57 @@ time="2018-05-04T18:42:16Z" level=info msg="Created backup" name="2018-05-04T18:
 time="2018-05-04T18:43:16Z" level=info msg="Created backup" name="2018-05-04T18:43:16Z_etcd" runtime=86.298499ms
 ```
 
-### Etcd快照服务选项
+### 1、Etcd快照服务选项
 
 根据您的RKE版本，用于配置自动定时快照的选项可能有所不同。
 
-> v0.2.0版本可用
+- v0.2.0版本
 
-|选项|描述| S3特有 |
-|---|---| --- |
-|**interval_hours**| The duration in hours between recurring backups.  This supercedes the `creation` option and will override it if both are specified.| |
-|**retention**| The number of snapshots to retain before rotation. This supercedes the `retention` option and will override it if both are specified.| |
-|**bucket_name**| S3 bucket name where backups will be stored| * |
-|**access_key**| S3 access key with permission to access the backup bucket.| * |
-|**secret_key** |S3 secret key with permission to access the backup bucket.| * |
-|**region** |S3 region for the backup bucket. This is optional.| * |
-|**endpoint** |S3 regions endpoint for the backup bucket.| * |
+    |选项|描述| S3特有 |
+    |---|---| --- |
+    |**interval_hours**| 重复备份之间的持续时间（以小时为单位）。该参数取代了`creation`参数，如果同时设置`creation`选项，`creation`设置将被覆盖。| |
+    |**retention**| 备份轮换前要保留的快照数。该参数取代了`retention`参数，并且如果如果同时设置两个参数，`retention`参数将被覆盖。| |
+    |**bucket_name**| S3存储`bucket`名称| * |
+    |**access_key**| S3 access key | * |
+    |**secret_key** |S3 secret key | * |
+    |**region** |S3 region  可选| * |
+    |**endpoint** |S3 regions endpoint | * |
 
-```yaml
-services:
-  etcd:
-    backup_config:
-      interval_hours: 12
-      retention: 6
-      s3backupconfig:
-        access_key: S3_ACCESS_KEY
-        secret_key: S3_SECRET_KEY
-        bucket_name: s3-bucket-name
-        region: ""
-        endpoint: s3.amazonaws.com
-```
+    ```yaml
+    services:
+      etcd:
+        backup_config:
+          interval_hours: 12
+          retention: 6
+          s3backupconfig:
+            access_key: S3_ACCESS_KEY
+            secret_key: S3_SECRET_KEY
+            bucket_name: s3-bucket-name
+            region: ""
+            endpoint: s3.amazonaws.com
+    ```
 
-#### v0.2.0之前
+- v0.2.0之前
 
-|选项|描述|
-|---|---|
-|**Snapshot**|By default, the recurring snapshot service is disabled. To enable the service, you need to define it as part of `etcd` and set it to `true`.|
-|**Creation**|By default, the snapshot service will take snapshots every 5 minutes (`5m0s`). You can change the time between snapshots as part of the `creation` directive for the `etcd` service.|
-|**Retention**|By default, all snapshots are saved for 24 hours (`24h`) before being deleted and purged. You can change how long to store a snapshot as part of the `retention` directive for the `etcd` service.|
+    |选项|描述|
+    |---|---|
+    |**Snapshot**|默认情况下，禁用定时快照服务。要启用该服务，需要在`etcd服务`中将其设置为`true`。|
+    |**Creation**|默认情况下，快照服务将每隔5分钟创建一次（5m0s）。|
+    |**Retention**|默认情况下，所有快照保留24小时。|
 
-```yaml
-services:
-    etcd:
-      snapshot: true
-      creation: 5m0s
-      retention: 24h
-```
+    ```yaml
+    services:
+        etcd:
+          snapshot: true
+          creation: 5m0s
+          retention: 24h
+    ```
 
-## Etcd灾难恢复
+## 三、Etcd灾难恢复
 
-If there is a disaster with your Kubernetes cluster, you can use `rke etcd snapshot-restore` to recover your etcd. This command reverts etcd to a specific snapshot. RKE also removes the old `etcd` container before creating a new `etcd` cluster using the snapshot that you have chosen.
+>**Warning:** 恢复etcd快照会删除当前的etcd集群并将其替换为新集群。在运行该`rke etcd snapshot-restore`命令之前，应备份群集中的所有重要数据。
 
->**Warning:** Restoring an etcd snapshot deletes your current etcd cluster and replaces it with a new one. Before you run the `rke etcd snapshot-restore` command, you should back up any important data in your cluster.
-
-### `rke etcd snapshot-restore`选项
+### 1、`rke etcd snapshot-restore`选项
 
 | Option | Description | S3 Specific |
 | --- | --- | ---|
@@ -135,18 +131,18 @@ If there is a disaster with your Kubernetes cluster, you can use `rke etcd snaps
 | `--secret-key` value      |  指定 s3 secretKey | *|
 | `--bucket-name` value     |  指定 s3 bucket name | *|
 | `--region` value          |  指定s3 bucket位置 (可选) | *|
-| `--ssh-agent-auth`      |   [使用SSH Agent认证]({{< baseurl >}}/rke/v0.1.x/en/config-options/#ssh-agent) | |
-| `--ignore-docker-version`  | [禁止Docker版本检查]({{< baseurl >}}/rke/v0.1.x/en/config-options/#supported-docker-versions) |
+| `--ssh-agent-auth`      |   [使用SSH Agent认证]({{< baseurl >}}/rke/latest/cn/config-options/#ssh-agent) | |
+| `--ignore-docker-version`  | [禁止Docker版本检查]({{< baseurl >}}/rke/latest/cn/config-options/#supported-docker-versions) |
 
-### 从本地快照还原示例
+### 2、从本地快照还原示例
 
-当从本地快照恢复etcd时，假设快照位于`/opt/rke/etcd-snapshots`中。在rke v0.2.0之前的版本中，`pki.bundle.tar.gz`文件也应该在相同的位置, 从v0.2.0开始，不再需要这个文件，因为v0.2.0改变了[Kubernetes集群状态的存储方式]({{< baseurl >}}/rke/v0.1.x/en/installation/# Kubernetes -cluster-state)。
+当从本地快照恢复etcd时，假设快照位于`/opt/rke/etcd-snapshots`中。在rke v0.2.0之前的版本中，`pki.bundle.tar.gz`文件也应该在相同的位置, 从v0.2.0开始，不再需要这个文件，因为v0.2.0改变了[Kubernetes集群状态的存储方式]({{< baseurl >}}/rke/latest/cn/installation/# Kubernetes -cluster-state)。
 
 ```bash
 rke etcd snapshot-restore --config cluster.yml --name mysnapshot
 ```
 
-### 从S3中还原快照示例
+### 3、从S3中还原快照示例
 
 > v0.2.0版本可用
 
@@ -158,7 +154,7 @@ rke etcd snapshot-restore --config cluster.yml --name snapshot-name \
 --bucket-name s3-bucket-name --s3-endpoint s3.amazonaws.com
 ```
 
-## 示例
+## 4️、示例
 
 在本例中，Kubernetes集群部署在两个AWS节点上。
 
@@ -167,7 +163,7 @@ rke etcd snapshot-restore --config cluster.yml --name snapshot-name \
 | node1 | 10.0.0.1 | [controlplane, worker] |
 | node2 | 10.0.0.2 | [etcd]                 |
 
-### 备份`etcd`集群
+### 1、备份`etcd`集群
 
 以Kubernetes集群的本地快照为例。从v0.2.0开始，您还可以使用[S3选项](#options-for-rke-etcd-snapshot-save)将此快照直接上传到S3后端。
 
@@ -177,7 +173,7 @@ rke etcd snapshot-save --name snapshot.db --config cluster.yml
 
 ![etcd snapshot]({{< baseurl >}}/img/rke/rke-etcd-backup.png)
 
-### 将快照存储在S3
+### 2、将快照存储在S3
 
 从v0.2.0开始，不再需要这个步骤，因为RKE在运行`rke etcd snapshot-save`命令时，可以通过添加[S3选项](#options-for- RKE -etcd-snapshot-save)自动从S3上传和下载快照。
 
@@ -191,7 +187,7 @@ root@node2:~# s3cmd mb s3://rke-etcd-backup
 root@node2:~# s3cmd /opt/rke/etcd-snapshots/snapshot.db /opt/rke/etcd-snapshots/pki.bundle.tar.gz s3://rke-etcd-backup/
 ```
 
-### 将备份放在新节点上
+### 3、将备份放在新节点上
 
 为了模拟失败场景，我们关闭`node2`。
 
@@ -217,7 +213,7 @@ root@node3:~# s3cmd get s3://rke-etcd-backup/snapshot.db /opt/rke/etcd-snapshots
 root@node3:~# s3cmd get s3://rke-etcd-backup/pki.bundle.tar.gz /opt/rke/etcd-snapshots/pki.bundle.tar.gz
 ```
 
-### 通过备份恢复etcd到新节点上
+### 4、通过备份恢复etcd到新节点上
 
 在更新和恢复etcd之前，您需要编辑`cluster.yml`配置文件，添加新节点并设置为`etcd`角色，注释掉所有旧节点。
 
@@ -267,7 +263,7 @@ nginx-65899c769f-pc45c   1/1       Running   0          17s
 nginx-65899c769f-qkhml   1/1       Running   0          17s
 ```
 
-## 故障排除
+## 五、故障排除
 
 从**v0.1.9**开始，在恢复成功和失败时都会删除**rke-bundle-cert**容器。要调试任何问题，您需要查看从rke生成的**日志文件**。
 

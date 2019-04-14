@@ -8,7 +8,7 @@ weight: 1
 1.  Docker v1.13+
 1.  Kubernetes v1.8 - v1.12
     1. 支持Kubernetes v1.13 (开发中)
-1.  确保已在Kubernetes集群的所有节点中安装了open-iscsi。对于GKE，推荐Ubuntu作为客户操作系统映像，因为它已包含open-iscsi。
+1.  确保已在Kubernetes集群的所有节点中安装了open-iscsi。对于GKE，推荐Ubuntu作为客户操作系统镜像，因为它已包含open-iscsi。
     1. 对于 Debian/Ubuntu系统, 使用 `apt-get install open-iscsi` 安装.
     1. 对于 RHEL/CentOS系统, 使用 `yum install iscsi-initiator-utils` 安装.
 

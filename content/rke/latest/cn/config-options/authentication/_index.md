@@ -1,9 +1,11 @@
 ---
-title: Authentication
-weight: 235
+title: 8 - 认证
+weight: 8
 ---
 
-RKE supports x509 authentication strategy. You can additionally define a list of SANs (Subject Alternative Names) to add to the Kubernetes API Server PKI certificates. As an example, this allows you to connect to your Kubernetes cluster API Server through a load balancer instead of a single node.
+RKE支持x509身份验证策略，您可以定义要添加到Kubernetes API服务器PKI证书的SAN列表（备用域名或者ip）。
+
+> 例如，这允许您通过负载均衡器而不是单个节点连接到Kubernetes集群API服务器。
 
 ```yaml
 authentication:
@@ -13,7 +15,7 @@ authentication:
       - "my-loadbalancer-1234567890.us-west-2.elb.amazonaws.com"
 ```
 
-RKE also supports the webhook authentication strategy. You can enable both x509 and webhook strategies by using a `|` separator in the configuration. Contents of the webhook config file should be provided, see [Kubernetes webhook documentation](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) for information on the file format. Additionally, a cache timeout for webhook authentication responses can be set.
+RKE也支持webhook身份验证策略，您可以通过`|`在配置中使用`分隔符`来启用`x509和webhook策略`。应提供webhook配置文件的内容，有关文件格式的信息，请参阅[Kubernetes webhook文档](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) 。此外，可以设置webhook身份验证响应的缓存超时。
 
 ```yaml
 authentication:
