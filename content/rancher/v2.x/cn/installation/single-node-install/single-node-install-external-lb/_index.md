@@ -22,7 +22,7 @@ weight: 1
 
 ### 方案A-使用你自己生成的自签名证书
 
-采用外部七层负载均衡器来做代理，那么只需要把证书放在外部七层负载均衡器上，如果是自签名证书，则需要把CA文件映射到rancher server容器中。
+采用外部七层负载均衡器来做代理，那么只需要把证书放在外部七层负载均衡器上，如果是自签名证书，则需要把CA文件映射到rancher server容器中，如果没有自签名证书，可一键生成[自签名ssl证书]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/self-signed-ssl/)。
 
 > **先决条件:**
 >1、创建一个自签名证书。\
@@ -103,8 +103,8 @@ http {
     server {
         listen 443 ssl http2;
         server_name FQDN;
-        ssl_certificate /certs/fullchain.pem;
-        ssl_certificate_key /certs/privkey.pem;
+        ssl_certificate <你自己的自签名证书>;
+        ssl_certificate_key <你自己的自签名证书私钥>;
 
         location / {
             proxy_set_header Host $host;

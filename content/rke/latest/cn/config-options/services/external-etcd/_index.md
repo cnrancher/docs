@@ -1,6 +1,6 @@
 ---
-title: External etcd
-weight: 232
+title: 外部etcd
+weight: 1
 ---
 
 By default, RKE will launch etcd servers, but RKE also supports being able to use an external etcd. RKE only supports connecting to a TLS enabled etcd setup.

@@ -75,7 +75,8 @@ Once you have the `rancher-images.txt` file populated, publish the images from t
     Use `rancher-load-images.sh` to extract, tag and push the images to your private registry.
 
     ```plain
-    ./rancher-load-images.sh --image-list ./rancher-images.txt --registry <REGISTRY.YOURDOMAIN.COM:PORT>
+    ./rancher-load-images.sh --image-list ./rancher-images.txt \
+    --registry <REGISTRY.YOURDOMAIN.COM:PORT>
     ```
 
 ### [Next: Install Rancher]({{< baseurl >}}/rancher/v2.x/en/installation/air-gap-installation/install-rancher/)

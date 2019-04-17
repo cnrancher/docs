@@ -71,5 +71,6 @@ Rancher HA安装需要使用来自3个源的镜像，将3个源合并到一个�
 1. 使用`rancher-load-images.sh`加载`rancher-images.tar.gz`，并将镜像推送到私有仓库。
 
     ```plain
-    ./rancher-load-images.sh --image-list ./rancher-images.txt --registry <REGISTRY.YOURDOMAIN.COM:PORT>
+    ./rancher-load-images.sh --image-list ./rancher-images.txt \
+    --registry <REGISTRY.YOURDOMAIN.COM:PORT>
     ```

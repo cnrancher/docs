@@ -35,7 +35,7 @@ rancher/rancher:latest
 
 ### 方案B-使用你自己的自签名证书
 
-Rancher安装可以使用自己生成的自签名证书。
+Rancher安装可以使用自己生成的自签名证书，如果没有自签名证书，可一键生成[自签名ssl证书]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/self-signed-ssl/)。
 
 > **先决条件:**
 > - 使用OpenSSL或其他方法创建自签名证书。\

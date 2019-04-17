@@ -74,7 +74,8 @@ Using a computer with access to the internet and your private registry, move the
 1. Use `rancher-load-images.sh` to extract, tag and push `rancher-images.txt` and `rancher-images.tar.gz` to your private registry.
 
     ```plain
-    ./rancher-load-images.sh --image-list ./rancher-images.txt --registry <REGISTRY.YOURDOMAIN.COM:PORT>
+    ./rancher-load-images.sh --image-list ./rancher-images.txt \
+    --registry <REGISTRY.YOURDOMAIN.COM:PORT>
     ```
 
 ### [Next: Install Kubernetes with RKE]({{< baseurl >}}/rancher/v2.x/en/installation/air-gap-high-availability/install-kube/)

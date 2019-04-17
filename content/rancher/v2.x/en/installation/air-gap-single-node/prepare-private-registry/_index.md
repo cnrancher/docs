@@ -43,7 +43,8 @@ After collecting the release files, publish the images from `rancher-images.txt`
     1. Use `rancher-load-images.sh` to extract, tag and push the images to your private registry.
 
         ```plain
-        ./rancher-load-images.sh --image-list ./rancher-images.txt --registry <REGISTRY.YOURDOMAIN.COM:PORT>
+        ./rancher-load-images.sh --image-list ./rancher-images.txt \
+        --registry <REGISTRY.YOURDOMAIN.COM:PORT>
         ```
 
 ### [Next: Choose an SSL Option and Install Rancher]({{< baseurl >}}/rancher/v2.x/en/installation/air-gap-single-node/install-rancher/)

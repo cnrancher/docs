@@ -211,6 +211,8 @@ nodes:
 
 出于安全考虑，使用Rancher需要SSL加密。 SSL可以保护所有Rancher网络通信，例如登录或与集群交互时。
 
+> 如果没有自己的ssl证书，可访问[自签名ssl证书]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/self-signed-ssl/)一键生成自签名ssl证书。
+
 - 方案A — 使用自签名证书
 
     >**先决条件:** 1.证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/self-signed-ssl/)；\

@@ -42,5 +42,6 @@ weight: 2
    - 使用`rancher-load-images.sh`加载`rancher-images.tar.gz`，并将镜像推送到私有仓库。
 
      ```bash
-     ./rancher-load-images.sh --image-list ./rancher-images.txt --registry <REGISTRY.YOURDOMAIN.COM:PORT>
+     ./rancher-load-images.sh --image-list ./rancher-images.txt \
+     --registry <REGISTRY.YOURDOMAIN.COM:PORT>
      ```

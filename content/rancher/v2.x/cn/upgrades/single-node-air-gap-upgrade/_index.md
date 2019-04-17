@@ -5,11 +5,11 @@ weight: 2
 
 要离线升级Rancher Server，需要先同步最新的Rancher镜像到私有镜像仓库中，然后再进行下面的升级操作。
 
-## 先决条件
+## 一、先决条件
 
 从v2.0.7开始，Rancher引入了`system`项目，该项目是自动创建的，用于存储Kubernetes需要运行的重要命名空间。在升级到`v2.0.7+`前，请检查环境中有没有创建`system`项目，如果有则删除。`并检查确认所有系统命名空间未分配到任何项目下，如果有则移到出去，以防止集群网络问题。`
 
-## 离线升级Rancher Server
+## 二、离线升级Rancher Server
 
 1. 按照离线安装方法[准备离线镜像]({{< baseurl >}}/rancher/v2.x/cn/installation/air-gap-installation/prepare-private-reg/)。
 

@@ -49,8 +49,8 @@ http {
     server {
         listen 443 ssl http2;
         server_name FQDN;
-        ssl_certificate /certs/fullchain.pem;
-        ssl_certificate_key /certs/privkey.pem;
+        ssl_certificate <更换证书>;
+        ssl_certificate_key <更换证书私钥>;
 
         location / {
             proxy_set_header Host $host;
@@ -76,7 +76,9 @@ http {
 }
 ```
 
->为了减少网络传输的数据量，可以在七层代理的`http`定义中添加`GZIP`功能。
+> 如果没有自己的ssl证书，可访问[自签名ssl证书]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/self-signed-ssl/)一键生成自签名ssl证书。
+
+> 为了减少网络传输的数据量，可以在七层代理的`http`定义中添加`GZIP`功能。
 
 ```bash
 # Gzip Settings
