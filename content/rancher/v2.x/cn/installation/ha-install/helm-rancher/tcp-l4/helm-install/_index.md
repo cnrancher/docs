@@ -125,8 +125,6 @@ helm init --service-account tiller \
 --stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts
 ```
 
-> 点击查询[Tiller镜像版本](https://hub.docker.com/r/hongxiaolu/tiller/tags/)。
-
 `helm init`以后，可以运行`kubectl --kubeconfig=kube_configxxx.yml  get  pods --namespace kube-system`并看到Tiller正在运行。
 
 一旦安装了Tiller，运行helm version会显示客户端和服务器版本。(如果它仅显示客户端版本， helm则无法连接到服务器, 使用`kubectl`查看是否有任何tiller Pod 正在运行。)
@@ -168,8 +166,6 @@ Tiller running on:44134
 ## 四、升级Tiller
 
 从Helm 2.2.0开始，Tiller可以升级使用`helm init --upgrade`。对于旧版本的Helm或手动升级，可以使用`kubectl`修改Tiller容器镜像
-
-> 点击查询[新版Tiller镜像](https://hub.docker.com/r/hongxiaolu/tiller/tags/)
 
 ```bash
   helm_version=`helm version |grep Client | awk -F""\" '{print $2}'`

@@ -3,7 +3,6 @@ title: "3. Initialize Helm (Install Tiller)"
 weight: 195
 ---
 
-
 Helm is the package management tool of choice for Kubernetes. Helm "charts" provide templating syntax for Kubernetes YAML manifest documents. With Helm we can create configurable deployments instead of just using static files. For more information about creating your own catalog of deployments, check out the docs at [https://helm.sh/](https://helm.sh/). To be able to use Helm, the server-side component `tiller` needs to be installed on your cluster.
 
 > **Note:** For systems without direct internet access see [Helm - Air Gap]({{< baseurl >}}/rancher/v2.x/en/installation/air-gap-installation/install-rancher/#helm) for install details.
@@ -28,7 +27,7 @@ kubectl --kubeconfig=kube_configxxx.yml create  clusterrolebinding tiller \
 helm init --service-account tiller
 
 # Users in China: You will need to specify a specific tiller-image in order to initialize tiller. 
-# The list of tiller image tags are available here: https://dev.aliyun.com/detail.html?spm=5176.1972343.2.18.ErFNgC&repoId=62085. 
+# The list of tiller image tags are available here: https://dev.aliyun.com/detail.html?spm=5176.1972343.2.18.ErFNgC&repoId=62085.
 # When initializing tiller, you'll need to pass in --tiller-image
 
 helm init --service-account tiller \
@@ -41,7 +40,7 @@ helm init --service-account tiller \
 
 Run the following command to verify the installation of `tiller` on your cluster:
 
-```
+```bash
 kubectl --kubeconfig=kube_configxxx.yml -n   kube-system  rollout status deploy/tiller-deploy
 Waiting for deployment "tiller-deploy" rollout to finish: 0 of 1 updated replicas are available...
 deployment "tiller-deploy" successfully rolled out
@@ -49,7 +48,7 @@ deployment "tiller-deploy" successfully rolled out
 
 And run the following command to validate Helm can talk to the `tiller` service:
 
-```
+```bash
 helm version
 Client: &version.Version{SemVer:"v2.12.1", GitCommit:"02a47c7249b1fc6d8fd3b94e6b4babf9d818144e", GitTreeState:"clean"}
 Server: &version.Version{SemVer:"v2.12.1", GitCommit:"02a47c7249b1fc6d8fd3b94e6b4babf9d818144e", GitTreeState:"clean"}
