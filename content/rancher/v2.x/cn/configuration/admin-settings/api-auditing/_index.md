@@ -46,7 +46,7 @@ docker run -d --restart=unless-stopped \
   -e AUDIT_LOG_MAXAGE=20 \
   -e AUDIT_LOG_MAXBACKUP=20 \
   -e AUDIT_LOG_MAXSIZE=100 \
-  rancher/rancher:latest
+  rancher/rancher:stable (或者rancher/rancher:latest)
 ```
 
 ### HA安装启用
@@ -63,7 +63,7 @@ docker run -d --restart=unless-stopped \
         ```yaml
         ...
         containers:
-            - image: rancher/rancher:latest
+            - image: rancher/rancher:stable (或者rancher/rancher:latest)
               imagePullPolicy: Always
               name: cattle-server
               args: ["--audit-log-path", "/var/log/auditlog/rancher-api-audit.log", "--audit-log-maxbackup", "5",     "--audit-log-maxsize", "50", "--audit-level", "2"]

@@ -34,7 +34,7 @@ docker run -d --restart=unless-stopped \
 -p 80:80 -p 443:443 \
 -v <主机路径>:/var/lib/rancher/ \
 -e CATTLE_TLS_MIN_VERSION="1.0" \
-rancher/rancher:latest
+rancher/rancher:stable (或者rancher/rancher:latest)
 ```
 
 ### 2. HA安装

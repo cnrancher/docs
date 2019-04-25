@@ -58,6 +58,9 @@ ssh_key_path: ~/.ssh/test
 ## 需要配置环境变量`SSH_AUTH_SOCK`指向已添加私钥的SSH agent
 ssh_agent_auth: false
 
+# 配置docker root目录
+docker_root_dir: "/var/lib/docker"
+
 # 私有仓库
 ## 当设置`is_default: true`后，构建集群时会自动在配置的私有仓库中拉取镜像
 ## 如果使用的是DockerHub镜像仓库，则可以省略`url`或将其设置为`docker.io`
@@ -124,6 +127,20 @@ services:
       #   xxxxxxxxxx
       #   -----END PRIVATE KEY-----
       # Rancher 2用户注意事项：如果在创建Rancher Launched Kubernetes时使用配置文件配置集群，则`kube_api`服务名称应仅包含下划线。这仅适用于Rancher v2.0.5和v2.0.6。
+
+      # 以下参数仅支持RKE部署的etcd集群
+
+      # 开启自动备份
+      ## rke版本大于等于0.2.x或rancher版本大于等于2.2.0时使用
+      backup_config:
+        enabled: true
+        interval_hours: 12
+        retention: 6
+      ## rke版本小于0.2.x或rancher版本小于2.2.0时使用
+      snapshot: true
+      creation: 5m0s
+      retention: 24h
+      # 扩展参数
       extra_args:
         # 修改空间配额为$((4*1024*1024*1024))，默认2G,最大8G
         quota-backend-bytes: '4294967296'
@@ -155,17 +172,17 @@ services:
         ## 控制器定时与节点通信以检查通信是否正常，周期默认5s
         node-monitor-period: '5s'
         ## 当节点通信失败后，再等一段时间kubernetes判定节点为notready状态。
-      	## 这个时间段必须是kubelet的nodeStatusUpdateFrequency(默认10s)的N倍，
-      	## 其中N表示允许kubelet同步节点状态的重试次数，默认40s。
+        ## 这个时间段必须是kubelet的nodeStatusUpdateFrequency(默认10s)的N倍，
+        ## 其中N表示允许kubelet同步节点状态的重试次数，默认40s。
         node-monitor-grace-period: '20s'
         ## 再持续通信失败一段时间后，kubernetes判定节点为unhealthy状态，默认1m0s。
         node-startup-grace-period: '30s'
         ## 再持续失联一段时间，kubernetes开始迁移失联节点的Pod，默认5m0s。
         pod-eviction-timeout: '1m'
     kubelet:
-    	# 集群搜索域
+      # 集群搜索域
       cluster_domain: cluster.local
-     	# 内部DNS服务器地址
+      # 内部DNS服务器地址
       cluster_dns_server: 10.43.0.10
       # 禁用swap
       fail_swap_on: false
@@ -195,8 +212,9 @@ services:
 ## 你可以选择创建额外的SAN(主机名或IP)以添加到API服务器PKI证书。
 ## 如果要为control plane servers使用负载均衡器，这很有用。
 authentication:
-    strategy: x509
+    strategy: "x509|webhook"
     sans:
+      # 此处配置备用域名或IP，当主域名或者IP无法访问时，可通过备用域名或IP访问
       - "10.18.160.10"
       - "my-loadbalancer-1234567890.us-west-2.elb.amazonaws.com"
 # Kubernetes认证模式
@@ -212,6 +230,8 @@ addon_job_timeout: 30
 # 有几个网络插件可以选择：`flannel、canal、calico`，Rancher2默认canal
 network:
     plugin: canal
+    options:
+      flannel_backend_type: "vxlan"
 # 目前只支持nginx ingress controller
 ## 可以设置`provider: none`来禁用ingress controller
 ingress:

@@ -80,7 +80,7 @@ After you configure a pipeline, you can trigger it using different methods:
 
 Before you can start [configuring a pipeline]({{< baseurl >}}/rancher/v2.x/en/k8s-in-rancher/pipelines/) for your repository, you must configure and authorize a version control provider.
 
-| Provider  | Available as of  |
+| Provider  | 可用版本  |
 | --- | --- |
 | GitHub  | v2.0.0           |
 | GitLab | v2.1.0 |
@@ -105,7 +105,7 @@ Select your provider's tab below and follow the directions.
 {{% /tab %}}
 {{% tab "GitLab" %}}
 
-_Available as of v2.1.0_
+_可用版本 v2.1.0_
 
 1. From the **Global** view, navigate to the project that you want to configure pipelines.
 
@@ -125,7 +125,7 @@ _Available as of v2.1.0_
 {{% /tab %}}
 {{% tab "Bitbucket Cloud" %}}
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 1. From the **Global** view, navigate to the project that you want to configure pipelines.
 
@@ -142,7 +142,7 @@ _Available as of v2.2.0_
 {{% /tab %}}
 {{% tab "Bitbucket Server" %}}
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 1. From the **Global** view, navigate to the project that you want to configure pipelines.
 
@@ -184,7 +184,7 @@ Select the maximum number of pipeline executors. The _executor quota_ decides ho
 
     {{% accordion id="resource-quota" label="Resource Quota for Executors" %}}   
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 Configure compute resources for Jenkins agent containers. When a pipeline execution is triggered, a build pod is dynamically provisioned to run your CI tasks. Under the hood, A build pod consists of one Jenkins agent container and one container for each pipeline step. You can [manage compute resources](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/) for every containers in the pod.
 
@@ -232,7 +232,7 @@ stages:
     {{% /accordion %}}
     {{% accordion id="cacerts" label="Custom CA" %}}   
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 If you want to use a version control provider with a certificate from a custom/internal CA root, the CA root certificates need to be added as part of the version control provider configuration in order for the pipeline build pods to succeed.
 

@@ -22,7 +22,7 @@ aliases:
 
 ## Adding Cluster Catalogs
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 >**Prerequisites:** In order to manage cluster scoped catalogs, you need _one_ of the following permissions:
 >
@@ -40,7 +40,7 @@ _Available as of v2.2.0_
 
 ## Adding Project Level Catalogs
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 >**Prerequisites:** In order to manage project scoped catalogs, you need _one_ of the following permissions:
 >

@@ -19,7 +19,7 @@ After you create a node template in Rancher, it's saved so that you can use this
 
 ## Cloud Credentials
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 Node templates can use cloud credentials to store credentials for launching nodes in your cloud provider, which has some benefits:
 

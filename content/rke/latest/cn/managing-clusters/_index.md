@@ -2,18 +2,17 @@
 title: 7 - 节点管理
 weight: 7
 aliases:
-  - /rke/latest/cn/installation/managing-clusters/
 ---
 
-## 添加/删除节点
+## 一、添加/删除节点
 
-RKE支持为worker和controlplane平面添加/删除[节点]({{< baseurl >}}/rke/latest/cn/config-options/nodes/)。要添加其他节点，修改原始`cluster.yml`文件，指定节点运行的角色。要删除节点，修改原始`cluster.yml`文件。在`添加/删除`节点进行更改后，运行`rke up --config cluster.yml`更新集群。
+RKE支持为`worker和controlplane平面`添加/删除[节点]({{< baseurl >}}/rke/latest/cn/config-options/nodes/)。要添加其他节点，修改原始`cluster.yml`文件，指定节点运行的角色。要删除节点，修改原始`cluster.yml`文件。在`添加/删除`节点进行更改后，运行`rke up --config cluster.yml`更新集群。
 
-## 添加/删除工作节点
+## 二、仅添加/删除工作节点
 
-在配置文件中`添加/删除工作节点`后运行`rke up --update-only`，除了工作节点修改之外，其他修改内容将被忽略。
+在配置文件中`添加/删除工作节点`后运行`rke up --update-only`，除了工作节点修改之外，其他修改将被忽略。
 
-## 删除Kubernetes集群
+## 三、删除Kubernetes集群
 
 执行`rke remove`命令删除Kubernetes集群。
 
@@ -29,7 +28,7 @@ RKE支持为worker和controlplane平面添加/删除[节点]({{< baseurl >}}/rke
   - `kube-proxy`
   - `nginx-proxy`
 
-> **注意:** 不会从节点中删除Pod。如果重新使用该节点，则在创建新的Kubernetes群集时将自动删除pod。
+    > **注意:** 不会从节点中删除Pod。如果重新使用该节点，则在创建新的Kubernetes集群时将自动删除pod。
 
 - 清除每台主机中服务留下的目录:
   - /etc/kubernetes/ssl
@@ -37,3 +36,5 @@ RKE支持为worker和controlplane平面添加/删除[节点]({{< baseurl >}}/rke
   - /etc/cni
   - /opt/cni
   - /var/run/calico
+
+> 在节点删除后，建议执行[清理节点]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/remove-node/)以备后续使用。

@@ -98,7 +98,7 @@ Key | Value | Default | Description
 `extra_args` | List of Strings | `[]` | Arbitrary daemon arguments, appended to the generated command
 `environment` | List of Strings (optional) | `[]` |
 
-_Available as of v1.4.x_
+_可用版本 v1.4.x_
 
 The docker-sys bridge can be configured with system-docker args, it will take effect after reboot.
 
@@ -106,7 +106,7 @@ The docker-sys bridge can be configured with system-docker args, it will take ef
 $ ros config set rancher.system_docker.bip 172.18.43.1/16
 ```
 
-_Available as of v1.4.x_
+_可用版本 v1.4.x_
 
 The default path of system-docker logs is `/var/log/system-docker.log`. If you want to write the system-docker logs to a separate partition, 
 e.g. [RANCHE_OEM partition]({{< baseurl >}}/os/v1.x/en/about/custom-partition-layout/#use-rancher-oem-partition), you can try `rancher.defaults.system_docker_logs`:
@@ -157,7 +157,7 @@ Status: Downloaded newer image for alpine:latest
 
 ### Using Multiple User Docker Daemons
 
-_Available as of v1.5.0_
+_可用版本 v1.5.0_
 
 When RancherOS is booted, you start with a User Docker service that is running in System Docker. With v1.5.0, RancherOS has the ability to create additional User Docker services that can run at the same time. 
 

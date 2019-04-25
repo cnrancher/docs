@@ -23,7 +23,7 @@ Whenever a user logs in to the UI using an authentication provider, Rancher auto
 
 ### Automatically Refreshing User Information
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 Rancher will periodically refresh the user information even before a user logs in through the UI. You can control how often Rancher performs this refresh.  From the **Global** view, click on **Settings**. Two settings control this behavior:
 

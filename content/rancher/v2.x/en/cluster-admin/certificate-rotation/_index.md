@@ -3,7 +3,7 @@ title: Certificate Rotation
 weight: 2040
 ---
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 By default, Kubernetes clusters require certificates and Rancher launched Kubernetes clusters automatically generate  certificates for the Kubernetes components. Rotating these certificates is important before the certificates expire as well as if a certificate is compromised. After the certificates are rotated, the Kubernetes components are automatically restarted.
 

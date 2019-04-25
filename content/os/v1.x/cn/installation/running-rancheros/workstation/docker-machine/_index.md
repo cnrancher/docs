@@ -49,7 +49,7 @@ This command will print out the newly created machine. If not, something went wr
 
 #### Using Docker Machine with VMWare VSphere
 
-_Available as of v1.4_
+_可用版本 v1.4_
 
 Before moving forward, you’ll need to have VMWare VSphere installed. Once you have VMWare VSphere and Docker Machine installed, it’s just one command to get RancherOS running.
 
@@ -71,7 +71,7 @@ That’s it! You should now have a RancherOS host running on VMWare VSphere. You
 
 #### Using Docker Machine with VMWare Fusion
 
-_Available as of v1.4_
+_可用版本 v1.4_
 
 Before moving forward, you’ll need to have VMWare Fusion installed. Once you have VMWare Fusion and Docker Machine installed, it’s just one command to get RancherOS running.
 

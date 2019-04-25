@@ -11,7 +11,7 @@ Rancher为Kubernetes增强的一个关键功能是集中用户身份验证，此
 
 Rancher提供本地身份验证，也可以与外部身份验证服务集成：
 
-| Auth Service                                                                                     | Available as of  |
+| Auth Service                                                                                     | 可用版本  |
 | ------------------------------------------------------------------------------------------------ | ---------------- |
 | [Microsoft Active Directory]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/ad/)  | v2.0.0           |
 | [GitHub]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/github/)                  | v2.0.0           |

@@ -3,15 +3,11 @@ title: Extra Args, Extra Binds, and Extra Environment Variables
 weight: 2
 ---
 
-RKE supports additional service arguments, volume binds and environment variables.
+## 扩展参数（Extra Args）
 
-### Extra Args
+所有的Kubernetes服务，都可以通过`extra_args`参数更新现有值。
 
-For any of the Kubernetes services, you can update the `extra_args` to change the existing defaults.
-
-As of `v0.1.3`, using `extra_args` will add new arguments and **override** any existing defaults. For example, if you need to modify the default admission controllers list, you need to include the default list and edit it with your changes so all changes are included.
-
-Prior to `v0.1.3`, using `extra_args` would only add new arguments to the list and there was no ability to change the default list.
+`v0.1.3`之后，使用`extra_args`将添加新参数并覆盖现有默认值。`v0.1.3`之前，使用`extra_args`只会添加新参数，无法更改。
 
 ```yaml
 services:
@@ -20,9 +16,9 @@ services:
         cluster-name: "mycluster"
 ```
 
-### Extra Binds
+### 扩展挂载（Extra Binds）
 
-Additional volume binds can be added to services using the `extra_binds` arguments.
+可以使用`extra_binds`参数向服务添加额外的卷绑定。
 
 ```yaml
 services:
@@ -32,9 +28,9 @@ services:
         - "/usr/libexec/kubernetes/kubelet-plugins:/usr/libexec/kubernetes/kubelet-plugins:z"
 ```
 
-### Extra Environment Variables
+### 扩展环境变量（ Extra Environment Variables）
 
-Additional environment variables can be added to services by using the `extra_env` arguments.
+通过使用`extra_env`参数，可以将其他环境变量添加到服务中。
 
 ```yaml
 services:

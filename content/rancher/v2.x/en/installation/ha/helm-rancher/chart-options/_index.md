@@ -27,9 +27,9 @@ weight: 276
 | `auditLog.maxAge` | 1 | `int` - maximum number of days to retain old audit log files |
 | `auditLog.maxBackups` | 1 | `int` - maximum number of audit log files to retain |
 | `auditLog.maxSize` | 100 | `int` - maximum size in megabytes of the audit log file before it gets rotated |
-| `busyboxImage` | "busybox" | `string` - Image location for busybox image used to collect audit logs _Note: Available as of v2.2.0_ |
+| `busyboxImage` | "busybox" | `string` - Image location for busybox image used to collect audit logs _Note: 可用版本 v2.2.0_ |
 | `debug` | false | `bool` - set debug flag on rancher server |
-| `extraEnv` | [] | `list` - set additional environment variables for Rancher _Note: Available as of v2.2.0_ |
+| `extraEnv` | [] | `list` - set additional environment variables for Rancher _Note: 可用版本 v2.2.0_ |
 | `imagePullSecrets` | [] | `list` - list of names of Secret resource containing private registry credentials |
 | `ingress.extraAnnotations` | {} | `map` - additional annotations to customize the ingress |
 | `proxy` | "" | `string` -  HTTP[S] proxy server for Rancher |
@@ -57,7 +57,7 @@ Set the `auditLog.destination` to `hostPath` to forward logs to volume shared wi
 
 ### Setting Extra Environment Variables
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 You can set extra environment variables for Rancher server using `extraEnv`. This list uses the same `name` and `value` keys as the container manifest definitions. Remember to quote the values.
 
@@ -68,7 +68,7 @@ You can set extra environment variables for Rancher server using `extraEnv`. Thi
 
 ### TLS settings
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 To set a different TLS configuration, you can use the `CATTLE_TLS_MIN_VERSION` and `CATTLE_TLS_CIPHERS` environment variables. For example, to configure TLS 1.0 as minimum accepted TLS version:
 

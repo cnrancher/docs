@@ -7,16 +7,16 @@ weight: 6
 
 **所有服务都支持额外的[自定义参数、Docker卷和额外的环境变量]({{< baseurl >}}/rke/latest/cn/config-options/services/services-extras/).**
 
-## etcd
+## 一、etcd
 
 - Etcd是一个可靠、一致且分布式的键值存储，Kubernetes使用[etcd](https://github.com/coreos/etcd/blob/master/Documentation/docs.md)作为集群状态和数据的存储；
-- RKE支持在`单节点模式或HA集群模式`下运行etcd,它还支持向群集`添加和删除`etcd节点；
+- RKE支持在`单节点模式或HA集群模式`下运行etcd,它还支持向集群`添加和删除`etcd节点；
 - 可以启用etcd[自动定时快照]({{< baseurl >}}/rke/latest/cn/etcd-snapshots/#recurring-snapshots)功能，这些快照可用于恢复etcd集群；
 - 默认情况下，RKE将全新部署etcd服务。但也可以使用已有的[外部etcd]({{< baseurl >}}/rke/latest/cn/config-options/services/external-etcd/)服务运行Kubernetes 。
 
-## Kubernetes API Server
+## 二、Kubernetes API Server
 
-> **Rancher 2用户注意事项** 如果在创建[Rancher Launched Kubernetes]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/)时使用[Config File]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/options/#config-file) 配置群集选项，服务的名称应该只包含下划线，比如: `kube_api`，这仅适用于Rancher v2.0.5和v2.0.6。
+> **Rancher 2用户注意事项** 如果在创建[Rancher Launched Kubernetes]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/)时使用[Config File]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/options/#config-file) 配置集群选项，服务的名称应该只包含下划线，比如: `kube_api`，这仅适用于Rancher v2.0.5和v2.0.6。
 
 [Kubernetes API](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/)REST服务，它处理所有Kubernetes对象的请求和数据，并为其他Kubernetes组件提供共享状态。
 
@@ -30,11 +30,11 @@ services:
     service_node_port_range: 30000-32767
     pod_security_policy: false
     # 启用总是拉取镜像
-    # Available as of v0.2.0
+    # 可用版本 v0.2.0
     always_pull_images: false
 ```
 
-### Kubernetes API Server设置选项
+### 1、Kubernetes API Server设置选项
 
 RKE支持`kube-api`服务的以下设置选项:
 
@@ -58,9 +58,9 @@ RKE支持`kube-api`服务的以下设置选项:
 
     >注意:从v0.2.0开始可用
 
-## Kubernetes Controller Manager
+## 三、Kubernetes Controller Manager
 
-> **Rancher 2用户注意事项** 如果在创建[Rancher Launched Kubernetes]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/)时使用[Config File]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/options/#config-file) 配置群集选项，服务的名称应该只包含下划线，比如: `kube_controller`，这仅适用于Rancher v2.0.5和v2.0.6。
+> **Rancher 2用户注意事项** 如果在创建[Rancher Launched Kubernetes]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/)时使用[Config File]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/options/#config-file) 配置集群选项，服务的名称应该只包含下划线，比如: `kube_controller`，这仅适用于Rancher v2.0.5和v2.0.6。
 
 [Kubernetes Controller Manager](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/)服务是负责运行Kubernetes主控制循环的组件。控制器管理器通过Kubernetes API服务器监视集群所需的状态，并对当前状态进行必要的更改以达到所需的状态。
 
@@ -74,7 +74,7 @@ services:
       service_cluster_ip_range: 10.43.0.0/16
 ```
 
-### Kubernetes Controller Manager Options
+### 1、Kubernetes Controller Manager Options
 
 RKE支持`kube-controller`服务的以下设置选项:
 
@@ -86,7 +86,7 @@ RKE支持`kube-controller`服务的以下设置选项:
   
     这将分配给Kubernetes上创建的服务的虚拟IP地址。默认情况下， cluster IP范围是`10.43.0.0/16`。如果要更改此值，必须在Kubernetes控制器管理器(`kube-api`)服务上配置相同的值。
 
-## Kubelet
+## 四、Kubelet
 
 [kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/)服务充当Kubernetes的`节点代理`，它运行在RKE部署的所有节点上，并使Kubernetes能够管理节点上的容器运行时。
 
@@ -101,7 +101,7 @@ services:
      fail_swap_on: false
 ```
 
-### Kubelet 设置选项
+### 1、Kubelet 设置选项
 
 RKE支持`kubelet`服务的以下设置选项:
 
@@ -117,10 +117,10 @@ RKE支持`kubelet`服务的以下设置选项:
   
     在Kubernetes中，如果节点上启用了`swap`, kubelet的启动将报错。RKE`不遵循`此缺省值，允许在启用交换的节点上部署。默认情况下，值为`false`。如果您想恢复到默认的kubelet设置，请将此选项设置为`true`。
 
-## Kubernetes Scheduler
+## 五、Kubernetes Scheduler
 
 [Kubernetes Scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/)服务负责根据各种配置、指标、资源需求和特定于工作负载的需求调度集群工作负载。目前，RKE不支持`scheduler`服务的任何特定设置选项。
 
-## Kubernetes Network Proxy
+## 六、Kubernetes Network Proxy
 
 [Kubernetes network proxy](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/)服务运行在所有节点上，并管理Kubernetes为TCP/UDP端口创建的端点。目前，RKE不支持kube proxy服务的任何特定设置选项。

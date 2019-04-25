@@ -62,7 +62,7 @@ $ USER_DOCKER_VERSION=17.03.2 make release
 
 #### Building with a different  console
 
-_Available as of v1.5.0_
+_可用版本 v1.5.0_
 
 When building RancherOS, you have the ability to automatically start in a supported [console]({{< baseurl >}}/os/v1.x/en/installation/switching-consoles/) instead of booting into the default console and switching to your desired one. 
 

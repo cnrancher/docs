@@ -5,7 +5,7 @@ aliases:
   - /rancher/v2.x/en/k8s-in-rancher/projects-and-namespaces/resource-quotas/
 ---
 
-_Available as of v2.1.0_
+_可用版本 v2.1.0_
 
 In situations where several teams share a cluster, one team may overconsume the resources available: CPU, memory, storage, services, Kubernetes objects like pods or secrets, and so on.  To prevent this overconsumption, you can apply a _resource quota_, which is a Rancher feature that limits the resources available to a project or namespace.
 
@@ -95,7 +95,7 @@ For more information, see how to [edit namespace resource quotas]({{< baseurl >}
 
 ## Setting Container Default Resource Limit
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 When setting resource quotas, if you set anything related to CPU or Memory (i.e. limits or reservations) on a project / namespace, all containers will require a respective CPU or Memory field set during creation. See the [Kubernetes documentation](https://kubernetes.io/docs/concepts/policy/resource-quotas/#requests-vs-limits) for more details on why this is required.
 

@@ -116,7 +116,7 @@ To create an HA cluster, specify more than one host with role `controlplane`.
 
 ### Certificates
 
-_Available as of v0.2.0_
+_可用版本 v0.2.0_
 
 By default, Kubernetes clusters require certificates and RKE auto-generates the certificates for all cluster components. You can also use [custom certificates]({{< baseurl >}}/rke/latest/en/installation/certs/). After the Kubernetes cluster is deployed, you can [manage these auto-generated certificates]({{< baseurl >}}/rke/latest/en/cert-mgmt/#certificate-rotation).
 

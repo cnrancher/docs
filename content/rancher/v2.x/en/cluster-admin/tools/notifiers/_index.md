@@ -57,7 +57,7 @@ Set up a notifier so that you can begin configuring and sending alerts.
 {{% /accordion %}}
 {{% accordion id="WeChat" label="WeChat" %}}
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 1. Enter a **Name** for the notifier.
 1. In the **Corporation ID** field, enter the "EnterpriseID" of your corporation, you could get it from [Profile page](https://work.weixin.qq.com/wework_admin/frame#profile).

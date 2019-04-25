@@ -10,7 +10,7 @@ With this release, the following versions are now latest and stable:
 
 |Type | Rancher Version | Docker Tag |Helm Repo| Helm Chart Version |
 |---|---|---|---|---|
-| Latest | v2.2.1 | `rancher/rancher:latest` | server-charts/latest | 2.2.1 |
+| Latest | v2.2.1 | `rancher/rancher:stable (或者rancher/rancher:latest)` | server-charts/latest | 2.2.1 |
 | Stable | v2.1.8 | `rancher/rancher:stable` | server-charts/stable | 2.1.8 | 
 
 **`v2.2.1`** or a patched version of it will be promoted to stable after a period of hardening and bake-in in our open source community.

@@ -13,7 +13,7 @@ Rancher Server is distributed as a Docker image, which have tags attached to the
 
 Tag                        | Description
 -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------
-`rancher/rancher:latest`   | Our latest development release. These builds are validated through our CI automation framework. These releases are not recommended for production environments.
+`rancher/rancher:stable (或者rancher/rancher:latest)`   | Our latest development release. These builds are validated through our CI automation framework. These releases are not recommended for production environments.
 `rancher/rancher:stable`   | Our newest stable release. This tag is recommended for production.
 `rancher/rancher:<v2.X.X>` | You can install specific versions of Rancher by using the tag from a previous release. See what's available at DockerHub.
 
@@ -34,7 +34,7 @@ When installing, upgrading, or rolling back Rancher Server in a [high availabili
 
 ### Helm Chart Repositories
 
-Rancher provides several different Helm chart repositories to choose from. We align our latest and stable Helm chart repositories with the Docker tags that are used for a single node installation. Therefore, the `rancher-latest` repository will contain charts for all the Rancher versions that have been tagged as `rancher/rancher:latest`. When a Rancher version has been promoted to the `rancher/rancher:stable`, it will get added to the `rancher-stable` repository.
+Rancher provides several different Helm chart repositories to choose from. We align our latest and stable Helm chart repositories with the Docker tags that are used for a single node installation. Therefore, the `rancher-latest` repository will contain charts for all the Rancher versions that have been tagged as `rancher/rancher:stable (或者rancher/rancher:latest)`. When a Rancher version has been promoted to the `rancher/rancher:stable`, it will get added to the `rancher-stable` repository.
 
 Type | Command to Add the Repo | Description of the Repo
 -----------|-----|-------------

@@ -3,7 +3,7 @@ title: Certificate Management
 weight: 150
 ---
 
-_Available as of v0.2.0_
+_可用版本 v0.2.0_
 
 Certificates are an important part of Kubernetes clusters and are used for all Kubernetes cluster components. RKE has a `rke cert` command to help work with certificates.
 

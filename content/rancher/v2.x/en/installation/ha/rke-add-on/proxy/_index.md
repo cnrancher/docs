@@ -54,7 +54,7 @@ The example below is based on a proxy server accessible at `http://192.168.0.1:3
       spec:
         serviceAccountName: cattle-admin
         containers:
-        - image: rancher/rancher:latest
+        - image: rancher/rancher:stable (或者rancher/rancher:latest)
           imagePullPolicy: Always
           name: cattle-server
           env:

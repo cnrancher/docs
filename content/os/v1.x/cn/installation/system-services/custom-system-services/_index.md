@@ -104,7 +104,7 @@ The image that you specify in the service yml file needs to be pullable - either
 
 ### Service cron
 
-_Available as of v1.1_
+_可用版本 v1.1_
 
 RancherOS has a system cron service based on [Container Crontab](https://github.com/rancher/container-crontab). This can be used to start, restart or stop system containers.
 

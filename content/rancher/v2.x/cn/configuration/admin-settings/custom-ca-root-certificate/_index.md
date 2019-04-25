@@ -25,7 +25,7 @@ docker run -d --restart=unless-stopped \
   -v <主机路径>:/var/lib/rancher/ \
   -v /host/certs:/container/certs \
   -e SSL_CERT_DIR="/container/certs" \
-  rancher/rancher:latest
+  rancher/rancher:stable (或者rancher/rancher:latest)
 ```
 
 ### HA

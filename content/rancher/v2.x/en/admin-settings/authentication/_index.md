@@ -16,7 +16,7 @@ This centralized user authentication is accomplished using the Rancher authentic
 
 The Rancher authentication proxy integrates with the following external authentication services. The following table lists the first version of Rancher each service debuted.
 
-| Auth Service                                                                                     | Available as of  |
+| Auth Service                                                                                     | 可用版本  |
 | ------------------------------------------------------------------------------------------------ | ---------------- |
 | [Microsoft Active Directory]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/ad/)  | v2.0.0           |
 | [GitHub]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/github/)                  | v2.0.0           |

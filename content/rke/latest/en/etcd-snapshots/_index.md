@@ -5,11 +5,11 @@ aliases:
   - /rke/latest/en/installation/etcd-snapshots/
 ---
 
-_Available as of v0.1.7_
+_可用版本 v0.1.7_
 
 RKE clusters can be configured to automatically take snapshots of etcd. In a disaster scenario, you can restore these snapshots, which are stored on other nodes in the cluster. Snapshots are always saved locally in `/opt/rke/etcd-snapshots`.
 
-_Available as of v0.2.0_
+_可用版本 v0.2.0_
 
 RKE can also upload your snapshots to a S3 compatible backend. Additionally, the **pki.bundle.tar.gz** file usage is no longer required as v0.2.0 has changed how the [Kubernetes cluster state is stored]({{< baseurl >}}/rke/latest/en/installation/#kubernetes-cluster-state).
 
@@ -46,7 +46,7 @@ The snapshot is saved in `/opt/rke/etcd-snapshots`
 
 ### One-Time Snapshots uploaded to S3 Example
 
-_Available as of v0.2.0_
+_可用版本 v0.2.0_
 
 ```
 $ rke etcd snapshot-save --config cluster.yml --name snapshot-name  \
@@ -78,7 +78,7 @@ time="2018-05-04T18:43:16Z" level=info msg="Created backup" name="2018-05-04T18:
 
 Depending on your version of RKE, the options used to configure recurring snapshots may be different.
 
-_Available as of v0.2.0_
+_可用版本 v0.2.0_
 
 |Option|Description| S3 Specific |
 |---|---| --- |
@@ -129,7 +129,7 @@ If there is a disaster with your Kubernetes cluster, you can use `rke etcd snaps
 
 >**Warning:** Restoring an etcd snapshot deletes your current etcd cluster and replaces it with a new one. Before you run the `rke etcd snapshot-restore` command, you should back up any important data in your cluster.
 
-The snapshot used to restore your etcd cluster can either be stored locally in `/opt/rke/etcd-snapshots` or from a S3 compatible backend. The S3 backend option is available as of v0.2.0.
+The snapshot used to restore your etcd cluster can either be stored locally in `/opt/rke/etcd-snapshots` or from a S3 compatible backend. The S3 backend option is 可用版本 v0.2.0.
 
 ### Options for `rke etcd snapshot-restore`
 
@@ -156,7 +156,7 @@ $ rke etcd snapshot-restore --config cluster.yml --name mysnapshot
 
 ### Example of Restoring from a Snapshot in S3
 
-_Available as of v0.2.0_
+_可用版本 v0.2.0_
 
 When restoring etcd from a snapshot located in S3, the command needs the S3 information in order to connect to the S3 backend and retrieve the snapshot.
 

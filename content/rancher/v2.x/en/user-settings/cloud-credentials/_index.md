@@ -3,7 +3,7 @@ title: Managing Cloud Credentials
 weight: 7011
 ---
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 When you create a cluster [hosted by an infrastructure provider]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools), [node templates]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/node-pools/#node-templates) are used to provision the cluster nodes. These templates use Docker Machine configuration options to define an operating system image and settings/parameters for the node.
 

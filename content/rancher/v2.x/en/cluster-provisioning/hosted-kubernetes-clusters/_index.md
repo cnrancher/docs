@@ -9,7 +9,7 @@ In this use case, Rancher sends a request to a hosted provider using the provide
 
 Rancher supports the following Kubernetes providers:
 
-Kubernetes Providers | Available as of  |
+Kubernetes Providers | 可用版本  |
  --- | --- |
 [Google GKE (Google Kubernetes Engine)](https://cloud.google.com/kubernetes-engine/) | v2.0.0 |
 [Amazon EKS (Amazon Elastic Container Service for Kubernetes)](https://aws.amazon.com/eks/) | v2.0.0 |

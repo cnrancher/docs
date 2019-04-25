@@ -7,7 +7,7 @@ Rancher v2.1.0 introduces new improvements to Kubernetes cluster operations and 
 
 With this release, the follow versions are now latest and stable:
 
-- **Latest - v2.1.0 - `rancher/rancher:latest`**
+- **Latest - v2.1.0 - `rancher/rancher:stable (或者rancher/rancher:latest)`**
 - **Stable - v2.0.8 - `rancher/rancher:stable`**
 
 **`v2.1.0`** or a patched version of it will be promoted to stable after a period of hardening and bake-in in our open source community.
@@ -88,7 +88,7 @@ If you are currently using the RKE add-on install method, see [Migrating from a 
 
 Rancher server has 2 different tags. For each major release tag, we will provide documentation for the specific version.
 
-- **`rancher/rancher:latest`** tag will be our latest development builds. These builds will have been validated through our CI automation framework. These releases are not meant for deployment in production.
+- **`rancher/rancher:stable (或者rancher/rancher:latest)`** tag will be our latest development builds. These builds will have been validated through our CI automation framework. These releases are not meant for deployment in production.
 - **`rancher/rancher:stable`** tag will be our latest stable release builds. This tag is the version that we recommend for production.
 
 Please do not use releases with a `rc{n}` suffix. These `rc` builds are meant for the Rancher team to test builds.

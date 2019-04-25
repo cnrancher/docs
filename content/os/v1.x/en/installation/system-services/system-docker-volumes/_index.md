@@ -15,7 +15,7 @@ Provides user accessible persistent storage directories, used by console service
 /var/lib/kubelet - Added as of v1.2
 ```
 
-_Available as of v1.2_
+_可用版本 v1.2_
 
 If you want to change user-volumes, for example, add `/etc/kubernetes` directory:
 

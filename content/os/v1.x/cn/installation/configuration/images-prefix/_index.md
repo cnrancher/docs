@@ -3,7 +3,7 @@ title: Images prefix
 weight: 121
 ---
 
-_Available as of v1.3_
+_可用版本 v1.3_
 
 When you have built your own docker registries, and have cached the `rancher/os` and other `os-services` images,
 something like a normal `docker pull rancher/os` can be cached as `docker pull dockerhub.mycompanyname.com/docker.io/rancher/os`.

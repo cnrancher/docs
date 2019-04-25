@@ -38,7 +38,7 @@ docker run -d --restart=unless-stopped \
 -v /root/var/log/auditlog:/var/log/auditlog \
 -e AUDIT_LEVEL=3 \
 -v /etc/your_certificate_directory/cacerts.pem:/etc/rancher/ssl/cacerts.pem \
-rancher/rancher:latest
+rancher/rancher:stable (或者rancher/rancher:latest)
 ```
 
 ### 方案B-使用权威CA机构颁发的证书
@@ -58,7 +58,7 @@ docker run -d --restart=unless-stopped \
 -v <主机路径>:/var/lib/rancher/ \
 -v /root/var/log/auditlog:/var/log/auditlog \
 -e AUDIT_LEVEL=3 \
-rancher/rancher:latest --no-cacerts
+rancher/rancher:stable (或者rancher/rancher:latest) --no-cacerts
 ```
 
 ## 三、配置七层负载均衡器

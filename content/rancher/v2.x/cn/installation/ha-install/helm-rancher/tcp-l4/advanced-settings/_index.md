@@ -21,7 +21,7 @@ weight: 5
 | --- | --- | --- |
 | `additionalTrustedCAs` | false | `bool` - 查看[额外的授信CA证书](#额外的授信ca证书) |
 | `auditLog.destination` | "sidecar" | `string` - 审计日志传输到sidecar container console或者hostPath volume - "sidecar, hostPath" |
-| `addLocal` | auto | `string`- 让Rancher检测并导入`local`群集 |
+| `addLocal` | auto | `string`- 让Rancher检测并导入`local`集群 |
 | `auditLog.hostPath` | "/var/log/rancher/audit" | `string` - 主机上的目标日志文件|
 | `auditLog.level` | 0 | `int` - - 设置[API审核日志]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/api-auditing/)等级. 0是关闭。 [0-3] |
 | `auditLog.maxAge` | 1 | `int` - 保留旧审核日志文件的最大天数 |

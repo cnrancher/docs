@@ -3,7 +3,7 @@ title: Running on ARM64 (Experimental)
 weight: 7600
 ---
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 > **Important:**
 >

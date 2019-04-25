@@ -3,13 +3,7 @@ title: 1 - 集群
 weight: 1
 ---
 
-## 一、What's a Cluster?
-
-全局中的集群，它是Rancher中的概念。这里归纳了所有创建的K8S集群，你可以删除、新建、搜索集群。
-
-## 二、创建集群
-
-Rancher支持通过UI创建Kubernetes集群，而不是使用配置文件，从而简化了Kubernetes集群的创建。
+全局中的集群，它是Rancher中的概念。这里归纳了所有创建的K8S集群，你可以删除、新建、搜索集群。Rancher支持通过UI创建Kubernetes集群，而不是使用配置文件，从而简化了Kubernetes集群的创建。
 
 ### 1、节点角色
 

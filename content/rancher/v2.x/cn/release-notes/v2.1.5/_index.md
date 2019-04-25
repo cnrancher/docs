@@ -13,7 +13,7 @@ With this release, the following [versions](https://rancher.com/docs/rancher/v2.
 
 |Type | Rancher Version | Docker Tag |Helm Repo| Helm Chart Version |
 |---|---|---|---|---|
-| Latest | v2.1.5 | `rancher/rancher:latest` | server-charts/latest | 2019.1.1 |
+| Latest | v2.1.5 | `rancher/rancher:stable (或者rancher/rancher:latest)` | server-charts/latest | 2019.1.1 |
 | Stable | v2.1.5 | `rancher/rancher:stable` | server-charts/stable | 2019.1.1 | 
 
 ## Known Major Issues

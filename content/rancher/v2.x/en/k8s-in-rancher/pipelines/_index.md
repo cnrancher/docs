@@ -129,7 +129,7 @@ stages:
 {{% /tabs %}}
     {{% /accordion %}}
 
-1. _Available as of v2.2.0_
+1. _可用版本 v2.2.0_
 
     **Notifications:** Decide if you want to set up notifications for your pipeline. You can enable notifications to any [notifiers]({{< baseurl >}}/rancher/v2.x/en/cluster-admin/tools/notifiers/) based on the build status of a pipeline. Before enabling notifications, Rancher recommends [setting up notifiers]({{< baseurl >}}/rancher/v2.x/en/cluster-admin/tools/notifiers/#adding-notifiers) so it will be easy to add recipients immediately.
 
@@ -139,7 +139,7 @@ stages:
 {{% tabs %}}
 {{% tab "By UI" %}}
 <br>
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 1. Within the **Notification** section, turn on notifications by clicking **Enable**.
 
@@ -155,7 +155,7 @@ _Available as of v2.2.0_
 {{% /tab %}}
 {{% tab "By YAML" %}}
 <br>
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 In the `notification` section, you will provide the following information:
 
@@ -362,7 +362,7 @@ PLUGIN_BUILD_ARGS       | Docker build args, a comma separated list
 
 ### Publish Catalog Template
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 The **Publish Catalog Template** step publishes a version of a catalog app template (i.e. Helm chart) to a [git hosted chart repository]({{< baseurl >}}/rancher/v2.x/en/catalog/custom/). It generates a git commit and pushes it to your chart repository. This process requires a chart folder in your source code's repository and a pre-configured secret in the dedicated pipeline namespace to complete successfully. Any variables in the [pipeline variable substitution reference](#pipeline-variable-substitution-reference) is supported for any file in the chart folder.
 
@@ -461,7 +461,7 @@ stages:
 
 ### Deploy Catalog App
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 The **Deploy Catalog App** step deploys a catalog app in the project. It will install a new app if it is not present, or upgrade an existing one.
 

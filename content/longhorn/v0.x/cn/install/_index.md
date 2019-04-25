@@ -14,7 +14,7 @@ weight: 1
 
 ## Kubernetes 驱动需求
 
-Longhorn可用于Kubernetes，通过Longhorn Container Storage Interface（CSI）驱动程序或Longhorn Flexvolume驱动程序提供持久存储。Longhorn将自动部署其中一个驱动程序，具体取决于Kubernetes群集配置。用户还可以在部署yaml文件中指定驱动程序。CSI是首选。
+Longhorn可用于Kubernetes，通过Longhorn Container Storage Interface（CSI）驱动程序或Longhorn Flexvolume驱动程序提供持久存储。Longhorn将自动部署其中一个驱动程序，具体取决于Kubernetes集群配置。用户还可以在部署yaml文件中指定驱动程序。CSI是首选。
 
 ### 环境检查脚本
 

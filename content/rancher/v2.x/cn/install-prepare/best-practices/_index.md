@@ -44,11 +44,33 @@ sudo ionice -c2 -n0 -p $(pgrep etcd)
 ```yaml
 services:
   etcd:
+    # 开启自动备份
+    ## rke版本大于等于0.2.x或rancher版本大于等于2.2.0时使用
+    backup_config:
+      enabled: true
+      interval_hours: 12
+      retention: 6
+    ## rke版本小于0.2.x或rancher版本小于2.2.0时使用
+    snapshot: true
+    creation: 5m0s
+    retention: 24h
     # 修改空间配额为$((4*1024*1024*1024))，默认2G,最大8G
     extra_args:
       quota-backend-bytes: '4294967296'
+      auto-compaction-retention: 240 #(单位小时)
 ```
 
+- 磁盘碎片整理
+
+通过`auto-compaction-retention`对历史数据压缩后，后端数据库可能会出现内部碎片。内部碎片是指空闲状态的，能被后端使用但是仍然消耗存储空间，碎片整理过程将此存储空间释放回文件系统。
+
+要对etcd进行碎片整理，需手动在etcd容器中执行以下命令：
+
+```bash
+etcdctl defrag
+
+Finished defragmenting etcd member[127.0.0.1:2379]
+```
 
 ### 4、网络延迟
 

@@ -5,7 +5,7 @@ weight: 2
 
 ## 一、集群名称
 
-默认情况下，群集的名称将是`local`。如果需要其他名称，可以使用`cluster_name`更改群集的名称,该名称将在集群生成的`kubeconfig`文件中显示。
+默认情况下，集群的名称将是`local`。如果需要其他名称，可以使用`cluster_name`更改集群的名称,该名称将在集群生成的`kubeconfig`文件中显示。
 
 ```yaml
 cluster_name: mycluster
@@ -21,7 +21,7 @@ ignore_docker_version: true
 
 ## 三、Kubernetes版本
 
-默认情况下，RKE使用特定的Kubernetes版本启动，您可以选择为群集安装的不同版本的Kubernetes。每个版本的RKE都有一个支持的Kubernetes版本的特定列表。
+默认情况下，RKE使用特定的Kubernetes版本启动，您可以选择为集群安装的不同版本的Kubernetes。每个版本的RKE都有一个支持的Kubernetes版本的特定列表。
 
 您可以按如下方式设置Kubernetes版本：
 

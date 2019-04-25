@@ -28,7 +28,7 @@ For more information about each argument, its syntax, and how to view API Audit 
 ```yaml
 ...
 containers:
-        - image: rancher/rancher:latest
+        - image: rancher/rancher:stable (或者rancher/rancher:latest)
           imagePullPolicy: Always
           name: cattle-server
           args: ["--audit-log-path", "/var/log/auditlog/rancher-api-audit.log", "--audit-log-maxbackup", "5", "--audit-log-maxsize", "50", "--audit-level", "2"]

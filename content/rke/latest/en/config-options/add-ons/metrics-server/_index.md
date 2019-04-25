@@ -11,7 +11,7 @@ The image used for Metrics Server is under the [`system_images` directive]({{< b
 
 ## Disabling the Metrics Server
 
-_Available as of v0.2.0_
+_可用版本 v0.2.0_
 
 You can disable the default controller by specifying `none` to the monitoring `provider` directive in the cluster configuration.
 

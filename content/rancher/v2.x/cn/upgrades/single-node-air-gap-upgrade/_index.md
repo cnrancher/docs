@@ -17,7 +17,7 @@ weight: 2
 
     >**注意:** 在执行单节点升级时，`docker run`参数中的镜像名，需要添加私有仓库地址。
     >
-    > 例如: `<registry.yourdomain.com:port>/rancher/rancher:latest`
+    > 例如: `<registry.yourdomain.com:port>/rancher/rancher:stable (或者rancher/rancher:latest)`
 
 >**升级后出现网络问题？**
 >

@@ -3,7 +3,7 @@ title: Configuring Custom Clusters for Windows (Experimental)
 weight: 2240
 ---
 
-_Available as of v2.1.0_
+_可用版本 v2.1.0_
 
 >**Important:**
 >

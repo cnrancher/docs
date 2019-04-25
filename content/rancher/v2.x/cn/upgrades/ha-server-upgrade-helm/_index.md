@@ -69,7 +69,7 @@ weight: 5
     根据上一步骤中的获取的参数值，将它们以`--set key=value`的形式附加到升级命令中；
 
     ```bash
-    helm upgrade rancher ./rancher \
+    helm upgrade rancher rancher-stable/rancher \
     --set hostname=demo.cnrancher.com \
     --set ingress.tls.source=secret \
     --set service.type=ClusterIP

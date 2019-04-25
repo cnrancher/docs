@@ -1,16 +1,16 @@
 ---
-title: Network Plug-ins
-weight: 261
+title: 2 - 网络插件
+weight: 2
 ---
 
-RKE provides the following network plug-ins that are deployed as add-ons:
+RKE提供了以下网络插件，这些插件被部署为附加组件:
 
 - Flannel
 - Calico
 - Canal
 - Weave
 
-By default, the network plug-in is `canal`. If you want to use another network plug-in, you need to specify which network plug-in to enable at the cluster level in the `cluster.yml`.
+默认情况下，网络插件是`canal`。如果您想使用另一个网络插件，您需要在`cluster.yml`中指定要在集群级别启用的网络插件类型。
 
 ```yaml
 # Setting the flannel network plug-in
@@ -18,22 +18,22 @@ network:
     plugin: flannel
 ```
 
-The images used for network plug-ins are under the [`system_images` directive]({{< baseurl >}}/rke/latest/cn/config-options/system-images/). For each Kubernetes version, there are default images associated with each network plug-in, but these can be overridden by changing the image tag in `system_images`.
+用于网络插件的镜像位于[`system_images` directive]({{< baseurl >}}/rke/latest/cn/config-options/system-images/)。对于每个Kubernetes版本，都有与每个网络插件相关联的默认镜像，但是可以通过更改`system_images`中的镜像版本来覆盖默认版本。
 
-## Disabling deployment of a network plug-in
+## 一、禁用网络插件的部署
 
-You can disable deploying a network plug-in by specifying `none` to the network `plugin` directive in the cluster configuration.
+您可以在集群配置中设置`network.plugin为none`来禁止网络插件部署。
 
 ```yaml
 network:
     plugin: none
 ```
 
-## Network Plug-in Options
+## 二、网络插件选项
 
-Besides the different images that could be used to deploy network plug-ins, certain network plug-ins support additional options that can be used to customize the network plug-in.
+除了可以用于部署网络插件的不同镜像之外，某些网络插件还支持自定义网络插件选项。
 
-### Canal Network Plug-in Options
+### 1、Canal 网络插件选项
 
 ```yaml
 network:
@@ -43,12 +43,11 @@ network:
         canal_flannel_backend_type: vxlan
 ```
 
-#### Canal Interface
+#### Canal 接口
 
-By setting the `canal_iface`, you can configure the interface to use for inter-host communication.
-The `canal_flannel_backend_type` option allows you to specify the type of [flannel backend](https://github.com/coreos/flannel/blob/master/Documentation/backends.md) to use. By default the `vxlan` backend is used.
+通过设置`canal_iface`，您可以配置用于主机间通信接口。`canal_flannel_backend_type`选项允许您指定要使用的[flannel后端](https://github.com/coreos/flannel/blob/master/Documentation/backends.md)类型，默认情况下使用`vxlan`后端。
 
-### Flannel Network Plug-in Options
+### 2、Flannel 网络插件选项
 
 ```yaml
 network:
@@ -58,12 +57,11 @@ network:
         flannel_backend_type: vxlan
 ```
 
-#### Flannel Interface
+#### Flannel 接口
 
-By setting the `flannel_iface`, you can configure the interface to use for inter-host communication.
-The `flannel_backend_type` option allows you to specify the type of [flannel backend](https://github.com/coreos/flannel/blob/master/Documentation/backends.md) to use. By default the `vxlan` backend is used.
+通过设置`flannel_iface`，您可以设置用于主机间通信的接口。`flannel_backend_type`选项允许您指定要使用的[flannel后端](https://github.com/coreos/flannel/blob/master/Documentation/backends.md)类型，默认情况下使用`vxlan`后端。
 
-### Calico Network Plug-in Options
+### 3、Calico 网络插件选项
 
 ```yaml
 network:
@@ -71,16 +69,17 @@ network:
     options:
         calico_cloud_provider: aws
 ```
+
 #### Calico Cloud Provider
 
-Calico currently only supports 2 cloud providers, AWS or GCE, which can be set using `calico_cloud_provider`.
+Calico目前只支持两个云提供商`AWS或GCE`，可以使用`calico_cloud_provider`设置。
 
-**Valid Options**
+**有效选项**
 
 - `aws`
 - `gce`
 
-### Weave Network Plug-in Options
+### Weave 网络插件选项
 
 ```yaml
 network:
@@ -89,6 +88,6 @@ network:
         password: "Q]SZOQ5wp@n$oijz"
 ```
 
-#### Weave encryption
+#### Weave 加密
 
-Weave encryption can be enabled by passing a string password to the network provider config.
+编织加密可以通过向网络提供程序配置传递字符串密码来启用。

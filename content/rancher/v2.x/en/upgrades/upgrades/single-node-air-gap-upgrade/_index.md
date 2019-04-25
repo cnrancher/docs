@@ -24,7 +24,7 @@ Upgrades _to_ or _from_ any tag containing [alpha]({{< baseurl >}}/rancher/v2.x/
 	>**Note:**
 	> While completing [Single Node Upgrade]({{< baseurl >}}/rancher/v2.x/en/upgrades/single-node-upgrade/), prepend your private registry URL to the image when running the `docker run` command.
 	>
-	> Example: `<registry.yourdomain.com:port>/rancher/rancher:latest`
+	> Example: `<registry.yourdomain.com:port>/rancher/rancher:stable (或者rancher/rancher:latest)`
 
 **Result:** Rancher is upgraded. Log back into Rancher to confirm that the  upgrade succeeded.
 

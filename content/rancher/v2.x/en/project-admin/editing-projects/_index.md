@@ -76,7 +76,7 @@ You can always assign a PSP to an existing project if you didn't assign one duri
 
 ## Editing Resource Quotas
 
-_Available as of v2.0.1_
+_可用版本 v2.0.1_
 
 Edit [resource quotas]({{< baseurl >}}/rancher/v2.x/en/k8s-in-rancher/projects-and-namespaces/resource-quotas) when:
 
@@ -109,7 +109,7 @@ Edit [resource quotas]({{< baseurl >}}/rancher/v2.x/en/k8s-in-rancher/projects-a
 
 ## Editing Container Default Resource Limit
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 Edit [container default resource limit]({{< baseurl >}}/rancher/v2.x/en/k8s-in-rancher/projects-and-namespaces/resource-quotas/#setting-container-default-resource-limit) when:
 

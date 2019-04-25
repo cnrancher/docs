@@ -17,7 +17,7 @@ Pre-loading process only reads each new archive once, so it won't take time on s
 
 Pre-loading process is `asynchronous` by default, optionally this can be set to `synchronous` through the cloud-config file or `ros config set` command. In the following example, we’ll use the cloud-config file and `ros config set` command to set RancherOS pre-loading process to `synchronous`.
 
-_Available as of v1.4_
+_可用版本 v1.4_
 
 cloud-config file, e.g.:
 ```

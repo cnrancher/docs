@@ -1,19 +1,17 @@
 ---
-title: DNS provider
-weight: 262
+title: 3 - DNS provider
+weight: 3
 ---
 
-By default, RKE deploys [kube-dns](https://github.com/kubernetes/dns) as DNS provider for your cluster.
+默认情况下，RKE 部署[kube-dns](https://github.com/kubernetes/dns)作为您的集群的DNS提供程序。
 
-RKE will deploy kube-dns as a Deployment with the default replica count of 1. The pod consists of 3 containers: `kubedns`, `dnsmasq` and `sidecar`. RKE will also deploy kube-dns-autoscaler as a Deployment, which will scale the kube-dns Deployment by using the number of cores and nodes. Please see [Linear Mode](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler#linear-mode) for more information about this logic.
+RKE将部署`kube-dns`作为默认副本数为`1`的`Deployment`。`Pod`由三个容器组成:`kubedns、dnsmasq和sidecar`。RKE还将以`Deployment`方式部署`kube-dn -autoscaler`，它将根据`内核和节点的数量`来扩展`kube-dns`实例数。有关此逻辑的更多信息，请参见[Linear Mode](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler#linear-mode)。
 
-The images used for kube-dns are under the [`system_images` directive]({{< baseurl >}}/rke/latest/cn/config-options/system-images/). For each Kubernetes version, there are default images associated with kube-dns, but these can be overridden by changing the image tag in `system_images`.
+## 一、调度 kube-dns
 
-## Scheduling kube-dns
+_可用版本 v0.2.0_
 
-_Available as of v0.2.0_
-
-If you only want the kube-dns pod to be deployed on specific nodes, you can set a `node_selector` in the `dns` section. The label in the `node_selector` would need to match the label on the nodes for the kube-dns pod to be deployed.
+如果只想在特定节点上部署`kube-dns pod`，可以在`dns`部分设置`node_selector`。`node_selector`中的标签需要与要部署的kube-dns pod的节点上的标签匹配。
 
 ```yaml
 nodes:
@@ -29,23 +27,24 @@ dns:
       app: dns
 ```
 
-## Disabling kube-dns
+## 二、禁用 kube-dns
 
-_Available as of v0.2.0_
+_可用版本 v0.2.0_
 
-You can disable the default DNS provider by specifying `none` to  the dns `provider` directive in the cluster configuration. Be aware that this will prevent your pods from doing name resolution in your cluster.
+您可以通过在集群配置中为`DNS.provider设置为none`来禁用默认DNS提供程序。请注意，这将导致您的pod在无法在集群中执行名称解析。
 
 ```yaml
 dns:
     provider: none
 ```
-## Configuring kube-dns
 
-### Upstream nameservers
+## 三、配置 kube-dns
 
-_Available as of v0.2.0_
+### 1、上游 DNS服务器
 
-By default, kube-dns will use the host configured nameservers (usually residing at `/etc/resolv.conf`) to resolve external queries. If you want to configure specific upstream nameservers to be used by kube-dns, you can use the `upstreamnameservers` directive.
+_可用版本 v0.2.0_
+
+默认情况下，kube-dns将使用已配置的DNS名称服务器(通常位于`/etc/resolv.conf`)来执行外部查询。如果希望配置特定的上游 DNS服务器供kube-dns使用，可以使用`upstreamnameservers`指令。
 
 ```yaml
 dns:
@@ -55,11 +54,11 @@ dns:
     - 8.8.4.4
 ```
 
-## CoreDNS (Experimental)
+## 2、CoreDNS (实验)
 
-_Available as of v0.2.0_
+_可用版本 v0.2.0_
 
-If you want to use CoreDNS, you can set the `provider` directive to `coredns`. Both the `node_selector` and `upstreamnameservers` directive is also supported for CoreDNS.
+如果您想使用CoreDNS，您可以将`provider设置为CoreDNS`。CoreDNS还支持`node_selector`和`upstreamnameservers`参数设置。
 
 ```yaml
 dns:

@@ -42,7 +42,7 @@ Pipelines are represented as pipeline files that are checked into source code re
 
 ## Supported Version Control Platforms
 
-Rancher pipelines currently supports GitHub and GitLab (available as of Rancher v2.1.0).
+Rancher pipelines currently supports GitHub and GitLab (可用版本 Rancher v2.1.0).
 
 >**Note:** Additions to pipelines are scoped for future releases of Rancher, such as:
 >

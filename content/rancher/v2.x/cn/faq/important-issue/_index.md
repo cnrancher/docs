@@ -64,7 +64,7 @@ Rancher `etcd`用作数据存储，使用单节点安装时，将使用内置`et
   docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
   -v $HOST_PATH:/var/lib/rancher \
-  rancher/rancher:latest
+  rancher/rancher:stable (或者rancher/rancher:latest)
 ```
 
 ## 5、如何在同一个主机上运行`Rancher/Rancher`和`Rancher/Rancher-Agent`
@@ -81,7 +81,7 @@ Rancher `etcd`用作数据存储，使用单节点安装时，将使用内置`et
 docker run -d --restart=unless-stopped \
   -p 8080:80 -p 8443:443 \
   -v <主机路径>:/var/lib/rancher/ \
-  rancher/rancher:latest
+  rancher/rancher:stable (或者rancher/rancher:latest)
 ```
 
 ## 6、如何重置管理员密码？

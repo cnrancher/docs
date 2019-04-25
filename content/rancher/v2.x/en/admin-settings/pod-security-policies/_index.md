@@ -25,7 +25,7 @@ Using Rancher, you can create a Pod Security Policy using our GUI rather than cr
 
 ## Default Pod Security Policies
 
-_Available as of v2.0.7_
+_可用版本 v2.0.7_
 
 Rancher ships with two default Pod Security Policies (PSPs): the `restricted` and `unrestricted` policies.
 

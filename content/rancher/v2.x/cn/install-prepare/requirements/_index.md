@@ -57,11 +57,11 @@ Rancher在以下操作系统及其后续的非主要发行版上受支持:
 
 <h2>节点IP地址</h2>
 
-使用的每个节点（单节点安装，高可用性（HA）安装或群集中使用的worker节点）应配置静态IP。在DHCP的情况下，应配置DHCP IP保留以确保节点获得相同的IP分配。
+使用的每个节点（单节点安装，高可用性（HA）安装或集群中使用的worker节点）应配置静态IP。在DHCP的情况下，应配置DHCP IP保留以确保节点获得相同的IP分配。
 
 <h2>端口需求</h2>
 
-在HA群集中部署Rancher时，必须打开节点上的某些端口以允许与Rancher通信。必须打开的端口根据托管群集节点的计算机类型而变化，例如，如果要在基础结构托管的节点上部署Rancher，则必须为SSH打开`22`端口。下图描绘了需要为每种群集类型打开的端口。[集群类型]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning).
+在HA集群中部署Rancher时，必须打开节点上的某些端口以允许与Rancher通信。必须打开的端口根据托管集群节点的计算机类型而变化，例如，如果要在基础结构托管的节点上部署Rancher，则必须为SSH打开`22`端口。下图描绘了需要为每种集群类型打开的端口。[集群类型]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning).
 
 ![Basic Port Requirements]({{< baseurl >}}/img/rancher/port-communications.svg)
 

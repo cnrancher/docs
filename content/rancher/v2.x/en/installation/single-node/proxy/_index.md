@@ -33,5 +33,5 @@ The example below is based on a proxy server accessible at `http://192.168.0.1:3
   -e HTTP_PROXY="http://192.168.10.1:3128" \
   -e HTTPS_PROXY="http://192.168.10.1:3128" \
   -e NO_PROXY="localhost,127.0.0.1,0.0.0.0,192.168.10.0/24,example.com" \
-  rancher/rancher:latest
+  rancher/rancher:stable (或者rancher/rancher:latest)
 ```

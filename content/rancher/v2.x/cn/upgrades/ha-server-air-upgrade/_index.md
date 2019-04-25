@@ -17,4 +17,4 @@ weight: 4
 
   2. 按照[RKE HA升级]({{< baseurl >}}/rancher/v2.x/cn/upgrades/ha-server-upgrade/)的操作步骤完成升级;
 
-      >**注意:** 在升级时，需要在镜像名前添加私有仓库地址。比如: `<registry.yourdomain.com:port>/rancher/rancher:latest`
+      >**注意:** 在升级时，需要在镜像名前添加私有仓库地址。比如: `<registry.yourdomain.com:port>/rancher/rancher:stable (或者rancher/rancher:latest)`

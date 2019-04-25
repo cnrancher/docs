@@ -16,7 +16,7 @@ There are two types of drivers within Rancher:
 
 ## Cluster Drivers   
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 Cluster drivers are used to provision [hosted Kubernetes clusters]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/hosted-kubernetes-clusters/), such as GKE, EKS, AKS, etc.. The availability of which cluster driver to display when creating a cluster is defined based on the cluster driver's status. Only `active` cluster drivers will be displayed as an option for creating clusters for hosted Kubernetes clusters. By default, Rancher is packaged with several existing cluster drivers, but you can also create custom cluster drivers to add to Rancher.
 

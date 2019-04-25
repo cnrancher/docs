@@ -84,7 +84,7 @@ You can configure these services to collect logs at either the [cluster level]({
 
 ## Monitoring
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 Using Rancher, you can monitor the state and processes of your cluster nodes, Kubernetes components, and software deployments through integration with [Prometheus](https://prometheus.io/), a leading open-source monitoring solution. Prometheus provides a _time series_ of your data, which is a stream of timestamped values belonging to the same metric and the same set of labeled dimensions, along with comprehensive statistics and metrics of the monitored cluster.
 

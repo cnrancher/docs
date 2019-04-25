@@ -113,7 +113,7 @@ rancher:
 
 ### Run custom network configuration commands
 
-_Available as of v1.1_
+_可用版本 v1.1_
 
 You can configure `pre` and `post` network configuration commands to run in the `network` service container by adding `pre_cmds` and `post_cmds` array keys to `rancher.network`, or `pre_up` and`post_up` keys for specific `rancher.network.interfaces`.
 
@@ -169,7 +169,7 @@ rancher:
 
 ### WiFi
 
-_Available as of v1.5_
+_可用版本 v1.5_
 
 In order to enable WiFi access, update the `cloud-config` with the WiFi network information. You can use `DHCP` or `STATIC` mode.
 
@@ -242,7 +242,7 @@ $ sudo system-docker restart network
 
 ### 4G-LTE
 
-_Available as of v1.5_
+_可用版本 v1.5_
 
 In order to support 4G-LTE, 4G-LTE module will need to be connected to the motherboard and to get a good signal, an external atenna will need to be added. You can assemble such a device, which supports USB interface and SIM cards slot:
 

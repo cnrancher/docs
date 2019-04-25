@@ -37,7 +37,7 @@ Log into your Linux host, and then run the minimum installation command below.
     docker run -d --restart=unless-stopped \
     -p 80:80 -p 443:443 \
     -v <主机路径>:/var/lib/rancher/ \
-    rancher/rancher:latest
+    rancher/rancher:stable (或者rancher/rancher:latest)
     ```
 
 {{% /accordion %}}
@@ -62,7 +62,7 @@ docker run -d --restart=unless-stopped \
 	-v /<CERT_DIRECTORY>/<FULL_CHAIN.pem>:/etc/rancher/ssl/cert.pem \
 	-v /<CERT_DIRECTORY>/<PRIVATE_KEY.pem>:/etc/rancher/ssl/key.pem \
 	-v /<CERT_DIRECTORY>/<CA_CERTS.pem>:/etc/rancher/ssl/cacerts.pem \
-	rancher/rancher:latest
+	rancher/rancher:stable (或者rancher/rancher:latest)
 ```
 {{% /accordion %}}
 {{% accordion id="option-c" label="Option C-Bring Your Own Certificate: Signed by Recognized CA" %}}
@@ -86,7 +86,7 @@ docker run -d --restart=unless-stopped \
 	-v <主机路径>:/var/lib/rancher/ \
 	-v /<CERT_DIRECTORY>/<FULL_CHAIN.pem>:/etc/rancher/ssl/cert.pem \
 	-v /<CERT_DIRECTORY>/<PRIVATE_KEY.pem>:/etc/rancher/ssl/key.pem \
-	rancher/rancher:latest --no-cacerts
+	rancher/rancher:stable (或者rancher/rancher:latest) --no-cacerts
 ```
 {{% /accordion %}}
 {{% accordion id="option-d" label="Option D-Let's Encrypt Certificate" %}}
@@ -105,7 +105,7 @@ After you fulfill the prerequisites, you can install Rancher using a Let's Encry
 	docker run -d --restart=unless-stopped \
 	  -p 80:80 -p 443:443 \
 	  -v <主机路径>:/var/lib/rancher/ \
-	  rancher/rancher:latest \
+	  rancher/rancher:stable (或者rancher/rancher:latest) \
 	  --acme-domain <YOUR.DNS.NAME>
 
 >**Remember:** Let's Encrypt provides rate limits for requesting new certificates. Therefore, limit how often you create or destroy the container. For more information, see [Let's Encrypt documentation on rate limits](https://letsencrypt.org/docs/rate-limits/).
@@ -141,7 +141,7 @@ docker run -d --restart=unless-stopped \
   -v <主机路径>:/var/lib/rancher/ \
   -v /host/certs:/container/certs \
   -e SSL_CERT_DIR="/container/certs" \
-  rancher/rancher:latest
+  rancher/rancher:stable (或者rancher/rancher:latest)
 ```
 
 ### API Audit Log
@@ -158,12 +158,12 @@ docker run -d --restart=unless-stopped \
   -v <主机路径>:/var/lib/rancher/ \
   -v /var/log/rancher/auditlog:/var/log/auditlog \
   -e AUDIT_LEVEL=1 \
-  rancher/rancher:latest
+  rancher/rancher:stable (或者rancher/rancher:latest)
 ```
 
 ### TLS settings
 
-_Available as of v2.1.7_
+_可用版本 v2.1.7_
 
 To set a different TLS configuration, you can use the `CATTLE_TLS_MIN_VERSION` and `CATTLE_TLS_CIPHERS` environment variables. For example, to configure TLS 1.0 as minimum accepted TLS version:
 
@@ -172,18 +172,18 @@ docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
   -v <主机路径>:/var/lib/rancher/ \
   -e CATTLE_TLS_MIN_VERSION="1.0" \
-  rancher/rancher:latest
+  rancher/rancher:stable (或者rancher/rancher:latest)
 ```
 
 See [TLS settings]({{< baseurl >}}/rancher/v2.x/en/admin-settings/tls-settings) for more information and options.
 
 ### Air Gap
 
-If you are visiting this page to complete an air gap installation, you must pre-pend your private registry URL to the server tag when running the installation command in the option that you choose. Add `<REGISTRY.DOMAIN.COM:PORT>` with your private registry URL in front of `rancher/rancher:latest`.
+If you are visiting this page to complete an air gap installation, you must pre-pend your private registry URL to the server tag when running the installation command in the option that you choose. Add `<REGISTRY.DOMAIN.COM:PORT>` with your private registry URL in front of `rancher/rancher:stable (或者rancher/rancher:latest)`.
 
 **Example:**
 
-	 <REGISTRY.DOMAIN.COM:PORT>/rancher/rancher:latest
+	 <REGISTRY.DOMAIN.COM:PORT>/rancher/rancher:stable (或者rancher/rancher:latest)
 
 ### Persistent Data
 
@@ -203,7 +203,7 @@ To change the host ports mapping, replace the following part `-p 80:80 -p 443:44
 docker run -d --restart=unless-stopped \
   -p 8080:80 -p 8443:443 \
   -v <主机路径>:/var/lib/rancher/ \
-  rancher/rancher:latest
+  rancher/rancher:stable (或者rancher/rancher:latest)
 ```
 
 ## FAQ and Troubleshooting

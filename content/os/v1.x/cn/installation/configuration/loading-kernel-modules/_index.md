@@ -8,7 +8,7 @@ We provide both loading kernel modules with parameters and loading extra kernel 
 
 ### Loading Kernel Modules with parameters
 
-_Available as of v1.4_
+_可用版本 v1.4_
 
 The `rancher.modules` can help you to set kernel modules or module parameters.
 

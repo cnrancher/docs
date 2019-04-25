@@ -81,26 +81,26 @@ During upgrade, you create a copy of the data from your current Rancher containe
 1. Pull the most recent image of Rancher.
 
     ```
-    docker pull rancher/rancher:latest
+    docker pull rancher/rancher:stable (或者rancher/rancher:latest)
     ```
 
     >**Attention Air Gap Users:**
     > If you are visiting this page to complete [Air Gap Upgrade]({{< baseurl >}}/rancher/v2.x/en/upgrades/air-gap-upgrade), prepend your private registry URL to the image when running the `docker run` command.
     >
-    > Example: `<registry.yourdomain.com:port>/rancher/rancher:latest`
+    > Example: `<registry.yourdomain.com:port>/rancher/rancher:stable (或者rancher/rancher:latest)`
     >
 
 1. Start a new Rancher Server container using the data from the `rancher-data` container.
 
     ```bash
-    docker run -d --volumes-from rancher-data --restart=unless-stopped -v <主机路径>:/var/lib/rancher/ -p 80:80 -p 443:443 rancher/rancher:latest
+    docker run -d --volumes-from rancher-data --restart=unless-stopped -v <主机路径>:/var/lib/rancher/ -p 80:80 -p 443:443 rancher/rancher:stable (或者rancher/rancher:latest)
     ```
 
     >**Attention Let’s Encrypt Users:**
     >
     >Remember to append `--acme-domain <YOUR.DNS.NAME>` to the run command, otherwise Rancher will fall back to using self signed certificates.
     >```
-    >docker run -d --volumes-from rancher-data --restart=unless-stopped -v <主机路径>:/var/lib/rancher/ -p 80:80 -p 443:443 rancher/rancher:latest --acme-domain <YOUR.DNS.NAME>
+    >docker run -d --volumes-from rancher-data --restart=unless-stopped -v <主机路径>:/var/lib/rancher/ -p 80:80 -p 443:443 rancher/rancher:stable (或者rancher/rancher:latest) --acme-domain <YOUR.DNS.NAME>
     >```
 
 

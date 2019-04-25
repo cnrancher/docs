@@ -41,7 +41,7 @@ From this section you can choose:
          In v2.0.5, this was the default option, which did not prevent any network isolation between projects.
 
     - [Calico](https://docs.projectcalico.org/)
-    - [Weave](https://github.com/weaveworks/weave) (_Available as of v2.2.0_)
+    - [Weave](https://github.com/weaveworks/weave) (_可用版本 v2.2.0_)
 
          When Weave is selected as network provider, Rancher will automatically enable encryption by generating a random password. If you want to specify the password manually, please see how to configure your cluster using a [Config File]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/options/#config-file) and the [Weave Network Plug-in Options]({{< baseurl >}}/rke/latest/en/config-options/add-ons/network-plugins/#weave-network-plug-in-options).
 
@@ -56,13 +56,13 @@ If you want to see all the configuration options for a cluster, please click **S
 
 ### Private registries
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 If you are using a private registry with authentication for your Docker images, please configure the registry in this section to allow the nodes to pull images from this registry. See [Private Registries]({{< baseurl >}}/rke/latest/en/config-options/private-registries/) for more information.
 
 ### Authorized Cluster Endpoint
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 Authorized Cluster Endpoint can be used to directly access the Kubernetes API server, without requiring communication through Rancher. This is enabled by default, using the IP of the node with the `controlplane` role and the default Kubernetes self signed certificates. It is recommended to create an FQDN pointing to a load balancer which load balances across your nodes with the `controlplane` role. If you are using private CA signed certificates on the load balancer, you have to supply the CA certificate which will be included in the generated kubeconfig to validate the certificate chain. See the [Kubeconfig Files]({{< baseurl >}}/rancher/v2.x/en/k8s-in-rancher/kubeconfig/) for more information.
 
@@ -111,7 +111,7 @@ For an example of RKE config file syntax, see the [RKE documentation]({{< baseur
 
 ### Rancher specific parameters
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 Besides the RKE config file options, there are also Rancher specific settings that can be configured in the Config File (YAML):
 

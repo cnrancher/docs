@@ -5,15 +5,15 @@ weight: 6
 
 > 从v0.2.0版本开始可用
 
-证书是Kubernetes集群的重要组成部分，作用于所有Kubernetes集群组件。RKE通过`RKE cert `命令来处理证书。
+证书是Kubernetes集群的重要组成部分，作用于所有Kubernetes集群组件。RKE通过`RKE cert`命令来处理证书。
 
-## 生成证书签名请求(CSRs)和密钥
+## 一、生成证书签名请求(CSRs)和密钥
 
-如果希望使用权威CA机构颁发的证书，可以使用RKE[生成证书签名请求(CSRs)文件和密钥]({{< baseurl >}}/rke/latest/cn/installation/certs/#generating-certificate-signing-requests-csrs-and-keys).
+如果希望使用权威CA机构颁发的证书，可以使用RKE[生成证书签名请求(CSRs)文件和密钥]({{< baseurl >}}/rke/latest/cn/installation/custom-certs/#三-生成证书签名请求-csr-和密钥)
 
-您可以把`证书签名请求(CSRs)文件和密钥`交给权威CA机构进行签名颁发证书。在证书签名之后，RKE可以通过[自定义证书]({{< baseurl >}}/rke/latest/cn/installation/certs/) 功能来使用这些证书。
+您可以把`证书签名请求(CSRs)文件和密钥`交给权威CA机构进行签名颁发证书。在证书签名之后，RKE可以通过[自定义证书]({{< baseurl >}}/rke/latest/cn/installation/custom-certs/) 功能来使用这些证书。
 
-## 证书轮换
+## 二、证书轮换
 
 默认情况下，Kubernetes集群需要证书，RKE将自动为集群生成证书。在证书过期之前以及证书受到破坏时，轮换些证书非常重要。
 
@@ -34,7 +34,7 @@ RKE可以通过一些简单的命令轮换自动生成的证书:
 
 当您准备轮换证书时, RKE 配置文件 `cluster.yml`是必须的。运行`rke cert rotate`命令时，可通过`--config`指定配置路径。
 
-### 使用相同的CA轮换所有服务证书
+### 1、使用相同CA轮换所有服务证书
 
 使用 `rke cert rotate`进行相同的CA轮换所有服务证书
 
@@ -59,7 +59,7 @@ INFO[0002] Rebuilding Kubernetes cluster with rotated certificates
 INFO[0050] [worker] Successfully restarted Worker Plane..
 ```
 
-### 使用相同的CA在单个服务上轮换证书
+### 2、使用相同CA轮换单个服务证书
 
 使用`--service` 指定单个服务，比如`kubelet`:
 
@@ -76,7 +76,7 @@ INFO[0000] Rebuilding Kubernetes cluster with rotated certificates
 INFO[0033] [worker] Successfully restarted Worker Plane..
 ```
 
-### 轮换CA和所有服务证书
+### 3、轮换CA和所有服务证书
 
 如果需要轮换CA证书，则需要轮换所有服务证书，因为它们需要使用新轮换的CA证书签名。在CA和所有服务证书轮换之后，这些服务将自动重新启动，以便使用新证书运行。
 

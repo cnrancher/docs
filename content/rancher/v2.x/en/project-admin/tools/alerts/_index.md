@@ -100,7 +100,7 @@ This alert type monitors for the availability of all workloads marked with tags 
 {{% /accordion %}}
 {{% accordion id="project-expression" label="Metric Expression Alerts" %}}
 <br>
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 If you enable [project monitoring]({{< baseurl >}}/rancher/v2.x/en/project-admin/tools/#monitoring), this alert type monitors for the overload from Prometheus expression querying.
 

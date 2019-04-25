@@ -3,7 +3,7 @@ title: Prometheus Configuration
 weight: 1
 ---
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 
 While configuring monitoring at either the [cluster level]({{< baseurl >}}/rancher/v2.x/en/cluster-admin/tools/monitoring/#enabling-cluster-monitoring) or [project level]({{< baseurl >}}/rancher/v2.x/en/project-admin/tools/monitoring/#enabling-project-monitoring), there are multiple options that can be configured.

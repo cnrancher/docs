@@ -3,7 +3,7 @@ title: Global DNS
 weight: 5010
 ---
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 Rancher's Global DNS feature provides a way to program an external DNS provider to route traffic to your Kubernetes applications. Since the DNS programming supports spanning applications across different Kubernetes clusters, Global DNS is configured at a global level. An application can become highly available as it allows you to have one application run on different Kubernetes clusters. If one of your Kubernetes clusters goes down, the application would still be accessible.
 
@@ -15,7 +15,7 @@ Prior to adding in Global DNS entries, you will need to configure access to an e
 
 The following table lists the first version of Rancher each provider debuted.
 
-| DNS Provider | Available as of  |
+| DNS Provider | 可用版本  |
 | --- | --- |
 | [AWS Route53](https://aws.amazon.com/route53/)  | v2.2.0 |
 | [CloudFlare](https://www.cloudflare.com/dns/) | v2.2.0 |

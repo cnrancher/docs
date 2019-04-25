@@ -3,7 +3,7 @@ title: Custom Certificates
 weight: 150
 ---
 
-_Available as of v0.2.0_
+_可用版本 v0.2.0_
 
 By default, Kubernetes clusters require certificates and RKE auto-generates the certificates for all the Kubernetes services. RKE can also use custom certificates for these Kubernetes services.
 

@@ -18,12 +18,12 @@ Starting with v2.0.5, the default network selected when creating a Kubernetes cl
 
 Rancher server has 2 different tags. For each major release tag, we will provide documentation for the specific version.
 
-- `rancher/rancher:latest` tag will be our latest development builds. These builds will have been validated through our CI automation framework. These releases are not meant for deployment in production.
+- `rancher/rancher:stable (或者rancher/rancher:latest)` tag will be our latest development builds. These builds will have been validated through our CI automation framework. These releases are not meant for deployment in production.
 - `rancher/rancher:stable` tag will be our latest stable release builds. This tag is the version that we recommend for production.
 
 Please do not use releases with a `rc{n}` suffix. These `rc` builds are meant for the Rancher team to test builds.
 
-- Latest - v2.0.5 - `rancher/rancher:latest`
+- Latest - v2.0.5 - `rancher/rancher:stable (或者rancher/rancher:latest)`
 - Stable - v2.0.4 - `rancher/rancher:stable`
 
 ## Upgrades and Rollbacks

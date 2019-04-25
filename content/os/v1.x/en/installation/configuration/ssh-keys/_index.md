@@ -22,7 +22,7 @@ Please note that OpenSSH 7.0 and greater similarly disable the ssh-dss (DSA) pub
 
 ### SSHD Port and IP
 
-_Available as of v1.3_
+_可用版本 v1.3_
 
 RancherOS supports changing the sshd port and IP, you can use these in the cloud-config file:
 

@@ -3,7 +3,7 @@ title: Restoring etcd
 weight: 2050
 ---
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 etcd backup and recovery for [Rancher launched Kubernetes clusters]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/) can be easily performed. Snapshots of the etcd database are taken and saved either locally onto the etcd nodes or to a S3 compatible target. The advantages of configuring S3 is that if all etcd nodes are lost, your snapshot is saved remotely and can be used to restore the cluster.
 

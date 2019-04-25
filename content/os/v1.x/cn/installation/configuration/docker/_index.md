@@ -93,7 +93,7 @@ Key | Value | Default | Description
 `extra_args` | List of Strings | `[]` | Arbitrary daemon arguments, appended to the generated command
 `environment` | List of Strings (optional) | `[]` |
 
-_Available as of v1.4_
+_可用版本 v1.4_
 
 The docker-sys bridge can be configured with system-docker args, it will take effect after reboot.
 

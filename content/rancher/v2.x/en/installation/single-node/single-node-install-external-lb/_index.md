@@ -52,7 +52,7 @@ If you elect to use a self-signed certificate to encrypt communication, you must
       -p 80:80 -p 443:443 \
       -v <主机路径>:/var/lib/rancher/ \
       -v /etc/your_certificate_directory/cacerts.pem:/etc/rancher/ssl/cacerts.pem \
-      rancher/rancher:latest
+      rancher/rancher:stable (或者rancher/rancher:latest)
     ```
 
 {{% /accordion %}}
@@ -73,7 +73,7 @@ If you use a certificate signed by a recognized CA, installing your certificate 
     docker run -d --restart=unless-stopped \
     -p 80:80 -p 443:443 \
     -v <主机路径>:/var/lib/rancher/ \
-    rancher/rancher:latest --no-cacerts
+    rancher/rancher:stable (或者rancher/rancher:latest) --no-cacerts
     ```
 
 {{% /accordion %}}
@@ -181,11 +181,11 @@ If you want to record all transactions with the Rancher API, enable the [API Aud
 
 ### Air Gap
 
-If you are visiting this page to complete an [Air Gap Installation]({{< baseurl >}}/rancher/v2.x/en/installation/air-gap-installation/), you must pre-pend your private registry URL to the server tag when running the installation command in the option that you choose. Add `<REGISTRY.DOMAIN.COM:PORT>` with your private registry URL in front of `rancher/rancher:latest`.
+If you are visiting this page to complete an [Air Gap Installation]({{< baseurl >}}/rancher/v2.x/en/installation/air-gap-installation/), you must pre-pend your private registry URL to the server tag when running the installation command in the option that you choose. Add `<REGISTRY.DOMAIN.COM:PORT>` with your private registry URL in front of `rancher/rancher:stable (或者rancher/rancher:latest)`.
 
 **Example:**
 
-	 <REGISTRY.DOMAIN.COM:PORT>/rancher/rancher:latest
+	 <REGISTRY.DOMAIN.COM:PORT>/rancher/rancher:stable (或者rancher/rancher:latest)
 
 ### Persistent Data
 
@@ -260,11 +260,11 @@ If you want to record all transactions with the Rancher API, enable the [API Aud
 
 ### Air Gap
 
-If you are visiting this page to complete an [Air Gap Installation]({{< baseurl >}}/rancher/v2.x/en/installation/air-gap-installation/), you must pre-pend your private registry URL to the server tag when running the installation command in the option that you choose. Add `<REGISTRY.DOMAIN.COM:PORT>` with your private registry URL in front of `rancher/rancher:latest`.
+If you are visiting this page to complete an [Air Gap Installation]({{< baseurl >}}/rancher/v2.x/en/installation/air-gap-installation/), you must pre-pend your private registry URL to the server tag when running the installation command in the option that you choose. Add `<REGISTRY.DOMAIN.COM:PORT>` with your private registry URL in front of `rancher/rancher:stable (或者rancher/rancher:latest)`.
 
 **Example:**
 
-	 <REGISTRY.DOMAIN.COM:PORT>/rancher/rancher:latest
+	 <REGISTRY.DOMAIN.COM:PORT>/rancher/rancher:stable (或者rancher/rancher:latest)
 
 ### Persistent Data
 

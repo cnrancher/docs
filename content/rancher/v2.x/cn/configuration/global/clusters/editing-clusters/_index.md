@@ -1,6 +1,6 @@
 ---
-title: 3 - 编辑集群
-weight: 3
+title: 2 - 更新集群
+weight: 2
 ---
 
 After you provision a Kubernetes cluster using Rancher, you can still edit options and settings for the cluster. To edit your cluster, open the **Global** view, make sure the **Clusters** tab is selected, and then select **Ellipsis (...) > Edit** for the cluster that you want to edit.

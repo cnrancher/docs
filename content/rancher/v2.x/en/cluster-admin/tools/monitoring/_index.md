@@ -3,7 +3,7 @@ title: Monitoring
 weight: 4
 ---
 
-_Available as of v2.2.0_
+_可用版本 v2.2.0_
 
 Using Rancher, you can monitor the state and processes of your cluster nodes, Kubernetes components, and software deployments through integration with [Prometheus](https://prometheus.io/), a leading open-source monitoring solution. Prometheus provides a _time series_ of your data, which is, according to [Prometheus documentation](https://prometheus.io/docs/concepts/data_model/):
 
