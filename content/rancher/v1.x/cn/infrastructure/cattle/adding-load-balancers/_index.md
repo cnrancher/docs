@@ -61,7 +61,7 @@ Rancher提供一个基于HAProxy的容器来重定向流量至目标服务。
 
 ###### 例子:
 
-```
+```bash
 domain1.com -> Service1
 domain2.com -> Service2
 
@@ -73,7 +73,7 @@ domain3.com/admin -> Service2
 
 当基于HOST值设置路由时，Rancher支持通配符。所支持的语法如下。
 
-```
+```bash
 *.domain.com -> hdr_end(host) -i .domain.com
 domain.com.* -> hdr_beg(host) -i domain.com.
 ```
@@ -122,7 +122,7 @@ Rancher支持以下两种选项:
 
 ##### 自定义HAProxy配置的例子
 
-```
+```bash
 global
     maxconn 4096
     maxpipes 1024
@@ -162,7 +162,7 @@ backend customUUID
 
 #### Example `docker-compose.yml`
 
-```
+```yaml
 version: '2'
 services:
   letschatlb:
@@ -173,7 +173,7 @@ services:
 
 #### Example `rancher-compose.yml`
 
-```
+```yaml
 version: '2'
 services:
   letschatlb:
@@ -211,7 +211,7 @@ Rancher 提供一个基于HAProxy的容器来做负载均衡。
 
 #### Example `docker-compose.yml`
 
-```
+```yaml
 version: '2'
 services:
   lb1:
@@ -228,7 +228,7 @@ services:
 
 所有负载均衡的配置项都被定义在`rancher-compose.yml`的`lb_config`字段中
 
-```
+```yaml
 version: '2'
 services:
   lb1:
@@ -276,7 +276,7 @@ services:
 
 Rancher的负载均衡支持多种协议类型。
 
-* `http` - 默认情况下，如果没有设置任何协议，负载均衡就会使用`http`。HAProxy 不会对流量做任何解析，仅仅是转发。
+* `http` - 默认情况下，rancher容器会将80端口上的请求重定向到443端口上。如果没有设置任何协议，负载均衡就会使用`http`。HAProxy 不会对流量做任何解析，仅仅是转发。
 * `tcp` - HAProxy 不会对流量做任何解析，仅仅是转发。
 * `https` - 需要设置SSL会话终结。流量将会被HAProxy使用[证书]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/certificates/)解密，这个证书必须在设定负载均衡之前被添加入Rancher。被流量负载均衡所转发的流量是没有加密的。
 * `tls` - 需要设置SSL会话终结。流量将会被HAProxy使用[证书]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/certificates/)解密，这个证书必须在设定负载均衡之前被添加入Rancher。被流量负载均衡所转发的流量是没有加密的。
@@ -295,7 +295,7 @@ Rancher的负载均衡支持多种协议类型。
 
 ###### Example `rancher-compose.yml`
 
-```
+```yaml
 version: '2'
 services:
   lb1:
@@ -326,7 +326,7 @@ Rancher基于HAProxy的负载均衡支持七层路由，可以在端口规则下
 
 ###### Example `rancher-compose.yml`
 
-```
+```yaml
 version: '2'
 services:
   lb1:
@@ -353,7 +353,7 @@ services:
 
 当设置基于主机名的路由规则时，Rancher支持通配符。所支持的语法如下。
 
-```
+```bash
 *.domain.com -> hdr_end(host) -i .domain.com
 domain.com.* -> hdr_beg(host) -i domain.com.
 ```
@@ -364,7 +364,7 @@ domain.com.* -> hdr_beg(host) -i domain.com.
 
 ###### Example `rancher-compose.yml`
 
-```
+```yaml
 version: '2'
 services:
   lb1:
@@ -404,7 +404,7 @@ services:
 
 ###### Example `docker-compose.yml`
 
-```
+```yaml
 version: '2'
 services:
   lb1:
@@ -424,7 +424,7 @@ services:
 
 ###### Example `rancher-compose.yml`
 
-```
+```yaml
 version: '2'
 services:
   lb1:
@@ -468,7 +468,7 @@ services:
 
 证书可以在负载均衡容器的`lb_config`中被引用。
 
-```
+```yaml
 version: '2'
 services:
   lb:
@@ -509,7 +509,7 @@ Rancher的负载均衡将会检测证书目录来实现更新。任何对证书�
 
 > **注意:** 你不能同时使用在Rancher中添加的证书和挂载在负载均衡容器中的证书
 
-```
+```bash
 labels:
   io.rancher.lb_service.cert_dir: <CERTIFICATE_LOCATION>
   io.rancher.lb_service.default_cert_dir: <DEFAULT_CERTIFICATE_LOCATION>
@@ -519,7 +519,7 @@ labels:
 
 ###### Example `docker-compose.yml`
 
-```
+```yaml
 version: '2'
 services:
   lb:

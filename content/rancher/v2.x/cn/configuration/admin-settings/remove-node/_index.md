@@ -56,7 +56,7 @@ aliases:
   network_interface=`ls /sys/class/net`
   for net_inter in $network_interface;
   do
-    if ! echo $net_inter | grep -qiE 'lo|docker0|eth*';then
+    if ! echo $net_inter | grep -qiE 'lo|docker0|eth*|ens*';then
       ip link delete $net_inter
     fi
   done

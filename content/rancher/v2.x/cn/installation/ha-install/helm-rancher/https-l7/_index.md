@@ -9,7 +9,7 @@ weight: 2
 
 ## 二、配置负载均衡器(以NGINX为例)
 
-默认情况下，如果rancher server通过负载均衡器来代理，这个时候请求是通过负载均衡器发送给rancher server，而并非客户端直接访问rancher server。在非全局`https`的环境中，如果以外部负载均衡器作为ssl终止，这个时候通过负载均衡器的`https`请求将需要被反向代理到rancher server http(80)上。在负载均衡器上配置`X-Forwarded-Proto: https`参数，rancher server http(80)上收到负载均衡器的请求后，就不会再重定向到https(443)上。
+默认情况下，rancher容器会将80端口上的请求重定向到443端口上。如果rancher server通过负载均衡器来代理，这个时候请求是通过负载均衡器发送给rancher server，而并非客户端直接访问rancher server。在非全局`https`的环境中，如果以外部负载均衡器作为ssl终止，这个时候通过负载均衡器的`https`请求将需要被反向代理到rancher server http(80)上。在负载均衡器上配置`X-Forwarded-Proto: https`参数，rancher server http(80)上收到负载均衡器的请求后，就不会再重定向到https(443)上。
 
 负载均衡器或代理必须支持以下参数:
 
@@ -21,7 +21,7 @@ weight: 2
 |---------------------|--------------------------|:------------|
 | `Host`              | 传递给Rancher的主机名| 识别客户端请求的主机名。      |
 | `X-Forwarded-Proto` | `https`       | 识别客户端用于连接负载均衡器的协议。**注意：**如果存在此标头，`rancher/rancher`不会将HTTP重定向到HTTPS。 |
-| `X-Forwarded-Port`  | Port used to reach Rancher.   | 识别客户端用于连接负载均衡器的协议。      |
+| `X-Forwarded-Port`  | Port used to reach Rancher.   | 识别客户端用于连接负载均衡器的端口。      |
 | `X-Forwarded-For`   | IP of the client connection.   | 识别客户端的原始IP地址。            |
 
 ### nginx配置示例
@@ -47,7 +47,7 @@ http {
     }
 
     server {
-        listen 443 ssl http2;
+        listen 443 ssl http2; # 如果是升级或者全新安装v2.2.2,需要禁止http2
         server_name FQDN;
         ssl_certificate <更换证书>;
         ssl_certificate_key <更换证书私钥>;

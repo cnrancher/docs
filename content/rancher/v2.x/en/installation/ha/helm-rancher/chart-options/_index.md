@@ -193,7 +193,7 @@ http {
     }
 
     server {
-        listen 443 ssl http2;
+        listen 443 ssl http2; # 如果是升级或者全新安装v2.2.2,需要禁止http2
         server_name FQDN;
         ssl_certificate /certs/fullchain.pem;
         ssl_certificate_key /certs/privkey.pem;

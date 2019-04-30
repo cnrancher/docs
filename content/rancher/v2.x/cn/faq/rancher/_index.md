@@ -4,31 +4,23 @@ weight: 2
 ---
 ## Kubernetes
 
-### What does it mean when you say Rancher v2.0 is built on Kubernetes?
+### 当说Rancher v2.x 建立在Kubernetes上时意味着什么？
 
-Rancher v2.0 is a complete container management platform built on 100% on Kubernetes leveraging its Custom Resource and Controller framework.  All features are written as a CustomResourceDefinition (CRD) which extends the existing Kubernetes API and can leverage native features such as RBAC.
+Rancher v2.0是一个完整的容器管理平台，基于Kubernetes自定义资源和控制器框架构建。所有功能都编写为CustomResourceDefinition（CRD），它扩展了现有的Kubernetes API，并可以利用RBAC等功能。
 
-### Do you plan to implement upstream Kubernetes, or continue to work on your own fork?
+### 是否计划使用上游Kubernetes，或继续使用自己的分支?
 
-We're still going to provide our distribution when you select the default option of having us create your Kubernetes cluster, but it will be very close to upstream.
+当您选择让我们创建Kubernetes集群的默认选项时，我们仍将提供我们的发行版，但它将非常接近上游版本。
 
-### Does this release mean that we need to re-train our support staff in Kubernetes?
+### Rancher2.x版本是否意味着我们需要重新培训我们在Kubernetes的支持人员？
 
-Yes.  Rancher will offer the native Kubernetes functionality via `kubectl` but will also offer our own UI dashboard to allow you to deploy Kubernetes workload without having to understand the full complexity of Kubernetes.  However, to fully leverage Kubernetes, we do recommend understanding Kubernetes.  We do plan on improving our UX with subsequent releases to make Kubernetes easier to use.
-
-### So, wait. Is a Rancher compose going to make a Kubernetes pod? Do we have to learn both now? We usually use the filesystem layer of files, not the UI.
-
-No.  Unfortunately, the differences were enough such that we cannot support Rancher compose anymore in 2.0.  We will be providing both a tool and guides to help with this migration.
+是的。Rancher将通过`kubectl`使用原生Kubernetes功能，但也将提供我们自己的UI仪表板，允许您部署Kubernetes工作负载，而不必了解Kubernetes的全部复杂性。但是，为了充分利用Kubernetes，我们建议您理解Kubernetes。我们计划通过后续版本改进我们的用户体验，以使Kubernetes更易于使用。
 
 ## Cattle
 
-### How does Rancher v2.0 affect Cattle?
+### Rancher v2.0 对Cattle有什么影响?
 
-Cattle will not supported in v2.0 as Rancher has been re-architected to be based on Kubernetes. You can, however, expect majority of Cattle features you use will exist and function similarly on Kubernetes. We will develop migration tools in Rancher v2.1 to help you transform your existing Rancher Compose files into Kubernetes YAML files.
-
-### Can I migrate existing Cattle workloads into Kubernetes?
-
-Yes. In the upcoming Rancher v2.1 release we will provide a tool to help translate existing Cattle workloads in Compose format to Kubernetes YAML format.  You will then be able to deploy those workloads on the v2.0 platform.
+由于Rancher已经重新设计为基于Kubernetes，因此v2.0不支持Cattle，但是Kubernetes上也有cattle类似的功能。
 
 ## 环境和集群
 
@@ -36,9 +28,9 @@ Yes. In the upcoming Rancher v2.1 release we will provide a tool to help transla
 
 不可以. 从2.0开始，环境的概念已经改为Kubernetes集群，并且只支持Kubernetes调度引擎。
 
-### Can you still add an existing host to an environment? (i.e. not provisioned directly from Rancher)
+### 还可以将现有主机添加到环境中吗?
 
-Yes. We still provide you with the same way of executing our Rancher agents directly on hosts.
+是。我们仍然提供通过自定义方式创建集群。
 
 ## 升级和迁移
 
@@ -46,74 +38,28 @@ Yes. We still provide you with the same way of executing our Rancher agents dire
 
 由于将Docker容器转换为Kubernetes pod的技术难度，升级将要求用户将这些工作负载从v1.x迁移到新的v2.0环境中。我们计划在v2.1中增加一个工具，将现有的Rancher Compose文件转换为Kubernetes YAML文件。然后，你将能够在v2.0平台上部署这些工作负载。
 
-### Is it possible to upgrade from Rancher v1.0 to v2.0 without any disruption to Cattle and Kubernetes clusters?
+### 是否可以从Rancher v1.0升级到v2.0而不会对Cattle和Kubernetes群集造成任何干扰？
 
-At this time, we are still exploring this scenario and taking feedback. We anticipate that you will need to launch a new Rancher instance and then relaunch on v2.0. Once you've moved to v2.0, upgrades will be in place, as they are in v1.6.
+目前，我们仍在探索这种情况并收集反馈意见。我们预计您需要启动一个新的Rancher实例，然后在v2.0上重新启动。一旦你转到v2.0，升级就会到位，就像它们在v1.6中一样。
 
-### Can I import OpenShift Kubernetes clusters into v2.0?
+### 可以将OpenShift Kubernetes集群导入v2.0吗？
 
-Our goal is to run any upstream Kubernetes clusters. Therefore, Rancher v2.0 should work with OpenShift, but we haven't tested it yet.
+我们的目标是运行上游Kubernetes集群，因此，Rancher v2.0应该可以与OpenShift一起使用，但我们还没有测试过它。
 
 ## 支持
 
-### What about Rancher v1.6? Are you planning some long-term support releases?
+### 那么Rancher v1.6是否计划发布一些长期的支持版本?
 
-That is definitely the focus of the v1.6 stream. We're continuing to improve that release, fix bugs, and maintain it for the next 12 months at a minimum. We will extend that time period, if necessary, depending on how quickly users move to v2.1.
+这是v1.6的重点。我们将继续改进该版本，修复错误，并至少在2.0发布的未来12个月内继续维护。如有必要，我们将延长维护时间，具体取决于用户迁移到v2.1的速度。
 
-### Does Rancher v2.0 support Docker Swarm and Mesos as environment types?
+### Rancher v2.0是否支持Docker Swarm和Mesos作为环境类型?
 
-When creating an environment in Rancher v2.0, Swarm and Mesos will no longer be standard options you can select. However, both Swarm and Mesos will continue to be available as Catalog applications you can deploy. It was a tough decision to make but, in the end, it came down to adoption. For example, out of more than 15,000 clusters, only about 200 or so are running Swarm.
+在选择Rancher v2.0中创建环境时，Swarm和Mesos将不再是您可以选择的标准选项。不过，Swarm和Mesos都将继续作为可以部署的Catalog应用程序提供。这是一个艰难的决定，但最终，它还是被采纳了。超过15,000个集群中，只有大约200个在运行Swarm。
 
-### Is it possible to manage Azure Container Services with Rancher v2.0?
+### 是否可以使用Rancher v2.0管理Azure容器服务?
 
-Yes.
+是的.
 
-### What about Windows support?
+### Windows支持怎么样?
 
-We plan to provide Windows support for v2.1 based on Microsoft’s new approach to providing an overlay network using Kubernetes and CNI. This new approach matches well with what we are doing in v2.1 and, once that is complete, you will be able to leverage the same Rancher UX, or Kubernetes UX, but with Windows. We are in the middle of discussing how we can make this happen with Microsoft, and we will provide more information before the end of this year.
-
-### Are you planning on supporting Istio in Rancher v2.0?
-
-We like Istio, and it's something we're looking at potentially integrating and supporting.
-
-### Will Rancher v2.0 support Hashicorp's Vault for storing secrets?
-
-Not yet. We currently support Hashicorp's Vault in v1.6 and plan on supporting it in an upcoming release post v2.0.
-
-### Does Rancher v2.0 support RKT containers as well?
-
-At this time, we only support Docker.
-
-### Will Rancher v2.0 support Calico, Contiv, Contrail, Flannel, Weave net, etc., for embedded and imported Kubernetes?
-
-We will initially only support Calico, Canal, and Flannel.
-
-### Are you planning on supporting Traefik for existing setups?
-
-We don't currently plan on providing embedded Traefik support, but we're still exploring load-balancing approaches.
-
-## General
-
-### Can we still add our own infrastructure services, which had a separate view/filter in 1.6.x?
-
-Yes. We plan to eventually enhance this feature so you can manage Kubernetes storage, networking, and its vast ecosystem of add-ons.
-
-### Are you going to integrate Longhorn?
-
-Yes. Longhorn was on a bit of a hiatus while we were working on v2.0. We plan to re-engage on the project once v2.0 reaches GA (general availability).
-
-### Are there changes to default roles available now or going forward? Will the Kubernetes alignment impact plans for roles/RBAC?
-
-The default roles will be expanded to accommodate the new Rancher 2.0 features, and will also take advantage of the Kubernetes RBAC (Role-Based Access Control) capabilities to give you more flexibility.
-
-### Will there be any functions like network policies to separate a front-end container from a back-end container through some kind of firewall in v2.0?
-
-Yes. You can do so by leveraging Kubernetes' network policies.
-
-### What about the CLI? Will that work the same way with the same features?
-
-Yes. Definitely.
-
-### If we use Kubernetes native YAML files for creating resources, should we expect that to work as expected, or do we need to use Rancher/Docker compose files to deploy infrastructure?
-
-Absolutely.
+ 我们计划基于微软使用Kubernetes和CNI提供的overlay网络新方法，为v2.1提供Windows支持。这个新方法与我们在v2.1中所做的非常匹配，一旦完成，您将能够利用相同的Rancher UX，或者Kubernetes UX。我们正在与微软讨论如何实现这一目标，我们将在今年年底前提供更多信息。

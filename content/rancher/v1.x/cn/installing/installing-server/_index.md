@@ -59,7 +59,7 @@ UI以及API会使用 `8080` 端口对外服务。下载Docker镜像完成后，�
 
 访问如下的URL: `http://<SERVER_IP>:8080`。`<SERVER_IP>` 是运行Rancher Server的主机的公共IP地址。
 
-当UI已经启动并运行，你可以先[添加主机]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/) 或者在应用商店中选择一个容器编排引擎。在默认情况下，如果没有选择不同的容器编排引擎，当前环境会使用Cattle引擎。在主机被添加都Rancher中后，你可以开始添加[服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/)或者从[应用商店]({{< baseurl >}}/rancher/v1.x/cn/configuration/catalog/)通过应用模版启动一个应用。
+当UI已经启动并运行，你可以先[添加主机]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/) 或者在应用商店中选择一个容器编排引擎。在默认情况下，rancher容器会将80端口上的请求重定向到443端口上。如果没有选择不同的容器编排引擎，当前环境会使用Cattle引擎。在主机被添加都Rancher中后，你可以开始添加[服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/)或者从[应用商店]({{< baseurl >}}/rancher/v1.x/cn/configuration/catalog/)通过应用模版启动一个应用。
 
 <a id="single-container-external-database"></a>
 
