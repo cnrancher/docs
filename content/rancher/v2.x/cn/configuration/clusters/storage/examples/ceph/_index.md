@@ -1,6 +1,6 @@
 ---
-title: Ceph 存储类
-weight: 3054
+title: 1 - Ceph RBD
+weight: 1
 ---
 
 >**注意:** 1、本文编写的前提是已有正常工作的ceph存储服务，并且Rancher集群能正常访问ceph存储服务，另外这里我们对接的是Rancher持久化存储的存储类。\

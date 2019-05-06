@@ -26,7 +26,8 @@ After installing NGINX, you need to create the NGINX config file, `/etc/nginx/co
 1. Copy and paste the code sample below into your favorite text editor. Save it as `/etc/nginx/conf.d/rancher.conf`.
 
     **Example NGINX config:**
-    ```
+
+    ```conf
     upstream rancher {
         server IP_NODE_1:80;
         server IP_NODE_2:80;

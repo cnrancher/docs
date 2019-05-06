@@ -96,7 +96,6 @@ The load balancer or proxy has to be configured to support the following:
     | `X-Forwarded-Port`    | Port used to reach Rancher.              | To identify the protocol that client used to connect to the load balancer or proxy.
     | `X-Forwarded-For`     | IP of the client connection.             | To identify the originating IP address of a client.
 
-
 ### Example Nginx configuration
 
 This NGINX configuration is tested on NGINX 1.14.
@@ -107,7 +106,7 @@ This NGINX configuration is tested on NGINX 1.14.
 * Replace both occurences of `FQDN` to the DNS name for Rancher.
 * Replace `/certs/fullchain.pem` and `/certs/privkey.pem` to the location of the server certificate and the server certificate key respectively.
 
-```
+```conf
 worker_processes 4;
 worker_rlimit_nofile 40000;
 
@@ -195,7 +194,7 @@ This layer 7 Nginx configuration is tested on Nginx version 1.13 (mainline) and 
 
  >**Note:** This Nginx configuration is only an example and may not suit your environment. For complete documentation, see [NGINX Load Balancing - TCP and UDP Load Balancer](https://docs.nginx.com/nginx/admin-guide/load-balancer/tcp-udp-load-balancer/).
 
-```
+```conf
 upstream rancher {
     server rancher-server:80;
 }

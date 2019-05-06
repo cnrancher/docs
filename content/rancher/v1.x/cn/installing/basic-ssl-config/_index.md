@@ -48,8 +48,7 @@ $ sudo docker run -d --restart=unless-stopped --name=rancher-server rancher/serv
 * `rancher-server` 是你的Rancher Server容器的名称。 当你启动Rancher Server容器时，命令中必须包括 `--name=rancher-server` 参数。当你启动nginx容器时，你的命令则必须包括 `--link=rancher-server` ，这样以下的配置才能生效。
 * `<server>` 可以是任何的名字，但是必须与http/https server配置的名称一致。
 
-
-```
+```plain
 upstream rancher {
     server rancher-server:8080;
 }
@@ -86,9 +85,7 @@ server {
 }
 ```
 
-
 ### Apache 配置例子
-
 
 以下是使用Apache作为负载均衡的配置例子。
 

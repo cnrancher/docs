@@ -1,6 +1,6 @@
 ---
-title: NFS Storage
-weight: 3054
+title: 2 - NFS Storage
+weight: 2
 aliases:
   - /rancher/v2.x/en/tasks/clusters/adding-storage/provisioning-storage/nfs/
 ---

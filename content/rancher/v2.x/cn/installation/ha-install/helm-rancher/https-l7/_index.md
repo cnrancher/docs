@@ -188,7 +188,7 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全。
 
     >**注意:** 1.证书对应的`域名`需要与`hostname`选项匹配，否则`ingress`将无法代理访问Rancher。
 
-### 3、高级配
+### 3、高级配置
 
 Rancher chart有许多配置选项,可用于自定义安装以适合你的特定环境，点击查看[Rancher高级设置]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/advanced-settings)
 

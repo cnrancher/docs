@@ -1,6 +1,6 @@
 ---
-title: vSphere Storage
-weight: 3055
+title: 3 - vSphere Storage
+weight: 3
 aliases:
   - /rancher/v2.x/en/tasks/clusters/adding-storage/provisioning-storage/vsphere/
 ---

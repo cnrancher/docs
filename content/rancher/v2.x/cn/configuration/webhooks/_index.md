@@ -27,12 +27,13 @@ Docker Hub: `http://hub.docker.com`\
 
 1. 登录Rancher UI切换到`system`项目下，然后依次进入 `资源\配置映射`，点击页面右上角的`添加配置映射`。
 1. 修改模板中对应的参数:
-    - `<webhooks_id>`: 此`webhooks-id`具有唯一性，不能重复。建议设置为服务名，比如`cnrancher_website`;
-    - `<token>`: 设置一个token值用于匹配校验;
-    - `<workload>`: 指定一个应用，书写格式为`类型/Workload`,例如: `deployment/webhooks、daemonset/webhooks`;
-    - `<namespaces>`: 指定服务所在的命名空间;
-    - `<container>`: 指定容器名称，对于一个有多容器的Pod，升级时需要指定容器名称;
-    - `<MAIL_TO>`: 收件人邮箱地址;
+    - `<webhooks_id>`: 此`webhooks-id`具有唯一性，不能重复。建议设置为服务名，比如`cnrancher_website`；
+    - `<token>`: 设置一个token值用于匹配校验；
+    - `<workload>`: 指定一个应用，书写格式为`类型/Workload`,例如: `deployment/webhooks、daemonset/webhooks`；
+    - `<namespaces>`: 指定服务所在的命名空间；
+    - `<container>`: 指定容器名称，对于一个有多容器的Pod，升级时需要指定容器名称；
+    - `<MAIL_TO>`: 收件人邮箱地址；
+    - `<NET_TYPE>`: 如果阿里云的镜像仓库，可在url中添加`net_type`指定网络类型: 1.公共网络: 不指定默认为公共网络，2.专有网络: `net_type=vpc`，3.经典网络: `net_type=internal`；
 
     ```json
     [
@@ -78,6 +79,11 @@ Docker Hub: `http://hub.docker.com`\
                     "envname": "REPO_TYPE",
                     "source": "url",
                     "name": "repo_type"
+                },
+                {
+                    "envname": "NET_TYPE",
+                    "source": "url",
+                    "name": "net_type"
                 },
                 {
                     "envname": "MAIL_TO",
@@ -233,11 +239,17 @@ container=<container>&\
 repo_type=<repo_type>
 ```
 
+- 如果是阿里云的镜像仓库，可在url中添加`net_type`指定网络类型:
+
+1. 公共网络: 不指定默认为公共网络
+1. 专有网络: `net_type=vpc`
+1. 经典网络: `net_type=internal`
+
 其中`<webhooks_id>、<namespaces>、<workload>、<container>`对应模板中的参数，`<repo_type>`支持:`aliyun`、`dockerhub`、`custom`。
 
 ## 五、配置仓库触发
 
-### 阿里云镜像仓库
+### aliyun
 
   1. 浏览器访问`https://cr.console.aliyun.com`进入容器镜像服务管理界面；
 
@@ -269,7 +281,7 @@ repo_type=<repo_type>
       }
       ```
 
-### Docker Hub
+### Docker
 
   1. 浏览器访问https://cloud.docker.com/repository/list，输入账号和密码后将进入仓库列表;
 
@@ -277,7 +289,7 @@ repo_type=<repo_type>
 
       ![image-20190314182034766](_index.assets/image-20190314182034766.png)
 
-  1. 填写相关参数，点击右侧的加号； 
+  1. 填写相关参数，点击右侧的加号；
 
       ![image-20190314182530479](_index.assets/image-20190314182530479.png)
 
