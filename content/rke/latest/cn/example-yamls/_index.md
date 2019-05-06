@@ -205,6 +205,12 @@ services:
         ## 仅当registry-qps大于0(零)时生效，(默认10)。如果registry-qps为0则不限制(默认5)。
         registry-burst: '10'
         registry-qps: '0'
+        # 节点资源预留
+        system-reserved: 'memory=250Mi'
+        kube-reserved: 'memory=250Mi'
+        eviction-hard: 'memory.available<300Mi,nodefs.available<10%,imagefs.available<15%,nodefs.inodesFree<5%'
+        cgroup-driver: systemd
+
       # 可以选择定义额外的卷绑定到服务
       extra_binds:
         - "/usr/libexec/kubernetes/kubelet-plugins:/usr/libexec/kubernetes/kubelet-plugins"   
@@ -213,10 +219,13 @@ services:
 ## 如果要为control plane servers使用负载均衡器，这很有用。
 authentication:
     strategy: "x509|webhook"
+    webhook:
+      config_file: "...."
+      cache_timeout: 5s
     sans:
       # 此处配置备用域名或IP，当主域名或者IP无法访问时，可通过备用域名或IP访问
-      - "10.18.160.10"
-      - "my-loadbalancer-1234567890.us-west-2.elb.amazonaws.com"
+      - "192.168.1.100"
+      - "www.test.com"
 # Kubernetes认证模式
 ## Use `mode: rbac` 启用 RBAC
 ## Use `mode: none` 禁用 认证
@@ -236,7 +245,17 @@ network:
 ## 可以设置`provider: none`来禁用ingress controller
 ingress:
     provider: nginx
-# 所有add-on都必须指定命名空间
+    node_selector:
+      app: ingress
+# 配置dns上游dns服务器
+## 可用rke版本 v0.2.0
+dns:
+    provider: kube-dns
+    upstreamnameservers:
+    - 114.114.114.114
+    - 1.2.4.8
+# 安装附加应用
+## 所有附加应用都必须指定命名空间
 addons: |-
     ---
     apiVersion: v1

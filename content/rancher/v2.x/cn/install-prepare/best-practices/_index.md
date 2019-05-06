@@ -215,4 +215,10 @@ services:
       ## 仅当registry-qps大于0(零)时生效，(默认10)。如果registry-qps为0则不限制(默认5)。
       registry-burst: '10'
       registry-qps: '0'
+
+      system-reserved: 'memory=250Mi'
+      kube-reserved: 'memory=250Mi'
+      eviction-hard: 'memory.available<300Mi,nodefs.available<10%,imagefs.available<15%,nodefs.inodesFree<5%'
+      cgroup-driver: systemd
+
 ```
