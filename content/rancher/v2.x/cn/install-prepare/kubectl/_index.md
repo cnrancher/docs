@@ -102,6 +102,7 @@ kubectl version
     Install-Script -Name install-kubectl -Scope CurrentUser -Force
     install-kubectl.ps1 [-DownloadLocation <path>]
     ```
+
     >**Note:** If you do not specify a DownloadLocation, kubectl will be installed in the user's temp Directory.
 
     The installer creates $HOME/.kube and instructs it to create a config file

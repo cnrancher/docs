@@ -3,38 +3,44 @@ title: 2 - 入门
 weight: 2
 ---
 
-If you have a specific RanchersOS machine requirements, please check out our [guides on running RancherOS]({{< baseurl >}}/os/v1.x/en/installation/running-rancheros/). With the rest of this guide, we'll start up a RancherOS using [Docker machine]({{< baseurl >}}/os/v1.x/en/installation/running-rancheros/workstation/docker-machine/) and show you some of what RancherOS can do.
+如果您有特定的RanchersOS机器的要求，请查看我们的[RancherOS运行指南]({{< baseurl >}}/os/v1.x/en/installation/running-rancheros/)。另外，我们将使用[docker-machine]({{< baseurl >}}/os/v1.x/en/installation/running-rancheros/workstation/docker-machine/)启动RancherOS，并向您展示RancherOS的一些功能。
 
-### Launching RancherOS using Docker Machine
+## 使用Docker Machine启动RancherOS
 
-Before moving forward, you'll need to have [Docker Machine](https://docs.docker.com/machine/) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads) installed. Once you have VirtualBox and Docker Machine installed, it's just one command to get RancherOS running.
+在继续之前，你需要安装[Docker Machine](https://docs.docker.com/machine/)和[VirtualBox](https://www.virtualbox.org/wiki/Downloads) 一旦安装了`VirtualBox和Docker Machine`，就可以运行一条命令让RancherOS运行。
 
-```
+### 创建虚拟机并运行RancherOS
+
+```bash
 $ docker-machine create -d virtualbox \
         --virtualbox-boot2docker-url https://releases.rancher.com/os/latest/rancheros.iso \
         --virtualbox-memory 2048 \
         <MACHINE-NAME>
 ```
 
-That's it! You're up and running a RancherOS instance.
+### 查看创建的虚拟机
 
-To log into the instance, just use the `docker-machine` command.
-
-```
-$ docker-machine ssh <MACHINE-NAME>
+```bash
+docker-machine ls
 ```
 
-### A First Look At RancherOS
+### 登录RancherOS
 
-There are two Docker daemons running in RancherOS. The first is called **System Docker**, which is where RancherOS runs system services like ntpd and syslog. You can use the `system-docker` command to control the **System Docker** daemon.
-
-The other Docker daemon running on the system is **Docker**, which can be accessed by using the normal `docker` command.
-
-When you first launch RancherOS, there are no containers running in the Docker daemon. However, if you run the same command against the System Docker, you’ll see a number of system services that are shipped with RancherOS.
-
-> **Note:** `system-docker` can only be used by root, so it is necessary to use the `sudo` command whenever you want to interact with System Docker.
-
+```bash
+docker-machine ssh <MACHINE-NAME>
 ```
+
+## 了解 RancherOS
+
+RancherOS中运行着两个`Docker守护进程`。第一个名为**System Docker**， RancherOS在这里运行`ntpd和syslog`等系统服务。您可以使用`system-docker`命令来控制**System Docker**守护进程。
+
+系统上运行的另一个Docker守护进程是**Docker**，可以使用普通的`docker`命令访问它。
+
+当您第一次启动RancherOS时，Docker守护进程中没有运行容器。但是，如果对系统Docker运行相同的命令，您将看到RancherOS附带的许多系统服务。
+
+> **注意:** `system-docker`需要root权限,所以需要随时使用`sudo`命令。
+
+```bash
 $ sudo system-docker ps
 CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS               NAMES
 6f56057cf5ba        rancher/os-base:v0.5.0      "/usr/sbin/entry.sh /"   16 seconds ago      Up 15 seconds                           docker
@@ -46,31 +52,31 @@ dc2cafca3c69        rancher/os-syslog:v0.5.0    "/usr/sbin/entry.sh /"   18 seco
 439d5535fbfa        rancher/os-base:v0.5.0      "/usr/sbin/entry.sh /"   18 seconds ago      Up 17 seconds                           acpid
 ```
 
-Some containers are run at boot time, and others, such as the `console`, `docker`, etc. containers are always running.
+一些容器在引导时运行，而其他容器，如`console、docker`等，则始终运行。
 
-## Using RancherOS
+## 使用 RancherOS
 
-### Deploying a Docker Container
+### 部署第一个Docker容器
 
-Let's try to deploy a normal Docker container on the Docker daemon.  The RancherOS Docker daemon is identical to any other Docker environment, so all normal Docker commands work.
+让我们尝试在Docker守护进程上部署一个普通的Docker容器。RancherOS Docker守护进程与任何其他Docker环境都是相同的，因此所有正常的Docker命令都可以工作。
 
+```bash
+docker run -d nginx
 ```
-$ docker run -d nginx
-```
 
-You can see that the nginx container is up and running:
+您可以看到nginx容器已经启动并运行:
 
-```
+```bash
 $ docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
 e99c2c4b8b30        nginx               "nginx -g 'daemon off"   12 seconds ago      Up 11 seconds       80/tcp, 443/tcp     drunk_ptolemy
 ```
 
-### Deploying A System Service Container
+### 部署系统服务容器
 
-The following is a simple Docker container to set up Linux-dash, which is a minimal low-overhead web dashboard for monitoring Linux servers. The Dockerfile will be like this:
+下面是一个简单的Docker容器，用于设置`Linux-dash`，这是一个用于监视Linux服务器的最小的低开销web仪表板。Dockerfile是这样的:
 
-```
+```bash
 FROM hwestphal/nodebox
 MAINTAINER hussein.galal.ahmed.11@gmail.com
 
@@ -83,49 +89,50 @@ RUN npm install
 ENTRYPOINT ["node","server"]
 ```
 
-Using the `hwestphal/nodebox` image, which uses a Busybox image and installs `node.js` and `npm`. We downloaded the source code of Linux-dash, and then ran the server. Linux-dash will run on port 80 by default.
+使用`hwestphal/nodebox`镜像，该镜像使用Busybox镜像并安装`node.js和npm`。我们下载了Linux-dash的源代码，然后运行服务器。默认情况下，Linux-dash将在端口80上运行。
 
-To run this container in System Docker use the following command:
+要在系统Docker中运行此容器，请使用以下命令:
 
+```bash
+sudo system-docker run -d --net=host --name busydash husseingalal/busydash
 ```
-$ sudo system-docker run -d --net=host --name busydash husseingalal/busydash
-```
-In the command, we used `--net=host` to tell System Docker not to containerize the container's networking, and use the host’s networking instead. After running the container, you can see the monitoring server by accessing `http://<IP_OF_MACHINE>`.
+
+在命令中，我们使用`——net=host`来告诉System Docker不要将容器的网络装入容器，而是使用主机的网络。运行容器后，您可以通过访问`http://<IP_OF_MACHINE>`来查看监视服务器。
 
 ![System Docker Container]({{< baseurl >}}/img/os/Rancher_busydash.png)
 
-To make the container survive during the reboots, you can create the `/opt/rancher/bin/start.sh` script, and add the Docker start line to launch the Docker at each startup.
+要使容器在重新引导期间自动运行，可以创建`/opt/rancher/bin/start`脚本，并添加Docker启动项，以便每次启动时启动Docker容器。
 
+```bash
+sudo mkdir -p /opt/rancher/bin
+echo "sudo system-docker start busydash" | sudo tee -a /opt/rancher/bin/start.sh
+sudo chmod 755 /opt/rancher/bin/start.sh
 ```
-$ sudo mkdir -p /opt/rancher/bin
-$ echo "sudo system-docker start busydash" | sudo tee -a /opt/rancher/bin/start.sh
-$ sudo chmod 755 /opt/rancher/bin/start.sh
-```
 
-### Using ROS
+## 使用 ROS
 
-Another useful command that can be used with RancherOS is `ros` which can be used to control and configure the system.
+RancherOS可以使用的另一个有用的命令是`ros`，它可以用来控制和配置系统。
 
-```
+```bash
 $ sudo ros -v
 ros version 0.0.1
 ```
 
-RancherOS state is controlled by a cloud config file. `ros` is used to edit the configuration of the system, to see for example the dns configuration of the system:
+RancherOS状态由一个云配置文件控制。使用`ros`编辑系统配置，例如查看系统dns配置:
 
-```
-$ sudo ros config get rancher.network.dns.nameservers
+```bash
+sudo ros config get rancher.network.dns.nameservers
+
 - 8.8.8.8
 - 8.8.4.4
 ```
 
+当使用本地Busybox控制台时，对控制台的任何更改将在重新引导后丢失，只有对`/home或/opt`的更改将是持久的。您可以使用`ros console switch`切换到[持久控制台]({{< baseurl >}}/os/v1.x/en/installation/custom-builds/custom-console/#console-persistence)并替换本地Busybox控制台。例如，切换到Ubuntu控制台:
 
-When using the native Busybox console, any changes to the console will be lost after reboots, only changes to `/home` or `/opt` will be persistent. You can use the `ros console switch` command to switch to a [persistent console]({{< baseurl >}}/os/v1.x/en/installation/custom-builds/custom-console/#console-persistence) and replace the native Busybox console. For example, to switch to the Ubuntu console:
-
+```bash
+sudo ros console switch ubuntu
 ```
-$ sudo ros console switch ubuntu
-```
 
-### Conclusion
+## 结论
 
-RancherOS is a simple Linux distribution ideal for running Docker.  By embracing containerization of system services and leveraging Docker for management, RancherOS hopes to provide a very reliable, and easy to manage OS for running containers.
+RancherOS是一个简单的Linux发行版，是运行Docker的理想选择。通过采用系统服务的容器化并利用Docker进行管理，RancherOS希望为运行容器提供一个非常可靠、易于管理的操作系统。

@@ -3,7 +3,32 @@ title: 4 - ISCSI
 weight: 4
 ---
 
-### 一、创建ISCSI服务器
+## 一、iSCSI 命名约定
+
+iSCSI 使用一种特殊、唯一的名称来标识 iSCSI 节点（目标或启动器）。此名称类似于与光纤通道设备相关联的全球名称 (WWN)，可作为一种通用的节点识别方式使用。iSCSI 名称通过两种不同方式格式化。最常见的是 IQN 格式。有关 iSCSI 命名要求和字符串配置文件的更多详细信息，请参见 IETF 网站上的 RFC 3721 和 RFC 3722。
+
+### 1、iSCSI 限定名 (IQN) 格式
+
+IQN 格式采用 iqn.yyyy-mm.naming-authority:unique name 的形式，其中：
+
+- yyyy-mm 是命名机构成立的年份和月份。
+- naming-authority 通常是命名机构的 Internet 域名的反向语法。例如，iscsi.vmware.com 命名机构的 iSCSI 限定名形式可能是 iqn.1998-01.com.vmware.iscsi。此名称表示 vmware.com 域名于 1998 年 1 月注册，iscsi 是一个由 vmware.com 维护的子域。
+
+- unique name 是希望使用的任何名称，如主机的名称。命名机构必须确保在冒号后面分配的任何名称都是唯一的，例如：
+
+iqn.1998-01.com.vmware.iscsi:name1
+
+iqn.1998-01.com.vmware.iscsi:name2
+
+iqn.1998-01.com.vmware.iscsi:name999
+
+### 2、企业唯一标识符 (EUI) 格式
+
+EUI 格式采用 eui.16 hex digits 的形式。例如，eui.0123456789ABCDEF。
+
+16 位十六进制数字是 IEEE EUI（扩展唯一标识符）格式的 64 位数的文本表示形式。前 24 位是 IEEE 向特定公司注册的公司 ID。后 40 位由持有该公司 ID 的实体分配，并且必须是唯一的。
+
+## 二、创建ISCSI服务器
 
 ### 1、操作系统以为centos7.6为例
 
@@ -257,7 +282,7 @@ weight: 4
 
     ![image-20190502123011786](assets/image-20190502123011786.png)
 
-## 二、配置K8S持久卷(PV)
+## 三、配置K8S持久卷(PV)
 
 ### 1、创建密文
 

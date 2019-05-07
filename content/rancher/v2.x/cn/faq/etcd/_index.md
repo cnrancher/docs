@@ -3,19 +3,21 @@ title: 3 - ETCD
 weight: 3
 ---
 
-### Do clients have to send requests to the etcd leader?
+### 客户端必须向etcd leader发送请求吗?
 
-[Raft][raft] is leader-based; the leader handles all client requests which need cluster consensus. However, the client does not need to know which node is the leader. Any request that requires consensus sent to a follower is automatically forwarded to the leader. Requests that do not require consensus (e.g., serialized reads) can be processed by any cluster member.
+Raft is leader-based， leader处理所有需要一致性的客户机请求。但客户端不需要知道哪个节点是leader，所有发送给跟随者的一致性请求都会自动转发给leader。不需要协商一致的请求(例如，序列化读取)可以由任何集群成员处理。
 
-## Configuration
+## 配置
 
-### What is the difference between listen-<client,peer>-urls, advertise-client-urls or initial-advertise-peer-urls?
+### listen-<client、peer>-urls、advertising -client url或initial- advertising -peer url之间有什么区别?
 
-`listen-client-urls` and `listen-peer-urls` specify the local addresses etcd server binds to for accepting incoming connections. To listen on a port for all interfaces, specify `0.0.0.0` as the listen IP address.
+listen-client-urls和listen-peer-urls指定etcd服务器绑定到的本地地址，用于接收传入的连接。要在端口上侦听所有接口，请指定“0.0.0.0”作为侦听IP地址。
 
 `advertise-client-urls` and `initial-advertise-peer-urls` specify the addresses etcd clients or other etcd members should use to contact the etcd server. The advertise addresses must be reachable from the remote machines. Do not advertise addresses like `localhost` or `0.0.0.0` for a production setup since these addresses are unreachable from remote machines.
 
-## Deployment
+`advertise-client-urls` 和 `initial-advertise-peer-urls` 指定etcd客户端或其他etcd成员用于联系etcd服务器的地址。`advertise-client-urls`必须能够从远程计算机访问。不要在生产设置`advertise-client-urls`为`localhost或0.0.0.0`之类的地址，因为这些地址是远程机器无法访问的。
+
+## 部署
 
 ### System requirements
 

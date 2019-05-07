@@ -4,19 +4,21 @@ description: RancherOS is a simplified Linux distribution built from containers,
 weight: 1
 ---
 
-RancherOS is the smallest, easiest way to run Docker in production.  Everything in RancherOS is a container managed by Docker. This includes system services such as `udev` and `syslog`.  Because it only includes the services necessary to run Docker, RancherOS is dramatically smaller than most traditional operating systems. By removing unnecessary libraries and services, requirements for security patches and other maintenance are dramatically reduced. This is possible because, with Docker, users typically package all necessary libraries into their containers.
+在生产中运行Docker，最小、最简单的方法之一是使用RancherOS。
 
-Another way in which RancherOS is designed specifically for running Docker is that it always runs the latest version of Docker. This allows users to take advantage of the latest Docker capabilities and bug fixes.
+RancherOS中的所有组件都是由Docker管理的容器运行，包括系统服务，如udev和syslog。因为RancherOS只包含运行Docker所需的服务，所以RancherOS比大多数传统操作系统小得多。通过删除不必要的库和服务，可以大大减少对安全补丁和其他维护的要求。因为使用Docker，用户通常会将所有必需的库打包到其容器中，所以宿主机系统不一定需要这些库文件。
 
-Like other minimalist Linux distributions, RancherOS boots incredibly quickly, generally in 5-10 seconds.  Starting Docker containers is nearly instant, similar to starting any other process. This quickness is ideal for organizations adopting microservices and autoscaling.
+RancherOS专为运行Docker而设计的另一种表现是它始终运行最新版本的Docker，允许用户使用最新的Docker功能和修复错误。
 
-Docker is an open-source platform designed for developers, system admins, and DevOps, it is used to build, ship, and run containers, using simple yet powerful CLI (Command Line Interface), you can get started with Docker from [Docker user guide](https://docs.docker.com/engine/userguide/).
+与其他极简主义的Linux发行版一样，RancherOS的启动速度非常快，通常在5-10秒内完成。启动Docker容器几乎是即时的，类似于启动任何其他进程。这种速度非常适合采用微服务和自动扩展的组织架构。
 
-### Hardware Requirements
+Docker是一个专为开发人员、系统管理员和DevOps设计的开源平台，它用于构建，传输和运行容器，使用简单而强大的CLI（命令行界面），您可以从Docker[用户指南](https://docs.docker.com/engine/userguide/)开始使用Docker 。
 
-* Memory Requirements
+## 硬件要求
 
-Platform | RAM requirement
+* 内存要求
+
+平台 | RAM要求
 ---- | ----
 Baremetal | 1280MB
 VirtualBox | 1280MB
@@ -24,26 +26,20 @@ VMWare | 1280MB (rancheros.iso) <br> 2048MB (rancheros-vmware.iso)
 GCE |  1280MB
 AWS |  1.7GB
 
-You can adjust memory requirements by custom building RancherOS, please refer to [reduce-memory-requirements]({{< baseurl >}}/os/v1.x/en/installation/custom-builds/custom-rancheros-iso/#reduce-memory-requirements)
+您可以通过自定义构建RancherOS来调整内存要求，请参阅[reduce-memory-requirements]({{< baseurl >}}/os/v1.x/en/installation/custom-builds/custom-rancheros-iso/#reduce-memory-requirements)
 
-### How this works
+## RancherOS工作原理
 
-Everything in RancherOS is a Docker container. We accomplish this by launching two instances of Docker. One is what we call **System Docker**, the first process on the system. All other system services, like `ntpd`, `syslog`, and `console`, are running in Docker containers. System Docker replaces traditional init systems like `systemd`, and can be used to launch [additional system services]({{< baseurl >}}/os/v1.x/en/installation/system-services/adding-system-services/).
+RancherOS中的所有组件都是Docker容器，我们通过启动两个Docker实例来实现这一目标。一个是我们所说的`System Docker`，它是系统上的第一个进程(PID=1)。所有其他系统服务，如`ntpd，syslog和console`，都在Docker容器中运行。`System Docker`替代了传统的init系统，如systemd，可用于启动[其他系统服务]({{< baseurl >}}/os/v1.x/en/installation/system-services/adding-system-services/)。
 
-System Docker runs a special container called **Docker**, which is another Docker daemon responsible for managing all of the user’s containers. Any containers that you launch as a user from the console will run inside this Docker. This creates isolation from the System Docker containers, and ensures normal user commands don’t impact system services.
-
- We created this separation because it seemed logical and also it would really be bad if somebody did
-`docker rm -f $(docker ps -qa)` and deleted the entire OS.
+`System Docker`运行一个名为`Docker`的特殊容器，它是另一个Docker守护进程，负责管理用户的所有容器,我们称之为`User Docker`。用户从控制台启动的任何容器都将在这个Docker中运行。`User Docker`容器与`System Docker`容器的相互隔离，确保正常用户命令不会影响系统服务。
 
 ![How it works]({{< baseurl >}}/img/os/rancheroshowitworks.png)
 
-### Running RancherOS
+## 运行RancherOS
 
-To find out more about installing RancherOS, jump to our [Quick Start Guide]({{< baseurl >}}/os/v1.x/en/quick-start-guide/).
+要了解更多关于安装RancherOS的信息，请跳转到[Quick Start Guide]({{< baseurl >}}/os/v1.x/cn/quick-start-guide/).
 
-### Latest Release
+## 最新版本
 
-Please check our repository for the latest release in our [README](https://github.com/rancher/os/blob/master/README.md).
-
-<br>
-<br>
+请查看我们存储库中[README](https://github.com/rancher/os/blob/master/README.md)以获取最新版本。

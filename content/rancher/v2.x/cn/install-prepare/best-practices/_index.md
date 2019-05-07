@@ -72,6 +72,8 @@ etcdctl defrag
 Finished defragmenting etcd member[127.0.0.1:2379]
 ```
 
+- [释放数据库空间]({{< baseurl >}}/rancher/v2.x/cn/faq/etcd/compact)
+
 ### 4、网络延迟
 
 如果有大量并发客户端请求etcd leader服务，则可能由于网络拥塞而延迟处理`follower`对等请求。在`follower`节点上的发送缓冲区错误消息：
