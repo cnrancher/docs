@@ -14,12 +14,11 @@ weight: 5
 
 1. **备份Rancher集群**
 
-    [创建快照]({{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/backups/ha-backups/)
-    如果在升级期间出现问题，可使用此快照进行恢复。
+    如果在升级期间出现问题，可使用[数据备份]({{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/backups/ha-backups/)进行恢复
 
 1. **kubectl**
 
-    安装配置[kubectl]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/kubectl/)，使其可以连接集群。
+    安装配置[kubectl]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/kubectl/)，升级将使用kubectl操作。
 
 1. **安装或者升级Helm Server和Helm 客户端**
 

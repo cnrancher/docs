@@ -21,6 +21,7 @@ CLI | `https://github.com/rancher/cli` | 存储Rancher CLI的源代码
 (Rancher) Helm repository | `https://github.com/rancher/helm` | Helm二进制文件的源代码。这是`helm/helm`仓库的一个分支
 Telemetry repository | `https://github.com/rancher/telemetry` | `telemetry`二进制文件的源代码
 loglevel repository | `https://github.com/rancher/loglevel` | 储库loglevel二进制文件的源代码，用于动态更改日志级别
+ingress | `https://github.com/rancher//ingress-nginx` | ingress 源码仓库
 
 要查看所有Rancher中使用的`libraries/projects`，请参考`rancher/rancher`仓库中`vendor.conf`的内容。
 

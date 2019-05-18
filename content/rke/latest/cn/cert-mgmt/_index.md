@@ -3,7 +3,8 @@ title: 6 - 证书管理
 weight: 6
 ---
 
-> 从v0.2.0版本开始可用
+> 1. 从v0.2.0版本开始可用\
+2. 如果通过rkev0.2.0之前的版本创建的Kubernetes集群，在轮换证书前先执行`rke up`操作
 
 证书是Kubernetes集群的重要组成部分，作用于所有Kubernetes集群组件。RKE通过`RKE cert`命令来处理证书。
 

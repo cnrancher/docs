@@ -16,8 +16,8 @@ Helm在集群上安装`tiller`服务以管理`charts`. 由于RKE默认启用RBAC
 - `helm`初始化`tiller`服务
 
     ```bash
-    kubectl --kubeconfig=kube_configxxx.yml -n   kube-system create serviceaccount tiller
-    kubectl --kubeconfig=kube_configxxx.yml create  clusterrolebinding tiller \
+    kubectl --kubeconfig=kube_configxxx.yml -n kube-system create serviceaccount tiller
+    kubectl --kubeconfig=kube_configxxx.yml create clusterrolebinding tiller \
     --clusterrole cluster-admin --serviceaccount=kube-system:tiller
     ```
 
@@ -29,11 +29,11 @@ Helm 客户端可以从源代码安装，也可以从预构建的二进制版本
 
 1. 下载[Helm](https://github.com/kubernetes/helm/releases)
 
-    - 加速下载[Helm]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/download/#helm)
+    - 加速下载[Helm]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/download/helm/)
 
 2. 解压缩(tar -zxvf helm-v2.x.x-linux-amd64.tgz)
 
-3. `helm`在解压后的目录中找到二进制文件，并将其移动到所需的位置(mv linux-amd64/helm /usr/local/bin/helm)
+3. `helm`在解压后的目录中找到二进制文件，并将其移动到所需的位置(mv linux-amd64/helm /usr/local/bin/helm && chmod +x /usr/local/bin/helm)
 
     到这里，你应该可以运行客户端了：`helm help`。
 
@@ -116,13 +116,12 @@ Helm的服务器端部分Tiller,通常运行在Kubernetes集群内部。但是�
 3、`helm init`在缺省配置下，会利用`https://kubernetes-charts.storage.googleapis.com`作为缺省的`stable repository`地址,并去更新相关索引文件。在国内可能无法访问`storage.googleapis.com`地址, 可以通过`--stable-repo-url`指定`chart`国内加速镜像地址。 \
 4、如果你是离线安装`Tiller`, 假如没有内部的`chart`仓库, 可通过添加`--skip-refresh`参数禁止`Tiller`更新索引。
 
-执行以下命令在Rancher中安装Tiller：
+执行以下命令在Rancher中安装Tiller:
 
 ```bash
 helm_version=`helm version |grep Client | awk -F""\" '{print $2}'`
-helm init --service-account tiller \
+helm init --service-account tiller --skip-refresh \
 --tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:$helm_version \
---stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts
 ```
 
 `helm init`以后，可以运行`kubectl --kubeconfig=kube_configxxx.yml  get  pods --namespace kube-system`并看到Tiller正在运行。

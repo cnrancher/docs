@@ -128,7 +128,7 @@ Copy the rendered manifest directories to a system that has access to the Ranche
 Use `kubectl` to create namespaces and apply the rendered manifests.
 
 ```plain
-kubectl --kubeconfig=kube_configxxx.yml -n   kube-system apply -R -f ./cert-manager
+kubectl --kubeconfig=kube_configxxx.yml -n kube-system apply -R -f ./cert-manager
 
 kubectl --kubeconfig=kube_configxxx.yml create  namespace cattle-system
 kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system apply -R -f ./rancher

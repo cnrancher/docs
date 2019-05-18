@@ -52,7 +52,7 @@ helm install stable/cert-manager \
 Wait for `cert-manager` to be rolled out:
 
 ```
-kubectl --kubeconfig=kube_configxxx.yml -n   kube-system rollout status deploy/cert-manager
+kubectl --kubeconfig=kube_configxxx.yml -n kube-system rollout status deploy/cert-manager
 Waiting for deployment "cert-manager" rollout to finish: 0 of 1 updated replicas are available...
 deployment "cert-manager" successfully rolled out
 ```

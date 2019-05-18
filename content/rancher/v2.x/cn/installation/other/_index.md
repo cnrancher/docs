@@ -162,8 +162,8 @@ kubectl --kubeconfig=$kubeconfig create clusterrolebinding \
 tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
 # 安装tiller
 helm_version=`helm version |grep Client | awk -F""\" '{print $2}'`
-helm --kubeconfig=$kubeconfig init --skip-refresh --service-account \
-tiller --tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:$helm_version
+helm --kubeconfig=$kubeconfig init --skip-refresh --service-account tiller \
+--tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:$helm_version
 ```
 
 - 安装

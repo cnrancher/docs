@@ -28,7 +28,30 @@ EUI 格式采用 eui.16 hex digits 的形式。例如，eui.0123456789ABCDEF。
 
 16 位十六进制数字是 IEEE EUI（扩展唯一标识符）格式的 64 位数的文本表示形式。前 24 位是 IEEE 向特定公司注册的公司 ID。后 40 位由持有该公司 ID 的实体分配，并且必须是唯一的。
 
-## 二、创建ISCSI服务器
+## 二、更新Kubernetes集群(可选)
+
+Rancher安装的Kubernetes集群，利用iSCSI启动器工具在iSCSI卷上存储数据，该工具嵌入在kubelet的rancher/hyperkubeDocker镜像中。在某些情况下，安装在`kubelet`容器中的启动器和iscsi服务器版本可能不匹配，从而导致连接失败。
+
+如果遇到此问题，可以将集群中每个节点上安装启动器工具，然后将启动器工具映射到`kubelet`容器来解决版本问题。
+
+| 平台          | 包裹名字                | 安装命令                               |
+| :------------ | :---------------------- | :------------------------------------- |
+| Ubuntu/Debian | `open-iscsi`            | `sudo apt install open-iscsi`          |
+| RHEL          | `iscsi-initiator-utils` | `yum install iscsi-initiator-utils -y` |
+
+在节点上安装启动器工具后，编辑集群YAML，编辑kubelet配置挂载主机SCSI二进制文件和配置目录，如下面的示例所示。
+
+>在更新Kubernetes YAML之前，请确保在集群节点上安装了`open-iscsi`（deb）或`iscsi-initiator-utils`（yum）软件包。如果在Kubernetes YAML中创建绑定挂载*之前*未安装此软件包，Docker将自动在每个节点上创建目录和文件。
+
+```yaml
+services:
+  kubelet:
+    extra_binds:
+      - "/etc/iscsi:/etc/iscsi"
+      - "/sbin/iscsiadm:/sbin/iscsiadm"
+```
+
+## 三、创建ISCSI服务器
 
 ### 1、操作系统以为centos7.6为例
 
@@ -282,7 +305,7 @@ EUI 格式采用 eui.16 hex digits 的形式。例如，eui.0123456789ABCDEF。
 
     ![image-20190502123011786](assets/image-20190502123011786.png)
 
-## 三、配置K8S持久卷(PV)
+## 四、配置K8S持久卷(PV)
 
 ### 1、创建密文
 

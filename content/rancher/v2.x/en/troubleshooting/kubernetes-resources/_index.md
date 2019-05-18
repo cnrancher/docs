@@ -58,7 +58,7 @@ worker-0: DiskPressure:True
 The leader is determined by a leader election process. After the leader has been determined, the leader (`holderIdentity`) is saved in the `kube-controller-manager` endpoint (in this example, `controlplane-0`).
 
 ```bash
-kubectl --kubeconfig=kube_configxxx.yml -n   kube-system get endpoints kube-controller-manager -o jsonpath='{.metadata.annotations.control-plane\.alpha\.kubernetes\.io/leader}'
+kubectl --kubeconfig=kube_configxxx.yml -n kube-system get endpoints kube-controller-manager -o jsonpath='{.metadata.annotations.control-plane\.alpha\.kubernetes\.io/leader}'
 {"holderIdentity":"controlplane-0_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx","leaseDurationSeconds":15,"acquireTime":"2018-12-27T08:59:45Z","renewTime":"2018-12-27T09:44:57Z","leaderTransitions":0}>
 ```
 
@@ -67,7 +67,7 @@ kubectl --kubeconfig=kube_configxxx.yml -n   kube-system get endpoints kube-cont
 The leader is determined by a leader election process. After the leader has been determined, the leader (`holderIdentity`) is saved in the `kube-scheduler` endpoint (in this example, `controlplane-0`).
 
 ```bash
-kubectl --kubeconfig=kube_configxxx.yml -n   kube-system get endpoints kube-scheduler -o jsonpath='{.metadata.annotations.control-plane\.alpha\.kubernetes\.io/leader}'
+kubectl --kubeconfig=kube_configxxx.yml -n kube-system get endpoints kube-scheduler -o jsonpath='{.metadata.annotations.control-plane\.alpha\.kubernetes\.io/leader}'
 {"holderIdentity":"controlplane-0_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx","leaseDurationSeconds":15,"acquireTime":"2018-12-27T08:59:45Z","renewTime":"2018-12-27T09:44:57Z","leaderTransitions":0}>
 ```
 

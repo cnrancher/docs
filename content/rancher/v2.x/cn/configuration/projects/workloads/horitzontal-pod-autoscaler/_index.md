@@ -172,8 +172,9 @@ To create HPA resources based on resource metrics such as CPU and memory use, yo
     ...
     ```
   1. Check the service logs for service availability. Enter the following command:
+  
     ```bash
-    # kubectl --kubeconfig=kube_configxxx.yml -n   kube-system logs metrics-server-6fbfb84cdd-t2fk9
+    # kubectl --kubeconfig=kube_configxxx.yml -n kube-system logs metrics-server-6fbfb84cdd-t2fk9
     ```
     Then review the log to confirm that that the `metrics-server` package is running.
     {{% accordion id="metrics-server-run-check" label="Metrics Server Log Output" %}}
@@ -189,13 +190,14 @@ To create HPA resources based on resource metrics such as CPU and memory use, yo
     I0723 08:09:57.394080       1 serve.go:85] Serving securely on 0.0.0.0:443
     {{% /accordion %}}
 
-
 1. Check that the metrics api is accessible from kubectl.
 
   - If you are accessing the cluster directly, enter your Server URL in the kubectl config in the following format: `https://<K8s_URL>:6443`.
+  
     ```bash
     # kubectl --kubeconfig=kube_configxxx.yml  get  --raw /apis/metrics.k8s.io/v1beta1
     ```
+
     If the the API is working correctly, you should receive output similar to the output below.
     ```json
     {"kind":"APIResourceList","apiVersion":"v1","groupVersion":"metrics.k8s.io/v1beta1","resources":[{"name":"nodes","singularName":"","namespaced":false,"kind":"NodeMetrics","verbs":["get","list"]},{"name":"pods","singularName":"","namespaced":true,"kind":"PodMetrics","verbs":["get","list"]}]}
@@ -227,8 +229,8 @@ For HPA to use custom metrics from Prometheus, package [k8s-prometheus-adapter](
 1. Initialize Helm in your cluster.
 
   ```bash
-  # kubectl --kubeconfig=kube_configxxx.yml -n   kube-system create serviceaccount tiller
-  kubectl --kubeconfig=kube_configxxx.yml create  clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
+  # kubectl --kubeconfig=kube_configxxx.yml -n kube-system create serviceaccount tiller
+  kubectl --kubeconfig=kube_configxxx.yml create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
   helm init --service-account tiller
   ```
 

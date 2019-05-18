@@ -12,7 +12,7 @@ Before running the DNS checks, make sure that [the overlay network is functionin
 ### Check if DNS pods are running
 
 ```
-kubectl --kubeconfig=kube_configxxx.yml -n   kube-system get pods -l k8s-app=kube-dns
+kubectl --kubeconfig=kube_configxxx.yml -n kube-system get pods -l k8s-app=kube-dns
 ```
 
 Example output:
@@ -24,7 +24,7 @@ kube-dns-5fd74c7488-h6f7n   3/3     Running   0          4m13s
 ### Check if the DNS service is present with the correct cluster-ip
 
 ```
-kubectl --kubeconfig=kube_configxxx.yml -n   kube-system get svc -l k8s-app=kube-dns
+kubectl --kubeconfig=kube_configxxx.yml -n kube-system get svc -l k8s-app=kube-dns
 ```
 
 ```
@@ -130,7 +130,7 @@ By default, the configured nameservers on the host (in `/etc/resolv.conf`) will 
 Use the following command to check the upstream nameservers used by the kubedns container:
 
 ```
-kubectl --kubeconfig=kube_configxxx.yml -n   kube-system get pods -l k8s-app=kube-dns --no-headers -o custom-columns=NAME:.metadata.name,HOSTIP:.status.hostIP | while read pod host; do echo "Pod ${pod} on host ${host}"; kubectl --kubeconfig=kube_configxxx.yml -n   kube-system exec $pod -c kubedns cat /etc/resolv.conf; done
+kubectl --kubeconfig=kube_configxxx.yml -n kube-system get pods -l k8s-app=kube-dns --no-headers -o custom-columns=NAME:.metadata.name,HOSTIP:.status.hostIP | while read pod host; do echo "Pod ${pod} on host ${host}"; kubectl --kubeconfig=kube_configxxx.yml -n kube-system exec $pod -c kubedns cat /etc/resolv.conf; done
 ```
 
 Example output:
@@ -166,7 +166,7 @@ Try to resolve name again using [Check if domain names are resolving](#check-if-
 If you want to check the kube-dns configuration in your cluster (for example, to check if there are different upstream nameservers configured), you can run the following command to list the kube-dns configuration:
 
 ```
-kubectl --kubeconfig=kube_configxxx.yml -n   kube-system get configmap kube-dns -o go-template='{{range $key, $value := .data}}{{ $key }}{{":"}}{{ $value }}{{"\n"}}{{end}}'
+kubectl --kubeconfig=kube_configxxx.yml -n kube-system get configmap kube-dns -o go-template='{{range $key, $value := .data}}{{ $key }}{{":"}}{{ $value }}{{"\n"}}{{end}}'
 ```
 
 Example output:

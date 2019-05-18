@@ -281,8 +281,9 @@ apiVersion: extensions/v1beta1
 1. cattle-cluster-agent pod
 
     ```bash
-    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl --kubeconfig=kube_configxxx.yml -n cattle-system \
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+
+    kubectl --kubeconfig=$kubeconfig -n cattle-system \
     patch deployments cattle-cluster-agent --patch '{
         "spec": {
             "template": {
@@ -305,8 +306,9 @@ apiVersion: extensions/v1beta1
 2. cattle-node-agent pod
 
     ```bash
-    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml #指定kubectl配置文件
-    kubectl --kubeconfig=kube_configxxx.yml -n cattle-system \
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+
+    kubectl --kubeconfig=$kubeconfig -n cattle-system \
     patch  daemonsets cattle-node-agent --patch '{
         "spec": {
             "template": {

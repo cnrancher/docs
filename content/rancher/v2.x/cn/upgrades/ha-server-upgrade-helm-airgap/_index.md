@@ -44,13 +44,15 @@ weight: 6
     rancher-<CHART_REPO>	https://releases.rancher.com/server-charts/<CHART_REPO>
     ```
 
-1. 打包最新版本`Helm chart`用于Rancher离线安装；
+1. 获取`Rancher Charts`离线包。
 
-    此命令将下载最新版本Helm chart并压缩为.tgz文件保存在当前目录中.
+    指定安装的版本(比如: `latest`或`stable`或者通过`--version`指定版本)，可通过[版本选择]({{< baseurl >}}/rancher/v2.x/cn/installation/server-tags/)查看版本说明。
 
     ```plain
-    helm fetch rancher-stable/rancher
+    helm fetch rancher-stable/rancher --version v2.2.3
     ```
+
+    >**结果** 将会在当前目录生成`rancher-vx.x.x.tgz`压缩文件。
 
 1. 拷贝.tgz文件到离线环境中安装有`helm客户端和kubectl客户端`，并可以访问内网集群的主机上，解压.tgz得到`rancher`文件夹；
 

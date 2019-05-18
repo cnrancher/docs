@@ -142,7 +142,7 @@ INFO[0101] Finished building Kubernetes cluster successfully
 
 ## 八、Kubernetes集群状态文件
 
-Kubernetes集群状态由Kubernetes集群中的集群配置文件`cluster.yml`和`组件证书`组成，由RKE保存，但根据您的RKE版本，集群状态的保存方式不同。
+Kubernetes集群状态由Kubernetes集群中的集群配置文件`cluster.yml`和`组件证书`组成，由RKE生成，但根据您的RKE版本，集群状态的保存方式不同。
 
 - 在v0.2.0之前，RKE将Kubernetes集群状态保存为`secret`。更新状态时，RKE会提取`secret`，`更新/更改`状态并保存新`secret`。
-- 从v0.2.0开始，RKE在集群配置文件`cluster.yml`的同一目录中创建一个`.rkestate`文件。该`.rkestate`文件包含群集的当前状态，包括`RKE配置和证书`。需要保留此文件以更新群集或通过RKE对集群执行任何操作。
+- 从v0.2.0开始，RKE在集群配置文件`cluster.yml`的同一目录中创建一个`.rkestate`文件。该`.rkestate`文件包含集群的当前状态，包括`RKE配置和证书`。需要保留此文件以更新集群或通过RKE对集群执行任何操作。

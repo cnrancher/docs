@@ -329,9 +329,9 @@ weight: 3
 
     ```bash
     #指定kubectl配置文件
-    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
 
-    kubectl --kubeconfig=kube_configxxx.yml -n cattle-system \
+    kubectl --kubeconfig=$kubeconfig -n cattle-system \
     patch deployments cattle-cluster-agent --patch '{
         "spec": {
             "template": {
@@ -355,9 +355,9 @@ weight: 3
 
     ```bash
     #指定kubectl配置文件
-    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
 
-    kubectl --kubeconfig=kube_configxxx.yml -n cattle-system \
+    kubectl --kubeconfig=$kubeconfig -n cattle-system \
     patch daemonsets cattle-node-agent --patch '{
         "spec": {
             "template": {

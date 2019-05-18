@@ -18,9 +18,9 @@ Helm installs the `tiller` service on your cluster to manage charts. Since RKE e
 * Finally use `helm` to install the `tiller` service
 
 ```plain
-kubectl --kubeconfig=kube_configxxx.yml -n   kube-system create serviceaccount tiller
+kubectl --kubeconfig=kube_configxxx.yml -n kube-system create serviceaccount tiller
 
-kubectl --kubeconfig=kube_configxxx.yml create  clusterrolebinding tiller \
+kubectl --kubeconfig=kube_configxxx.yml create clusterrolebinding tiller \
   --clusterrole=cluster-admin \
   --serviceaccount=kube-system:tiller
 
@@ -41,7 +41,7 @@ helm init --service-account tiller \
 Run the following command to verify the installation of `tiller` on your cluster:
 
 ```bash
-kubectl --kubeconfig=kube_configxxx.yml -n   kube-system  rollout status deploy/tiller-deploy
+kubectl --kubeconfig=kube_configxxx.yml -n kube-system  rollout status deploy/tiller-deploy
 Waiting for deployment "tiller-deploy" rollout to finish: 0 of 1 updated replicas are available...
 deployment "tiller-deploy" successfully rolled out
 ```

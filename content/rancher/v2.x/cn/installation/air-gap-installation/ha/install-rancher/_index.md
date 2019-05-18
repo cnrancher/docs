@@ -60,7 +60,7 @@ aliases:
 1. 安装Helm Server(Tiller)
 
     >**注意:**
-1、`helm init`在缺省配置下，会去谷歌镜像仓库拉取`gcr.io/kubernetes-helm/tiller`镜像，并在Kubernetes集群上安装配置Tiller。离线环境下，可通过`--tiller-image`指定私有镜像仓库镜像。点击查询[tiller镜像版本](https://hub.docker.com/r/hongxiaolu/tiller/tags/)。\
+1、`helm init`在缺省配置下，会去谷歌镜像仓库拉取`gcr.io/kubernetes-helm/tiller`镜像，并在Kubernetes集群上安装配置Tiller。离线环境下，可通过`--tiller-image`指定私有镜像仓库镜像。
 2、`helm init`在缺省配置下，会利用`https://kubernetes-charts.storage.googleapis.com`作为缺省的`stable repository`地址,并去更新相关索引文件。如果你是离线安装`Tiller`, 如果有内部的`chart`仓库，可通过`--stable-repo-url`指定内部`chart`地址；如果没有内部的`chart`仓库, 可通过添加`--skip-refresh`参数禁止`Tiller`更新索引。
 
     `在离线环境中安装有kubectl和Helm客户端的主机上执行以下命令`
@@ -69,7 +69,7 @@ aliases:
     helm_version=`helm version |grep Client | awk -F""\" '{print $2}'`
     helm init --skip-refresh \
         --service-account tiller \
-        --tiller-image 192.168.1.100/rancher/tiller:${helm_version}
+        --tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:${helm_version}
     ```
 
 ## 二、打包Rancher Charts模板
@@ -86,13 +86,13 @@ aliases:
 
 2. 获取`Rancher Charts`离线包。
 
-    指定安装的版本(比如: `latest` or `stable`)，可通过[版本选择]({{< baseurl >}}/rancher/v2.x/cn/installation/server-tags/)查看版本说明。
+    指定安装的版本(比如: `latest`或`stable`或者通过`--version`指定版本)，可通过[版本选择]({{< baseurl >}}/rancher/v2.x/cn/installation/server-tags/)查看版本说明。
 
     ```plain
-    helm fetch rancher-stable/rancher
+    helm fetch rancher-stable/rancher --version v2.2.3
     ```
 
-    >打包`Rancher Charts`文件，将会在当前目录生成`rancher-vx.x.x.tgz`文件。
+    >**结果** 将会在当前目录生成`rancher-vx.x.x.tgz`压缩文件。
 
 ## 三、离线安装Rancher
 
