@@ -5,7 +5,7 @@ weight: 2
 
 ## 一、 恢复准备
 
-1、需要在进行操作的主机上提前[安装RKE]({{< baseurl >}}/rke/latest/en/installation/)([RKE下载]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/download/#rancher-rke))和[kubectl]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/kubectl/)。 \
+1、需要在进行操作的主机上提前[安装RKE]({{< baseurl >}}/rke/latest/cn/installation/)、([RKE下载]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/download/rke/))和[安装kubectl]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/kubectl/)。 \
 2、在开始还原之前，请确保已停止旧集群节点上的所有kubernetes服务。 \
 3、建议创建三个全新节点作为集群恢复的目标节点。有关节点要求，请参阅[HA安装]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/)。您也可以使用现有节点，清除Kubernetes和Rancher配置，`这将破坏这些节点上的数据请做好备份`，点击了解[节点初始化]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/remove-node/)。
 

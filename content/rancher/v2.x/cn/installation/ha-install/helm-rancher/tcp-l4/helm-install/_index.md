@@ -25,7 +25,7 @@ Helm在集群上安装`tiller`服务以管理`charts`. 由于RKE默认启用RBAC
 
 Helm 客户端可以从源代码安装，也可以从预构建的二进制版本安装。
 
-### 1、从二进制版本
+{{% accordion id="option-a1" label="1、从二进制版本" %}}
 
 1. 下载[Helm](https://github.com/kubernetes/helm/releases)
 
@@ -37,7 +37,8 @@ Helm 客户端可以从源代码安装，也可以从预构建的二进制版本
 
     到这里，你应该可以运行客户端了：`helm help`。
 
-### 2、通过 Homebrew(macOS)安装
+{{% /accordion %}}
+{{% accordion id="option-a2" label="2、通过 Homebrew(macOS)安装" %}}
 
 Kubernetes社区的成员为Homebrew贡献了Helm,这个通常是最新的。
 
@@ -47,7 +48,8 @@ brew install kubernetes-helm
 
 (注意：emacs-helm 也是一个软件，这是一个不同的项目。)
 
-### 3、从Chocolatey(Windows)
+{{% /accordion %}}
+{{% accordion id="option-a3" label="3、从Chocolatey(Windows)" %}}
 
 Kubernetes社区成员为Chocolatey贡献了Helm包,这个软件包通常是最新的。
 
@@ -55,7 +57,8 @@ Kubernetes社区成员为Chocolatey贡献了Helm包,这个软件包通常是最�
 choco install kubernetes-helm
 ```
 
-### 4、从脚本
+{{% /accordion %}}
+{{% accordion id="option-a4" label="4、从脚本" %}}
 
 Helm现在有一个安装shell脚本，将自动获取最新版本的`Helm`客户端并在本地安装。可以获取该脚本，然后在本地执行它。这种方法也有文档指导，以便可以在运行之前仔细阅读并理解它在做什么。
 
@@ -71,7 +74,8 @@ curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
 
 也可以做到这一点。
 
-### 5、从金丝雀 (Canary) 构建
+{{% /accordion %}}
+{{% accordion id="option-a5" label="5、从金丝雀 (Canary) 构建" %}}
 
 `Canary`版本是从最新的主分支构建的Helm软件版本。它们不是正式版本，可能不稳定。但是，他们提供了测试最新功能的机会。\
 `Canary`版本Helm二进制文件存储在Kubernetes Helm GCS存储中。以下是常见构建的链接：
@@ -80,7 +84,8 @@ curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
 - [macOS AMD64](https://kubernetes-helm.storage.googleapis.com/helm-canary-darwin-amd64.tar.gz)
 - [Experimental Windows AMD64](https://kubernetes-helm.storage.googleapis.com/helm-canary-windows-amd64.zip)
 
-### 6、源代码方式(Linux，macOS)
+{{% /accordion %}}
+{{% accordion id="option-a6" label="6、源代码方式(Linux，macOS)" %}}
 
 从源代码构建Helm的工作稍微多一些，但如果你想测试最新的(预发布)Helm版本，那么这是最好的方法。\
 你必须有一个安装`Go`工作环境 。
@@ -96,11 +101,13 @@ cd $GOPATH
 
 该`build`目标编译`helm`并将其放置在`bin/helm`目录。Tiller也会编译，并且被放置在`bin/tiller`目录。
 
+{{% /accordion %}}
+
 ## 三、安装Helm Server(Tiller)
 
 Helm的服务器端部分Tiller,通常运行在Kubernetes集群内部。但是对于开发，它也可以在本地运行，并配置为与远程Kubernetes集群通信。
 
-### 1、快捷集群内安装
+{{% accordion id="option-b1" label="1、集群内快捷安装" %}}
 
 安装`tiller`到集群中最简单的方法就是运行`helm init`。这将验证`helm`本地环境设置是否正确(并在必要时进行设置)。然后它会连接到`kubectl`默认连接的K8S集群(`kubectl config view`)。一旦连接，它将安装`tiller`到`kube-system`命名空间中。
 
@@ -119,8 +126,11 @@ Helm的服务器端部分Tiller,通常运行在Kubernetes集群内部。但是�
 执行以下命令在Rancher中安装Tiller:
 
 ```bash
+kubeconfig=xxx.yaml
+
 helm_version=`helm version |grep Client | awk -F""\" '{print $2}'`
-helm init --service-account tiller --skip-refresh \
+helm init --kubeconfig=$kubeconfig \
+--service-account tiller --skip-refresh \
 --tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:$helm_version \
 ```
 
@@ -130,7 +140,8 @@ helm init --service-account tiller --skip-refresh \
 
 除非设置`--tiller-namespace`或`TILLER_NAMESPACE`参数，否则Helm将在命名空间`kube-system`中查找Tiller。
 
-### 2、安装Tiller金丝雀版本
+{{% /accordion %}}
+{{% accordion id="option-b2" label="2、安装Tiller金丝雀版本" %}}
 
 Canary镜像是从master分支建立的。他们可能不稳定，但他们提供测试最新功能的机会。安装`Canary`镜像最简单的方法是`helm init与--canary-image`参数一起使用：
 
@@ -140,7 +151,8 @@ helm init --service-account tiller --canary-image
 
 这将使用最近构建的容器镜像。可以随时使用`kubectl`删除`kube-system`命名空间中的`Tiller deployment`来卸载Tiller。
 
-### 3、本地运行Tiller
+{{% /accordion %}}
+{{% accordion id="option-b3" label="3、本地运行Tiller" %}}
 
 对于开发而言，有时在本地运行Tiller更容易，将其配置为连接到远程Kubernetes集群。上面介绍了构建部署 Tiller的过程。一旦tiller构建部署完成，只需启动它：
 
@@ -162,13 +174,17 @@ Tiller running on:44134
 
 >注意，即使在本地运行，Tiller也会将安装的release配置存储在Kubernetes内的ConfigMaps中。
 
+{{% /accordion %}}
+
 ## 四、升级Tiller
 
 从Helm 2.2.0开始，Tiller可以升级使用`helm init --upgrade`。对于旧版本的Helm或手动升级，可以使用`kubectl`修改Tiller容器镜像
 
 ```bash
+  kubeconfig=xxx.yaml
+
   helm_version=`helm version |grep Client | awk -F""\" '{print $2}'`
-  kubectl --namespace=kube-system \
+  kubectl --kubeconfig=$kubeconfig --namespace=kube-system \
   set image deployments/tiller-deploy \
   tiller=registry.cn-shanghai.aliyuncs.com/rancher/tiller:$helm_version
 ```
@@ -195,7 +211,7 @@ helm init
 
 helm init提供了额外的参数，用于在安装之前修改Tiller的deployment manifest。
 
-### 1、使用`--node-selectors`
+{{% accordion id="option-c1" label="1、使用--node-selectors" %}}
 
 `--node-selectors`参数允许我们指定调度Tiller Pod所需的节点标签。
 
@@ -217,11 +233,13 @@ spec:
 ...
 ```
 
-### 2、使用--override
+{{% /accordion %}}
+{{% accordion id="option-c2" label="2、使用--override" %}}
 
 `--override`允许指定Tiller的deployment manifest的属性。与在Helm其他地方`--set`使用的命令不同，`helm init --override`修改最终`manifest`的指定属性(没有 "values" 文件)。因此，可以为deployment manifest中的任何有效属性指定任何有效值。
 
-### 3、覆盖注释
+{{% /accordion %}}
+{{% accordion id="option-c3" label="3、覆盖注释" %}}
 
 在下面的示例中，我们使用`--override`添加修订版本属性并将其值设置为`1`。
 
@@ -240,7 +258,8 @@ apiVersion: extensions/v1beta1
   ...
 ```
 
-### 4、覆盖亲和性
+{{% /accordion %}}
+{{% accordion id="option-c4" label="4、覆盖亲和性" %}}
 
 在下面的例子中，我们为节点设置了亲和性属性。`--override`可以组合来修改同一列表项的不同属性。
 
@@ -269,7 +288,8 @@ spec:
 ...
 ```
 
-### 5、使用--output
+{{% /accordion %}}
+{{% accordion id="option-c5" label="5、使用--output" %}}
 
 `--output`参数允许我们跳过安装Tiller的deployment manifest，并以JSON或YAML格式简单地将 deployment manifest输出到标准输出stdout。然后可以使用`jq`类似工具修改输出，并使用`kubectl`手动安装。
 
@@ -296,7 +316,8 @@ Tiller安装被跳过，manifest以JSON格式输出到stdout。
   ...
 ```
 
-### 6、存储后端
+{{% /accordion %}}
+{{% accordion id="option-c6" label="6、存储后端" %}}
 
 默认情况下，tiller将安装release信息存储在其运行的命名空间中的ConfigMaps中。从Helm2.7.0开始，现在有一个Secrets用于存储安装release信息的beta存储后端。添加了这个功能是为和Kubernetes的加密`Secret`一起，保护chart的安全性。\
 要启用secrets后端，需要使用以下选项启动Tiller:
@@ -306,5 +327,7 @@ helm init --override 'spec.template.spec.containers[0].command'='{/tiller,--stor
 ```
 
 目前，如果想从默认后端切换到secrets后端，必须自行为此进行迁移配置信息。当这个后端从beta版本毕业时，将会有更正式的移徙方法。
+
+{{% /accordion %}}
 
 ## [下一步: Helm安装Rancher](../rancher-install/)

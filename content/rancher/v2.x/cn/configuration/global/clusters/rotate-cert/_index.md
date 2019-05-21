@@ -67,4 +67,4 @@ weight: 3
     - 如果Rancher是HA安装，直接在local集群中，通过`rke`生成的`kube`配置文件执行以上命令；
     - 如果Rancher是单容器运行，通过`docker exec -ti <容器ID> bash`进入容器中，然后执行`apt install vim -y`安装vim工具，然后再执行以上命令；
 1. 删除`spec.rancherKubernetesEngineConfig.rotateCertificates`层级下的配置:![image-20190423135522178](assets/image-20190423135522178.png)修改为![image-20190423135604503](assets/image-20190423135604503.png)
-1. 数量`:wq`保存yaml文件后集群将自动进行更新，更新完成后再进行证书更新。
+1. 输入`:wq`保存yaml文件后集群将自动进行更新，更新完成后再进行证书更新。

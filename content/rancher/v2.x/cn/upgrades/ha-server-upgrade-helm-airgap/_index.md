@@ -52,7 +52,7 @@ weight: 6
     helm fetch rancher-stable/rancher --version v2.2.3
     ```
 
-    >**结果** 将会在当前目录生成`rancher-vx.x.x.tgz`压缩文件。
+    >**结果** 默认在当前目录下生成`rancher-vx.x.x.tgz`压缩文件，可通过`-d`指定生成的压缩包路径，比如:`helm fetch rancher-stable/rancher --version v2.2.3 -d /home`，将会在`/home`目录下生成`rancher-vx.x.x.tgz`压缩文件。
 
 1. 拷贝.tgz文件到离线环境中安装有`helm客户端和kubectl客户端`，并可以访问内网集群的主机上，解压.tgz得到`rancher`文件夹；
 
@@ -82,7 +82,9 @@ weight: 6
     根据上一步骤中的获取的参数值，将它们以`--set key=value`的形式附加到升级命令中；
 
     ```bash
-    helm upgrade rancher ./rancher \
+    kubeconfig=xxx.yaml
+
+    helm --kubeconfig=$kubeconfig upgrade rancher ./rancher \
     --set hostname=demo.cnrancher.com \
     --set ingress.tls.source=secret \
     --set service.type=ClusterIP

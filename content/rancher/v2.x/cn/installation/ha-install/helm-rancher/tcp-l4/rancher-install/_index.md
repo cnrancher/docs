@@ -20,7 +20,7 @@ https://releases.rancher.com/server-charts/stable
 
 Rancher server设计默认需要开启SSL/TLS配置来保证安全，将ssl证书以`Kubernetes Secret`卷的形式传递给`rancher server或Ingress Controller`。首先创建证书密文，以便`Rancher和Ingress Controller`可以使用。
 
-- 使用权威CA机构颁发的证书
+{{% accordion id="option-a1" label="1、使用权威CA机构颁发的证书" %}}
 
 1. 将`服务证书`和`CA中间证书链`合并到`tls.crt`,将`私钥`复制到或者重命名为`tls.key`；
 
@@ -30,10 +30,10 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全，将ssl证�
 
     ```bash
     # 指定配置文件
-    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
 
-    kubectl --kubeconfig=$KUBECONFIG create namespace cattle-system
-    kubectl --kubeconfig=$KUBECONFIG -n cattle-system \
+    kubectl --kubeconfig=$kubeconfig create namespace cattle-system
+    kubectl --kubeconfig=$kubeconfig -n cattle-system \
     create secret tls tls-rancher-ingress \
     --cert=./tls.crt \
     --key=./tls.key
@@ -45,8 +45,8 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全，将ssl证�
 
     ```bash
     # 指定配置文件
-    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml
-    helm --kubeconfig=$KUBECONFIG install rancher-stable/rancher \
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    helm --kubeconfig=$kubeconfig install rancher-stable/rancher \
       --name rancher \
       --namespace cattle-system \
       --set hostname=<你自己的域名> \
@@ -55,7 +55,8 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全，将ssl证�
 
     >**注意:** 1.创建证书对应的`域名`需要与`hostname`选项匹配，否则`ingress`将无法代理访问Rancher。
 
-- 使用自签名ssl证书
+{{% /accordion %}}
+{{% accordion id="option-a2" label="2、使用自签名ssl证书(可选)" %}}
 
 1. 如果没有自签名ssl证书，可以参考[自签名ssl证书]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/self-signed-ssl/#四-生成自签名证书)，一键生成ssl证书；
 
@@ -67,16 +68,16 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全，将ssl证�
 
     ```bash
     # 指定配置文件
-    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
     # 创建命名空间
-    kubectl --kubeconfig=$KUBECONFIG create namespace cattle-system
+    kubectl --kubeconfig=$kubeconfig create namespace cattle-system
     # 服务证书和私钥密文
-    kubectl --kubeconfig=$KUBECONFIG -n cattle-system create secret \
+    kubectl --kubeconfig=$kubeconfig -n cattle-system create secret \
     tls tls-rancher-ingress \
     --cert=./tls.crt \
     --key=./tls.key
     # ca证书密文
-    kubectl --kubeconfig=$KUBECONFIG -n cattle-system create secret \
+    kubectl --kubeconfig=$kubeconfig -n cattle-system create secret \
     generic tls-ca \
     --from-file=cacerts.pem
     ```
@@ -86,8 +87,8 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全，将ssl证�
     >修改`hostname`
 
     ```bash
-    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml
-    helm --kubeconfig=$KUBECONFIG install rancher-stable/rancher \
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    helm --kubeconfig=$kubeconfig install rancher-stable/rancher \
       --name rancher \
       --namespace cattle-system \
       --set hostname=<你自己的域名> \
@@ -96,6 +97,8 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全，将ssl证�
     ```
 
     >**注意:** 1.证书对应的`域名`需要与`hostname`选项匹配，否则`ingress`将无法代理访问Rancher。
+
+{{% /accordion %}}
 
 ### 4、高级配置
 

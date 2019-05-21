@@ -66,10 +66,12 @@ aliases:
     `在离线环境中安装有kubectl和Helm客户端的主机上执行以下命令`
 
     ```bash
+    kubeconfig=xxx.yaml
+
     helm_version=`helm version |grep Client | awk -F""\" '{print $2}'`
-    helm init --skip-refresh \
-        --service-account tiller \
-        --tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:${helm_version}
+    helm init --kubeconfig=$kubeconfig --skip-refresh \
+    --service-account tiller \
+    --tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:${helm_version}
     ```
 
 ## 二、打包Rancher Charts模板
@@ -92,7 +94,7 @@ aliases:
     helm fetch rancher-stable/rancher --version v2.2.3
     ```
 
-    >**结果** 将会在当前目录生成`rancher-vx.x.x.tgz`压缩文件。
+    >**结果** 默认在当前目录下生成`rancher-vx.x.x.tgz`压缩文件，可通过`-d`指定生成的压缩包路径，比如:`helm fetch rancher-stable/rancher --version v2.2.3 -d /home`，将会在`/home`目录下生成`rancher-vx.x.x.tgz`压缩文件。
 
 ## 三、离线安装Rancher
 
@@ -104,7 +106,7 @@ aliases:
 
     将`服务证书和CA中间证书链`合并名为`tls.crt`的文件中,将`私钥`复制到名为`tls.key`的文件中。使用kubectl创建类型为`tls`的`secrets`。
 
-    ```plain
+    ```bash
     # 指定kubeconfig配置文件
     kubeconfig=kube_configxxx.yml
 
@@ -119,11 +121,11 @@ aliases:
 
     然后执行以下命令进行rancher安装:
 
-    ```plain
+    ```bash
     # 指定kubeconfig配置文件
     kubeconfig=kube_configxxx.yml
 
-    helm $kubeconfig install ./rancher \
+    helm --kubeconfig=$kubeconfig install ./rancher \
       --name rancher \
       --namespace cattle-system \
       --set hostname=<修改为自己的域名> \
@@ -159,7 +161,7 @@ aliases:
     # 指定kubeconfig配置文件
     kubeconfig=kube_configxxx.yml
 
-    helm $kubeconfig install ./rancher \
+    helm --kubeconfig=$kubeconfig install ./rancher \
       --name rancher \
       --namespace cattle-system \
       --set hostname=<修改为自己的域名> \
@@ -178,7 +180,7 @@ aliases:
     # 指定kubeconfig配置文件
     kubeconfig=kube_configxxx.yml
 
-    helm $kubeconfig install ./rancher \
+    helm --kubeconfig=$kubeconfig install ./rancher \
       --name rancher \
       --namespace cattle-system \
       --set hostname=<修改为自己的域名> \
@@ -195,9 +197,9 @@ aliases:
     kubeconfig=kube_configxxx.yml
 
     kubectl --kubeconfig=$kubeconfig \
-        -n cattle-system \
-        create secret generic tls-ca \
-        --from-file=cacerts.pem
+    -n cattle-system create \
+    secret generic tls-ca \
+    --from-file=cacerts.pem
     ```
 
     > **注意** 必须保证文件名为`cacerts.pem`。
@@ -208,7 +210,7 @@ aliases:
     # 指定kubeconfig配置文件
     kubeconfig=kube_configxxx.yml
 
-    helm $kubeconfig install ./rancher \
+    helm --kubeconfig=$kubeconfig install ./rancher \
       --name rancher \
       --namespace cattle-system \
       --set hostname=<修改为自己的域名> \
@@ -229,7 +231,7 @@ aliases:
 
     ```plain
     #指定kubectl配置文件
-    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
 
     kubectl --kubeconfig=$kubeconfig -n cattle-system \
     patch deployments cattle-cluster-agent --patch '{
@@ -255,7 +257,7 @@ aliases:
 
     ```plain
     #指定kubectl配置文件
-    export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
 
     kubectl --kubeconfig=$kubeconfig -n cattle-system \
     patch daemonsets cattle-node-agent --patch '{

@@ -57,8 +57,9 @@ kubectl --kubeconfig=$kubeconfig create clusterrolebinding \
 tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
 # 安装tiller
 helm_version=`helm version |grep Client | awk -F""\" '{print $2}'`
-helm --kubeconfig=$kubeconfig init --skip-refresh --service-account \
-tiller --tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:$helm_version
+helm --kubeconfig=$kubeconfig init \
+--skip-refresh --service-account tiller \
+--tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:$helm_version
 ```
 
 - 安装
@@ -66,7 +67,8 @@ tiller --tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:$helm_ver
 ```bash
 git clone -b v2.1.7 https://github.com/xiaoluhong/server-chart.git
 
-helm install  --kubeconfig=kube_config_xxx.yml \
+kubeconfig=xxx.yaml
+helm install --kubeconfig=$kubeconfig \
   --name rancher \
   --namespace cattle-system \
   --set rancherImage=rancher/rancher \
@@ -107,17 +109,18 @@ kubectl --kubeconfig=$kubeconfig create clusterrolebinding \
 tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
 # 安装tiller
 helm_version=`helm version |grep Client | awk -F""\" '{print $2}'`
-helm --kubeconfig=$kubeconfig init --skip-refresh --service-account \
-tiller --tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:$helm_version
+helm --kubeconfig=$kubeconfig init \
+--skip-refresh --service-account tiller \
+--tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:$helm_version
 ```
 
 - 安装
 
 ```bash
-
 git clone -b v2.1.7 https://github.com/xiaoluhong/server-chart.git
 
-helm install  --kubeconfig=kube_config_xxx.yml \
+kubeconfig=xxx.yaml
+helm install --kubeconfig=$kubeconfig \
   --name rancher \
   --namespace cattle-system \
   --set rancherImage=rancher/rancher \
@@ -162,7 +165,8 @@ kubectl --kubeconfig=$kubeconfig create clusterrolebinding \
 tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
 # 安装tiller
 helm_version=`helm version |grep Client | awk -F""\" '{print $2}'`
-helm --kubeconfig=$kubeconfig init --skip-refresh --service-account tiller \
+helm --kubeconfig=$kubeconfig init \
+--skip-refresh --service-account tiller \
 --tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:$helm_version
 ```
 
@@ -171,7 +175,8 @@ helm --kubeconfig=$kubeconfig init --skip-refresh --service-account tiller \
 ```bash
 git clone -b v2.1.7 https://github.com/xiaoluhong/server-chart.git
 
-helm install  --kubeconfig=kube_config_xxx.yml \
+kubeconfig=xxx.yaml
+helm install --kubeconfig=$kubeconfig \
   --name rancher \
   --namespace cattle-system \
   --set rancherImage=rancher/rancher \

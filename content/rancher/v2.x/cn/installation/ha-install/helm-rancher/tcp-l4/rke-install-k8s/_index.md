@@ -11,7 +11,7 @@ weight: 2
 
 使用下面的示例创建`rancher-cluster.yml`文件，使用创建的3个节点的IP地址或域名替换列表中的IP地址。
 
-> **注意:**  如果您的节点有`public and internal`地址，建议设置`internal_address:`以便Kubernetes将其用于集群内通信。如果需要开启自动配置安全组或防火墙，某些服务(如AWS EC2)需要设置`internal_address:`。
+> **注意:**  如果节点有``公网地址 和 内网地址``地址，建议手动设置`internal_address:`以便Kubernetes将内网地址用于集群内部通信。如果需要开启自动配置安全组或防火墙，某些服务(如AWS EC2)需要设置`internal_address:`。
 
 ```yaml
 nodes:
@@ -49,9 +49,11 @@ services:
 
 RKE有许多配置选项可用于自定义安装以适合您的特定环境。
 
-有关选项和功能的完整列表，请查看[RKE文档]({{< baseurl >}}/rke/latest/en/config-options/) 。
+有关选项和功能的完整列表，请查看[RKE文档]({{< baseurl >}}/rke/latest/cn/config-options/) 。
 
-## 二、运行RKE命令
+## 二、创建Kubernetes集群
+
+运行RKE命令创建Kubernetes集群
 
 ```bash
 rke up --config ./rancher-cluster.yml

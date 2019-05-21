@@ -65,8 +65,6 @@ kubectl --kubeconfig=kube_configxxx.yml -n cattle-system delete serviceaccount c
 
 ## 通过RKE `rancher-cluster.yml`删除附加组件
 
-The addons section from `rancher-cluster.yml` contains all the resources needed to deploy Rancher using RKE. By switching to Helm, this part of the cluster configuration file is no longer needed. Open `rancher-cluster.yml` in your favorite text editor and remove the addons section:
-
 `addons`部分包含使用RKE部署Rancher所需的所有资源。通过切换到Helm，不再需要此部分群集配置文件。
 
 >**Important:** 确保仅从群集配置文件中删除addons部分。

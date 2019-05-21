@@ -126,7 +126,7 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全。
 
 因为选择外部七层负载均衡器作为ssl终止，那么后端的访问连接不就需要走https，所以Rancher server只需要把`80`端口暴露出去。并且如果外部七层负载均衡器作为ssl终止，那么Rancher server就不需要绑定SSL证书。但如果使用的是自签名SSL证书，需要把CA证书传递给Rancher。
 
-- 使用权威CA机构颁发的证书
+{{% accordion id="option-a1" label="1、使用权威CA机构颁发的证书" %}}
 
 1. 根据[配置负载均衡器](#二-配置负载均衡器-以nginx为例)配置`服务证书`和`私钥`；
 
@@ -146,7 +146,8 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全。
 
     >**注意:** 1.创建证书对应的`域名`需要与`hostname`选项匹配，否则`ingress`将无法代理访问Rancher。
 
-- 使用自签名ssl证书(可选)
+{{% /accordion %}}
+{{% accordion id="option-a2" label="2、使用自签名ssl证书(可选)" %}}
 
 1. 如果没有自签名ssl证书，可以参考[自签名ssl证书]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/self-signed-ssl/#四-生成自签名证书)，一键生成ssl证书；
 
@@ -187,6 +188,8 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全。
     ```
 
     >**注意:** 1.证书对应的`域名`需要与`hostname`选项匹配，否则`ingress`将无法代理访问Rancher。
+
+{{% /accordion %}}
 
 ### 3、高级配置
 
