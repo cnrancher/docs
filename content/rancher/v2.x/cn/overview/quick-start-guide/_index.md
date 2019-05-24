@@ -43,6 +43,7 @@ weight: 3
 
 - CPU: 2C
 - 内存: 4GB
+
 > **注意:** 此配置仅为满足小规模测试环境的最低配置。如用于生产，请参考[基础配置要求]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/basic-environment-configuration/)。
 
 ### 2、**软件需求**:
@@ -51,9 +52,9 @@ weight: 3
 
 - 支持的Docker版本:
 
-  - `1.12.6`
-  - `1.13.1`
-  - `17.03.2`
+  - 17.03.x
+  - 18.06.x
+  - 18.09.x
 
   >**注意:** 有关Docker安装说明,请访问其[文档](https://docs.docker.com/install/)。软件需求要应用于所有节点。
   >
@@ -68,7 +69,7 @@ weight: 3
   2. 在shell中执行以下命令:
 
       ```bash
-      sudo docker run -d --restart=unless-stopped -v <主机路径>:/var/lib/rancher/ -p 80:80 -p 443:443 rancher/rancher
+      sudo docker run -d --restart=unless-stopped -v <主机路径>:/var/lib/rancher/ -p 80:80 -p 443:443 rancher/rancher:stable
       ```
 
 ## 四、登录Rancher
@@ -84,6 +85,8 @@ weight: 3
   3. 设置管理员密码
 
       第一次登录会要求设置管理员密码，默认管理员账号为: admin
+
+      > 如果没有设置密码而要求输入当前密码，可以输入密码: admin
 
       ![image-20180703152943118](_index.assets/image-20180703152943118.png)
 

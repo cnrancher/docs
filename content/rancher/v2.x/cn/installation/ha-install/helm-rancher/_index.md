@@ -42,7 +42,7 @@ weight: 1
 
 ## 以前的安装方法
 
-> **重要提示: RKE add-on安装方法仅支持Rancher v2.0.8**
+> **重要提示: RKE add-on安装方法仅支持Rancher v2.0.8以及早期版本**
 >
 >如果您目前正在使用`RKE add-on`安装的集群，请参阅[从HA RKE Add-on安装迁移]({{< baseurl >}}/rancher/v2.x/cn/upgrades/migrating-from-rke-add-on/)进行升级迁移。
 

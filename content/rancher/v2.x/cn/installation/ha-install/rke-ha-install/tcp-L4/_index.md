@@ -2,7 +2,7 @@
 title: 1 - 四层负载均衡HA部署
 weight: 1
 ---
->**重要提示:** RKE HA安装仅支持Rancher v2.0.8以及之前的版本，Rancher v2.0.8之后的版本使用[helm安装Rancher]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/)。
+>**重要提示:** RKE HA安装仅支持Rancher v2.0.8以及早期版本，Rancher v2.0.8之后的版本使用[helm安装Rancher]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/)。
 
 以下步骤将创建一个新的Kubernetes集群，专用于Rancher高可用(HA)运行，本文档将引导你使用Rancher Kubernetes Engine(RKE)配置三个节点的集群。
 
@@ -187,7 +187,7 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 编辑器打开 `rancher-cluster.yml` 文件,在nodes配置版块中，修改 `IP_ADDRESS_X` and `USER`为你真实的Linux主机IP和用户名,`ssh_key_path`为第一步生成的私钥文件，如果是在RKE所在主机上生成的公钥私钥对，此配置可保持默认:
 
 ```yaml
-nodes:
+  nodes:
   - address: `IP_ADDRESS_1`
     user: `USER`
     role: [controlplane,etcd,worker]
@@ -200,6 +200,24 @@ nodes:
     user: `USER`
     role: [controlplane,etcd,worker]
     ssh_key_path: ~/.ssh/id_rsa
+  services:
+    etcd:
+      # rke 0.2之前版本
+      snapshot: true
+      creation: 6h
+      retention: 24h
+    # rke 0.2之后版本 （两段配置二选一）
+      backup_config:
+        enabled: true     # enables recurring etcd snapshots
+        interval_hours: 6 # time increment between snapshots
+        retention: 60     # time in days before snapshot purge
+        # Optional S3
+        s3_backup_config:
+          access_key: "myaccesskey"
+          secret_key:  "myaccesssecret"
+          bucket_name: "my-backup-bucket"
+          endpoint: "s3.eu-west-1.amazonaws.com"
+          region: "eu-west-1"
 ```
 
 >**注意**

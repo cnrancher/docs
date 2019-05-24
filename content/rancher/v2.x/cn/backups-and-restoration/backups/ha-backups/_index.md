@@ -13,8 +13,6 @@ weight: 2
 
     需要使用到安装Rancher的RKE配置文件`rancher-cluster.yml`，将此文件需放在与RKE二进制文件同级目录中
 
-- 在运行`etcd snapshot-restore`命令之前，必须保证每个`etcd`节点拥有最新相同版本的快照文件，快照需要存放在每个ETCD节点的`/opt/rke/etcd-snapshots/`目录下
-
 ## 一、创建ETCD数据快照
 
 有两种方案创建`etcd`快照: 定时自动创建快照和或手动创建快照，每种方式对应特定的场景。
@@ -39,12 +37,32 @@ weight: 2
 
 2. 在`rancher-cluster.yml`配置文件中添加以下代码:
 
+    _RKE v0.1.x_
+
     ```bash
     services:
       etcd:
         snapshot: true  # 是否启用快照功能，默认false；
         creation: 6h0s  # 快照创建间隔时间，不加此参数，默认5分钟；
         retention: 24h  # 快照有效期，此时间后快照将被删除；
+    ```
+
+    _RKE v0.2.0+_
+
+    ```bash
+    services:
+      etcd:
+        backup_config:
+          enabled: true     # enables recurring etcd snapshots
+          interval_hours: 6 # time increment between snapshots
+          retention: 60     # time in days before snapshot purge
+          # Optional S3
+          s3_backup_config:
+            access_key: "myaccesskey"
+            secret_key:  "myaccesssecret"
+            bucket_name: "my-backup-bucket"
+            endpoint: "s3.eu-west-1.amazonaws.com"
+            region: "eu-west-1"
     ```
 
 3. 根据实际需求修改以上参数；

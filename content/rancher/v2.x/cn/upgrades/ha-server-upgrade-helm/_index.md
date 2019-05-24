@@ -3,14 +3,11 @@ title: 5 - Helm HA升级
 weight: 5
 ---
 
->**注意:** 如果之前使用RKE Add-on安装的Rancher，请参阅以下文档以进行迁移或升级。
+>**注意:** 如果之前使用RKE Add-on安装的Rancher，请根据[从RKE HA迁移到Helm HA]({{< baseurl >}}/rancher/v2.x/cn/upgrades/migrating-from-rke-add-on/)进行迁移。
 >
->* [从RKE安装迁移]({{< baseurl >}}/rancher/v2.x/cn/upgrades/migrating-from-rke-add-on/)
-> 从版本v2.0.8开始，Rancher采用`Helm chart`安装和升级，但仍然支持RKE`安装/升级`。如果要将升级方法从RKE更改为Helm，请按照此过程操作。
+> 从版本v2.0.8开始，Rancher采用`Helm chart`安装和升级。如果要将升级方法从RKE更改为Helm，请按照此过程操作。
 
 ## 一、先决条件
-
-从v2.0.7开始，Rancher引入了System项目，该项目是自动创建的，用于存储Kubernetes需要运行的重要命名空间。在升级到v2.0.7 +期间，Rancher希望从所有项目中取消分配这些命名空间。在开始升级之前，请检查系统命名空间以确保它们未分配以防止集群网络问题。
 
 1. **备份Rancher集群**
 
@@ -44,34 +41,43 @@ weight: 5
 
 ## 三、更新 Rancher
 
-1. 获取当前运行Rancher的配置参数；
+1. 使用`权威认证证书`安装升级
+
+    > **注意** 升级参数应该以安装时设置的参数为准，将安装参数以`--set key=value`的形式附加到升级命令中。
 
     ```bash
-    helm get values rancher
+    kubeconfig=xxx.yaml
+
+    helm --kubeconfig=$kubeconfig upgrade \
+        rancher rancher-stable/rancher \
+        --version v2.2.3 \
+        --set hostname=<修改为自己的域名> \
+        --set ingress.tls.source=secret \
+        --set service.type=ClusterIP \
+        --set rancherImage=<离线镜像仓库地址>/rancher/rancher \
+        --set busyboxImage=<离线镜像仓库地址>/rancher/busybox
     ```
 
-    >返回结果示例
+    >通过`--version`指定升级版本，`镜像tag`不需要指定，会自动根据chart版本获取。
 
-    ```plant
-    hostname: demo.cnrancher.com
-    ingress:
-      tls:
-        source: secret
-    service:
-      type: ClusterIP
-    ```
+1. 使用`自签名证书`安装升级
 
-    > 不同的安装方式显示的参数不相同
-
-1. 根据上一步骤中获取的值，将Rancher升级到最新版本。
-
-    根据上一步骤中的获取的参数值，将它们以`--set key=value`的形式附加到升级命令中；
+    > **注意** 升级参数应该以安装时设置的参数为准，将安装参数以`--set key=value`的形式附加到升级命令中。
 
     ```bash
-    helm upgrade rancher rancher-stable/rancher \
-    --set hostname=demo.cnrancher.com \
-    --set ingress.tls.source=secret \
-    --set service.type=ClusterIP
+    kubeconfig=xxx.yaml
+
+    helm --kubeconfig=$kubeconfig upgrade \
+        rancher rancher-stable/rancher \
+        --version v2.2.3 \
+        --set hostname=<修改为自己的域名> \
+        --set ingress.tls.source=secret \
+        --set service.type=ClusterIP \
+        --set privateCA=true \
+        --set rancherImage=<离线镜像仓库地址>/rancher/rancher \
+        --set busyboxImage=<离线镜像仓库地址>/rancher/busybox
     ```
 
-    > 更多配置参考[rancher高级设置]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/advanced-settings/).
+    >通过`--version`指定升级版本，`镜像tag`不需要指定，会自动根据chart版本获取。
+
+> 更多配置参考[rancher高级设置]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/advanced-settings/).

@@ -1,5 +1,5 @@
 ---
-title: 2 - RKE安装Kubernetes
+title: 2 - RKE安装K8S
 weight: 2
 ---
 
@@ -11,7 +11,7 @@ weight: 2
 
 使用下面的示例创建`rancher-cluster.yml`文件，使用创建的3个节点的IP地址或域名替换列表中的IP地址。
 
-> **注意:**  如果节点有``公网地址 和 内网地址``地址，建议手动设置`internal_address:`以便Kubernetes将内网地址用于集群内部通信。如果需要开启自动配置安全组或防火墙，某些服务(如AWS EC2)需要设置`internal_address:`。
+> **注意:**  如果节点有`公网地址 和 内网地址`地址，建议手动设置`internal_address:`以便Kubernetes将内网地址用于集群内部通信。如果需要开启自动配置安全组或防火墙，某些服务(如AWS EC2)需要设置`internal_address:`。
 
 ```yaml
 nodes:
@@ -30,9 +30,22 @@ nodes:
 
 services:
   etcd:
+    # rke 0.2之前版本
     snapshot: true
     creation: 6h
     retention: 24h
+    # rke 0.2之后版本 （两段配置二选一）
+    backup_config:
+      enabled: true     # enables recurring etcd snapshots
+      interval_hours: 6 # time increment between snapshots
+      retention: 60     # time in days before snapshot purge
+      # Optional S3
+      s3_backup_config:
+        access_key: "myaccesskey"
+        secret_key:  "myaccesssecret"
+        bucket_name: "my-backup-bucket"
+        endpoint: "s3.eu-west-1.amazonaws.com"
+        region: "eu-west-1"
 ```
 
 ### 1、常规RKE节点选项

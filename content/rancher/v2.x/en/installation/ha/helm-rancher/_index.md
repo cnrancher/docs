@@ -13,7 +13,7 @@ Use `helm repo add` command to add the Helm chart repository that contains chart
 
 {{< release-channel >}}
 
-```
+```bash
 helm repo add rancher-<CHART_REPO> https://releases.rancher.com/server-charts/<CHART_REPO>
 ```
 
@@ -90,18 +90,18 @@ This option uses `cert-manager` to automatically request and renew [Let's Encryp
 
 - Set `hostname` to the public DNS record, set `ingress.tls.source` to `letsEncrypt` and `letsEncrypt.email` to the email address used for communication about your certificate (for example, expiry notices)
 
-```
+```bash
 helm install rancher-<CHART_REPO>/rancher \
-  --name rancher \
-  --namespace cattle-system \
-  --set hostname=rancher.my.org \
-  --set ingress.tls.source=letsEncrypt \
-  --set letsEncrypt.email=me@example.org
+    --name rancher \
+    --namespace cattle-system \
+    --set hostname=rancher.my.org \
+    --set ingress.tls.source=letsEncrypt \
+    --set letsEncrypt.email=me@example.org
 ```
 
 Wait for Rancher to be rolled out:
 
-```
+```bash
 kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system rollout status deploy/rancher
 Waiting for deployment "rancher" rollout to finish: 0 of 3 updated replicas are available...
 deployment "rancher" successfully rolled out
@@ -111,13 +111,12 @@ deployment "rancher" successfully rolled out
 
 Create Kubernetes secrets from your own certificates for Rancher to use.
 
-
 > **Note:** The `Common Name` or a `Subject Alternative Names` entry in the server certificate must match the `hostname` option, or the ingress controller will fail to configure correctly. Although an entry in the `Subject Alternative Names` is technically required, having a matching `Common Name` maximizes compatibility with older browsers/applications. If you want to check if your certificates are correct, see [How do I check Common Name and Subject Alternative Names in my server certificate?]({{< baseurl >}}/rancher/v2.x/en/faq/technical/#how-do-i-check-common-name-and-subject-alternative-names-in-my-server-certificate)
 
 - Set `hostname` and set `ingress.tls.source` to `secret`.
 - If you are using a Private CA signed certificate , add `--set privateCA=true` to the command shown below.
 
-```
+```bash
 helm install rancher-<CHART_REPO>/rancher \
   --name rancher \
   --namespace cattle-system \
@@ -129,7 +128,7 @@ Now that Rancher is deployed, see [Adding TLS Secrets]({{< baseurl >}}/rancher/v
 
 After adding the secrets, check if Rancher was rolled out successfully:
 
-```
+```bash
 kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system rollout status deploy/rancher
 Waiting for deployment "rancher" rollout to finish: 0 of 3 updated replicas are available...
 deployment "rancher" successfully rolled out

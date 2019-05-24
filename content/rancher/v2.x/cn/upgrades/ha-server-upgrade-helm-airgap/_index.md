@@ -3,24 +3,26 @@ title: 6 - Helm HA离线升级
 weight: 6
 ---
 
+>**注意:** 如果之前使用RKE Add-on安装的Rancher，请根据[从RKE HA迁移到Helm HA]({{< baseurl >}}/rancher/v2.x/cn/upgrades/migrating-from-rke-add-on/)进行迁移。
+>
+> 从版本v2.0.8开始，Rancher采用`Helm chart`安装和升级。如果要将升级方法从RKE更改为Helm，请按照此过程操作。
+
 ## 一、先决条件
 
-从v2.0.7开始，Rancher引入了System项目，该项目是自动创建的，用于存储Kubernetes需要运行的重要命名空间。在升级到v2.0.7 +期间，Rancher希望从所有项目中取消分配这些命名空间。在开始升级之前，请检查系统命名空间以确保它们未分配以防止集群网络问题。
-
-- **准备离线镜像**
+1. **准备离线镜像**
 
     按照[准备离线镜像]({{< baseurl >}}/rancher/v2.x/cn/installation/air-gap-installation/ha/prepare-private-registry/)方法, 同步新版本镜像到离线镜像仓库。
 
-- **备份集群**
+1. **备份集群**
 
     [创建快照]({{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/backups/ha-backups/)
     如果在升级期间出现问题，可使用此快照进行恢复。
 
-- **kubectl**
+1. **kubectl**
 
     安装配置[kubectl]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/kubectl/)，使其可以连接集群。
 
-- **安装或者升级Helm Server和Helm 客户端**
+1. **安装或者升级Helm Server和Helm 客户端**
 
     如果之前是通过RKE部署的rancher，那首先需要安装Helm Server和Helm 客户端，安装方法参考[安装Helm Server和Helm 客户端]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/helm-install/ "" target="_blank")安装最新版本Helm Server和Helm 客户端
 
@@ -46,7 +48,7 @@ weight: 6
 
 1. 获取`Rancher Charts`离线包。
 
-    指定安装的版本(比如: `latest`或`stable`或者通过`--version`指定版本)，可通过[版本选择]({{< baseurl >}}/rancher/v2.x/cn/installation/server-tags/)查看版本说明。
+    指定安装的版本(比如: `latest`或`stable`或者通过`--version`指定获取的版本)，可通过[版本选择]({{< baseurl >}}/rancher/v2.x/cn/installation/server-tags/)查看版本说明。
 
     ```plain
     helm fetch rancher-stable/rancher --version v2.2.3
@@ -54,42 +56,39 @@ weight: 6
 
     >**结果** 默认在当前目录下生成`rancher-vx.x.x.tgz`压缩文件，可通过`-d`指定生成的压缩包路径，比如:`helm fetch rancher-stable/rancher --version v2.2.3 -d /home`，将会在`/home`目录下生成`rancher-vx.x.x.tgz`压缩文件。
 
-1. 拷贝.tgz文件到离线环境中安装有`helm客户端和kubectl客户端`，并可以访问内网集群的主机上，解压.tgz得到`rancher`文件夹；
-
 ## 三、更新 Rancher
 
-1. 获取当前运行Rancher的配置参数；
+拷贝`rancher-vx.x.x.tgz`文件到离线环境中安装有`helm客户端和kubectl客户端`并可以访问内网集群的主机上，解压`rancher-vx.x.x.tgz`得到`rancher`文件夹。
 
-    ```bash
-    helm get values rancher
-    ```
+1. 使用`权威认证证书`安装升级
 
-    >返回结果示例
-
-    ```plant
-    hostname: demo.cnrancher.com
-    ingress:
-      tls:
-        source: secret
-    service:
-      type: ClusterIP
-    ```
-
-    > 不同的安装方式显示的参数将不相同
-
-1. 根据上一步骤中获取的值，将Rancher升级到最新版本。
-
-    根据上一步骤中的获取的参数值，将它们以`--set key=value`的形式附加到升级命令中；
+    > **注意** 升级参数应该以安装时设置的参数为准，将安装参数以`--set key=value`的形式附加到升级命令中。
 
     ```bash
     kubeconfig=xxx.yaml
 
     helm --kubeconfig=$kubeconfig upgrade rancher ./rancher \
-    --set hostname=demo.cnrancher.com \
-    --set ingress.tls.source=secret \
-    --set service.type=ClusterIP
-    --set rancherImage=<离线镜像仓库地址>/rancher/rancher
-    --set busyboxImage=<离线镜像仓库地址>/rancher/busybox
+        --set hostname=<修改为自己的域名> \
+        --set ingress.tls.source=secret \
+        --set service.type=ClusterIP \
+        --set rancherImage=<离线镜像仓库地址>/rancher/rancher \
+        --set busyboxImage=<离线镜像仓库地址>/rancher/busybox
     ```
 
-    > 因为是离线安装，所以需要指定离线镜像名称。`镜像tag`不需要指定，会自动根据chart版本获取。Rancher Pod中有两个容器，一个是rancher,一个是用于收集审计日志的busybox，更多配置参考[rancher高级设置]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/advanced-settings/)
+1. 使用`自签名证书`安装升级
+
+    > **注意** 升级参数应该以安装时设置的参数为准，将安装参数以`--set key=value`的形式附加到升级命令中。
+
+    ```bash
+    kubeconfig=xxx.yaml
+
+    helm --kubeconfig=$kubeconfig upgrade rancher ./rancher \
+        --set hostname=<修改为自己的域名> \
+        --set ingress.tls.source=secret \
+        --set service.type=ClusterIP \
+        --set privateCA=true \
+        --set rancherImage=<离线镜像仓库地址>/rancher/rancher \
+        --set busyboxImage=<离线镜像仓库地址>/rancher/busybox
+    ```
+
+> 因为是离线安装，所以需要指定离线镜像名称。`镜像tag`不需要指定，会自动根据chart版本获取。Rancher Pod中有两个容器，一个是rancher,一个是用于收集审计日志的busybox，更多配置参考[rancher高级设置]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/advanced-settings/)

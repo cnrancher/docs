@@ -3,7 +3,7 @@ title: 7 - 从RKE HA迁移到Helm HA
 weight: 7
 ---
 
-> #### **重要提示：RKE HA安装仅支持Rancher v2.0.8**
+> #### **重要提示：RKE HA安装仅支持Rancher v2.0.8以及早期版本**
 >
 >如果您当前正在使用RKE HA安装方法，请按照以下说明迁移到Helm HA安装。
 
@@ -12,6 +12,25 @@ weight: 7
 你需要安装[kubectl]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/kubectl/)和使用RKE生成的kubeconfig YAML文件 `kube_config_rancher-cluster.yml`
 
 > **注意:** 本文档假定你是标准安装Rancher，如果您修改了任何对象名称或命名空间，请相应地进行调整。
+
+## 命名空间迁移(可选)(重要)
+
+从rancher `v2.0.7`开始引入了`System`项目，该项目是自动创建的，用于存储Kubernetes运行需要的重要命名空间。在升级到`v2.0.7+`前，确保没有手动创建`System`项目，并且检查如下的系统命名空间，以确保它们未分配到任何项目中，以防止出现集群网络问题。
+
+- kube-system
+- kube-public
+- cattle-system
+- cattle-alerting
+- cattle-logging
+- cattle-pipeline
+- ingress-nginx
+- cattle-prometheus
+- longhorn-system
+- rancher-monitoring
+
+如下图，移动系统命名空间到`None`
+
+  ![Moving Namespaces](assets/move-namespaces.png)
 
 ## 配置kubectl配置文件
 

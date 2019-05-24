@@ -9,8 +9,7 @@ The `zfs` service will install the kernel-headers for your kernel (if you build 
 
 The only restriction is that you must mount your zpool into `/mnt`, as this is the only shared mount directory that will be accessible throughout the system-docker managed containers (including the console).
 
-
-```
+```bash
 $ sudo ros service enable zfs
 $ sudo ros service up zfs
 # you can follow the progress of the build by running the following command in another ssh session:
@@ -53,23 +52,23 @@ E.g. to show the configuration for the pool `zpool1` you may run the following c
 
 First, you need to stop  the`docker` system service and wipe out `/var/lib/docker` folder:
 
-```
-$ sudo system-docker stop docker
-$ sudo rm -rf /var/lib/docker/*
+```bash
+sudo system-docker stop docker
+sudo rm -rf /var/lib/docker/*
 ```
 
 To enable ZFS as the storage driver for Docker, you'll need to create a ZFS filesystem for Docker and make sure it's mounted.
 
-```
-$ sudo zfs create zpool1/docker
-$ sudo zfs list -o name,mountpoint,mounted
+```bash
+sudo zfs create zpool1/docker
+sudo zfs list -o name,mountpoint,mounted
 ```
 
 At this point you'll have a ZFS filesystem created and mounted at `/zpool1/docker`. According to [Docker ZFS storage docs](https://docs.docker.com/engine/userguide/storagedriver/zfs-driver/), if the Docker root dir is a ZFS filesystem, the Docker daemon will automatically use `zfs` as its storage driver.
 
 Now you'll need to remove `-s overlay` (or any other storage driver) from the Docker daemon args to allow docker to automatically detect `zfs`.
 
-```
+```bash
 $ sudo ros config set rancher.docker.storage_driver 'zfs'
 $ sudo ros config set rancher.docker.graph /mnt/zpool1/docker
 # Now that you've changed the Docker daemon args, you'll need to start Docker
@@ -78,7 +77,7 @@ $ sudo system-docker start docker
 
 After customizing the Docker daemon arguments and restarting `docker` system service, ZFS will be used as Docker storage driver:
 
-```
+```bash
 $ docker info
 Containers: 0
  Running: 0

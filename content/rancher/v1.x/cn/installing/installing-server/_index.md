@@ -194,7 +194,7 @@ $ sudo docker run -d -v <host_vol>:/var/lib/mysql --restart=unless-stopped -p 80
 
 * 启用 [proxy protocol](http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/enable-proxy-protocol.html) 模式
 
-```
+```bash
 $ aws elb create-load-balancer-policy --load-balancer-name <LB_NAME> --policy-name <POLICY_NAME> --policy-type-name ProxyProtocolPolicyType --policy-attributes AttributeName=ProxyProtocol,AttributeValue=true
 $ aws elb set-load-balancer-policies-for-backend-server --load-balancer-name <LB_NAME> --instance-port 443 --policy-names <POLICY_NAME>
 $ aws elb set-load-balancer-policies-for-backend-server --load-balancer-name <LB_NAME> --instance-port 8080 --policy-names <POLICY_NAME>
@@ -206,7 +206,7 @@ $ aws elb set-load-balancer-policies-for-backend-server --load-balancer-name <LB
 
 以下是使用Terraform配置的例子:
 
-```
+```bash
 resource "aws_elb" "lb" {
   name               = "<LB_NAME>"
   availability_zones = ["us-west-2a","us-west-2b","us-west-2c"]
@@ -269,8 +269,8 @@ Certificate was added to keystore
 
 为了设置HTTP Proxy，Docker守护进程需要修改配置并指向这个代理。在启动Rancher Server前，需要编辑配置文件 `/etc/default/docker` 添加你的代理信息并重启Docker服务。
 
-```
-$ sudo vi /etc/default/docker
+```bash
+sudo vi /etc/default/docker
 ```
 
 在文件中，编辑 `#export http_proxy="http://127.0.0.1:3128/"` 并修改它指向你的代理。保存修改并重启Docker。重启Docker的方式在每个OS上都不一样。
@@ -279,8 +279,8 @@ $ sudo vi /etc/default/docker
 
 为了使得[应用商店]({{< baseurl >}}/rancher/v1.x/cn/configuration/catalog/)加载正常，HTTP代理设置必须在Rancher Server运行的环境变量中。
 
-```
-$ sudo docker run -d \
+```bash
+sudo docker run -d \
     -e http_proxy=<proxyURL> \
     -e https_proxy=<proxyURL> \
     -e no_proxy="localhost,127.0.0.1" \
@@ -295,6 +295,7 @@ $ sudo docker run -d \
 <a id="mysql-ssl"></a>
 
 ### 通过SSL连接MySQL的Rancher Server
+
 > **注意:** 目前在Rancher 1.6.3以上版本才支持
 
 ### 重要提示
@@ -309,15 +310,18 @@ $ sudo docker run -d \
 
 1. 拷贝MySQL服务器的证书或CA证书到Rancher Server的主机上。当启动`rancher/server`容器的时候你必须将证书挂载到`/var/lib/rancher/etc/ssl/ca.crt`。
 2. 更改以下的模板的对应参数，构建一个JDBC URL:
-```
-jdbc:mysql://<DB_HOST>:<DB_PORT>/<DB_NAME>?useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&prepStmtCacheSize=517&cachePrepStmts=true&prepStmtCacheSqlLimit=4096&socketTimeout=60000&connectTimeout=60000&sslServerCert=/var/lib/rancher/etc/ssl/ca.crt&useSSL=true
-```
+
+    ```bash
+    jdbc:mysql://<DB_HOST>:<DB_PORT>/<DB_NAME>?useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&prepStmtCacheSize=517&      cachePrepStmts=true&prepStmtCacheSqlLimit=4096&socketTimeout=60000&connectTimeout=60000&sslServerCert=/var/lib/rancher/etc/ssl/ca.crt&     useSSL=true
+    ```
+
 3. 使用环境变量`CATTLE_DB_CATTLE_MYSQL_URL`和`CATTLE_DB_LIQUIBASE_MYSQL_URL`来导入上面的JDBC URL到容器里面。
+
 4. 加入环境变量`CATTLE_DB_CATTLE_GO_PARAMS="tls=true"`到容器里面。但是如果服务器证书的标题名字不符合服务器的主机名，你需要使用的是`CATTLE_DB_CATTLE_GO_PARAMS="tls=skip-verify"`.
 
 #### 例子
 
-```
+```bash
 
 $ export JDBC_URL="jdbc:mysql://<DB_HOST>:<DB_PORT>/<DB_NAME>?useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&prepStmtCacheSize=517&cachePrepStmts=true&prepStmtCacheSqlLimit=4096&socketTimeout=60000&connectTimeout=60000&sslServerCert=/var/lib/rancher/etc/ssl/ca.crt&useSSL=true"
 

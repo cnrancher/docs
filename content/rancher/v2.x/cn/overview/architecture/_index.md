@@ -3,7 +3,7 @@ title: 1 - 架构设计
 weight: 1
 ---
 
-本节介绍Rancher如何与Docker和Kubernetes两种j技术进行交互。
+本节介绍Rancher如何与Docker和Kubernetes进行交互。
 
 ## Docker
 

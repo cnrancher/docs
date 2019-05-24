@@ -6,7 +6,7 @@ weight: 6
 
 Chart地址: https://github.com/xiaoluhong/server-chart.git
 
-- 本Chart基于 https://github.com/rancher/server-chart/ 修改，当前支持版本为`rancher v2.1.7、v2.1.8、v2.2.0、v2.2.1、v2.2.2`。
+- 本Chart基于 https://github.com/rancher/server-chart/ 修改，当前支持版本为`rancher v2.1.7、v2.1.8、v2.1.9、v2.2.0、v2.2.1、v2.2.2、v2.2.3`。
 - 不支持LetsEncrypt、cert-manager提供证书，需手动通过Secret导入证书, 默认开启审计日志功能。
 
 ## 一、制作自签名证书或重命名权威认证证书
@@ -42,19 +42,27 @@ Chart地址: https://github.com/xiaoluhong/server-chart.git
 # 指定kubeconfig配置文件路径
 kubeconfig=xxx
 # 创建cattle-system命名空间
-kubectl --kubeconfig=$kubeconfig create namespace cattle-system
+kubectl --kubeconfig=$kubeconfig \
+  create namespace cattle-system
 # 创建ssl证书密文
-kubectl --kubeconfig=$kubeconfig -n cattle-system create \
-secret tls tls-rancher-ingress --cert=./tls.crt --key=./tls.key
+kubectl --kubeconfig=$kubeconfig \
+  -n cattle-system create \
+  secret tls tls-rancher-ingress \
+  --cert=./tls.crt --key=./tls.key
 # 创建CA证书密文
-kubectl --kubeconfig=$kubeconfig -n cattle-system create \
-secret generic tls-ca --from-file=cacerts.pem
+kubectl --kubeconfig=$kubeconfig \
+  -n cattle-system create \
+  secret generic tls-ca \
+  --from-file=cacerts.pem
 # 创建tiller serviceaccount
-kubectl --kubeconfig=$kubeconfig -n kube-system create \
-serviceaccount tiller
+kubectl --kubeconfig=$kubeconfig \
+  -n kube-system create \
+  serviceaccount tiller
 # 创建tiller clusterrolebinding
-kubectl --kubeconfig=$kubeconfig create clusterrolebinding \
-tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
+kubectl --kubeconfig=$kubeconfig \
+  create clusterrolebinding \
+  tiller --clusterrole cluster-admin \
+  --serviceaccount=kube-system:tiller
 # 安装tiller
 helm_version=`helm version |grep Client | awk -F""\" '{print $2}'`
 helm --kubeconfig=$kubeconfig init \
@@ -69,14 +77,14 @@ git clone -b v2.1.7 https://github.com/xiaoluhong/server-chart.git
 
 kubeconfig=xxx.yaml
 helm install --kubeconfig=$kubeconfig \
-  --name rancher \
-  --namespace cattle-system \
-  --set rancherImage=rancher/rancher \
-  --set rancherRegistry=registry.cn-shanghai.aliyuncs.com \
-  --set busyboxImage=rancher/busybox \
-  --set hostname=<修改为自己的域名> \
-  --set privateCA=true \
-  server-chart/rancher
+    --name rancher \
+    --namespace cattle-system \
+    --set rancherImage=rancher/rancher \
+    --set rancherRegistry=registry.cn-shanghai.aliyuncs.com \
+    --set busyboxImage=rancher/busybox \
+    --set hostname=<修改为自己的域名> \
+    --set privateCA=true \
+    server-chart/rancher
 ```
 
 >**注意:** 1. 通过`--kubeconfig=`指定kubectl配置文件;\
@@ -177,16 +185,16 @@ git clone -b v2.1.7 https://github.com/xiaoluhong/server-chart.git
 
 kubeconfig=xxx.yaml
 helm install --kubeconfig=$kubeconfig \
-  --name rancher \
-  --namespace cattle-system \
-  --set rancherImage=rancher/rancher \
-  --set rancherRegistry=registry.cn-shanghai.aliyuncs.com \
-  --set busyboxImage=rancher/busybox \
-  --set service.type=NodePort \
-  --set service.ports.nodePort=30303 \
-  --set tls=external \
-  --set privateCA=true \
-  server-chart/rancher
+    --name rancher \
+    --namespace cattle-system \
+    --set rancherImage=rancher/rancher \
+    --set rancherRegistry=registry.cn-shanghai.aliyuncs.com \
+    --set busyboxImage=rancher/busybox \
+    --set service.type=NodePort \
+    --set service.ports.nodePort=30303 \
+    --set tls=external \
+    --set privateCA=true \
+    server-chart/rancher
 ```
 
 >**注意:** 1. 通过`--kubeconfig=`指定kubectl配置文件; \

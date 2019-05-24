@@ -33,6 +33,25 @@ private_registries:
   user: rancher
   password: "*********"
   is_default: true
+
+services:
+  etcd:
+    # rke 0.2之前版本
+    snapshot: true
+    creation: 6h
+    retention: 24h
+    # rke 0.2之后版本 （两段配置二选一）
+    backup_config:
+      enabled: true     # enables recurring etcd snapshots
+      interval_hours: 6 # time increment between snapshots
+      retention: 60     # time in days before snapshot purge
+      # Optional S3
+      s3_backup_config:
+        access_key: "myaccesskey"
+        secret_key:  "myaccesssecret"
+        bucket_name: "my-backup-bucket"
+        endpoint: "s3.eu-west-1.amazonaws.com"
+        region: "eu-west-1"
 ```
 
 ### 1、常规RKE节点选项

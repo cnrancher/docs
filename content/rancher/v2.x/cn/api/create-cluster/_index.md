@@ -19,7 +19,7 @@ weight: 1
 
 ## 二、创建自定义集群
 
-   复制并保存以下内容为脚本文件，修改前三行`api_url`、`token`、`cluster_name`，然后执行脚本创建自定义集群；
+复制并保存以下内容为脚本文件，修改前三行`api_url`、`token`、`cluster_name`，然后执行脚本。
 
 ```bash
 #!/bin/bash
@@ -131,7 +131,6 @@ create_cluster_data()
             },
             "kubelet": {
              "extraArgs": {
-                    "cgroup-driver": "systemd",
                     "eviction-hard": "memory.available<300Mi,nodefs.available<10%,imagefs.available<15%,nodefs.inodesFree<5%",
                     "kube-api-burst": "30",
                     "kube-api-qps": "15",
@@ -171,9 +170,13 @@ curl -k -X POST \
 
 ```
 
-## 三、获取主机注册命令
+## 三、生成注册命令
+
+复制并保存以下内容为脚本文件，修改前三行`api_url`、`token`、`cluster_name`，然后执行脚本。
 
 ```bash
+#!/bin/bash
+
 api_url='https://xxx.domain.com'
 token='token-5zgl2:tcj5nvfq67rf55r7xxxxxxxxxxx429xrwd4zx'
 cluster_name=''
@@ -197,11 +200,25 @@ curl -k -X POST \
     -H 'Content-Type: application/json' \
     -d "$(create_token_data)" $api_url/v3/clusterregistrationtokens
 
-# 获取注册命令
-## nodeCommand
+```
+
+### 四、获取主机注册命令
+
+复制并保存以下内容为脚本文件，修改前三行`api_url`、`token`、`cluster_name`，然后执行脚本。
+
+```bash
+#!/bin/bash
+
+api_url='https://xxx.domain.com'
+token='token-5zgl2:tcj5nvfq67rf55r7xxxxxxxxxxx429xrwd4zx'
+cluster_name=''
+
+cluster_ID=$( curl -s -k -H "Authorization: Bearer $token" $api_url/v3/clusters | jq -r ".data[] | select(.name == \"$cluster_name\") | .id" )
+
+# nodeCommand
 curl -s -k -H "Authorization: Bearer $token" $api_url/v3/clusters/${cluster_ID}/clusterregistrationtokens | jq -r .data[].nodeCommand
 
-## command
+# command
 curl -s -k -H "Authorization: Bearer $token" $api_url/v3/clusters/${cluster_ID}/clusterregistrationtokens | jq -r .data[].command
 
 ```

@@ -21,6 +21,8 @@ nodes:
 
 ## 完整 `cluster.yml` 示例
 
+当前版本`v0.2.2`
+
 ```yaml
 nodes:
     - address: 1.1.1.1
@@ -91,22 +93,38 @@ cluster_name: mycluster
 # 定义kubernetes版本.
 ## 目前, 版本定义需要与rancher/types defaults map相匹配: https://github.com/rancher/types/blob/master/apis/management.cattle.io/v3/k8s_defaults.go#L14
 ## 如果同时定义了kubernetes_version和system_images中的kubernetes镜像，则system_images配置将优先于kubernetes_version
-kubernetes_version: v1.10.3-rancher2
+kubernetes_version: v1.13.5-rancher1
 
-## 如果没有指定system_images，那么system_images镜像版本与kubernetes_version对应的镜像相同
-# 默认Tags: https://github.com/rancher/types/blob/master/apis/management.cattle.io/v3/k8s_defaults.go)
+# `system_images`优先级更高，如果没有单独指定`system_images`镜像，则会使用`kubernetes_version`对应的默认镜像版本。
+## 默认Tags: https://github.com/rancher/types/blob/master/apis/management.cattle.io/v3/k8s_defaults.go)
 system_images:
-    kubernetes: rancher/hyperkube:v1.10.3-rancher2
-    etcd: rancher/coreos-etcd:v3.1.12
-    alpine: rancher/rke-tools:v0.1.9
-    nginx_proxy: rancher/rke-tools:v0.1.9
-    cert_downloader: rancher/rke-tools:v0.1.9
-    kubernetes_services_sidecar: rancher/rke-tools:v0.1.9
-    kubedns: rancher/k8s-dns-kube-dns-amd64:1.14.8
-    dnsmasq: rancher/k8s-dns-dnsmasq-nanny-amd64:1.14.8
-    kubedns_sidecar: rancher/k8s-dns-sidecar-amd64:1.14.8
-    kubedns_autoscaler: rancher/cluster-proportional-autoscaler-amd64:1.0.0
-    pod_infra_container: rancher/pause-amd64:3.1
+  etcd: rancher/coreos-etcd:v3.2.24-rancher1
+  alpine: rancher/rke-tools:v0.1.27
+  nginx_proxy: rancher/rke-tools:v0.1.27
+  cert_downloader: rancher/rke-tools:v0.1.27
+  kubernetes_services_sidecar: rancher/rke-tools:v0.1.27
+  kubedns: rancher/k8s-dns-kube-dns:1.15.0
+  dnsmasq: rancher/k8s-dns-dnsmasq-nanny:1.15.0
+  kubedns_sidecar: rancher/k8s-dns-sidecar:1.15.0
+  kubedns_autoscaler: rancher/cluster-proportional-autoscaler:1.0.0
+  coredns: coredns/coredns:1.2.6
+  coredns_autoscaler: rancher/cluster-proportional-autoscaler:1.0.0
+  kubernetes: rancher/hyperkube:v1.13.5-rancher1
+  flannel: rancher/coreos-flannel:v0.10.0-rancher1
+  flannel_cni: rancher/flannel-cni:v0.3.0-rancher1
+  calico_node: rancher/calico-node:v3.4.0
+  calico_cni: rancher/calico-cni:v3.4.0
+  calico_controllers: ""
+  calico_ctl: rancher/calico-ctl:v2.0.0
+  canal_node: rancher/calico-node:v3.4.0
+  canal_cni: rancher/calico-cni:v3.4.0
+  canal_flannel: rancher/coreos-flannel:v0.10.0
+  weave_node: weaveworks/weave-kube:2.5.0
+  weave_cni: weaveworks/weave-npc:2.5.0
+  pod_infra_container: rancher/pause:3.1
+  ingress: rancher/nginx-ingress-controller:0.21.0-rancher3
+  ingress_backend: rancher/nginx-ingress-controller-defaultbackend:1.4-rancher1
+  metrics_server: rancher/metrics-server:v0.3.1
 
 services:
     etcd:
@@ -209,11 +227,10 @@ services:
         system-reserved: 'memory=250Mi'
         kube-reserved: 'memory=250Mi'
         eviction-hard: 'memory.available<300Mi,nodefs.available<10%,imagefs.available<15%,nodefs.inodesFree<5%'
-        cgroup-driver: systemd
 
       # 可以选择定义额外的卷绑定到服务
       extra_binds:
-        - "/usr/libexec/kubernetes/kubelet-plugins:/usr/libexec/kubernetes/kubelet-plugins"   
+        - "/usr/libexec/kubernetes/kubelet-plugins:/usr/libexec/kubernetes/kubelet-plugins"
 # 目前，只支持x509验证
 ## 你可以选择创建额外的SAN(主机名或IP)以添加到API服务器PKI证书。
 ## 如果要为control plane servers使用负载均衡器，这很有用。

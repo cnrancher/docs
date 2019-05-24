@@ -250,7 +250,7 @@ delete pod `kubectl --kubeconfig=$kubeconfig -n cattle-system \
 get pod |grep -E "cattle-cluster-agent|cattle-node-agent|rancher" | awk '{print $1}'`
 ```
 
->**重要提示：**如果环境不是按照标准的rancher安装文档安装，secret名称可能不相同，请根据实际secret名称操作。
+>**重要提示：**如果环境不是按照标准的rancher安装文档安装，`secret`名称可能不相同，请根据实际secret名称操作。
 
 ## 三、更新local集群的密文`cattle-credentials-xxxx`
 

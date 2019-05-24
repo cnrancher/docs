@@ -7,7 +7,6 @@ aliases:
 
 ## A. Add the Helm Chart Repository
 
-
 From a system that has access to the internet, render the installs and copy the resulting manifests to a system that has access to the Rancher server cluster.
 
 1. If you haven't already, initialize `helm` locally on a system that has internet access.
@@ -20,9 +19,10 @@ From a system that has access to the internet, render the installs and copy the 
 
     {{< release-channel >}}
 
-    ```
+    ```bash
     helm repo add rancher-<CHART_REPO> https://releases.rancher.com/server-charts/<CHART_REPO>
     ```
+
 3. Fetch the latest Rancher chart. This will pull down the chart and save it in the current directory as a `.tgz` file.
 
     ```plain
@@ -73,8 +73,7 @@ By default, Rancher generates a CA and uses cert manger to issue the certificate
     `<VERSION>` | The version number of the output tarball.
     `<RANCHER.YOURDOMAIN.COM>` | The DNS name you pointed at your load balancer.
     `<REGISTRY.YOURDOMAIN.COM:PORT>` | The DNS name for your private registry.).
-    
-    
+
     ```plain
     helm template ./rancher-<VERSION>.tgz --output-dir . \
      --name rancher \
@@ -98,20 +97,19 @@ By default, Rancher generates a CA and uses cert manger to issue the certificate
     `<VERSION>` | The version number of the output tarball.
     `<RANCHER.YOURDOMAIN.COM>` | The DNS name you pointed at your load balancer.
     `<REGISTRY.YOURDOMAIN.COM:PORT>` | The DNS name for your private registry.
-    
-    
+
     > **Note:** If you are using a Private CA signed cert, add `--set privateCA=true` following `--set ingress.tls.source=secret`
-    
-    ```
+
+    ```bash
     helm template ./rancher-<VERSION>.tgz --output-dir . \
       --name rancher \
       --namespace cattle-system \
       --set hostname=<RANCHER.YOURDOMAIN.COM> \
       --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher \
       --set ingress.tls.source=secret
-```
+    ```
 
-1.    See [Adding TLS Secrets]({{< baseurl >}}/rancher/v2.x/en/installation/ha/helm-rancher/tls-secrets/) to publish the certificate files so Rancher and the ingress controller can use them. 
+1. See [Adding TLS Secrets]({{< baseurl >}}/rancher/v2.x/en/installation/ha/helm-rancher/tls-secrets/) to publish the certificate files so Rancher and the ingress controller can use them. 
 {{% /accordion %}}
 
 ## D. Install Rancher

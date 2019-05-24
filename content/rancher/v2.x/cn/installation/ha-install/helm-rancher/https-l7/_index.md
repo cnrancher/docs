@@ -139,9 +139,9 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全。
     export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml
 
     helm --kubeconfig=$KUBECONFIG install rancher-stable/rancher \
-      --name rancher --namespace cattle-system \
-      --set hostname=<你自己的域名> \
-      --set tls=external
+        --name rancher --namespace cattle-system \
+        --set hostname=<你自己的域名> \
+        --set tls=external
     ```
 
     >**注意:** 1.创建证书对应的`域名`需要与`hostname`选项匹配，否则`ingress`将无法代理访问Rancher。
@@ -181,10 +181,10 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全。
     export KUBECONFIG=xxx/xxx/xx.kubeconfig.yaml
 
     helm --kubeconfig=$KUBECONFIG install rancher-stable/rancher \
-      --name rancher --namespace cattle-system \
-      --set hostname=<你自己的域名> \
-      --set tls=external \
-      --set privateCA=true
+        --name rancher --namespace cattle-system \
+        --set hostname=<你自己的域名> \
+        --set tls=external \
+        --set privateCA=true
     ```
 
     >**注意:** 1.证书对应的`域名`需要与`hostname`选项匹配，否则`ingress`将无法代理访问Rancher。

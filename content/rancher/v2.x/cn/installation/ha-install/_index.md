@@ -1,5 +1,5 @@
 ---
-title: 4 - Rancher HA安装
+title: 4 - 在线HA安装
 weight: 4
 ---
 

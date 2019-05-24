@@ -221,6 +221,5 @@ services:
       system-reserved: 'memory=250Mi'
       kube-reserved: 'memory=250Mi'
       eviction-hard: 'memory.available<300Mi,nodefs.available<10%,imagefs.available<15%,nodefs.inodesFree<5%'
-      cgroup-driver: systemd
 
 ```

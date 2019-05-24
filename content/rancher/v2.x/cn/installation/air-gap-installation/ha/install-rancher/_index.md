@@ -36,11 +36,11 @@ aliases:
         kubeconfig=kube_configxxx.yml
 
         kubectl --kubeconfig=$kubeconfig -n kube-system \
-        create secret docker-registry regcred \
-        --docker-server="reg.example.com" \
-        --docker-username=<user> \
-        --docker-password=<password> \
-        --docker-email=<email>
+            create secret docker-registry regcred \
+            --docker-server="reg.example.com" \
+            --docker-username=<user> \
+            --docker-password=<password> \
+            --docker-email=<email>
         ```
 
     - Patch the ServiceAccount
@@ -60,8 +60,9 @@ aliases:
 1. 安装Helm Server(Tiller)
 
     >**注意:**
-1、`helm init`在缺省配置下，会去谷歌镜像仓库拉取`gcr.io/kubernetes-helm/tiller`镜像，并在Kubernetes集群上安装配置Tiller。离线环境下，可通过`--tiller-image`指定私有镜像仓库镜像。
-2、`helm init`在缺省配置下，会利用`https://kubernetes-charts.storage.googleapis.com`作为缺省的`stable repository`地址,并去更新相关索引文件。如果你是离线安装`Tiller`, 如果有内部的`chart`仓库，可通过`--stable-repo-url`指定内部`chart`地址；如果没有内部的`chart`仓库, 可通过添加`--skip-refresh`参数禁止`Tiller`更新索引。
+1、`helm init`在缺省配置下，会去谷歌镜像仓库拉取`gcr.io/kubernetes-helm/tiller`镜像，并在Kubernetes集群上安装配置Tiller。离线环境下，可通过`--tiller-image`指定私有镜像仓库镜像。\
+2、`helm init`在缺省配置下，会利用`https://kubernetes-charts.storage.googleapis.com`作为缺省的`stable repository`地址,并去更新相关索引文件。\
+3、如果你是离线安装`Tiller`, 如果有内部的`chart`仓库，可通过`--stable-repo-url`指定内部`chart`地址；如果没有内部的`chart`仓库, 可通过添加`--skip-refresh`参数禁止`Tiller`更新索引。
 
     `在离线环境中安装有kubectl和Helm客户端的主机上执行以下命令`
 
@@ -70,8 +71,8 @@ aliases:
 
     helm_version=`helm version |grep Client | awk -F""\" '{print $2}'`
     helm init --kubeconfig=$kubeconfig --skip-refresh \
-    --service-account tiller \
-    --tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:${helm_version}
+        --service-account tiller \
+        --tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:${helm_version}
     ```
 
 ## 二、打包Rancher Charts模板
@@ -109,6 +110,8 @@ aliases:
     ```bash
     # 指定kubeconfig配置文件
     kubeconfig=kube_configxxx.yml
+    kubectl --kubeconfig=$kubeconfig \
+        create namespace cattle-system
 
     kubectl --kubeconfig=$kubeconfig \
         -n cattle-system create secret \
@@ -123,14 +126,15 @@ aliases:
 
     ```bash
     # 指定kubeconfig配置文件
+
     kubeconfig=kube_configxxx.yml
 
     helm --kubeconfig=$kubeconfig install ./rancher \
-      --name rancher \
-      --namespace cattle-system \
-      --set hostname=<修改为自己的域名> \
-      --set ingress.tls.source=secret
-      --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:stable
+        --name rancher \
+        --namespace cattle-system \
+        --set hostname=<修改为自己的域名> \
+        --set ingress.tls.source=secret
+        --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:stable
     ```
 
 1. 使用`自己的自签名证书`
@@ -139,7 +143,10 @@ aliases:
 
     ```plain
     # 指定kubeconfig配置文件
+
     kubeconfig=kube_configxxx.yml
+    kubectl --kubeconfig=$kubeconfig \
+        create namespace cattle-system
 
     kubectl --kubeconfig=$kubeconfig \
         -n cattle-system create \
@@ -159,15 +166,16 @@ aliases:
 
     ```plain
     # 指定kubeconfig配置文件
+
     kubeconfig=kube_configxxx.yml
 
     helm --kubeconfig=$kubeconfig install ./rancher \
-      --name rancher \
-      --namespace cattle-system \
-      --set hostname=<修改为自己的域名> \
-      --set ingress.tls.source=secret \
-      --set privateCA=true \
-      --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:stable
+        --name rancher \
+        --namespace cattle-system \
+        --set hostname=<修改为自己的域名> \
+        --set ingress.tls.source=secret \
+        --set privateCA=true \
+        --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:stable
     ```
 
 - 以外部HTTP L7负载均衡器作为访问入口（nginx为例）
@@ -181,11 +189,11 @@ aliases:
     kubeconfig=kube_configxxx.yml
 
     helm --kubeconfig=$kubeconfig install ./rancher \
-      --name rancher \
-      --namespace cattle-system \
-      --set hostname=<修改为自己的域名> \
-      --set tls=external \
-      --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:stable
+        --name rancher \
+        --namespace cattle-system \
+        --set hostname=<修改为自己的域名> \
+        --set tls=external \
+        --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:stable
     ```
 
 1. 使用`自己的自签名证书`
@@ -194,12 +202,15 @@ aliases:
 
     ```plain
     # 指定kubeconfig配置文件
+
     kubeconfig=kube_configxxx.yml
+    kubectl --kubeconfig=$kubeconfig \
+        create namespace cattle-system
 
     kubectl --kubeconfig=$kubeconfig \
-    -n cattle-system create \
-    secret generic tls-ca \
-    --from-file=cacerts.pem
+        -n cattle-system create \
+        secret generic tls-ca \
+        --from-file=cacerts.pem
     ```
 
     > **注意** 必须保证文件名为`cacerts.pem`。
@@ -211,12 +222,12 @@ aliases:
     kubeconfig=kube_configxxx.yml
 
     helm --kubeconfig=$kubeconfig install ./rancher \
-      --name rancher \
-      --namespace cattle-system \
-      --set hostname=<修改为自己的域名> \
-      --set privateCA=true \
-      --set tls=external \
-      --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:stable
+        --name rancher \
+        --namespace cattle-system \
+        --set hostname=<修改为自己的域名> \
+        --set privateCA=true \
+        --set tls=external \
+        --set rancherImage=<REGISTRY.YOURDOMAIN.COM:PORT>/rancher/rancher:stable
     ```
 
 ## 四、为Cluster Pod添加主机别名(/etc/hosts)(可选)

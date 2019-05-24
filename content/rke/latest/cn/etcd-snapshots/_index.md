@@ -73,7 +73,7 @@ time="2018-05-04T18:43:16Z" level=info msg="Created backup" name="2018-05-04T18:
 
 根据您的RKE版本，用于配置自动定时快照的选项可能有所不同。
 
-- v0.2.0版本
+- v0.2.0以及之后版本
 
     |选项|描述| S3特有 |
     |---|---| --- |
@@ -109,10 +109,10 @@ time="2018-05-04T18:43:16Z" level=info msg="Created backup" name="2018-05-04T18:
 
     ```yaml
     services:
-        etcd:
-          snapshot: true
-          creation: 5m0s
-          retention: 24h
+      etcd:
+        snapshot: true
+        creation: 5m0s
+        retention: 24h
     ```
 
 ## 三、Etcd灾难恢复
