@@ -21,17 +21,19 @@ weight: 276
 | --- | --- | --- |
 | `additionalTrustedCAs` | false | `bool` - See [Additional Trusted CAs](#additional-trusted-cas) |
 | `addLocal` | "auto" | `string` - Have Rancher detect and import the "local" Rancher server cluster [Import "local Cluster](#import-local-cluster) |
+| `antiAffinity` | "preferred" | `string` - AntiAffinity rule for Rancher pods - "preferred, required" |
 | `auditLog.destination` | "sidecar" | `string` - Stream to sidecar container console or hostPath volume - "sidecar, hostPath" |
-| `auditLog.hostPath` | "/var/log/rancher/audit" | `string` - log file destination on host |
+| `auditLog.hostPath` | "/var/log/rancher/audit" | `string` - log file destination on host (only applies when `auditLog.destination` is set to `hostPath`) |
 | `auditLog.level` | 0 | `int` - set the [API Audit Log]({{< baseurl >}}/rancher/v2.x/en/installation/api-auditing) level. 0 is off. [0-3] |
-| `auditLog.maxAge` | 1 | `int` - maximum number of days to retain old audit log files |
-| `auditLog.maxBackups` | 1 | `int` - maximum number of audit log files to retain |
-| `auditLog.maxSize` | 100 | `int` - maximum size in megabytes of the audit log file before it gets rotated |
-| `busyboxImage` | "busybox" | `string` - Image location for busybox image used to collect audit logs _Note: 可用版本 v2.2.0_ |
+| `auditLog.maxAge` | 1 | `int` - maximum number of days to retain old audit log files (only applies when `auditLog.destination` is set to `hostPath`) |
+| `auditLog.maxBackups` | 1 | `int` - maximum number of audit log files to retain (only applies when `auditLog.destination` is set to `hostPath`) |
+| `auditLog.maxSize` | 100 | `int` - maximum size in megabytes of the audit log file before it gets rotated  (only applies when `auditLog.destination` is set to `hostPath`) |
+| `busyboxImage` | "busybox" | `string` - Image location for busybox image used to collect audit logs _Note: Available as of v2.2.0_ |
 | `debug` | false | `bool` - set debug flag on rancher server |
 | `extraEnv` | [] | `list` - set additional environment variables for Rancher _Note: 可用版本 v2.2.0_ |
 | `imagePullSecrets` | [] | `list` - list of names of Secret resource containing private registry credentials |
 | `ingress.extraAnnotations` | {} | `map` - additional annotations to customize the ingress |
+| `ingress.configurationSnippet` | "" | `string` - Add additional Nginx configuration. Can be used for proxy configuration. _Note: Available as of v2.0.15, v2.1.10 and v2.2.4_ |
 | `proxy` | "" | `string` -  HTTP[S] proxy server for Rancher |
 | `noProxy` | "127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16" | `string` - comma separated list of hostnames or ip address not to use the proxy |
 | `resources` | {} | `map` - rancher pod resource requests & limits |
@@ -51,7 +53,7 @@ You can collect this log as you would any container log. Enable the [Logging ser
 --set auditLog.level=1
 ```
 
-By default enabling Audit Logging will create a sidecar container in the Rancher pod. This container (`rancher-audit-log`) will stream the log to `stdout`.  You can collect this log as you would any container log. Enable the [Logging service under Rancher Tools]({{< baseurl >}}/rancher/v2.x/en/tools/logging/) for the Rancher server cluster or System Project.
+By default enabling Audit Logging will create a sidecar container in the Rancher pod. This container (`rancher-audit-log`) will stream the log to `stdout`.  You can collect this log as you would any container log. When using the sidecar as the audit log destination, the `hostPath`, `maxAge`, `maxBackups`, and `maxSize` options do not apply. It's advised to use your OS or Docker daemon's log rotation features to control disk space use. Enable the [Logging service under Rancher Tools]({{< baseurl >}}/rancher/v2.x/en/tools/logging/) for the Rancher server cluster or System Project.
 
 Set the `auditLog.destination` to `hostPath` to forward logs to volume shared with the host system instead of streaming to a sidecar container. When setting the destination to `hostPath` you may want to adjust the other auditLog parameters for log rotation.
 
@@ -98,7 +100,15 @@ To customize or use a different ingress with Rancher server you can set your own
 Example on setting a custom certificate issuer:
 
 ```plain
- --set ingress.extraAnnotations.'certmanager\.k8s\.io/cluster-issuer'=ca-key-pair
+--set ingress.extraAnnotations.'certmanager\.k8s\.io/cluster-issuer'=ca-key-pair
+```
+
+_Available as of v2.0.15, v2.1.10 and v2.2.4_
+
+Example on setting a static proxy header with `ingress.configurationSnippet`. This value is parsed like a template so variables can be used.
+
+```plain
+--set ingress.configurationSnippet='more_set_input_headers X-Forwarded-Host {{ .Values.hostname }};'
 ```
 
 ### HTTP Proxy
