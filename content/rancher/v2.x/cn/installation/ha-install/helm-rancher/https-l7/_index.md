@@ -140,7 +140,7 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全。
 
     helm --kubeconfig=$KUBECONFIG install rancher-stable/rancher \
         --name rancher --namespace cattle-system \
-        --set hostname=<你自己的域名> \
+        --set hostname=<您自己的域名> \
         --set tls=external
     ```
 
@@ -151,7 +151,7 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全。
 
 1. 如果没有自签名ssl证书，可以参考[自签名ssl证书]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/self-signed-ssl/#四-生成自签名证书)，一键生成ssl证书；
 
-1. 一键生成ssl自签名证书脚本将自动生成`tls.crt、tls.key、cacerts.pem`三个文件，文件名称不能修改。如果使用你自己生成的自签名ssl证书，则需要将`服务证书`和`CA中间证书链`合并到`tls.crt`文件中,将`私钥`复制到或者重命名为`tls.key`文件，将`CA证书`复制到或者重命名为`cacerts.pem`。
+1. 一键生成ssl自签名证书脚本将自动生成`tls.crt、tls.key、cacerts.pem`三个文件，文件名称不能修改。如果使用您自己生成的自签名ssl证书，则需要将`服务证书`和`CA中间证书链`合并到`tls.crt`文件中,将`私钥`复制到或者重命名为`tls.key`文件，将`CA证书`复制到或者重命名为`cacerts.pem`。
 
 1. 根据[配置负载均衡器](#二-配置负载均衡器-以nginx为例)配置`服务证书`和`私钥`；
 
@@ -182,7 +182,7 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全。
 
     helm --kubeconfig=$KUBECONFIG install rancher-stable/rancher \
         --name rancher --namespace cattle-system \
-        --set hostname=<你自己的域名> \
+        --set hostname=<您自己的域名> \
         --set tls=external \
         --set privateCA=true
     ```
@@ -193,11 +193,11 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全。
 
 ### 3、高级配置
 
-Rancher chart有许多配置选项,可用于自定义安装以适合你的特定环境，点击查看[Rancher高级设置]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/advanced-settings)
+Rancher chart有许多配置选项,可用于自定义安装以适合您的特定环境，点击查看[Rancher高级设置]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/advanced-settings)
 
 ## 五、(可选)为Agent Pod添加主机别名(/etc/hosts)
 
-如果你没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
+如果您没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
 
 ### 解决方法
 

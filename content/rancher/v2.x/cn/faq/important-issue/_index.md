@@ -7,7 +7,7 @@ weight: 1
 
 PEM格式通常用于数字证书认证机构(Certificate Authorities，CA)，扩展名为`.pem, .crt, .cer, and .key`。内容为Base64编码的ASCII码文件，有类似`"-----BEGIN CERTIFICATE-----" 和 "-----END CERTIFICATE-----"`的头尾标记。服务器认证证书，中级认证证书和私钥都可以储存为PEM格式(认证证书其实就是公钥)。Apache和类似的服务器使用PEM格式证书。
 
-你可以通过以下特征识别PEM格式:
+您可以通过以下特征识别PEM格式:
 
   ```bash
   - 该文件以下列标题开头:
@@ -42,7 +42,7 @@ PEM格式通常用于数字证书认证机构(Certificate Authorities，CA)，�
 
 ## 3、我如何验证我的证书链？
 
-你可以使用`openssl`二进制验证证书链。如果该命令的输出(参见下面的命令示例)结束`Verify return code: 0 (ok)`，那么证书链是有效的。该`ca.pem`文件必须与你添加到`rancher/rancher`容器中的文件相同。当使用由认可的认证机构签署的证书时，可以省略该`-CAfile`参数。
+您可以使用`openssl`二进制验证证书链。如果该命令的输出(参见下面的命令示例)结束`Verify return code: 0 (ok)`，那么证书链是有效的。该`ca.pem`文件必须与您添加到`rancher/rancher`容器中的文件相同。当使用由认可的认证机构签署的证书时，可以省略该`-CAfile`参数。
 
 **命令:**
 
@@ -54,7 +54,7 @@ Verify return code: 0 (ok)
 
 ## 4、持久数据
 
-Rancher `etcd`用作数据存储，使用单节点安装时，将使用内置`etcd`。持久数据位于容器中的以下路径中: `/var/lib/rancher`。你可以将主机卷挂载到此位置以保留其运行的数据。
+Rancher `etcd`用作数据存储，使用单节点安装时，将使用内置`etcd`。持久数据位于容器中的以下路径中: `/var/lib/rancher`。您可以将主机卷挂载到此位置以保留其运行的数据。
 
 **命令**:
 
@@ -69,7 +69,7 @@ Rancher `etcd`用作数据存储，使用单节点安装时，将使用内置`et
 
 ## 5、如何在同一个主机上运行`Rancher/Rancher`和`Rancher/Rancher-Agent`
 
-在你想要使用单个节点运行Rancher并且能够将相同节点添加到集群的情况下，你必须调整为`rancher/rancher`容器映射的主机端口。
+在您想要使用单个节点运行Rancher并且能够将相同节点添加到集群的情况下，您必须调整为`rancher/rancher`容器映射的主机端口。
 
 如果一个节点被添加到集群，它将部署使用端口80和443的ingress控制器。这与`rancher/rancher`容器默认映射的端口冲突。
 
@@ -229,7 +229,7 @@ ClusterIP是一个虚拟IP，不会响应ping。测试ClusterIP配置是否正�
 
 ## 10、我在哪里可以管理主机模板？
 
-打开你的帐户菜单(右上角)，并选择`主机模板`。
+打开您的帐户菜单(右上角)，并选择`主机模板`。
 
 ## 11、为什么我的L4层负载均衡服务处于“挂起”状态？
 
@@ -255,7 +255,7 @@ L4层负载均衡器创建为`type:LoadBalancer`，在Kubernetes中，这需要�
 
 ![下载Keys]({{< baseurl >}}/img/rancher/downloadsshkeys.png)
 
-解压缩下载的zip文件，并使用文件`id_rsa`连接到你的主机。一定要使用正确的用户名(`rancher` for RancherOS, `ubuntu` for Ubuntu, `ec2-user` for Amazon Linux)
+解压缩下载的zip文件，并使用文件`id_rsa`连接到您的主机。一定要使用正确的用户名(`rancher` for RancherOS, `ubuntu` for Ubuntu, `ec2-user` for Amazon Linux)
 
 ```bash
 ssh -i id_rsa user@ip_of_node

@@ -23,7 +23,7 @@ weight: 1
 | Protocol                            | `TCP`             |
 | Port                                | `443`             |
 | Target type                         | `instance`        |
-| VPC                                 | 选择你的VPC   |
+| VPC                                 | 选择您的VPC   |
 | Protocol<br/>(Health Check)         | `HTTP`            |
 | Path<br/>(Health Check)             | `/healthz`        |
 | Port (Advanced health check)        | `override`,`80`   |
@@ -51,7 +51,7 @@ weight: 1
 | Protocol                            | `TCP`              |
 | Port                                | `80`             |
 | Target type                         | `instance`       |
-| VPC                                 | 选择你的VPC  |
+| VPC                                 | 选择您的VPC  |
 | Protocol<br/>(Health Check)         | `HTTP`           |
 | Path<br/>(Health Check)             | `/healthz`       |
 | Port (Advanced health check)        | `traffic port`   |
@@ -100,7 +100,7 @@ weight: 1
 - **监听**: 在下面添加负载均衡器协议和负载均衡器端口。
   - `TCP`: `443`
 - **可用区域**
-  - 选择你的VPC和可用区
+  - 选择您的VPC和可用区
 
 6、**配置路由表**.
 

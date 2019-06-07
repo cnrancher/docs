@@ -12,11 +12,11 @@ Key | Value |描述
 ---|---|---
 `io.rancher.sidekicks` |  `服务名称`  | 用来定义哪些服务属于[从容器]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/#sidekick-服务)
 `io.rancher.loadbalancer.target.SERVICE_NAME` | `REQUEST_HOST:SOURCE_PORT/REQUEST_PATH=TARGET_PORT` |用于判定 [L7 Load Balancing]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/#load-balancer-example-l7)
-`io.rancher.container.dns`| `true` | 服务能够使用基于Rancher DNS的服务发现来解析其他服务，并能被其他服务解析。 如果你需要此DNS服务，且网络设置为`主机`，则此标签是必需的.
+`io.rancher.container.dns`| `true` | 服务能够使用基于Rancher DNS的服务发现来解析其他服务，并能被其他服务解析。 如果您需要此DNS服务，且网络设置为`主机`，则此标签是必需的.
 `io.rancher.container.hostname_override` | `容器名称` | 用于将容器的主机名设置为容器的名称 (例如: StackName_ServiceName_CreateIndex)
 `io.rancher.container.start_once` |`true` | 用于设置容器只运行一次，并在容器为停止状态时显示`active`状态。
 `io.rancher.container.pull_image` | `always` | 用于在部署容器之前始终拉取新的镜像.
-`io.rancher.container.requested_ip` | IP于`10.42.0.0/16`的地址空间 | 允许你选择容器的特定IP。从v1.6.6版本开始，服务内的容器将会使用配置的多个IP地址中的可用地址，直到这些地址全被占用。这些地址要用逗号隔开，例如`10.42.100.100, 10.42.100.101`。 在v1.6.6之前，只有服务中的一个容器可以使用这个特定IP。**注意:如果IP在主机上不可用，则容器将以随机IP开始.**
+`io.rancher.container.requested_ip` | IP于`10.42.0.0/16`的地址空间 | 允许您选择容器的特定IP。从v1.6.6版本开始，服务内的容器将会使用配置的多个IP地址中的可用地址，直到这些地址全被占用。这些地址要用逗号隔开，例如`10.42.100.100, 10.42.100.101`。 在v1.6.6之前，只有服务中的一个容器可以使用这个特定IP。**注意:如果IP在主机上不可用，则容器将以随机IP开始.**
 `io.rancher.container.dns.priority` | `service_last` | 在服务域之前使用主机的DNS搜索路径。 保证主机将从`/etc/resolv.conf`搜索后再对`*.rancher.internal`搜索。
 `io.rancher.service.selector.container` |  [_Selector Label_ Values]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/labels/#选择器标签) | 用于服务，以支持选择独立的容器来加入DNS服务。 注意:作为独立容器，任何服务操作都不会影响独立容器(即停用/删除/编辑服务，健康检查等)。
 `io.rancher.service.selector.link` | [_Selector Label_ Values]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/labels/#选择器标签) | 用于服务以允许服务基于服务标签链接到服务。 例如: Service1具有标签`io.rancher.service.selector.link:foo = bar`。 任何添加到Rancher的具有`foo=bar`标签的服务将自动链接到Service1。
@@ -28,7 +28,7 @@ Key | Value |描述
 
 <br>
 
-> **注意:** 对于以`io.rancher.scheduler.affinity`为前缀的标签，根据你想要匹配的方式(即相等或不相等，hard或soft规则)会有轻微的变化。 更多细节可以在这里找到[这里]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/#table-of-scheduling-labels).
+> **注意:** 对于以`io.rancher.scheduler.affinity`为前缀的标签，根据您想要匹配的方式(即相等或不相等，hard或soft规则)会有轻微的变化。 更多细节可以在这里找到[这里]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/#table-of-scheduling-labels).
 
 #### 选择器标签
 

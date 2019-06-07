@@ -25,13 +25,13 @@ weight: 1
 
 1. 浏览器访问Rancher UI，记下浏览器左下角显示的版本号(例如:`v2.0.0`),在后续备份过程中需要这个版本号
 
-2. 停止当前运行Rancher Server的容器,替换`<RANCHER_CONTAINER_ID>`为你真实的Rancher容器的ID
+2. 停止当前运行Rancher Server的容器,替换`<RANCHER_CONTAINER_ID>`为您真实的Rancher容器的ID
 
     ```bash
     docker stop `<RANCHER_CONTAINER_ID>`
     ```
 
-    >**提示:** 你可以输入`docker ps`命令获取Rancher容器的ID
+    >**提示:** 您可以输入`docker ps`命令获取Rancher容器的ID
 
 3. 创建数据卷容器
 

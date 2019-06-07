@@ -3,9 +3,9 @@ title: 5 - 登录认证
 weight: 5
 ---
 
-Rancher为Kubernetes增强的一个关键功能是集中用户身份验证，此功能允许你的用户使用一组凭据对所有Kubernetes集群进行身份验证。
+Rancher为Kubernetes增强的一个关键功能是集中用户身份验证，此功能允许您的用户使用一组凭据对所有Kubernetes集群进行身份验证。
 
-此集中式用户身份验证是使用Rancher身份验证代理完成的，该代理与Rancher一起安装。此代理会对你的用户进行身份验证，并使用服务帐户将其请求转发给你的Kubernetes集群。
+此集中式用户身份验证是使用Rancher身份验证代理完成的，该代理与Rancher一起安装。此代理会对您的用户进行身份验证，并使用服务帐户将其请求转发给您的Kubernetes集群。
 
 ## 外部认证与本地认证
 
@@ -22,7 +22,7 @@ Rancher提供本地身份验证，也可以与外部身份验证服务集成：
 | [PingIdentity]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/ping-federate/)     | v2.0.7           |
 | [Keycloak]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/keycloak/)              | v2.1.0           |
 
-在大多数情况下，你应该使用外部身份验证服务，因为外部验证服务可以统一的进行用户管理。如果没有外部身份验证服务，你也可以通过本地身份验证来管理Rancher用户。
+在大多数情况下，您应该使用外部身份验证服务，因为外部验证服务可以统一的进行用户管理。如果没有外部身份验证服务，您也可以通过本地身份验证来管理Rancher用户。
 
 ## 外部身份验证配置和主要用户
 

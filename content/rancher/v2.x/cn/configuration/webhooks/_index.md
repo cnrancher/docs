@@ -11,7 +11,7 @@ aliases:
 
 本工具基于`https://github.com/adnanh/webhook.git`定制, `Dockerfile`地址: `https://github.com/xiaoluhong/docker-webhook.git`。
 
-镜像下载地址: `registry.cn-shanghai.aliyuncs.com/rancher_cn/webhook:latest`
+镜像下载地址: `registry.cn-shenzhen.aliyuncs.com/rancher/webhook:latest`
 
 - 支持镜像仓库类型:
 
@@ -163,7 +163,7 @@ Docker Hub: `http://hub.docker.com`\
 
 - 配置服务名称和镜像
 
-    `registry.cn-shanghai.aliyuncs.com/rancher_cn/webhook`
+    `registry.cn-shenzhen.aliyuncs.com/rancher/webhook`
 
     ![image-20190314173915552](_index.assets/image-20190314173915552.png)
 
@@ -215,7 +215,7 @@ Docker Hub: `http://hub.docker.com`\
 
 - 设置`serviceaccounts`
 
-    这一步相对比较重要，webhooks服务需要`serviceaccounts`才可以正常的与K8S通信。因为目前Rancher UI不支持设置`serviceaccounts`，所以需要编辑`yaml`文件来配置`serviceaccounts`。为了方便，这里复用了rancher组件使用的`serviceaccounts`账号`cattle`，具有集群管理员角色，你也可以根据需要定制`serviceaccounts`角色。
+    这一步相对比较重要，webhooks服务需要`serviceaccounts`才可以正常的与K8S通信。因为目前Rancher UI不支持设置`serviceaccounts`，所以需要编辑`yaml`文件来配置`serviceaccounts`。为了方便，这里复用了rancher组件使用的`serviceaccounts`账号`cattle`，具有集群管理员角色，您也可以根据需要定制`serviceaccounts`角色。
 
   - 如图，选择 `查看/编辑YAML`
 

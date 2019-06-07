@@ -49,11 +49,11 @@ weight: 5
 --set auditLog.level=1
 ```
 
-默认情况下，启用审核日志记录将在Rancher pod中创建一个sidecar容器。此容器（`rancher-audit-log`）将日志传输到`stdout`。 你可以通过查看Pod日志一下查看审计日志，可以通过开启项目的[日志收集工具]({{< baseurl >}}/rancher/v2.x/cn/tools/logging/)把日志收集到其他地方。
+默认情况下，启用审核日志记录将在Rancher pod中创建一个sidecar容器。此容器（`rancher-audit-log`）将日志传输到`stdout`。 您可以通过查看Pod日志一下查看审计日志，可以通过开启项目的[日志收集工具]({{< baseurl >}}/rancher/v2.x/cn/tools/logging/)把日志收集到其他地方。
 
 ### HTTP Proxy
 
-Rancher需要互联网访问某些功能(helm charts)，如果你的环境需要代理上网，则需要配置 `proxy server`。有些不需要走代理的地址，需要将它们添加到`noProxy`列表中。
+Rancher需要互联网访问某些功能(helm charts)，如果您的环境需要代理上网，则需要配置 `proxy server`。有些不需要走代理的地址，需要将它们添加到`noProxy`列表中。
 
 ```plain
 --set proxy="http://<username>:<password>@<proxy_url>:<proxy_port>/"

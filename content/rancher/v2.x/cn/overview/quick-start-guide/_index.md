@@ -3,9 +3,9 @@ title: 3 - 快速入门
 weight: 3
 ---
 
->**注意:** 本入门指南的目的是让你快速的运行一个Rancher2.0环境，它不适用于生产。有关更全面的说明，请查阅[Rancher安装]({{< baseurl >}}/rancher/v2.x/cn/installation/).
+>**注意:** 本入门指南的目的是让您快速的运行一个Rancher2.0环境，它不适用于生产。有关更全面的说明，请查阅[Rancher安装]({{< baseurl >}}/rancher/v2.x/cn/installation/).
 
-本教程将指导你完成:
+本教程将指导您完成:
 
 - 安装{{< product >}} {{< version >}}；
 - 创建第一个集群；
@@ -23,13 +23,13 @@ weight: 3
 
 ## 二、配置Linux主机
 
-通过配置Linux主机开始创建自定义集群。你的主机可以是:
+通过配置Linux主机开始创建自定义集群。您的主机可以是:
 
 - 云主机
 - 本地虚拟机
 - 本地物理机
 
-  >**注意:** 在使用云主机时，你需要允许TCP/80和TCP/443入站通信端口。请查阅你的云主机文档以获取有关端口配置的信息。有关端口要求的完整列表，请查阅[端口需求]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/references/).
+  >**注意:** 在使用云主机时，您需要允许TCP/80和TCP/443入站通信端口。请查阅您的云主机文档以获取有关端口配置的信息。有关端口要求的完整列表，请查阅[端口需求]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/references/).
 
 根据以下要求配置主机:
 
@@ -56,7 +56,7 @@ weight: 3
   - 18.06.x
   - 18.09.x
 
-  >**注意:** 有关Docker安装说明,请访问其[文档](https://docs.docker.com/install/)。软件需求要应用于所有节点。
+  >**注意:** 有关Docker安装说明,请访问其[文档](https://docs.docker.com/install/)。软件需求要应用于所有节点。
   >
   > 主机的更详细配置说明，请查看[基础环境配置]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/basic-environment-configuration/)
 
@@ -74,7 +74,7 @@ weight: 3
 
 ## 四、登录Rancher
 
-登录并开始使用Rancher。登录后，你将进行一些一次性配置。
+登录并开始使用Rancher。登录后，您将进行一些一次性配置。
 
   1. 打开浏览器，输入`https://<server_ip>`,`server_ip`替换为运行Rancher容器主机的ip;
 
@@ -92,11 +92,11 @@ weight: 3
 
   4. 设置Rancher Server URL
 
-      这个Rancher Server URL是agent节点注册的地址，需要保证这个地址能够被其他主机访问
+      Rancher Server URL是agent节点注册到rancher serverd的地址，需要保证这个地址能够被agent主机访问，不要设置为`127.0.0.1`或者`localhost`。
 
 ## 五、创建K8S集群
 
-现在创建第一个Kubernetes集群，可以使用**自定义**选项。你可以添加云主机、内部虚拟机或物理主机作为集群节点，节点可以运行任何一种或多种主流Linux发行版:
+现在创建第一个Kubernetes集群，可以使用**自定义**选项。您可以添加云主机、内部虚拟机或物理主机作为集群节点，节点可以运行任何一种或多种主流Linux发行版:
 
   1. 页面右下角可以切换语言；
 

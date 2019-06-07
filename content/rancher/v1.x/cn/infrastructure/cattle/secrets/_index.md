@@ -10,7 +10,7 @@ Rancher支持创建密文并在容器中使用该密文(在容器中使用该密
 
 #### 使用Vault Transit
 
-如果不想使用本地密钥加密，你可以通过配置[Vault Transit](https://www.vaultproject.io/docs/secrets/transit/)来进行密文加密。
+如果不想使用本地密钥加密，您可以通过配置[Vault Transit](https://www.vaultproject.io/docs/secrets/transit/)来进行密文加密。
 
 ##### 在Rancher中配置Vault Transit
 
@@ -58,15 +58,15 @@ Rancher支持创建密文并在容器中使用该密文(在容器中使用该密
       -e VAULT_ADDR=https://<VAULT_SERVER> -e VAULT_TOKEN=<TOKEN_FOR_VAULT_ACCCESS> rancher/server
    ```
 
-    > **注意:** 请检查运行的[Rancher Server版本]({{< baseurl >}}/rancher/v1.x/cn/installing-rancher/installing-server/#rancher-server-标签)是否是你想要的。
+    > **注意:** 请检查运行的[Rancher Server版本]({{< baseurl >}}/rancher/v1.x/cn/installing-rancher/installing-server/#rancher-server-标签)是否是您想要的。
 
-4. 在Rancher服务启动成功之后，你需要修改Rancher中的`service-backend`设置。在**系统管理** -> **系统设置** -> **高级设置**中，找到`secrets.backend`。它的默认值是`localkey`，你可以把它修改为`vault`。
+4. 在Rancher服务启动成功之后，您需要修改Rancher中的`service-backend`设置。在**系统管理** -> **系统设置** -> **高级设置**中，找到`secrets.backend`。它的默认值是`localkey`，您可以把它修改为`vault`。
 
 > **注意:** 目前Rancher不支持对不同加密后台之间进行切换。
 
 ### 创建密文
 
-你可以在每个Rancher环境里创建密文。这也意味着，密文名称在环境中是唯一的。同一个环境下的任何容器都可以通过配置来共享密文。例如，一个数据库的密码`db_password`可以被用在数据库容器里，也可以被用在Wordpress容器里。一旦这个密文被创建了，这个密文的密文值就**不能**被修改了。如果你需要修改一个现有的密文，唯一的方法就是删除这个密文，然后再创建一个新密文。新密文被创建后，使用这个密文的服务需要重新部署。这样容器才能使用新的密文值。
+您可以在每个Rancher环境里创建密文。这也意味着，密文名称在环境中是唯一的。同一个环境下的任何容器都可以通过配置来共享密文。例如，一个数据库的密码`db_password`可以被用在数据库容器里，也可以被用在Wordpress容器里。一旦这个密文被创建了，这个密文的密文值就**不能**被修改了。如果您需要修改一个现有的密文，唯一的方法就是删除这个密文，然后再创建一个新密文。新密文被创建后，使用这个密文的服务需要重新部署。这样容器才能使用新的密文值。
 
 #### 通过Rancher命令行创建密文
 
@@ -91,15 +91,15 @@ $ rancher secrets create name-of-secret file-with-secret
 
 > **备注:** 目前Rancher命令行不支持删除密文。
 
-你可以在UI里把密文从Rancher中删除，但是这并不会在已使用该密文的容器中删除该密文文件。如果一台主机上运行着使用该密文的容器，Rancher也不会在该主机上删除该密文文件。
+您可以在UI里把密文从Rancher中删除，但是这并不会在已使用该密文的容器中删除该密文文件。如果一台主机上运行着使用该密文的容器，Rancher也不会在该主机上删除该密文文件。
 
 ### 在Rancher中启用密文
 
-为了在容器中使用密文，你要先部署**Rancher Secrets**服务。你可以把这个服务加到[环境模版]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/#什么是环境模版)中，在添加该服务之后部署的新[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)里都会含有**Rancher Secrets**服务。你也可以直接通过[应用商店]({{< baseurl >}}/rancher/v1.x/cn/configuration/catalog/)部署该服务。如果你想在现有的环境中部署**Rancher Secrets**服务，你可以通过**应用商店** -> **官方认证**，然后搜索**Rancher Secrets**找到**Rancher Secrets**服务。如果不部署**Rancher Secrets**服务的话，你仅仅可以创建密文，但是不能在你的容器里使用这些密文。
+为了在容器中使用密文，您要先部署**Rancher Secrets**服务。您可以把这个服务加到[环境模版]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/#什么是环境模版)中，在添加该服务之后部署的新[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)里都会含有**Rancher Secrets**服务。您也可以直接通过[应用商店]({{< baseurl >}}/rancher/v1.x/cn/configuration/catalog/)部署该服务。如果您想在现有的环境中部署**Rancher Secrets**服务，您可以通过**应用商店** -> **官方认证**，然后搜索**Rancher Secrets**找到**Rancher Secrets**服务。如果不部署**Rancher Secrets**服务的话，您仅仅可以创建密文，但是不能在您的容器里使用这些密文。
 
 ### 向服务／容器中添加密文
 
-当密文被添加到容器中时，密文会被写到一个tmpfs卷中。你可以在容器里和主机上访问这个卷。
+当密文被添加到容器中时，密文会被写到一个tmpfs卷中。您可以在容器里和主机上访问这个卷。
 
 * 在使用该密文的容器中:这个卷被挂载在`/run/secrets/`.
 * 在运行使用该密文的容器所在的主机上:这个卷被挂载在`/var/lib/rancher/volumes/rancher-secrets/`.
@@ -108,7 +108,7 @@ $ rancher secrets create name-of-secret file-with-secret
 
 > **注意:** 密文是在compose文件版本3中被引入的。由于Rancher不支持compose文件版本，所以我们在版本2中加入了密文功能。
 
-你可以在`docker-compose.yml`里，通过配置服务的`secrets`值来指定一个或者多个密文。密文文件的名称与在Rancher中加入的密文名称相同。在默认情况下，将使用用户ID`0`和组ID`0`创建该密文文件，文件权限为`0444`。在`secrets`里将`external`设置为`true`确保Rancher知道该密文已经被创建成功了。
+您可以在`docker-compose.yml`里，通过配置服务的`secrets`值来指定一个或者多个密文。密文文件的名称与在Rancher中加入的密文名称相同。在默认情况下，将使用用户ID`0`和组ID`0`创建该密文文件，文件权限为`0444`。在`secrets`里将`external`设置为`true`确保Rancher知道该密文已经被创建成功了。
 
 ##### 基础示例`docker-compose.yml`
 ```
@@ -126,7 +126,7 @@ secrets:
     external: true
 ```
 
-如果你想要修改密文的默认配置，你可以用`target`来修改文件名，`uid`和`gid`来设置用户ID和组ID，`mode`来修改文件权限。
+如果您想要修改密文的默认配置，您可以用`target`来修改文件名，`uid`和`gid`来设置用户ID和组ID，`mode`来修改文件权限。
 
 ##### 修改密文文件配置示例`docker-compose.yml`
 ```
@@ -147,7 +147,7 @@ secrets:
   name-of-secret:
     external: true
 ```
-Racnher可以在创建应用的时候创建密文。你可以通过指定`file`参数，使Rancher在创建应用并启动服务之前创建密文。该密文值来自你指定的文件内容。
+Racnher可以在创建应用的时候创建密文。您可以通过指定`file`参数，使Rancher在创建应用并启动服务之前创建密文。该密文值来自您指定的文件内容。
 
 ##### 指定多个密文并且在启动服务前创建密文的示例`docker-compose.yml`
 ```
@@ -170,25 +170,25 @@ secrets:
 
 #### 通过Rancher UI添加密文到服务中
 
-你可以在创建服务/容器页面的密文页里，向服务/容器中添加密文。
+您可以在创建服务/容器页面的密文页里，向服务/容器中添加密文。
 
 1. 点击**添加密文**
-2. 下拉列表中会列出，已经加入到Rancher中的全部可用密文。你可以选择一个你想要使用的密文。
-3. (可选操作) 默认情况下，挂载到容器内的密文文件的名称为密文名。你可以在映射名称栏，给容器中的密文文件设置一个不同的文件名。
-4. (可选操作) 如果你想要修改默认的文件所有者和文件权限。你可以点击**自定义文件所有者及权限**链接来更新配置。你可以修改用户ID，组ID和文件权限。用户ID的默认值为`0`，组ID的默认值为0，文件权限的默认值为`0444`。
+2. 下拉列表中会列出，已经加入到Rancher中的全部可用密文。您可以选择一个您想要使用的密文。
+3. (可选操作) 默认情况下，挂载到容器内的密文文件的名称为密文名。您可以在映射名称栏，给容器中的密文文件设置一个不同的文件名。
+4. (可选操作) 如果您想要修改默认的文件所有者和文件权限。您可以点击**自定义文件所有者及权限**链接来更新配置。您可以修改用户ID，组ID和文件权限。用户ID的默认值为`0`，组ID的默认值为0，文件权限的默认值为`0444`。
 5. 点击 **创建**.
 
 ### Docker Hub镜像
 
-Docker在很多自己的官方镜像中都支持通过文件来传递密文。你可以添加以`_FILE`结尾的环境变量名并且以`/run/secrets/NAME>`为值的环境变量，来达到这一效果。当在容器启动时，文件中的密文值将会被赋给去掉`_FILE`的环境变量里。
+Docker在很多自己的官方镜像中都支持通过文件来传递密文。您可以添加以`_FILE`结尾的环境变量名并且以`/run/secrets/NAME>`为值的环境变量，来达到这一效果。当在容器启动时，文件中的密文值将会被赋给去掉`_FILE`的环境变量里。
 
-例如，当你部署一个MySQL容器的时候，你可以配置如下环境变量。
+例如，当您部署一个MySQL容器的时候，您可以配置如下环境变量。
 
 ```
 -e MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db_password
 ```
 
-`MYSQL_ROOT_PASSWORD`环境变量的值，就是你所指定这个文件的内容。这个文件就是我们在Rancher中添加的密文。这样你就可以很方便的从环境变量中获取在Rancher中配置的密文，而不用自己去读取密文文件。但并不是所有镜像都支持这个功能。
+`MYSQL_ROOT_PASSWORD`环境变量的值，就是您所指定这个文件的内容。这个文件就是我们在Rancher中添加的密文。这样您就可以很方便的从环境变量中获取在Rancher中配置的密文，而不用自己去读取密文文件。但并不是所有镜像都支持这个功能。
 
 ### 已知的安全隐患
 
@@ -196,7 +196,7 @@ Docker在很多自己的官方镜像中都支持通过文件来传递密文。�
 
 存储在Rancher中的密文和存储在CI系统(如Travis CI和Drone)中的密文安全程度是一样。由于加密密钥直接存储在Rancher Server容器中，所以如果Rancher Server容器被入侵，全部的密文都能被黑客获取到。Rancher将在以后的版本中努力降低这种情况的安全隐患。
 
-> **注意:** 如果你使用Vault进行加密，你需要创建一个策略来限制Rancher Server所用的token的访问权限。
+> **注意:** 如果您使用Vault进行加密，您需要创建一个策略来限制Rancher Server所用的token的访问权限。
 
 #### 被入侵的主机
 

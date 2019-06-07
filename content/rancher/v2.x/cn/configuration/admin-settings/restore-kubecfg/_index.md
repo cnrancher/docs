@@ -32,12 +32,12 @@ weight: 15
     # 集群ID，可通过浏览器地址栏查询
     cluster_id=c-xxx
 
-    kubectl get secret c-${cluster_id} -n cattle-system \
-    -o=jsonpath='{.data.cluster}' | base64 --decode | \
-    jq .metadata.state | awk '{print substr($0,2,length($0)-2)}' \
+    kubectl get secret c-${cluster_id} -n cattle-system -o=jsonpath='{.data.cluster}' \
+    | base64 --decode | jq .metadata.state | awk '{print substr($0,2,length($0)-2)}' \
     > ${cluster_id}-kube-config.yml
 
-    sed -i 's/\\n/\n/g'  kubeconfig.yml && sed -i 's/\\"/"/g'  kubeconfig.yml
+    sed -i 's/\\n/\n/g' ${cluster_id}-kube-config.yml && \
+    sed -i 's/\\"/"/g' ${cluster_id}-kube-config.yml
 
     ```
 
@@ -56,5 +56,6 @@ weight: 15
     jq .metadata.state | awk '{print substr($0,2,length($0)-2)}' \
     > ${cluster_id}-kube-config.yml
 
-    sed -i 's/\\n/\n/g'  kubeconfig.yml && sed -i 's/\\"/"/g'  kubeconfig.yml
+    sed -i 's/\\n/\n/g' ${cluster_id}-kube-config.yml && \
+        sed -i 's/\\"/"/g' ${cluster_id}-kube-config.yml
     ```

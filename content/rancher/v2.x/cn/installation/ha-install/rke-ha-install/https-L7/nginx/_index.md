@@ -81,7 +81,7 @@ NGINX拥有所有主流操作系统的软件包，通过包管理器可以很轻
 
 - 在`/etc/nginx/conf.d/rancher.conf`中, 替换 `IP_NODE_1`, `IP_NODE_2`,  `IP_NODE_3` 为需要添加到集群的Linux主机的IP；
 
-- 在`/etc/nginx/conf.d/rancher.conf`中, 替换`FQDN`为你设置用来登录rancher的域名；
+- 在`/etc/nginx/conf.d/rancher.conf`中, 替换`FQDN`为您设置用来登录rancher的域名；
 
 - 在`/etc/nginx/conf.d/rancher.conf`中, 替换`/certs/fullchain.pem`为证书的路径；
 

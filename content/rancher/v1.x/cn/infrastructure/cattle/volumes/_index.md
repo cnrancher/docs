@@ -2,7 +2,7 @@
 title: 数据卷
 ---
 
-持久化卷是有状态应用中非常重要的一部分。Rancher使你在多主机环境下使用卷变得非常容易。
+持久化卷是有状态应用中非常重要的一部分。Rancher使您在多主机环境下使用卷变得非常容易。
 
 #### 术语
 
@@ -12,13 +12,13 @@ title: 数据卷
 
 ### 管理卷
 
-在这一部分，你将会了解如何创建一个可以被容器之间共享的持久化卷。在这里我们将专门使用[Rancher命令行]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cli/)。
+在这一部分，您将会了解如何创建一个可以被容器之间共享的持久化卷。在这里我们将专门使用[Rancher命令行]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cli/)。
 
 > **注意:** UI可以用来管理除了由`local`卷驱动创建的卷。
 
 #### 创建卷
 
-你可以通过`rancher volume create`命令创建一个卷。
+您可以通过`rancher volume create`命令创建一个卷。
 
 ```
 $ rancher volume create --driver local app-data
@@ -30,13 +30,13 @@ $ rancher volume create --driver local app-data
 
 #### 列出卷
 
-你可以列出环境中的卷。
+您可以列出环境中的卷。
 
 ```
 $ rancher volume ls
 ```
 
-如果你创建了一个`app-data`卷，你可能想知道为什么这个卷没有被列出来。你可以通过添加`--all`或者`-a`参数，来查看`inactive`的卷。
+如果您创建了一个`app-data`卷，您可能想知道为什么这个卷没有被列出来。您可以通过添加`--all`或者`-a`参数，来查看`inactive`的卷。
 
 ```
 $ rancher volume ls --all
@@ -44,7 +44,7 @@ $ rancher volume ls --all
 
 #### 删除卷
 
-你可以通过`rancher volume rm`命令删除一个卷。
+您可以通过`rancher volume rm`命令删除一个卷。
 
 ```
 $ rancher volume rm app-data
@@ -66,11 +66,11 @@ $ rancher volume rm app-data
 
 卷可以有不同的作用域。这指的是Rancher管理卷的不同级别。
 
-目前，你可以通过Rancher Compose文件来创建不同类型的卷。有作用域的卷必须定义在`docker-compose.yml`文件中最顶层的`volumes`部分。默认情况下，将创建应用栈级别的卷，但是你可以通过修改其值来创建不同作用域的卷。
+目前，您可以通过Rancher Compose文件来创建不同类型的卷。有作用域的卷必须定义在`docker-compose.yml`文件中最顶层的`volumes`部分。默认情况下，将创建应用栈级别的卷，但是您可以通过修改其值来创建不同作用域的卷。
 
 如果最顶层的定义被遗漏了，卷的行为将会有所不同。请查看[更多](#V1和V2版本的Compose文件)详情。
 
-通过UI你只能创建环境级别的卷。
+通过UI您只能创建环境级别的卷。
 
 #### 应用级别的卷
 
@@ -78,7 +78,7 @@ $ rancher volume rm app-data
 
 应用级别的存储卷，应用中的服务如果引用了相同的卷都将共享同一个存储卷。不在该应用内的服务则无法使用此存储卷。
 
-Rancher中，应用级别的存储卷的命名规则为使用应用名称为前缀来表明该卷为此应用独有，且会以随机生成的一组数字结尾以确保没有重名。在引用该存储卷时，你依然可以使用原来的卷名称。比如，如果你在应用 `stackA`中创建了一个名为`foo` 的卷， 你的主机上显示的卷名称将为`stackA_foo_<randomNumber>`，但在你的服务中，你依然可以使用`foo`。
+Rancher中，应用级别的存储卷的命名规则为使用应用名称为前缀来表明该卷为此应用独有，且会以随机生成的一组数字结尾以确保没有重名。在引用该存储卷时，您依然可以使用原来的卷名称。比如，如果您在应用 `stackA`中创建了一个名为`foo` 的卷， 您的主机上显示的卷名称将为`stackA_foo_<randomNumber>`，但在您的服务中，您依然可以使用`foo`。
 
 ##### 创建示例
 
@@ -105,7 +105,7 @@ volumes:
   data: {}
 ```
 
-在通过Rancher命令行创建应用之后，你可以[列出卷](#列出卷)来确认`data`卷已经创建成功。这个卷的名称将为`<STACK_NAME>_data_<RANDOM_NUMBER>`。
+在通过Rancher命令行创建应用之后，您可以[列出卷](#列出卷)来确认`data`卷已经创建成功。这个卷的名称将为`<STACK_NAME>_data_<RANDOM_NUMBER>`。
 
 > **注意:** 应用级别的卷可以被其他应用挂载。应用级别的卷并不是一种安全的机制。仅是为了管理卷的生命周期。
 
@@ -113,11 +113,11 @@ volumes:
 
 环境级别的卷可能需要被环境中的全部容器共享。Rancher会把容器调度到卷所在的主机，从而保证容器可以挂载这个卷。
 
-环境级别的卷并不能在某个环境中的全部的主机上自动共享。你需要借助一个共享驱动(例如:`rancher-nfs`)来实现跨主机共享。这意味着一个由`local`卷驱动创建的环境级别卷只能在一台主机上被访问到，所以使用该卷的容器都会被调度到这台主机上。
+环境级别的卷并不能在某个环境中的全部的主机上自动共享。您需要借助一个共享驱动(例如:`rancher-nfs`)来实现跨主机共享。这意味着一个由`local`卷驱动创建的环境级别卷只能在一台主机上被访问到，所以使用该卷的容器都会被调度到这台主机上。
 
-你在创建一个使用环境级别卷的服务之前，Rancher需要你先创建这个环境级别的卷。你可以使用任何配置好的卷驱动来创建卷。
+您在创建一个使用环境级别卷的服务之前，Rancher需要您先创建这个环境级别的卷。您可以使用任何配置好的卷驱动来创建卷。
 
-环境级别卷的主要好处是，你可以轻松的在不同的服务应用之间共享数据。尤其是当这些应用和服务有着不同的生命周期需要被独立管理。用户可以对卷进行完全的[管控](#管理卷)
+环境级别卷的主要好处是，您可以轻松的在不同的服务应用之间共享数据。尤其是当这些应用和服务有着不同的生命周期需要被独立管理。用户可以对卷进行完全的[管控](#管理卷)
 
 ##### 共享的环境级别卷示例
 
@@ -127,7 +127,7 @@ volumes:
 $ rancher volume create --driver local redis-data-external
 ```
 
-为了创建一个环境级别的卷，在最顶层的volume部分，你需要添加`external: true`。
+为了创建一个环境级别的卷，在最顶层的volume部分，您需要添加`external: true`。
 
 ```
 version: '2'
@@ -144,7 +144,7 @@ volumes:
 
 > **注意:** 如果在volume中没有定义`external: true`，这个卷将会被创建为一个[应用级别的卷](#应用级别的卷).
 
-在通过Rancher命令行创建应用之后，你可以[列出卷](#列出卷)来确认`redis-data-external`卷已经创建成功并且状态为`active`。
+在通过Rancher命令行创建应用之后，您可以[列出卷](#列出卷)来确认`redis-data-external`卷已经创建成功并且状态为`active`。
 
 > **注意:** 对一个服务进行扩容和缩容的时候，将会挂载或卸载同一个共享的卷。
 
@@ -159,9 +159,9 @@ volumes:
 
 ### V1与V2版本的Compose对比
 
-直到这里，我们讨论的一直是[Docker V2 Compose](https://docs.docker.com/compose/compose-file/compose-file-v2/#volumes-volume_driver)的卷。如果你没有在V2 compose文件中的最顶层定义volumes，它将会按照Docker V1 Compose的方式来处理卷。
+直到这里，我们讨论的一直是[Docker V2 Compose](https://docs.docker.com/compose/compose-file/compose-file-v2/#volumes-volume_driver)的卷。如果您没有在V2 compose文件中的最顶层定义volumes，它将会按照Docker V1 Compose的方式来处理卷。
 
-你也可能用到了[Docker V1 Compose](https://docs.docker.com/compose/compose-file/compose-file-v1/#volumes-volume_driver)。在V1 compose文件中，不支持最顶层的volume部分。所以这时卷只能被定义在服务里。Rancher会把V1的卷定义直接传递给Docker。所以，卷不会被自动删除同时也无法确保可以正常调度到卷所在的主机。为了解决这个在V1卷下的调度问题，你需要使用[调度标签]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/#字段-1)。
+您也可能用到了[Docker V1 Compose](https://docs.docker.com/compose/compose-file/compose-file-v1/#volumes-volume_driver)。在V1 compose文件中，不支持最顶层的volume部分。所以这时卷只能被定义在服务里。Rancher会把V1的卷定义直接传递给Docker。所以，卷不会被自动删除同时也无法确保可以正常调度到卷所在的主机。为了解决这个在V1卷下的调度问题，您需要使用[调度标签]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/#字段-1)。
 
 > **注意:** 请尽可能不要使用V1版本的Compose。
 
@@ -204,7 +204,7 @@ volumes:
     external: true
 ```
 
-最后，如果你定义了一个空的volumes，这个卷将会被视为一个V1卷。这等同于yaml中完全没有volumes这部分。
+最后，如果您定义了一个空的volumes，这个卷将会被视为一个V1卷。这等同于yaml中完全没有volumes这部分。
 
 ```
 version: '2'

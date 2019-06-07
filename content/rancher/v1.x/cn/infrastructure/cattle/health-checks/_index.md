@@ -4,13 +4,13 @@ title: 健康检查
 
 Cattle环境中，Rancher通过运行一个叫`healthcheck`的基础设施服务部署了一套健康检查系统，其原理为在每台主机上部署了`healthcheck`的容器来实现分布式的健康检查。这些容器在内部利用HAProxy来检查应用的健康状态。一旦容器或服务上启用了健康检查，每个容器将最多被三个运行在不同主机上的`healthcheck` 容器监控起来。只要有一个HAProxy实例认为其状态正常，该容器将被视为正常。如果所有HAProxy实例都认为其状态不正常，该容器将被视为状态异常。
 
-> **注意:** 该模式下唯一的例外为你的环境中只有一台主机，这种情况下健康检查将在同一台主机上被执行。
+> **注意:** 该模式下唯一的例外为您的环境中只有一台主机，这种情况下健康检查将在同一台主机上被执行。
 
 
 Rancher利用了不同网络位置的主机进行健康检查，这种方式比基于客户端的健康检查更高效。利用HAProxy来进行健康检查，Rancher使用户可以在服务和负载均衡上使用相同的健康检查策略。
 
 
-> **注意:** 健康检查将只能在使用托管网络的服务上生效。如果你选择了其他的网络类型，该服务将不会被监控。
+> **注意:** 健康检查将只能在使用托管网络的服务上生效。如果您选择了其他的网络类型，该服务将不会被监控。
 
 ### 配置
 
@@ -18,7 +18,7 @@ Rancher利用了不同网络位置的主机进行健康检查，这种方式比�
 
 **检查类型**: 有两种检查方式 - _TCP连接_ (只验证端口是否打开) 以及 _HTTP响应2xx/3xx_ (进行HTTP请求并确保收到正确的回复)。
 
-**HTTP 请求**: 如果检查类型是 _HTTP响应2xx/3xx_, 你必须制定一个可以接受查询的URL。 你可以选择方法 (`GET`, `POST`, etc) 以及HTTP版本 (`HTTP/1.0`, `HTTP/1.1`).
+**HTTP 请求**: 如果检查类型是 _HTTP响应2xx/3xx_, 您必须制定一个可以接受查询的URL。 您可以选择方法 (`GET`, `POST`, etc) 以及HTTP版本 (`HTTP/1.0`, `HTTP/1.1`).
 
 **端口**: 需要进行检查的端口
 
@@ -39,7 +39,7 @@ Rancher利用了不同网络位置的主机进行健康检查，这种方式比�
 
 ### 在UI中添加Health Checks
 
-对于[服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/)或[负载均衡]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)，可以通过导航到**Health Check**选项卡来添加Health check服务。你可以检查服务的TCP连接或HTTP响应，并更改health check配置的默认值。
+对于[服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/)或[负载均衡]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)，可以通过导航到**Health Check**选项卡来添加Health check服务。您可以检查服务的TCP连接或HTTP响应，并更改health check配置的默认值。
 
 ### 通过Rancher Compose添加 Health Checks
 

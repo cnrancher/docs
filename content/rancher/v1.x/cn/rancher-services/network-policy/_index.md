@@ -4,13 +4,13 @@ title: 网络策略
 ---
 
 
-Rancher允许用户在[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)中配置网络策略。网络策略允许你在一个环境中定义特定的网络规则。所有的容器默认可以互相通信，但是有时你可能需要对的容器间通信做一些限制。
+Rancher允许用户在[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)中配置网络策略。网络策略允许您在一个环境中定义特定的网络规则。所有的容器默认可以互相通信，但是有时您可能需要对的容器间通信做一些限制。
 
 ### 启动Network Policy Manager
 
-当配置[环境模版]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/#什么是环境模版)时，你可以启动 **Network Policy Manage** 组件。
+当配置[环境模版]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/#什么是环境模版)时，您可以启动 **Network Policy Manage** 组件。
 
-如果你已经有一个启动的Rancher环境，你可以从[Rancher应用商店]({{< baseurl >}}/rancher/v1.x/cn/configuration/catalog/)中启动 **Network Policy Manager**
+如果您已经有一个启动的Rancher环境，您可以从[Rancher应用商店]({{< baseurl >}}/rancher/v1.x/cn/configuration/catalog/)中启动 **Network Policy Manager**
 
 > **注意:** Network Policy Manager现在只能在使用Cattle编排引擎的时候使用。环境模版基于编排引擎确定哪些组件可用，Rancher支持几乎所有的编排引擎。
 
@@ -46,13 +46,13 @@ http://<RANCHER_SERVER_IP>/v2-beta/projects/<PROJECT_ID>/networks/<NETWORK_ID>`
 1. 点击**API**打开**高级选项**。在 **环境API Keys**，点击 **Endpoint (v2-beta)**.
   > **注意:**: 在UI上是`环境`，在API是`project`。
 2. 在环境的links属性中查找**networks**，点击链接。
-3. 查询你环境中启动的网络驱动的名字。例如:可能为 `ipsec`。点击该网络驱动的**self**
-4. 在右边的**Operations**中，点击**Edit**，在`defaultPolicyAction`中，你可以修改默认的网络策略，同时在`policy`字段，你可以管理你的网络策略规则。
+3. 查询您环境中启动的网络驱动的名字。例如:可能为 `ipsec`。点击该网络驱动的**self**
+4. 在右边的**Operations**中，点击**Edit**，在`defaultPolicyAction`中，您可以修改默认的网络策略，同时在`policy`字段，您可以管理您的网络策略规则。
 
 
 ### 默认策略
 
-默认所有容器间可以互相通信，在API中，你可以看到`defaultPolicyAction`被设置成`allow`。
+默认所有容器间可以互相通信，在API中，您可以看到`defaultPolicyAction`被设置成`allow`。
 
 可以通过修改`defaultPolicyAction`为`deny`来限制所有容器间的通信
 

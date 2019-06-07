@@ -5,7 +5,7 @@ weight: 1
 
 ## 一、操作系统
 
-几乎所有安装了Docker的Linux操作系统都可以运行RKE，但是推荐使用Ubuntu 16.04，因为你大多数RKE的开发和测试都在Ubuntu 16.04上。
+几乎所有安装了Docker的Linux操作系统都可以运行RKE，但是推荐使用Ubuntu 16.04，因为您大多数RKE的开发和测试都在Ubuntu 16.04上。
 
 ### 1. 某些操作系统有限制和特定要求:
 

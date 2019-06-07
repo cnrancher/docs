@@ -57,7 +57,7 @@ Rancher CLI 可以用于操作Rancher中的环境、主机、应用、服务和�
 
 #### 等待资源
 
-全局的选项如`--wait` 或 `-w` 可以用于需逐渐到达最终状态的命令。当编辑Rancher命令的脚本时，使用`-w`选项可以让脚本等待资源就绪后再执行下一个命令。等待的超时时间默认时十分钟，但如果你想要改变超时时间，可以使用`--wait-timeout`选项。你还可以使用`--wait-state`选项来指定资源必须到达某个特定状态后，命令才结束返回。
+全局的选项如`--wait` 或 `-w` 可以用于需逐渐到达最终状态的命令。当编辑Rancher命令的脚本时，使用`-w`选项可以让脚本等待资源就绪后再执行下一个命令。等待的超时时间默认时十分钟，但如果您想要改变超时时间，可以使用`--wait-timeout`选项。您还可以使用`--wait-state`选项来指定资源必须到达某个特定状态后，命令才结束返回。
 
 ### Rancher Catalog 说明
 
@@ -104,7 +104,7 @@ $ rancher catalog ls --system
 
 #### Rancher Catalog install
 
-`rancher catalog install`命令在你的环境中安装应用商店模版。
+`rancher catalog install`命令在您的环境中安装应用商店模版。
 
 ##### 选项
 
@@ -125,14 +125,14 @@ $ rancher catalog install library/route53:v0.6.0-rancher1 --name route53 --syste
 
 ### Rancher Config 说明
 
-`rancher config` 命令用于设置你的[Rancher Server的配置]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cli/#configuring-the-rancher-command-line-interface).
+`rancher config` 命令用于设置您的[Rancher Server的配置]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cli/#configuring-the-rancher-command-line-interface).
 
 ```
 $ rancher config
 URL []: http://<server_ip>:8080
 Access Key []: <accessKey_of_account_api_key>
 Secret Key []:  <secretKey_of_account_api_key>
-# 如果超过一个环境，你需要指定一个环境
+# 如果超过一个环境，您需要指定一个环境
 Environments:
 [1] Default(1a5)
 [2] k8s(1a10)
@@ -146,7 +146,7 @@ INFO[0017] Saving config to /Users/<username>/.rancher/cli.json
 ----|-----
 `--print` | `打印当前的配置`
 
-如果你想要打印当前配置，可以使用`----print`。
+如果您想要打印当前配置，可以使用`----print`。
 
 ```
 # 显示当前的Rancher的配置
@@ -155,7 +155,7 @@ $ rancher config --print
 
 ### Rancher Docker 说明
 
-`rancher docker` 命令允许你在某台机器上运行任何Docker命令。 使用 `$RANCHER_DOCKER_HOST` 来运行Docker命令. 使用 `--host <hostID>` 或者 `--host <hostName>` 来选择其他主机。
+`rancher docker` 命令允许您在某台机器上运行任何Docker命令。 使用 `$RANCHER_DOCKER_HOST` 来运行Docker命令. 使用 `--host <hostID>` 或者 `--host <hostName>` 来选择其他主机。
 
 
 ```
@@ -170,11 +170,11 @@ $ rancher --host 1h1 docker ps
 
 <br>
 
-> **注意:** 如果环境变量`RANCHER_DOCKER_HOST`没有设置，你需要通过`--host`指定运行Docker命令的主机。
+> **注意:** 如果环境变量`RANCHER_DOCKER_HOST`没有设置，您需要通过`--host`指定运行Docker命令的主机。
 
 ### Rancher Environment 说明
 
-`rancher environment`命令让你可以操作环境。如果你使用账户API key, 你可以创建和更新环境。如果你使用环境API key，你不能创建和更新其他环境，只能看到你当前的环境。
+`rancher environment`命令让您可以操作环境。如果您使用账户API key, 您可以创建和更新环境。如果您使用环境API key，您不能创建和更新其他环境，只能看到您当前的环境。
 
 #### 选项
 
@@ -504,7 +504,7 @@ $ rancher -p 2368:2368 --name blog ghost
 
 ### Rancher scale 说明
 
-当你使用`rancher run`创建一个服务时，服务的规模缺省是1。可以使用`rancher scale`命令来扩容某个服务。可以通过名字或者ID来指定服务。
+当您使用`rancher run`创建一个服务时，服务的规模缺省是1。可以使用`rancher scale`命令来扩容某个服务。可以通过名字或者ID来指定服务。
 
 ```
 $ rancher scale <stackName>/<serviceName>=5 <serviceID>=3

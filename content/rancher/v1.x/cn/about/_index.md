@@ -5,7 +5,7 @@ weight: 1000
 
 ### 开发
 
-我们Githb的[代码库](https://github.com/rancher/rancher)的Wiki里有所有能帮助你参与Rancher开发的的步骤。
+我们Githb的[代码库](https://github.com/rancher/rancher)的Wiki里有所有能帮助您参与Rancher开发的的步骤。
 
 从我们的第一个[cowpoke](https://github.com/rancher/rancher/wiki/Cowpoke-1:-Getting-Started-with-Rancher)项目开始！
 
@@ -29,7 +29,7 @@ weight: 1000
 
 ### 缺陷
 
-如果你发现缺陷，或遇到任何问题，请在Github上提[Issue](https://github.com/rancher/rancher/issues/new)。 虽然我们有很多Rancher相关的代码库，但我们希望你把所有的issue都提交到 [Rancher代码库](https://github.com/rancher/rancher)里，以免我们遗漏。
+如果您发现缺陷，或遇到任何问题，请在Github上提[Issue](https://github.com/rancher/rancher/issues/new)。 虽然我们有很多Rancher相关的代码库，但我们希望您把所有的issue都提交到 [Rancher代码库](https://github.com/rancher/rancher)里，以免我们遗漏。
 
-如果你想要更新Rancher的文档，请提交PR到我们的[文档代码库](https://github.com/loganhz/loganhz.github.io)或点击**编辑此页**直接跳转到编辑页面。
+如果您想要更新Rancher的文档，请提交PR到我们的[文档代码库](https://github.com/loganhz/loganhz.github.io)或点击**编辑此页**直接跳转到编辑页面。
 <br>

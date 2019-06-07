@@ -24,7 +24,7 @@ Rancher在以下操作系统及其后续的非主要发行版上受支持:
   - Docker 17.06
 
 >1、Ubuntu、Centos操作系统有Desktop和Server版本，选择请安装server版本，`别自己坑自己！` \
->2、如果你正在使用RancherOS，请确保切换到受支持的Docker版本:\
+>2、如果您正在使用RancherOS，请确保切换到受支持的Docker版本:\
 `sudo ros engine switch docker-18.09.2`
 
 {{% /tab %}}

@@ -13,7 +13,7 @@ weight: 3
 
 1. 默认自签名证书安装
 
-    默认情况下，Rancher会自动生成一个用于加密的自签名证书。从你的Linux主机运行Docker命令来安装Rancher，而不需要任何其他参数:
+    默认情况下，Rancher会自动生成一个用于加密的自签名证书。从您的Linux主机运行Docker命令来安装Rancher，而不需要任何其他参数:
 
     ```bash
     docker run -d --restart=unless-stopped \
@@ -32,9 +32,9 @@ weight: 3
     > - 使用OpenSSL或其他方法创建自签名证书。\
     > - 这里的证书不需要进行`base64`加密。\
     > - 证书文件必须是[PEM]({{< baseurl >}}/rancher/v2.x/cn/installation/single-node-install/#我如何知道我的证书是否为pem格式)格式。\
-    > - 在你的证书文件中，包含链中的所有中间证书。有关示例，请参考[SSL常见问题/故障排除]({{< baseurl >}}/rancher/v2.x/cn/installation/single-node-install/#如果我想添加我的中间证书-证书的顺序是什么)。
+    > - 在您的证书文件中，包含链中的所有中间证书。有关示例，请参考[SSL常见问题/故障排除]({{< baseurl >}}/rancher/v2.x/cn/installation/single-node-install/#如果我想添加我的中间证书-证书的顺序是什么)。
 
-    你的Rancher安装可以使用你提供的自签名证书来加密通信。创建证书后，运行docker命令时把证书文件映射到容器中。
+    您的Rancher安装可以使用您提供的自签名证书来加密通信。创建证书后，运行docker命令时把证书文件映射到容器中。
 
     ```bash
     docker run -d --restart=unless-stopped \
@@ -50,11 +50,11 @@ weight: 3
 
 1. 使用权威CA机构颁发的证书
 
-    如果你公开发布你的应用，理想情况下应该使用由权威CA机构颁发的证书。
+    如果您公开发布您的应用，理想情况下应该使用由权威CA机构颁发的证书。
 
     > **先决条件:**
     >1.证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型]({{< baseurl >}}/rancher/v2.x/cn/    install-prepare/self-signed-ssl/)。\
-    >2.确保容器包含你的证书文件和密钥文件。由于你的证书是由认可的CA签署的，因此不需要安装额外的CA证书文件。\
+    >2.确保容器包含您的证书文件和密钥文件。由于您的证书是由认可的CA签署的，因此不需要安装额外的CA证书文件。\
     >3.给容器添加`--no-cacerts`参数禁止Rancher生成默认CA证书。\
     >4.这里的证书不需要进行`base64`加密。
 
@@ -76,7 +76,7 @@ weight: 3
 
 1. 首先在负载均衡器主机上安装NGINX，NGINX具有适用于所有已知操作系统的软件包。有关安装NGINX的帮助，请查阅其安装文档[nginx安装文档](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/).
 
-1. 安装NGINX后，你需要使用节点的IP地址更新NGINX配置文件`nginx.conf`。复制下面的代码到文本编辑器，保存为`nginx.conf`。在`nginx.conf`配置中, 替换`IP_NODE_1`、`IP_NODE_2`、`IP_NODE_3` 为你主机真实的IP地址。
+1. 安装NGINX后，您需要使用节点的IP地址更新NGINX配置文件`nginx.conf`。复制下面的代码到文本编辑器，保存为`nginx.conf`。在`nginx.conf`配置中, 替换`IP_NODE_1`、`IP_NODE_2`、`IP_NODE_3` 为您主机真实的IP地址。
 
     **NGINX配置示例:**
 
@@ -122,7 +122,7 @@ weight: 3
 
 1. 默认自签名证书安装
 
-    默认情况下，Rancher会自动生成一个用于加密的自签名证书。从你的Linux主机运行Docker命令来安装Rancher，而不需要任何其他参数:
+    默认情况下，Rancher会自动生成一个用于加密的自签名证书。从您的Linux主机运行Docker命令来安装Rancher，而不需要任何其他参数:
 
     ```bash
     docker run -d --restart=unless-stopped \
@@ -141,9 +141,9 @@ weight: 3
     > - 使用OpenSSL或其他方法创建自签名证书。\
     > - 这里的证书不需要进行`base64`加密。\
     > - 证书文件必须是[PEM]({{< baseurl >}}/rancher/v2.x/cn/installation/single-node-install/#我如何知道我的证书是否为pem格式)格式。\
-    > - 在你的证书文件中，包含链中的所有中间证书。有关示例，请参考[SSL常见问题/故障排除]({{< baseurl >}}/rancher/v2.x/cn/installation/single-node-install/#如果我想添加我的中间证书-证书的顺序是什么)。
+    > - 在您的证书文件中，包含链中的所有中间证书。有关示例，请参考[SSL常见问题/故障排除]({{< baseurl >}}/rancher/v2.x/cn/installation/single-node-install/#如果我想添加我的中间证书-证书的顺序是什么)。
 
-    你的Rancher安装可以使用你提供的自签名证书来加密通信。创建证书后，运行docker命令时把证书文件映射到容器中。
+    您的Rancher安装可以使用您提供的自签名证书来加密通信。创建证书后，运行docker命令时把证书文件映射到容器中。
 
     ```bash
     docker run -d --restart=unless-stopped \
@@ -159,11 +159,11 @@ weight: 3
 
 1. 使用权威CA机构颁发的证书
 
-    如果你公开发布你的应用，理想情况下应该使用由权威CA机构颁发的证书。
+    如果您公开发布您的应用，理想情况下应该使用由权威CA机构颁发的证书。
 
     > **先决条件:**
     >1.证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型]({{< baseurl >}}/rancher/v2.x/cn/    install-prepare/self-signed-ssl/)。\
-    >2.确保容器包含你的证书文件和密钥文件。由于你的证书是由认可的CA签署的，因此不需要安装额外的CA证书文件。\
+    >2.确保容器包含您的证书文件和密钥文件。由于您的证书是由认可的CA签署的，因此不需要安装额外的CA证书文件。\
     >3.给容器添加`--no-cacerts`参数禁止Rancher生成默认CA证书。\
     >4.这里的证书不需要进行`base64`加密。
 
@@ -283,7 +283,7 @@ weight: 3
     > - 使用OpenSSL或其他方法创建自签名证书。\
     > - 这里的证书不需要进行`base64`加密。\
     > - 证书文件必须是[PEM]({{< baseurl >}}/rancher/v2.x/cn/installation/single-node-install/#我如何知道我的证书是否为pem格式)格式。\
-    > - 在你的证书文件中，包含链中的所有中间证书。有关示例，请参考[SSL常见问题/故障排除]({{< baseurl >}}/rancher/v2.x/cn/installation/   single-node-install/#如果我想添加我的中间证书-证书的顺序是什么)。
+    > - 在您的证书文件中，包含链中的所有中间证书。有关示例，请参考[SSL常见问题/故障排除]({{< baseurl >}}/rancher/v2.x/cn/installation/   single-node-install/#如果我想添加我的中间证书-证书的顺序是什么)。
 
     运行Rancher server容器时候，需要把自签名CA证书映射到Rancher容器中:
 
@@ -299,11 +299,11 @@ weight: 3
 
 1. 使用权威CA机构颁发的证书
 
-    如果你公开发布你的应用，理想情况下应该使用由权威CA机构颁发的证书。如果你使用由权威CA机构颁发的证书，则无需在Rancher容器中安装你的CA证书，只需运行下面的基本安装命令即可:
+    如果您公开发布您的应用，理想情况下应该使用由权威CA机构颁发的证书。如果您使用由权威CA机构颁发的证书，则无需在Rancher容器中安装您的CA证书，只需运行下面的基本安装命令即可:
 
     > **先决条件:**
     >1.证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型]({{< baseurl >}}/rancher/v2.x/cn/       install-prepare/self-signed-ssl/)。\
-    >2.确保容器包含你的证书文件和密钥文件。由于你的证书是由认可的CA签署的，因此不需要安装额外的CA证书文件。\
+    >2.确保容器包含您的证书文件和密钥文件。由于您的证书是由认可的CA签署的，因此不需要安装额外的CA证书文件。\
     >3.给容器添加`--no-cacerts`参数禁止Rancher生成默认CA证书。\
     >4.这里的证书不需要进行`base64`加密。
 
@@ -319,7 +319,7 @@ weight: 3
 
 ## 四、(可选)为Agent Pod添加主机别名(/etc/hosts)
 
-如果你没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
+如果您没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
 
 ### 解决方法
 

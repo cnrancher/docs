@@ -15,7 +15,7 @@ Target Group Name               | `rancher-http-80`
 Protocol                        | `HTTP`
 Port                           | `80`
 Target type                     | `instance`
-VPC                             | 选择你的VPC
+VPC                             | 选择您的VPC
 Protocol (Health Check)     | `HTTP`
 Path (Health Check)         | `/healthz`
 
@@ -46,7 +46,7 @@ Path (Health Check)         | `/healthz`
 
 **可用区域**
 
-- 选择你的VPC和可用区
+- 选择您的VPC和可用区
 
 6、**步骤 2: 配置安全设置**
 
@@ -62,7 +62,7 @@ Path (Health Check)         | `/healthz`
 
 9、**步骤 5: 注册目标**
 
-由于你之前已经注册了目标，所以你只需单击下一步:**审计**；
+由于您之前已经注册了目标，所以您只需单击下一步:**审计**；
 
 10、**步骤 6: 审计**
 

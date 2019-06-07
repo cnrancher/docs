@@ -7,14 +7,14 @@ Rancher支持将NFS卷作为容器的一个存储选项
 
 ### 使用NFS之前的准备工作
 
-在部署Rancher NFS驱动之前，你需要先准备一个NFS服务器。例如，你可以使用如下命令在Ubuntu 16.04上安装NFS服务器。
+在部署Rancher NFS驱动之前，您需要先准备一个NFS服务器。例如，您可以使用如下命令在Ubuntu 16.04上安装NFS服务器。
 
 ```
 sudo apt-get update
 sudo apt-get install nfs-kernel-server
 ```
 
-在这个服务器上，你需要设置一个基础目录。首选，你需要创建一个共享目录。
+在这个服务器上，您需要设置一个基础目录。首选，您需要创建一个共享目录。
 
 ```
 sudo mkdir /nfs
@@ -27,7 +27,7 @@ sudo chown nobody:nogroup /nfs
 /nfs    *(rw,sync,no_subtree_check,no_root_squash)
 ```
 
-在全部修改完成后，你需要重新启动NFS内核服务器。
+在全部修改完成后，您需要重新启动NFS内核服务器。
 
 ```
 sudo systemctl restart nfs-kernel-server
@@ -39,23 +39,23 @@ Rancher的NFS驱动可以连接Amazon的EFS。当我们在Amazon EFS上使用Ran
 
 ### 配置Rancher NFS
 
-当设置一个[环境模版]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/#什么是环境模版)的时候，你可以选择启用**Rancher NFS**应用，这样以后用这个模版创建的环境都会包括Rancher的NFS服务。
+当设置一个[环境模版]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/#什么是环境模版)的时候，您可以选择启用**Rancher NFS**应用，这样以后用这个模版创建的环境都会包括Rancher的NFS服务。
 
-或者，如果你已经设置好了一个环境，你可以在[应用商店]({{< baseurl >}}/rancher/v1.x/cn/configuration/catalog/)中找到并部署Rancher NFS服务。
+或者，如果您已经设置好了一个环境，您可以在[应用商店]({{< baseurl >}}/rancher/v1.x/cn/configuration/catalog/)中找到并部署Rancher NFS服务。
 
-> **注意:** 某些存储服务可能与容器编排引擎不兼容(例如 Kubernetes)。环境模版会根据你选择的编排引擎显示其兼容的存储服务。但是在应用商店中可以看到全部的应用，不会按照编排引擎进行过滤。
+> **注意:** 某些存储服务可能与容器编排引擎不兼容(例如 Kubernetes)。环境模版会根据您选择的编排引擎显示其兼容的存储服务。但是在应用商店中可以看到全部的应用，不会按照编排引擎进行过滤。
 
-为了部署Rancher NFS，你需要指定如下配置:
+为了部署Rancher NFS，您需要指定如下配置:
 
 * **NFS Server**: NFS服务器的IP地址或者主机名称
 * **Export Base Directory**: NFS服务器输出的共享目录
-* **NFS Version**: 你所用的NFS版本，当前使用的是版本4
+* **NFS Version**: 您所用的NFS版本，当前使用的是版本4
 * **Mount Options**: 用逗号分隔的默认挂载选项， 例如: 'proto=udp'. 不要配置`nfsvers`选项，这个选项会被忽略。
 * **On Remove**: 当移除Rancher NFS卷的时候，底层数据是否应该被保留或者清理。选项有`purge`和`retain`，默认值为`purge`。从Rancher 1.6.6开始支持。
 
 ### Rancher NFS驱动选项
 
-当通过Rancher NFS驱动创建卷时，你可以通过一些选项来自定义自己的卷。这些选项是一些键值对，可以通过UI的驱动选项添加，也可以通过compose文件的`driver_opts`属性来添加。
+当通过Rancher NFS驱动创建卷时，您可以通过一些选项来自定义自己的卷。这些选项是一些键值对，可以通过UI的驱动选项添加，也可以通过compose文件的`driver_opts`属性来添加。
 
 #### 驱动选项
 
@@ -69,7 +69,7 @@ Rancher的NFS驱动可以连接Amazon的EFS。当我们在Amazon EFS上使用Ran
 
 #### 创建卷
 
-当**Rancher NFS**在Rancher中部署成功后，你还需要在**基础架构** -> **存储**里创建NFS卷，之后才可以在服务中使用NFS卷。
+当**Rancher NFS**在Rancher中部署成功后，您还需要在**基础架构** -> **存储**里创建NFS卷，之后才可以在服务中使用NFS卷。
 
 1. 点击**添加卷**。
 2. 输入在服务中使用的卷的名称。
@@ -77,15 +77,15 @@ Rancher的NFS驱动可以连接Amazon的EFS。当我们在Amazon EFS上使用Ran
 
 #### 在服务中使用卷
 
-一旦卷在UI中被创建成功，你可以在[服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/)中使用这个共享存储了。当创建一个服务时，在**卷**页签，可以输入**卷**和**卷驱动**。
+一旦卷在UI中被创建成功，您可以在[服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/)中使用这个共享存储了。当创建一个服务时，在**卷**页签，可以输入**卷**和**卷驱动**。
 
-**volume**的语法格式与Docker相同，`<volume_name>:</path/in/container>`。Docker的卷默认是以读写模式进行挂载的，但是你可以通过在卷结尾处添加`:ro`使其以只读的模式进行挂载。
+**volume**的语法格式与Docker相同，`<volume_name>:</path/in/container>`。Docker的卷默认是以读写模式进行挂载的，但是您可以通过在卷结尾处添加`:ro`使其以只读的模式进行挂载。
 
 **卷驱动**和存储驱动的名字一致，为存储驱动的应用名。默认情况下，**Rancher NFS** 存储驱动名称为`rancher-nfs`。
 
 ### 在Compose文件中使用Rancher NFS
 
-在基础设施应用中的**Rancher NFS**启动后，你可以开始在Compose文件中创建卷了。
+在基础设施应用中的**Rancher NFS**启动后，您可以开始在Compose文件中创建卷了。
 
 在Docker Compose文件中`volumes`下可以定义卷。在同一个Docker Compose中每个卷可以和多个服务关联。
 
@@ -128,7 +128,7 @@ volumes:
       exportBase: /thisisanothershare
 ```
 
-你也可以给每个卷使用不同的`exportBase`，请看下面的例子。
+您也可以给每个卷使用不同的`exportBase`，请看下面的例子。
 
 ```
 version: '2'
@@ -154,9 +154,9 @@ volumes:
 
 ### Rancher NFS使用AWS EFS
 
-在AWS上创建EFS文件系统之后，你可以部署Rancher NFS驱动来使用这个EFS文件系统。因为亚马逊EFS只在内部可达，所以只有与EFS在同一个可用区内的EC2主机可以访问EFS。因此，在创建存储驱动之前，你需要先添加EC2主机到Rancher环境中。
+在AWS上创建EFS文件系统之后，您可以部署Rancher NFS驱动来使用这个EFS文件系统。因为亚马逊EFS只在内部可达，所以只有与EFS在同一个可用区内的EC2主机可以访问EFS。因此，在创建存储驱动之前，您需要先添加EC2主机到Rancher环境中。
 
-你可以使用下面的选项来部署Rancher NFS:
+您可以使用下面的选项来部署Rancher NFS:
 
 * **NFS Server**: `xxxxxxx.efs.us-west-2.amazonaws.com`
 * **Export Base Directory**: `/`
@@ -164,7 +164,7 @@ volumes:
 
 ### 在移除卷时保留数据
 
-驱动选项`onRemove`的默认值为`purge`。这意味着，当从Rancher中删除这个卷的时候，底层的数据也会被删除。如果你想要保留底层数据，你可以将这个选项设置为`retain`。你也可以给每个卷设置不同的`onRemove`值。如果nfs-driver选项`onRemove`被设置为`retain`，但是你想要在某个卷在Rancher中被删除时清理掉这个卷的底层数据，你可以通过`docker-compose.yml`在这个卷的`driver_opts`下面设置`onRemove: purge`。示例入下。
+驱动选项`onRemove`的默认值为`purge`。这意味着，当从Rancher中删除这个卷的时候，底层的数据也会被删除。如果您想要保留底层数据，您可以将这个选项设置为`retain`。您也可以给每个卷设置不同的`onRemove`值。如果nfs-driver选项`onRemove`被设置为`retain`，但是您想要在某个卷在Rancher中被删除时清理掉这个卷的底层数据，您可以通过`docker-compose.yml`在这个卷的`driver_opts`下面设置`onRemove: purge`。示例入下。
 
 ```
 services:
@@ -180,7 +180,7 @@ volumes:
       onRemove: purge
 ```
 
-如果nfs-driver选项`onRemove`被设置为`purge`，你可以在卷的`driver_opts`里设置`onRemove: retain`来保留数据，这样当这个卷在Rancher中被移除时，数据将会被保留下来。
+如果nfs-driver选项`onRemove`被设置为`purge`，您可以在卷的`driver_opts`里设置`onRemove: retain`来保留数据，这样当这个卷在Rancher中被移除时，数据将会被保留下来。
 
 ```
 services:

@@ -3,11 +3,11 @@ title: 命令行工具
 weight: 700
 ---
 
-Rancher的命令行界面(CLI)是用来管理Rancher Server的工具。 使用此工具，你可以管理你的[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)，[主机]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/)，应用，服务和容器。
+Rancher的命令行界面(CLI)是用来管理Rancher Server的工具。 使用此工具，您可以管理您的[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)，[主机]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/)，应用，服务和容器。
 
 ### 安装
 
-二进制文件可以直接从UI下载。 该链接可以在UI中的页脚右侧找到。 我们有Windows，Mac和Linux的二进制文件。 你还可以查看我们CLI的[发布页面](https://github.com/rancher/cli/releases) ，你可以从该页面直接下载二进制文件。
+二进制文件可以直接从UI下载。 该链接可以在UI中的页脚右侧找到。 我们有Windows，Mac和Linux的二进制文件。 您还可以查看我们CLI的[发布页面](https://github.com/rancher/cli/releases) ，您可以从该页面直接下载二进制文件。
 
 ### 配置Rancher命令行界面
 
@@ -15,13 +15,13 @@ Rancher的命令行界面(CLI)是用来管理Rancher Server的工具。 使用�
 
 参数配置有如下的加载优先级。
 
-1. 在执行`rancher config`时，你需要设置Rancher URL和API密钥。如果你有多个环境，那么你可以选择一个默认环境。
-2. 你可以在环境变量中设置相关参数，这将覆盖`rancher config`中设置的值。
-3. 你可以将参数值直接传递给Rancher命令行，那么这些值将覆盖其他方式配置的参数。
+1. 在执行`rancher config`时，您需要设置Rancher URL和API密钥。如果您有多个环境，那么您可以选择一个默认环境。
+2. 您可以在环境变量中设置相关参数，这将覆盖`rancher config`中设置的值。
+3. 您可以将参数值直接传递给Rancher命令行，那么这些值将覆盖其他方式配置的参数。
 
 #### 使用Rancher配置命令
 
-你可以运行`rancher config`来设置与Rancher Server连接的配置
+您可以运行`rancher config`来设置与Rancher Server连接的配置
 
 ```
 $ rancher config
@@ -39,7 +39,7 @@ INFO[0017] Saving config to /Users/<username>/.rancher/cli.json
 
 #### 使用环境变量
 
-你可以设置以下环境变量`RANCHER_URL`，`RANCHER_ACCESS_KEY`和`RANCHER_SECRET_KEY`。
+您可以设置以下环境变量`RANCHER_URL`，`RANCHER_ACCESS_KEY`和`RANCHER_SECRET_KEY`。
 
 ```
 # Set the url that Rancher is on
@@ -52,7 +52,7 @@ $ export RANCHER_SECRET_KEY=<secretKey_of_account_api_key>
 
 <br>
 
-如果你的Rancher Server中有多个环境，你还需要设置一个环境变量来选择默认环境，即“RANCHER_ENVIRONMENT”。
+如果您的Rancher Server中有多个环境，您还需要设置一个环境变量来选择默认环境，即“RANCHER_ENVIRONMENT”。
 
 ```
 # Set the environment to use, you can use either environment ID or environment name
@@ -61,7 +61,7 @@ $ export RANCHER_ENVIRONMENT=<environment_id>
 
 #### 可选参数传递
 
-如果你选择不运行`rancher config`或设置环境变量，那么你可以传递相同的值作为`rancher`命令参数选项的一部分。
+如果您选择不运行`rancher config`或设置环境变量，那么您可以传递相同的值作为`rancher`命令参数选项的一部分。
 
 ```
 $ rancher --url http://server_ip:8080 --access-key <accessKey_of_account_api_key> --secret-key <secretKey_of_account_api_key> --env <environment_id> ps
@@ -69,7 +69,7 @@ $ rancher --url http://server_ip:8080 --access-key <accessKey_of_account_api_key
 
 ### 使用Rancher命令行界面调试
 
-当你使用Rancher命令行时，可以将环境变量“RANCHER_CLIENT_DEBUG”设置为“true”，这样当API被调用时，所有的CLI命令将打印出详细信息。
+当您使用Rancher命令行时，可以将环境变量“RANCHER_CLIENT_DEBUG”设置为“true”，这样当API被调用时，所有的CLI命令将打印出详细信息。
 
 ```
 # Print verbose messages for all CLI calls
@@ -77,7 +77,7 @@ $ export RANCHER_CLIENT_DEBUG=true
 ```
 <br>
 
-如果你不想每个CLI命令都打印详细信息，请将环境变量“RANCHER_CLIENT_DEBUG”设置为“false”，然后将`--debug`传递给指定命令来获取详细消息。
+如果您不想每个CLI命令都打印详细信息，请将环境变量“RANCHER_CLIENT_DEBUG”设置为“false”，然后将`--debug`传递给指定命令来获取详细消息。
 
 ```
 $ rancher --debug env create newEnv
@@ -85,7 +85,7 @@ $ rancher --debug env create newEnv
 
 ### 使用环境变量
 
-如果你使用账户的API密钥，你将能够创建和更新环境。 如果你使用一个环境的API密钥，你将无法创建或更新其他环境，你将只能看到现有的环境。
+如果您使用账户的API密钥，您将能够创建和更新环境。 如果您使用一个环境的API密钥，您将无法创建或更新其他环境，您将只能看到现有的环境。
 
 ```
 $ rancher env ls
@@ -97,9 +97,9 @@ ID        NAME        STATE     CATALOG                           SYSTEM    DETA
 
 ## 使用指定的主机
 
-有一些命令(比如说`rancher docker`和`rancher ssh`)需要选择指定的主机来使用。你可以设置一个环境变量来选择主机，即RANCHER_DOCKER_HOST，或者传递 --host参数来指定主机。
+有一些命令(比如说`rancher docker`和`rancher ssh`)需要选择指定的主机来使用。您可以设置一个环境变量来选择主机，即RANCHER_DOCKER_HOST，或者传递 --host参数来指定主机。
 
-选择主机之前，你可以列出环境中的所有主机。
+选择主机之前，您可以列出环境中的所有主机。
 
 ```
 $ rancher hosts
@@ -111,7 +111,7 @@ ID        HOSTNAME      STATE     IP
 
 <br>
 
-现在你可以设置`RANCHER_DOCKER_HOST`环境变量，或者使用--host参数传入主机ID或主机名来选择不同的主机
+现在您可以设置`RANCHER_DOCKER_HOST`环境变量，或者使用--host参数传入主机ID或主机名来选择不同的主机
 
 ```
 # Set the host to always select host-1 (1h1)
@@ -126,7 +126,7 @@ $ rancher --host host-2 docker ps
 
 #### 列出所有的服务
 
-在你选择的环境中，你可以查看在环境中运行的所有服务。
+在您选择的环境中，您可以查看在环境中运行的所有服务。
 
 ```
 $ rancher ps
@@ -140,7 +140,7 @@ ID   TYPE                 NAME                IMAGE                       STATE 
 
 #### 列出所有的容器
 
-同样你可以查看环境中的所有容器。
+同样您可以查看环境中的所有容器。
 
 ```
 $ rancher ps -c
@@ -178,7 +178,7 @@ ID      NAME               IMAGE       STATE     HOST      IP             DOCKER
 
 ### 使用docker compose文件启动简单的服务
 
-要开始向Rancher添加服务时，你可以创建一个简单的`docker-compose.yml`文件，以及可选的`rancher-compose.yml`文件。 如果没有`rancher-compose.yml`文件，则所有服务的数量将默认为1。
+要开始向Rancher添加服务时，您可以创建一个简单的`docker-compose.yml`文件，以及可选的`rancher-compose.yml`文件。 如果没有`rancher-compose.yml`文件，则所有服务的数量将默认为1。
 
 docker-compose.yml示例
 
@@ -199,7 +199,7 @@ services:
     scale: 2
 ```
 
-创建文件后，你可以在Rancher Server中启动对应的服务。
+创建文件后，您可以在Rancher Server中启动对应的服务。
 
 ```
 # Creating and starting a service without environment variables and selecting a stack
@@ -219,7 +219,7 @@ $ rancher scale 1s4=5
 
 ### 使用`Rancher run`来启动一个服务
 
-你可以使用Docker CLI添加容器，也可以使用`rancher run`添加容器到Rancher中。
+您可以使用Docker CLI添加容器，也可以使用`rancher run`添加容器到Rancher中。
 
 ```
 # Services should be stackName/service_name

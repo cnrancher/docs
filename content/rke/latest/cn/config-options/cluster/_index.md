@@ -56,7 +56,7 @@ INFO[0000] Generating images list for version [v1.12.6-rancher1-2]:
 
 ## 四、集群级SSH密钥路径
 
-RKE使用`ssh`连接到主机。通常，每个节点将为每个ssh密钥设置一个独立路径，即在nodes部分中配置了`ssh_key_path`。如果所有节点使用相同的`ssh`私钥登录，你们可以在集群级别设置`ssh_key_path`。
+RKE使用`ssh`连接到主机。通常，每个节点将为每个ssh密钥设置一个独立路径，即在nodes部分中配置了`ssh_key_path`。如果所有节点使用相同的`ssh`私钥登录，您们可以在集群级别设置`ssh_key_path`。
 
 如果在集群级别和节点级别都设置了`ssh_key_path`，则节点级别密钥将优先使用。
 

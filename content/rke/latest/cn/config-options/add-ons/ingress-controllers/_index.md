@@ -56,7 +56,7 @@ ingress:
 
 1. 以PEM编码的形式获取或生成证书密钥对。
 
-2. 使用以下命令通过你的PEM编码的证书生成一个Kubernetes secret，注意替换命令中的证书名称。
+2. 使用以下命令通过您的PEM编码的证书生成一个Kubernetes secret，注意替换命令中的证书名称。
 
     ```bash
     kubectl --kubeconfig=kube_configxxx.yml -n   ingress-nginx create secret tls ingress-default-cert --cert=mycert.cert --key=mycert.key -o yaml --dry-run=true > ingress-default-cert.yaml

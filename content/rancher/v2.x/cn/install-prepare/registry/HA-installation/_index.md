@@ -12,11 +12,11 @@ weight: 2
 {{% /accordion %}}
 {{% accordion id="option-2" label="二、Harbor高可用性介绍" %}}
 
-本文档介绍了实现高可用系统的一些常用方法，重点是核心Harbor服务和与Harbor密切配合的其他开源服务。你需要解决在运行的Harbor环境中，所有应用程序软件的高可用性问题。重要的是确保你的服务冗余且可用。
+本文档介绍了实现高可用系统的一些常用方法，重点是核心Harbor服务和与Harbor密切配合的其他开源服务。您需要解决在运行的Harbor环境中，所有应用程序软件的高可用性问题。重要的是确保您的服务冗余且可用。
 
 ## 1、无状态服务
 
-要使无状态服务具有高可用性，你需要提供实例冗余并对其进行负载平衡。无状态的Harbor服务包括：
+要使无状态服务具有高可用性，您需要提供实例冗余并对其进行负载平衡。无状态的Harbor服务包括：
 
 - AdminServer中
 - UI
@@ -60,7 +60,7 @@ weight: 2
 
 从上面的高可用性架构中，可以看到我们没有为每个无状态服务设置LB。相反，我们将这些无状态服务分组。每个服务之间的通信受基于主机的docker网络的隔离保护。
 
-**注意** 由于组件通过rest API相互通信。你始终可以根据使用方案定义组粒度。
+**注意** 由于组件通过rest API相互通信。您始终可以根据使用方案定义组粒度。
 
 - 局限性
 
@@ -69,7 +69,7 @@ weight: 2
 {{% /accordion %}}
 {{% accordion id="option-4" label="四、HA安装" %}}
 
-按照本节中的设置说明，我们可以构建Harbor高可用性部署，如下图所示。如果需要，你可以设置更多Harbor节点。
+按照本节中的设置说明，我们可以构建Harbor高可用性部署，如下图所示。如果需要，您可以设置更多Harbor节点。
 
   ![LabInstallation](_index.assets/labInstallation.jpg)
 
@@ -85,11 +85,11 @@ weight: 2
 
 **重要** 项目1,2,3,4是Harbor的有状态组件。在配置Harbor HA之前，我们假设这些组件存在且所有组件都受HA保护。否则，任何这些组件都可能是单点故障。
 
-共享存储是可替换的，你可以选择其他共享存储，只需确保你使用的存储由Registry(https://docs.docker.com/registry/storage-drivers)支持
+共享存储是可替换的，您可以选择其他共享存储，只需确保您使用的存储由Registry(https://docs.docker.com/registry/storage-drivers)支持
 
-PostgreSQL是可选的，它只在你使用漏洞扫描功能时才需要，目前使用PostgreSQL 9.6.5
+PostgreSQL是可选的，它只在您使用漏洞扫描功能时才需要，目前使用PostgreSQL 9.6.5
 
-**提示**: 如果你只是为了POC而设置HA。你可以使用docker在一个操作系统中使用以下命令快速运行MariaDB，Redis和PostgreSQL。
+**提示**: 如果您只是为了POC而设置HA。您可以使用docker在一个操作系统中使用以下命令快速运行MariaDB，Redis和PostgreSQL。
 
 ```bash
 docker run --name redis-server -p 6379:6379 -d redis
@@ -113,7 +113,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
 ## 3、负载平衡器设置
 
-由于所有Harbor节点都处于活动状态。将需要一个loadbancer来有效地在Harbor节点之间分配传入请求。你可以方便地选择硬件负载均衡器或软件负载均衡器。
+由于所有Harbor节点都处于活动状态。将需要一个loadbancer来有效地在Harbor节点之间分配传入请求。您可以方便地选择硬件负载均衡器或软件负载均衡器。
 
 在这里，我们将使用Ubuntu16.04 + Keepalived来构建软件负载均衡器。
 
@@ -131,11 +131,11 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
     **重要**:
 
-    - 你需要将**<change_to_VIP_address>**更改为你的VIP地址(有两个地方)；
+    - 您需要将**<change_to_VIP_address>**更改为您的VIP地址(有两个地方)；
 
     - 将**harbor_node1_IP**(两个地方)和**harbour_node2_IP**(两个地方)更改为真实Harbor节点IP；
 
-    - 如果你有两个以上的节点，请在keepalived.conf中添加更多`real_server`定义；
+    - 如果您有两个以上的节点，请在keepalived.conf中添加更多`real_server`定义；
 
 3. 配置运行状况检查
 
@@ -167,9 +167,9 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
 ## 4、Harbor节点1设置
 
-1. 从[GitHub](https://github.com/vmware/harbor/releases)下载Harbor离线包到你的主目录
+1. 从[GitHub](https://github.com/vmware/harbor/releases)下载Harbor离线包到您的主目录
 
-2. 解压缩harbour-offline-installer-vxxxtgz你将在当前目录中获得一个`harbor`文件夹
+2. 解压缩harbour-offline-installer-vxxxtgz您将在当前目录中获得一个`harbor`文件夹
 
 3. cd到`harbor`目录
 
@@ -179,7 +179,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
     hostname = reg.mydomain.com
     ```
 
-    将reg.mydomain.com更改为你的FQDN或VIP(例如192.168.1.220)
+    将reg.mydomain.com更改为您的FQDN或VIP(例如192.168.1.220)
 
 5. 修改`harbor.cfg`配置Harbor数据库连接
 
@@ -224,9 +224,9 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
     registry_storage_provider_config =
     ```
 
-    你可以在[https://docs.docker.com/registry/configuration/#storage中](https://docs.docker.com/registry/configuration/#storage)找到各种存储的配置示例。
+    您可以在[https://docs.docker.com/registry/configuration/#storage中](https://docs.docker.com/registry/configuration/#storage)找到各种存储的配置示例。
 
-    例如，如果你使用swift作为存储后端，则需要设置以下内容：
+    例如，如果您使用swift作为存储后端，则需要设置以下内容：
 
     ```bash
     registry_storage_provider_name = swift
@@ -235,7 +235,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
     **重要**:
 
-    如果设置`filesystem`为`registry_storage_provider_name`必须确保Registry目录`/data/registry`安装到NFS，Ceph等共享存储。你需要首先创建/ data / registry目录并将其所有者更改为10000：10000，因为Registry将以userID 10000运行和groupID 10000。
+    如果设置`filesystem`为`registry_storage_provider_name`必须确保Registry目录`/data/registry`安装到NFS，Ceph等共享存储。您需要首先创建/ data / registry目录并将其所有者更改为10000：10000，因为Registry将以userID 10000运行和groupID 10000。
 
 9. 如果启用https(可选)，则需要准备证书和密钥并将其复制到`/data/cert/`目录(如果该文件夹不存在，则需要创建该文件夹)。
 
@@ -247,7 +247,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
     cp ca.crt /data/ca_download/
     ```
 
-    如果要为证书配置自己的文件名，则需要修改harbor.cfg中的ssl_cert和ssl_cert_key属性。如果你使用由私有CA签名的证书，则需要将你的CA文件放入`/data/ca_download/ca.crt`
+    如果要为证书配置自己的文件名，则需要修改harbor.cfg中的ssl_cert和ssl_cert_key属性。如果您使用由私有CA签名的证书，则需要将您的CA文件放入`/data/ca_download/ca.crt`
 
 10. 在第一个节点上启动Harbour
 
@@ -267,7 +267,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
     **重要**
 
-    在执行以下命令之前，你需要将192.168.1.220更改为你的VIP地址。如果你只使用http，那么你不需要运行第二个命令。
+    在执行以下命令之前，您需要将192.168.1.220更改为您的VIP地址。如果您只使用http，那么您不需要运行第二个命令。
 
     ```bash
     iptables -t nat -A PREROUTING -p tcp -d 192.168.1.220 --dport 80 -j REDIRECT
@@ -294,7 +294,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
     tar -xvf harbor_ha.tar
     ```
 
-    你将在主目录中获得“harbour”文件夹。
+    您将在主目录中获得“harbour”文件夹。
 
 3. 可选)创建证书文件夹
 
@@ -326,7 +326,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
     **重要**
 
-    在执行以下命令之前，你需要将192.168.1.220更改为你的VIP地址，如果你只使用http for Harbor，则无需运行第二个命令。
+    在执行以下命令之前，您需要将192.168.1.220更改为您的VIP地址，如果您只使用http for Harbor，则无需运行第二个命令。
 
     ```bash
     iptables -t nat -A PREROUTING -p tcp -d 192.168.1.220 --dport 80 -j REDIRECT
@@ -335,7 +335,7 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
     如果要设置更多Harbor节点，请重复步骤1到4. Keepalived配置还需要在两个loadbalancer服务器中更新。
 
-    现在你可以通过http(s)://VIP访问Harbor
+    现在您可以通过http(s)://VIP访问Harbor
 
 {{% /accordion %}}
 {{% accordion id="option-e" label="五、已知问题" %}}
@@ -350,6 +350,6 @@ mysql -u `your_db_username` -p -h `your_db_ip` < registry.sql
 
 2、在HA环境中无法正确停止正在运行的作业:<https://github.com/vmware/harbor/issues/4012>
 
-在Harbor 1.4中，我们支持停止正在运行的Jobs。但在高可用性方案中，你可能无法停止作业。目前，作业状态存储在内存中而不是磁盘存储中。请求可能无法安排到执行作业的节点。我们将计划重构jobservices模型，并在下一版本中解决此问题。
+在Harbor 1.4中，我们支持停止正在运行的Jobs。但在高可用性方案中，您可能无法停止作业。目前，作业状态存储在内存中而不是磁盘存储中。请求可能无法安排到执行作业的节点。我们将计划重构jobservices模型，并在下一版本中解决此问题。
 
 {{% /accordion %}}

@@ -7,7 +7,7 @@ weight: 2
 
 ## 使用Docker Machine启动RancherOS
 
-在继续之前，你需要安装[Docker Machine](https://docs.docker.com/machine/)和[VirtualBox](https://www.virtualbox.org/wiki/Downloads) 一旦安装了`VirtualBox和Docker Machine`，就可以运行一条命令让RancherOS运行。
+在继续之前，您需要安装[Docker Machine](https://docs.docker.com/machine/)和[VirtualBox](https://www.virtualbox.org/wiki/Downloads) 一旦安装了`VirtualBox和Docker Machine`，就可以运行一条命令让RancherOS运行。
 
 ### 创建虚拟机并运行RancherOS
 

@@ -74,7 +74,7 @@ RUN pip install -r requirements.txt
 CMD python app.py
 ```
 
-因为你已经运行着Rancher Server了，所以你只需要配置好你 AWS 认证信息，然后用你的 Rancher Server URL 和[API key]({{< baseurl >}}/rancher/v1.x/cn/api/v2-beta/api-keys/)来运行 Rancher Compose 。
+因为您已经运行着Rancher Server了，所以您只需要配置好您 AWS 认证信息，然后用您的 Rancher Server URL 和[API key]({{< baseurl >}}/rancher/v1.x/cn/api/v2-beta/api-keys/)来运行 Rancher Compose 。
 
 ```
 # Set up your AWS credentials
@@ -87,11 +87,11 @@ Default output format [None]:
 $ rancher-compose --url URL_of_Rancher --access-key username_of_API_key --secret-key password_of_API_key up
 ```
 
-根据上面的指令，这个 web 容器会在一台 Rancher Server 管理的主机上运行起来。`rancher-compose` 会先上传当前目录到 S3，而你可以到 S3的 UI 上检索到这个目录。当镜像上传成功后，它会下载这个些文件到主机上构建起一个容器。
+根据上面的指令，这个 web 容器会在一台 Rancher Server 管理的主机上运行起来。`rancher-compose` 会先上传当前目录到 S3，而您可以到 S3的 UI 上检索到这个目录。当镜像上传成功后，它会下载这个些文件到主机上构建起一个容器。
 
 ### 问题解答
 
-如果你在利用 S3构建时出现了一些问题，你可以先在本机测试一下是否可以构建并运行。在你运行`rancher-compose`的同一目录下，使用下面的命令来校验是否在 docker 中可以正常工作。
+如果您在利用 S3构建时出现了一些问题，您可以先在本机测试一下是否可以构建并运行。在您运行`rancher-compose`的同一目录下，使用下面的命令来校验是否在 docker 中可以正常工作。
 
 ```
 # Test building locally to see if works

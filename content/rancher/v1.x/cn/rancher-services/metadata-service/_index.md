@@ -6,15 +6,15 @@ title: metadata服务
 
 Rancher通过基础设施中的Metadata服务为服务和容器提供数据。这些数据用来管理运行中的docker实例。这些数据可以通过调用基于HTTP的API来访问。这些数据包括创建容器，服务时的静态数据，也包括运行时数据，例如:在同一个服务里的其他容器的相关信息。
 
-通过Rancher的Metadata服务，你可以进到任何使用Rancher托管网络的容器的命令行中，并查看运行在Rancher中的容器的信息。通过Metadata服务你可以获取容器，服务，容器所在的应用，容器所在的主机。Metadata是JSON格式的。
+通过Rancher的Metadata服务，您可以进到任何使用Rancher托管网络的容器的命令行中，并查看运行在Rancher中的容器的信息。通过Metadata服务您可以获取容器，服务，容器所在的应用，容器所在的主机。Metadata是JSON格式的。
 
 有多种方式可以将容器运行在Rancher托管网络中。Rancher网络的原理详见[网络相关文档]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/networking)。
 
 ### 如何获取Metadata
 
-通过Rancher UI，你可以通过容器的下拉菜单的**执行命令行**进入运行命令界面。在鼠标悬停在容器上时，会显示容器名和右侧的下拉菜单。
+通过Rancher UI，您可以通过容器的下拉菜单的**执行命令行**进入运行命令界面。在鼠标悬停在容器上时，会显示容器名和右侧的下拉菜单。
 
-你可以通过curl命令获取metadata信息。
+您可以通过curl命令获取metadata信息。
 
 ```
 # If curl is not installed, install it
@@ -22,7 +22,7 @@ $ apt-get install curl
 # Basic curl command to obtain a plaintext response
 $ curl http://rancher-metadata/<version>/<path>
 ```
-curl请求的路径取决于你想要获取的metadata信息和格式。
+curl请求的路径取决于您想要获取的metadata信息和格式。
 
 Metadata | 路径  | 描述
 ----|---- | ---
@@ -36,9 +36,9 @@ Metadata | 路径  | 描述
 
 ### Metadata的版本
 
-在`curl`命令中，我们强烈建议使用确定的版本号，但是你也可以选者`latest`。
+在`curl`命令中，我们强烈建议使用确定的版本号，但是您也可以选者`latest`。
 
-> **注意:** 因为`latest`版本会包含最新的代码变动，各个版本的返回的数据可能不同，需要确认是否和你之前的代码能够兼容。
+> **注意:** 因为`latest`版本会包含最新的代码变动，各个版本的返回的数据可能不同，需要确认是否和您之前的代码能够兼容。
 
 metadata的版本是基于日期的。
 
@@ -99,7 +99,7 @@ Metadata返回有纯文本和JSON两种格式，根据需要选择相应格式.
 
 #### 纯文本
 
-通过curl命令，会获得请求路径的纯文本格式返回。你可以通过从第一层路径开始，层层推进，找到你需要的信息。
+通过curl命令，会获得请求路径的纯文本格式返回。您可以通过从第一层路径开始，层层推进，找到您需要的信息。
 
 ```
 $ curl 'http://rancher-metadata/2015-12-19/self/container'
@@ -159,7 +159,7 @@ $ curl --header 'Accept: application/json' 'http://rancher-metadata/2015-12-19/s
 
 | 属性 | 描述 |
 | ----| ----|
-| `create_index` | 容器启动的序号 例如 2 代表的是服务中启动的第二个容器。注意: Create_index不会被重用。 如果你的服务包含两个容器，删除了第二个容器，下一个启动的容器的`create_index`会是3，即使服务中只包含2个容器
+| `create_index` | 容器启动的序号 例如 2 代表的是服务中启动的第二个容器。注意: Create_index不会被重用。 如果您的服务包含两个容器，删除了第二个容器，下一个启动的容器的`create_index`会是3，即使服务中只包含2个容器
 | `dns` | 容器的DNS服务器。
 | `dns_search` | 容器的搜索域。
 | `external_id`  | 在主机上的Docker容器ID。
@@ -191,7 +191,7 @@ $ curl --header 'Accept: application/json' 'http://rancher-metadata/2015-12-19/s
  属性 | 描述
 ----|----
 `containers` | 列出服务中的容器名称
-`create_index` | 服务中最后启动的容器的序号 例如 2代表的是服务中启动的第二个容器。注意: Create_index不会被重用。 如果你的服务包含2个容器，删除了第二个容器，下一个启动的容器的`create_index`会是3，即使服务中只包含2个容器
+`create_index` | 服务中最后启动的容器的序号 例如 2代表的是服务中启动的第二个容器。注意: Create_index不会被重用。 如果您的服务包含2个容器，删除了第二个容器，下一个启动的容器的`create_index`会是3，即使服务中只包含2个容器
 `expose` | 对主机暴露，但是不对外暴露的端口
 `external_ips` | [内部服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-external-services/)的IP列表
 `fqdn` | 服务的全称域名

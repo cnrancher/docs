@@ -13,7 +13,7 @@ weight: 4
 
     ![Edit]({{< baseurl >}}/img/rancher/airgap/edit-system-default-registry.png)
 
-1. 将值改为你的私有仓库地址, e.g. registry.yourdomain.com:port. 不要添加`http:// or https://`前缀
+1. 将值改为您的私有仓库地址, e.g. registry.yourdomain.com:port. 不要添加`http:// or https://`前缀
 
     ![Save]({{< baseurl >}}/img/rancher/airgap/enter-system-default-registry.png)
 

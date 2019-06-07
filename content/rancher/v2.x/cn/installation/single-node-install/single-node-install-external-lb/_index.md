@@ -20,7 +20,7 @@ weight: 1
 3、[代理上网]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/proxy-configuration/)?\
 4、[自定义CA根证书]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/custom-ca-root-certificate/)?
 
-### 方案A-使用你自己生成的自签名证书
+### 方案A-使用您自己生成的自签名证书
 
 采用外部七层负载均衡器来做代理，那么只需要把证书放在外部七层负载均衡器上，如果是自签名证书，则需要把CA文件映射到rancher server容器中，如果没有自签名证书，可一键生成[自签名ssl证书]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/self-signed-ssl/)。
 
@@ -43,14 +43,14 @@ rancher/rancher:stable (或者rancher/rancher:latest)
 
 ### 方案B-使用权威CA机构颁发的证书
 
-如果你公开发布你的应用，理想情况下应该使用由权威CA机构颁发的证书。
+如果您公开发布您的应用，理想情况下应该使用由权威CA机构颁发的证书。
 
 > **先决条件:**
 >1、证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/self-signed-ssl/)；\
 >2、这里的证书不需要进行`base64`加密;\
 >3、给容器添加`--no-cacerts`参数禁止Rancher生成默认CA证书；
 
-如果你使用由权威CA机构颁发的证书，则无需在Rancher容器中安装你的CA证书，只需运行下面的基本安装命令即可:
+如果您使用由权威CA机构颁发的证书，则无需在Rancher容器中安装您的CA证书，只需运行下面的基本安装命令即可:
 
 ```bash
 docker run -d --restart=unless-stopped \
@@ -103,8 +103,8 @@ http {
     server {
         listen 443 ssl http2; # 如果是升级或者全新安装v2.2.2,需要禁止http2
         server_name FQDN;
-        ssl_certificate <你自己的自签名证书>;
-        ssl_certificate_key <你自己的自签名证书私钥>;
+        ssl_certificate <您自己的自签名证书>;
+        ssl_certificate_key <您自己的自签名证书私钥>;
 
         location / {
             proxy_set_header Host $host;
@@ -156,7 +156,7 @@ gzip_types
 
 ## 四、(可选)为Agent Pod添加主机别名(/etc/hosts)
 
-如果你没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
+如果您没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
 
 ### 解决方法
 

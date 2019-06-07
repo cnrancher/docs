@@ -9,7 +9,7 @@ weight: 1
 
 ## 二、升级步骤
 
-> **注意:** 打开Rancher web并记下浏览器左下方显示的版本号(例如:`v2.0.0`) ，在升级过程中你需要此版本号
+> **注意:** 打开Rancher web并记下浏览器左下方显示的版本号(例如:`v2.0.0`) ，在升级过程中您需要此版本号
 
 1. 运行以下命令，停止当前运行Rancher Server的容器
 
@@ -17,12 +17,12 @@ weight: 1
       docker stop <RANCHER_CONTAINER_ID>
       ```
 
-      >**提示:** 你可以输入`docker ps`命令获取Rancher容器的ID
+      >**提示:** 您可以输入`docker ps`命令获取Rancher容器的ID
 
 1. 创建当前Rancher Server容器的数据卷容器，以便在升级Rancher Server中使用，命名为rancher-data容器。
 
     - 替换`<RANCHER_CONTAINER_ID>`为上一步中的容器ID。
-    - 替换`<RANCHER_CONTAINER_TAG>`为你当前正在运行的Rancher版本，如上面的先决条件中所述。
+    - 替换`<RANCHER_CONTAINER_TAG>`为您当前正在运行的Rancher版本，如上面的先决条件中所述。
 
     ```bash
     docker create --volumes-from <RANCHER_CONTAINER_ID> \
@@ -48,7 +48,7 @@ weight: 1
       docker pull rancher/rancher:stable (或者rancher/rancher:latest)
       ```
 
-    >**注意** 如果你正在进行[离线升级]({{< baseurl >}}/rancher/v2.x/cn/upgrades/air-gap-upgrade/)，请在运行docker run命令时将你的私有镜像仓库URL添加到镜像名中
+    >**注意** 如果您正在进行[离线升级]({{< baseurl >}}/rancher/v2.x/cn/upgrades/air-gap-upgrade/)，请在运行docker run命令时将您的私有镜像仓库URL添加到镜像名中
     >
     >例如: `<registry.yourdomain.com:port>/rancher/rancher:stable (或者rancher/rancher:latest)`
 
@@ -64,7 +64,7 @@ weight: 1
 
 1. 删除旧版本`Rancher Server`容器
 
-    如果你只是停止以前的Rancher Server容器(并且不删除它),则旧版本容器可能随着主机重启后自动运行，导致容器端口冲突。
+    如果您只是停止以前的Rancher Server容器(并且不删除它),则旧版本容器可能随着主机重启后自动运行，导致容器端口冲突。
 
 1. 登录rancher，通过检查浏览器左下角显示的版本，确认是否升级成功。
 

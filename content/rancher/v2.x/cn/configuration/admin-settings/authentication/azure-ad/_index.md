@@ -5,7 +5,7 @@ weight: 2
 
 `Rancher v2.0.3`版本支持
 
-如果你在Azure中启用了Active Directory(AD)服务，则可以配置Rancher以允许你的用户使用Azure AD帐户登录。
+如果您在Azure中启用了Active Directory(AD)服务，则可以配置Rancher以允许您的用户使用Azure AD帐户登录。
 
 ## 一、在Azure中注册Rancher
 
@@ -35,7 +35,7 @@ Azure分Global区和中国区：
 
 从Azure门户中创建API密钥，Rancher将使用此密钥对Azure AD进行身份验证。
 
-1、搜索`应用注册`服务，然后打开上一个过程中创建的`rancher-test`。可能会提示`你不是此目录中任何应用程序的所有者`,直接点击查看所有应用程序。
+1、搜索`应用注册`服务，然后打开上一个过程中创建的`rancher-test`。可能会提示`您不是此目录中任何应用程序的所有者`,直接点击查看所有应用程序。
 
 ![image-20180823170226581](_index.assets/image-20180823170226581.png)
 ![image-20180823170250818](_index.assets/image-20180823170250818.png)
@@ -94,7 +94,7 @@ Azure配置的最后一步，复制用于配置Rancher进行Azure AD身份验证
 
 1. 搜索`应用注册`
 2. 找到创建的`rancher-test`应用
-3. 复制应用程序ID并将其粘贴到你的文本文件中
+3. 复制应用程序ID并将其粘贴到您的文本文件中
 
     ![image-20180823173342700](_index.assets/image-20180823173342700.png)
 

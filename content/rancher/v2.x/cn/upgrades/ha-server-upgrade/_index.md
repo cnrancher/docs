@@ -37,7 +37,7 @@ weight: 3
 
 3. 创建ETCD快照备份
 
-    替换`<SNAPSHOT.db>`为你喜欢的快照名称(例如upgrade.db)
+    替换`<SNAPSHOT.db>`为您喜欢的快照名称(例如upgrade.db)
 
     ```bash
     # MacOS

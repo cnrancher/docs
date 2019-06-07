@@ -11,17 +11,17 @@ title: 服务
 
 ### 用户界面中的服务选项
 
-在以下示例中，我们假设你已经创建了一个[应用]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/stacks/), 设置了你的[主机]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/)，并准备好开始构建应用程序来。
+在以下示例中，我们假设您已经创建了一个[应用]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/stacks/), 设置了您的[主机]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/)，并准备好开始构建应用程序来。
 
 我们将在添加服务的过程中了解一些服务的选项，最后将介绍如何创建一个连接到Mongo数据库的[LetsChat](http://sdelements.github.io/lets-chat/)应用程序。
 
-在`应用`中，你可以通过单击`添加服务`按钮添加服务。也可以在`应用`列表中添加服务 ，每个单个`应用`都可以看到`添加服务`按钮。
+在`应用`中，您可以通过单击`添加服务`按钮添加服务。也可以在`应用`列表中添加服务 ，每个单个`应用`都可以看到`添加服务`按钮。
 
-在**数量**部分，你可以使用滑块来指定要为服务启动的容器的数量。或者，你可以选择**总是在每台主机上运行一个此容器的实例**。使用此选项时，你的服务将被部署到该[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)中的任何主机上。如果你在**调度**选项卡中创建了调度规则，则Rancher将仅在符合调度规则的主机上启动容器。
+在**数量**部分，您可以使用滑块来指定要为服务启动的容器的数量。或者，您可以选择**总是在每台主机上运行一个此容器的实例**。使用此选项时，您的服务将被部署到该[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)中的任何主机上。如果您在**调度**选项卡中创建了调度规则，则Rancher将仅在符合调度规则的主机上启动容器。
 
-你还需要输入**名称**，如果需要，还可以输入服务**描述**。
+您还需要输入**名称**，如果需要，还可以输入服务**描述**。
 
-为服务设置所需的**镜像**。你可以使用[DockerHub](https://hub.docker.com/)上的任何镜像，以及已添加到你的[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)中的任何[镜像仓库]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/registries)。镜像名称的语法与`docker run`命令中使用的语法相同。
+为服务设置所需的**镜像**。您可以使用[DockerHub](https://hub.docker.com/)上的任何镜像，以及已添加到您的[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)中的任何[镜像仓库]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/registries)。镜像名称的语法与`docker run`命令中使用的语法相同。
 
 镜像名称的语法。默认情况下，我们从Dockerhub中拉取。如果没有指定标签，我们将拉取标签为tag的镜像。
 
@@ -37,21 +37,21 @@ Rancher努力与Docker保持一致，我们的目标是，支持任何`docker ru
 
 ##### 端口映射
 
-当配置了映射端口后，你可以通过主机上的公共端口访问容器暴露的端口。在**端口映射**部分中，需要设置暴露在主机上的端口。该端口将流量指向你设置的私有端口。私有端口通常是容器上暴露的端口(例如:镜像的[Dockerfile](https://docs.docker.com/engine/reference/builder/#expose)中的`EXPOSE`)。当你映射一个端口时，Rancher将会在启动容器之前检查主机是否有端口冲突。
+当配置了映射端口后，您可以通过主机上的公共端口访问容器暴露的端口。在**端口映射**部分中，需要设置暴露在主机上的端口。该端口将流量指向您设置的私有端口。私有端口通常是容器上暴露的端口(例如:镜像的[Dockerfile](https://docs.docker.com/engine/reference/builder/#expose)中的`EXPOSE`)。当您映射一个端口时，Rancher将会在启动容器之前检查主机是否有端口冲突。
 
-当使用端口映射时，如果服务的容器规模大于具有可用端口的主机数量时，你的服务将被阻塞在正在激活状态。如果你查看服务的详细信息，你将可以看到`Error`状态的容器，这表明容器由于无法在主机上找到未被占用的端口而失败。该服务将继续尝试，如果发现有主机/端口可用，则该服务将在该主机上启动一个容器。
+当使用端口映射时，如果服务的容器规模大于具有可用端口的主机数量时，您的服务将被阻塞在正在激活状态。如果您查看服务的详细信息，您将可以看到`Error`状态的容器，这表明容器由于无法在主机上找到未被占用的端口而失败。该服务将继续尝试，如果发现有主机/端口可用，则该服务将在该主机上启动一个容器。
 
 > **注意:** 当在Rancher中暴露端口时，它只会显示创建时暴露端口。如果端口映射有任何改变，它不会在`docker ps`中更新，因为Rancher通过管理iptable规则，来实现端口动态变更的。
 
 ##### 随机端口映射
 
-如果你想要利用Rancher的随机端口映射，公共端口可以留空，你只需要定义私有端口。
+如果您想要利用Rancher的随机端口映射，公共端口可以留空，您只需要定义私有端口。
 
 ##### 链接服务
 
-如果你的环境中已经创建了其他服务，则可以将已有服务链接到你正在创建的服务。正在创建的服务中的所有容器都会链接到目标服务中的所有容器。链接就像`docker run`命令中的`--link`功能一样。
+如果您的环境中已经创建了其他服务，则可以将已有服务链接到您正在创建的服务。正在创建的服务中的所有容器都会链接到目标服务中的所有容器。链接就像`docker run`命令中的`--link`功能一样。
 
-链接是基于Rancher[内部DNS]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/internal-dns-service/)的附加功能，当你不需要按服务名称解析服务时，可以使用链接。
+链接是基于Rancher[内部DNS]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/internal-dns-service/)的附加功能，当您不需要按服务名称解析服务时，可以使用链接。
 
 #### Rancher 选项
 
@@ -59,17 +59,17 @@ Rancher努力与Docker保持一致，我们的目标是，支持任何`docker ru
 
 ##### 健康检查
 
-如果Rancher中主机不能正常工作来(例如:处于`reconnecting`或`inactive`状态)，你需要配置健康检查，以使Rancher将服务中的容器调度到其他的主机上。
+如果Rancher中主机不能正常工作来(例如:处于`reconnecting`或`inactive`状态)，您需要配置健康检查，以使Rancher将服务中的容器调度到其他的主机上。
 
-> **注意:** 健康检查仅适用于托管网络的服务。如果你选择任何其他网络，则**不能**被监察到。
+> **注意:** 健康检查仅适用于托管网络的服务。如果您选择任何其他网络，则**不能**被监察到。
 
-在**健康检查**选项卡中，你可以选择检查服务的TCP连接或HTTP响应。
+在**健康检查**选项卡中，您可以选择检查服务的TCP连接或HTTP响应。
 
 阅读有关Rancher如何处理[健康检查]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/health-checks/)的更多详细信息。
 
 ##### 标签/调度
 
-在**标签**选项卡中，Rancher允许将任何标签添加到服务的容器中。标签在创建调度规则时非常有用。在**调度**选项卡中，你可以使用[主机标签]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/#主机标签)，容器/服务标签，和容器/服务名称来创建你服务需要的调度规则。
+在**标签**选项卡中，Rancher允许将任何标签添加到服务的容器中。标签在创建调度规则时非常有用。在**调度**选项卡中，您可以使用[主机标签]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/#主机标签)，容器/服务标签，和容器/服务名称来创建您服务需要的调度规则。
 
 阅读有关[标签与调度]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/)的更多细节。
 
@@ -83,17 +83,17 @@ Rancher努力与Docker保持一致，我们的目标是，支持任何`docker ru
 
 阅读更多关于[配置Rancher Compose]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/rancher-compose/)的细节。
 
-Rancher Compose工具的工作方式和Docker Compose一样，并支持V1和V2版本的docker-compose.yml文件。要启用Rancher支持的功能，你还可以使用扩展或重写了docker-compose.yml的rancher-compose.yml文档。例如，rancher-compose.yml文档包含了服务的`scale`和`healthcheck`。
+Rancher Compose工具的工作方式和Docker Compose一样，并支持V1和V2版本的docker-compose.yml文件。要启用Rancher支持的功能，您还可以使用扩展或重写了docker-compose.yml的rancher-compose.yml文档。例如，rancher-compose.yml文档包含了服务的`scale`和`healthcheck`。
 
-如果你不熟悉Docker Compose或Rancher Compose，我们建议你使用UI来启动你的服务。你可以通过单击`应用`的下拉列表中的**查看配置**来查看整个应用的配置(例如:与你的应用等效的docker-compose.yml文件和rancher-compose.yml文件)。
+如果您不熟悉Docker Compose或Rancher Compose，我们建议您使用UI来启动您的服务。您可以通过单击`应用`的下拉列表中的**查看配置**来查看整个应用的配置(例如:与您的应用等效的docker-compose.yml文件和rancher-compose.yml文件)。
 
 #### 链接服务
 
-在Rancher中，环境中的所有服务都是可以通过DNS解析的，因此不需要明确设置服务链接，除非你希望使用特定的别名进行DNS解析。
+在Rancher中，环境中的所有服务都是可以通过DNS解析的，因此不需要明确设置服务链接，除非您希望使用特定的别名进行DNS解析。
 
 > **注意:** 我们目前不支持将从服务与主服务相关联，反之亦然。阅读更多关于[Rancher内部DNS工作原理]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/internal-dns-service/)。
 
-应用中的服务都是可以通过服务名称`service_name`来解析的，当然，你也可以通过链接来使用其他名称进行解析。
+应用中的服务都是可以通过服务名称`service_name`来解析的，当然，您也可以通过链接来使用其他名称进行解析。
 
 ##### 例子  `docker-compose.yml`
 
@@ -119,7 +119,7 @@ services:
 
 在这个例子中，`mongo`可以解析为`database`。如果没有链接，`web`服务需要通过服务名称`database`来解析数据库服务。
 
-对于不同`应用`中的服务，可以使用`service_name.stack_name`对服务进行解析。如果你希望使用特定别名进行DNS解析，则可以在`docker-compose.yml`中使用`external_links`。
+对于不同`应用`中的服务，可以使用`service_name.stack_name`对服务进行解析。如果您希望使用特定别名进行DNS解析，则可以在`docker-compose.yml`中使用`external_links`。
 
 ##### 例子  `docker-compose.yml`
 
@@ -141,7 +141,7 @@ services:
 
 阅读更多关于[配置Rancher Compose]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/rancher-compose/)的详情.
 
-我们将创建与上面通过UI创建的相同示例。首先，你将需要创建一个`docker-compose.yml`文件和一个`rancher-compose.yml`文件。使用Rancher Compose，我们可以一次启动应用程序中的所有服务。如果没有`rancher-compose.yml`文件，则所有服务将以1个容器的规模启动。
+我们将创建与上面通过UI创建的相同示例。首先，您将需要创建一个`docker-compose.yml`文件和一个`rancher-compose.yml`文件。使用Rancher Compose，我们可以一次启动应用程序中的所有服务。如果没有`rancher-compose.yml`文件，则所有服务将以1个容器的规模启动。
 
 #### 例子 `docker-compose.yml`
 
@@ -167,7 +167,7 @@ services:
 #### 例子 `rancher-compose.yml`
 
 ```
-# 你想要拓展的效果服务
+# 您想要拓展的效果服务
 version: '2'
 services:
   web:
@@ -193,28 +193,28 @@ $ rancher-compose -p LetsChatApp up -d
 
 Rancher支持通过使用从服务的概念对服务进行分组，从而使一组服务可以同时进行调度和扩缩容。通常创建具有一个或多个从服务的服务，来支持容器之间共享卷(即`--volumes_from`)和网络(即`--net=container`)。
 
-你可能希望你的服务的使用`volumes_from`和`net`去连接其他服务。为了实现这一点，你需要在服务直接建立一个从属关系。通过从属关系，Rancher可以将这些服务作为一个单元进行扩容和调度。例如:B是A的从服务，Rancher始终将A和B作为一对进行部署，服务的数量规模将始终保持一致。
+您可能希望您的服务的使用`volumes_from`和`net`去连接其他服务。为了实现这一点，您需要在服务直接建立一个从属关系。通过从属关系，Rancher可以将这些服务作为一个单元进行扩容和调度。例如:B是A的从服务，Rancher始终将A和B作为一对进行部署，服务的数量规模将始终保持一致。
 
-如果你有多个服务总需要部署在同一主机上，你也可以通过定义从属关系来实现它。
+如果您有多个服务总需要部署在同一主机上，您也可以通过定义从属关系来实现它。
 
-当给一个服务定义一个从服务时，你不需要链接该服务，因为从服务会自动被DNS解析到。
+当给一个服务定义一个从服务时，您不需要链接该服务，因为从服务会自动被DNS解析到。
 
-当在服务中使用[负载均衡]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)时，而该服务又拥有从服务的时候，你需要使用主服务作为负载均衡器的目标。从服务**不能**成为目标。
+当在服务中使用[负载均衡]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-load-balancers/)时，而该服务又拥有从服务的时候，您需要使用主服务作为负载均衡器的目标。从服务**不能**成为目标。
 了解更多关于[Rancher内部DNS]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/internal-dns-service/)的详情。
 
 #### 在UI中添加从服务
 
-要设置一个从服务，你可以点击**+添加从容器**按钮，按钮位于页面的`数量`那部分。第一个服务被认为是主服务，后面每个附加的从服务都是辅助服务。
+要设置一个从服务，您可以点击**+添加从容器**按钮，按钮位于页面的`数量`那部分。第一个服务被认为是主服务，后面每个附加的从服务都是辅助服务。
 
 #### 通过Rancher Compose添加从服务
 
-要设置`sidekick`关系，请向其中一个服务添加标签。标签的键是`io.rancher.sidekicks`，该值是从服务。如果你要将多个服务添加为从服务，可以用逗号分隔。例:`io.rancher.sidekicks: sidekick1, sidekick2, sidekick3`
+要设置`sidekick`关系，请向其中一个服务添加标签。标签的键是`io.rancher.sidekicks`，该值是从服务。如果您要将多个服务添加为从服务，可以用逗号分隔。例:`io.rancher.sidekicks: sidekick1, sidekick2, sidekick3`
 
 ##### 主服务
 
-无论哪个服务包含sidekick标签都被认为是主服务，而各个sidekicks被视为从服务。主服务的数量将用作sidekick标签中所有从服务的数量。如果你的所有服务中的数量不同，则主服务的数量将用于所有服务。
+无论哪个服务包含sidekick标签都被认为是主服务，而各个sidekicks被视为从服务。主服务的数量将用作sidekick标签中所有从服务的数量。如果您的所有服务中的数量不同，则主服务的数量将用于所有服务。
 
-当使用负载均衡器指向带有从服务的服务时，你只能指向主服务，从服务**不能**成为目标。
+当使用负载均衡器指向带有从服务的服务时，您只能指向主服务，从服务**不能**成为目标。
 
 ##### Rancher Compose里面的从容器例子:
 
@@ -253,7 +253,7 @@ services:
 
 ##### Rancher Compose里面的从服务例子:多服务使用来自同一个服务`volumes_from`
 
-如果你有多个服务，他们将使用相同的容器去做一个`volumes_from`，你可以添加第二个服务作为主服务的从服务，并使用相同的数据容器。由于只有主服务可以作为负载均衡的目标，请确保选择了正确的服务作为主服务(即，具有sidekick标签的服务)。
+如果您有多个服务，他们将使用相同的容器去做一个`volumes_from`，您可以添加第二个服务作为主服务的从服务，并使用相同的数据容器。由于只有主服务可以作为负载均衡的目标，请确保选择了正确的服务作为主服务(即，具有sidekick标签的服务)。
 示例 `docker-compose.yml`
 
 ```

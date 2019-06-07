@@ -28,7 +28,7 @@ cp yourdomain.com.crt /root/cert/
   ssl_cert_key = /root/cert/yourdomain.com.key
 ```
 
-3、如果Harbor已在运行，请停止并删除现有实例，你的镜像数据保留在文件系统中。如果没运行，则跳过此步骤。
+3、如果Harbor已在运行，请停止并删除现有实例，您的镜像数据保留在文件系统中。如果没运行，则跳过此步骤。
 
 `docker-compose down -v`
 
@@ -48,10 +48,10 @@ cp yourdomain.com.crt /root/cert/
 
 2、在安装了Docker的计算机上，请确保`-insecure-registry`配置不存在，并且将上述步骤中生成的`ca.crt`复制到`/etc/docker/certs.d/reg.yourdomain.com`(或Harbor主机IP)，如果该目录不存在，则创建它。
 
-如果你将nginx443端口映射到另一个端口，那么你应该创建`/etc/docker/certs.d/reg.yourdomain.com:port`(或Harbor主机IP:port)。然后运行docker命令来验证设置，例如:
+如果您将nginx443端口映射到另一个端口，那么您应该创建`/etc/docker/certs.d/reg.yourdomain.com:port`(或Harbor主机IP:port)。然后运行docker命令来验证设置，例如:
 
 `docker login reg.yourdomain.com`
 
-如果你已将nginx 443端口映射到另一个端口，则需要将端口添加到登录命令中，如下所示:
+如果您已将nginx 443端口映射到另一个端口，则需要将端口添加到登录命令中，如下所示:
 
 `docker login reg.yourdomain.com:port`

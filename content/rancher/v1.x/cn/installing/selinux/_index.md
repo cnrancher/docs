@@ -5,9 +5,9 @@ weight: 204
 
 _从1.6+版本后支持_
 
-为了使Rancher在RHEL/CentOS的SELinux模式下正常工作，你需要在安装有RPM包`container-selinux-2.14`(或更高的版本)的主机上运行Rancher Server容器。同时，全部的agent[主机]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/)也要安装这个包。如果你安装了较低版本的`container-selinux`包，你需要构建额外的SELinux模块，从而使Rancher正常工作。
+为了使Rancher在RHEL/CentOS的SELinux模式下正常工作，您需要在安装有RPM包`container-selinux-2.14`(或更高的版本)的主机上运行Rancher Server容器。同时，全部的agent[主机]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/)也要安装这个包。如果您安装了较低版本的`container-selinux`包，您需要构建额外的SELinux模块，从而使Rancher正常工作。
 
-你可以通过这个命令来查看这个包的版本:`rpm -q container-selinux`。
+您可以通过这个命令来查看这个包的版本:`rpm -q container-selinux`。
 
 ```
 # Check container-selinux version
@@ -19,7 +19,7 @@ container-selinux-2.19-2.1.el7.noarch
 
 ### 安装包并构建SELinux模块
 
-为了安装另外的SELinux模块，你需要安装 `selinux-policy-devel` 这个包。
+为了安装另外的SELinux模块，您需要安装 `selinux-policy-devel` 这个包。
 
 ```
 $ yum install selinux-policy-devel

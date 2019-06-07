@@ -80,11 +80,11 @@ Rancher支持添加云提供商(例如AWS，DigitalOcean，阿里云，vSphere�
 
 在Rancher中，可以通过添加标签的方式来管理某台主机，做法就是在 `rancher/agnet` 容器启动的时候，以环境变量的方法把标签加进去。在操作界面上可以看到，标签其实是一些键不可以重复的键值对。值得注意的是，如果有两个相同的键但是值不一样，那么最后添加的值将会被Rancher使用。
 
-给主机增加标签后，你可以根据需求来[调度服务／负载均衡]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/)。如果不希望某个服务运行在某台主机上或者要求某个服务必须运行在某台主机上，可以在[添加服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/)时通过主机标签来进行配置。
+给主机增加标签后，您可以根据需求来[调度服务／负载均衡]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/scheduling/)。如果不希望某个服务运行在某台主机上或者要求某个服务必须运行在某台主机上，可以在[添加服务]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/adding-services/)时通过主机标签来进行配置。
 
-在你需要使用[外部DNS服务(类似 Bind9 这类)]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/)或者[通过程序来控制DNS记录]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/#为外部dns使用特定的ip)的时候，如果所需的IP不是主机IP的话，那就要在运行 `rancher/agent` 时增加标签 `io.rancher.host.external_dns_ip=<IP_TO_BE_USED_FOR_EXTERNAL_DNS>`。切记，当要某个容器服务要使用外部DNS服务时，一定要增加这个标签。
+在您需要使用[外部DNS服务(类似 Bind9 这类)]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/)或者[通过程序来控制DNS记录]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/external-dns-service/#为外部dns使用特定的ip)的时候，如果所需的IP不是主机IP的话，那就要在运行 `rancher/agent` 时增加标签 `io.rancher.host.external_dns_ip=<IP_TO_BE_USED_FOR_EXTERNAL_DNS>`。切记，当要某个容器服务要使用外部DNS服务时，一定要增加这个标签。
 
-通过UI添加云提供商的主机时，你可以在UI上添加主机标签，`rancher/agent` 会保证这些标签都会自动添加到主机上。
+通过UI添加云提供商的主机时，您可以在UI上添加主机标签，`rancher/agent` 会保证这些标签都会自动添加到主机上。
 
 如果通过UI添加自定义主机，当增加标签时，UI上的运行注册脚本会增加对应的环境变量:`CATTLE_HOST_LABELS`。比如，增加一个标签:foo=bar，会出现下面的效果:
 
@@ -172,4 +172,4 @@ $  sudo docker run -e CATTLE_SCHEDULER_IPS='1.2.3.4,<IP2>,..<IPN>' -d --privileg
 
 ### 在Rancher外删除主机
 
-在Rancher外删除主机，也就是意味着不是按照Rancher操作界面或者API来删除主机。最简单的例子就是，在Rancher集群内，有一台云提供商提供的主机。通过云提供商的管理界面删除了这台主机，这个删除行为Rancher是无法感知的。Rancher会一直尝试重新连接这台已经删除的主机，并显示 _Reconnecting_ 的状态，之后主机会显示 _Disconnected_ 状态。 因此，为了同步回删除的状态，还需要从 **基础架构** 进入 **主机** 页面，点击已经删除的主机的下拉菜单，选择 **删除**。 你也可以配置一个延迟用于自动删除失联主机。这个配置叫做`host.remove.delay.seconds`，你可以在`系统` -> `设置` -> `高级选项`中找到这个配置。
+在Rancher外删除主机，也就是意味着不是按照Rancher操作界面或者API来删除主机。最简单的例子就是，在Rancher集群内，有一台云提供商提供的主机。通过云提供商的管理界面删除了这台主机，这个删除行为Rancher是无法感知的。Rancher会一直尝试重新连接这台已经删除的主机，并显示 _Reconnecting_ 的状态，之后主机会显示 _Disconnected_ 状态。 因此，为了同步回删除的状态，还需要从 **基础架构** 进入 **主机** 页面，点击已经删除的主机的下拉菜单，选择 **删除**。 您也可以配置一个延迟用于自动删除失联主机。这个配置叫做`host.remove.delay.seconds`，您可以在`系统` -> `设置` -> `高级选项`中找到这个配置。

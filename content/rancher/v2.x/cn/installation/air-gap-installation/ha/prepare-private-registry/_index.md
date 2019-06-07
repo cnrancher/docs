@@ -223,7 +223,7 @@ Rancher HA安装需要使用来自3个源的镜像，将3个源合并到一个�
             read -p "输入镜像仓库地址(不加http/https): " registry
             read -p "输入镜像仓库用户名: " registry_user
             read -p "输入镜像仓库用户密码: " registry_password
-            echo "你设置的仓库地址为: ${registry},用户名: ${registry_user},密码: xxx"
+            echo "您设置的仓库地址为: ${registry},用户名: ${registry_user},密码: xxx"
             read -p "是否确认(Y/N): " confirm
 
             if [ $confirm != Y ] && [ $confirm != y ] && [ $confirm == '' ]; then

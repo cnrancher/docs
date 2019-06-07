@@ -2,7 +2,7 @@
 title: 6 - 其他方法
 weight: 6
 ---
->**警告** 本Chart目前属于测试阶段，你可以在测试或者开发环境使用。
+>**警告** 本Chart目前属于测试阶段，您可以在测试或者开发环境使用。
 
 Chart地址: https://github.com/xiaoluhong/server-chart.git
 

@@ -9,12 +9,14 @@ weight: 4
 
     kubectl --kubeconfig=kube_configxxx.yml edit   configmaps -n kube-system canal-config
 
-2. 在`"type": "calico"`下面添加`"mtu": "1450"`
+2. 在`"type": "calico"`下面添加`"mtu": 1450`
 
     ![image-20181101183954443](_index.assets/image-20181101183954443.png)
 
 3. 删除Canal Pod让它重建
 
     ```bash
-    kubectl --kubeconfig=kube_configxxx.yml  get  pod -n kube-system |grep canal |awk '{print $1}' | xargs kubectl --kubeconfig=kube_configxxx.yml delete  -n kube-system pod
+    kubectl --kubeconfig=kube_configxxx.yml  get  pod -n kube-system |grep canal | \
+        awk '{print $1}' | \
+        xargs kubectl --kubeconfig=kube_configxxx.yml delete  -n kube-system pod
     ```

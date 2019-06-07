@@ -22,7 +22,7 @@ weight: 3
 
 ### 方案A-使用默认自签名证书
 
-默认情况下，Rancher会自动生成一个用于加密的自签名证书。从你的Linux主机运行Docker命令来安装Rancher，而不需要任何其他参数:
+默认情况下，Rancher会自动生成一个用于加密的自签名证书。从您的Linux主机运行Docker命令来安装Rancher，而不需要任何其他参数:
 
 ```bash
 docker run -d --restart=unless-stopped \
@@ -33,7 +33,7 @@ docker run -d --restart=unless-stopped \
 rancher/rancher:stable (或者rancher/rancher:latest)
 ```
 
-### 方案B-使用你自己的自签名证书
+### 方案B-使用您自己的自签名证书
 
 Rancher安装可以使用自己生成的自签名证书，如果没有自签名证书，可一键生成[自签名ssl证书]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/self-signed-ssl/)。
 
@@ -41,9 +41,9 @@ Rancher安装可以使用自己生成的自签名证书，如果没有自签名�
 > - 使用OpenSSL或其他方法创建自签名证书。\
 > - 这里的证书不需要进行`base64`加密。\
 > - 证书文件必须是[PEM]({{< baseurl >}}/rancher/v2.x/cn/installation/single-node-install/#我如何知道我的证书是否为pem格式)格式。\
-> - 在你的证书文件中，包含链中的所有中间证书。有关示例，请参考[SSL常见问题/故障排除]({{< baseurl >}}/rancher/v2.x/cn/installation/single-node-install/#如果我想添加我的中间证书-证书的顺序是什么)。
+> - 在您的证书文件中，包含链中的所有中间证书。有关示例，请参考[SSL常见问题/故障排除]({{< baseurl >}}/rancher/v2.x/cn/installation/single-node-install/#如果我想添加我的中间证书-证书的顺序是什么)。
 
-你的Rancher安装可以使用你提供的自签名证书来加密通信。创建证书后，运行docker命令时把证书文件映射到容器中。
+您的Rancher安装可以使用您提供的自签名证书来加密通信。创建证书后，运行docker命令时把证书文件映射到容器中。
 
 ```bash
 docker run -d --restart=unless-stopped \
@@ -59,11 +59,11 @@ docker run -d --restart=unless-stopped \
 
 ### 方案C-使用权威CA机构颁发的证书
 
-如果你公开发布你的应用，理想情况下应该使用由权威CA机构颁发的证书。
+如果您公开发布您的应用，理想情况下应该使用由权威CA机构颁发的证书。
 
 > **先决条件:**
 >1.证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/self-signed-ssl/)。\
->2.确保容器包含你的证书文件和密钥文件。由于你的证书是由认可的CA签署的，因此不需要安装额外的CA证书文件。\
+>2.确保容器包含您的证书文件和密钥文件。由于您的证书是由认可的CA签署的，因此不需要安装额外的CA证书文件。\
 >3.给容器添加`--no-cacerts`参数禁止Rancher生成默认CA证书。\
 >4.这里的证书不需要进行`base64`加密。
 

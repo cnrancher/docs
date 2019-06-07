@@ -19,7 +19,7 @@ By default, launching virtual machines (VMs) in Rancher is disabled. To enable l
 
 ### 添加VM
 
-在 **基础架构** -> **虚拟机**，点击 **添加虚拟机** 并设置你的虚拟机配置。
+在 **基础架构** -> **虚拟机**，点击 **添加虚拟机** 并设置您的虚拟机配置。
 
 在镜像名称选项中，当前Rancher只支持 `rancher/vm-ubuntu`。用户名/密码是`ubuntu/ubuntu`。
 

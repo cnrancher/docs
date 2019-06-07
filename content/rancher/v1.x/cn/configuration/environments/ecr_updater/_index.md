@@ -11,25 +11,25 @@ ECR证书更新器是一个容器服务，它会间歇性自动测验AWS ECR API
 
 ### 已存在环境(Environment)
 
-如果你已经有一个正在运行的 Cattle 环境，到
-**应用商店** -> **官方认证** 下找到 **Rancher ECR 证书更新器**. 启动这个应用商店应用时, 你需要配置服务的 AWS 访问密钥。
-这些你已经提供了合适的访问策略密钥因该给用户使用。
+如果您已经有一个正在运行的 Cattle 环境，到
+**应用商店** -> **官方认证** 下找到 **Rancher ECR 证书更新器**. 启动这个应用商店应用时, 您需要配置服务的 AWS 访问密钥。
+这些您已经提供了合适的访问策略密钥因该给用户使用。
 
-> **注意:** 如果你要用 Kubernetes, 我们推荐你编辑环境模版，并在创建环境前把这个模版添加到环境模版中。如果你已经有了一个 Kubernetes, 你可以删除这个 Kubernetes 应用， 这样就可以把它转成 Cattle 来启动应用商店应用，同时在应用商店中重新启动这个 Kubernetes。
+> **注意:** 如果您要用 Kubernetes, 我们推荐您编辑环境模版，并在创建环境前把这个模版添加到环境模版中。如果您已经有了一个 Kubernetes, 您可以删除这个 Kubernetes 应用， 这样就可以把它转成 Cattle 来启动应用商店应用，同时在应用商店中重新启动这个 Kubernetes。
 
 ### 新环境
 
-你可以用[环境模版]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/#什么是环境模版)创建一个新环境。这个新创建的环境已经有激活了的 **Rancher ECR 证书更新器** 模版。这样可就以用这个模版在任何环境中部署这个更新器了。
+您可以用[环境模版]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/#什么是环境模版)创建一个新环境。这个新创建的环境已经有激活了的 **Rancher ECR 证书更新器** 模版。这样可就以用这个模版在任何环境中部署这个更新器了。
 
 ## 从ECR中启动镜像
 
-在这个环境中，你需要添加ECR作为一个 [镜像库]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/registries/). 一旦你启动了这个服务，你的 ECR 证书将永远不会失效，这样就可以永远从 ECR 中启动镜像了。
+在这个环境中，您需要添加ECR作为一个 [镜像库]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/registries/). 一旦您启动了这个服务，您的 ECR 证书将永远不会失效，这样就可以永远从 ECR 中启动镜像了。
 
 在 Rancher 中指定镜像名时，使用AWS提供完整的限定地址。 比如 `aws-account-number.dkr.ecr.us-west-2.amazonaws.com/my-repo:latest`。
 
 ## IAM策略示例
 
-下面是一个你可能在服务的准生产遇到的泛例。这个示例中，Rancher能够在各自的AWS 账号中拉取镜像。
+下面是一个您可能在服务的准生产遇到的泛例。这个示例中，Rancher能够在各自的AWS 账号中拉取镜像。
 
 ```
 {

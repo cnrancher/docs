@@ -9,7 +9,7 @@ weight: 1
 
 ## 二、配置负载均衡器(以NGINX为例)
 
-我们将使用NGINX作为第4层负载均衡器(TCP)。NGINX会将所有连接转发到你的Rancher节点之一。如果要使用Amazon NLB，可以跳过此步骤并使用[Amazon NLB configuration](./amazon-nlb-configuration/)配置。
+我们将使用NGINX作为第4层负载均衡器(TCP)。NGINX会将所有连接转发到您的Rancher节点之一。如果要使用Amazon NLB，可以跳过此步骤并使用[Amazon NLB configuration](./amazon-nlb-configuration/)配置。
 
 >**注意:** 在此配置中，负载平衡器位于Rancher节点的前面，负载均衡器可以是任意能够运行NGINX的主机。`不要使用任意一个Rancher节点作为负载均衡器节点`,会出现端口冲突。
 
@@ -19,10 +19,10 @@ weight: 1
 
 ### 2、创建NGINX配置
 
-安装NGINX后，你需要使用节点的IP地址更新NGINX配置文件`nginx.conf`。
+安装NGINX后，您需要使用节点的IP地址更新NGINX配置文件`nginx.conf`。
 
 1. 复制下面的代码到文本编辑器，保存为`nginx.conf`。
-2. 在`nginx.conf`配置中, 替换`IP_NODE_1`、`IP_NODE_2`、`IP_NODE_3` 为你主机真实的IP地址。
+2. 在`nginx.conf`配置中, 替换`IP_NODE_1`、`IP_NODE_2`、`IP_NODE_3` 为您主机真实的IP地址。
 
     **NGINX配置示例:**
 

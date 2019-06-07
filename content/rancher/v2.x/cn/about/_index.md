@@ -1,6 +1,6 @@
 ---
 title: 关于
-weight: 14
+weight: 16
 ---
 
 ## 代码库
@@ -31,13 +31,13 @@ ingress | `https://github.com/rancher//ingress-nginx` | ingress 源码仓库
 
 默认运行的目标程序是`ci`,并且将会运行`./scripts/validate`，`./scripts/build`，`./scripts/test`和`./scripts/package`。生成的二进制文件将包含在`./build/binDocker`镜像中，并且通常也打包在Docker镜像中。
 
-使用`trash`管理对其他`libraries/projects`的依赖性，查看`trash README`了解它如何使用。简而言之，它使用一个`vendor.conf`文件来指定源存储库和获取的x版本，签出和复制到`./vendor`目录。更新`vendor.conf`后，你可以运行`make trash`更新依赖项。更新依赖项后，你可以再次使用`make`构建项目，以便使用更新的依赖项来构建。
+使用`trash`管理对其他`libraries/projects`的依赖性，查看`trash README`了解它如何使用。简而言之，它使用一个`vendor.conf`文件来指定源存储库和获取的x版本，签出和复制到`./vendor`目录。更新`vendor.conf`后，您可以运行`make trash`更新依赖项。更新依赖项后，您可以再次使用`make`构建项目，以便使用更新的依赖项来构建。
 
 ## Bugs, Issues or Questions
 
-如果你发现任何错误或有任何问题，请搜索[Rancher issues](https://github.com/rancher/rancher/issues)，因为有人可能遇到过同样的问题，或者我们正在积极研究解决方案。
+如果您发现任何错误或有任何问题，请搜索[Rancher issues](https://github.com/rancher/rancher/issues)，因为有人可能遇到过同样的问题，或者我们正在积极研究解决方案。
 
-如果你找不到与你的问题相关的任何内容，请通过[提交issues](https://github.com/rancher/rancher/issues/new)与我们联系。虽然我们有许多与Rancher相关的代码库，但我们希望在`rancher/rancher`代码库中提交issues，避免我们错过它！如果你想询问问题或向其他用户交流使用方法或者技术方案，我们建议你在[Rancher论坛](https://forums.cnrancher.com)上创建一个帖子。
+如果您找不到与您的问题相关的任何内容，请通过[提交issues](https://github.com/rancher/rancher/issues/new)与我们联系。虽然我们有许多与Rancher相关的代码库，但我们希望在`rancher/rancher`代码库中提交issues，避免我们错过它！如果您想询问问题或向其他用户交流使用方法或者技术方案，我们建议您在[Rancher论坛](https://forums.cnrancher.com)上创建一个帖子。
 
 在提交问题时请遵循此表，这将有助于我们调查和解决问题。更多信息意味着我们可以使用更多数据来确定导致问题的原因或可能与问题相关的内容。
 
@@ -92,7 +92,7 @@ ingress | `https://github.com/rancher//ingress-nginx` | ingress 源码仓库
         - macOS (Docker <18.01) - `~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/console-ring`
         - Windows - `Get-EventLog -LogName Application -Source Docker -After (Get-Date).AddMinutes(-5) | Sort-Object Time`
 
-如果你遇到性能问题，请提供尽可能多的指标数据(文件或屏幕截图)。如果你有关于机器的问题，提供`top、free -hm、df -h、iostat`的输出信息，这表明进程/内存/磁盘空间/磁盘IO的使用情况。
+如果您遇到性能问题，请提供尽可能多的指标数据(文件或屏幕截图)。如果您有关于机器的问题，提供`top、free -hm、df -h、iostat`的输出信息，这表明进程/内存/磁盘空间/磁盘IO的使用情况。
 
 ## 文档
 

@@ -55,7 +55,7 @@ $ docker push localhost:5000/<NAME_OF_LOCAL_RANCHER_AGENT_IMAGE>:v1.1.3
 
 #### 通过私有镜像仓库启动Rancher服务
 
-在主机上启动Rancher Server并且使用指定的Rancher Agent镜像。我们建议使用特定的版本号来代替`latest`，这样可以保证你使用了正确的版本。
+在主机上启动Rancher Server并且使用指定的Rancher Agent镜像。我们建议使用特定的版本号来代替`latest`，这样可以保证您使用了正确的版本。
 
 例如:
 

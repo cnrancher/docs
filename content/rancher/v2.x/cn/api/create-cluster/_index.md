@@ -25,7 +25,7 @@ weight: 1
 #!/bin/bash
 
 api_url='https://xxx.domain.com'
-token='token-5zgl2:tcj5nvfq67rf55r7xxxxxxxxxxx429xrwd4zx'
+api_token='token-5zgl2:tcj5nvfq67rf55r7xxxxxxxxxxx429xrwd4zx'
 cluster_name=''
 
 kubernetes_Version='v1.13.5-rancher1-2'
@@ -164,7 +164,7 @@ EOF
 }
 
 curl -k -X POST \
-    -H "Authorization: Bearer $token" \
+    -H "Authorization: Bearer ${api_token}" \
     -H "Content-Type: application/json" \
     -d "$(create_cluster_data)" $api_url/v3/clusters
 
@@ -178,11 +178,11 @@ curl -k -X POST \
 #!/bin/bash
 
 api_url='https://xxx.domain.com'
-token='token-5zgl2:tcj5nvfq67rf55r7xxxxxxxxxxx429xrwd4zx'
+api_token='token-5zgl2:tcj5nvfq67rf55r7xxxxxxxxxxx429xrwd4zx'
 cluster_name=''
 
 # 获取集群ID
-cluster_ID=$( curl -s -k -H "Authorization: Bearer $token" $api_url/v3/clusters | jq -r ".data[] | select(.name == \"$cluster_name\") | .id" )
+cluster_ID=$( curl -s -k -H "Authorization: Bearer ${api_token}" $api_url/v3/clusters | jq -r ".data[] | select(.name == \"$cluster_name\") | .id" )
 
 # 生成注册命令
 create_token_data()
@@ -195,7 +195,7 @@ EOF
 }
 
 curl -k -X POST \
-    -H "Authorization: Bearer $token" \
+    -H "Authorization: Bearer ${api_token}" \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json' \
     -d "$(create_token_data)" $api_url/v3/clusterregistrationtokens
@@ -210,15 +210,15 @@ curl -k -X POST \
 #!/bin/bash
 
 api_url='https://xxx.domain.com'
-token='token-5zgl2:tcj5nvfq67rf55r7xxxxxxxxxxx429xrwd4zx'
+api_token='token-5zgl2:tcj5nvfq67rf55r7xxxxxxxxxxx429xrwd4zx'
 cluster_name=''
 
-cluster_ID=$( curl -s -k -H "Authorization: Bearer $token" $api_url/v3/clusters | jq -r ".data[] | select(.name == \"$cluster_name\") | .id" )
+cluster_ID=$( curl -s -k -H "Authorization: Bearer ${api_token}" $api_url/v3/clusters | jq -r ".data[] | select(.name == \"$cluster_name\") | .id" )
 
 # nodeCommand
-curl -s -k -H "Authorization: Bearer $token" $api_url/v3/clusters/${cluster_ID}/clusterregistrationtokens | jq -r .data[].nodeCommand
+curl -s -k -H "Authorization: Bearer ${api_token}" $api_url/v3/clusters/${cluster_ID}/clusterregistrationtokens | jq -r .data[].nodeCommand
 
 # command
-curl -s -k -H "Authorization: Bearer $token" $api_url/v3/clusters/${cluster_ID}/clusterregistrationtokens | jq -r .data[].command
+curl -s -k -H "Authorization: Bearer ${api_token}" $api_url/v3/clusters/${cluster_ID}/clusterregistrationtokens | jq -r .data[].command
 
 ```

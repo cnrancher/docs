@@ -8,7 +8,7 @@ weight: 100
 
 ### 准备Linux主机
 
-先安装一个64位的Ubuntu 16.04 Linux主机，其内核必须高于3.10。你可以使用笔记本、虚拟机或物理服务器。请确保该Linux主机内存不低于*1GB*。在该主机上安装 [支持的Docker版本]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/#docker版本适用对比)。
+先安装一个64位的Ubuntu 16.04 Linux主机，其内核必须高于3.10。您可以使用笔记本、虚拟机或物理服务器。请确保该Linux主机内存不低于*1GB*。在该主机上安装 [支持的Docker版本]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/#docker版本适用对比)。
 
 在主机上安装Docker的方法请参照[Docker](https://docs.docker.com/engine/installation/linux/ubuntulinux/)网站的安装说明。
 
@@ -26,7 +26,7 @@ Rancher Server当前版本中有2个不同的标签。对于每一个主要的re
 
 ### 启动Rancher Server
 
-你只需要一条命令就可以启动Rancher Server。当Rancher Server容器启动以后，我们将能查看到相关的日志。
+您只需要一条命令就可以启动Rancher Server。当Rancher Server容器启动以后，我们将能查看到相关的日志。
 
 ```
 $ sudo docker run -d --restart=unless-stopped -p 8080:8080 rancher/server:stable
@@ -36,37 +36,37 @@ $ sudo docker logs -f <CONTAINER_ID>
 
 启动Rancher Server只需要几分钟时间。当日志中显示 `.... Startup Succeeded, Listening on port...`的时候，Rancher UI就能正常访问了。配置一旦完成，这行日志就会立刻出现。需要注意的是，这一输出之后也许还会有其他日志，因此，在初始化过程中这不一定是最后一行日志。
 
-Rancher UI的默认端口是 `8080`。所以为了访问UI，需打开`http://<SERVER_IP>:8080`。需要注意的事，如果你的浏览器和Rancher Server是运行在同一主机上的，你需要通过主机的**真实IP地址**访问，比如 `http://192.168.1.100:8080` ，而不是 `http://localhost:8080` 或`http://127.0.0.1:8080`，以防在添加主机的时候使用了不可达的IP而出现问题。
+Rancher UI的默认端口是 `8080`。所以为了访问UI，需打开`http://<SERVER_IP>:8080`。需要注意的事，如果您的浏览器和Rancher Server是运行在同一主机上的，您需要通过主机的**真实IP地址**访问，比如 `http://192.168.1.100:8080` ，而不是 `http://localhost:8080` 或`http://127.0.0.1:8080`，以防在添加主机的时候使用了不可达的IP而出现问题。
 
-> **注意:** 1. 初始安装时Rancher的访问控制并未配置，任何能够访问你的IP地址的人，都可以访问你的UI和API。我们建议你配置 [访问控制]({{< baseurl >}}/rancher/v1.x/cn/configuration/access-control/). 2. 国内的公有云主机，如果需要使用80和8080端口，需备案后才可以使用。
+> **注意:** 1. 初始安装时Rancher的访问控制并未配置，任何能够访问您的IP地址的人，都可以访问您的UI和API。我们建议您配置 [访问控制]({{< baseurl >}}/rancher/v1.x/cn/configuration/access-control/). 2. 国内的公有云主机，如果需要使用80和8080端口，需备案后才可以使用。
 
 ### 添加主机
 
 在这里，为了简化操作，我们将添加运行着Rancher Server的主机为Rancher内的主机。在实际的生产环境中，请使用专用的主机来运行Rancher Server。
 
-想要添加主机，首先你需要进入UI界面，点击**基础架构**，然后你将看到**主机**界面。点击**添加主机**，Rancher将提示你选择主机注册URL。这个URL是Rancher Server运行所在的URL，且它必须可以被所有你要添加的主机访问到——当Rancher Server会通过NAT防火墙或负载均衡器被暴露至互联网时，这一设定就非常重要了。如果你的主机有一个私有或本地的IP地址，比如 `192.168.*.*`，Rancher将提示一个警告信息，提醒你务必确保这个URL可以被主机访问到。
+想要添加主机，首先您需要进入UI界面，点击**基础架构**，然后您将看到**主机**界面。点击**添加主机**，Rancher将提示您选择主机注册URL。这个URL是Rancher Server运行所在的URL，且它必须可以被所有您要添加的主机访问到——当Rancher Server会通过NAT防火墙或负载均衡器被暴露至互联网时，这一设定就非常重要了。如果您的主机有一个私有或本地的IP地址，比如 `192.168.*.*`，Rancher将提示一个警告信息，提醒您务必确保这个URL可以被主机访问到。
 
-因为我们现在只会添加Rancher Server主机自身，你可以暂时忽略这些警告。点击**保存**。默认选择**自定义**选项，你将得到运行Rancher agent容器的Docker命令。这里还有其他的公有云的选项，使用这些选项，Rancher可以使用Docker Machine来启动主机。
+因为我们现在只会添加Rancher Server主机自身，您可以暂时忽略这些警告。点击**保存**。默认选择**自定义**选项，您将得到运行Rancher agent容器的Docker命令。这里还有其他的公有云的选项，使用这些选项，Rancher可以使用Docker Machine来启动主机。
 
-Rancher UI会给你提供一些指示，比如你的主机上应该开放的端口，还有其他一些可供选择的信息。鉴于我们现在添加的是Rancher Server运行的主机，我们需要添加这个主机所使用的公网IP。页面上的一个选项提供输入此IP的功能，此选项会自动更新Docker命令中的环境变量参数以保证正确。
+Rancher UI会给您提供一些指示，比如您的主机上应该开放的端口，还有其他一些可供选择的信息。鉴于我们现在添加的是Rancher Server运行的主机，我们需要添加这个主机所使用的公网IP。页面上的一个选项提供输入此IP的功能，此选项会自动更新Docker命令中的环境变量参数以保证正确。
 
 然后请在运行Rancher Server的主机上运行这个命令。
 
-当你在Rancher UI上点击**关闭**按钮时，你会被返回到**基础架构->主机**界面。一两分钟之后，主机会自动出现在这里。
+当您在Rancher UI上点击**关闭**按钮时，您会被返回到**基础架构->主机**界面。一两分钟之后，主机会自动出现在这里。
 
 ### 基础设施服务
 
-当你第一次登陆Rancher时，你将自动进入**默认**[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)。默认已经为此环境选择了Cattle[环境模板]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/#什么是环境模版)来启动[基础设施服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/)。要想充分利用Rancher的一些功能，如[DNS]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/dns-service/)、[元数据]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/metadata-service)、[网络]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/networking)、[健康检查]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/health-checks/)，你需要启动这些基础设施服务。这些基础设施可以在**应用栈** -> **基础设施**中找到。在主机被添加至Rancher之前，这些栈会处于 `unhealthy` 状态。主机添加完成后，建议等到所有基础设施服务都处于`active`状态之后再添加服务。
+当您第一次登陆Rancher时，您将自动进入**默认**[环境]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/)。默认已经为此环境选择了Cattle[环境模板]({{< baseurl >}}/rancher/v1.x/cn/configuration/environments/#什么是环境模版)来启动[基础设施服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/)。要想充分利用Rancher的一些功能，如[DNS]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/dns-service/)、[元数据]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/metadata-service)、[网络]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/networking)、[健康检查]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cattle/health-checks/)，您需要启动这些基础设施服务。这些基础设施可以在**应用栈** -> **基础设施**中找到。在主机被添加至Rancher之前，这些栈会处于 `unhealthy` 状态。主机添加完成后，建议等到所有基础设施服务都处于`active`状态之后再添加服务。
 
-在主机上，所有属于基础设施服务的容器将被隐藏，除非你单击“**显示系统容器**”复选框。
+在主机上，所有属于基础设施服务的容器将被隐藏，除非您单击“**显示系统容器**”复选框。
 
 ### 通过UI创建一个容器
 
-导航到**应用**页面，如果你看到了欢迎屏幕，可以在欢迎屏幕中单击**定义服务**的按钮。如果你的Rancher设置中已有服务，你可以在任何现有应用中点击**添加服务**，或者创建一个新的应用来添加服务。应用只是将服务组合在一起的便捷方式。 如果需要创建新的应用，请单击**添加应用**，填写名称和描述，然后单击**创建**。 接着，在新的应用中单击**添加服务**。
+导航到**应用**页面，如果您看到了欢迎屏幕，可以在欢迎屏幕中单击**定义服务**的按钮。如果您的Rancher设置中已有服务，您可以在任何现有应用中点击**添加服务**，或者创建一个新的应用来添加服务。应用只是将服务组合在一起的便捷方式。 如果需要创建新的应用，请单击**添加应用**，填写名称和描述，然后单击**创建**。 接着，在新的应用中单击**添加服务**。
 
-给服务取个名字，比如“第一个服务”。你可以使用我们的默认设置，然后单击**创建**。Rancher将开始在主机上启动容器。不论你的主机IP地址是什么，***第一个容器***的IP地址都将在 `10.42.*.*` 的范围内，因为Rancher已使用`ipsec`基础设施服务创建了一个托管网络。各容器之间是通过这个托管网络进行跨主机通信的。
+给服务取个名字，比如“第一个服务”。您可以使用我们的默认设置，然后单击**创建**。Rancher将开始在主机上启动容器。不论您的主机IP地址是什么，***第一个容器***的IP地址都将在 `10.42.*.*` 的范围内，因为Rancher已使用`ipsec`基础设施服务创建了一个托管网络。各容器之间是通过这个托管网络进行跨主机通信的。
 
-如果你单击***第一个容器***的下拉列表，你将可以进行各种管理操作，如停止容器、查看日志或访问容器控制台。
+如果您单击***第一个容器***的下拉列表，您将可以进行各种管理操作，如停止容器、查看日志或访问容器控制台。
 
 ### 通过Docker原生CLI创建一个容器
 
@@ -76,13 +76,13 @@ Rancher会显示主机之上的所有容器，即使有些容器是在UI之外�
 docker run -d -it --name=second-container ubuntu:14.04.2
 ```
 
-在UI中，你将看到**第二个容器**在你的主机上出现！
+在UI中，您将看到**第二个容器**在您的主机上出现！
 
-Rancher会对Docker守护进程中发生的事件做出反应，调整自己以反映现实情况。你可以在此了解更多通过[Docker原生CLI]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/native-docker/)使用Rancher的事宜。
+Rancher会对Docker守护进程中发生的事件做出反应，调整自己以反映现实情况。您可以在此了解更多通过[Docker原生CLI]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/native-docker/)使用Rancher的事宜。
 
-如果你查看***第二个容器***的IP地址，你将发现它不在`10.42.*.*` 范围内。它的IP地址是Docker守护进程分配的常用IP地址。这是通过CLI创建Docker容器的预期行为。
+如果您查看***第二个容器***的IP地址，您将发现它不在`10.42.*.*` 范围内。它的IP地址是Docker守护进程分配的常用IP地址。这是通过CLI创建Docker容器的预期行为。
 
-如果我们想通过CLI创建一个Docker容器，但仍希望它使用Rancher托管网络的IP地址，该怎么做呢？我们只需要在命令中添加一个标签(`io.rancher.container.network=true`)，让Rancher知道你希望此容器成为`托管`网络的一部分。
+如果我们想通过CLI创建一个Docker容器，但仍希望它使用Rancher托管网络的IP地址，该怎么做呢？我们只需要在命令中添加一个标签(`io.rancher.container.network=true`)，让Rancher知道您希望此容器成为`托管`网络的一部分。
 
 ```bash
 docker run -d -it --label io.rancher.container.network=true ubuntu:14.04.2
@@ -100,23 +100,23 @@ docker run -d -it --label io.rancher.container.network=true ubuntu:14.04.2
 
 在本节中，我们将介绍如何在Rancher中创建和部署[LetsChat](http://sdelements.github.io/lets-chat/)应用程序。
 
-导航到**应用**页面，如果你看到了欢迎屏幕，可以在欢迎屏幕中单击**定义服务**的按钮。 如果你的Rancher设置中已有服务，你可以在任何现有应用中点击**添加应用**，来创建一个新的应用。填写名称和描述，然后单击**创建**。 接着，在新的应用中单击**添加服务**。
+导航到**应用**页面，如果您看到了欢迎屏幕，可以在欢迎屏幕中单击**定义服务**的按钮。 如果您的Rancher设置中已有服务，您可以在任何现有应用中点击**添加应用**，来创建一个新的应用。填写名称和描述，然后单击**创建**。 接着，在新的应用中单击**添加服务**。
 
-首先，我们将创建一个名为`database`的数据库服务，并使用`mongo`镜像。单击**创建**。你将立即被带到应用页面，页面中将包含新创建的数据库服务。
+首先，我们将创建一个名为`database`的数据库服务，并使用`mongo`镜像。单击**创建**。您将立即被带到应用页面，页面中将包含新创建的数据库服务。
 
 接下来，再次点击**添加服务**以添加其他服务。我们将添加一个LetsChat服务并链接到*database*服务。让我们使用名称`web`以及`sdelements/lets-chat`镜像。在UI中，我们可以移动滑块，将服务扩容至2个容器。在**服务链接**中，添加*database*服务并将其命名为`mongo`。就像Docker的做法一样，Rancher会在`letschat`容器里加入这个链接所需要的相关环境变量。单击**创建**。
 
 最后，我们将创建我们的负载均衡器。单击**添加服务**按钮旁的下拉菜单图标。选择**添加负载均衡**。提供一个类似于`letschatapplb`这样的名字。输入访问端口(例如`80`端口)，选择目标服务(即*web*)，并选择目标端口(即`8080`端口)。*web*服务正在侦听`8080`端口。单击**创建**。
 
-至此，我们的LetsChat应用程序已完成！在**应用**页面上，你可以查找到超链接形式的负载均衡所暴露端口。点击该链接，将会打开一个新的页面，你将能看到LetsChat应用程序了。
+至此，我们的LetsChat应用程序已完成！在**应用**页面上，您可以查找到超链接形式的负载均衡所暴露端口。点击该链接，将会打开一个新的页面，您将能看到LetsChat应用程序了。
 
 ### 使用Rancher CLI创建一个多容器应用程序
 
 在本节中，我们将介绍如何使用我们的命名行工具[Rancher CLI]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/cli/)创建和部署跟上一节中我们创建的一样的[LetsChat](http://sdelements.github.io/lets-chat/)应用程序。
 
-当在Rancher中创建服务时，Rancher CLI工具与颇受欢迎的Docker Compose工具的工作方式类似。 它接收相同的`docker-compose.yml`文件，并在Rancher上部署应用程序。 你可以在`rancher-compose.yml`文件中指定更多的属性，该文件将扩展并覆盖`docker-compose.yml`文件。
+当在Rancher中创建服务时，Rancher CLI工具与颇受欢迎的Docker Compose工具的工作方式类似。 它接收相同的`docker-compose.yml`文件，并在Rancher上部署应用程序。 您可以在`rancher-compose.yml`文件中指定更多的属性，该文件将扩展并覆盖`docker-compose.yml`文件。
 
-在上一节中，我们创建了一个具有一个负载均衡器的LetsChat应用程序。如果你已经在Rancher中创建了它，你可以直接在UI中下载这些文件，只需在应用的下拉菜单中选择**导出配置**即可。`docker-compose.yml`文件与 `rancher-compose.yml` 文件与下方示例类似:
+在上一节中，我们创建了一个具有一个负载均衡器的LetsChat应用程序。如果您已经在Rancher中创建了它，您可以直接在UI中下载这些文件，只需在应用的下拉菜单中选择**导出配置**即可。`docker-compose.yml`文件与 `rancher-compose.yml` 文件与下方示例类似:
 
 #### docker-compose.yml示例
 
@@ -180,7 +180,7 @@ services:
 <br>
 在Rancher UI中单击**下载CLI**(该按钮位于页面的右下角)，即可下载Rancher CLI二进制文件，Windows、Mac和Linux的二进制文件均可下载。
 
-若想使用Rancher CLI在Rancher中启动服务，你需要设置一些环境变量。你需要在Rancher UI中创建一个账户[API Key]({{< baseurl >}}/rancher/v1.x/cn/api/v2-beta/api-keys/)。单击**API** -> **密钥**。单击**添加账户API Key**。填写一个名字，然后单击**创建**。保存**Access Key(用户名)**和**Secret Key(密码)**。通过运行`rancher config`配置RancherCLI，使用Rancher URL、Access Key和Secret Key。
+若想使用Rancher CLI在Rancher中启动服务，您需要设置一些环境变量。您需要在Rancher UI中创建一个账户[API Key]({{< baseurl >}}/rancher/v1.x/cn/api/v2-beta/api-keys/)。单击**API** -> **密钥**。单击**添加账户API Key**。填写一个名字，然后单击**创建**。保存**Access Key(用户名)**和**Secret Key(密码)**。通过运行`rancher config`配置RancherCLI，使用Rancher URL、Access Key和Secret Key。
 
 ```
 # Configure Rancher CLI

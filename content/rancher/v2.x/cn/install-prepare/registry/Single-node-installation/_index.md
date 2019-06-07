@@ -20,7 +20,7 @@ weight: 1
 
 | 软件名       | 版本                 | 描述                                                  |
 | -------------- | ----------------------- | ------------------------------------------------------------ |
-| Python         | 2.7或更高版本   | **注意:** 你可能必须在Linux发行版(Gentoo，Arch)上安装Python，默认情况下没有安装Python解释器 |
+| Python         | 2.7或更高版本   | **注意:** 您可能必须在Linux发行版(Gentoo，Arch)上安装Python，默认情况下没有安装Python解释器 |
 | Docker         | 1.10或更高版本  | 有关安装说明，请参考: <https://docs.docker.com/engine/installation/> |
 | Docker-Compose | 1.6.0或更高版本 | 有关安装说明，请参考: <https://docs.docker.com/compose/install/> |
 | Openssl        | 推荐最新版本     | 为Harbor生成证书和密钥                    |
@@ -52,7 +52,7 @@ weight: 1
 
 - **可选参数**:这些参数对于更新是可选的，即用户可以将它们保留为默认值，并在启动Harbour后在Web UI上更新它们。如果已经配置harbor.cfg，这些参数只会在首次启动Harbour时生效。harbor.cfg将忽略对这些参数的后续修改。
 
->**注意**:如果你选择通过UI设置这些参数，请务必在Harbour启动后立即执行此操作。特别是，你必须在Harbour中注册或创建新用户之前，设置所需的auth_mode。当系统中有用户时(除默认管理员用户外)，无法更改auth_mode。
+>**注意**:如果您选择通过UI设置这些参数，请务必在Harbour启动后立即执行此操作。特别是，您必须在Harbour中注册或创建新用户之前，设置所需的auth_mode。当系统中有用户时(除默认管理员用户外)，无法更改auth_mode。
 
 参数如下所述 - 请注意，至少需要更改`hostname`参数。
 
@@ -80,7 +80,7 @@ weight: 1
 
 ### 可选参数
 
-- **Email settings**:Harbor需要这些参数才能向用户发送“密码重置”电子邮件，并且仅在需要该功能时才做配置。另外，**请注意**，在默认情况下SSL连接`没有启用`，如果你的SMTP服务器需要SSL，那么你应该通过设置`email_ssl = TRUE`参数来启用SSL，但`不支持STARTTLS`。如果电子邮件服务器使用自签名证书或不受信任证书，则需要设置`email_insecure = true`。有关`email_identity`的详细说明，请参阅[rfc2595](https://tools.ietf.org/rfc/rfc2595.txt)
+- **Email settings**:Harbor需要这些参数才能向用户发送“密码重置”电子邮件，并且仅在需要该功能时才做配置。另外，**请注意**，在默认情况下SSL连接`没有启用`，如果您的SMTP服务器需要SSL，那么您应该通过设置`email_ssl = TRUE`参数来启用SSL，但`不支持STARTTLS`。如果电子邮件服务器使用自签名证书或不受信任证书，则需要设置`email_insecure = true`。有关`email_identity`的详细说明，请参阅[rfc2595](https://tools.ietf.org/rfc/rfc2595.txt)
 
   ```bash
     - email_server = smtp.mydomain.com
@@ -121,7 +121,7 @@ weight: 1
 
 ### 配置存储后端(可选)
 
-默认情况下，Harbor将镜像存储在本地文件系统中。在生产环境中，你可以考虑使用其他存储后端而不是本地文件系统，如S3，OpenStack Swift，Ceph等。你需要更新的是storage文件中的部分common/templates/registry/config.yml。例如，如果你使用Openstack Swift作为存储后端，则该部分可能如下所示:
+默认情况下，Harbor将镜像存储在本地文件系统中。在生产环境中，您可以考虑使用其他存储后端而不是本地文件系统，如S3，OpenStack Swift，Ceph等。您需要更新的是storage文件中的部分common/templates/registry/config.yml。例如，如果您使用Openstack Swift作为存储后端，则该部分可能如下所示:
 
 ```yaml
 storage:
@@ -139,7 +139,7 @@ storage:
 
 ### Harbor监听自定义端口
 
-默认情况下，Harbor监听80(HTTP)和443(HTTPS，如果已配置)，你可以使用自定义命令对其进行修改。
+默认情况下，Harbor监听80(HTTP)和443(HTTPS，如果已配置)，您可以使用自定义命令对其进行修改。
 
 - 对于HTTP协议
 
@@ -189,9 +189,9 @@ storage:
 
   >Harbor已与Notary和Clair集成(用于漏洞扫描)。但是，默认不安装Notary或Clair服务。
 
-  如果一切正常，你应该能够打开浏览器访问`http://reg.yourdomain.com/`上的管理门户(`reg.yourdomain.com`为`harbor.cfg`配置的主机名,默认管理员用户名/密码为admin/Harbor12345)。
+  如果一切正常，您应该能够打开浏览器访问`http://reg.yourdomain.com/`上的管理门户(`reg.yourdomain.com`为`harbor.cfg`配置的主机名,默认管理员用户名/密码为admin/Harbor12345)。
 
-  登录管理门户并创建一个新项目，例如: myproject。然后，你可以使用docker命令登录和推送镜像。默认情况下，Harbor的默认安装使用HTTP协议，而Docker默认信任https协议。所以，要想docker命令登录和推送镜像，需要添加`--insecure-registry`到docker 配置文件并重启docker服务。
+  登录管理门户并创建一个新项目，例如: myproject。然后，您可以使用docker命令登录和推送镜像。默认情况下，Harbor的默认安装使用HTTP协议，而Docker默认信任https协议。所以，要想docker命令登录和推送镜像，需要添加`--insecure-registry`到docker 配置文件并重启docker服务。
 
   ```bash
   docker login reg.yourdomain.com
@@ -228,7 +228,7 @@ Harbor不附带任何证书，默认情况下使用HTTP来处理请求。虽然�
 
 - 开始、停止、重启
 
-  你可以使用docker-compose来管理Harbor的生命周期。一些有用的命令列出如下(必须与docker-compose.yml在同一目录中运行)。
+  您可以使用docker-compose来管理Harbor的生命周期。一些有用的命令列出如下(必须与docker-compose.yml在同一目录中运行)。
 
   `sudo docker-compose start/stop/restart`
 
@@ -290,7 +290,7 @@ sudo docker-compose -f ./docker-compose.yml -f ./docker-compose.notary.yml -f ./
 {{% /accordion %}}
 {{% accordion id="option-g" label="七、性能调整" %}}
 
-默认情况下，Harbor将Clair容器的CPU使用率限制为150000，并避免耗尽所有CPU资源。这在docker-compose.clair.yml文件中定义,你可以根据硬件配置对其进行修改。
+默认情况下，Harbor将Clair容器的CPU使用率限制为150000，并避免耗尽所有CPU资源。这在docker-compose.clair.yml文件中定义,您可以根据硬件配置对其进行修改。
 
 {{% /accordion %}}
 {{% accordion id="option-h" label="八、故障排除" %}}

@@ -4,7 +4,7 @@ weight: 1
 ---
 >**重要提示:** RKE HA安装仅支持Rancher v2.0.8以及早期版本，Rancher v2.0.8之后的版本使用[helm安装Rancher]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/)。
 
-以下步骤将创建一个新的Kubernetes集群，专用于Rancher高可用(HA)运行，本文档将引导你使用Rancher Kubernetes Engine(RKE)配置三个节点的集群。
+以下步骤将创建一个新的Kubernetes集群，专用于Rancher高可用(HA)运行，本文档将引导您使用Rancher Kubernetes Engine(RKE)配置三个节点的集群。
 
 ## 一、架构说明
 
@@ -17,7 +17,7 @@ weight: 1
 
 ## 二、配置负载均衡器(以NGINX为例)
 
-我们将使用NGINX作为第4层负载均衡器(TCP)。NGINX会将所有连接转发到你的Rancher节点之一。如果要使用Amazon NLB，可以跳过此步骤并使用[Amazon NLB configuration]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install-external-lb/tcp-l4/amazon-nlb-configuration/)配置。
+我们将使用NGINX作为第4层负载均衡器(TCP)。NGINX会将所有连接转发到您的Rancher节点之一。如果要使用Amazon NLB，可以跳过此步骤并使用[Amazon NLB configuration]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install-external-lb/tcp-l4/amazon-nlb-configuration/)配置。
 
 >**注意:** 在此配置中，负载平衡器位于Rancher节点的前面，负载均衡器可以是任意能够运行NGINX的主机。`不要使用任意一个Rancher节点作为负载均衡器节点`,会出现端口冲突。
 
@@ -27,10 +27,10 @@ weight: 1
 
 ### 2、创建NGINX配置
 
-安装NGINX后，你需要使用节点的IP地址更新NGINX配置文件`nginx.conf`。
+安装NGINX后，您需要使用节点的IP地址更新NGINX配置文件`nginx.conf`。
 
 1. 复制下面的代码到文本编辑器，保存为`nginx.conf`。
-2. 在`nginx.conf`配置中, 替换`IP_NODE_1`、`IP_NODE_2`、`IP_NODE_3` 为你主机真实的IP地址。
+2. 在`nginx.conf`配置中, 替换`IP_NODE_1`、`IP_NODE_2`、`IP_NODE_3` 为您主机真实的IP地址。
 
     **NGINX配置示例:**
 
@@ -122,7 +122,7 @@ docker run -d --restart=unless-stopped \
 
 RKE是一种快速，通用的Kubernetes安装程序，可用于在Linux主机上安装Kubernetes。我们将使用RKE来配置Kubernetes集群并运行Rancher。
 
-1、访问 [文件下载]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/download/) 页面，根据你操作系统类型下载最新版本的RKE:
+1、访问 [文件下载]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/download/) 页面，根据您操作系统类型下载最新版本的RKE:
 
 - **MacOS**: `rke_darwin-amd64`
 - **Linux**: `rke_linux-amd64`
@@ -148,7 +148,7 @@ $ chmod +x rke_linux-amd64
 ./rke_linux-amd64 --version
 ```
 
-**结果:** 你将看到以下内容:
+**结果:** 您将看到以下内容:
 
 ```bash
 rke version v<N.N.N>
@@ -158,7 +158,7 @@ rke version v<N.N.N>
 
 RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板可供选择，具体取决于使用的SSL证书类型。
 
-1、根据你使用的SSL证书类型，选择模板下载
+1、根据您使用的SSL证书类型，选择模板下载
 
 - [3-node-certificate.yml](https://raw.githubusercontent.com/rancher/rancher/e9d29b3f3b9673421961c68adf0516807d1317eb/rke-templates/3-node-certificate.yml)
 
@@ -184,7 +184,7 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 
 2、编辑`rancher-cluster.yml`配置
 
-编辑器打开 `rancher-cluster.yml` 文件,在nodes配置版块中，修改 `IP_ADDRESS_X` and `USER`为你真实的Linux主机IP和用户名,`ssh_key_path`为第一步生成的私钥文件，如果是在RKE所在主机上生成的公钥私钥对，此配置可保持默认:
+编辑器打开 `rancher-cluster.yml` 文件,在nodes配置版块中，修改 `IP_ADDRESS_X` and `USER`为您真实的Linux主机IP和用户名,`ssh_key_path`为第一步生成的私钥文件，如果是在RKE所在主机上生成的公钥私钥对，此配置可保持默认:
 
 ```yaml
   nodes:
@@ -235,7 +235,7 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 
     >**先决条件:** 1.证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/self-signed-ssl/)；\
     > 2.证书必须通过`base64`加密；\
-    > 3.在你的证书文件中，包含链中的所有中间证书；
+    > 3.在您的证书文件中，包含链中的所有中间证书；
 
 1. 在`kind: Secret`与`name: cattle-keys-ingress`中:
 
@@ -279,7 +279,7 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 
 - 方案B — 使用权威CA机构颁发的SSL证书
 
-    如果你使用的是由权威CA机构颁发的SSL证书，则需要为证书文件和证书密钥文件生成base64编码的字符串(确保你的证书文件包含链中的所有中间证书)。在这种情况下，证书的顺序首先是你自己的证书，然后是中间证书。请查阅CSP(证书服务提供商)的文档，了解需要包含哪些中间证书。
+    如果您使用的是由权威CA机构颁发的SSL证书，则需要为证书文件和证书密钥文件生成base64编码的字符串(确保您的证书文件包含链中的所有中间证书)。在这种情况下，证书的顺序首先是您自己的证书，然后是中间证书。请查阅CSP(证书服务提供商)的文档，了解需要包含哪些中间证书。
 
 1. 在`kind: Secret`和 `name: cattle-keys-ingress`中:
 
@@ -337,13 +337,13 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 
 ## 九、备份配置文件
 
-保存关闭.yml文件后，将其备份到安全位置。升级Rancher时，你需要再次使用此文件。
+保存关闭.yml文件后，将其备份到安全位置。升级Rancher时，您需要再次使用此文件。
 
 ## 十、运行RKE
 
-完成所有配置后，你可以通过运行rke up命令并使用--config参数指定配置文件来完成Rancher 集群的安装。
+完成所有配置后，您可以通过运行rke up命令并使用--config参数指定配置文件来完成Rancher 集群的安装。
 
-1、下载RKE二进制文档到你的主机，确保 `rancher-cluster.yml`与下载的`rke` 在同一目录下；
+1、下载RKE二进制文档到您的主机，确保 `rancher-cluster.yml`与下载的`rke` 在同一目录下；
 
 2、打开shell 终端，切换路径到RKE所在的目录；
 
@@ -373,7 +373,7 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 
 ## 十二、(可选)为Agent Pod添加主机别名(/etc/hosts)
 
-如果你没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
+如果您没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
 
 ### 解决方法
 

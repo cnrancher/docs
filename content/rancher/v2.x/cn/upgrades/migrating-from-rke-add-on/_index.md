@@ -9,9 +9,9 @@ weight: 7
 
 以下说明将指导您使用Helm软件包管理器从RKE HA安装迁移到Helm HA安装。
 
-你需要安装[kubectl]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/kubectl/)和使用RKE生成的kubeconfig YAML文件 `kube_config_rancher-cluster.yml`
+您需要安装[kubectl]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/kubectl/)和使用RKE生成的kubeconfig YAML文件 `kube_config_rancher-cluster.yml`
 
-> **注意:** 本文档假定你是标准安装Rancher，如果您修改了任何对象名称或命名空间，请相应地进行调整。
+> **注意:** 本文档假定您是标准安装Rancher，如果您修改了任何对象名称或命名空间，请相应地进行调整。
 
 ## 命名空间迁移(可选)(重要)
 
@@ -40,7 +40,7 @@ weight: 7
 export KUBECONFIG=$(pwd)/kube_config_rancher-cluster.yml
 ```
 
-设置`KUBECONFIG`环境变量后，请验证它是否包含正确的server参数，它应该直接指向一个群集节点的`6443`端口上。
+设置`KUBECONFIG`环境变量后，请验证它是否包含正确的server参数，它应该直接指向一个集群节点的`6443`端口上。
 
 ```bash
 kubectl config view -o=jsonpath='{.clusters[*].cluster.server}'
@@ -49,11 +49,11 @@ https://NODE:6443
 
 ```
 
-如果命令的输出显示带有Rancher主机名与后缀`/k8s/clusters`，则配置了错误的kubeconfig YAML文件，它应该是您使用RKE创建群集时创建的配置文件。
+如果命令的输出显示带有Rancher主机名与后缀`/k8s/clusters`，则配置了错误的kubeconfig YAML文件，它应该是您使用RKE创建集群时创建的配置文件。
 
 ## 保存证书
 
-如果Rancher群集使用ingress作为ssl终止，那么需要恢复您的证书和密钥以便Helm安装中使用。
+如果Rancher集群使用ingress作为ssl终止，那么需要恢复您的证书和密钥以便Helm安装中使用。
 
 使用kubectl获取密文、`base64解码`和并输出到文件中。
 
@@ -84,9 +84,9 @@ kubectl --kubeconfig=kube_configxxx.yml -n cattle-system delete serviceaccount c
 
 ## 通过RKE `rancher-cluster.yml`删除附加组件
 
-`addons`部分包含使用RKE部署Rancher所需的所有资源。通过切换到Helm，不再需要此部分群集配置文件。
+`addons`部分包含使用RKE部署Rancher所需的所有资源。通过切换到Helm，不再需要此部分集群配置文件。
 
->**Important:** 确保仅从群集配置文件中删除addons部分。
+>**Important:** 确保仅从集群配置文件中删除addons部分。
 
 ```yaml
 nodes:

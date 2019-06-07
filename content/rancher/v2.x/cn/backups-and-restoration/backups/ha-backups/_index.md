@@ -93,7 +93,7 @@ weight: 2
 
 2. 输入以下命令:
 
-    >注意:替换`<SNAPSHOT.db>`为你设置的快照名称，例如:<SNAPSHOT.db>
+    >注意:替换`<SNAPSHOT.db>`为您设置的快照名称，例如:<SNAPSHOT.db>
 
     ```bash
     # MacOS

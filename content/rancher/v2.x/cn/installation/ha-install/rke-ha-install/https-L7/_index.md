@@ -6,7 +6,7 @@ weight: 2
 >### **重要提示:**
 >RKE HA安装仅支持Rancher v2.0.8以及早期版本，Rancher v2.0.8之后的版本使用[helm安装Rancher]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/)。
 
-以下步骤将创建一个新的Kubernetes集群，专用于Rancher server高可用(HA)运行,本文档将引导你使用Rancher Kubernetes Engine(RKE)配置三个节点的集群.
+以下步骤将创建一个新的Kubernetes集群，专用于Rancher server高可用(HA)运行,本文档将引导您使用Rancher Kubernetes Engine(RKE)配置三个节点的集群.
 
 ## 一、架构说明
 
@@ -81,7 +81,7 @@ weight: 2
 
 RKE是一种快速，通用的Kubernetes安装程序，可用于在Linux主机上安装Kubernetes。我们将使用RKE来配置Kubernetes集群并运行Rancher。
 
-1、打开浏览器访问[下载文件]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/download/)页面，根据你操作系统类型下载最新版本的RKE:
+1、打开浏览器访问[下载文件]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/download/)页面，根据您操作系统类型下载最新版本的RKE:
 
 - **MacOS**: `rke_darwin-amd64`
 - **Linux**: `rke_linux-amd64`
@@ -107,7 +107,7 @@ $ chmod +x rke_linux-amd64
 ./rke_linux-amd64 --version
 ```
 
-**步骤结果:** 你将看到以下内容:
+**步骤结果:** 您将看到以下内容:
 
 ```bash
 rke version v<N.N.N>
@@ -117,7 +117,7 @@ rke version v<N.N.N>
 
 RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板可供选择，具体取决于使用的SSL证书类型。
 
-1. 根据你使用的SSL证书类型，选择模板下载:
+1. 根据您使用的SSL证书类型，选择模板下载:
 
     - [Template for self-signed certificate<br/> `3-node-externalssl-certificate.yml`](https://raw.githubusercontent.com/rancher/rancher/58e695b51096b1f404188379cea6f6a35aea9e4c/rke-templates/3-node-externalssl-certificate.yml)
 
@@ -145,7 +145,7 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 
 2. 编辑`rancher-cluster.yml`配置文件
 
-    编辑器打开 `rancher-cluster.yml` 文件,在nodes配置版块中，修改 `IP_ADDRESS_X` and `USER`为你真实的Linux主机IP和用户名,`ssh_key_path`为第一步生成的私钥文件，如果是在RKE所在主机上生成的公钥私钥对，此配置可保持默认:
+    编辑器打开 `rancher-cluster.yml` 文件,在nodes配置版块中，修改 `IP_ADDRESS_X` and `USER`为您真实的Linux主机IP和用户名,`ssh_key_path`为第一步生成的私钥文件，如果是在RKE所在主机上生成的公钥私钥对，此配置可保持默认:
 
       ```yaml
         nodes:
@@ -200,7 +200,7 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 
     >**先决条件:** 1.证书必须是`PEM格式`,`PEM`只是一种证书类型，并不是说文件必须是PEM为后缀，具体可以查看[证书类型]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/self-signed-ssl/)；\
     > 2.证书必须通过`base64`加密；\
-    > 3.在你的证书文件中，包含链中的所有中间证书；
+    > 3.在您的证书文件中，包含链中的所有中间证书；
 
     在`kind: Secret`和`name: cattle-keys-ingress`中:
 
@@ -224,7 +224,7 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 
 2. 方案B—使用权威CA机构颁发的证书
 
-    如果你使用的是权威CA机构颁发的证书，则不需要做任何操作。
+    如果您使用的是权威CA机构颁发的证书，则不需要做任何操作。
 
 ## 八、域名配置
 
@@ -254,13 +254,13 @@ apiVersion: extensions/v1beta1
 
 ## 九、备份配置文件
 
-保存关闭.yml文件后，将其备份到安全位置。升级Rancher时，你需要再次使用此文件。
+保存关闭.yml文件后，将其备份到安全位置。升级Rancher时，您需要再次使用此文件。
 
 ## 十、运行RKE
 
-完成所有配置后，你可以通过运行rke up命令并使用--config参数指定配置文件来完成Rancher 集群的安装。
+完成所有配置后，您可以通过运行rke up命令并使用--config参数指定配置文件来完成Rancher 集群的安装。
 
-1. 下载RKE二进制文档到你的主机，确保 `rancher-cluster.yml`与下载的`rke` 在同一目录下；
+1. 下载RKE二进制文档到您的主机，确保 `rancher-cluster.yml`与下载的`rke` 在同一目录下；
 
 2. 打开shell 终端，切换路径到RKE所在的目录；
 
@@ -290,7 +290,7 @@ apiVersion: extensions/v1beta1
 
 ## 十二、(可选)为Agent Pod添加主机别名(/etc/hosts)
 
-如果你没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
+如果您没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
 
 ### 解决方法
 

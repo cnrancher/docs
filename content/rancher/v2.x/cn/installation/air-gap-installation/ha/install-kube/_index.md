@@ -84,9 +84,9 @@ rke up --config ./rancher-cluster.yml
 
 RKE应该已经创建了一个文件`kube_config_rancher-cluster.yml`。这个文件包含kubectl和helm访问K8S的凭据。
 
->**注意:** 如果你使用的文件不叫`rancher-cluster.yml`, 那么这个`kube config`配置文件将被命名为`kube_config_<FILE_NAME>.yml`。
+>**注意:** 如果您使用的文件不叫`rancher-cluster.yml`, 那么这个`kube config`配置文件将被命名为`kube_config_<FILE_NAME>.yml`。
 
-您可以将此文件复制到`$HOME/.kube/config`，或者如果你正在使用多个Kubernetes集群，请将`KUBECONFIG`环境变量设置为`kube_config_rancher-cluster.yml`文件路径。
+您可以将此文件复制到`$HOME/.kube/config`，或者如果您正在使用多个Kubernetes集群，请将`KUBECONFIG`环境变量设置为`kube_config_rancher-cluster.yml`文件路径。
 
 ```bash
 export KUBECONFIG=$(pwd)/kube_config_rancher-cluster.yml

@@ -21,35 +21,35 @@ docker run -d -p 8080:8080 rancher/server:stable
 
 ### 2、如何导出Rancher Server容器的内部数据库？
 
-你可以通过简单的Docker命令从Rancher Server容器导出数据库。
+您可以通过简单的Docker命令从Rancher Server容器导出数据库。
 
 ```
 docker exec <CONTAINER_ID_OF_SERVER> mysqldump cattle > dump.sql
 ```
 ### 3、我正在运行的Rancher是什么版本的?
 
-Rancher的版本位于UI的页脚的左侧。 如果你点击版本号，将可以查看其他组件的详细版本。
+Rancher的版本位于UI的页脚的左侧。 如果您点击版本号，将可以查看其他组件的详细版本。
 
 ### 4、如果我没有在Rancher UI中删除主机而是直接删除会发生什么?
 
-如果你的主机直接被删除，Rancher Server会一直显示该主机。主机会处于`Reconnecting`状态，然后转到`Disconnected`状态。
-你也可以通过添加主机再次把此节点添加到RANCHER 集群，如果不在使用此节点，可以在UI中删除。
+如果您的主机直接被删除，Rancher Server会一直显示该主机。主机会处于`Reconnecting`状态，然后转到`Disconnected`状态。
+您也可以通过添加主机再次把此节点添加到RANCHER 集群，如果不在使用此节点，可以在UI中删除。
 
-如果你有添加了健康检查功能的服务自动调度到状态`Disconnected`主机上，CATTLE会将这些服务重新调度到其他主机上。
+如果您有添加了健康检查功能的服务自动调度到状态`Disconnected`主机上，CATTLE会将这些服务重新调度到其他主机上。
 ```
-PS:如果使用了标签调度，如果你有多台主机就有相同的调度标签，那么服务会调度到其他具有调度标签的节点上；如果选择了指定运行到某台主机上，那主机删除后你的应用将无法在其他主机上自动运行。
+PS:如果使用了标签调度，如果您有多台主机就有相同的调度标签，那么服务会调度到其他具有调度标签的节点上；如果选择了指定运行到某台主机上，那主机删除后您的应用将无法在其他主机上自动运行。
 ```
 ### 5、我如何在代理服务器后配置主机？
 
-要在代理服务器后配置主机，你需要配置Docker的守护进程。详细说明参考在代理服务器后[添加自定义主机](https://docs.xtplayer.cn/rancher/installing/installing-server/#使用aws的elasticclassic-load-balancer作为rancher-server-ha的负载均衡器)。
+要在代理服务器后配置主机，您需要配置Docker的守护进程。详细说明参考在代理服务器后[添加自定义主机](https://docs.xtplayer.cn/rancher/installing/installing-server/#使用aws的elasticclassic-load-balancer作为rancher-server-ha的负载均衡器)。
 
 ### 6、为什么同一主机在UI中多次出现?
 
-宿主机上`var/lib/rancher/state`这个文件夹，这是Rancher用来存储用于标识主机的必要信息. .registration_token中保存了主机的验证信息，如果里面的信息发生变化，RANCHER会认为这是一台新主机， 在你执行添加主机后，UI上将会出现另外一台相同的主机，第一台主机接着处于失联状态。
+宿主机上`var/lib/rancher/state`这个文件夹，这是Rancher用来存储用于标识主机的必要信息. .registration_token中保存了主机的验证信息，如果里面的信息发生变化，RANCHER会认为这是一台新主机， 在您执行添加主机后，UI上将会出现另外一台相同的主机，第一台主机接着处于失联状态。
 
 ### 7、在哪能找到Rancher Server容器的详细日志？
 
-运行`docker logs`可以查看在Rancher Server容器的基本日志。要获取更详细的日志，你可以进入到Rancher Server容器内部并查看日志文件。
+运行`docker logs`可以查看在Rancher Server容器的基本日志。要获取更详细的日志，您可以进入到Rancher Server容器内部并查看日志文件。
 
 ```
 进入 Rancher　Server　容器内部
@@ -59,7 +59,7 @@ docker exec -it <container_id> bash
 cd /var/lib/cattle/logs/
 cat cattle-debug.log
 ```
-在这个目录里面会出现`cattle-debug.log`和`cattle-error.log`。 如果你长时间使用此Rancher Server，你会发现我们每天都会创建一个新的日志文件。
+在这个目录里面会出现`cattle-debug.log`和`cattle-error.log`。 如果您长时间使用此Rancher Server，您会发现我们每天都会创建一个新的日志文件。
 
 ### 8、将Rancher Server的日志复制到主机上。
 
@@ -70,7 +70,7 @@ docker cp <container_id>:/var/lib/cattle/logs /local/path
 ```
 ### 9、如果Rancher Server的IP改变了会怎么样？
 
-如果更改了Rancher Server的IP地址，你需要用新的IP重新注册主机。
+如果更改了Rancher Server的IP地址，您需要用新的IP重新注册主机。
 
 在Rancher中，点击**系统管理**->**系统设置**更新 Rancher Server的**主机注册地址**。注意必须包括Rancher Server暴露的端口号。默认情况下我们建议按照安装手册中使用8080端口。
 
@@ -78,50 +78,50 @@ docker cp <container_id>:/var/lib/cattle/logs /local/path
 
 ### 10、Rancher Server运行变得很慢，怎么去优化它？
 
-很可能有一些任务由于某些原因而处于僵死状态，如果你能够用界面查看**系统管理** -> **系统进程**，你将可以看到`Running`中的内容，如果这些任务长时间运行(并且失败)，则Rancher会最终使用太多的内存来跟踪任务。这使得Rancher Server处于了内存不足的状态。
+很可能有一些任务由于某些原因而处于僵死状态，如果您能够用界面查看**系统管理** -> **系统进程**，您将可以看到`Running`中的内容，如果这些任务长时间运行(并且失败)，则Rancher会最终使用太多的内存来跟踪任务。这使得Rancher Server处于了内存不足的状态。
 
-为了使服务变为可响应状态，你需要添加更多内存。通常4GB的内存就够了。
+为了使服务变为可响应状态，您需要添加更多内存。通常4GB的内存就够了。
 
-你需要再次运行Rancher Server命令并且添加一个额外的选项`-e JAVA_OPTS="-Xmx4096m"`
+您需要再次运行Rancher Server命令并且添加一个额外的选项`-e JAVA_OPTS="-Xmx4096m"`
 
 ```
 docker run -d -p 8080:8080 --restart=unless-stopped -e JAVA_OPTS="-Xmx4096m" rancher/server
 ```
 
-根据MySQL数据库的设置方式的不同，你可能需要进行升级才能添加该选项。
+根据MySQL数据库的设置方式的不同，您可能需要进行升级才能添加该选项。
 
-如果是由于缺少内存而无法看到**系统管理** -> **系统进程**的话，那么在重启Rancher Server之后，已经有了更多的内存。你现在应该可以看到这个页面了，并可以开始对运行时间最长的进程进行故障分析。
+如果是由于缺少内存而无法看到**系统管理** -> **系统进程**的话，那么在重启Rancher Server之后，已经有了更多的内存。您现在应该可以看到这个页面了，并可以开始对运行时间最长的进程进行故障分析。
 
 ### 11、Rancher Server数据库数据增长太快.
 
-Rancher Server会自动清理几个数据库表，以防止数据库增长太快。如果对你来说这些表没有被及时清理，请使用API来更新清理数据的时间间隔。
+Rancher Server会自动清理几个数据库表，以防止数据库增长太快。如果对您来说这些表没有被及时清理，请使用API来更新清理数据的时间间隔。
 
 在默认情况下，产生在2周以前的`container_event`和`service_event`表中的数据则数据会被删除。在API中的设置是以秒为单位的(`1209600`)。API中的设置为`events.purge.after.seconds`.
 
 默认情况下，`process_instance`表在1天前产生的数据将会被删除，在API中的设置是以秒为单位的(`86400`)。API中的设置为`process_instance.purge.after.seconds`.
 
-为了更新API中的设置，你可以跳转到`http://<rancher-server-ip>:8080/v1/settings`页面， 搜索要更新的设置，点击`links -> self`跳转到你点击的链接去设置，点击侧面的“编辑”更改'值'。 请记住，值是以秒为单位。
+为了更新API中的设置，您可以跳转到`http://<rancher-server-ip>:8080/v1/settings`页面， 搜索要更新的设置，点击`links -> self`跳转到您点击的链接去设置，点击侧面的“编辑”更改'值'。 请记住，值是以秒为单位。
 
 ###  12、为什么Rancher Server升级失败导致数据库被锁定？
 
-如果你刚开始运行Rancher并发现它被永久冻结，可能是liquibase数据库上锁了。在启动时，liquibase执行模式迁移。它的竞争条件可能会留下一个锁定条目，这将阻止后续的流程。
+如果您刚开始运行Rancher并发现它被永久冻结，可能是liquibase数据库上锁了。在启动时，liquibase执行模式迁移。它的竞争条件可能会留下一个锁定条目，这将阻止后续的流程。
 
-如果你刚刚升级，在Rancher　Server日志中，MySQL数据库可能存在尚未释放的日志锁定。
+如果您刚刚升级，在Rancher　Server日志中，MySQL数据库可能存在尚未释放的日志锁定。
 
 ```
 ....liquibase.exception.LockException: Could not acquire change log lock. Currently locked by <container_ID>
 ```
 #### 释放数据库锁
 
-> **注意:** 请不要释放数据库锁，除非有相关日志锁的**异常**。如果是由于数据迁移导致升级时间过长，在这种情况下释放数据库锁，可能会使你遇到其他迁移问题。
+> **注意:** 请不要释放数据库锁，除非有相关日志锁的**异常**。如果是由于数据迁移导致升级时间过长，在这种情况下释放数据库锁，可能会使您遇到其他迁移问题。
 
-如果你已根据升级文档创建了Rancher Server的数据容器，你需要`exec`到`rancher-data`容器中升级`DATABASECHANGELOGLOCK`表并移除锁，如果你没有创建数据容器，你用`exec`到包含有你数据库的容器中。
+如果您已根据升级文档创建了Rancher Server的数据容器，您需要`exec`到`rancher-data`容器中升级`DATABASECHANGELOGLOCK`表并移除锁，如果您没有创建数据容器，您用`exec`到包含有您数据库的容器中。
 
 ```
 sudo docker exec -it <container_id> mysql
 ```
 
-一旦进入到 Mysql 数据库, 你就要访问`cattle`数据库。
+一旦进入到 Mysql 数据库, 您就要访问`cattle`数据库。
 
 ```
 mysql> use cattle;
@@ -143,7 +143,7 @@ mysql> select * from DATABASECHANGELOGLOCK;
 ```
 ### 13、管理员密码忘记了，我该如何重置管理员密码？
 
-如果你的身份认证出现问题(例如管理员密码忘记)，则可能无法访问Rancher。 要重新获得对Rancher的访问权限，你需要在数据库中关闭访问控制。 为此，你需要访问运行Rancher Server的主机。
+如果您的身份认证出现问题(例如管理员密码忘记)，则可能无法访问Rancher。 要重新获得对Rancher的访问权限，您需要在数据库中关闭访问控制。 为此，您需要访问运行Rancher Server的主机。
 
 ps:假设在重置访问控制之前有创建过其他用户，那么在认证方式没有变化的情况下，重置访问控制除了超级管理员(第一个被创建的管理员，ID为1a1)，其他用户账号信息不会受影响。
 
@@ -152,7 +152,7 @@ ps:假设在重置访问控制之前有创建过其他用户，那么在认证�
 ```
 docker exec -it <rancher_server_container_ID> mysql
 ```
-> **注意:** 这个 `<rancher_server_container_ID>`是具有Rancher数据库的容器。 如果你升级并创建了一个Rancher数据容器，则需要使用Rancher数据容器的ID而不是Rancher Server容器，rancher内置数据库默认密码为空。
+> **注意:** 这个 `<rancher_server_container_ID>`是具有Rancher数据库的容器。 如果您升级并创建了一个Rancher数据容器，则需要使用Rancher数据容器的ID而不是Rancher Server容器，rancher内置数据库默认密码为空。
 
 * 选择Cattle数据库。
 
@@ -177,7 +177,7 @@ mysql> update setting set value="" where name="api.auth.provider.configured";
 ```
 mysql> select * from setting;
 ```
-* 可能需要约1分钟才能在用户界面中关闭身份认证，然后你可以通过刷新网页来登陆没有访问控制的Rancher Server
+* 可能需要约1分钟才能在用户界面中关闭身份认证，然后您可以通过刷新网页来登陆没有访问控制的Rancher Server
 
 > 关闭访问控制后，任何人都可以使用UI/API访问Rancher Server。
 
@@ -185,7 +185,7 @@ mysql> select * from setting;
 
 ### 14、Rancher Compose Executor和Go-Machine-Service不断重启.
 
-在高可用集群中，如果你正在使用代理服务器后，如果rancher-compose-executor和go-machine-service不断重启，请确保你的代理使用正确的协议。
+在高可用集群中，如果您正在使用代理服务器后，如果rancher-compose-executor和go-machine-service不断重启，请确保您的代理使用正确的协议。
 
 
 ###  15、我怎么样在代理服务器后运行Rancher Server?
@@ -194,15 +194,15 @@ mysql> select * from setting;
 
 ###  16、为什么在日志中看到Go-Machine-Service在不断重新启动？ 我该怎么办？
 
-Go-machine-service是一种通过websocket连接到Rancher API服务器的微服务。如果无法连接，则会重新启动并再次尝试。如果你运行的是单节点的Rancher Server，它将使用你为主机注册地址来连接到Rancher API服务。 检查从Rancher Sever容器内部是否可以访问主机注册地址。
+Go-machine-service是一种通过websocket连接到Rancher API服务器的微服务。如果无法连接，则会重新启动并再次尝试。如果您运行的是单节点的Rancher Server，它将使用您为主机注册地址来连接到Rancher API服务。 检查从Rancher Sever容器内部是否可以访问主机注册地址。
 
 ```
 docker exec -it <rancher-server_container_id> bash
 在 Rancher-Server 容器内
 curl -i <Host Registration URL you set in UI>/v1
 ```
-你应该得到一个json响应。 如果认证开启，响应代码应为401。如果认证未打开，则响应代码应为200。
-验证Rancher API Server 能够使用这些变量，通过登录go-machine-service容器并使用你提供给容器的参数进行`curl`命令来验证连接:
+您应该得到一个json响应。 如果认证开启，响应代码应为401。如果认证未打开，则响应代码应为200。
+验证Rancher API Server 能够使用这些变量，通过登录go-machine-service容器并使用您提供给容器的参数进行`curl`命令来验证连接:
 
 ```
 docker exec -it <go-machine-service_container_id> bash
@@ -210,7 +210,7 @@ docker exec -it <go-machine-service_container_id> bash
 curl -i -u '<value of CATTLE_ACCESS_KEY>:<value of CATTLE_SECRET_KEY>' <value of CATTLE_URL>
 ```
 
-你应该得到一个json响应和200个响应代码。
+您应该得到一个json响应和200个响应代码。
 如果curl命令失败，那么在`go-machine-service`和Rancher API server之间存在连接问题。
 如果curl命令没有失败，则问题可能是因为go-machine-service尝试建立websocket连接而不是普通的http连接。 如果在go-machine-service和Rancher API服务器之间有代理或负载平衡，请验证代理是否支持websocket连接。
 

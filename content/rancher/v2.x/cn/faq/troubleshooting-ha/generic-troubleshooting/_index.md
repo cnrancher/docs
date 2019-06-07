@@ -3,7 +3,7 @@ title: 2、常见问题
 weight: 2 
 ---
 
-你可以按照以下步骤定位集群错误。
+您可以按照以下步骤定位集群错误。
 
 1. 检查防火墙是否放行了所需的端口，所需端口列表访问[端口需求]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/references/);
 
