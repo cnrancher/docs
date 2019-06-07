@@ -26,7 +26,7 @@ Rancher支持使用`docker machine`部署[Amazon EC2](http://aws.amazon.com/ec2/
 * 如果您正在使用IPsec [网络驱动]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/networking/), 所有主机都需要打开UDP端口`500`和`4500`
 * 如果您正在使用VXLAN [网络驱动]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/networking/), 所有主机需要打开UDP端口`4789`
 
-> **注意:** 如果您再次使用`rancher-machine`安全组, 之前任何丢失的端口都不会再次打开。如果主机没有正常启动，您需要检查一下AWS上的安全组。
+> **注意:** 如果您再次使用`rancher-machine`安全组, 之前任何丢失的端口都不会再次打开。如果主机没有正常启动，您需要检查AWS上的安全组。
 
 选择安全组选项之后，点击**下一步:设置实例选项**。
 

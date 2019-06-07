@@ -37,7 +37,7 @@ Rancher Server当前版本中有2个不同的标签。对于每一个主要的re
 
 在这个例子中，假设某台机器可以同时访问私有镜像仓库和 DockerHub。首先从 DockerHub 中拉取 `rancher/server` 和 `rancher/agent` 的镜像，然后对拉取下来的镜像做标签私仓化处理，最后再推送到私有镜像仓库。一种推荐的做法是，私有镜像仓库的镜像的版本信息对照于 DockerHub 的版本信息。
 
-```
+```bash
 # rancher/server
 $ docker pull rancher/server:v1.6.0
 $ docker tag rancher/server:v1.6.0 localhost:5000/<NAME_OF_LOCAL_RANCHER_SERVER_IMAGE>:v1.6.0
@@ -59,7 +59,7 @@ $ docker push localhost:5000/<NAME_OF_LOCAL_RANCHER_AGENT_IMAGE>:v1.1.3
 
 例如:
 
-```
+```bash
 $ sudo docker run -d --restart=unless-stopped -p 8080:8080 \
     -e CATTLE_BOOTSTRAP_REQUIRED_IMAGE=<Private_Registry_Domain>:5000/<NAME_OF_LOCAL_RANCHER_AGENT_IMAGE>:v1.1.3 \
     <Private_Registry_Domain>:5000/<NAME_OF_LOCAL_RANCHER_SERVER_IMAGE>:v1.6.0
@@ -71,7 +71,7 @@ $ sudo docker run -d --restart=unless-stopped -p 8080:8080 \
 
 #### 添加主机
 
-在操作界面，点击 **添加主机**后，如果是第一次添加主机会进入到**主机注册地址**配置界面。点击一下 **保存**后即可添加主机。
+在操作界面，点击 **添加主机**后，如果是第一次添加主机会进入到**主机注册地址**配置界面。点击**保存**后即可添加主机。
 
 由于不能使用公有云提供商的主机服务，所以请点击 **自定义**图标来增加主机。
 
@@ -79,8 +79,8 @@ $ sudo docker run -d --restart=unless-stopped -p 8080:8080 \
 
 ##### 一个由操作界面生成的主机注册命令例子
 
-```
-$ sudo docker run -d --privileged -v /var/run/docker.sock:/var/run/docker.sock <Private_Registry_Domain>:5000/<NAME_OF_LOCAL_RANCHER_AGENT_IMAGE>:v1.1.3 http://<SERVER_IP>:8080/v1/scripts/<security_credentials>
+```bash
+sudo docker run -d --privileged -v /var/run/docker.sock:/var/run/docker.sock <Private_Registry_Domain>:5000/<NAME_OF_LOCAL_RANCHER_AGENT_IMAGE>:v1.1.3 http://<SERVER_IP>:8080/v1/scripts/<security_credentials>
 ```
 
 #### 为基础设施服务配置默认仓库
@@ -103,8 +103,8 @@ $ sudo docker run -d --privileged -v /var/run/docker.sock:/var/run/docker.sock <
 
 可以通过修改Rancher Server和Rancher Agent所在的Docker daemon的配置文件`/etc/default/docker`，使其指向对应的HTTP代理地址，重启Docker daemon之后，即可启用HTTP代理。
 
-```
-$ sudo vi /etc/default/docker
+```bash
+sudo vi /etc/default/docker
 ```
 
 打开配置文件后，修改或增加 `export http_proxy="http://${YOUR_PESONAL_REGISTYR_ADDRESS}/"`。然后保存它并重启Docker deamon。不同的操作系统重启Docker deamon(也就是重启 Docker )的方法是不一样的，请自行了解，不再累述。
@@ -115,7 +115,7 @@ $ sudo vi /etc/default/docker
 
 使用HTTP代理的时候，Rancher Server不需要使用任何环境变量即可启动。所以，启动操作就和没有使用代理服务是一样的，指令如下:
 
-```
+```bash
 sudo docker run -d --restart=unless-stopped -p 8080:8080 rancher/server
 ```
 
@@ -125,7 +125,7 @@ sudo docker run -d --restart=unless-stopped -p 8080:8080 rancher/server
 
 #### 添加主机
 
-在操作界面，点击 **添加主机**后，如果是第一次添加主机会进入到**主机注册地址**配置界面。点击一下 **保存**后即可添加主机。
+在操作界面，点击 **添加主机**后，如果是第一次添加主机会进入到**主机注册地址**配置界面。点击**保存**后即可添加主机。
 
 由于不能使用公有云提供商的主机服务，所以请点击 **自定义**图标来增加主机。
 

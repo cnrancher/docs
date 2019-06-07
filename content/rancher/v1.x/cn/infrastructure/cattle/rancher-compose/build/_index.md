@@ -13,7 +13,7 @@ title: 利用AWS S3构建
 
 在我们这个例子里，我们会在`docker-compose.yml`里定义我们的应用，并且把这个文件放在`composetest`下。这个`compose`文件会定义个`web`服务，它会打开`5000`端口并映射到主机上，还会链接`redis`服务，这样可以让在`web`中运行的服务可以通过`redis`这个主机名来访问`redis`容器
 
-```
+```bash
 version: '2'
 services:
   web:
@@ -29,7 +29,7 @@ services:
 
 我们还会添加一个 `rancher-compose.yml` 到同一个 `composetest` 目录下来使用Rancher的`缩放`能力。缺省情况下，如果没有`rancher-compose.yml`文件或者服务在`rancher-compose.yml`中没有定义，那么容器数量默认为1个。
 
-```
+```bash
 version: '2'
 services:
   web:
@@ -40,7 +40,7 @@ services:
 
 使用`docker-compose`文档中的例子，我们会创建一个名为`app.py`的文件。这个应用会访问一个名为`redis`的主机，这个主机会运行 redis KV 存储服务。它会递增redis 中的键为 `hits` 的键值，然后取回这个值。
 
-```
+```bash
 from flask import Flask
 from redis import Redis
 
@@ -58,15 +58,14 @@ if __name__ == "__main__":
 
 这个应用会依赖两个库，所以我们同时会创建一个名为 `requirements.txt` 的文件。
 
-```
+```bash
 flask
 redis
 ```
 
 现在我们会在`Dockerfile`文件中定义应用的构建步骤。在`Dockerfile`文件里的指令会定义出要怎么构建出这个应用容器。
 
-
-```
+```bash
 FROM python:2.7
 ADD . /code
 WORKDIR /code
@@ -76,7 +75,7 @@ CMD python app.py
 
 因为您已经运行着Rancher Server了，所以您只需要配置好您 AWS 认证信息，然后用您的 Rancher Server URL 和[API key]({{< baseurl >}}/rancher/v1.x/cn/api/v2-beta/api-keys/)来运行 Rancher Compose 。
 
-```
+```bash
 # Set up your AWS credentials
 $ aws configure
 AWS Access Key ID []: AWS_ACCESS_KEY
@@ -91,9 +90,9 @@ $ rancher-compose --url URL_of_Rancher --access-key username_of_API_key --secret
 
 ### 问题解答
 
-如果您在利用 S3构建时出现了一些问题，您可以先在本机测试一下是否可以构建并运行。在您运行`rancher-compose`的同一目录下，使用下面的命令来校验是否在 docker 中可以正常工作。
+如果您在利用 S3构建时出现了一些问题，您可以先在本机测试是否可以构建并运行。在您运行`rancher-compose`的同一目录下，使用下面的命令来校验是否在 docker 中可以正常工作。
 
-```
+```bash
 # Test building locally to see if works
 $ docker build -t test .
 # Test running the newly built image

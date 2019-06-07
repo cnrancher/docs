@@ -22,7 +22,7 @@ Rancher的[基础设施服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/
 
 ### 目录结构
 
-```
+```bash
 -- templates (Or any of templates folder)
   |-- cloudflare
   |   |-- 0
@@ -35,6 +35,7 @@ Rancher的[基础设施服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/
   |   |-- config.yml
 ...
 ```
+
 <br>
 
 您需要创建一个`templates`文件夹作为根目录。`templates`文件夹将包含所有您想创建的应用的文件夹。我们建议为应用的文件夹起一个简单明了的名称。
@@ -49,7 +50,7 @@ Rancher的[基础设施服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/
 
 * 第一个文件为 `config.yml`，包含了应用模板的详细信息。
 
-```
+```bash
 name: # 应用商店模板名称
 description: |
   # 应用商店模板描述
@@ -59,11 +60,12 @@ maintainer: # 该模板的维护者
 license: # 许可类型
 projectURL: # 和模板相关的URL
 ```
+
 <br>
 
 * 另外一个文件为该模板的logo。该文件的前缀必须为 `catalogIcon-`。
 
-对于每一个应用模板，将至少有一下三个部分组成: `config.yml`, `catalogIcon-entry.svg`, 以及 `0` 文件夹 - 包含该模板的第一个版本配置。
+对于每一个应用模板，将至少有以下三个部分组成: `config.yml`, `catalogIcon-entry.svg`, 以及 `0` 文件夹 - 包含该模板的第一个版本配置。
 
 ### Rancher 应用商店模板
 
@@ -77,7 +79,7 @@ projectURL: # 和模板相关的URL
 
 **`rancher-compose.yml`**
 
-```
+```bash
 version: '2'
 catalog:
   name: # Name of the versioned template of the Catalog Entry
@@ -88,6 +90,7 @@ catalog:
   upgrade_from: # The previous versions that this template can be upgraded from
   questions: #Used to request user input for configuration options
 ```
+
 <br>
 
 对于 `upgrade_from`, 有三种值可以使用。
@@ -104,7 +107,7 @@ catalog:
 
 每一个配置选项都在`rancher-compose.yml`的 `questions` 部分配置.
 
-```
+```bash
 version: '2'
 catalog:
   questions:
@@ -115,6 +118,7 @@ catalog:
       required: # (Optional) Whether or not an answer is required. By default, it's considered `false`.
       type: # How the questions are formatted and types of response expected
 ```
+
 <br>
 
 #### 类型
@@ -130,7 +134,7 @@ catalog:
 * `service` UI中将展示一个下拉框，所有该环境的服务都会显示出来。
 * `enum` UI中将展示一个下拉框，`options`中的配置将会被展示出来。
 
-```
+```bash
 version: '2'
 catalog:
   questions:
@@ -145,7 +149,7 @@ catalog:
 
 * `multiline` 多行文本框会被显示在UI中。
 
-```
+```bash
 version: '2'
 catalog:
   questions:
@@ -162,7 +166,7 @@ catalog:
 
 * `certificate` 该环境的所有可用证书都会显示出来。
 
-```
+```bash
 version: '2'
 catalog:
   questions:

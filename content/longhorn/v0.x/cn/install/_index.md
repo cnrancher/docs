@@ -39,7 +39,6 @@ cleaning up...
 daemonset.apps "longhorn-environment-check" deleted
 clean up complete
 ```
-
 请记下`MountPropagation`状态。
 
 ### CSI 驱动需求
@@ -48,23 +47,21 @@ clean up complete
    1. CSI已针对此版本的Kubernetes进行测试版发布，默认情况下已启用。
    1. 默认情况下，它在Kubernetes v1.10中启用,但是一些早期版本的RKE可能无法启用它。
    1. 如果无法满足上述条件，Longhorn将退回到Flexvolume驱动程序。
-
+   
 ### 检查您的设置是否满足CSI要求
 
 1. 使用以下命令检查Kubernetes server版本
 
-    ```bash
-    kubectl version
-    ```
+	```
+	kubectl version
+	```
+	结果:
+	```
+	Client Version: version.Info{Major:"1", Minor:"10", GitVersion:"v1.10.3", 	GitCommit:"2bba0127d85d5a46ab4b778548be28623b32d0b0", GitTreeState:"clean", 	BuildDate:"2018-05-21T09:17:39Z", GoVersion:"go1.9.3", Compiler:"gc", Platform:"linux/amd64"}
+	Server Version: version.Info{Major:"1", Minor:"10", GitVersion:"v1.10.1", G	itCommit:"d4ab47518836c750f9949b9e0d387f20fb92260b", GitTreeState:"clean", 	BuildDate:"2018-04-12T14:14:26Z", GoVersion:"go1.9.3", Compiler:"gc", Platform:"linux/amd64"}
+	```
 
-    结果:
-
-    ```bash
-    Client Version: version.Info{Major:"1", Minor:"10", GitVersion:"v1.10.3", 	GitCommit:"2bba0127d85d5a46ab4b778548be28623b32d0b0", GitTreeState:"clean", 	BuildDate:"2018-05-21T09:17:39Z", GoVersion:"go1.9.3", Compiler:"gc", Platform:"linux/amd64"}
-    Server Version: version.Info{Major:"1", Minor:"10", GitVersion:"v1.10.1", G	itCommit:"d4ab47518836c750f9949b9e0d387f20fb92260b", GitTreeState:"clean", 	BuildDate:"2018-04-12T14:14:26Z", GoVersion:"go1.9.3", Compiler:"gc", Platform:"linux/amd64"}
-    ```
-
-    The `Server Version` should be `v1.10` or above.
+	The `Server Version` should be `v1.10` or above.
 
 2. The result of environment check script should contain `MountPropagation is enabled!`.
 
@@ -75,9 +72,9 @@ clean up complete
 
 ## 部署
 
-在Kubernetes集群中创建Longhorn的部署非常简单，您可以通过`kubectl`工具直接运行以下命令进行安装。
+在Kubernetes集群中创建Longhorn的部署非常简单，您可以通过`kubectl`工具直接运行以下命令镜进行安装。
 
-```bash
+```
 kubectl --kubeconfig=kube_configxxx.yml  apply  -f https://raw.githubusercontent.com/rancher/longhorn/master/deploy/longhorn.yaml
 ```
 

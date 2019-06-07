@@ -24,7 +24,7 @@ Rancher Server当前版本中有2个不同的标签。对于每一个主要的re
 
 ### 基础设施服务
 
-当Rancher Server升级之后，您的[基础设施服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/)可能也需要升级。我们建议在升级Rancher Server之后检查一下基础设施服务，看是否有可升级的。如果有可升级的，那么按照下面的顺序一个个升级:
+当Rancher Server升级之后，您的[基础设施服务]({{< baseurl >}}/rancher/v1.x/cn/rancher-services/)可能也需要升级。我们建议在升级Rancher Server之后检查基础设施服务，看是否有可升级的。如果有可升级的，那么按照下面的顺序一个个升级:
 
 1. `network-policy-manager`  (如果安装了，这是一个可选的Rancher组件)
 2. `network-services`

@@ -14,7 +14,7 @@ title: 外部DNS服务
 下面的IAM权限是Route53 DNS所需要的最小权限。
 请确保您设置的主机AWS安全密钥(Access Key ID / Secret Access Key)或者主机IAM权限至少被配置了如下权限。
 
-```
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -51,8 +51,7 @@ title: 外部DNS服务
 
 为您的应用栈填写 **名称**，并填写必要的 **描述**。
 
-在 **配置选项** 中，您需要提供一下的信息:
-
+在 **配置选项** 中，您需要提供以下信息:
 
 名称| 值
 ---|---
@@ -62,14 +61,15 @@ AWS Region | 在AWS中的区域名称。我们建议您填写一个与您服务�
 Hosted Zone | Route53 hosted zone。这个必须在您的Route53实例上预创建。
 
 <br>
+
 在完成表单后，点击 **创建**。一个带有 `route53` 服务的应用栈将会被创建，您只需要启动这个服务。
 
 
 ### 使用Route53的服务
 
-`route53`服务只会为在Host上映射端口的服务生成DNS记录，每一个Rancher生成的DNS记录，他使用一下的格式为服务创建一个fqdn:
+`route53`服务只会为在Host上映射端口的服务生成DNS记录，每一个Rancher生成的DNS记录，他使用以下格式为服务创建一个fqdn:
 
-```
+```bash
 fqdn=<serviceName>.<stackName>.<environmentName>.<yourHostedZoneName>
 ```
 
@@ -81,7 +81,6 @@ fqdn=<serviceName>.<stackName>.<environmentName>.<yourHostedZoneName>
 
 > **注意:** 在 `route53` 服务被启动后，任何已经部署并使用了host端口的服务都会获得一个fqdn。
 
-
 ### 删除 Route53 服务
 
 当 `route53` 从Rancher被移除，在AWS Route 53服务中的记录并**不会**被移除。这些记录需要在AWS中手工移除。
@@ -92,6 +91,6 @@ fqdn=<serviceName>.<stackName>.<environmentName>.<yourHostedZoneName>
 
 在启动外部服务前，需要添加以下标签到主机上。标签的值需要是Rancher的Route53 DNS服务上要用到的IP。如果这个标签没有设置在主机上，Rancher的Route53服务将会默认使用主机注册在Rancher上的IP的地址。
 
-```
+```bash
 io.rancher.host.external_dns_ip=<IP_TO_BE_USED_FOR_EXTERNAL_DNS>
 ```

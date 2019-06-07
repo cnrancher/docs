@@ -87,7 +87,7 @@ docker run -d --restart=unless-stopped \
 
 1. 登录DNS服务，创建一条 `A` 记录指向负载均衡主机IP。
 
-2. 在终端中执行一下命令来验证运行解析是否生效:
+2. 在终端中执行以下命令来验证运行解析是否生效:
 
     `nslookup HOSTNAME.DOMAIN.COM`
 

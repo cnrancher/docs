@@ -46,7 +46,7 @@ title: Webhooks
 
 [Rancher 应用商店]({{< baseurl >}}/rancher/v1.x/cn/configuration/catalog/) 提供了 Prometheus 监控服务，在 **应用商店** 中可以找到这个服务。选中**Prometheus** 然后启动应用商店入口。 在 Prometheus 应用中找到一个名为 `prometheus` 的服务，这个服务暴露了 `9090` 端口。在容器中找到 `/etc/prom-conf`。 Prometheus 的配置文件`prometheus.yml` 就在 `/etc/prom-conf` 目录。为了添加告警， 单独创建一个告警文件，在 `prometheus.yml` 中提供文件的路径。 比如，如果您创建了一个名为 `rules.conf` 的告警文件，把它加入到 `prometheus.yml`，在 `prometheus.yml` 末尾加入如下两行:
 
-```
+```bash
 rule_files:
   - rules.conf
 ```
@@ -55,7 +55,7 @@ rule_files:
 
 ###### `/etc/prom-conf/rules.conf` 中的告警配置例子
 
-```
+```bash
 ALERT CpuUsageSpike
 IF rate(container_cpu_user_seconds_total{container_label_io_rancher_container_name="Demo-testTarget-1"}[30s]) * 100 > 70
 LABELS {
@@ -67,6 +67,7 @@ ANNOTATIONS {
   description = "CPU usage is above 70%"
 }
 ```
+
 加入报警配置后，重启服务。
 
 ##### 添加报警管理程序
@@ -75,7 +76,7 @@ ANNOTATIONS {
 
 ###### 示例 `etc/alertmanager/config.yml`
 
-```
+```bash
 route:
   repeat_interval: 5h
   routes:
@@ -97,9 +98,11 @@ receivers:
 ```
 
 ##### 自动扩缩容
+
 Prometheus和告警管理程序随告警钩子更新后，重启服务器，以确保配置处于最新的激活状态。对于已经添加了告警的服务，服务会自动根据创建的更新器钩子自动扩容或缩容。
 
 #### 主机弹性伸缩
+
 Rancher 可以通过克隆用 Rancherc 创建的， 并且已经存在的主机来增加主机的数量。(即 Docker Machine)。这意味这通过 [自定义命令]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/custom/) 添加的主机不能进行伸缩。
 
 使用 [主机上的标签]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/#主机标签)，
@@ -120,12 +123,11 @@ Rancher 可以通过克隆用 Rancherc 创建的， 并且已经存在的主机�
 * **[自定义主机]({{< baseurl >}}/rancher/v1.x/cn/infrastructure/hosts/custom/):** 任何类型的主机都可以被添加到弹性伸缩组中，您只需要在主机上添加一个标签。Rancher 不能用这些主机来克隆或创建出更多主机。
 * **主机克隆:** 因为主机扩增既是主机克隆，所有配置，包括资源分配，Docker 引擎等都会在新主机被复制。Rancher 总是会用克隆最旧的主机。
 * **处于错误状态的主机:** 任何处于 `Error` 状态的主机都不会被添加到弹性伸缩组中.
-* **移除主机的顺序:** 从 Rancher 中删除主机时，Rancher会根据主机的状态，按一下的顺序删除弹性伸缩组中的主机(`Inactive`， `Deactivating`，`Reconnecting` 或 `Disconnected`)，最后才会删除处于 `active` 状态的主机
+* **移除主机的顺序:** 从 Rancher 中删除主机时，Rancher会根据主机的状态，按以下顺序删除弹性伸缩组中的主机(`Inactive`， `Deactivating`，`Reconnecting` 或 `Disconnected`)，最后才会删除处于 `active` 状态的主机
 
 #### 基于 Docker Hub Webhooks 升级服务
 
 利用 Docker Hub 的 webhooks, 您可以加入 Rancher 的接收器钩子。这样，每当push一个镜像，一个 `POST` 请求就会被发送到 Rancher 来触发这个触发器钩子。使用这种 webhooks 组合, 您可以实现自治。 这样，每当在 Docker Hub push一个 `image:tag`， 所有使用了匹配这个镜像版本的服务都会自动被升级。您需要用一个选择器标签来选择匹配的服务，然后再升级选中的服务。标签应该在服务创建时添加。如果服务没有标签，您需要在Rancher中升级服，然后添加供 webhook 使用的标签。
-
 
 为了升级服务，您必须配置自己的 webhook:
 
@@ -138,7 +140,7 @@ Rancher 可以通过克隆用 Rancherc 创建的， 并且已经存在的主机�
 创建接受器钩子后，您需要在您的 Docker Hub webhook 中使用
 **触发 URL**。当Docker Hub 触发自己的 webhook, 被 Rancher 触发器钩子选中的服务会被升级。Rancher 触发器钩子默认需要 Docker Hub webhook 提供的特定信息。同时使用 Rancher's 接受器钩子和其它webhook，`POST` 请求中需要包含以下字段:
 
-```
+```bash
 {
     "push_data": {
         "tag": <pushedTag>
