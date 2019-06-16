@@ -42,4 +42,3 @@ kubectl --kubeconfig=kube_configxxx.yml -n cattle-system create secret generic t
 ```plain
 --set additionalTrustedCAs=true
 ```
-

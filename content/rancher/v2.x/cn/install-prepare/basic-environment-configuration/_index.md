@@ -337,3 +337,5 @@ sudo update-grub;
 
 > **注意** 通过以上命令可自动配置参数，如果`/etc/default/grub`非默认配置，需根据实际参数做调整。
 > **提示** 以上配置完成后，建议重启一次主机。
+
+### 4、更多配置请访问[最佳实践]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/best-practices/)

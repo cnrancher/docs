@@ -91,3 +91,17 @@ $ echo $SSH_AUTH_SOCK
 ```yaml
 addon_job_timeout: 30
 ```
+
+## 七、卷映射路径前缀(Prefix Path)
+
+`rke`在创建集群时，会把主机的`/etc/kubernetes，/var/lib/etcd`等目录映射到容器中，以供容器调用相关配置文件。但对于像`RancherOS和CoreOS`这样的操作系统，没有权限直接在`根路径`写入文件，因此需要指定一个子目录创建相关配置文件。
+
+```bash
+prefix_path: /custom_path
+```
+
+这样在创建好集群后，容器映射的路径格式为：
+
+```bash
+-v /custom_path/etc/kubernetes:/etc/kubernetes
+```
