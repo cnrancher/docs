@@ -50,11 +50,11 @@ RKE支持`kube-api`服务的以下设置选项:
 
     启用[Kubernetes Pod安全策略](https://kubernetes.io/docs/concepts/policy/pod-security-policy/)选项，默认不启用pod安全策略(`pod_security_policy: false`)。
 
-    > **注意:** 如果将`pod_security_policy`值设置为`true`, RKE将配置一个开放策略，允许所有Pod在集群上工作，您需要配置自己的策略来充分利用PSP(pod_security_policy)。
+    > **注意:** 如果将`pod_security_policy`值设置为`true`, RKE将配置开放策略，允许所有Pod在集群上工作，您需要配置自己的策略来充分利用PSP(pod_security_policy)。
 
 - **Always Pull Images** (`always_pull_images`)
 
-    启用总是spullimages承认控制器插件。启用`AlwaysPullImages`是一种安全最佳实践，它强制Kubernetes验证镜像并使用远程镜像仓库获取凭据。仍然使用本地镜像层缓存，但是在启动容器时拉取和比较镜像散列时，确实增加了一点开销。
+    启用`AlwaysPullImages`是一种安全最佳实践，它强制Kubernetes验证镜像并使用远程镜像仓库获取凭据。仍然使用本地镜像层缓存，但是在启动容器时拉取和比较镜像层`hash`值时，将会增加一些开销。
 
     >注意:从v0.2.0开始可用
 

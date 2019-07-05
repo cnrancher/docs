@@ -8,36 +8,38 @@ weight: 5
 | 选项 | 默认值| 描述 |
 | --- | --- | --- |
 | `hostname` | " " | `string` - Rancher Server的完全限定域名 |
-| `ingress.tls.source` | `rancher` | `string` - 从哪里获得证书 - "rancher, letsEncrypt, secret" |
+| `ingress.tls.source` | `rancher` | `string` - 从哪里获得证书 - `rancher, letsEncrypt, secret` |
 | `letsEncrypt.email` | " " | `string` - 邮件地址 |
-| `letsEncrypt.environment` | `production` | `string` - 有效选项: "staging, production" |
+| `letsEncrypt.environment` | `production` | `string` - 选项: `staging, production` |
 | `privateCA` | false | `bool` - 如果您的证书是自签名CA证书，则设置为true |
 
 <br/>
 
 ## 高级选项
 
-| 选项 | 默认值   | 描述 |
-| --- | --- | --- |
-| `additionalTrustedCAs` | false | `bool` - 查看[额外的授信CA证书](#额外的授信ca证书) |
-| `auditLog.destination` | "sidecar" | `string` - 审计日志传输到sidecar container console或者hostPath volume - "sidecar, hostPath" |
-| `addLocal` | auto | `string`- 让Rancher检测并导入`local`集群 |
-| `auditLog.hostPath` | "/var/log/rancher/audit" | `string` - 主机上的目标日志文件|
-| `auditLog.level` | 0 | `int` - - 设置[API审核日志]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/api-auditing/)等级. 0是关闭。 [0-3] |
-| `auditLog.maxAge` | 1 | `int` - 保留旧审核日志文件的最大天数 |
-| `auditLog.maxBackups` | 1 | `int` - 要保留的最大审计日志文件数 |
-| `auditLog.maxSize` | 100 | `int` - 审计日志文件轮换前的最大大小（单位兆） |
-| `busyboxImage` | busybox | `string`- 用于收集审计日志的busybox镜像。*注意：自v2.2.0起可用* |
-| `debug` | false | `bool` - 开启rancher server debug模式 |
-| `extraEnv` | [] | `list`- 为Rancher设置其他环境变量。*注意：从v2.2.0开始可用* |
-| `imagePullSecrets` | [] | `list` - 包含私有镜像仓库登录凭据的Secret资源的名称列表 |
-| `ingress.extraAnnotations` | {} | `map` - 用于自定义入口的附加注释 |
-| `proxy` | "" | `string` - string - Rancher的HTTP[S]代理服务器|
-| `noProxy` | "127.0.0.0/8,<br/>10.0.0.0/8,<br/>172.16.0.0/12,<br/>192.168.0.0/16" | `string` - 逗号分隔的主机名列表或不使用代理的IP地址 |
-| `resources` | {} | `map` - rancher pod 资源请求和限制 |
-| `rancherImage` | "rancher/rancher" | `string` - rancher镜像名称 |
-| `rancherImageTag` | same as chart version | `string` - rancher/rancher镜像版本 |
-| `tls` | "ingress" | `string` - 有关详细信息，请参阅[外部TLS终止](#外部TLS终止). - "ingress, external" |
+| OPTION                         | DEFAULT VALUE                                                | DESCRIPTION                                                  |
+| :----------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
+| `additionalTrustedCAs`         | false                                                        | `bool` - 查看[自定义CA根证书]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/custom-ca-root-certificate/) |
+| `addLocal`                     | `auto`                                                       | `string` - 让Rancher检测并导入`local`集群                    |
+| `antiAffinity`                 | `preferred`                                                  | `string` -  Rancher pods 反亲和规则 - 可用选项: `preferred, required`  |
+| `auditLog.destination`         | `sidecar`                                                    | `string` - 审计日志传输到`sidecar container console`或者`hostPath volume` - 可用选项: `sidecar, hostPath` |
+| `auditLog.hostPath`            | `/var/log/rancher/audit`                                     | `string` - 主机上的审计日志文件路径(仅当`auditLog.destination`被设置为`hostPath`时才适用) |
+| `auditLog.level`               | 0                                                            | `int` - 设置[API审核日志]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/api-auditing/)等级. 0是关闭。 可用选项: [0-3] |
+| `auditLog.maxAge`              | 1                                                            | `int` - 保留旧审计日志文件的最大天数(仅当`auditLog.destination`被设置为`hostPath`时适用) |
+| `auditLog.maxBackups`          | 1                                                            | `int` - 要保留的最大审计日志文件数量(仅当`auditLog.destination`被设置为`hostPath`时才适用) |
+| `auditLog.maxSize`             | 100                                                          | `int` - 在轮换审计日志文件之前，它的最大大小(以兆为单位)(仅当`auditLog.destination`被设置为`hostPath`时才适用) |
+| `busyboxImage`                 | `busybox`                                                    | `string` - 用于收集审计日志的busybox镜像<br/>注意: 从v2.2.0开始可用 |
+| `debug`                        | false                                                        | `bool` - set debug flag on rancher server                    |
+| `extraEnv`                     | []                                                           | `list` - 为Rancher设置额外的环境变量<br/>*注意:从v2.2.0开始可用* |
+| `imagePullSecrets`             | []                                                           | `list` - 包含私有镜像仓库凭据的密文资源的名称列表            |
+| `ingress.extraAnnotations`     | {}                                                           | `map` - 用于自定义ingress的附加注释                          |
+| `ingress.configurationSnippet` | ””                                                           | `string` - 添加额外的Nginx配置。可用于代理配置。*注: 从v2.0.15、v2.1.10和v2.2.4开始提供* |
+| `proxy`                        | ””                                                           | `string` - HTTP[S] proxy server for Rancher                  |
+| `noProxy`                      | 127.0.0.0/8,<br />10.0.0.0/8,<br />172.16.0.0/12,<br />192.168.0.0/16 | `string` - 不使用代理的主机名列表或ip地址,逗号分隔.          |
+| `resources`                    | {}                                                           | `map` - rancher pod 资源的请求和限制                         |
+| `rancherImage`                 | `rancher/rancher`                                            | `string` - rancher镜像名                                     |
+| `rancherImageTag`              | same as chart version                                        | `string` - rancher镜像tag                                    |
+| `tls`                          | “ingress”                                                    | `string` - 查看[外部七层负载均衡Helm HA部署]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/https-l7/#2-配置ssl并安装rancher-server)了解详细使用. - 可用选项: `ingress, external` |
 
 ### API审计日志
 
