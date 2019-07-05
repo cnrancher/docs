@@ -118,11 +118,17 @@ Copy the rendered manifest directories to a system that has access to the Ranche
 
 Use `kubectl` to create namespaces and apply the rendered manifests.
 
-```plain
-kubectl --kubeconfig=kube_configxxx.yml -n kube-system apply -R -f ./cert-manager
+If you are using self-signed certificates, install cert-manager:
 
-kubectl --kubeconfig=kube_configxxx.yml create  namespace cattle-system
-kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system apply -R -f ./rancher
+```plain
+kubectl -n kube-system apply -R -f ./cert-manager
+```
+
+Install rancher:
+
+```plain
+kubectl create namespace cattle-system
+kubectl -n cattle-system apply -R -f ./rancher
 ```
 
 ### [Next: Configure Rancher for the Private Registry]({{< baseurl >}}/rancher/v2.x/en/installation/air-gap-high-availability/config-rancher-for-private-reg/)
