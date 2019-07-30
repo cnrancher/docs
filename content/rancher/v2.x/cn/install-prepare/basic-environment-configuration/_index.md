@@ -159,6 +159,14 @@ EOF
 - **Docker-ce安装**
 
     ```bash
+    # 定义用户名
+    NEW_USER=rancher
+    # 添加用户(可选)
+    sudo adduser $NEW_USER
+    # 为新用户设置密码
+    sudo passwd $NEW_USER
+    # 为新用户添加sudo权限
+    sudo echo "$NEW_USER ALL=(ALL) ALL" >> /etc/sudoers
     # 定义安装版本
     export docker_version=18.06.3;
     # step 1: 安装必要的一些系统工具
@@ -177,6 +185,8 @@ EOF
     version=$(apt-cache madison docker-ce|grep ${docker_version}|awk '{print $3}');
     # --allow-downgrades 允许降级安装
     sudo apt-get -y install docker-ce=${version} --allow-downgrades;
+    # 把当前用户加入docker组
+    sudo usermod -aG docker $NEW_USER;
     # 设置开机启动
     sudo systemctl enable docker;
     ```
@@ -192,12 +202,14 @@ EOF
     >因为CentOS的安全限制，通过RKE安装K8S集群时候无法使用`root`账户。所以，建议`CentOS`用户使用非`root`用户来运行docker,不管是`RKE`还是`custom`安装k8s,详情查看[无法为主机配置SSH隧道]({{< baseurl >}}/rancher/v2.x/cn/faq/troubleshooting-ha/ssh-tunneling/)。
 
     ```bash
+    # 定义用户名
+    NEW_USER=rancher
     # 添加用户(可选)
-    sudo adduser `<new_user>`
+    sudo adduser $NEW_USER
     # 为新用户设置密码
-    sudo passwd `<new_user>`
+    sudo passwd $NEW_USER
     # 为新用户添加sudo权限
-    sudo echo '<new_user> ALL=(ALL) ALL' >> /etc/sudoers
+    sudo echo "$NEW_USER ALL=(ALL) ALL" >> /etc/sudoers
     # 卸载旧版本Docker软件
     sudo yum remove docker \
                   docker-client \
@@ -213,9 +225,6 @@ EOF
     # 定义安装版本
     export docker_version=18.06.3
     # step 1: 安装必要的一些系统工具
-    sudo yum remove docker docker-client docker-client-latest \
-        docker-common docker-latest docker-latest-logrotate \
-        docker-logrotate docker-engine -y;
     sudo yum update -y;
     sudo yum install -y yum-utils device-mapper-persistent-data \
         lvm2 bash-completion;
@@ -229,7 +238,7 @@ EOF
     # 如果已经安装高版本Docker,可进行降级安装(可选)
     yum downgrade --setopt=obsoletes=0 -y docker-ce-${version} docker-ce-selinux-${version};
     # 把当前用户加入docker组
-    sudo usermod -aG docker `<new_user>`;
+    sudo usermod -aG docker $NEW_USER;
     # 设置开机启动
     sudo systemctl enable docker;
     ```

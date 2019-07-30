@@ -18,7 +18,7 @@ $ sudo docker run --d --privileged -v /var/run/docker.sock:/var/run/docker.sock 
 
 <br>
 
-> **Note:** The `rancher/agent` version is correlated to the Rancher server version. You will need to check the custom command to get the appropriate tag for the version to use.
+> **Note:** The `rancher/agent` version is correlated to the Rancher Server version. You will need to check the custom command to get the appropriate tag for the version to use.
 
 _Cloud-Config Example_
 

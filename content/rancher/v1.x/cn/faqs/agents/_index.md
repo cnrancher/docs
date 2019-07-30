@@ -39,7 +39,7 @@ rancher/agent:v0.8.2 http://SERVER_IP:8080/v1/scripts/xxxx
 
 这个问题主要有以下几种情况:
 
-1.RANCHER SERVER服务器防火墙没有开通8080端口;
+1.Rancher Server服务器防火墙没有开通8080端口;
 
 2.云平台安全组没有放行8080端口;
 

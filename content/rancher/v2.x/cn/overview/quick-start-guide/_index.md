@@ -92,7 +92,7 @@ weight: 3
 
   4. 设置Rancher Server URL
 
-      Rancher Server URL是agent节点注册到rancher serverd的地址，需要保证这个地址能够被agent主机访问，不要设置为`127.0.0.1`或者`localhost`。
+      Rancher Server URL是agent节点注册到Rancher Serverd的地址，需要保证这个地址能够被agent主机访问，不要设置为`127.0.0.1`或者`localhost`。
 
 ## 五、创建K8S集群
 

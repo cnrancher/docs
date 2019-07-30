@@ -133,12 +133,29 @@ net.ipv4.neigh.default.gc_thresh3=<value3>
 
     对于Ubuntu\Debian系统，执行`docker info`命令时能看到警告`WARNING: No swap limit support或者WARNING: No memory limit support`。因为Ubuntu\Debian系统默认关闭了`swap account或者`功能，这样会导致设置容器内存或者swap资源限制不生效，[解决方法]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/basic-environment-configuration/#3-ubuntu系统-docker-info提示warning-no-swap-limit-support)。
 
+1. (可选)修改Docker默认IP地址
+
+    Docker第一次运行时会自动创建名为docker0的网络接口，默认接口地址为`172.17.0.1/16`。在一些企业中，可能已经使用了这个网段的地址，或者规划以后会使用这个网段的地址。所以，建议在安装好docker服务后，第一时间修改docker0接口地址，避免后期出现网段冲突。
+
+    - 停止docker运行
+
+      `systemctl stop docker.service`
+
+    - 删除已有的docker0接口
+
+      `sudo ip link del docker0`
+
+    - 修改docker配置文件
+
+      在`/etc/docker/daemon.json`中添加`"bip": "169.254.123.1/24",`
+
 1. 综合配置
 
     ```bash
     touch /etc/docker/daemon.json
     cat > /etc/docker/daemon.json <<EOF
     {
+        "oom-score-adjust": -1000,
         "log-driver": "json-file",
         "log-opts": {
         "max-size": "100m",
@@ -146,6 +163,7 @@ net.ipv4.neigh.default.gc_thresh3=<value3>
         },
         "max-concurrent-downloads": 10,
         "max-concurrent-uploads": 10,
+        "bip": "169.254.123.1/24",
         "registry-mirrors": ["https://7bezldxe.mirror.aliyuncs.com"],
         "storage-driver": "overlay2",
         "storage-opts": [
@@ -215,7 +233,7 @@ services:
       # 密文和配置映射同步时间，默认1分钟
       sync-frequency: '3s'
       # 自定义pause镜像,默认为rancher/pause:3.1
-      pod-infra-container-image: 'xxx/xxx/pause:3.1'
+      pod-infra-container-image: 'rancher/pause:3.1'
       # 传递给网络插件的MTU值，以覆盖默认值，设置为0(零)则使用默认的1460
       network-plugin-mtu: '1500'
       # Kubelet进程可以打开的文件数（默认1000000）,根据节点配置情况调整
@@ -231,6 +249,9 @@ services:
       ## 仅当registry-qps大于0(零)时生效，(默认10)。如果registry-qps为0则不限制(默认5)。
       registry-burst: '10'
       registry-qps: '0'
+      
+      cgroups-per-qos: 'true'
+      cgroup-driver: 'systemd'
 
       system-reserved: 'memory=250Mi'
       kube-reserved: 'memory=250Mi'

@@ -18,7 +18,7 @@ The following instructions will guide you through upgrading a high-availability 
 
 - **kubectl**
 
-    Follow the kubectl [configuration instructions]({{< baseurl >}}/rancher/v2.x/en/faq/kubectl) and confirm that you can connect to the Kubernetes cluster running Rancher server.
+    Follow the kubectl [configuration instructions]({{< baseurl >}}/rancher/v2.x/en/faq/kubectl) and confirm that you can connect to the Kubernetes cluster running Rancher Server.
 
 - **helm**
 
@@ -80,7 +80,7 @@ Upgrades _to_ or _from_ any chart in the  [rancher-alpha repository]({{< baseurl
 
 4. Copy and apply the rendered manifests.
 
-    Copy the files to a server with access to the Rancher server cluster and apply the rendered templates.
+    Copy the files to a server with access to the Rancher Server cluster and apply the rendered templates.
 
     ```plain
     kubectl --kubeconfig=kube_configxxx.yml -n   cattle-system apply -R -f ./rancher

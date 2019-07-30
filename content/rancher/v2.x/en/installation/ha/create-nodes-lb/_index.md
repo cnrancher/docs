@@ -15,7 +15,7 @@ View the OS requirements for RKE at [RKE Requirements]({{< baseurl >}}/rke/lates
 
 ### Load Balancer
 
-RKE will configure an Ingress controller pod, on each of your nodes. The Ingress controller pods are bound to ports TCP/80 and TCP/443 on the host network and are the entry point for HTTPS traffic to the Rancher server.
+RKE will configure an Ingress controller pod, on each of your nodes. The Ingress controller pods are bound to ports TCP/80 and TCP/443 on the host network and are the entry point for HTTPS traffic to the Rancher Server.
 
 Configure a load balancer as a basic Layer 4 TCP forwarder. The exact configuration will vary depending on your environment. 
 

@@ -19,7 +19,7 @@ Examples of services that Rancher can access:
 
 ## Installing with the custom CA Certificate
 
-The Audit Log is enabled and configured by passing environment variables to the Rancher server container. See the following to enable on your installation.
+The Audit Log is enabled and configured by passing environment variables to the Rancher Server container. See the following to enable on your installation.
 
 - [Single Node Install]({{< baseurl >}}/rancher/v2.x/en/installation/single-node/#custom-ca-certificate)
 

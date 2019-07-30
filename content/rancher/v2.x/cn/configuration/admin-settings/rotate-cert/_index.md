@@ -2,7 +2,7 @@
 title: 16 - 轮换证书
 weight: 16
 ---
-> **警告** 如果你的证书已经过期，请先不要升级`rancher server`，根据[证书已过期导致无法连接k8s](#2-证书已过期导致无法连接k8s)进行处理。
+> **警告** 如果你的证书已经过期，请先不要升级`Rancher Server`，根据[证书已过期导致无法连接k8s](#2-证书已过期导致无法连接k8s)进行处理。
 
 默认情况下，Kubernetes集群使用ssl证书来加密通信，Rancher自动为集群生成证书。在`Rancher v2.0.14、v2.1.9`之前的版本，Rancher创建的集群ssl证书默认有效期为1年(CA证书默认10年)，在`Rancher v2.0.14、v2.1.9`以及更高的版本中，Rancher创建的集群ssl证书默认为10年(CA证书默认10年)。
 
@@ -159,9 +159,9 @@ weight: 16
    - kube-system/kube-dns-autoscaler
    - 其他应用Pod
 
-## 四: 独立容器Rancher server证书更新
+## 四: 独立容器Rancher Server证书更新
 
-Rancher v2.0.14+ 、v2.1.9+、v2.2.0+会自动检查证书有效期，如果发现证书过期，将会自动生成新的证书。所以独立容器运行的Rancher server只需把rancher版本升级到支持的版本，无需做其他操作。
+Rancher v2.0.14+ 、v2.1.9+、v2.2.0+会自动检查证书有效期，如果发现证书过期，将会自动生成新的证书。所以独立容器运行的Rancher Server只需把rancher版本升级到支持的版本，无需做其他操作。
 
 ## 五: 故障处理
 
@@ -186,7 +186,7 @@ Rancher v2.0.14+ 、v2.1.9+、v2.2.0+会自动检查证书有效期，如果发�
 
 **解决方法**
 
-可以手动设置节点的时间，把时间往后调整一些。因为`Agent`只与`K8S master`和`Rancher server`通信，如果rancher server证书未过期，那就只需调整`K8S master`节点时间。
+可以手动设置节点的时间，把时间往后调整一些。因为`Agent`只与`K8S master`和`Rancher Server`通信，如果Rancher Server证书未过期，那就只需调整`K8S master`节点时间。
 
 调整命令：
 
@@ -197,7 +197,7 @@ timedatectl set-ntp false
 timedatectl set-time '2019-01-01 00:00:00'
 ```
 
-然后再对rancher server进行升级，接着按照证书轮换步骤进行证书轮换，等到证书轮换完成后再把时间同步回来。
+然后再对Rancher Server进行升级，接着按照证书轮换步骤进行证书轮换，等到证书轮换完成后再把时间同步回来。
 
 ```bash
 timedatectl set-ntp true

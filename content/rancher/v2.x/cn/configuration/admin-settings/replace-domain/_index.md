@@ -19,7 +19,7 @@ weight: 10
 
 - 自签名ssl证书
 
-复制以下代码另存为`create_self-signed-cert.sh`或者其他您喜欢的文件名。修改代码开头的`CN`(域名)，如果需要使用ip去访问rancher server，那么需要给ssl证书添加扩展IP，多个IP用逗号隔开。如果想实现多个域名访问rancher server，则添加扩展域名(SSL_DNS),多个`SSL_DNS`用逗号隔开。
+复制以下代码另存为`create_self-signed-cert.sh`或者其他您喜欢的文件名。修改代码开头的`CN`(域名)，如果需要使用ip去访问Rancher Server，那么需要给ssl证书添加扩展IP，多个IP用逗号隔开。如果想实现多个域名访问Rancher Server，则添加扩展域名(SSL_DNS),多个`SSL_DNS`用逗号隔开。
 
 ```bash
 #!/bin/bash -e
@@ -199,7 +199,7 @@ cp xxx.crt tls.crt
 
 >注意：操作前先备份，{{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/backups/
 
-如果是以容器映射证书文件运行的rancher server，只需要停止原有rancher server容器，然后使用相同的运行配置，替换新证书后重新运行新容器即可，注意容器名称不要相同。
+如果是以容器映射证书文件运行的Rancher Server，只需要停止原有Rancher Server容器，然后使用相同的运行配置，替换新证书后重新运行新容器即可，注意容器名称不要相同。
 
 ### 2、Rancher HA运行
 
@@ -265,7 +265,7 @@ get pod |grep -E "cattle-cluster-agent|cattle-node-agent|rancher" | awk '{print 
 
 ## 五、修改业务集群agent pod
 
-因为token和域名的更改，业务集群的agent pod无法连接rancher server,这个时候需要通过命令行工具去编辑yaml文件。
+因为token和域名的更改，业务集群的agent pod无法连接Rancher Server,这个时候需要通过命令行工具去编辑yaml文件。
 
 - 执行以下命令：
 

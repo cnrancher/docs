@@ -57,13 +57,13 @@ Failed to write to log, write /var/log/boot/shutdown.log: no space left on devic
 
 After rebooting, you will not be able to enter the OS and there will be a kernel panic.
 
-![](https://ws1.sinaimg.cn/mw1024/006tNc79ly1ftf8071p5sj31kw0s14or.jpg)
+![image](https://ws1.sinaimg.cn/mw1024/006tNc79ly1ftf8071p5sj31kw0s14or.jpg)
 
 ### Boot with recovery console
 
 When you can access the bootloader, you should select the `Recovery console` and  press `<Tab>` to edit:
 
-![](https://ws3.sinaimg.cn/mw1024/006tNc79ly1ftf7mpir3fj312u0i4a9z.jpg)
+![image](https://ws3.sinaimg.cn/mw1024/006tNc79ly1ftf7mpir3fj312u0i4a9z.jpg)
 
 You need add `rancher.autologin=tty1` to the end, then press `<Enter>`. If all goes well, you will automatically login to the recovery console.
 

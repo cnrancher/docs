@@ -177,7 +177,7 @@ Reboot the target node to ensure the cluster networking and services are in a cl
 
 Wait for the pods running in `kube-system`, `ingress-nginx` and the `rancher` pod in `cattle-system` to return to the `Running` state.
 
-> **Note:** `cattle-cluster-agent` and `cattle-node-agent` pods will be in an `Error` or `CrashLoopBackOff` state until Rancher server is up and the DNS/Load Balancer have been pointed at the new cluster.
+> **Note:** `cattle-cluster-agent` and `cattle-node-agent` pods will be in an `Error` or `CrashLoopBackOff` state until Rancher Server is up and the DNS/Load Balancer have been pointed at the new cluster.
 
 ```
 kubectl --kubeconfig=kube_configxxx.yml  get  pods --all-namespaces

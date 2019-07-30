@@ -1,7 +1,9 @@
 ---
-title: 2 - 集群备份
-weight: 2
+title: 1 - RKE集群备份
+weight: 1
 ---
+
+> **重要提示** 此方法直接使用RKE进行集群备份，它适用于RKE创建并导入的业务集群或者RKE部署的local集群
 
 本节介绍在Rancher HA下如何备份数据。
 

@@ -131,7 +131,7 @@ kubeconfig=xxx.yaml
 helm_version=`helm version |grep Client | awk -F""\" '{print $2}'`
 helm init --kubeconfig=$kubeconfig \
 --service-account tiller --skip-refresh \
---tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:$helm_version \
+--tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:$helm_version 
 ```
 
 `helm init`以后，可以运行`kubectl --kubeconfig=kube_configxxx.yml  get  pods --namespace kube-system`并看到Tiller正在运行。

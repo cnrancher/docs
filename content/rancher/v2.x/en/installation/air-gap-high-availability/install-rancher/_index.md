@@ -7,7 +7,7 @@ aliases:
 
 ## A. Add the Helm Chart Repository
 
-From a system that has access to the internet, render the installs and copy the resulting manifests to a system that has access to the Rancher server cluster.
+From a system that has access to the internet, render the installs and copy the resulting manifests to a system that has access to the Rancher Server cluster.
 
 1. If you haven't already, initialize `helm` locally on a system that has internet access.
 
@@ -50,7 +50,7 @@ For HA air gap configurations, there are two recommended options for the source 
 Based on the choice your made in [B. Choose your SSL Configuration](#b-optional-install-cert-manager), complete one of the procedures below.
 
 {{% accordion id="self-signed" label="Option A: Default Self-Signed Certificate" %}}
-By default, Rancher generates a CA and uses cert manger to issue the certificate for access to the Rancher server interface. 
+By default, Rancher generates a CA and uses cert manger to issue the certificate for access to the Rancher Server interface. 
 
 1. From a system connected to the internet, fetch the latest cert-manager chart available from the [official Helm chart repository](https://github.com/helm/charts/tree/master/stable). 
 
@@ -114,7 +114,7 @@ By default, Rancher generates a CA and uses cert manger to issue the certificate
 
 ## D. Install Rancher
 
-Copy the rendered manifest directories to a system that has access to the Rancher server cluster to complete installation.
+Copy the rendered manifest directories to a system that has access to the Rancher Server cluster to complete installation.
 
 Use `kubectl` to create namespaces and apply the rendered manifests.
 

@@ -22,9 +22,9 @@ For more information, see [Using kubectl to Access a Cluster]({{< baseurl >}}/ra
 kubectl --kubeconfig /custom/path/kube.config get pods
 ```
 
-## Accessing Rancher Launched Kubernetes clusters without Rancher server running
+## Accessing Rancher Launched Kubernetes clusters without Rancher Server running
 
-By default, Rancher generates a kubeconfig file that will proxy through the Rancher server to connect to the Kubernetes API server on a cluster.
+By default, Rancher generates a kubeconfig file that will proxy through the Rancher Server to connect to the Kubernetes API server on a cluster.
 
 For [Rancher Launched Kubernetes]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters) clusters, which have [Authorized Cluster Endpoint]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/rke-clusters/options/#authorized-cluster-endpoint) enabled, Rancher generates extra context(s) in the kubeconfig file in order to connect directly to the cluster.
 

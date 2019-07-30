@@ -369,15 +369,48 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 
 ## 十一、备份自动生成的kubectl配置文件
 
-在安装过程中，RKE会自动生成一个kube_config_rancher-cluster.yml与RKE二进制文件位于同一目录中的配置文件。此文件很重要，它可以在Rancher server故障时，利用kubectl通过此配置文件管理Kubernetes集群。复制此文件将其备份到安全位置。
+在安装过程中，RKE会自动生成一个kube_config_rancher-cluster.yml与RKE二进制文件位于同一目录中的配置文件。此文件很重要，它可以在Rancher Server故障时，利用kubectl通过此配置文件管理Kubernetes集群。复制此文件将其备份到安全位置。
 
 ## 十二、(可选)为Agent Pod添加主机别名(/etc/hosts)
 
-如果您没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
+如果您没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher Server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher Server URL`,最终导致无法通信。
 
 ### 解决方法
 
-可以通过给`cattle-cluster-agent Pod`和`cattle-node-agent`添加主机别名(/etc/hosts)，让其可以正常通信`(前提是IP地址可以互通)`。
+可以通过给`cattle-cluster-agent Pod`和`cattle-node-agent`添加主机别名(/etc/hosts)，让其可以正常通过`Rancher Server URL`与Rancher Server通信`(前提是IP地址可以互通)`。
+
+**注意：**Local集群中，需要先通过`Rancher Server URL`访问Rancher Web UI，进行初始化之后`cattle-cluster-agent Pod`和`cattle-node-agent`才会自动部署。
+
+- 操作步骤
+
+1. 执行以下命令为Rancher Server容器配置hosts:
+
+    ```bash
+    #指定kubectl配置文件
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+
+    kubectl --kubeconfig=$kubeconfig -n cattle-system \
+        patch deployments rancher --patch '{
+            "spec": {
+                "template": {
+                    "spec": {
+                        "hostAliases": [
+                            {
+                                "hostnames":
+                                [
+                                    "xxx.cnrancher.com"
+                                ],
+                                    "ip": "192.168.1.100"
+                            }
+                        ]
+                    }
+                }
+            }
+        }'
+    ```
+
+1. 通过`Rancher Server URL`访问Rancher Web UI，设置用户名密码和`Rancher Server URL`地址，然后会自动登录Rancher Web UI；
+1. 在Rancher Web UI中依次进入`local集群/system项目`，在`cattle-system`命名空间中查看是否有`cattle-cluster-agent Pod`和`cattle-node-agent`被创建。如果有创建则进行下面的步骤，没有创建则等待；
 
 1. cattle-cluster-agent pod
 
@@ -404,7 +437,7 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
     }'
     ```
 
-2. cattle-node-agent pod
+1. cattle-node-agent pod
 
     ```bash
     export kubeconfig=xxx/xxx/xx.kubeconfig.yaml

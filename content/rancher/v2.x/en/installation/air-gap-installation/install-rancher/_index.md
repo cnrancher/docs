@@ -11,7 +11,7 @@ This guide will take you through the basic process of installing Rancher Server 
 
 ## RKE
 
-On a system that has access (22/tcp and 6443/tcp) to the nodes you have built to host the Rancher server cluster, use the sample below create the `rancher-cluster.yml` file. Define your nodes and fill out the details for the private registry.
+On a system that has access (22/tcp and 6443/tcp) to the nodes you have built to host the Rancher Server cluster, use the sample below create the `rancher-cluster.yml` file. Define your nodes and fill out the details for the private registry.
 
 See [Install Kubernetes with RKE]({{< baseurl >}}/rancher/v2.x/en/installation/ha/kubernetes-rke/) for more details on the options available.
 
@@ -60,7 +60,7 @@ Follow the rest of the [Install Kubernetes with RKE]({{< baseurl >}}/rancher/v2.
 
 ## Helm
 
-Instead of installing the `tiller` agent on the cluster, render the installs on a system that has access to the internet and copy resulting manifests to a system that has access to the Rancher server cluster.
+Instead of installing the `tiller` agent on the cluster, render the installs on a system that has access to the internet and copy resulting manifests to a system that has access to the Rancher Server cluster.
 
 ### Initialize Helm Locally
 
@@ -121,7 +121,7 @@ helm template ./rancher-<version>.tgz --output-dir . \
 
 ### Copy Manifests
 
-Copy the rendered manifest directories to a system that has access to the Rancher server cluster.
+Copy the rendered manifest directories to a system that has access to the Rancher Server cluster.
 
 ### Apply the Manifests
 

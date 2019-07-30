@@ -13,7 +13,7 @@ weight: 2
 
 1. 按照离线安装方法[准备离线镜像]({{< baseurl >}}/rancher/v2.x/cn/installation/air-gap-installation/prepare-private-reg/)。
 
-2. 按照[单节点升级]({{< baseurl >}}/rancher/v2.x/cn/upgrades/single-node-upgrade/)的方法，进行Rancher server升级。
+2. 按照[单节点升级]({{< baseurl >}}/rancher/v2.x/cn/upgrades/single-node-upgrade/)的方法，进行Rancher Server升级。
 
     >**注意:** 在执行单节点升级时，`docker run`参数中的镜像名，需要添加私有仓库地址。
     >

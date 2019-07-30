@@ -21,7 +21,7 @@ The following instructions will guide you through upgrading a high-availability 
 
 - **kubectl**
 
-    Follow the kubectl [configuration instructions]({{< baseurl >}}/rancher/v2.x/en/faq/kubectl) and confirm that you can connect to the Kubernetes cluster running Rancher server.
+    Follow the kubectl [configuration instructions]({{< baseurl >}}/rancher/v2.x/en/faq/kubectl) and confirm that you can connect to the Kubernetes cluster running Rancher Server.
 
 - **Helm**
 

@@ -30,7 +30,7 @@ Log into your Linux host, and then run the installation command below. Replace `
 
 {{% /accordion %}}
 {{% accordion id="option-b" label="Option B-Bring Your Own Certificate: Self-Signed" %}}
-In development or testing environments where your team will access your Rancher server, create a self-signed certificate for use with your install so that your team can verify they're connecting to your instance of Rancher.
+In development or testing environments where your team will access your Rancher Server, create a self-signed certificate for use with your install so that your team can verify they're connecting to your instance of Rancher.
 
 >**Prerequisites:**
 >From a computer with an internet connection, create a self-signed certificate using [OpenSSL](https://www.openssl.org/) or another method of your choice.

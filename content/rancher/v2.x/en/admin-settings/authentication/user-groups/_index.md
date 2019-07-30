@@ -3,13 +3,13 @@ title: Users and Groups
 weight: 1
 ---
 
-Rancher relies on users and groups to determine who is allowed to log in to Rancher and which resources they can access. When you configure an external authentication provider, users from that provider will be able to log in to your Rancher server. When a user logs in, the authentication provider will supply your Rancher server with a list of groups to which the user belongs.
+Rancher relies on users and groups to determine who is allowed to log in to Rancher and which resources they can access. When you configure an external authentication provider, users from that provider will be able to log in to your Rancher Server. When a user logs in, the authentication provider will supply your Rancher Server with a list of groups to which the user belongs.
 
 Access to clusters, projects, multi-cluster apps, and global DNS providers and entries can be controlled by adding either individual users or groups to these resources. When you add a group to a resource, all users who are members of that group in the authentication provider, will be able to access the resource with the permissions that you've specified for the group. For more information on roles and permissions, see [Role Based Access Control]({{< baseurl >}}/rancher/v2.x/en/admin-settings/rbac/).
 
 ## Managing Members
 
-When adding a user or group to a resource, you can search for users or groups by beginning to type their name. The Rancher server will query the authentication provider to find users and groups that match what you've entered. Searching is limited to the authentication provider that you are currently logged in with. For example, if you've enabled GitHub authentication but are logged in using a [local]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/local/) user account, you will not be able to search for GitHub users or groups.
+When adding a user or group to a resource, you can search for users or groups by beginning to type their name. The Rancher Server will query the authentication provider to find users and groups that match what you've entered. Searching is limited to the authentication provider that you are currently logged in with. For example, if you've enabled GitHub authentication but are logged in using a [local]({{< baseurl >}}/rancher/v2.x/en/admin-settings/authentication/local/) user account, you will not be able to search for GitHub users or groups.
 
 All users, whether they are local users or from an authentication provider, can be viewed and managed. From the **Global** view, click on **Users**.
 
@@ -17,7 +17,7 @@ All users, whether they are local users or from an authentication provider, can 
 
 ## User Information
 
-Rancher maintains information about each user that logs in through an authentication provider. This information includes whether the user is allowed to access your Rancher server and the list of groups that the user belongs to. Rancher keeps this user information so that the CLI, API, and kubectl can accurately reflect the access that the user has based on their group membership in the authentication provider.
+Rancher maintains information about each user that logs in through an authentication provider. This information includes whether the user is allowed to access your Rancher Server and the list of groups that the user belongs to. Rancher keeps this user information so that the CLI, API, and kubectl can accurately reflect the access that the user has based on their group membership in the authentication provider.
 
 Whenever a user logs in to the UI using an authentication provider, Rancher automatically updates this user information.
 

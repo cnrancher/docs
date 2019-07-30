@@ -20,9 +20,9 @@ Agent主机有可能会暴露在公网上，Agent上接受到的访问容器命�
 
 在服务的详细页中，我们提供了一个服务日志的页签**日志**。在**日志**页签中，列出了和服务相关的所有事件，包括时间戳和事件相关描述，这些日志将会保留24小时。
 
-### 5、RANCHER SERVER 点击WEB shell屏幕白屏
+### 5、Rancher Server 点击WEB shell屏幕白屏
 
-如果RANCHER SERVER 运行在V1.6.2版本，点击WEB shell出现白屏，这是UI上的一个BUG，请选择升级server服务。
+如果Rancher Server 运行在V1.6.2版本，点击WEB shell出现白屏，这是UI上的一个BUG，请选择升级server服务。
 
 ## 二、跨主机通信
 如果容器运行在不同主机上，不能够ping通彼此, 可能是由一些常见的问题引起的.
@@ -181,7 +181,7 @@ sysctl net.ipv4.ip_forward
 
 ## 八、京东云
 
-### 1、京东云运行rancher server 出现以下问题
+### 1、京东云运行Rancher Server 出现以下问题
 
 ![京东云]( /img/1.x/jd.jpg )
 

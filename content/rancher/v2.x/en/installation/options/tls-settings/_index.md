@@ -11,7 +11,7 @@ In Rancher v2.1.7, the default TLS configuration changed to only accept TLS 1.2 
 
 ## Configuring TLS settings
 
-The Audit Log is enabled and configured by passing environment variables to the Rancher server container. See the following to enable on your installation.
+The Audit Log is enabled and configured by passing environment variables to the Rancher Server container. See the following to enable on your installation.
 
 - [Single Node Install]({{< baseurl >}}/rancher/v2.x/en/installation/single-node/#tls-settings)
 

@@ -21,7 +21,7 @@ weight: 3003
 
 ## Rancher Server Tags
 
-Rancher server has 2 different tags. For each major release tag, we will provide documentation for the specific version.
+Rancher Server has 2 different tags. For each major release tag, we will provide documentation for the specific version.
 - `rancher/server:latest` tag will be our latest development builds. These builds will have been validated through our CI automation framework. These releases are not meant for deployment in production.
 - `rancher/server:stable` tag will be our latest stable release builds. This tag is the version that we recommend for production.  
 
@@ -37,7 +37,7 @@ Please do not the releases with a `rc{n}` suffix. These `rc` builds are meant fo
 * **Rollback Versions**: We support rolling back to Rancher v1.6.7 from Rancher v1.6.10.
   * **Steps to Rollback**:
     1. In the upgraded version the **Admin** -> **Advanced Settings** -> API values, update the `upgrade.manager` value to `all`. 
-    2. "Upgrade" Rancher server but pointing to the older version of Rancher (v1.6.7). This should include backing up your database and launching Rancher to point to your current database.  
+    2. "Upgrade" Rancher Server but pointing to the older version of Rancher (v1.6.7). This should include backing up your database and launching Rancher to point to your current database.  
     3. Once Rancher starts up again, all infrastructure stacks will automatically rollback to the applicable version in v1.6.7. 
     4. After your setup is back to its original state, update the `upgrade.manager` value back to the original value that you had (either `mandatory` or `none`). 
 
@@ -47,7 +47,7 @@ Please do not the releases with a `rc{n}` suffix. These `rc` builds are meant fo
 
 Starting with v1.6.8, Rancher has updated the Active Directory auth plugin and moved it into the new authentication framework.  We have also further secured the AD+TLS option by ensuring that the hostname/IP of the AD server matches with the hostname/IP of the TLS certificate.  Please see [[#9459](https://github.com/rancher/rancher/issues/9459)] for details.
 
-Due to this new check, you should be aware that if the hostname/IP does not match your TLS certificate, you will be locked out of your Rancher server if you do not correct this prior to upgrading.  To ensure you have no issues with the upgrade, please execute the following to verify your configuration is correct.
+Due to this new check, you should be aware that if the hostname/IP does not match your TLS certificate, you will be locked out of your Rancher Server if you do not correct this prior to upgrading.  To ensure you have no issues with the upgrade, please execute the following to verify your configuration is correct.
 
 - Verify the hostname/IP you used for your AD configuration.  To do this, log into Rancher using a web browser as an admin and click **Admin** -> **Access Control**.  Note the `server` field to determine your configured hostname/IP for your AD server.
 - To verify your the configure hostname/IP for your TLS cert, you can execute the following command to determine the CN attribute:

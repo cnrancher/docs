@@ -25,7 +25,7 @@ This release addresses some bugs found in v1.6.6. Those fixes are available in v
 
 ## Rancher Server Tags
 
-Rancher server has 2 different tags. For each major release tag, we will provide documentation for the specific version.
+Rancher Server has 2 different tags. For each major release tag, we will provide documentation for the specific version.
 - `rancher/server:latest` tag will be our latest development builds. These builds will have been validated through our CI automation framework. These releases are not meant for deployment in production.
 - `rancher/server:stable` tag will be our latest stable release builds. This tag is the version that we recommend for production.  
 
@@ -41,7 +41,7 @@ Please do not the releases with a `rc{n}` suffix. These `rc` builds are meant fo
 * **Rollback Versions**: We support rolling back to Rancher v1.6.5 from Rancher v1.6.7.
   * **Steps to Rollback**:
     1. In the upgraded version the **Admin** -> **Advanced Settings** -> API values, update the `upgrade.manager` value to `all`. 
-    2. "Upgrade" Rancher server but pointing to the older version of Rancher (v1.6.5). This should include backing up your database and launching Rancher to point to your current database.  
+    2. "Upgrade" Rancher Server but pointing to the older version of Rancher (v1.6.5). This should include backing up your database and launching Rancher to point to your current database.  
     3. Once Rancher starts up again, all infrastructure stacks will automatically rollback to the applicable version in v1.6.5. 
     4. There will be a couple of services in certain infrastructure stacks that need to be deleted. 
        a. Delete the `cni-driver` service in the IPsec stack.

@@ -37,7 +37,7 @@ $ sudo docker run -d --restart=unless-stopped --name=rancher-server rancher/serv
 如果您需要复用现有的Rancher Server实例，升级的步骤会根据您如何运行原有的Rancher实例而不同。
 
 * 使用 [挂载MYSQL数据库的数据目录]({{< baseurl >}}/rancher/v1.x/cn/installing-rancher/installing-server/#single-container-bind-mount) 的实例，请参考 [升级Rancher Server - 绑定挂载的MYSQL卷]({{< baseurl >}}/rancher/v1.x/cn/upgrading/#单独升级一个容器non-ha---绑定挂载的mysql卷)。
-* 对于使用外部数据库的Rancher实例，停止并移除现有的Rancher容器，新建一个容器即可 [启动 RANCHER SERVER - 使用外部数据库]({{< baseurl >}}/rancher/v1.x/cn/installing-rancher/installing-server/#single-container-external-database)。
+* 对于使用外部数据库的Rancher实例，停止并移除现有的Rancher容器，新建一个容器即可 [启动 Rancher Server - 使用外部数据库]({{< baseurl >}}/rancher/v1.x/cn/installing-rancher/installing-server/#single-container-external-database)。
 
 ### Nginx 配置模版
 

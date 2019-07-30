@@ -9,7 +9,7 @@ weight: 3
 > 2. [开启审计日志]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/api-auditing/)
 > 3. [TLS设置]({{< baseurl >}}/rancher/v2.x/cn/configuration/admin-settings/tls-setting/)
 
-## 一、不通过代理直接访问Rancher server
+## 一、不通过代理直接访问Rancher Server
 
 1. 默认自签名证书安装
 
@@ -72,7 +72,7 @@ weight: 3
       --no-cacerts
     ```
 
-## 二、通过TCP L4层代理访问Rancher server
+## 二、通过TCP L4层代理访问Rancher Server
 
 1. 首先在负载均衡器主机上安装NGINX，NGINX具有适用于所有已知操作系统的软件包。有关安装NGINX的帮助，请查阅其安装文档[nginx安装文档](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/).
 
@@ -181,11 +181,11 @@ weight: 3
       --no-cacerts
     ```
 
-## 三、通过HTTP L7层代理访问Rancher server
+## 三、通过HTTP L7层代理访问Rancher Server
 
 1. 配置七层负载均衡器
 
-    默认情况下，rancher容器会将80端口上的请求重定向到443端口上。如果rancher server通过负载均衡器来代理，这个时候请求是通过负载均衡器发送给rancher server，而并非客户端直接访问rancher server。在非全局`https`的环境中，如果以外部负载均衡器作为ssl终止，这个时候通过负载均衡器的`https`请求将需要被反向代理到rancher server http(80)上。在负载均衡器上配置`X-Forwarded-Proto: https`参数，rancher server http(80)上收到负载均衡器的请求后，就不会再重定向到https(443)上。
+    默认情况下，rancher容器会将80端口上的请求重定向到443端口上。如果Rancher Server通过负载均衡器来代理，这个时候请求是通过负载均衡器发送给Rancher Server，而并非客户端直接访问Rancher Server。在非全局`https`的环境中，如果以外部负载均衡器作为ssl终止，这个时候通过负载均衡器的`https`请求将需要被反向代理到Rancher Server http(80)上。在负载均衡器上配置`X-Forwarded-Proto: https`参数，Rancher Server http(80)上收到负载均衡器的请求后，就不会再重定向到https(443)上。
 
     负载均衡器或代理必须支持以下参数:
 
@@ -277,7 +277,7 @@ weight: 3
 
 1. 使用自己的自签名证书
 
-    采用外部七层负载均衡器来做代理，那么只需要把证书放在外部七层负载均衡器上，如果是自签名证书，则需要把CA文件映射到rancher server容器中。如果没有自签名证书，可一键生成[自签名ssl证书]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/self-signed-ssl/)。
+    采用外部七层负载均衡器来做代理，那么只需要把证书放在外部七层负载均衡器上，如果是自签名证书，则需要把CA文件映射到Rancher Server容器中。如果没有自签名证书，可一键生成[自签名ssl证书]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/self-signed-ssl/)。
 
     > **先决条件:**
     > - 使用OpenSSL或其他方法创建自签名证书。\
@@ -285,7 +285,7 @@ weight: 3
     > - 证书文件必须是[PEM]({{< baseurl >}}/rancher/v2.x/cn/installation/single-node-install/#我如何知道我的证书是否为pem格式)格式。\
     > - 在您的证书文件中，包含链中的所有中间证书。有关示例，请参考[SSL常见问题/故障排除]({{< baseurl >}}/rancher/v2.x/cn/installation/   single-node-install/#如果我想添加我的中间证书-证书的顺序是什么)。
 
-    运行Rancher server容器时候，需要把自签名CA证书映射到Rancher容器中:
+    运行Rancher Server容器时候，需要把自签名CA证书映射到Rancher容器中:
 
     ```bash
     docker run -d --restart=unless-stopped \
@@ -319,12 +319,44 @@ weight: 3
 
 ## 四、(可选)为Agent Pod添加主机别名(/etc/hosts)
 
-如果您没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
+如果您没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher Server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher Server URL`,最终导致无法通信。
 
 ### 解决方法
 
-可以通过给`cattle-cluster-agent Pod`和`cattle-node-agent`添加主机别名(/etc/hosts)，让其可以正常通信`(前提是IP地址可以互通)`。
+可以通过给`cattle-cluster-agent Pod`和`cattle-node-agent`添加主机别名(/etc/hosts)，让其可以正常通过`Rancher Server URL`与Rancher Server通信`(前提是IP地址可以互通)`。
 
+**注意：**Local集群中，需要先通过`Rancher Server URL`访问Rancher Web UI，进行初始化之后`cattle-cluster-agent Pod`和`cattle-node-agent`才会自动部署。
+
+- 操作步骤
+
+1. 执行以下命令为Rancher Server容器配置hosts:
+
+    ```bash
+    #指定kubectl配置文件
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+
+    kubectl --kubeconfig=$kubeconfig -n cattle-system \
+        patch deployments rancher --patch '{
+            "spec": {
+                "template": {
+                    "spec": {
+                        "hostAliases": [
+                            {
+                                "hostnames":
+                                [
+                                    "xxx.cnrancher.com"
+                                ],
+                                    "ip": "192.168.1.100"
+                            }
+                        ]
+                    }
+                }
+            }
+        }'
+    ```
+
+1. 通过`Rancher Server URL`访问Rancher Web UI，设置用户名密码和`Rancher Server URL`地址，然后会自动登录Rancher Web UI；
+1. 在Rancher Web UI中依次进入`local集群/system项目`，在`cattle-system`命名空间中查看是否有`cattle-cluster-agent Pod`和`cattle-node-agent`被创建。如果有创建则进行下面的步骤，没有创建则等待；
 1. cattle-cluster-agent pod
 
     ```bash
@@ -351,7 +383,7 @@ weight: 3
     }'
     ```
 
-2. cattle-node-agent pod
+1. cattle-node-agent pod
 
     ```bash
     #指定kubectl配置文件

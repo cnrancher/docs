@@ -5,7 +5,7 @@ weight: 2
 
 ## 一、全局层
 
-全局层主要对Rancher server自身的基础配置,比如`Rancher Server URL`、登录认证等。
+全局层主要对Rancher Server自身的基础配置,比如`Rancher Server URL`、登录认证等。
 
 1. 集群
 

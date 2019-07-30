@@ -3,7 +3,7 @@ title: 1 - 单节点安装+外部七层负载平衡
 weight: 1
 ---
 
-对于开发环境，我们推荐直接在主机上通过`docker run`的形式运行Rancher server容器。如果主机可以通过公网IP直接访问，可以参考[单节点安装]({{< baseurl >}}/rancher/v2.x/cn/installation/single-node-install)。
+对于开发环境，我们推荐直接在主机上通过`docker run`的形式运行Rancher Server容器。如果主机可以通过公网IP直接访问，可以参考[单节点安装]({{< baseurl >}}/rancher/v2.x/cn/installation/single-node-install)。
 
 ## 一、Linux主机要求
 
@@ -22,14 +22,14 @@ weight: 1
 
 ### 方案A-使用您自己生成的自签名证书
 
-采用外部七层负载均衡器来做代理，那么只需要把证书放在外部七层负载均衡器上，如果是自签名证书，则需要把CA文件映射到rancher server容器中，如果没有自签名证书，可一键生成[自签名ssl证书]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/self-signed-ssl/)。
+采用外部七层负载均衡器来做代理，那么只需要把证书放在外部七层负载均衡器上，如果是自签名证书，则需要把CA文件映射到Rancher Server容器中，如果没有自签名证书，可一键生成[自签名ssl证书]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/self-signed-ssl/)。
 
 > **先决条件:**
 >1、创建一个自签名证书。\
 >2、证书文件必须是PEM格式。\
 >3、这里的证书不需要进行`base64`加密。
 
-运行Rancher server容器时候，需要把自签名CA证书映射到Rancher容器中:
+运行Rancher Server容器时候，需要把自签名CA证书映射到Rancher容器中:
 
 ```bash
 docker run -d --restart=unless-stopped \
@@ -63,7 +63,7 @@ rancher/rancher:stable (或者rancher/rancher:latest) --no-cacerts
 
 ## 三、配置七层负载均衡器
 
-默认情况下，rancher容器会将80端口上的请求重定向到443端口上。如果rancher server通过负载均衡器来代理，这个时候请求是通过负载均衡器发送给rancher server，而并非客户端直接访问rancher server。在非全局`https`的环境中，如果以外部负载均衡器作为ssl终止，这个时候通过负载均衡器的`https`请求将需要被反向代理到rancher server http(80)上。在负载均衡器上配置`X-Forwarded-Proto: https`参数，rancher server http(80)上收到负载均衡器的请求后，就不会再重定向到https(443)上。
+默认情况下，rancher容器会将80端口上的请求重定向到443端口上。如果Rancher Server通过负载均衡器来代理，这个时候请求是通过负载均衡器发送给Rancher Server，而并非客户端直接访问Rancher Server。在非全局`https`的环境中，如果以外部负载均衡器作为ssl终止，这个时候通过负载均衡器的`https`请求将需要被反向代理到Rancher Server http(80)上。在负载均衡器上配置`X-Forwarded-Proto: https`参数，Rancher Server http(80)上收到负载均衡器的请求后，就不会再重定向到https(443)上。
 
 负载均衡器或代理必须配置为支持以下内容:
 
@@ -156,11 +156,44 @@ gzip_types
 
 ## 四、(可选)为Agent Pod添加主机别名(/etc/hosts)
 
-如果您没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
+如果您没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher Server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher Server URL`,最终导致无法通信。
 
 ### 解决方法
 
-可以通过给`cattle-cluster-agent Pod`和`cattle-node-agent`添加主机别名(/etc/hosts)，让其可以正常通信`(前提是IP地址可以互通)`。
+可以通过给`cattle-cluster-agent Pod`和`cattle-node-agent`添加主机别名(/etc/hosts)，让其可以正常通过`Rancher Server URL`与Rancher Server通信`(前提是IP地址可以互通)`。
+
+**注意：**Local集群中，需要先通过`Rancher Server URL`访问Rancher Web UI，进行初始化之后`cattle-cluster-agent Pod`和`cattle-node-agent`才会自动部署。
+
+- 操作步骤
+
+1. 执行以下命令为Rancher Server容器配置hosts:
+
+    ```bash
+    #指定kubectl配置文件
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+
+    kubectl --kubeconfig=$kubeconfig -n cattle-system \
+        patch deployments rancher --patch '{
+            "spec": {
+                "template": {
+                    "spec": {
+                        "hostAliases": [
+                            {
+                                "hostnames":
+                                [
+                                    "xxx.cnrancher.com"
+                                ],
+                                    "ip": "192.168.1.100"
+                            }
+                        ]
+                    }
+                }
+            }
+        }'
+    ```
+
+1. 通过`Rancher Server URL`访问Rancher Web UI，设置用户名密码和`Rancher Server URL`地址，然后会自动登录Rancher Web UI；
+1. 在Rancher Web UI中依次进入`local集群/system项目`，在`cattle-system`命名空间中查看是否有`cattle-cluster-agent Pod`和`cattle-node-agent`被创建。如果有创建则进行下面的步骤，没有创建则等待；
 
 1. cattle-cluster-agent pod
 
@@ -187,7 +220,7 @@ gzip_types
     }'
     ```
 
-2. cattle-node-agent pod
+1. cattle-node-agent pod
 
     ```bash
     export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
