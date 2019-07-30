@@ -27,10 +27,12 @@ There are several options that can be configured in cluster configuration option
 * [Authorization]({{< baseurl >}}/rke/latest/en/config-options/authorization/)
 * [Cloud Providers]({{< baseurl >}}/rke/latest/en/config-options/cloud-providers/)
 * [Add-ons]({{< baseurl >}}/rke/latest/en/config-options/add-ons/)
-  * [Add-ons Jobs Timeout](#add-ons-jobs-timeout)
-  * [Network Plugins]({{< baseurl >}}/rke/latest/en/config-options/add-ons/network-plugins/)
-  * [Ingress Controller]({{< baseurl >}}/rke/latest/en/config-options/add-ons/ingress-controllers/)
-  * [User-Defined-Add-ons]({{< baseurl >}}/rke/latest/en/config-options/add-ons/user-defined-add-ons/)
+  * [Network Plug-ins]({{< baseurl >}}/rke/latest/en/config-options/add-ons/network-plugins/)
+  * [DNS providers]({{< baseurl >}}/rke/latest/en/config-options/add-ons/dns/)
+  * [Ingress Controllers]({{< baseurl >}}/rke/latest/en/config-options/add-ons/ingress-controllers/)
+  * [Metrics Server]({{< baseurl >}}/rke/latest/en/config-options/add-ons/metrics-server/)
+  * [User-Defined Add-ons]({{< baseurl >}}/rke/latest/en/config-options/add-ons/user-defined-add-ons/)
+  * [Add-ons Job Timeout](#add-ons-job-timeout)
 
 
 ## Cluster Level Options
@@ -92,16 +94,16 @@ If you want to use a different version from the supported list, please use the [
 
 ### Prefix Path
 
-As a part of cluster provisioning, RKE uploads config files' content - `/etc/kubernetes`,`/var/lib/etcd`, etc - to the worker nodes. By default, these configs get stored under `/`. 
-For some operating systems like RancherOS and CoreOS, the location is `/opt/rke` instead of `/`. With that, `/etc/kubernetes` will be stored in `/opt/rke/etc/kubernetes`, `/var/lib/etcd` will be stored in `/opt/rke/var/lib/etcd`, and so on.
+For some operating systems including ROS, and CoreOS, RKE stores its resources to a different prefix path, this prefix path is by default for these operating systems is:
+```
+/opt/rke
+```
+So `/etc/kubernetes` will be stored in `/opt/rke/etc/kubernetes` and `/var/lib/etcd` will be stored in `/opt/rke/var/lib/etcd` etc.
 
-To change the default prefix path for any type of cluster, you can use the following option in the cluster configuration file `cluster.yml`:
-
+To change the default prefix path for any cluster, you can use the following option in the cluster configuration file `cluster.yml`:
 ```
 prefix_path: /opt/custom_path
 ```
-
-#### **Important: currently there is a limitation when `prefix_path` can not be changed or reset after the cluster is provisioned**
 
 ### Cluster Level SSH Key Path
 

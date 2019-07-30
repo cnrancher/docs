@@ -3,46 +3,51 @@ title: Digital Ocean
 weight: 107
 ---
 
-Running RancherOS on DigitalOcean is not yet supported, but there is a `rancheros` image now available from the commandline tools, so you can run:
+RancherOS is avaliable in the Digital Ocean portal. RancherOS is a member of container distributions and you can find it easily.
+
+>**Note**
+>Deploying to Digital Ocean will incur charges.
+
+To start a RancherOS Droplet on Digital Ocean:
+
+1. In the Digital Ocean portal, go to the project view.
+1. Click **New Droplet.**
+1. Click **Create Droplet.**
+1. Click the **Container distributions** tab.
+1. Click **RancherOS.**
+1. Choose a plan. Make sure your Droplet has the [minimum hardware requirements for RancherOS]({{< baseurl >}}os/v1.x/en/overview/#hardware-requirements).
+1. Choose any options for backups, block storage, and datacenter region.
+1. Optional: In the **Select additional options** section, you can check the **User data** box and enter a `cloud-config` file in the text box that appears. The `cloud-config` file is used to provide a script to be run on the first boot. An example is below.
+1. Choose an SSH key that you have access to, or generate a new SSH key.
+1. Choose your project.
+1. Click **Create.**
+
+
+You can access the host via SSH after the Droplet is booted. The default user is `rancher`.
+
+Below is an example `cloud-config` file that you can use to initialize the Droplet with user data, such as deploying Rancher:
 
 ```
-$ doctl.exe compute droplet create --image rancheros --region sfo1 --size 2gb --ssh-keys 0a:db:77:92:03:b5:b2:94:96:d0:92:6a:e1:da:cd:28 myrancherosvm
-ID          Name       Public IPv4    Private IPv4    Public IPv6    Memory    VCPUs    Disk    Region    Image                                    Status    Tags
-47145723    myrancherosvm                                            2048      2        40      sfo1      RacherOS v1.0.1-rc [UNSUPPORTED/BETA]    new
+#cloud-config
 
-$ doctl.exe compute droplet list
-47145723    myrancherosvm                    107.170.203.111    10.134.26.83     2604:A880:0001:0020:0000:0000:2750:0001    2048      2        40      sfo1      RacherOS v1.0.1-rc [UNSUPPORTED/BETA]    active
+write_files:
+  - path: /etc/rc.local
+    permissions: "0755"
+    owner: root
+    content: |
+      #!/bin/bash
+      wait-for-docker
 
-ssh -i ~/.ssh/Sven.pem rancher@107.170.203.111
-```
+      export curlimage=appropriate/curl
+      export jqimage=stedolan/jq
+      export rancher_version=v2.2.2
 
-or use `docker-machine`:
+      for image in $curlimage $jqimage "rancher/rancher:${rancher_version}"; do
+        until docker inspect $image > /dev/null 2>&1; do
+          docker pull $image
+          sleep 2
+        done
+      done
 
-```
-$ docker-machine create -d digitalocean --digitalocean-access-token <your digital ocean token> --digitalocean-image rancheros --digitalocean-region sfo1 --digitalocean-size 2gb --digitalocean-ssh-user rancher sven-machine
-Running pre-create checks...
-Creating machine...
-(sven-machine) Creating SSH key...
-(sven-machine) Assuming Digital Ocean private SSH is located at ~/.ssh/id_rsa
-(sven-machine) Creating Digital Ocean droplet...
-(sven-machine) Waiting for IP address to be assigned to the Droplet...
-Waiting for machine to be running, this may take a few minutes...
-Detecting operating system of created instance...
-Waiting for SSH to be available...
-Detecting the provisioner...
-Provisioning with rancheros...
-Copying certs to the local machine directory...
-Copying certs to the remote machine...
-Setting Docker configuration on the remote daemon...
-Checking connection to Docker...
-Docker is up and running!
-To see how to connect your Docker Client to the Docker Engine running on this virtual machine, run: C:\Users\svend\src\github.com\docker\machine\machine.exe env sven-machine
-$ docker-machine ls
-NAME            ACTIVE   DRIVER         STATE     URL                        SWARM   DOCKER        ERRORS
-rancheros-100   -        virtualbox     Stopped                                      Unknown
-sven-machine    -        digitalocean   Running   tcp://104.131.156.5:2376           v17.03.1-ce
-$ docker-machine ssh sven-machine
-Enter passphrase for key '/c/Users/svend/.ssh/id_rsa':
-[rancher@sven-machine ~]$
-[rancher@sven-machine ~]$
+      docker run -d --restart=unless-stopped -p 80:80 -p 443:443 -v /opt/rancher:/var/lib/rancher rancher/rancher:${rancher_version}
 ```
