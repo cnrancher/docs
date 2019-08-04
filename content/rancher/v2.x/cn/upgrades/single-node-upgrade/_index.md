@@ -68,4 +68,4 @@ weight: 1
 
 1. 登录rancher，通过检查浏览器左下角显示的版本，确认是否升级成功。
 
-    >**注意:** 如果升级未成功完成，则可以将Rancher Server及其数据恢复到上一个健康状态。有关更多信息，请查阅[单节点恢复]({{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/restorations/single-node-restoration/)。
+    >**注意:** 如果升级未成功完成，则可以将Rancher Server及其数据恢复到上一个健康状态。有关更多信息，请查阅[单节点恢复]({{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/restorations/single-node/)。

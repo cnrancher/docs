@@ -58,4 +58,4 @@ weight: 1
 
 5. 备份完成后可重启Rancher服务容器
 
-6. 了解数据恢复，请点击[单节点数据恢复](../../restorations/single-node-restoration/)
+6. 了解数据恢复，请点击[单节点数据恢复](../../restorations/single-node/)

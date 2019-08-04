@@ -30,7 +30,7 @@ cluster_name=''
 
 kubernetes_Version='v1.13.5-rancher1-2'
 network_plugin='canal'
-quota_backend_bytes=${quota_backend_bytes:-4294967296}
+quota_backend_bytes=${quota_backend_bytes:-6442450944}
 auto_compaction_retention=${auto_compaction_retention:-240}
 ingress_provider=${ingress_provider:-nginx}
 ignoreDocker_Version=${ignoreDocker_Version:-true}

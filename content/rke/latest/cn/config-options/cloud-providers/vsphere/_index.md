@@ -1,6 +1,6 @@
 ---
-title: vSphere Cloud Provider
-weight: 254
+title: 4 - vSphere
+weight: 4
 ---
 
 The [vSphere Cloud Provider](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/) interacts with VMware infrastructure (vCenter or standalone ESXi server) to provision and manage storage for persistent volumes in a Kubernetes cluster.

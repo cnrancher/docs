@@ -28,13 +28,26 @@ nodes:
     user: ubuntu
     role: [controlplane,worker,etcd]
 
+# 如果要使用私有仓库中的镜像，配置以下参数来指定默认私有仓库地址。
+##private_registries:
+##    - url: registry.com
+##      user: Username
+##      password: password
+##      is_default: true
+
 services:
   etcd:
+    # 扩展参数
+      extra_args:
+        auto-compaction-retention: 240 #(单位小时)
+        # 修改空间配额为$((6*1024*1024*1024))，默认2G,最大8G
+        quota-backend-bytes: '6442450944'
+    # 两段配置二选一
     # rke 0.2之前版本
     snapshot: true
     creation: 6h
     retention: 24h
-    # rke 0.2之后版本 （两段配置二选一）
+    # rke 0.2之后版本
     backup_config:
       enabled: true     # enables recurring etcd snapshots
       interval_hours: 6 # time increment between snapshots
@@ -57,6 +70,8 @@ services:
 | `role` | yes | 分配给节点的Kubernetes角色列表 |
 | `internal_address` | no | 内部集群通信的私有域名或IP地址 |
 | `ssh_key_path` | no | 用于对节点进行身份验证的SSH私钥的路径（默认为~/.ssh/id_rsa） |
+
+> 完整的配置示例，请参考[完整-cluster-yml-示例]({{< baseurl >}}/rke/latest/cn/example-yamls/#完整-cluster-yml-示例)
 
 ### 2、高级配置
 

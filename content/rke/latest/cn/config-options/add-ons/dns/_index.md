@@ -1,13 +1,72 @@
 ---
-title: 3 - DNS provider
+title: 3 - DNS Provider
 weight: 3
 ---
 
-默认情况下，RKE 部署[kube-dns](https://github.com/kubernetes/dns)作为您的集群的DNS提供程序。
+RKE提供以下两种DNS Provider：
 
-RKE将部署`kube-dns`作为默认副本数为`1`的`Deployment`。`Pod`由三个容器组成:`kubedns、dnsmasq和sidecar`。RKE还将以`Deployment`方式部署`kube-dn -autoscaler`，它将根据`内核和节点的数量`来扩展`kube-dns`实例数。有关此逻辑的更多信息，请参见[Linear Mode](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler#linear-mode)。
+- CoreDNS
+- KUBE-DNS
 
-## 一、调度 kube-dns
+| RKE版本  | KUBERNETES版本 | 默认DNS Provider |
+| :------- | :------------- | :--------------- |
+| ≥ v0.2.5 | ≥ v1.14.0      | CoreDNS          |
+| ≥ v0.2.5 | ≤ v1.13.x      | KUBE-DNS         |
+| ≤ v0.2.4 | 所有版本       | KUBE-DNS         |
+
+使用Kubernetes 1.14及更高版本时，CoreDNS在RKE v0.2.5中成为默认值。如果您使用的RKE版本低于v0.2.5，则默认情况下将部`kube-dns`。
+
+## 一、CoreDNS
+
+*自v0.2.5起可用*
+
+CoreDNS只能在Kubernetes v1.12.0及更高版本上使用。
+
+在RKE v0.2.5中部署Kubernetes 1.14及更高版本时，将默认部署CoreDNS。默认将部署一个POD的Deployment服务，该pod由1个`coredns`容器组成。RKE还将以Deployment方式部署`coredns-autoscaler`，它将根据节点CPU核心和节点的数量来自动扩展coredns pod副本数。有关此逻辑的更多信息，请参见[线性模式](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler#linear-mode)。
+
+用于CoreDNS的镜像在[`system_images`]({{< baseurl >}}/rke/latest/cn/config-options/system-images/)。对于每个Kubernetes版本，都有与CoreDNS关联的默认镜像，但可以通过更改镜像标记来覆盖这些镜像。
+
+### 1. 调度CoreDNS
+
+如果您只想在特定节点上部署CoreDNS pod，则可以在该`dns`部分中设置`node_selector`参数 。在需要运行DNS POD的节点中设置相应的标签。
+
+```yaml
+nodes:
+    - address: 1.1.1.1
+      role: [controlplane,worker,etcd]
+      user: root
+      labels:
+        app: dns
+
+dns:
+    provider: coredns
+    node_selector:
+      app: dns
+```
+
+### 2.  配置CoreDNS
+
+- 上游DNS服务器
+
+  默认情况下，CoreDNS将使用主机配置的DNS服务器（`/etc/resolv.conf`）来解析外部域名查询。如果要配置CoreDNS使用的特定上游DNS服务器，可以使用`upstreamnameservers`指令。
+
+  > **注意：** 设置时`upstreamnameservers`，`provider`也需要设置。
+
+  ```yaml
+  dns:
+      provider: coredns
+      upstreamnameservers:
+      - 1.1.1.1
+      - 8.8.4.4
+  ```
+
+## 二、 KUBE-DNS
+
+RKE将部署KUBE-DNS作为与1默认副本数吊舱由3个容器的部署：`kubedns`，`dnsmasq`和`sidecar`。RKE还将部署kube-dns-autoscaler作为部署，它将使用核心和节点的数量来扩展kube-dns部署。有关此逻辑的更多信息，请参见[线性模式](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler#linear-mode)。
+
+用于kube-dns的镜像属于[`system_images`]({{< baseurl >}}/rke/latest/en/config-options/system-images/)。对于每个Kubernetes版本，都有与kube-dns关联的默认镜像，但可以通过更改镜像标记来覆盖这些镜像。
+
+### 1. 调度 kube-dns
 
 _可用版本 v0.2.0_
 
@@ -27,7 +86,25 @@ dns:
       app: dns
 ```
 
-## 二、禁用 kube-dns
+### 2. 配置 kube-dns
+
+- 上游 DNS服务器
+
+  _可用版本 v0.2.0_
+
+  默认情况下，kube-dns将使用已配置的DNS名称服务器(`/etc/resolv.conf`)来执行外部域名查询。如果希望配置特定的上游 DNS服务器供kube-dns使用，可以使用`upstreamnameservers`指令。
+
+  > **注意：** 设置时`upstreamnameservers`，`provider`也需要设置。
+
+  ```yaml
+  dns:
+      provider: kube-dns
+      upstreamnameservers:
+      - 1.1.1.1  
+      - 8.8.4.4
+  ```
+
+### 3. 禁用 kube-dns
 
 _可用版本 v0.2.0_
 
@@ -38,32 +115,4 @@ dns:
     provider: none
 ```
 
-## 三、配置 kube-dns
 
-### 1、上游 DNS服务器
-
-_可用版本 v0.2.0_
-
-默认情况下，kube-dns将使用已配置的DNS名称服务器(通常位于`/etc/resolv.conf`)来执行外部查询。如果希望配置特定的上游 DNS服务器供kube-dns使用，可以使用`upstreamnameservers`指令。
-
-```yaml
-dns:
-    provider: kube-dns
-    upstreamnameservers:
-    - 1.1.1.1  
-    - 8.8.4.4
-```
-
-## 2、CoreDNS (实验)
-
-_可用版本 v0.2.0_
-
-如果您想使用CoreDNS，您可以将`provider设置为CoreDNS`。CoreDNS还支持`node_selector`和`upstreamnameservers`参数设置。
-
-```yaml
-dns:
-    provider: coredns
-    upstreamnameservers:
-    - 1.1.1.1
-    - 8.8.4.4
-```

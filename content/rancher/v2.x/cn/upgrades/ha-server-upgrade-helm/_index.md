@@ -11,7 +11,7 @@ weight: 5
 
 1. **备份Rancher集群**
 
-    如果在升级期间出现问题，可使用[数据备份]({{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/backups/ha-backups/)进行恢复
+    如果在升级期间出现问题，可使用[数据备份]({{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/backups/)进行恢复
 
 1. **kubectl**
 

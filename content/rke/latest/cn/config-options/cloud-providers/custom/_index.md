@@ -1,6 +1,6 @@
 ---
-title: Custom Cloud Provider
-weight: 255
+title: 5 - Custom
+weight: 5
 ---
 
 If you want to enable a different cloud provider, RKE allows for custom cloud provider options. A name must be provided and the custom Cloud Provider options can be passed in as a multiline string in `customCloudProvider`.
