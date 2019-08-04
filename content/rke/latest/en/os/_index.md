@@ -23,6 +23,7 @@ aliases:
 
     - [Opening port TCP/6443 using `iptables`](#opening-port-tcp-6443-using-iptables)
     - [Opening port TCP/6443 using `firewalld`](#opening-port-tcp-6443-using-firewalld)
+- [SSH Server Configuration](#ssh-server-configuration)
 
 <!-- /TOC -->
 
@@ -44,6 +45,15 @@ RKE runs on almost any Linux OS with Docker installed. Most of the development a
    * `modprobe module_name`
    * `lsmod | grep module_name`
    * `grep module_name /lib/modules/$(uname -r)/modules.builtin`, if it's a built-in module
+   * bash script
+     ```bash
+     for module in br_netfilter ip6_udp_tunnel ip_set ip_set_hash_ip ip_set_hash_net iptable_filter iptable_nat iptable_mangle iptable_raw nf_conntrack_netlink nf_conntrack nf_conntrack_ipv4   nf_defrag_ipv4 nf_nat nf_nat_ipv4 nf_nat_masquerade_ipv4 nfnetlink udp_tunnel veth vxlan x_tables xt_addrtype xt_conntrack xt_comment xt_mark xt_multiport xt_nat xt_recent xt_set  xt_statistic xt_tcpudp;
+     do
+       if ! lsmod | grep -q $module; then
+         echo "module $module is not present"
+       fi
+     done;     
+     ```
 
 Module name |
 ------------|
@@ -207,4 +217,12 @@ firewall-cmd --permanent --zone=public --add-rich-rule='
   source address="your_ip_here/32"
   port protocol="tcp" port="6443" accept'
 firewall-cmd --reload
+```
+
+## SSH Server Configuration
+
+Your SSH server system-wide configuration file, located at `/etc/ssh/sshd_config`, must include this line that allows TCP forwarding:
+
+```
+AllowTcpForwarding yes
 ```

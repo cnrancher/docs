@@ -100,7 +100,7 @@ Option to enable or disable [recurring etcd snaphots]({{< baseurl >}}/rke/latest
 
 >**Note:** In Rancher v2.0.5 and v2.0.6, the names of services in the Config File (YAML) should contain underscores only: `kube_api` and `kube_controller`.
 
-Instead of using the Rancher UI to choose Kubernetes options for the cluster, advanced users can create an RKE config file. Using a config file allows you to set any of the [options available]({{< baseurl >}}/rke/latest/en/config-options/) in an RKE installation.
+Instead of using the Rancher UI to choose Kubernetes options for the cluster, advanced users can create an RKE config file. Using a config file allows you to set any of the [options available]({{< baseurl >}}/rke/latest/en/config-options/) in an RKE installation, except for `system_images` configuration. The `system_images` option is not supported when creating a cluster with the Rancher UI or API.
 
 - To edit an RKE config file directly from the Rancher UI, click **Edit as YAML**.
 - To read from an existing RKE file, click **Read from a file**.
@@ -108,6 +108,16 @@ Instead of using the Rancher UI to choose Kubernetes options for the cluster, ad
 ![image]({{< baseurl >}}/img/rancher/cluster-options-yaml.png)
 
 For an example of RKE config file syntax, see the [RKE documentation]({{< baseurl >}}/rke/latest/en/example-yamls/).  
+
+### Default DNS provider
+
+The table below indicates what DNS provider is deployed by default. See [RKE documentation on DNS provider]({{< baseurl >}}/rke/latest/en/config-options/add-ons/dns/) for more information how to configure a different DNS provider. CoreDNS can only be used on Kubernetes v1.12.0 and higher.
+
+| Rancher version | Kubernetes version | Default DNS provider |
+|-------------|--------------------|----------------------|
+| v2.2.5 and higher | v1.14.0 and higher | CoreDNS |
+| v2.2.5 and higher | v1.13.x and lower | kube-dns |
+| v2.2.4 and lower | any | kube-dns |
 
 ### Rancher specific parameters
 

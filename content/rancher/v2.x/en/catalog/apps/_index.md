@@ -39,7 +39,7 @@ After you've either enabled the [built-in global catalogs]({{< baseurl >}}/ranch
 
 For each Helm chart, there are a list of desired answers that must be entered in order to successfully deploy the chart. When entering answers, you must format them using the syntax rules found in [Using Helm: The format and limitations of –set](https://github.com/helm/helm/blob/master/docs/using_helm.md#the-format-and-limitations-of---set), as Rancher passes them as `--set` flags to Helm.
 
-> For example, when entering an answer that includes two values separated by a comma (i.e. `abc, bcd`), it is reuired to wrap the values with double quotes (i.e., ``"abc, bcd"``).
+> For example, when entering an answer that includes two values separated by a comma (i.e. `abc, bcd`), it is required to wrap the values with double quotes (i.e., ``"abc, bcd"``).
 
 {{% tabs %}}
 {{% tab "UI" %}}
@@ -148,7 +148,11 @@ After an application has been upgraded, you can easily rollback to a different t
 
 ### Deleting Catalog Application Deployments
 
-As a safeguard to prevent you from unintentionally deleting other catalog applications that share a namespace, deleting catalog applications themselves does not delete the namespace they're assigned to. Therefore, when you want to delete a deployed catalog application, assuming that it's the only app in its namespace, delete the namespace rather than the catalog app itself. Deleting the namespace deletes both the namespace and the catalog app, whereas deleting the catalog app only deletes the app but not the namespace.
+As a safeguard to prevent you from unintentionally deleting other catalog applications that share a namespace, deleting catalog applications themselves does not delete the namespace they're assigned to.
+
+Therefore, if you want to delete both an app and the namespace that contains the app, you should remove the app and the namespace separately:
+
+1. Uninstall the app using the app's `uninstall` function.
 
 1. From the **Global** view, navigate to the project that contains the catalog application that you want to delete.
 
