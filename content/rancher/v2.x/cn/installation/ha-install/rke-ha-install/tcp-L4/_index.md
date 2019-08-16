@@ -160,9 +160,9 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 
 1、根据您使用的SSL证书类型，选择模板下载
 
-- [3-node-certificate.yml](https://raw.githubusercontent.com/rancher/rancher/e9d29b3f3b9673421961c68adf0516807d1317eb/rke-templates/3-node-certificate.yml)
+- [自签名证书模板-3-node-certificate.yml](https://raw.githubusercontent.com/rancher/rancher/e9d29b3f3b9673421961c68adf0516807d1317eb/rke-templates/3-node-certificate.yml)
 
-- [3-node-certificate-recognizedca.yml](https://raw.githubusercontent.com/rancher/rancher/d8ca0805a3958552e84fdf5d743859097ae81e0b/rke-templates/3-node-certificate-recognizedca.yml)
+- [权威机构颁发证书模板-3-node-certificate-recognizedca.yml](https://raw.githubusercontent.com/rancher/rancher/d8ca0805a3958552e84fdf5d743859097ae81e0b/rke-templates/3-node-certificate-recognizedca.yml)
 
 2、重命名模板文件为 `rancher-cluster.yml`
 
@@ -379,15 +379,14 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 
 可以通过给`cattle-cluster-agent Pod`和`cattle-node-agent`添加主机别名(/etc/hosts)，让其可以正常通过`Rancher Server URL`与Rancher Server通信`(前提是IP地址可以互通)`。
 
-**注意：**Local集群中，需要先通过`Rancher Server URL`访问Rancher Web UI，进行初始化之后`cattle-cluster-agent Pod`和`cattle-node-agent`才会自动部署。
-
 - 操作步骤
 
+1. `cattle-cluster-agent Pod`和`cattle-node-agent`需要在`LOCAL`集群初始化之后才会部署，所以先通过`Rancher Server URL`访问Rancher Web UI进行初始化。
 1. 执行以下命令为Rancher Server容器配置hosts:
 
     ```bash
     #指定kubectl配置文件
-    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
 
     kubectl --kubeconfig=$kubeconfig -n cattle-system \
         patch deployments rancher --patch '{
@@ -415,7 +414,7 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 1. cattle-cluster-agent pod
 
     ```bash
-    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
 
     kubectl --kubeconfig=$kubeconfig -n cattle-system \
     patch deployments cattle-cluster-agent --patch '{
@@ -440,7 +439,7 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 1. cattle-node-agent pod
 
     ```bash
-    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
 
     kubectl --kubeconfig=$kubeconfig -n cattle-system \
     patch  daemonsets cattle-node-agent --patch '{

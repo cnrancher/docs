@@ -16,7 +16,7 @@ The following steps quickly deploy a Rancher Server with a single node cluster a
 
 2. Go into the folder containing the Vagrantfile by executing `cd quickstart/vagrant`.
 
-3. **Optional:** Edit `config.yaml` to:
+3. **Optional:** Edit `config.yml` to:
 
     - Change the number of nodes and the memory allocations, if required. (`node.count`, `node.cpus`, `node.memory`)
     - Change the password of the `admin` user for logging into Rancher. (`default_password`)

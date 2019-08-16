@@ -57,7 +57,7 @@ create_cluster_data()
     "name": "$cluster_name",
     "rancherKubernetesEngineConfig": {
         "addonJobTimeout": 30,
-        "addonsInclude":[ "https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/ceph/operator.yaml"
+        "addonsInclude":[ "https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/ceph/operator.yml"
         ],
         "authentication": {
             "strategy": "x509|webhook",

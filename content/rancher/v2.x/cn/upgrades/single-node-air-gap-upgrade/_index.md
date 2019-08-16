@@ -11,9 +11,16 @@ weight: 2
 
 ## 二、离线升级Rancher Server
 
+1. （可选）如果你无法找到之前运行rancher server的`docker run`命令，可通过以下命令找会执行命令。
+
+    ```bash
+    docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
+         registry.cn-shanghai.aliyuncs.com/rancher/run-config <rancher_container_name>
+    ```
+
 1. 按照离线安装方法[准备离线镜像]({{< baseurl >}}/rancher/v2.x/cn/installation/air-gap-installation/prepare-private-reg/)。
 
-2. 按照[单节点升级]({{< baseurl >}}/rancher/v2.x/cn/upgrades/single-node-upgrade/)的方法，进行Rancher Server升级。
+1. 按照[单节点升级]({{< baseurl >}}/rancher/v2.x/cn/upgrades/single-node-upgrade/)的方法，进行Rancher Server升级。
 
     >**注意:** 在执行单节点升级时，`docker run`参数中的镜像名，需要添加私有仓库地址。
     >

@@ -108,19 +108,19 @@ If we parse the two example files from [Migration Example Files]({{< baseurl >}
 
 File | Description
 -----|------------
-`web-deployment.yaml` | A file containing Kubernetes container specs for a Let's Chat deployment.
-`web-service.yaml` | A file containing specs for the Let's Chat service.
-`database-deployment.yaml` | A file containing container specs for the MongoDB deployment in support of Let's Chat.
-`webLB-deployment.yaml` | A file containing container specs for an HAProxy deployment that's serving as a load balancer.<sup>1</sup>
-`webLB-service.yaml` | A file containing specs for the HAProxy service.<sup>1</sup>
+`web-deployment.yml` | A file containing Kubernetes container specs for a Let's Chat deployment.
+`web-service.yml` | A file containing specs for the Let's Chat service.
+`database-deployment.yml` | A file containing container specs for the MongoDB deployment in support of Let's Chat.
+`webLB-deployment.yml` | A file containing container specs for an HAProxy deployment that's serving as a load balancer.<sup>1</sup>
+`webLB-service.yml` | A file containing specs for the HAProxy service.<sup>1</sup>
 
 ><sup>1</sup> Because Rancher v2.x uses Ingress for load balancing, we won't be migrating our Rancher v1.6 load balancer to v2.x.
 
 <!--
-The following tabs display the contents of each parsed file. We've omitted `webLB-deployment.yaml` and `webLB-service.yaml` because we aren't migrating them to v2.x.
+The following tabs display the contents of each parsed file. We've omitted `webLB-deployment.yml` and `webLB-service.yml` because we aren't migrating them to v2.x.
 
 {{% tabs %}}
-{{% tab "web-deployment.yaml" %}}
+{{% tab "web-deployment.yml" %}}
 
 ```YAML
 apiVersion: extensions/v1beta1
@@ -158,7 +158,7 @@ status: {}
 ```
 
 {{% /tab %}}
-{{% tab "web-service.yaml" %}}
+{{% tab "web-service.yml" %}}
 
 ```YAML
 apiVersion: v1
@@ -186,7 +186,7 @@ status:
 ```
 
 {{% /tab %}}
-{{% tab "database-deployment.yaml" %}}
+{{% tab "database-deployment.yml" %}}
 
 ```YAML
 apiVersion: extensions/v1beta1

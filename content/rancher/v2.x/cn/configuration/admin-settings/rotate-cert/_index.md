@@ -161,7 +161,22 @@ weight: 16
 
 ## 四: 独立容器Rancher Server证书更新
 
-Rancher v2.0.14+ 、v2.1.9+、v2.2.0+会自动检查证书有效期，如果发现证书过期，将会自动生成新的证书。所以独立容器运行的Rancher Server只需把rancher版本升级到支持的版本，无需做其他操作。
+- 证书未过期
+
+证书未过期时，rancher server可以正常运行。升级到Rancher v2.0.14+ 、v2.1.9+、v2.2.0+ 后会自动检查证书有效期，如果发现证书即将过期，将会自动生成新的证书。所以独立容器运行的Rancher Server，只需在证书过期前把rancher版本升级到支持自动更新ssl证书的版本即可，无需做其他操作。
+
+- 证书已过期
+
+如果证书已过期，那么rancher server无法正常运行。即使升级到Rancher v2.0.14+ 、v2.1.9+、v2.2.0+ 也可能会提示证书错误。如果出现这种情况，可通过以下操作进行处理：
+
+1. 正常升级rancher版本到v2.0.14+ 、v2.1.9+、v2.2.0+；
+1. 执行以下命令：
+
+    ```bash
+    docker exec c -ti <rancher_server_id> mv /var/lib/rancher/management-state/certs/bundle.json /var/lib/rancher/management-state/certs/bundle.json-bak
+
+    docker restart <rancher_server_id>
+    ```
 
 ## 五: 故障处理
 

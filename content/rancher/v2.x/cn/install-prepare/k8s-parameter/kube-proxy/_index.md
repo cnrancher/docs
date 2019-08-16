@@ -3,7 +3,9 @@ title: 3 - kube-proxy
 weight: 3
 ---
 
-### Synopsis
+*当前版本v1.14*
+
+## 简介
 
 The Kubernetes network proxy runs on each node. This reflects services as defined in the Kubernetes API on each node and can do simple TCP, UDP, and SCTP stream forwarding or round robin TCP, UDP, and SCTP forwarding across a set of backends. Service cluster IPs and ports are currently found through Docker-links-compatible environment variables specifying ports opened by the service proxy. There is an optional addon that provides cluster DNS for these cluster IPs. The user must create a service with the apiserver API to configure the proxy.
 
@@ -13,7 +15,7 @@ Kubernetes网络代理在每个节点上运行。这反映了Kubernetes API在�
 kube-proxy [flags]
 ```
 
-### Options
+## 参数选项
 
 | --azure-container-registry-config string                     | 包含Azure容器镜像仓库配置信息的文件的路径。                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |

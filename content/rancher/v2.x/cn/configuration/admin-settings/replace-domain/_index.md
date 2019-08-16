@@ -5,7 +5,7 @@ weight: 10
 
 ## **重要提示**
 
-- 2.1.x以前的版本，可在master节点的/etc/kubernetes/.tmp路径下找到kubecfg-kube-admin.yaml
+- 2.1.x以前的版本，可在master节点的/etc/kubernetes/.tmp路径下找到kubecfg-kube-admin.yml
 
   ![image-20190309173154246](assets/image-20190309173154246.png)
 
@@ -209,10 +209,10 @@ cp xxx.crt tls.crt
 
 ```bash
 kubectl --kubeconfig=kube_configxxx.yml -n cattle-system \
-get secret tls-rancher-ingress  -o yaml > tls-ingress.yaml
+get secret tls-rancher-ingress  -o yaml > tls-ingress.yml
 
 kubectl --kubeconfig=kube_configxxx.yml -n cattle-system \
-get secret tls-ca  -o yaml > tls-ca.yaml
+get secret tls-ca  -o yaml > tls-ca.yml
 ```
 
 - 删除旧的secret，然后创建新的secret

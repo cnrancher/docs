@@ -7,4 +7,5 @@ weight: 1
 本章节讲解如何创建Rancher数据的备份
 
 - [单节点备份](./single-node/)
-- [集群备份](./ha-backups/)
+- [RKE集群备份](./rke/)
+- [RKE集群备份](./custom/)

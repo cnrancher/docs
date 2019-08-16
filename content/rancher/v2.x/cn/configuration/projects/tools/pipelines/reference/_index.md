@@ -18,7 +18,7 @@ Variable Name           | Description
 `CICD_EXECUTION_SEQUENCE` | Build number of the pipeline.
 `CICD_EXECUTION_ID`       | Combination of `{CICD_PIPELINE_ID}-{CICD_EXECUTION_SEQUENCE}`.
 `CICD_REGISTRY`           | Address for the Docker registry for the previous publish image step, available in the Kubernetes manifest file of a `Deploy YAML` step.
-`CICD_IMAGE`              | Name of the image built from the previous publish image step, available in the Kubernetes manifest file of a `Deploy YAML` step. It does not contain the image tag.<br/><br/> [Example](https://github.com/rancher/pipeline-example-go/blob/master/deployment.yaml)
+`CICD_IMAGE`              | Name of the image built from the previous publish image step, available in the Kubernetes manifest file of a `Deploy YAML` step. It does not contain the image tag.<br/><br/> [Example](https://github.com/rancher/pipeline-example-go/blob/master/deployment.yml)
 
 ## Full `.rancher-pipeline.yml` Example
 
@@ -63,7 +63,7 @@ stages:
   - name: Deploy some workloads
     steps:
     - applyYamlConfig:
-        path: ./deployment.yaml
+        path: ./deployment.yml
 # branch conditions for the pipeline
 branch:
   include: [ master, feature/*]

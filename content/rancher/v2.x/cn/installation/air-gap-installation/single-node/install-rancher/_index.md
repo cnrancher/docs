@@ -325,15 +325,14 @@ weight: 3
 
 可以通过给`cattle-cluster-agent Pod`和`cattle-node-agent`添加主机别名(/etc/hosts)，让其可以正常通过`Rancher Server URL`与Rancher Server通信`(前提是IP地址可以互通)`。
 
-**注意：**Local集群中，需要先通过`Rancher Server URL`访问Rancher Web UI，进行初始化之后`cattle-cluster-agent Pod`和`cattle-node-agent`才会自动部署。
-
 - 操作步骤
 
+1. `cattle-cluster-agent Pod`和`cattle-node-agent`需要在`LOCAL`集群初始化之后才会部署，所以先通过`Rancher Server URL`访问Rancher Web UI进行初始化。
 1. 执行以下命令为Rancher Server容器配置hosts:
 
     ```bash
     #指定kubectl配置文件
-    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
 
     kubectl --kubeconfig=$kubeconfig -n cattle-system \
         patch deployments rancher --patch '{
@@ -361,7 +360,7 @@ weight: 3
 
     ```bash
     #指定kubectl配置文件
-    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
 
     kubectl --kubeconfig=$kubeconfig -n cattle-system \
     patch deployments cattle-cluster-agent --patch '{
@@ -387,7 +386,7 @@ weight: 3
 
     ```bash
     #指定kubectl配置文件
-    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
 
     kubectl --kubeconfig=$kubeconfig -n cattle-system \
     patch daemonsets cattle-node-agent --patch '{

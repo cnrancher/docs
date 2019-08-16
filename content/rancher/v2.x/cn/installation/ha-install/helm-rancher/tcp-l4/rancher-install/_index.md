@@ -30,7 +30,7 @@ Rancher Server设计默认需要开启SSL/TLS配置来保证安全，将ssl证�
 
     ```bash
     # 指定配置文件
-    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
 
     kubectl --kubeconfig=$kubeconfig \
         create namespace cattle-system
@@ -47,7 +47,7 @@ Rancher Server设计默认需要开启SSL/TLS配置来保证安全，将ssl证�
 
     ```bash
     # 指定配置文件
-    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
     helm --kubeconfig=$kubeconfig install \
         rancher-stable/rancher \
         --name rancher \
@@ -71,7 +71,7 @@ Rancher Server设计默认需要开启SSL/TLS配置来保证安全，将ssl证�
 
     ```bash
     # 指定配置文件
-    kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    kubeconfig=xxx/xxx/xx.kubeconfig.yml
     # 创建命名空间
     kubectl --kubeconfig=$kubeconfig \
         create namespace cattle-system
@@ -93,7 +93,7 @@ Rancher Server设计默认需要开启SSL/TLS配置来保证安全，将ssl证�
     >修改`hostname`
 
     ```bash
-    kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    kubeconfig=xxx/xxx/xx.kubeconfig.yml
 
     helm --kubeconfig=$kubeconfig install \
         rancher-stable/rancher \
@@ -124,15 +124,14 @@ Rancher chart有许多配置选项,可用于自定义安装以适合您的特定
 
 可以通过给`cattle-cluster-agent Pod`和`cattle-node-agent`添加主机别名(/etc/hosts)，让其可以正常通过`Rancher Server URL`与Rancher Server通信`(前提是IP地址可以互通)`。
 
-**注意：**Local集群中，需要先通过`Rancher Server URL`访问Rancher Web UI，进行初始化之后`cattle-cluster-agent Pod`和`cattle-node-agent`才会自动部署。
-
 - 操作步骤
 
+1. `cattle-cluster-agent Pod`和`cattle-node-agent`需要在`LOCAL`集群初始化之后才会部署，所以先通过`Rancher Server URL`访问Rancher Web UI进行初始化。
 1. 执行以下命令为Rancher Server容器配置hosts:
 
     ```bash
     #指定kubectl配置文件
-    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
 
     kubectl --kubeconfig=$kubeconfig -n cattle-system \
         patch deployments rancher --patch '{
@@ -160,7 +159,7 @@ Rancher chart有许多配置选项,可用于自定义安装以适合您的特定
 1. cattle-cluster-agent pod
 
     ```bash
-    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
 
     kubectl --kubeconfig=$kubeconfig -n cattle-system \
     patch deployments cattle-cluster-agent --patch '{
@@ -185,7 +184,7 @@ Rancher chart有许多配置选项,可用于自定义安装以适合您的特定
 1. cattle-node-agent pod
 
     ```bash
-    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
 
     kubectl --kubeconfig=$kubeconfig -n cattle-system \
     patch  daemonsets cattle-node-agent --patch '{

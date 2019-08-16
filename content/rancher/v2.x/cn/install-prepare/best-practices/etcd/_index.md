@@ -33,6 +33,8 @@ IOPS=1000ms/(寻道时间+旋转延迟)。忽略数据传输时间。\
 sudo ionice -c2 -n0 -p $(pgrep etcd)
 ```
 
+>**温馨提示**: 因为主机重启或者容器重启后，容器中进程的PID会发生变化，所以建议把以上命令放在系统的启动脚本中（比如Ubuntu的`/etc/init.d/rc.local`脚本中），并且把命令配置在crontab定时任务中。
+
 ## 三、修改空间配额大小
 
 默认ETCD空间配额大小为2G，超过2G将不再写入数据。通过给ETCD配置`--quota-backend-bytes`参数增大空间配额,最大支持8G。

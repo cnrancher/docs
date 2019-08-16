@@ -11,6 +11,7 @@ weight: 4
 services:
   kube-api:
     extra_args:
+      watch-cache: true
 ```
 
 ## kube-controller

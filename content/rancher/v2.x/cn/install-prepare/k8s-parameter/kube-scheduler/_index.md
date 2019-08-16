@@ -3,15 +3,17 @@ title: 4 - kube-scheduler
 weight: 4
 ---
 
-### Synopsis
+*当前版本v1.14*
 
-The Kubernetes scheduler is a policy-rich, topology-aware, workload-specific function that significantly impacts availability, performance, and capacity. The scheduler needs to take into account individual and collective resource requirements, quality of service requirements, hardware/software/policy constraints, affinity and anti-affinity specifications, data locality, inter-workload interference, deadlines, and so on. Workload-specific requirements will be exposed through the API as necessary.
+## 简介
+
+kube-scheduler是 kubernetes 系统的核心组件之一，主要负责整个集群资源的调度功能，根据特定的调度算法和策略，将 Pod 调度到最优的工作节点上面去，从而更加合理、更加充分的利用集群的资源。
 
 ```bash
 kube-scheduler [flags]
 ```
 
-### Options
+## 选项
 
 | --address string     Default: "0.0.0.0"                      | DEPRECATED: the IP address on which to listen for the --port port (set to 0.0.0.0 for all IPv4 interfaces and :: for all IPv6 interfaces). See --bind-address instead. |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |

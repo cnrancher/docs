@@ -13,8 +13,6 @@ weight: 1
 > 7. 熟悉`Linux基本操作命令` \
 > 8. 熟悉`Docker基本操作命令`
 
-对于生产环境，我们建议使用高可用安装Rancher，以便保证用户可以始终访问Rancher Server。当Rancher安装在Kubernetes集群中时，Rancher将使用集群的`etcd`存储数据，并利用Kubernetes调度实现高可用性。
-
 > **重要:** 为了获得最佳性能，我们建议这个Kubernetes集群只用于Rancher Server。
 
 ## 推荐的架构

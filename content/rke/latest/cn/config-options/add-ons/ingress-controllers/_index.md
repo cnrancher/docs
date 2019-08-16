@@ -59,7 +59,7 @@ ingress:
 2. 使用以下命令通过您的PEM编码的证书生成一个Kubernetes secret，注意替换命令中的证书名称。
 
     ```bash
-    kubectl --kubeconfig=kube_configxxx.yml -n   ingress-nginx create secret tls ingress-default-cert --cert=mycert.cert --key=mycert.key -o yaml --dry-run=true > ingress-default-cert.yaml
+    kubectl --kubeconfig=kube_configxxx.yml -n   ingress-nginx create secret tls ingress-default-cert --cert=mycert.cert --key=mycert.key -o yaml --dry-run=true > ingress-default-cert.yml
     ```
 
 3. 把`ingress-default-cert.yml`的内容复制到您的RKE`cluster.yml`文件中。例如:

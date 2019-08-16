@@ -94,12 +94,12 @@ bastion_host:
 cluster_name: mycluster
 
 # 定义kubernetes版本.
-## 目前, 版本定义需要与rancher/types defaults map相匹配: https://github.com/rancher/types/blob/master/apis/management.cattle.io/v3/k8s_defaults.go#L14
+## 目前, 版本定义需要与rancher/types defaults map相匹配: https://github.com/rancher/types/blob/master/apis/management.cattle.io/v3/k8s_defaults.go#L14 （后期版本请查看: https://github.com/rancher/kontainer-driver-metadata/blob/master/rke/k8s_rke_system_images.go ）
 ## 如果同时定义了kubernetes_version和system_images中的kubernetes镜像，则system_images配置将优先于kubernetes_version
 kubernetes_version: v1.14.3-rancher1
 
 # `system_images`优先级更高，如果没有单独指定`system_images`镜像，则会使用`kubernetes_version`对应的默认镜像版本。
-## 默认Tags: https://github.com/rancher/types/blob/master/apis/management.cattle.io/v3/k8s_defaults.go)
+## 默认Tags: https://github.com/rancher/types/blob/master/apis/management.cattle.io/v3/k8s_defaults.go)(Rancher v2.3或者RKE v0.3之后的版本请查看: https://github.com/rancher/kontainer-driver-metadata/blob/master/rke/k8s_rke_system_images.go ）
 system_images:
   etcd: rancher/coreos-etcd:v3.3.10-rancher1
   alpine: rancher/rke-tools:v0.1.34
@@ -149,6 +149,7 @@ services:
     #   -----END PRIVATE KEY-----
     # Rancher 2用户注意事项：如果在创建Rancher Launched Kubernetes时使用配置文件配置集群，则`kube_api`服务名称应仅包含下划线。这仅适用于Rancher v2.0.5和v2.0.6。
     # 以下参数仅支持RKE部署的etcd集群
+  
     # 开启自动备份
     ## rke版本大于等于0.2.x或rancher版本大于等于2.2.0时使用
     backup_config:
@@ -156,9 +157,10 @@ services:
       interval_hours: 12
       retention: 6
     ## rke版本小于0.2.x或rancher版本小于2.2.0时使用
-    snapshot: true
-    creation: 5m0s
-    retention: 24h
+    ##snapshot: true
+    ##creation: 5m0s
+    ##retention: 24h
+
     # 扩展参数
     extra_args:
       auto-compaction-retention: 240 #(单位小时)
@@ -175,6 +177,7 @@ services:
     # kubernetes API server扩展参数
     ## 这些参数将会替换默认值
     extra_args:
+      watch-cache: true
       # 启用审计日志到标准输出
       audit-log-path: "-"
       # 增加删除workers的数量
@@ -190,7 +193,7 @@ services:
     service_cluster_ip_range: 10.43.0.0/16
     extra_args:
       # 修改每个节点子网大小(cidr掩码长度)，默认为24，可用IP为254个；23，可用IP为510个；22，可用IP为1022个；
-      node-cidr-mask-size: 24
+      node-cidr-mask-size: '24'
       ## 控制器定时与节点通信以检查通信是否正常，周期默认5s
       node-monitor-period: '5s'
       ## 当节点通信失败后，再等一段时间kubernetes判定节点为notready状态。
@@ -210,6 +213,10 @@ services:
     fail_swap_on: false
     # 扩展变量
     extra_args:
+      ## 指定pause镜像
+      pod-infra-container-image: 'rancher/pause:3.1'
+      ## 传递给网络插件的MTU值，以覆盖默认值，设置为0(零)则使用默认的1460
+      network-plugin-mtu: '1500'
       ## 修改节点最大Pod数量
       max-pods: "250"
       ## 密文和配置映射同步时间，默认1分钟
@@ -227,10 +234,20 @@ services:
       ## 仅当registry-qps大于0(零)时生效，(默认10)。如果registry-qps为0则不限制(默认5)。
       registry-burst: '10'
       registry-qps: '0'
+      cgroups-per-qos: 'true'
+      cgroup-driver: 'cgroupfs'
+
       # 节点资源预留
-      system-reserved: 'memory=250Mi'
-      kube-reserved: 'memory=250Mi'
-      eviction-hard: 'memory.available<300Mi,nodefs.available<10%,imagefs.available<15%,nodefs.inodesFree<5%'
+      enforce-node-allocatable: 'pods'
+      system-reserved: 'cpu=0.25,memory=200Mi'
+      kube-reserved: 'cpu=0.25,memory=1500Mi'
+      # POD驱逐
+      eviction-hard: 'memory.available<300Mi'
+
+      eviction-soft: 'memory.available<0.5Gi'
+      eviction-soft-grace-period: 'memory.available=1m30s'
+      eviction-max-pod-grace-period: '30'
+      eviction-pressure-transition-period: '30s'
     # 可以选择定义额外的卷绑定到服务
     extra_binds:
       - "/usr/libexec/kubernetes/kubelet-plugins:/usr/libexec/kubernetes/kubelet-plugins"
@@ -257,7 +274,7 @@ authentication:
 ## Use `mode: none` 禁用 认证
 authorization:
   mode: rbac
-# 如果要设置Kubernetes云提供商，需要指定名称和配置
+# 如果要设置Kubernetes云提供商，需要指定名称和配置，非云主机则留空；
 cloud_provider:
   name: aws
 # Add-ons是通过kubernetes jobs来部署。 在超时后，RKE将放弃重试获取job状态。以秒为单位。
@@ -299,7 +316,7 @@ addons: |-
         - containerPort: 80
 
 addons_include:
-    - https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/rook-operator.yaml
-    - https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/rook-cluster.yaml
+    - https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/rook-operator.yml
+    - https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/rook-cluster.yml
     - /path/to/manifest
 ```

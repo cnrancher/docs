@@ -75,7 +75,7 @@ clean up complete
 在Kubernetes集群中创建Longhorn的部署非常简单，您可以通过`kubectl`工具直接运行以下命令镜进行安装。
 
 ```
-kubectl --kubeconfig=kube_configxxx.yml  apply  -f https://raw.githubusercontent.com/rancher/longhorn/master/deploy/longhorn.yaml
+kubectl --kubeconfig=kube_configxxx.yml  apply  -f https://raw.githubusercontent.com/rancher/longhorn/master/deploy/longhorn.yml
 ```
 
 For Google Kubernetes Engine (GKE) users, see [../gke](gke) before proceeding.
@@ -147,12 +147,12 @@ Longhorn provides the persistent volume directly to Kubernetes through one of th
 Use following command to create a default Longhorn StorageClass named `longhorn`.
 
 ```
-kubectl --kubeconfig=kube_configxxx.yml create  -f https://raw.githubusercontent.com/rancher/longhorn/master/examples/storageclass.yaml
+kubectl --kubeconfig=kube_configxxx.yml create  -f https://raw.githubusercontent.com/rancher/longhorn/master/examples/storageclass.yml
 ```
 
 Now you can create a pod using Longhorn like this:
 ```
-kubectl --kubeconfig=kube_configxxx.yml create  -f https://raw.githubusercontent.com/rancher/longhorn/master/examples/pvc.yaml
+kubectl --kubeconfig=kube_configxxx.yml create  -f https://raw.githubusercontent.com/rancher/longhorn/master/examples/pvc.yml
 ```
 
 The yaml contains two parts:
@@ -256,13 +256,13 @@ See [here](./docs/troubleshooting.md) for the troubleshooting guide.
 
 2. Create the uninstallation job to cleanly purge CRDs from the system and wait for success:
   ```
-  kubectl --kubeconfig=kube_configxxx.yml create  -f https://raw.githubusercontent.com/rancher/longhorn/master/uninstall/uninstall.yaml
+  kubectl --kubeconfig=kube_configxxx.yml create  -f https://raw.githubusercontent.com/rancher/longhorn/master/uninstall/uninstall.yml
   kubectl --kubeconfig=kube_configxxx.yml -n   longhorn-system get job/longhorn-uninstall -w
   ```
 
 Example output:
 ```
-$ kubectl --kubeconfig=kube_configxxx.yml create  -f https://raw.githubusercontent.com/rancher/longhorn/master/uninstall/uninstall.yaml
+$ kubectl --kubeconfig=kube_configxxx.yml create  -f https://raw.githubusercontent.com/rancher/longhorn/master/uninstall/uninstall.yml
 job.batch/longhorn-uninstall created
 $ kubectl --kubeconfig=kube_configxxx.yml -n   longhorn-system get job/longhorn-uninstall -w
 NAME                 DESIRED   SUCCESSFUL   AGE
@@ -273,7 +273,7 @@ longhorn-uninstall   1         1            45s
 
 3. Remove remaining components:
   ```
-  kubectl --kubeconfig=kube_configxxx.yml delete  -f https://raw.githubusercontent.com/rancher/longhorn/master/deploy/longhorn.yaml
+  kubectl --kubeconfig=kube_configxxx.yml delete  -f https://raw.githubusercontent.com/rancher/longhorn/master/deploy/longhorn.yml
   ```
 
 ## License

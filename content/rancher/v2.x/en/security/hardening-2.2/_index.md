@@ -115,7 +115,7 @@ This supports the following controls:
 On the control plane hosts for the Rancher HA cluster run:
 
 ``` bash
-stat /etc/kubernetes/encryption.yaml
+stat /etc/kubernetes/encryption.yml
 ```
 
 Ensure that:
@@ -147,14 +147,14 @@ Where `aescbc` is the key type, and `secret` is populated with a 32-byte base64 
 
 ``` bash
 head -c 32 /dev/urandom | base64 -i -
-touch /etc/kubernetes/encryption.yaml
+touch /etc/kubernetes/encryption.yml
 ```
 
 - Set the file ownership to `root:root` and the permissions to `0600`
 
 ``` bash
-chown root:root /etc/kubernetes/encryption.yaml
-chmod 0600 /etc/kubernetes/encryption.yaml
+chown root:root /etc/kubernetes/encryption.yml
+chmod 0600 /etc/kubernetes/encryption.yml
 ```
 
 - Set the contents to:
@@ -202,7 +202,7 @@ This supports the following controls:
 On each control plane node, run:
 
 ``` bash
-stat /etc/kubernetes/audit.yaml
+stat /etc/kubernetes/audit.yml
 ```
 
 Ensure that:
@@ -226,14 +226,14 @@ On nodes with the `controlplane` role:
 - Generate an empty configuration file:
 
 ``` bash
-touch /etc/kubernetes/audit.yaml
+touch /etc/kubernetes/audit.yml
 ```
 
 - Set the file ownership to `root:root` and the permissions to `0600`
 
 ``` bash
-chown root:root /etc/kubernetes/audit.yaml
-chmod 0600 /etc/kubernetes/audit.yaml
+chown root:root /etc/kubernetes/audit.yml
+chmod 0600 /etc/kubernetes/audit.yml
 ```
 
 - Set the contents to:
@@ -268,8 +268,8 @@ This supports the following control:
 On nodes with the `controlplane` role run:
 
 ``` bash
-stat /etc/kubernetes/admission.yaml
-stat /etc/kubernetes/event.yaml
+stat /etc/kubernetes/admission.yml
+stat /etc/kubernetes/event.yml
 ```
 
 For each file, ensure that:
@@ -278,17 +278,17 @@ For each file, ensure that:
 - The file mode is `0600`
 - The file owner is `root:root`
 
-For `admission.yaml` ensure that the file contains:
+For `admission.yml` ensure that the file contains:
 
 ``` yaml
 apiVersion: apiserver.k8s.io/v1alpha1
 kind: AdmissionConfiguration
 plugins:
 - name: EventRateLimit
-  path: /etc/kubernetes/event.yaml
+  path: /etc/kubernetes/event.yml
 ```
 
-For `event.yaml` ensure that the file contains:
+For `event.yml` ensure that the file contains:
 
 ``` yaml
 apiVersion: eventratelimit.admission.k8s.io/v1alpha1
@@ -306,30 +306,30 @@ On nodes with the `controlplane` role:
 - Generate an empty configuration file:
 
 ``` bash
-touch /etc/kubernetes/admission.yaml
-touch /etc/kubernetes/event.yaml
+touch /etc/kubernetes/admission.yml
+touch /etc/kubernetes/event.yml
 ```
 
 - Set the file ownership to `root:root` and the permissions to `0600`
 
 ``` bash
-chown root:root /etc/kubernetes/admission.yaml
-chown root:root /etc/kubernetes/event.yaml
-chmod 0600 /etc/kubernetes/admission.yaml
-chmod 0600 /etc/kubernetes/event.yaml
+chown root:root /etc/kubernetes/admission.yml
+chown root:root /etc/kubernetes/event.yml
+chmod 0600 /etc/kubernetes/admission.yml
+chmod 0600 /etc/kubernetes/event.yml
 ```
 
-- For `admission.yaml` set the contents to:
+- For `admission.yml` set the contents to:
 
 ``` yaml
 apiVersion: apiserver.k8s.io/v1alpha1
 kind: AdmissionConfiguration
 plugins:
 - name: EventRateLimit
-  path: /etc/kubernetes/event.yaml
+  path: /etc/kubernetes/event.yml
 ```
 
-- For `event.yaml` set the contents to:
+- For `event.yml` set the contents to:
 
 ``` yaml
 apiVersion: eventratelimit.admission.k8s.io/v1alpha1
@@ -454,14 +454,14 @@ To pass the following controls for the kube-api server ensure RKE configuration 
 --profiling=false
 --service-account-lookup=true
 --enable-admission-plugins= "ServiceAccount,NamespaceLifecycle,LimitRanger,PersistentVolumeLabel,DefaultStorageClass,ResourceQuota,DefaultTolerationSeconds,AlwaysPullImages,DenyEscalatingExec,NodeRestriction,EventRateLimit,PodSecurityPolicy"
---encryption-provider-config=/etc/kubernetes/encryption.yaml
---admission-control-config-file=/etc/kubernetes/admission.yaml
+--encryption-provider-config=/etc/kubernetes/encryption.yml
+--admission-control-config-file=/etc/kubernetes/admission.yml
 --audit-log-path=/var/log/kube-audit/audit-log.json
 --audit-log-maxage=5
 --audit-log-maxbackup=5
 --audit-log-maxsize=100
 --audit-log-format=json
---audit-policy-file=/etc/kubernetes/audit.yaml
+--audit-policy-file=/etc/kubernetes/audit.yml
 --tls-cipher-suites: "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256"
 ```
 
@@ -484,14 +484,14 @@ services:
       profiling: "false"
       service-account-lookup: "true"
       enable-admission-plugins: "ServiceAccount,NamespaceLifecycle,LimitRanger,PersistentVolumeLabel,DefaultStorageClass,ResourceQuota,DefaultTolerationSeconds,AlwaysPullImages,DenyEscalatingExec,NodeRestriction,EventRateLimit,PodSecurityPolicy"
-      encryption-provider-config: /etc/kubernetes/encryption.yaml
-      admission-control-config-file: "/etc/kubernetes/admission.yaml"
+      encryption-provider-config: /etc/kubernetes/encryption.yml
+      admission-control-config-file: "/etc/kubernetes/admission.yml"
       audit-log-path: "/var/log/kube-audit/audit-log.json"
       audit-log-maxage: "5"
       audit-log-maxbackup: "5"
       audit-log-maxsize: "100"
       audit-log-format: "json"
-      audit-policy-file: /etc/kubernetes/audit.yaml
+      audit-policy-file: /etc/kubernetes/audit.yml
       tls-cipher-suites: "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256"
     extra_binds:
       - "/var/log/kube-audit:/var/log/kube-audit"
@@ -1048,14 +1048,14 @@ services:
       profiling: "false"
       service-account-lookup: "true"
       enable-admission-plugins: "ServiceAccount,NamespaceLifecycle,LimitRanger,PersistentVolumeLabel,DefaultStorageClass,ResourceQuota,DefaultTolerationSeconds,AlwaysPullImages,DenyEscalatingExec,NodeRestriction,EventRateLimit,PodSecurityPolicy"
-      encryption-provider-config: /etc/kubernetes/encryption.yaml
-      admission-control-config-file: "/etc/kubernetes/admission.yaml"
+      encryption-provider-config: /etc/kubernetes/encryption.yml
+      admission-control-config-file: "/etc/kubernetes/admission.yml"
       audit-log-path: "/var/log/kube-audit/audit-log.json"
       audit-log-maxage: "5"
       audit-log-maxbackup: "5"
       audit-log-maxsize: "100"
       audit-log-format: "json"
-      audit-policy-file: /etc/kubernetes/audit.yaml
+      audit-policy-file: /etc/kubernetes/audit.yml
       tls-cipher-suites: "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256"
     extra_binds:
       - "/var/log/kube-audit:/var/log/kube-audit"

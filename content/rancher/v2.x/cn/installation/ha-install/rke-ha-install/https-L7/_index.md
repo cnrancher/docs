@@ -119,9 +119,9 @@ RKE通过 `.yml` 配置文件来安装和配置Kubernetes集群，有2个模板�
 
 1. 根据您使用的SSL证书类型，选择模板下载:
 
-    - [Template for self-signed certificate<br/> `3-node-externalssl-certificate.yml`](https://raw.githubusercontent.com/rancher/rancher/58e695b51096b1f404188379cea6f6a35aea9e4c/rke-templates/3-node-externalssl-certificate.yml)
+    - [自签名证书模板<br/> `3-node-external-ssl-certificate.yml`](https://raw.githubusercontent.com/rancher/rancher/58e695b51096b1f404188379cea6f6a35aea9e4c/rke-templates/3-node-externalssl-certificate.yml)
 
-    - [Template for certificate signed by recognized CA<br/> `3-node-externalssl-recognizedca.yml`](https://raw.githubusercontent.com/rancher/rancher/58e695b51096b1f404188379cea6f6a35aea9e4c/rke-templates/3-node-externalssl-recognizedca.yml)
+    - [权威机构颁发证书模板<br/> `3-node-external-ssl-recognizedca.yml`](https://raw.githubusercontent.com/rancher/rancher/58e695b51096b1f404188379cea6f6a35aea9e4c/rke-templates/3-node-externalssl-recognizedca.yml)
 
 2. 重命名模板文件为 `rancher-cluster.yml`
 
@@ -296,15 +296,14 @@ apiVersion: extensions/v1beta1
 
 可以通过给`cattle-cluster-agent Pod`和`cattle-node-agent`添加主机别名(/etc/hosts)，让其可以正常通过`Rancher Server URL`与Rancher Server通信`(前提是IP地址可以互通)`。
 
-**注意：**Local集群中，需要先通过`Rancher Server URL`访问Rancher Web UI，进行初始化之后`cattle-cluster-agent Pod`和`cattle-node-agent`才会自动部署。
-
 - 操作步骤
 
+1. `cattle-cluster-agent Pod`和`cattle-node-agent`需要在`LOCAL`集群初始化之后才会部署，所以先通过`Rancher Server URL`访问Rancher Web UI进行初始化。
 1. 执行以下命令为Rancher Server容器配置hosts:
 
     ```bash
     #指定kubectl配置文件
-    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
 
     kubectl --kubeconfig=$kubeconfig -n cattle-system \
         patch deployments rancher --patch '{
@@ -332,7 +331,7 @@ apiVersion: extensions/v1beta1
 1. cattle-cluster-agent pod
 
     ```bash
-    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
 
     kubectl --kubeconfig=$kubeconfig -n cattle-system \
     patch deployments cattle-cluster-agent --patch '{
@@ -357,7 +356,7 @@ apiVersion: extensions/v1beta1
 1. cattle-node-agent pod
 
     ```bash
-    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
 
     kubectl --kubeconfig=$kubeconfig -n cattle-system \
     patch  daemonsets cattle-node-agent --patch '{

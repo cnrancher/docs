@@ -5,7 +5,7 @@ aliases:
   - /rancher/v2.x/en/tools/pipelines/reference/
 ---
 
-Pipelines can be configured either through the UI or using a yaml file in the repository, i.e. `.rancher-pipeline.yml` or `.rancher-pipeline.yaml`.
+Pipelines can be configured either through the UI or using a yaml file in the repository, i.e. `.rancher-pipeline.yml` or `.rancher-pipeline.yml`.
 
 In the [pipeline configuration docs](), we provide examples of each available feature within pipelines. Here is a full example for those who want to jump rigt in.
 
@@ -50,7 +50,7 @@ stages:
   - name: Deploy some workloads
     steps:
     - applyYamlConfig:
-        path: ./deployment.yaml
+        path: ./deployment.yml
 # branch conditions for the pipeline
 branch:
   include: [ master, feature/*]
