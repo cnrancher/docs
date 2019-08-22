@@ -25,7 +25,7 @@ weight: 1
 
 对于刚刚接触Rancher的用户，建议在关闭防火墙的测试环境或桌面虚拟机来运行rancher，以避免出现网络通信问题。
 
-- 关闭防火墙
+1. 关闭防火墙
 
     1、CentOS
 
@@ -35,27 +35,29 @@ weight: 1
 
     `ufw disable`
 
-- 端口放行
+1. 端口放行
 
     端口放行请查看[端口需求]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/references/)
 
 ### 6、配置主机时间、时区、系统语言
 
-- 查看时区
+1. 查看时区
 
     `date -R`或者`timedatectl`
 
-- 修改时区
+1. 修改时区
 
     ```ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime```
 
-- 修改系统语言环境
+1. 修改系统语言环境
 
     ```sudo echo 'LANG="en_US.UTF-8"' >> /etc/profile;source /etc/profile```
 
 - 配置主机NTP时间同步
 
-### 7、Kernel性能调优
+### 7、配置主机DNS
+
+### 8、Kernel性能调优
 
 ```bash
 cat >> /etc/sysctl.conf<<EOF
@@ -69,7 +71,7 @@ EOF
 
 >数值根据实际环境自行配置，最后执行`sysctl -p`保存配置。
 
-### 8、内核模块
+### 9、内核模块
 
 >**警告** 如果要使用ceph存储相关功能，需保证worker节点加载`RBD模块`
 
@@ -112,7 +114,7 @@ EOF
 >模块查询: lsmod | grep <模块名> \
 模块加载: modprobe <模块名>\
 
-### 9、ETCD集群容错表
+### 10、ETCD集群容错表
 
 建议在ETCD集群中使用奇数个成员,通过添加额外成员可以获得更高的失败容错。具体详情可以查阅[optimal-cluster-size](https://coreos.com/etcd/docs/latest/v2/admin_guide.html#optimal-cluster-size)。
 

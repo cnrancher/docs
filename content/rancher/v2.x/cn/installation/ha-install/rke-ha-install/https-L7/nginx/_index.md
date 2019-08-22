@@ -28,7 +28,7 @@ NGINX拥有所有主流操作系统的软件包，通过包管理器可以很轻
     }
 
     server {
-        listen 443 ssl http2; # 如果是升级或者全新安装v2.2.2,需要禁止http2
+        listen 443 ssl http2; # 如果是升级或者全新安装v2.2.2,需要禁止http2，其他版本不需修改。
         server_name rancher.yourdomain.com;
         ssl_certificate /etc/your_certificate_directory/fullchain.pem;
         ssl_certificate_key /etc/your_certificate_directory/privkey.pem;

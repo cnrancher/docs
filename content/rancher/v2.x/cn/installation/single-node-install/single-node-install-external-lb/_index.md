@@ -101,7 +101,7 @@ http {
     }
 
     server {
-        listen 443 ssl http2; # 如果是升级或者全新安装v2.2.2,需要禁止http2
+        listen 443 ssl http2; # 如果是升级或者全新安装v2.2.2,需要禁止http2，其他版本不需修改。
         server_name FQDN;
         ssl_certificate <您自己的自签名证书>;
         ssl_certificate_key <您自己的自签名证书私钥>;
