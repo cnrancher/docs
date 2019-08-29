@@ -36,7 +36,7 @@ Rancher在以下操作系统及其后续的非主要发行版上受支持:
 | 中           | 最多15个   | 最多200个   | 4                                                  | 16 GB                                              |
 | 大           | 最多50个   | 最多500个   | 8                                                  | 32 GB                                              |
 | 大+          | 最多100个  | 最多1000个  | 32                                                 | 128 GB                                             |
-| 大++         | 超过100+个 | 超过1000+个 | [联系 Rancher](https://www.cnrancher.com/contact/) | [联系 Rancher](https://www.cnrancher.com/contact/) |
+| 大++         | 超过100+个 | 超过1000+个 | [联系 Rancher](https://www.rancher.cn/contact/) | [联系 Rancher](https://www.rancher.cn/contact/) |
 
 
 

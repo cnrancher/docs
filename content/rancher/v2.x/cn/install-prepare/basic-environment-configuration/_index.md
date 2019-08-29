@@ -47,15 +47,38 @@ weight: 1
 
 1. 修改时区
 
-    ```ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime```
+    ```bash
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+    ```
 
 1. 修改系统语言环境
 
-    ```sudo echo 'LANG="en_US.UTF-8"' >> /etc/profile;source /etc/profile```
+    ```bash
+    sudo echo 'LANG="en_US.UTF-8"' >> /etc/profile;source /etc/profile
+    ```
 
 - 配置主机NTP时间同步
 
 ### 7、配置主机DNS
+
+对于类似Ubuntu 18这类默认使用`systemd-resolve`管理DNS的系统，建议禁用systemd-resolved服务，然后手动配置DNS。
+
+操作方法：
+
+1. 禁用systemd-resolved.service
+
+    ```bash
+    systemctl disable systemd-resolved.service
+    systemctl stop systemd-resolved.service
+    rm -rf /etc/resolv.conf ; touch /etc/resolv.conf
+    ```
+
+1. 接着编辑/etc/resolv.conf添加DNS服务器
+1. 重启docker服务
+
+    ```bash
+    systemctl daemon-reload ; systemctl restart docker
+    ```
 
 ### 8、Kernel性能调优
 

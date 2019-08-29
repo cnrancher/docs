@@ -51,9 +51,9 @@ docker run -d --restart=unless-stopped \
   -v <主机路径>:/var/lib/rancher/ \
   -v /var/log/rancher/auditlog:/var/log/auditlog \
   -e AUDIT_LEVEL=3 \
-  -v /etc/<CERT_DIRECTORY>/<FULL_CHAIN.pem>:/etc/rancher/ssl/cert.pem \
-  -v /etc/<CERT_DIRECTORY>/<PRIVATE_KEY.pem>:/etc/rancher/ssl/key.pem \
-  -v /etc/<CERT_DIRECTORY>/<CA_CERTS.pem>:/etc/rancher/ssl/cacerts.pem \
+  -v /etc/<CERT_DIRECTORY>/tls.crt:/etc/rancher/ssl/cert.pem \
+  -v /etc/<CERT_DIRECTORY>/tls.key:/etc/rancher/ssl/key.pem \
+  -v /etc/<CERT_DIRECTORY>/cacerts.pem:/etc/rancher/ssl/cacerts.pem \
   rancher/rancher:stable (或者rancher/rancher:latest)
 ```
 
@@ -75,8 +75,8 @@ docker run -d --restart=unless-stopped \
   -v <主机路径>:/var/lib/rancher/ \
   -v /root/var/log/auditlog:/var/log/auditlog \
   -e AUDIT_LEVEL=3 \
-  -v /etc/your_certificate_directory/fullchain.pem:/etc/rancher/ssl/cert.pem \
-  -v /etc/your_certificate_directory/privkey.pem:/etc/rancher/ssl/key.pem \
+  -v /etc/<CERT_DIRECTORY>/tls.crt:/etc/rancher/ssl/cert.pem \
+  -v /etc/<CERT_DIRECTORY>/tls.key:/etc/rancher/ssl/key.pem \
   rancher/rancher:stable (或者rancher/rancher:latest) --no-cacerts
 ```
 

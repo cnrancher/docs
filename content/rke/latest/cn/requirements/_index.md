@@ -18,11 +18,10 @@ weight: 1
       请参阅[Manage Docker as a non-root user](https://docs.docker.com/install/linux/linux-postinstall/#manage-docker-as-a-non-root-user) 以了解如何在不使用root用户的情况下配置对Docker的访问。
 
 - `worker`上禁用交换
-
 - 加载以下内核模块，可以使用以下方法检查：
-   * `modprobe module_name`
-   * `lsmod | grep module_name`
-   * `grep module_name /lib/modules/$(uname -r)/modules.builtin`, 如果它是一个内置模块
+      * `modprobe module_name`
+      * `lsmod | grep module_name`
+      * `grep module_name /lib/modules/$(uname -r)/modules.builtin`, 如果它是一个内置模块
 
       Module name |
       ------------|
@@ -57,6 +56,19 @@ weight: 1
       xt_set |
       xt_statistic |
       xt_tcpudp |
+
+      * 模块检测脚本
+
+      ```bash
+      module_list='br_netfilter ip6_udp_tunnel ip_set ip_set_hash_ip ip_set_hash_net iptable_filter iptable_nat iptable_mangle iptable_raw nf_conntrack_netlink nf_conntrack nf_conntrack_ipv4 nf_defrag_ipv4 nf_nat nf_nat_ipv4 nf_nat_masquerade_ipv4 nfnetlink udp_tunnel veth vxlan x_tables xt_addrtype xt_conntrack xt_comment xt_mark xt_multiport xt_nat xt_recent xt_set xt_statistic xt_tcpudp'
+
+      for module in $module_list;
+      do
+            if ! lsmod | grep -q $module; then
+                  echo "module $module is not present"
+            fi
+      done;
+      ```
 
 - 必须应用以下sysctl设置
 
@@ -140,18 +152,18 @@ v1.11.x | RHEL Docker 1.13, 17.03.2, 18.06.2, 18.09.2 |
 
 您可以按照[Docker安装](https://docs.docker.com/install/)说明操作，也可以使用Rancher的[安装脚本](https://github.com/rancher/install-docker)安装Docker。对于RHEL，请参阅[如何在Red Hat Enterprise Linux 7上安装Docker](https://access.redhat.com/solutions/3727511)。
 
-Docker版本   | 安装脚本 |
-----------|------------------
-18.09.2 |  <code>curl https://releases.rancher.com/install-docker/18.09.2.sh &#124; sh</code> |
-18.06.2 |  <code>curl https://releases.rancher.com/install-docker/18.06.2.sh &#124; sh</code> |
-17.03.2 |  <code>curl https://releases.rancher.com/install-docker/17.03.2.sh &#124; sh</code> |
+      Docker版本   | 安装脚本 |
+      ----------|------------------
+      18.09.2 |  <code>curl https://releases.rancher.com/install-docker/18.09.2.sh &#124; sh</code> |
+      18.06.2 |  <code>curl https://releases.rancher.com/install-docker/18.06.2.sh &#124; sh</code> |
+      17.03.2 |  <code>curl https://releases.rancher.com/install-docker/17.03.2.sh &#124; sh</code> |
 
 确认安装的docker版本: `docker version --format '{{.Server.Version}}'`
 
-```bash
-docker version --format '{{.Server.Version}}'
-17.03.2-ce
-```
+      ```bash
+      docker version --format '{{.Server.Version}}'
+      17.03.2-ce
+      ```
 
 - OpenSSH 7.0+ - 必须在每个节点上安装OpenSSH。
 
@@ -164,25 +176,25 @@ If you are using an external firewall, make sure you have this port opened betwe
 
 ### `iptables` 放行端口TCP/6443
 
-```bash
-# Open TCP/6443 for all
-iptables -A INPUT -p tcp --dport 6443 -j ACCEPT
+      ```bash
+      # Open TCP/6443 for all
+      iptables -A INPUT -p tcp --dport 6443 -j ACCEPT
 
-# Open TCP/6443 for one specific IP
-iptables -A INPUT -p tcp -s your_ip_here --dport 6443 -j ACCEPT
-```
+      # Open TCP/6443 for one specific IP
+      iptables -A INPUT -p tcp -s your_ip_here --dport 6443 -j ACCEPT
+      ```
 
 ### `firewalld`放行端口TCP/6443
 
-```bash
-# Open TCP/6443 for all
-firewall-cmd --zone=public --add-port=6443/tcp --permanent
-firewall-cmd --reload
-
-# Open TCP/6443 for one specific IP
-firewall-cmd --permanent --zone=public --add-rich-rule='
-  rule family="ipv4"
-  source address="your_ip_here/32"
-  port protocol="tcp" port="6443" accept'
-firewall-cmd --reload
-```
+      ```bash
+      # Open TCP/6443 for all
+      firewall-cmd --zone=public --add-port=6443/tcp --permanent
+      firewall-cmd --reload
+      
+      # Open TCP/6443 for one specific IP
+      firewall-cmd --permanent --zone=public --add-rich-rule='
+        rule family="ipv4"
+        source address="your_ip_here/32"
+        port protocol="tcp" port="6443" accept'
+      firewall-cmd --reload
+      ```

@@ -5,7 +5,16 @@ weight: 6
 
 部署Kubernetes, RKE在节点上以Docker容器方式部署几个核心组件或服务，根据节点的角色，部署的容器不同。
 
-**所有服务都支持额外的[自定义参数、Docker卷和额外的环境变量]({{< baseurl >}}/rke/latest/cn/config-options/services/services-extras/).**
+**所有服务都支持额外的[自定义参数、Docker卷和额外的环境变量]({{< baseurl >}}/rke/latest/cn/config-options/services/services-extras/)。**
+
+| 组件名称               | 在CLUSTER.YML文件中对应的服务名 |
+| :---------------------- | :------------------------------- |
+| etcd                    | `etcd`                           |
+| kube-apiserver          | `kube-api`                       |
+| kube-controller-manager | `kube-controller`                |
+| kubelet                 | `kubelet`                        |
+| kube-scheduler          | `scheduler`                      |
+| kube-proxy              | `kubeproxy`                      |
 
 ## 一、etcd
 
@@ -67,11 +76,11 @@ RKE支持`kube-api`服务的以下设置选项:
 ```yaml
 services:
     kube-controller:
-      # 集群中的pod分配IP地址池
-      cluster_cidr: 10.42.0.0/16
-      # 在Kubernetes上创建的服务的IP范围
-      # 这个值必须与kube-api中的service_cluster_ip_range相同
-      service_cluster_ip_range: 10.43.0.0/16
+    # 集群中的pod分配IP地址池
+    cluster_cidr: 10.42.0.0/16
+    # 在Kubernetes上创建的服务的IP范围
+    # 这个值必须与kube-api中的service_cluster_ip_range相同
+    service_cluster_ip_range: 10.43.0.0/16
 ```
 
 ### 1、Kubernetes Controller Manager Options
@@ -93,12 +102,12 @@ RKE支持`kube-controller`服务的以下设置选项:
 ```yaml
 services:
     kubelet:
-     # 集群的搜索域
-     cluster_domain: cluster.local
-     # DNS服务IP地址
-     cluster_dns_server: 10.43.0.10
-     # 禁止swap
-     fail_swap_on: false
+    # 集群的搜索域
+    cluster_domain: cluster.local
+    # DNS服务IP地址
+    cluster_dns_server: 10.43.0.10
+    # 禁止swap
+    fail_swap_on: false
 ```
 
 ### 1、Kubelet 设置选项

@@ -241,22 +241,32 @@ services:
       enforce-node-allocatable: 'pods'
       system-reserved: 'cpu=0.25,memory=200Mi'
       kube-reserved: 'cpu=0.25,memory=1500Mi'
-      # POD驱逐
-      eviction-hard: 'memory.available<300Mi'
-
-      eviction-soft: 'memory.available<0.5Gi'
+      # POD驱逐，这个参数只支持内存和磁盘。
+      ## 硬驱逐伐值，当CGROUP组所剩资源少于这个值时，就会触发强制驱逐。强制驱逐会强制kill掉POD，不会等POD自动退出。
+      eviction-hard: 'memory.available<300Mi,nodefs.available<10%,imagefs.available<15%,nodefs.inodesFree<5%'
+      ## 以下四个参数配套使用，当CGROUP组所剩资源少于这个值时但大于硬驱逐伐值时候，会等待eviction-soft-grace-period设置的时长；
+      ## 等待中每10s检查一次，当最后一次检查还触发了软驱逐伐值就会开始驱逐。驱逐不会直接Kill POD，先发送停止信号给POD，然后等待eviction-max-pod-grace-period设置的时长；
+      ## 在eviction-max-pod-grace-period时长之后，如果POD还未退出则强制kill POD。
+      eviction-soft: 'memory.available<500Mi,nodefs.available<50%,imagefs.available<50%,nodefs.inodesFree<10%'
       eviction-soft-grace-period: 'memory.available=1m30s'
       eviction-max-pod-grace-period: '30'
       eviction-pressure-transition-period: '30s'
     # 可以选择定义额外的卷绑定到服务
     extra_binds:
       - "/usr/libexec/kubernetes/kubelet-plugins:/usr/libexec/kubernetes/kubelet-plugins"
+      - "/etc/iscsi:/etc/iscsi"
+      - "/sbin/iscsiadm:/sbin/iscsiadm"
   kubeproxy:
     extra_args:
-      # 默认使用iptables进行数据穿法
+      # 默认使用iptables进行数据转发
       proxy-mode: "" #如果要启用ipvs，则此处设置为`ipvs`
     extra_binds:
       - "/lib/modules:/lib/modules"
+  scheduler:
+    extra_args: {}
+    extra_binds: []
+    extra_env: []
+
 # 目前，只支持x509验证
 ## 您可以选择创建额外的SAN(主机名或IP)以添加到API服务器PKI证书。
 ## 如果要为control plane servers使用负载均衡器，这很有用。

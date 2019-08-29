@@ -3,6 +3,8 @@ title: 4 - kubernetes调优
 weight: 4
 ---
 
+> 完整的配置文件可查看 [RKE示例配置]({{< baseurl >}}/rke/atest/cn/example-yamls/)。
+
 ## kube-apiserver
 
 > RKE或者Rancher UI自定义部署集群的时候，在yaml文件中指定以下参数
@@ -77,18 +79,43 @@ services:
 
       # kube-reserved: 'cpu=1,memory=1Gi,ephemeral-storage=10Gi'
       kube-reserved: 'cpu=0.25,memory=1500Mi'
-
-      # 设置进行pod驱逐的阈值，这个参数只支持内存和磁盘。通过--eviction-hard标志预留一些内存后，当节点上的可用内存降至保留值以下时，kubelet 将会对pod进行驱逐。
-      # eviction-hard: 'memory.available<300Mi,nodefs.available<10%,imagefs.available<15%,nodefs.inodesFree<5%'
-      eviction-hard: 'memory.available<100Mi'
-
-      eviction-soft: 'memory.available<0.5Gi'
+      # POD驱逐，这个参数只支持内存和磁盘
+      ## 硬驱逐伐值
+      ### 当节点上的可用资源降至保留值以下时，就会触发强制驱逐。强制驱逐会强制kill掉POD，不会等POD自动退出。
+      eviction-hard: 'memory.available<300Mi,nodefs.available<10%,imagefs.available<15%,nodefs.inodesFree<5%'
+      ## 软驱逐伐值
+      ### 以下四个参数配套使用，当节点上的可用资源少于这个值时但大于硬驱逐伐值时候，会等待eviction-soft-grace-period设置的时长；
+      ### 等待中每10s检查一次，当最后一次检查还触发了软驱逐伐值就会开始驱逐，驱逐不会直接Kill POD，先发送停止信号给POD，然后等待eviction-max-pod-grace-period设置的时长；
+      ### 在eviction-max-pod-grace-period时长之后，如果POD还未退出则发送强制kill POD"
+      eviction-soft: 'memory.available<500Mi,nodefs.available<50%,imagefs.available<50%,nodefs.inodesFree<10%'
       eviction-soft-grace-period: 'memory.available=1m30s'
       eviction-max-pod-grace-period: '30'
       eviction-pressure-transition-period: '30s'
-
+    extra_binds:      "
+      - "/usr/libexec/kubernetes/kubelet-plugins:/usr/libexec/kubernetes/kubelet-plugins"
+      - "/etc/iscsi:/etc/iscsi"
+      - "/sbin/iscsiadm:/sbin/iscsiadm"
 ```
 
 ## kube-proxy
 
+```yaml
+services:
+  kubeproxy:
+    extra_args:
+      # 默认使用iptables进行数据转发
+      proxy-mode: ""    # 如果要启用ipvs，则此处设置为`ipvs`
+    extra_binds:
+      - "/lib/modules:/lib/modules"
+```
+
 ## kube-scheduler
+
+```yaml
+services:
+  scheduler:
+    extra_args: {}
+    extra_binds: []
+    extra_env: []
+```
+

@@ -3,11 +3,9 @@ title: 6 - 其他方法
 weight: 6
 ---
 
->**警告** 本Chart目前属于测试阶段，您可以在测试或者开发环境使用。
-
 Chart地址: https://gitee.com/rancher/server-chart.git
 
-- 本Chart基于 https://github.com/rancher/server-chart/ 修改，当前支持版本为`rancher v2.1.7、v2.1.8、v2.1.9、v2.2.0、v2.2.1、v2.2.2、v2.2.3、v2.2.4、v2.2.5、v2.2.6`。
+- 本Chart基于 https://github.com/rancher/server-chart/ 修改，当前支持版本为`rancher v2.1.7、v2.1.8、v2.1.9、v2.2.0、v2.2.1、v2.2.2、v2.2.3、v2.2.4、v2.2.5、v2.2.6 v2.2.7 v2.2.8`。
 - 不支持LetsEncrypt、cert-manager提供证书，需手动通过Secret导入证书, 默认开启审计日志功能。
 
 ## 一、制作自签名证书或重命名权威认证证书
@@ -80,14 +78,15 @@ helm --kubeconfig=$kubeconfig init \
 - 安装
 
 ```bash
-git clone -b v2.1.7 https://gitee.com/rancher/server-chart.git
+git clone -b v2.2.8 https://gitee.com/rancher/server-chart.git
 
 kubeconfig=xxx.yml
 helm install --kubeconfig=$kubeconfig \
     --name rancher \
     --namespace cattle-system \
     --set rancherImage=rancher/rancher \
-    --set rancherRegistry=registry.cn-shanghai.aliyuncs.com \
+    --set privateRegistry=true \
+    --set registryAddress=registry.cn-shanghai.aliyuncs.com \
     --set busyboxImage=rancher/busybox \
     --set hostname=<修改为自己的域名> \
     --set privateCA=true \
@@ -96,10 +95,10 @@ helm install --kubeconfig=$kubeconfig \
 
 >**注意:** 1. 通过`--kubeconfig=`指定kubectl配置文件; \
 >2. 如果使用权威ssl证书，则去除`--set privateCA=true`; \
->3. 如果为离线安装，可通过`rancherImage`指定镜像名称，不要指定镜像版本，系统会根据chart版本获取镜像版本。\
->4. 使用`rancherRegistry`指定离线私有仓库地址，注意不要添加协议头（http或者https） \
->5. 点击查看更多[Chart设置选项]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/rancher-install/chart-options/)。\
->6. 默认rancher镜像版本号自动通过chart版本号获取，如果想指定镜像版本号，可通过配置--set rancherImageTag=xxxx来指定。
+>3. 如果为离线安装，设置`--set privateRegistry=true`使用私有仓库，再使用`registryAddress`指定离线私有仓库地址，注意不要添加协议头（http或者https） \
+>4. 如果镜像名非标准rancher镜像名，可通过`--set rancherImage`指定镜像名称，不要指定镜像版本，系统会根据chart版本自动获取镜像版本。\
+>5. 默认自动获取chart版本号作为Rancher镜像版本号，如果想指定镜像版本号，可通过配置`--set rancherImageTag=v2.2.8`来指定。\
+>6. 点击查看更多[Chart设置选项]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/rancher-install/chart-options/)。
 
 ### 2、主机NodePort访问(主机IP+端口)(禁用内部ingress)
 
@@ -148,14 +147,15 @@ helm --kubeconfig=$kubeconfig init \
 - 安装
 
 ```bash
-git clone -b v2.1.7 https://gitee.com/rancher/server-chart.git
+git clone -b v2.2.8 https://gitee.com/rancher/server-chart.git
 
 kubeconfig=xxx.yml
 helm install --kubeconfig=$kubeconfig \
   --name rancher \
   --namespace cattle-system \
   --set rancherImage=rancher/rancher \
-  --set rancherRegistry=registry.cn-shanghai.aliyuncs.com \
+  --set privateRegistry=true \
+  --set registryAddress=registry.cn-shanghai.aliyuncs.com \
   --set busyboxImage=rancher/busybox \
   --set service.type=NodePort \
   --set service.ports.nodePort=30303  \
@@ -165,10 +165,10 @@ helm install --kubeconfig=$kubeconfig \
 
 >**注意:** 1. 通过`--kubeconfig=`指定kubectl配置文件; \
 >2. 如果使用权威ssl证书，则去除`--set privateCA=true`; \
->3. 如果为离线安装，可通过`rancherImage`指定镜像名称，不要指定镜像版本，系统会根据chart版本获取镜像版本。\
->4. 使用`rancherRegistry`指定离线私有仓库地址，注意不要添加协议头（http或者https） \
->5. 点击查看更多[Chart设置选项]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/rancher-install/chart-options/)。\
->6. 默认rancher镜像版本号自动通过chart版本号获取，如果想指定镜像版本号，可通过配置--set rancherImageTag=xxxx来指定。
+>3. 如果为离线安装，设置`--set privateRegistry=true`使用私有仓库，再使用`registryAddress`指定离线私有仓库地址，注意不要添加协议头（http或者https） \
+>4. 如果镜像名非标准rancher镜像名，可通过`--set rancherImage`指定镜像名称，不要指定镜像版本，系统会根据chart版本自动获取镜像版本。\
+>5. 默认自动获取chart版本号作为Rancher镜像版本号，如果想指定镜像版本号，可通过配置`--set rancherImageTag=v2.2.8`来指定。\
+>6. 点击查看更多[Chart设置选项]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/rancher-install/chart-options/)。
 
 ### 3、外部七层负载均衡器+主机NodePort方式运行(禁用内部ingress)
 
@@ -213,14 +213,15 @@ helm --kubeconfig=$kubeconfig init \
 - 安装
 
 ```bash
-git clone -b v2.1.7 https://gitee.com/rancher/server-chart.git
+git clone -b v2.2.8 https://gitee.com/rancher/server-chart.git
 
 kubeconfig=xxx.yml
 helm install --kubeconfig=$kubeconfig \
     --name rancher \
     --namespace cattle-system \
     --set rancherImage=rancher/rancher \
-    --set rancherRegistry=registry.cn-shanghai.aliyuncs.com \
+    --set privateRegistry=true \
+    --set registryAddress=registry.cn-shanghai.aliyuncs.com \
     --set busyboxImage=rancher/busybox \
     --set service.type=NodePort \
     --set service.ports.nodePort=30303 \
@@ -231,7 +232,7 @@ helm install --kubeconfig=$kubeconfig \
 
 >**注意:** 1. 通过`--kubeconfig=`指定kubectl配置文件; \
 >2. 如果使用权威ssl证书，则去除`--set privateCA=true`; \
->3. 如果为离线安装，可通过`rancherImage`指定镜像名称，不要指定镜像版本，系统会根据chart版本获取镜像版本。\
->4. 使用`rancherRegistry`指定离线私有仓库地址，注意不要添加协议头（http或者https） \
->5. 点击查看更多[Chart设置选项]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/rancher-install/chart-options/)。\
->6. 默认rancher镜像版本号自动通过chart版本号获取，如果想指定镜像版本号，可通过配置--set rancherImageTag=xxxx来指定。
+>3. 如果为离线安装，设置`--set privateRegistry=true`使用私有仓库，再使用`registryAddress`指定离线私有仓库地址，注意不要添加协议头（http或者https） \
+>4. 如果镜像名非标准rancher镜像名，可通过`--set rancherImage`指定镜像名称，不要指定镜像版本，系统会根据chart版本自动获取镜像版本。\
+>5. 默认自动获取chart版本号作为Rancher镜像版本号，如果想指定镜像版本号，可通过配置`--set rancherImageTag=v2.2.8`来指定。\
+>6. 点击查看更多[Chart设置选项]({{< baseurl >}}/rancher/v2.x/cn/installation/ha-install/helm-rancher/tcp-l4/rancher-install/chart-options/)。

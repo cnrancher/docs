@@ -72,7 +72,7 @@ Once this is completed and the hostname/IP matches your certs' CN attribute, you
 * **Support for auto-labeling of environment UUID for containers [#8442]** - Each container will now be labeled with its corresponding environment UUID.
 
 ## Infrastructure Service Updates
-When upgrading infrastructure services, please make sure to [upgrade in the recommended order](http://www.cnrancher.com/docs/rancher/v1.6/en/upgrading/#infrastructure-services).
+When upgrading infrastructure services, please make sure to [upgrade in the recommended order](http://www.rancher.cn/docs/rancher/v1.6/en/upgrading/#infrastructure-services).
 
 * **Network Services - v0.2.6**
   - _New image: `rancher/network-manager:v0.7.8`, `rancher/dns:v0.15.3`, `rancher/metadata:v0.9.4`_

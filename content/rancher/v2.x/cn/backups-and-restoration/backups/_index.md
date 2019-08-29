@@ -8,4 +8,4 @@ weight: 1
 
 - [单节点备份](./single-node/)
 - [RKE集群备份](./rke/)
-- [RKE集群备份](./custom/)
+- [自定义集群备份](./custom/)

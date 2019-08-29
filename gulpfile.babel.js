@@ -55,7 +55,7 @@ gulp.task('build-dev', (cb) => {
 });
 
 gulp.task('hugo', (cb) => {
-  return spawn('hugo', ['--buildFuture', '--baseURL=https://www.cnrancher.com/docs'], { stdio: 'inherit' }).on('close', (/* code */) => {
+  return spawn('hugo', ['--buildFuture', '--baseURL=https://www.rancher.cn/docs'], { stdio: 'inherit' }).on('close', (/* code */) => {
     browserSync.reload();
     cb();
   });

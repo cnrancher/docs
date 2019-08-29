@@ -80,7 +80,7 @@ weight: 16
 
 *可用版本: rke v0.2.0+*
 
-> **注意** 如果以前是通过`rke v0.2.0`之前的版本创建的Kubernetes集群，在轮换证书前先执行`rke up`操作，参考: https://www.cnrancher.com/docs/rke/latest/cn/cert-mgmt/
+> **注意** 如果以前是通过`rke v0.2.0`之前的版本创建的Kubernetes集群，在轮换证书前先执行`rke up`操作，参考: https://www.rancher.cn/docs/rke/latest/cn/cert-mgmt/
 
 - 通过RKE轮换证书，目前支持:
 

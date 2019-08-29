@@ -1,6 +1,6 @@
 ---
-title: Load Balancers
-weight: 3041
+title: 2 - Load Balancers
+weight: 2
 aliases:
   - /rancher/v2.x/en/concepts/load-balancing/
 ---

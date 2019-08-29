@@ -3,24 +3,24 @@ title: 4 - Pipeline 变量参数
 weight: 4
 ---
 
-For your convenience, the following variables are available for your pipeline configuration scripts. During pipeline executions, these variables are replaced by metadata. You can reference them in the form of `${VAR_NAME}`.
+为方便起见，下面的变量可用于管道配置脚本。在管道执行期间，这些变量被元数据替换。您可以以${VAR_NAME}的形式引用它们。
 
-Variable Name           | Description
+变量名           | 描述
 ------------------------|------------------------------------------------------------
-`CICD_GIT_REPO_NAME`      | Repository name (Github organization omitted).
-`CICD_GIT_URL`            | URL of the Git repository.
-`CICD_GIT_COMMIT`         | Git commit ID being executed.
-`CICD_GIT_BRANCH`         | Git branch of this event.
+`CICD_GIT_REPO_NAME`      | repo名称 (省略Github组织).
+`CICD_GIT_URL`            | Git存储库的URL。
+`CICD_GIT_COMMIT`         | 正在执行的Git commit ID。
+`CICD_GIT_BRANCH`         | 这个事件的Git分支。
 `CICD_GIT_REF`            | Git reference specification of this event.
 `CICD_GIT_TAG`            | Git tag name, set on tag event.
 `CICD_EVENT`              | Event that triggered the build (`push`, `pull_request` or `tag`).
 `CICD_PIPELINE_ID`        | Rancher ID for the pipeline.
 `CICD_EXECUTION_SEQUENCE` | Build number of the pipeline.
 `CICD_EXECUTION_ID`       | Combination of `{CICD_PIPELINE_ID}-{CICD_EXECUTION_SEQUENCE}`.
-`CICD_REGISTRY`           | Address for the Docker registry for the previous publish image step, available in the Kubernetes manifest file of a `Deploy YAML` step.
-`CICD_IMAGE`              | Name of the image built from the previous publish image step, available in the Kubernetes manifest file of a `Deploy YAML` step. It does not contain the image tag.<br/><br/> [Example](https://github.com/rancher/pipeline-example-go/blob/master/deployment.yml)
+`CICD_REGISTRY`           | 上一个发布镜像步骤的Docker镜像库的地址，可以在`Deploy YAML`步骤的Kubernetes清单文件中找到。
+`CICD_IMAGE`              | 上一个发布镜像步骤构建的镜像名称，可以在`Deploy YAML`的Kubernetes清单文件中找到。它不包含镜像标签。<br/><br/> [例如](https://github.com/rancher/pipeline-example-go/blob/master/deployment.yml)
 
-## Full `.rancher-pipeline.yml` Example
+## 完整`.rancher-pipeline.yml`示例
 
 ```yaml
 # example
