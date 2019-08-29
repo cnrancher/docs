@@ -239,7 +239,7 @@ nodes:
         - etcd
 ```
 
-将新节点添加到`cluster.yml`之后。运行`rke etcd snapshot-restore`从备份启动`etcd`。快照和`pki.bundle.tar.gz`文件需要预先放在`/opt/rke/etcd-snapshot`目录中。
+将新节点添加到`cluster.yml`之后。运行`rke etcd snapshot-restore`从备份启动`etcd`。快照和`pki.bundle.tar.gz`文件需要预先放在`/opt/rke/etcd-snapshots`目录中。
 
 从v0.2.0开始，如果您想直接从S3检索快照，请添加[S3选项](#options-for-rke-etcd-snapshot-restore)。
 

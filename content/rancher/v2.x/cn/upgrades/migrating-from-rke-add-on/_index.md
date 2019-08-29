@@ -72,7 +72,7 @@ kubectl --kubeconfig=kube_configxxx.yml -n cattle-system get secret cattle-keys-
 
 删除RKE安装创建的Kubernetes资源对象。
 
-> **注意:** 删除这些Kubernetes组件不会影响Rancher配置或数据库，但是最好事先创建数据备份。有关详细信息，请查看[集群备份]({{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/backups/ha-backups/)。
+> **注意:** 删除这些Kubernetes组件不会影响Rancher配置或数据库，但是最好事先创建数据备份。有关详细信息，请查看[数据备份]({{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/backups/)。
 
 ```bash
 kubectl --kubeconfig=kube_configxxx.yml -n cattle-system delete ingress cattle-ingress-http

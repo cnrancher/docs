@@ -25,7 +25,7 @@ weight: 1
 
 对于刚刚接触Rancher的用户，建议在关闭防火墙的测试环境或桌面虚拟机来运行rancher，以避免出现网络通信问题。
 
-- 关闭防火墙
+1. 关闭防火墙
 
     1、CentOS
 
@@ -35,27 +35,52 @@ weight: 1
 
     `ufw disable`
 
-- 端口放行
+1. 端口放行
 
     端口放行请查看[端口需求]({{< baseurl >}}/rancher/v2.x/cn/install-prepare/references/)
 
 ### 6、配置主机时间、时区、系统语言
 
-- 查看时区
+1. 查看时区
 
     `date -R`或者`timedatectl`
 
-- 修改时区
+1. 修改时区
 
-    ```ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime```
+    ```bash
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+    ```
 
-- 修改系统语言环境
+1. 修改系统语言环境
 
-    ```sudo echo 'LANG="en_US.UTF-8"' >> /etc/profile;source /etc/profile```
+    ```bash
+    sudo echo 'LANG="en_US.UTF-8"' >> /etc/profile;source /etc/profile
+    ```
 
 - 配置主机NTP时间同步
 
-### 7、Kernel性能调优
+### 7、配置主机DNS
+
+对于类似Ubuntu 18这类默认使用`systemd-resolve`管理DNS的系统，建议禁用systemd-resolved服务，然后手动配置DNS。
+
+操作方法：
+
+1. 禁用systemd-resolved.service
+
+    ```bash
+    systemctl disable systemd-resolved.service
+    systemctl stop systemd-resolved.service
+    rm -rf /etc/resolv.conf ; touch /etc/resolv.conf
+    ```
+
+1. 接着编辑/etc/resolv.conf添加DNS服务器
+1. 重启docker服务
+
+    ```bash
+    systemctl daemon-reload ; systemctl restart docker
+    ```
+
+### 8、Kernel性能调优
 
 ```bash
 cat >> /etc/sysctl.conf<<EOF
@@ -69,7 +94,7 @@ EOF
 
 >数值根据实际环境自行配置，最后执行`sysctl -p`保存配置。
 
-### 8、内核模块
+### 9、内核模块
 
 >**警告** 如果要使用ceph存储相关功能，需保证worker节点加载`RBD模块`
 
@@ -112,7 +137,7 @@ EOF
 >模块查询: lsmod | grep <模块名> \
 模块加载: modprobe <模块名>\
 
-### 9、ETCD集群容错表
+### 10、ETCD集群容错表
 
 建议在ETCD集群中使用奇数个成员,通过添加额外成员可以获得更高的失败容错。具体详情可以查阅[optimal-cluster-size](https://coreos.com/etcd/docs/latest/v2/admin_guide.html#optimal-cluster-size)。
 
@@ -159,6 +184,14 @@ EOF
 - **Docker-ce安装**
 
     ```bash
+    # 定义用户名
+    NEW_USER=rancher
+    # 添加用户(可选)
+    sudo adduser $NEW_USER
+    # 为新用户设置密码
+    sudo passwd $NEW_USER
+    # 为新用户添加sudo权限
+    sudo echo "$NEW_USER ALL=(ALL) ALL" >> /etc/sudoers
     # 定义安装版本
     export docker_version=18.06.3;
     # step 1: 安装必要的一些系统工具
@@ -177,6 +210,8 @@ EOF
     version=$(apt-cache madison docker-ce|grep ${docker_version}|awk '{print $3}');
     # --allow-downgrades 允许降级安装
     sudo apt-get -y install docker-ce=${version} --allow-downgrades;
+    # 把当前用户加入docker组
+    sudo usermod -aG docker $NEW_USER;
     # 设置开机启动
     sudo systemctl enable docker;
     ```
@@ -192,12 +227,14 @@ EOF
     >因为CentOS的安全限制，通过RKE安装K8S集群时候无法使用`root`账户。所以，建议`CentOS`用户使用非`root`用户来运行docker,不管是`RKE`还是`custom`安装k8s,详情查看[无法为主机配置SSH隧道]({{< baseurl >}}/rancher/v2.x/cn/faq/troubleshooting-ha/ssh-tunneling/)。
 
     ```bash
+    # 定义用户名
+    NEW_USER=rancher
     # 添加用户(可选)
-    sudo adduser `<new_user>`
+    sudo adduser $NEW_USER
     # 为新用户设置密码
-    sudo passwd `<new_user>`
+    sudo passwd $NEW_USER
     # 为新用户添加sudo权限
-    sudo echo '<new_user> ALL=(ALL) ALL' >> /etc/sudoers
+    sudo echo "$NEW_USER ALL=(ALL) ALL" >> /etc/sudoers
     # 卸载旧版本Docker软件
     sudo yum remove docker \
                   docker-client \
@@ -213,9 +250,6 @@ EOF
     # 定义安装版本
     export docker_version=18.06.3
     # step 1: 安装必要的一些系统工具
-    sudo yum remove docker docker-client docker-client-latest \
-        docker-common docker-latest docker-latest-logrotate \
-        docker-logrotate docker-engine -y;
     sudo yum update -y;
     sudo yum install -y yum-utils device-mapper-persistent-data \
         lvm2 bash-completion;
@@ -229,7 +263,7 @@ EOF
     # 如果已经安装高版本Docker,可进行降级安装(可选)
     yum downgrade --setopt=obsoletes=0 -y docker-ce-${version} docker-ce-selinux-${version};
     # 把当前用户加入docker组
-    sudo usermod -aG docker `<new_user>`;
+    sudo usermod -aG docker $NEW_USER;
     # 设置开机启动
     sudo systemctl enable docker;
     ```

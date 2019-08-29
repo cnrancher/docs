@@ -14,7 +14,7 @@ to install k3s as a service just run:
 curl -sfL https://get.k3s.io | sh -
 ```
 
-A kubeconfig file is written to `/etc/rancher/k3s/k3s.yaml` and the service is automatically started or restarted.
+A kubeconfig file is written to `/etc/rancher/k3s/k3s.yml` and the service is automatically started or restarted.
 The install script will install k3s and additional utilities, such as `kubectl`, `crictl`, `k3s-killall.sh`, and `k3s-uninstall.sh`, for example:
 
 ```bash
@@ -35,7 +35,7 @@ Manual Download
 
 ```bash
 sudo k3s server &
-# Kubeconfig is written to /etc/rancher/k3s/k3s.yaml
+# Kubeconfig is written to /etc/rancher/k3s/k3s.yml
 sudo k3s kubectl get nodes
 
 # On a different node run the below. NODE_TOKEN comes from 

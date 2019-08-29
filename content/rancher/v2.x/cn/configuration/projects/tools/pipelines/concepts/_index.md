@@ -7,7 +7,7 @@ weight: 1
 
 - **Pipeline:**
 
-    Pipeline由阶段和步骤组成。它定义了构建、测试和部署代码的过程。Rancher Pipeline使用[Pipeline作为代码模型](https://jenkins.io/doc/book/pipeline-as-code/) - Pipeline配置文件存放在源代码存储库中，使用文件名`.rancher-pipeline.yml或.rancher-pipeline.yaml`。
+    Pipeline由阶段和步骤组成。它定义了构建、测试和部署代码的过程。Rancher Pipeline使用[Pipeline作为代码模型](https://jenkins.io/doc/book/pipeline-as-code/) - Pipeline配置文件存放在源代码存储库中，使用文件名`.rancher-pipeline.yml或.rancher-pipeline.yml`。
 
 - **Stages:**
 

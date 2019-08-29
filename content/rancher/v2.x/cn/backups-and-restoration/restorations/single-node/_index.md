@@ -27,7 +27,7 @@ weight: 1
 docker stop <RANCHER_CONTAINER_NAME>
 ```
 
-2、复制[单节点备份](../../backups/single-node-backups/)的压缩文件(`rancher-data-backup-<RANCHER_VERSION>-<DATE>.tar.gz`)到rancher主机上，通过`cd`命令切换到压缩文件所在的目录，并执行以下命令：
+2、复制[单节点备份](../../backups/single-node/)的压缩文件(`rancher-data-backup-<RANCHER_VERSION>-<DATE>.tar.gz`)到rancher主机上，通过`cd`命令切换到压缩文件所在的目录，并执行以下命令：
 
 >**警告!** 此命令将从Rancher Server容器中删除所有数据。
 

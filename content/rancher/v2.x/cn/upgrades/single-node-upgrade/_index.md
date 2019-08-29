@@ -11,6 +11,13 @@ weight: 1
 
 > **注意:** 打开Rancher web并记下浏览器左下方显示的版本号(例如:`v2.0.0`) ，在升级过程中您需要此版本号
 
+1. （可选）如果你无法找到之前运行rancher server的`docker run`命令，可通过以下命令找会执行命令。
+
+    ```bash
+    docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
+         registry.cn-shanghai.aliyuncs.com/rancher/run-config <rancher_container_name>
+    ```
+
 1. 运行以下命令，停止当前运行Rancher Server的容器
 
       ```bash
@@ -68,4 +75,4 @@ weight: 1
 
 1. 登录rancher，通过检查浏览器左下角显示的版本，确认是否升级成功。
 
-    >**注意:** 如果升级未成功完成，则可以将Rancher Server及其数据恢复到上一个健康状态。有关更多信息，请查阅[单节点恢复]({{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/restorations/single-node-restoration/)。
+    >**注意:** 如果升级未成功完成，则可以将Rancher Server及其数据恢复到上一个健康状态。有关更多信息，请查阅[单节点恢复]({{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/restorations/single-node/)。

@@ -35,11 +35,11 @@ Kubernetes已成为容器集群管理标准，通过YAML文件来管理配置应
 
 大多数Rancher2.0软件运行在Rancher Server节点上,Rancher Server包括用于管理整个Rancher部署的所有组件。
 
-下图说明了Rancher2.0的运行架构。该图描绘了管理两个Kubernetes集群的Rancher server安装:一个由RKE创建，另一个由GKE创建。
+下图说明了Rancher2.0的运行架构。该图描绘了管理两个Kubernetes集群的Rancher Server安装:一个由RKE创建，另一个由GKE创建。
 
 ![Architecture]({{< baseurl >}}/img/rancher/rancher-architecture.png)
 
-在本节中，我们将介绍每个Rancher server组件的功能:
+在本节中，我们将介绍每个Rancher Server组件的功能:
 
 ### Rancher API服务器
 

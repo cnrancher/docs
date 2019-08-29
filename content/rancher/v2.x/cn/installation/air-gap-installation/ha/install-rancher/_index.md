@@ -67,7 +67,7 @@ aliases:
     `在离线环境中安装有kubectl和Helm客户端的主机上执行以下命令`
 
     ```bash
-    kubeconfig=xxx.yaml
+    kubeconfig=xxx.yml
 
     helm_version=`helm version |grep Client | awk -F""\" '{print $2}'`
     helm init --kubeconfig=$kubeconfig --skip-refresh \
@@ -232,17 +232,49 @@ aliases:
 
 ## 四、为Cluster Pod添加主机别名(/etc/hosts)(可选)
 
-如果您没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
+如果您没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher Server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher Server URL`,最终导致无法通信。
 
 ### 解决方法
 
-可以通过给`cattle-cluster-agent Pod`和`cattle-node-agent`添加主机别名(/etc/hosts)，让其可以正常通信`(前提是IP地址可以互通)`。
+可以通过给`cattle-cluster-agent Pod`和`cattle-node-agent`添加主机别名(/etc/hosts)，让其可以正常通过`Rancher Server URL`与Rancher Server通信`(前提是IP地址可以互通)`。
+
+- 操作步骤
+
+1. `cattle-cluster-agent Pod`和`cattle-node-agent`需要在`LOCAL`集群初始化之后才会部署，所以先通过`Rancher Server URL`访问Rancher Web UI进行初始化。
+1. 执行以下命令为Rancher Server容器配置hosts:
+
+    ```bash
+    #指定kubectl配置文件
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
+
+    kubectl --kubeconfig=$kubeconfig -n cattle-system \
+        patch deployments rancher --patch '{
+            "spec": {
+                "template": {
+                    "spec": {
+                        "hostAliases": [
+                            {
+                                "hostnames":
+                                [
+                                    "xxx.cnrancher.com"
+                                ],
+                                    "ip": "192.168.1.100"
+                            }
+                        ]
+                    }
+                }
+            }
+        }'
+    ```
+
+1. 通过`Rancher Server URL`访问Rancher Web UI，设置用户名密码和`Rancher Server URL`地址，然后会自动登录Rancher Web UI；
+1. 在Rancher Web UI中依次进入`local集群/system项目`，在`cattle-system`命名空间中查看是否有`cattle-cluster-agent Pod`和`cattle-node-agent`被创建。如果有创建则进行下面的步骤，没有创建则等待；
 
 1. cattle-cluster-agent pod
 
     ```plain
     #指定kubectl配置文件
-    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
 
     kubectl --kubeconfig=$kubeconfig -n cattle-system \
     patch deployments cattle-cluster-agent --patch '{
@@ -264,11 +296,11 @@ aliases:
     }'
     ```
 
-2. cattle-node-agent pod
+1. cattle-node-agent pod
 
     ```plain
     #指定kubectl配置文件
-    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
 
     kubectl --kubeconfig=$kubeconfig -n cattle-system \
     patch daemonsets cattle-node-agent --patch '{

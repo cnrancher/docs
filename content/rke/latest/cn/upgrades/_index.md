@@ -42,4 +42,3 @@ rke up --config cluster.yml
 ## 附加组件升级
 
 从v0.1.8开始，支持附加组件升级。
- 

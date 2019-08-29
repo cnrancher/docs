@@ -40,7 +40,7 @@ Kubernetes集群状态由Kubernetes集群中的集群配置文件`cluster.yml`�
     -v $(docker inspect kubelet --format '{{ range .Mounts }}{{ if eq .Destination "/etc/kubernetes" }}{{ .Source }}{{ end }}{{ end }}')/ssl:/etc/kubernetes/ssl:ro \
     --entrypoint bash \
     rancher/rancher-agent:v2.2.2 \
-    -c 'kubectl --kubeconfig /etc/kubernetes/ssl/kubecfg-kube-node.yaml get configmap \
+    -c 'kubectl --kubeconfig /etc/kubernetes/ssl/kubecfg-kube-node.yml get configmap \
     -n kube-system full-cluster-state -o json | jq -r .data.\"full-cluster-state\" | jq -r .' > <rke-config-name>.rkestate
     ```
 

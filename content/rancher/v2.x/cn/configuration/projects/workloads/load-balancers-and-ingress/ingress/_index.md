@@ -1,6 +1,6 @@
 ---
-title: Ingress
-weight: 3042
+title: 1 - Ingress
+weight: 1
 aliases:
   - /rancher/v2.x/en/tasks/workloads/add-ingress/
 ---

@@ -28,7 +28,7 @@ The structure of the addons definition in `rancher-cluster.yml` is wrong. In the
 </ul>
 </ul>
 
-#### Error from server (BadRequest): error when creating "/etc/config/rke-user-addon.yaml": Secret in version "v1" cannot be handled as a Secret
+#### Error from server (BadRequest): error when creating "/etc/config/rke-user-addon.yml": Secret in version "v1" cannot be handled as a Secret
 
 The base64 string of one of the certificate strings is wrong. The log message will try to show you what part of the string is not recognized as valid base64.
 

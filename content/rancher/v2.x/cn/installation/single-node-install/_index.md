@@ -3,7 +3,7 @@ title: 3 - 单节点安装
 weight: 3
 ---
 
-对于开发环境，我们推荐直接在主机上通过`docker run`的形式运行Rancher server容器。可能有的主机无法直接通过公网IP来访问主机，需要通过代理去访问，这种场景请参考[使用外部负载平衡器进行单一节点安装](./single-node-install-external-lb/)。
+对于开发环境，我们推荐直接在主机上通过`docker run`的形式运行Rancher Server容器。可能有的主机无法直接通过公网IP来访问主机，需要通过代理去访问，这种场景请参考[使用外部负载平衡器进行单一节点安装](./single-node-install-external-lb/)。
 
 ## 一、Linux主机要求
 
@@ -51,9 +51,9 @@ docker run -d --restart=unless-stopped \
   -v <主机路径>:/var/lib/rancher/ \
   -v /var/log/rancher/auditlog:/var/log/auditlog \
   -e AUDIT_LEVEL=3 \
-  -v /etc/<CERT_DIRECTORY>/<FULL_CHAIN.pem>:/etc/rancher/ssl/cert.pem \
-  -v /etc/<CERT_DIRECTORY>/<PRIVATE_KEY.pem>:/etc/rancher/ssl/key.pem \
-  -v /etc/<CERT_DIRECTORY>/<CA_CERTS.pem>:/etc/rancher/ssl/cacerts.pem \
+  -v /etc/<CERT_DIRECTORY>/tls.crt:/etc/rancher/ssl/cert.pem \
+  -v /etc/<CERT_DIRECTORY>/tls.key:/etc/rancher/ssl/key.pem \
+  -v /etc/<CERT_DIRECTORY>/cacerts.pem:/etc/rancher/ssl/cacerts.pem \
   rancher/rancher:stable (或者rancher/rancher:latest)
 ```
 
@@ -75,8 +75,8 @@ docker run -d --restart=unless-stopped \
   -v <主机路径>:/var/lib/rancher/ \
   -v /root/var/log/auditlog:/var/log/auditlog \
   -e AUDIT_LEVEL=3 \
-  -v /etc/your_certificate_directory/fullchain.pem:/etc/rancher/ssl/cert.pem \
-  -v /etc/your_certificate_directory/privkey.pem:/etc/rancher/ssl/key.pem \
+  -v /etc/<CERT_DIRECTORY>/tls.crt:/etc/rancher/ssl/cert.pem \
+  -v /etc/<CERT_DIRECTORY>/tls.key:/etc/rancher/ssl/key.pem \
   rancher/rancher:stable (或者rancher/rancher:latest) --no-cacerts
 ```
 

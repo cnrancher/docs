@@ -1,6 +1,6 @@
 ---
-title: Openstack Cloud Provider
-weight: 253
+title: 3 - Openstack
+weight: 3
 ---
 
 To enable the Openstack cloud provider, besides setting the name as `openstack`, there are specific configuration options that must be set. The Openstack configuration options are grouped into different sections.

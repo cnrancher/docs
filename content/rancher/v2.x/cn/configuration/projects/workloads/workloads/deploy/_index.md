@@ -1,5 +1,5 @@
 ---
-title: 部署工作负载
+title: 部署
 weight: 1
 ---
 

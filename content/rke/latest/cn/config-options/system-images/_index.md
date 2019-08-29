@@ -5,7 +5,7 @@ weight: 5
 
 从`v0.1.6`之前，当RKE部署Kubernetes时，会提取几个镜像，这些镜像用作Kubernetes系统组件。从`v0.1.6`开始，几个系统镜像的功能合并到一个`rancher/rke-tools`镜像中，以简化和加快部署过程。
 
-您可以分别配置[network plug-ins]({{< baseurl >}}/rke/latest/cn/config-options/add-ons/network-plugins/), [ingress controller]({{< baseurl >}}/rke/latest/cn/config-options/add-ons/ingress-controllers/)和[dns provider]({{< baseurl >}}/rke/latest/cn/config-options/add-ons/dns/)以及这些插件的设置选项。这是用于通过RKE部署Kubernetes的完整系统镜像列表的示例，镜像版本依赖于所使用的[Kubernetes image/version](https://github.com/rancher/types/blob/master/apis/management.cattle.io/v3/k8s_defaults.go)
+您可以分别配置[network plug-ins]({{< baseurl >}}/rke/latest/cn/config-options/add-ons/network-plugins/), [ingress controller]({{< baseurl >}}/rke/latest/cn/config-options/add-ons/ingress-controllers/)和[dns provider]({{< baseurl >}}/rke/latest/cn/config-options/add-ons/dns/)以及这些插件的设置选项。这是用于通过RKE部署Kubernetes的完整系统镜像列表的示例，镜像版本依赖于所使用的[Kubernetes image/version](https://github.com/rancher/types/blob/master/apis/management.cattle.io/v3/k8s_defaults.go)，(Rancher v2.3或者RKE v0.3之后的版本请查看: https://github.com/rancher/kontainer-driver-metadata/blob/master/rke/k8s_rke_system_images.go ）
 
 > **Note:** 随着RKE版本的发布，这些镜像上的标签将不再是最新的。此列表是特定`v1.10.3-rancher2`版本。
 

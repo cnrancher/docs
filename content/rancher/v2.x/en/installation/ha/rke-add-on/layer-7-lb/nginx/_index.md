@@ -40,7 +40,7 @@ After installing NGINX, you need to create the NGINX config file, `/etc/nginx/co
     }
 
     server {
-        listen 443 ssl http2; # 如果是升级或者全新安装v2.2.2,需要禁止http2
+        listen 443 ssl http2; # 如果是升级或者全新安装v2.2.2,需要禁止http2，其他版本不需修改。，其他版本不需修改。
         server_name FQDN;
         ssl_certificate /certs/fullchain.pem;
         ssl_certificate_key /certs/privkey.pem;
@@ -56,6 +56,7 @@ After installing NGINX, you need to create the NGINX config file, `/etc/nginx/co
             proxy_set_header Connection $connection_upgrade;
             # This allows the ability for the execute shell window to remain open for up to 15 minutes. Without this parameter, the default is 1 minute and will automatically close.
             proxy_read_timeout 900s;
+            proxy_buffering off;
         }
     }
 

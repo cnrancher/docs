@@ -126,12 +126,12 @@ Helm的服务器端部分Tiller,通常运行在Kubernetes集群内部。但是�
 执行以下命令在Rancher中安装Tiller:
 
 ```bash
-kubeconfig=xxx.yaml
+kubeconfig=xxx.yml
 
 helm_version=`helm version |grep Client | awk -F""\" '{print $2}'`
 helm init --kubeconfig=$kubeconfig \
 --service-account tiller --skip-refresh \
---tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:$helm_version \
+--tiller-image registry.cn-shanghai.aliyuncs.com/rancher/tiller:$helm_version 
 ```
 
 `helm init`以后，可以运行`kubectl --kubeconfig=kube_configxxx.yml  get  pods --namespace kube-system`并看到Tiller正在运行。
@@ -181,7 +181,7 @@ Tiller running on:44134
 从Helm 2.2.0开始，Tiller可以升级使用`helm init --upgrade`。对于旧版本的Helm或手动升级，可以使用`kubectl`修改Tiller容器镜像
 
 ```bash
-  kubeconfig=xxx.yaml
+  kubeconfig=xxx.yml
 
   helm_version=`helm version |grep Client | awk -F""\" '{print $2}'`
   kubectl --kubeconfig=$kubeconfig --namespace=kube-system \

@@ -2,7 +2,7 @@
 title: Upgrades
 weight: 1005
 ---
-This section contains information about how to upgrade your Rancher server to a newer version.
+This section contains information about how to upgrade your Rancher Server to a newer version.
 
 ### Single Node Install
 

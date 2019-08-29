@@ -23,7 +23,7 @@ The primary things collected include:
 
 ### Can I see the information that is being sent?
 
-If Telemetry is enabled, you can go to `https://<your rancher server>/v1-telemetry` in your installation to see the current data.
+If Telemetry is enabled, you can go to `https://<your Rancher Server>/v1-telemetry` in your installation to see the current data.
 
 If Telemetry is not enabled, the process that collects the data is not running, so there is nothing being collected to look at.
 

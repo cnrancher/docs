@@ -63,7 +63,7 @@ deployment "cert-manager" successfully rolled out
 
 > **Note:** You need to have [cert-manager](#optional-install-cert-manager) installed before proceeding.
 
-The default is for Rancher to generate a CA and uses `cert-manager` to issue the certificate for access to the Rancher server interface. Because `rancher` is the default option for `ingress.tls.source`, we are not specifying `ingress.tls.source` when running the `helm install` command.
+The default is for Rancher to generate a CA and uses `cert-manager` to issue the certificate for access to the Rancher Server interface. Because `rancher` is the default option for `ingress.tls.source`, we are not specifying `ingress.tls.source` when running the `helm install` command.
 
 - Set the `hostname` to the DNS name you pointed at your load balancer.
 
@@ -160,6 +160,6 @@ Make sure you save the `--set` options you used. You will need to use the same o
 
 ### Finishing Up
 
-That's it you should have a functional Rancher server. Point a browser at the hostname you picked and you should be greeted by the colorful login page.
+That's it you should have a functional Rancher Server. Point a browser at the hostname you picked and you should be greeted by the colorful login page.
 
 Doesn't work? Take a look at the [Troubleshooting]({{< baseurl >}}/rancher/v2.x/en/installation/ha/helm-rancher/troubleshooting/) Page

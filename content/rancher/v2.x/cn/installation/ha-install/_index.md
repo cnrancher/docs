@@ -37,7 +37,7 @@ weight: 4
 
 ![tcp-http-rancher](images/tcp-http-rancher.png)
 
-本方案中，所有的流量都通过外部负载均衡转发到后端ingress服务上。因为外部负载均衡为四层TCP模式，无法设置域名转发，所以需要把域名转发的功能设置在后端的ingress服务上，让。ingress作为ssl终止后，ingress到后端的Rancher server将采用非加密的http模式。此方案中，`Rancher server`无法与外部直接通信，需通过ingress代理进入。因为ingress采用了ssl加密，所以此部署架构的安全性相对较高。但多次转发也将会导致网络性能减弱。
+本方案中，所有的流量都通过外部负载均衡转发到后端ingress服务上。因为外部负载均衡为四层TCP模式，无法设置域名转发，所以需要把域名转发的功能设置在后端的ingress服务上，让。ingress作为ssl终止后，ingress到后端的Rancher Server将采用非加密的http模式。此方案中，`Rancher Server`无法与外部直接通信，需通过ingress代理进入。因为ingress采用了ssl加密，所以此部署架构的安全性相对较高。但多次转发也将会导致网络性能减弱。
 
 ### 方案二、全局Nginx(http)-Ingress(http)-Rancher
 

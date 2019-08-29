@@ -42,8 +42,8 @@ addons: |-
 
 ```yaml
 addons_include:
-    - https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/ceph/operator.yaml
-    - https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/ceph/cluster.yaml
-    - /opt/manifests/example.yaml
-    - ./nginx.yaml
+    - https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/ceph/operator.yml
+    - https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/ceph/cluster.yml
+    - /opt/manifests/example.yml
+    - ./nginx.yml
 ```

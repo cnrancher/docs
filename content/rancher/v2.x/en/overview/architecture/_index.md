@@ -37,7 +37,7 @@ The figure below illustrates the high-level architecture of Rancher 2.x. The fig
 
 ![Architecture]({{< baseurl >}}/img/rancher/rancher-architecture.svg)
 
-In this section we describe the functionalities of each Rancher server components.
+In this section we describe the functionalities of each Rancher Server components.
 
 #### Rancher API Server
 

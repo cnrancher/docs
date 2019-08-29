@@ -561,7 +561,7 @@ In Kubernetes 1.13.x this flag is `--encryption-provider-config`
 docker inspect kube-apiserver | jq -e '.[0].Args[] | match("--encryption-provider-config=.*").string'
 ```
 
-**Returned Value:** `encryption-provider-config=/etc/kubernetes/encryption.yaml`
+**Returned Value:** `encryption-provider-config=/etc/kubernetes/encryption.yml`
 
 **Result:** Pass
 
@@ -574,7 +574,7 @@ Only the first provider in the list is active.
 **Audit**
 
 ``` bash
-grep -A 1 providers: /etc/kubernetes/encryption.yaml | grep aescbc
+grep -A 1 providers: /etc/kubernetes/encryption.yml | grep aescbc
 ```
 
 **Returned Value:**  `- aescbc:`
@@ -587,8 +587,8 @@ grep -A 1 providers: /etc/kubernetes/encryption.yaml | grep aescbc
 
 The `EventRateLimit` plugin requires setting the `--admission-control-config-file` option and configuring details in the following files:
 
-- `/etc/kubernetes/admission.yaml`
-- `/etc/kubernetes/event.yaml`
+- `/etc/kubernetes/admission.yml`
+- `/etc/kubernetes/event.yml`
 
 See Host Configuration for details.
 
@@ -606,7 +606,7 @@ docker inspect kube-apiserver | jq -e '.[0].Args[] | match("--enable-admission-p
 docker inspect kube-apiserver | jq -e '.[0].Args[] | match("--admission-control-config-file=.*").string'
 ```
 
-**Returned Value:** `--admission-control-config-file=/etc/kubernetes/admission.yaml`
+**Returned Value:** `--admission-control-config-file=/etc/kubernetes/admission.yml`
 
 **Result:** Pass
 
@@ -630,7 +630,7 @@ docker inspect kube-apiserver | jq -e '.[0].Args[] | match("--feature-gates=.*(A
 docker inspect kube-apiserver | jq -e '.[0].Args[] | match("--audit-policy-file=.*").string'
 ```
 
-**Returned Value:** `--audit-policy-file=/etc/kubernetes/audit.yaml`
+**Returned Value:** `--audit-policy-file=/etc/kubernetes/audit.yml`
 
 **Result:** Pass
 
@@ -976,7 +976,7 @@ RKE does not store the default `kubectl` config credentials file on the nodes.  
 **Audit**
 
 ``` bash
-stat -c %a /etc/kubernetes/ssl/kubecfg-kube-scheduler.yaml
+stat -c %a /etc/kubernetes/ssl/kubecfg-kube-scheduler.yml
 ```
 
 **Returned Value:** `644`
@@ -988,7 +988,7 @@ stat -c %a /etc/kubernetes/ssl/kubecfg-kube-scheduler.yaml
 **Audit**
 
 ``` bash
-stat -c %U:%G /etc/kubernetes/ssl/kubecfg-kube-scheduler.yaml
+stat -c %U:%G /etc/kubernetes/ssl/kubecfg-kube-scheduler.yml
 ```
 
 **Returned Value:** `root:root`
@@ -1000,7 +1000,7 @@ stat -c %U:%G /etc/kubernetes/ssl/kubecfg-kube-scheduler.yaml
 **Audit**
 
 ``` bash
-stat -c %a /etc/kubernetes/ssl/kubecfg-kube-controller-manager.yaml
+stat -c %a /etc/kubernetes/ssl/kubecfg-kube-controller-manager.yml
 ```
 
 **Returned Value:** `644`
@@ -1012,7 +1012,7 @@ stat -c %a /etc/kubernetes/ssl/kubecfg-kube-controller-manager.yaml
 **Audit**
 
 ``` bash
-stat -c %U:%G /etc/kubernetes/ssl/kubecfg-kube-controller-manager.yaml
+stat -c %U:%G /etc/kubernetes/ssl/kubecfg-kube-controller-manager.yml
 ```
 
 **Returned Value:** `root:root`
@@ -1278,7 +1278,7 @@ Rancher allows users to set various Security Context options when launching pods
 
 #### 1.6.6 - Configure image provenance using the `ImagePolicyWebhook` admission controller (Not Scored)
 
-Image Policy Webhook requires a 3rd party service to enforce policy. This can be configured in the `--admission-control-config-file`.  See the Host configuration section for the admission.yaml file.
+Image Policy Webhook requires a 3rd party service to enforce policy. This can be configured in the `--admission-control-config-file`.  See the Host configuration section for the admission.yml file.
 
 #### 1.6.7 - Configure network policies as appropriate (Not Scored)
 
@@ -1686,7 +1686,7 @@ This is the value of the `--kubeconfig` option.
 **Audit**
 
 ``` bash
-stat -c %a /etc/kubernetes/ssl/kubecfg-kube-node.yaml
+stat -c %a /etc/kubernetes/ssl/kubecfg-kube-node.yml
 ```
 
 **Returned Value:** `644`
@@ -1702,7 +1702,7 @@ This is the value of the `--kubeconfig` option.
 **Audit**
 
 ``` bash
-stat -c %U:%G /etc/kubernetes/ssl/kubecfg-kube-node.yaml
+stat -c %U:%G /etc/kubernetes/ssl/kubecfg-kube-node.yml
 ```
 
 **Returned Value:** `root:root`
@@ -1731,7 +1731,7 @@ RKE doesn't require or maintain a configuration file for kubelet. All configurat
 **Audit**
 
 ``` bash
-stat -c %a /etc/kubernetes/ssl/kubecfg-kube-proxy.yaml
+stat -c %a /etc/kubernetes/ssl/kubecfg-kube-proxy.yml
 ```
 
 **Returned Value:** `644`
@@ -1743,7 +1743,7 @@ stat -c %a /etc/kubernetes/ssl/kubecfg-kube-proxy.yaml
 **Audit**
 
 ``` bash
-stat -c %U:%G /etc/kubernetes/ssl/kubecfg-kube-proxy.yaml
+stat -c %U:%G /etc/kubernetes/ssl/kubecfg-kube-proxy.yml
 ```
 
 **Returned Value:** `root:root`

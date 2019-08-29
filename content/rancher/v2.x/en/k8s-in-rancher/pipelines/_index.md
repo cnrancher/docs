@@ -21,7 +21,7 @@ When setting up a pipeline, it's helpful to know a few related terms.
 
 - **Pipeline:**
 
-    A pipeline consists of stages and steps. It is based on a specific repository. It defines the process to build, test, and deploy your code. Rancher uses the [pipeline as code](https://jenkins.io/doc/book/pipeline-as-code/) model. Pipeline configuration is represented as a pipeline file in the source code repository, using the file name `.rancher-pipeline.yml` or `.rancher-pipeline.yaml`.
+    A pipeline consists of stages and steps. It is based on a specific repository. It defines the process to build, test, and deploy your code. Rancher uses the [pipeline as code](https://jenkins.io/doc/book/pipeline-as-code/) model. Pipeline configuration is represented as a pipeline file in the source code repository, using the file name `.rancher-pipeline.yml` or `.rancher-pipeline.yml`.
 
 - **Stages:**
 
@@ -61,7 +61,7 @@ Now that repositories are added to your project, you can start configuring the p
 
 1. Select **Workloads** in the navigation bar and then select the **Pipelines** tab.
 
-1. Find the repository that you want to set up a pipeline for. Pipelines can be configured either through the UI or using a yaml file in the repository, i.e. `.rancher-pipeline.yml` or `.rancher-pipeline.yaml`. Throughout the next couple of steps, we'll provide the options of how to do pipeline configuration through the UI or the YAML file.
+1. Find the repository that you want to set up a pipeline for. Pipelines can be configured either through the UI or using a yaml file in the repository, i.e. `.rancher-pipeline.yml` or `.rancher-pipeline.yml`. Throughout the next couple of steps, we'll provide the options of how to do pipeline configuration through the UI or the YAML file.
 
    * If you are going to use the UI, select the vertical **Ellipsis (...) > Edit Config** to configure the pipeline using the UI. After the pipeline is configured, you must view the YAML file and push it to the repository.
    * If you are going to use the YAML file, select the vertical **Ellipsis (...) **View/Edit YAML** to configure the pipeline. If you choose to use a YAML file, you need to push it to the repository after any changes in order for it to be updated in the repository.
@@ -387,9 +387,9 @@ The **Publish Catalog Template** step publishes a version of a catalog app templ
 
     Field | Description |
     ---------|----------|
-     Chart Folder | The relative path to the chart folder in the source code repo, where the `Chart.yaml` file is located. |
+     Chart Folder | The relative path to the chart folder in the source code repo, where the `Chart.yml` file is located. |
      Catalog Template Name | The name of the template. For example, wordpress. |
-     Catalog Template Version | The version of the template you want to publish, it should be consistent with the version defined in the `Chart.yaml` file. |
+     Catalog Template Version | The version of the template you want to publish, it should be consistent with the version defined in the `Chart.yml` file. |
      Protocol | You can choose to publish via HTTP(S) or SSH protocol. |
      Secret   | The secret that stores your Git credentials. You need to create a secret in dedicated pipeline namespace in the project before adding this step. If you use HTTP(S) protocol, store Git username and password in `USERNAME` and `PASSWORD` key of the secret. If you use SSH protocol, store Git deploy key in `DEPLOY_KEY` key of the secret. After the secret is created, select it in this option. |
      Git URL  | The Git URL of the chart repository that the template will be published to. |
@@ -406,9 +406,9 @@ You can add **Publish Catalog Template** steps directly in the `.rancher-pipelin
 
 Under the `steps` section, add a step with `publishCatalogConfig`. You will provide the following information:
 
-* Path: The relative path to the chart folder in the source code repo, where the `Chart.yaml` file is located.
+* Path: The relative path to the chart folder in the source code repo, where the `Chart.yml` file is located.
 * CatalogTemplate: The name of the template.
-* Version: The version of the template you want to publish, it should be consistent with the version defined in the `Chart.yaml` file.
+* Version: The version of the template you want to publish, it should be consistent with the version defined in the `Chart.yml` file.
 * GitUrl: The git URL of the chart repository that the template will be published to.
 * GitBranch: The git branch of the chart repository that the template will be published to.
 * GitAuthor: The author name used in the commit message.
@@ -440,7 +440,7 @@ stages:
 
 ### Deploy YAML
 
-This step deploys arbitrary Kubernetes resources to the project. This deployment requires a Kubernetes manifest file to be present in the source code repository. Pipeline variable substitution is supported in the manifest file. You can view an example file at [GitHub](https://github.com/rancher/pipeline-example-go/blob/master/deployment.yaml). Please refer to the [pipeline variable substitution reference](#pipeline-variable-substitution-reference) for the list of available variables.
+This step deploys arbitrary Kubernetes resources to the project. This deployment requires a Kubernetes manifest file to be present in the source code repository. Pipeline variable substitution is supported in the manifest file. You can view an example file at [GitHub](https://github.com/rancher/pipeline-example-go/blob/master/deployment.yml). Please refer to the [pipeline variable substitution reference](#pipeline-variable-substitution-reference) for the list of available variables.
 
 {{% tabs %}}
 
@@ -462,7 +462,7 @@ stages:
 - name: Deploy
   steps:
   - applyYamlConfig:
-      path: ./deployment.yaml
+      path: ./deployment.yml
 ```
 <br>
 {{% /tab %}}
@@ -753,4 +753,4 @@ Variable Name           | Description
 `CICD_EXECUTION_SEQUENCE` | Build number of the pipeline.
 `CICD_EXECUTION_ID`       | Combination of `{CICD_PIPELINE_ID}-{CICD_EXECUTION_SEQUENCE}`.
 `CICD_REGISTRY`           | Address for the Docker registry for the previous publish image step, available in the Kubernetes manifest file of a `Deploy YAML` step.
-`CICD_IMAGE`              | Name of the image built from the previous publish image step, available in the Kubernetes manifest file of a `Deploy YAML` step. It does not contain the image tag.<br/><br/> [Example](https://github.com/rancher/pipeline-example-go/blob/master/deployment.yaml)
+`CICD_IMAGE`              | Name of the image built from the previous publish image step, available in the Kubernetes manifest file of a `Deploy YAML` step. It does not contain the image tag.<br/><br/> [Example](https://github.com/rancher/pipeline-example-go/blob/master/deployment.yml)

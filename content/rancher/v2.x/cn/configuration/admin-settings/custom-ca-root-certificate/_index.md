@@ -37,7 +37,7 @@ kubectl --kubeconfig=kube_configxxx.yml create  namespace cattle-system
 kubectl --kubeconfig=kube_configxxx.yml -n cattle-system create secret generic tls-ca-additional --from-file=ca-additional.pem
 ```
 
-然后，在Helm部署Rancher server时，添加以下参数
+然后，在Helm部署Rancher Server时，添加以下参数
 
 ```plain
 --set additionalTrustedCAs=true

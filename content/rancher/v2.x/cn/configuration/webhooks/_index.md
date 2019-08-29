@@ -9,7 +9,7 @@ aliases:
 
 ## 一、简述
 
-本工具基于`https://github.com/adnanh/webhook.git`定制, `Dockerfile`地址: `https://github.com/xiaoluhong/docker-webhook.git`。
+本工具基于`https://github.com/adnanh/webhook.git`定制, `Dockerfile`地址: `https://github.com/cnrancher/docker-webhook.git`。
 
 镜像下载地址: `registry.cn-shenzhen.aliyuncs.com/rancher/webhook:latest`
 
@@ -219,11 +219,11 @@ Docker Hub: `http://hub.docker.com`\
 
   - 如图，选择 `查看/编辑YAML`
 
-        ![image-20190314212013510](_index.assets/image-20190314212013510.png)
+    ![image-20190314212013510](_index.assets/image-20190314212013510.png)
 
   - 在`securityContext: {}` 下边添加`serviceAccount: cattle`和`serviceAccountName: cattle`；
 
-      ![image-20190314212124745](_index.assets/image-20190314212124745.png)
+    ![image-20190314212124745](_index.assets/image-20190314212124745.png)
 
   - 最后点击`保存`
 

@@ -23,7 +23,7 @@ Rancher 统一的基础镜像均设置为UTC时区，为了解决时差的问题
 
 如图，在rke配置文件中添加私有仓库的配置项，如果是私有项目，需要设置用户名和密码，如果是开放项目可以只设置url。配置好之后，rke构建集群时就会在原来的镜像前添加仓库地址，从而指定到阿里云仓库拉取镜像。
 
-也有安装rke的使用方法，手动指定具体的镜像地址 `https://www.cnrancher.com/docs/rke/latest/cn/example-yamls/cluster/`
+也有安装rke的使用方法，手动指定具体的镜像地址 `https://www.rancher.cn/docs/rke/latest/cn/example-yamls/cluster/`
 
 ![image-20190324195540265](assets/image-20190324195540265.png)
 

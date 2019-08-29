@@ -36,7 +36,7 @@ We'll use NFS backupstore for this example.
 
 1. Execute following command to create the backupstore
 ```
-kubectl --kubeconfig=kube_configxxx.yml  apply  -f https://raw.githubusercontent.com/rancher/longhorn/master/deploy/backupstores/nfs-backupstore.yaml
+kubectl --kubeconfig=kube_configxxx.yml  apply  -f https://raw.githubusercontent.com/rancher/longhorn/master/deploy/backupstores/nfs-backupstore.yml
 ```
 2. On Longhorn UI Settings page, set Backup Target to
 `nfs://longhorn-test-nfs-svc.default:/opt/backupstore` and click `Save`.
@@ -104,12 +104,12 @@ Delete Longhorn components.
 
 For Longhorn `v0.1` (most likely installed using Longhorn App in Rancher 2.0):
 ```
-kubectl --kubeconfig=kube_configxxx.yml delete  -f https://raw.githubusercontent.com/llparse/longhorn/v0.1/deploy/uninstall-for-upgrade.yaml
+kubectl --kubeconfig=kube_configxxx.yml delete  -f https://raw.githubusercontent.com/llparse/longhorn/v0.1/deploy/uninstall-for-upgrade.yml
 ```
 
 For Longhorn `v0.2`:
 ```
-kubectl --kubeconfig=kube_configxxx.yml delete  -f https://raw.githubusercontent.com/rancher/longhorn/v0.2/deploy/uninstall-for-upgrade.yaml
+kubectl --kubeconfig=kube_configxxx.yml delete  -f https://raw.githubusercontent.com/rancher/longhorn/v0.2/deploy/uninstall-for-upgrade.yml
 ```
 
 If both commands returned `Not found` for all components, Longhorn is probably
@@ -117,8 +117,8 @@ deployed in a different namespace. Determine which namespace is in use and
 adjust `NAMESPACE` here accordingly:
 ```
 NAMESPACE=<some_longhorn_namespace>
-curl -sSfL https://raw.githubusercontent.com/rancher/longhorn/v0.1/deploy/uninstall-for-upgrade.yaml|sed "s#^\( *\)namespace: longhorn#\1namespace: ${NAMESPACE}#g" > longhorn.yaml
-kubectl --kubeconfig=kube_configxxx.yml delete  -f longhorn.yaml
+curl -sSfL https://raw.githubusercontent.com/rancher/longhorn/v0.1/deploy/uninstall-for-upgrade.yml|sed "s#^\( *\)namespace: longhorn#\1namespace: ${NAMESPACE}#g" > longhorn.yml
+kubectl --kubeconfig=kube_configxxx.yml delete  -f longhorn.yml
 ```
 
 ### Backup Longhorn System
@@ -130,10 +130,10 @@ User must backup the CRDs for v0.1 because we will change the default deploying 
 Check your backups to make sure Longhorn was running in namespace `longhorn`, otherwise change the value of `NAMESPACE` below.
 ```
 NAMESPACE=longhorn
-kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get volumes.longhorn.rancher.io -o yaml > longhorn-v0.1-backup-volumes.yaml
-kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get engines.longhorn.rancher.io -o yaml > longhorn-v0.1-backup-engines.yaml
-kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get replicas.longhorn.rancher.io -o yaml > longhorn-v0.1-backup-replicas.yaml
-kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get settings.longhorn.rancher.io -o yaml > longhorn-v0.1-backup-settings.yaml
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get volumes.longhorn.rancher.io -o yaml > longhorn-v0.1-backup-volumes.yml
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get engines.longhorn.rancher.io -o yaml > longhorn-v0.1-backup-engines.yml
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get replicas.longhorn.rancher.io -o yaml > longhorn-v0.1-backup-replicas.yml
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get settings.longhorn.rancher.io -o yaml > longhorn-v0.1-backup-settings.yml
 ```
 After it's done, check those files, make sure they're not empty (unless you have no existing volumes).
 
@@ -142,10 +142,10 @@ Check your backups to make sure Longhorn was running in namespace
 `longhorn-system`, otherwise change the value of `NAMESPACE` below.
 ```
 NAMESPACE=longhorn-system
-kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get volumes.longhorn.rancher.io -o yaml > longhorn-v0.2-backup-volumes.yaml
-kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get engines.longhorn.rancher.io -o yaml > longhorn-v0.2-backup-engines.yaml
-kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get replicas.longhorn.rancher.io -o yaml > longhorn-v0.2-backup-replicas.yaml
-kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get settings.longhorn.rancher.io -o yaml > longhorn-v0.2-backup-settings.yaml
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get volumes.longhorn.rancher.io -o yaml > longhorn-v0.2-backup-volumes.yml
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get engines.longhorn.rancher.io -o yaml > longhorn-v0.2-backup-engines.yml
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get replicas.longhorn.rancher.io -o yaml > longhorn-v0.2-backup-replicas.yml
+kubectl --kubeconfig=kube_configxxx.yml -n   ${NAMESPACE} get settings.longhorn.rancher.io -o yaml > longhorn-v0.2-backup-settings.yml
 ```
 After it's done, check those files, make sure they're not empty (unless you have no existing volumes).
 
@@ -177,10 +177,10 @@ Don't change the NAMESPACE variable below, since the newly installed Longhorn sy
 
 ```
 NAMESPACE=longhorn-system
-sed "s#^\( *\)namespace: .*#\1namespace: ${NAMESPACE}#g" longhorn-v0.1-backup-settings.yaml | kubectl --kubeconfig=kube_configxxx.yml  apply  -f -
-sed "s#^\( *\)namespace: .*#\1namespace: ${NAMESPACE}#g" longhorn-v0.1-backup-replicas.yaml | kubectl --kubeconfig=kube_configxxx.yml  apply  -f -
-sed "s#^\( *\)namespace: .*#\1namespace: ${NAMESPACE}#g" longhorn-v0.1-backup-engines.yaml | kubectl --kubeconfig=kube_configxxx.yml  apply  -f -
-sed "s#^\( *\)namespace: .*#\1namespace: ${NAMESPACE}#g" longhorn-v0.1-backup-volumes.yaml | kubectl --kubeconfig=kube_configxxx.yml  apply  -f -
+sed "s#^\( *\)namespace: .*#\1namespace: ${NAMESPACE}#g" longhorn-v0.1-backup-settings.yml | kubectl --kubeconfig=kube_configxxx.yml  apply  -f -
+sed "s#^\( *\)namespace: .*#\1namespace: ${NAMESPACE}#g" longhorn-v0.1-backup-replicas.yml | kubectl --kubeconfig=kube_configxxx.yml  apply  -f -
+sed "s#^\( *\)namespace: .*#\1namespace: ${NAMESPACE}#g" longhorn-v0.1-backup-engines.yml | kubectl --kubeconfig=kube_configxxx.yml  apply  -f -
+sed "s#^\( *\)namespace: .*#\1namespace: ${NAMESPACE}#g" longhorn-v0.1-backup-volumes.yml | kubectl --kubeconfig=kube_configxxx.yml  apply  -f -
 ```
 
 ### Upgrade from v0.2

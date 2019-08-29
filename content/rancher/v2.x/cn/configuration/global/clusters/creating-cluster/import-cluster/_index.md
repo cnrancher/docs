@@ -19,7 +19,7 @@ weight: 2
 
     ![image-20190419160638454](assets/image-20190419160638454.png)
 
-4. 如果使用权威ssl证书部署的rancher server，那么复制第第二条命令备用；如果使用的是自签名ssl证书，那么复制第三条命令备用。
+4. 如果使用权威ssl证书部署的Rancher Server，那么复制第第二条命令备用；如果使用的是自签名ssl证书，那么复制第三条命令备用。
 
 5. 在安装有`kubectl`工具并可以访问待导入rancher的K8S的主机上，执行上一步复制的命令。执行导入命令，需要`kubectl`配置中对应的账号具有`cluster-admin`角色，如果想要导入Google Kubernetes Engine(GKE)集群(或一些不提供绑定集群管理角色的kubectl配置文件的集群),需要通过以下命令来绑定集群管理角色：
 

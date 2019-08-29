@@ -12,7 +12,7 @@ Auto-Deploying Manifests
 Any file found in `/var/lib/rancher/k3s/server/manifests` will automatically be deployed to
 Kubernetes in a manner similar to `kubectl apply`.
 
-It is also possible to deploy Helm charts. k3s supports a CRD controller for installing charts. A YAML file specification can look as following (example taken from `/var/lib/rancher/k3s/server/manifests/traefik.yaml`):
+It is also possible to deploy Helm charts. k3s supports a CRD controller for installing charts. A YAML file specification can look as following (example taken from `/var/lib/rancher/k3s/server/manifests/traefik.yml`):
 
 ```yaml
 apiVersion: helm.cattle.io/v1
@@ -58,7 +58,7 @@ k3s versions <= v0.5.0 used `k3s.cattle.io` for the api group of helmcharts, thi
 Accessing Cluster from Outside
 -----------------------------
 
-Copy `/etc/rancher/k3s/k3s.yaml` on your machine located outside the cluster as `~/.kube/config`. Then replace
+Copy `/etc/rancher/k3s/k3s.yml` on your machine located outside the cluster as `~/.kube/config`. Then replace
 "localhost" with the IP or name of your k3s server. `kubectl` can now manage your k3s cluster.
 
 Open Ports / Network Security
@@ -180,7 +180,7 @@ Metrics Server
 To add functionality for commands such as `k3s kubectl top nodes` metrics-server must be installed, 
 to install see the instructions located at https://github.com/kubernetes-incubator/metrics-server/.
 
-**NOTE** : By default the image used in `metrics-server-deployment.yaml` is valid only for **amd64** devices,
+**NOTE** : By default the image used in `metrics-server-deployment.yml` is valid only for **amd64** devices,
 this should be edited as appropriate for your architecture. As of this writing metrics-server provides
 the following images relevant to k3s: `amd64:v0.3.3`, `arm64:v0.3.2`, and `arm:v0.3.2`. Further information
 on the images provided through gcr.io can be found at https://console.cloud.google.com/gcr/images/google-containers/GLOBAL.

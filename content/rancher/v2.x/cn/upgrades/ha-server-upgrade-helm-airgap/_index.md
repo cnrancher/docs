@@ -15,8 +15,8 @@ weight: 6
 
 1. **备份集群**
 
-    [创建快照]({{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/backups/ha-backups/)
-    如果在升级期间出现问题，可使用此快照进行恢复。
+    [数据备份]({{< baseurl >}}/rancher/v2.x/cn/backups-and-restoration/backups/)
+    如果在升级期间出现问题，可使用此备份进行恢复。
 
 1. **kubectl**
 
@@ -65,7 +65,7 @@ weight: 6
     > **注意** 升级参数应该以安装时设置的参数为准，将安装参数以`--set key=value`的形式附加到升级命令中。
 
     ```bash
-    kubeconfig=xxx.yaml
+    kubeconfig=xxx.yml
 
     helm --kubeconfig=$kubeconfig upgrade rancher ./rancher \
         --set hostname=<修改为自己的域名> \
@@ -80,7 +80,7 @@ weight: 6
     > **注意** 升级参数应该以安装时设置的参数为准，将安装参数以`--set key=value`的形式附加到升级命令中。
 
     ```bash
-    kubeconfig=xxx.yaml
+    kubeconfig=xxx.yml
 
     helm --kubeconfig=$kubeconfig upgrade rancher ./rancher \
         --set hostname=<修改为自己的域名> \

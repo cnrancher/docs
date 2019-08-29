@@ -44,7 +44,7 @@ weight: 1
     rancher/rancher:<RANCHER_CONTAINER_TAG>
     ```
 
-4. 创建Rancher server数据卷容器备份
+4. 创建Rancher Server数据卷容器备份
 
     在升级期间，新的容器需要链接到数据卷容器，并且会对数据卷容器中的数据进行`更新/更改`。因此，需要提前对数据卷容器进行备份，`以防升级失败时用于数据回滚`。
 
@@ -58,4 +58,4 @@ weight: 1
 
 5. 备份完成后可重启Rancher服务容器
 
-6. 了解数据恢复，请点击[单节点数据恢复](../../restorations/single-node-restoration/)
+6. 了解数据恢复，请点击[单节点数据恢复](../../restorations/single-node/)

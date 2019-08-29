@@ -2,8 +2,9 @@
 title: 15 - 恢复kubectl配置文件
 weight: 15
 ---
+> **注意：**以下方法仅支持**自定义**安装的K8S集群
 
-分析Rancher UI生成的kubecfg文件可以发现，第一个`server`与Rancher server的url 域名或者IP相同。当kubectl访问API SERVER的时候，请求是先发送到rancher，然后再通过`cluster agent`转发给`API SERVER`。
+分析Rancher UI生成的kubecfg文件可以发现，第一个`server`与Rancher Server的url 域名或者IP相同。当kubectl访问API SERVER的时候，请求是先发送到rancher，然后再通过`cluster agent`转发给`API SERVER`。
 
 ![image-20190514185322798](assets/image-20190514185322798.png)
 
@@ -17,7 +18,7 @@ weight: 15
 
 ## 恢复kubecfg文件
 
-当rancher agent与rancher server端口连接，rancher ui将无法查看kubecfg。如果需要对K8S集群做操作，将需要使用kubectl去操作集群。如果是v2.2.2之前的版本或者v2.2.2没有开启`授权集群访问地址`功能，那么需要恢复内置kubecfg配置文件。
+当rancher agent与Rancher Server端口连接，rancher ui将无法查看kubecfg。如果需要对K8S集群做操作，将需要使用kubectl去操作集群。如果是v2.2.2之前的版本或者v2.2.2没有开启`授权集群访问地址`功能，那么需要恢复内置kubecfg配置文件。
 
 ### 操作方法
 

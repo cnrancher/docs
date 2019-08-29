@@ -21,7 +21,7 @@ title: 服务别名
 
 ### 通过Rancher Compose添加服务别名
 
-一个服务别名创建了一个指向服务的指针。在以下的例子中，`web[.stack-name.rancher.internal]`会被解析为容器`web1`以及`web2`的IP地址。`rancher/dns-service`并不是一个真实的镜像，但是他需要填写在`docker-compose.yaml`。不会为别名服务创建额外的容器。
+一个服务别名创建了一个指向服务的指针。在以下的例子中，`web[.stack-name.rancher.internal]`会被解析为容器`web1`以及`web2`的IP地址。`rancher/dns-service`并不是一个真实的镜像，但是他需要填写在`docker-compose.yml`。不会为别名服务创建额外的容器。
 
 
 #### Example `docker-compose.yml`

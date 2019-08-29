@@ -329,7 +329,7 @@ services:
       node.session.auth.password_in: c2VydmVyX2NoZWNrX3Bhc3N3ZDEK
     ```
 
-    > 参考地址：https://github.com/kubernetes/examples/blob/master/staging/volumes/iscsi/chap-secret.yaml
+    > 参考地址：https://github.com/kubernetes/examples/blob/master/staging/volumes/iscsi/chap-secret.yml
 
 2. 登录到rancher ui，切换到任意项目(这里以default命名空间为例)\工作负载页面下，点击右上角的`导入YAML`按钮![image-20190502130448080](assets/image-20190502130448080.png)
 

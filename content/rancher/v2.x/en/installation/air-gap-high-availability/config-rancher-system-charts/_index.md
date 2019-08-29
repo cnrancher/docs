@@ -1,8 +1,7 @@
 ---
-title: "5. Configure Rancher System Charts"
+title: "6. Configure Rancher System Charts"
 weight: 600
 aliases:
-    - /rancher/v2.x/en/installation/air-gap-high-availability/config-rancher-for-private-reg/
 ---
 
 # A. Prepare System Charts

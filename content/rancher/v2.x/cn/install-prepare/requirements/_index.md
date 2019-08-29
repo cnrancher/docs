@@ -4,7 +4,7 @@ weight: 2
 aliases:
 ---
 
-不管是单节点安装Rancher server，或高可用安装Rancher server,所有节点都需要满足以下的节点要求。
+不管是单节点安装Rancher Server，或高可用安装Rancher Server,所有节点都需要满足以下的节点要求。
 
 {{% tabs %}}
 {{% tab 操作系统和Docker %}}
@@ -12,14 +12,11 @@ aliases:
 Rancher在以下操作系统及其后续的非主要发行版上受支持:
 
 - Ubuntu 16.04.x (64-bit)
-  - Docker 17.03.x, 18.06.x, 18.09.x
+  - Docker 18.06.x, 18.09.x
 - Ubuntu 18.04.x (64-bit)
   - Docker 18.06.x, 18.09.x
-- Red Hat Enterprise Linux (RHEL)/CentOS 7.5+ (64-bit)
-  - RHEL Docker 1.13
-  - Docker 17.03.x, 18.06.x, 18.09.x
 - RancherOS 1.3.x+ (64-bit)
-  - Docker 17.03.x, 18.06.x, 18.09.x
+  - Docker 18.06.x, 18.09.x
 - Windows Server version 1803 (64-bit)
   - Docker 17.06
 
@@ -31,7 +28,7 @@ Rancher在以下操作系统及其后续的非主要发行版上受支持:
 {{% tab 硬件 %}}
 硬件要求根据Rancher部署的K8S集群规模大小进行扩展，根据要求配置每个节点。
 
-**HA 节点需求(标准3节点)**
+**HA安装需求(标准3节点)**
 
 | **部署规模** | 集群数     | Nodes       | vCPUs                                              | RAM                                                |
 | :----------- | :--------- | :---------- | :------------------------------------------------- | :------------------------------------------------- |
@@ -39,11 +36,11 @@ Rancher在以下操作系统及其后续的非主要发行版上受支持:
 | 中           | 最多15个   | 最多200个   | 4                                                  | 16 GB                                              |
 | 大           | 最多50个   | 最多500个   | 8                                                  | 32 GB                                              |
 | 大+          | 最多100个  | 最多1000个  | 32                                                 | 128 GB                                             |
-| 大++         | 超过100+个 | 超过1000+个 | [联系 Rancher](https://www.cnrancher.com/contact/) | [联系 Rancher](https://www.cnrancher.com/contact/) |
+| 大++         | 超过100+个 | 超过1000+个 | [联系 Rancher](https://www.rancher.cn/contact/) | [联系 Rancher](https://www.rancher.cn/contact/) |
 
 
 
-**Single 节点需求**
+**单节点安装需求**
 
 | **部署规模** | Clusters | Nodes     | vCPUs | RAM  |
 | :----------- | :------- | :-------- | :---- | :--- |

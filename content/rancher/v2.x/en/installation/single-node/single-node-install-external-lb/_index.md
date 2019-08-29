@@ -125,7 +125,7 @@ http {
     }
 
     server {
-        listen 443 ssl http2; # 如果是升级或者全新安装v2.2.2,需要禁止http2
+        listen 443 ssl http2; # 如果是升级或者全新安装v2.2.2,需要禁止http2，其他版本不需修改。
         server_name FQDN;
         ssl_certificate /certs/fullchain.pem;
         ssl_certificate_key /certs/privkey.pem;
@@ -205,7 +205,7 @@ map $http_upgrade $connection_upgrade {
 }
 
 server {
-    listen 443 ssl http2; # 如果是升级或者全新安装v2.2.2,需要禁止http2
+    listen 443 ssl http2; # 如果是升级或者全新安装v2.2.2,需要禁止http2，其他版本不需修改。
     server_name rancher.yourdomain.com;
     ssl_certificate /etc/your_certificate_directory/fullchain.pem;
     ssl_certificate_key /etc/your_certificate_directory/privkey.pem;

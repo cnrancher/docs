@@ -42,12 +42,13 @@ This procedure creates a backup that you can restore if Rancher encounters a dis
 
 1. Stop the container currently running Rancher Server. Replace `<RANCHER_CONTAINER_NAME>` with the [name of your Rancher container](#before-you-start).
 
-    ```
+    ```bash
     docker stop <RANCHER_CONTAINER_NAME>
     ```
+
 1. <a id="backup"></a>Use the command below, replacing each [placeholder](#before-you-start), to create a data container from the Rancher container that you just stopped.
 
-    ```
+    ```bash
     docker create --volumes-from <RANCHER_CONTAINER_NAME> --name rancher-data-<DATE> rancher/rancher:<RANCHER_CONTAINER_TAG>
     ```
 
@@ -65,7 +66,7 @@ This procedure creates a backup that you can restore if Rancher encounters a dis
 
 1. Restart Rancher Server. Replace `<RANCHER_CONTAINER_NAME>` with the name of your [Rancher container](#before-you-start).
 
-    ```
+    ```bash
     docker start <RANCHER_CONTAINER_NAME>
     ```
 

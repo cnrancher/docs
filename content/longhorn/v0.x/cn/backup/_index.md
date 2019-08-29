@@ -59,7 +59,7 @@ We provides two testing purpose backupstore based on NFS server and Minio S3 ser
 
 Use following command to setup a Minio S3 server for BackupStore after `longhorn-system` was created.
 ```
-kubectl --kubeconfig=kube_configxxx.yml create  -f https://raw.githubusercontent.com/rancher/longhorn/master/deploy/backupstores/minio-backupstore.yaml
+kubectl --kubeconfig=kube_configxxx.yml create  -f https://raw.githubusercontent.com/rancher/longhorn/master/deploy/backupstores/minio-backupstore.yml
 ```
 
 Now set `Settings/General/BackupTarget` to
@@ -97,4 +97,4 @@ The target URL would looks like:
 nfs://longhorn-test-nfs-svc.default:/opt/backupstore
 ```
 
-You can find an example NFS backupstore for testing purpose [here](https://github.com/rancher/longhorn/blob/master/deploy/backupstores/nfs-backupstore.yaml). 
+You can find an example NFS backupstore for testing purpose [here](https://github.com/rancher/longhorn/blob/master/deploy/backupstores/nfs-backupstore.yml). 

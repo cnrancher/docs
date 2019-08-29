@@ -246,7 +246,7 @@ _可用版本 v1.5_
 
 In order to support 4G-LTE, 4G-LTE module will need to be connected to the motherboard and to get a good signal, an external atenna will need to be added. You can assemble such a device, which supports USB interface and SIM cards slot:
 
-![](https://ws1.sinaimg.cn/bmiddle/006tNc79ly1fzcuvhu6zpj30k80qwag1.jpg)
+![image](https://ws1.sinaimg.cn/bmiddle/006tNc79ly1fzcuvhu6zpj30k80qwag1.jpg)
 
 In order to use RancherOS, you will need to use the ISO built for 4G-LTE support. This ISO has a built-in `modem-manager` service and is available with each release. 
 

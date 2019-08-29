@@ -20,7 +20,7 @@ weight: 276
 | Option | Default Value | Description |
 | --- | --- | --- |
 | `additionalTrustedCAs` | false | `bool` - See [Additional Trusted CAs](#additional-trusted-cas) |
-| `addLocal` | "auto" | `string` - Have Rancher detect and import the "local" Rancher server cluster [Import "local Cluster](#import-local-cluster) |
+| `addLocal` | "auto" | `string` - Have Rancher detect and import the "local" Rancher Server cluster [Import "local Cluster](#import-local-cluster) |
 | `antiAffinity` | "preferred" | `string` - AntiAffinity rule for Rancher pods - "preferred, required" |
 | `auditLog.destination` | "sidecar" | `string` - Stream to sidecar container console or hostPath volume - "sidecar, hostPath" |
 | `auditLog.hostPath` | "/var/log/rancher/audit" | `string` - log file destination on host (only applies when `auditLog.destination` is set to `hostPath`) |
@@ -29,7 +29,7 @@ weight: 276
 | `auditLog.maxBackups` | 1 | `int` - maximum number of audit log files to retain (only applies when `auditLog.destination` is set to `hostPath`) |
 | `auditLog.maxSize` | 100 | `int` - maximum size in megabytes of the audit log file before it gets rotated  (only applies when `auditLog.destination` is set to `hostPath`) |
 | `busyboxImage` | "busybox" | `string` - Image location for busybox image used to collect audit logs _Note: Available as of v2.2.0_ |
-| `debug` | false | `bool` - set debug flag on rancher server |
+| `debug` | false | `bool` - set debug flag on Rancher Server |
 | `extraEnv` | [] | `list` - set additional environment variables for Rancher _Note: 可用版本 v2.2.0_ |
 | `imagePullSecrets` | [] | `list` - list of names of Secret resource containing private registry credentials |
 | `ingress.extraAnnotations` | {} | `map` - additional annotations to customize the ingress |
@@ -47,13 +47,13 @@ weight: 276
 
 Enabling the [API Audit Log]({{< baseurl >}}/rancher/v2.x/en/installation/api-auditing/).
 
-You can collect this log as you would any container log. Enable the [Logging service under Rancher Tools]({{< baseurl >}}/rancher/v2.x/en/tools/logging/) for the `System` Project on the Rancher server cluster.
+You can collect this log as you would any container log. Enable the [Logging service under Rancher Tools]({{< baseurl >}}/rancher/v2.x/en/tools/logging/) for the `System` Project on the Rancher Server cluster.
 
 ```plain
 --set auditLog.level=1
 ```
 
-By default enabling Audit Logging will create a sidecar container in the Rancher pod. This container (`rancher-audit-log`) will stream the log to `stdout`.  You can collect this log as you would any container log. When using the sidecar as the audit log destination, the `hostPath`, `maxAge`, `maxBackups`, and `maxSize` options do not apply. It's advised to use your OS or Docker daemon's log rotation features to control disk space use. Enable the [Logging service under Rancher Tools]({{< baseurl >}}/rancher/v2.x/en/tools/logging/) for the Rancher server cluster or System Project.
+By default enabling Audit Logging will create a sidecar container in the Rancher pod. This container (`rancher-audit-log`) will stream the log to `stdout`.  You can collect this log as you would any container log. When using the sidecar as the audit log destination, the `hostPath`, `maxAge`, `maxBackups`, and `maxSize` options do not apply. It's advised to use your OS or Docker daemon's log rotation features to control disk space use. Enable the [Logging service under Rancher Tools]({{< baseurl >}}/rancher/v2.x/en/tools/logging/) for the Rancher Server cluster or System Project.
 
 Set the `auditLog.destination` to `hostPath` to forward logs to volume shared with the host system instead of streaming to a sidecar container. When setting the destination to `hostPath` you may want to adjust the other auditLog parameters for log rotation.
 
@@ -61,7 +61,7 @@ Set the `auditLog.destination` to `hostPath` to forward logs to volume shared wi
 
 _可用版本 v2.2.0_
 
-You can set extra environment variables for Rancher server using `extraEnv`. This list uses the same `name` and `value` keys as the container manifest definitions. Remember to quote the values.
+You can set extra environment variables for Rancher Server using `extraEnv`. This list uses the same `name` and `value` keys as the container manifest definitions. Remember to quote the values.
 
 ```plain
 --set 'extraEnv[0].name=CATTLE_SYSTEM_DEFAULT_REGISTRY'
@@ -83,7 +83,7 @@ See [TLS settings]({{< baseurl >}}/rancher/v2.x/en/admin-settings/tls-settings) 
 
 ### Import `local` Cluster
 
-By default Rancher server will detect and import the `local` cluster it's running on.  User with access to the `local` cluster will essentially have "root" access to all the clusters managed by Rancher server.
+By default Rancher Server will detect and import the `local` cluster it's running on.  User with access to the `local` cluster will essentially have "root" access to all the clusters managed by Rancher Server.
 
 If this is a concern in your environment you can set this option to "false" on your initial install.
 
@@ -95,7 +95,7 @@ If this is a concern in your environment you can set this option to "false" on y
 
 ### Customizing your Ingress
 
-To customize or use a different ingress with Rancher server you can set your own Ingress annotations.
+To customize or use a different ingress with Rancher Server you can set your own Ingress annotations.
 
 Example on setting a custom certificate issuer:
 
@@ -203,7 +203,7 @@ http {
     }
 
     server {
-        listen 443 ssl http2; # 如果是升级或者全新安装v2.2.2,需要禁止http2
+        listen 443 ssl http2; # 如果是升级或者全新安装v2.2.2,需要禁止http2，其他版本不需修改。
         server_name FQDN;
         ssl_certificate /certs/fullchain.pem;
         ssl_certificate_key /certs/privkey.pem;

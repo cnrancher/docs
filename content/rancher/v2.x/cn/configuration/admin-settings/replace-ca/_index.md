@@ -118,7 +118,7 @@ kubectl --kubeconfig=kube_configxxx.yml -n cattle-system \
 - 备份集群crd对象
 
 ```bash
-kubectl --kubeconfig=kube_configxxx.yml get clusters <cluster-id> -o yaml > `<cluster-id>.yaml`
+kubectl --kubeconfig=kube_configxxx.yml get clusters <cluster-id> -o yaml > `<cluster-id>.yml`
 ```
 
 - `caCert`字段参数，用新的ca证书文件base64加密后替换。

@@ -7,7 +7,7 @@ When setting up a pipeline, it's helpful to know a few related terms.
 
 - **Pipeline:**
 
-    A pipeline consists of stages and steps. It defines the process to build, test, and deploy your code. Rancher pipeline uses the [pipeline as code](https://jenkins.io/doc/book/pipeline-as-code/) model—pipeline configuration is represented as a pipeline file in the source code repository, using the file name `.rancher-pipeline.yml` or `.rancher-pipeline.yaml`.
+    A pipeline consists of stages and steps. It defines the process to build, test, and deploy your code. Rancher pipeline uses the [pipeline as code](https://jenkins.io/doc/book/pipeline-as-code/) model—pipeline configuration is represented as a pipeline file in the source code repository, using the file name `.rancher-pipeline.yml` or `.rancher-pipeline.yml`.
 
 - **Stages:**
 

@@ -5,7 +5,16 @@ weight: 6
 
 部署Kubernetes, RKE在节点上以Docker容器方式部署几个核心组件或服务，根据节点的角色，部署的容器不同。
 
-**所有服务都支持额外的[自定义参数、Docker卷和额外的环境变量]({{< baseurl >}}/rke/latest/cn/config-options/services/services-extras/).**
+**所有服务都支持额外的[自定义参数、Docker卷和额外的环境变量]({{< baseurl >}}/rke/latest/cn/config-options/services/services-extras/)。**
+
+| 组件名称               | 在CLUSTER.YML文件中对应的服务名 |
+| :---------------------- | :------------------------------- |
+| etcd                    | `etcd`                           |
+| kube-apiserver          | `kube-api`                       |
+| kube-controller-manager | `kube-controller`                |
+| kubelet                 | `kubelet`                        |
+| kube-scheduler          | `scheduler`                      |
+| kube-proxy              | `kubeproxy`                      |
 
 ## 一、etcd
 
@@ -50,11 +59,11 @@ RKE支持`kube-api`服务的以下设置选项:
 
     启用[Kubernetes Pod安全策略](https://kubernetes.io/docs/concepts/policy/pod-security-policy/)选项，默认不启用pod安全策略(`pod_security_policy: false`)。
 
-    > **注意:** 如果将`pod_security_policy`值设置为`true`, RKE将配置一个开放策略，允许所有Pod在集群上工作，您需要配置自己的策略来充分利用PSP(pod_security_policy)。
+    > **注意:** 如果将`pod_security_policy`值设置为`true`, RKE将配置开放策略，允许所有Pod在集群上工作，您需要配置自己的策略来充分利用PSP(pod_security_policy)。
 
 - **Always Pull Images** (`always_pull_images`)
 
-    启用总是spullimages承认控制器插件。启用`AlwaysPullImages`是一种安全最佳实践，它强制Kubernetes验证镜像并使用远程镜像仓库获取凭据。仍然使用本地镜像层缓存，但是在启动容器时拉取和比较镜像散列时，确实增加了一点开销。
+    启用`AlwaysPullImages`是一种安全最佳实践，它强制Kubernetes验证镜像并使用远程镜像仓库获取凭据。仍然使用本地镜像层缓存，但是在启动容器时拉取和比较镜像层`hash`值时，将会增加一些开销。
 
     >注意:从v0.2.0开始可用
 
@@ -67,11 +76,11 @@ RKE支持`kube-api`服务的以下设置选项:
 ```yaml
 services:
     kube-controller:
-      # 集群中的pod分配IP地址池
-      cluster_cidr: 10.42.0.0/16
-      # 在Kubernetes上创建的服务的IP范围
-      # 这个值必须与kube-api中的service_cluster_ip_range相同
-      service_cluster_ip_range: 10.43.0.0/16
+    # 集群中的pod分配IP地址池
+    cluster_cidr: 10.42.0.0/16
+    # 在Kubernetes上创建的服务的IP范围
+    # 这个值必须与kube-api中的service_cluster_ip_range相同
+    service_cluster_ip_range: 10.43.0.0/16
 ```
 
 ### 1、Kubernetes Controller Manager Options
@@ -93,12 +102,12 @@ RKE支持`kube-controller`服务的以下设置选项:
 ```yaml
 services:
     kubelet:
-     # 集群的搜索域
-     cluster_domain: cluster.local
-     # DNS服务IP地址
-     cluster_dns_server: 10.43.0.10
-     # 禁止swap
-     fail_swap_on: false
+    # 集群的搜索域
+    cluster_domain: cluster.local
+    # DNS服务IP地址
+    cluster_dns_server: 10.43.0.10
+    # 禁止swap
+    fail_swap_on: false
 ```
 
 ### 1、Kubelet 设置选项

@@ -16,9 +16,9 @@ helm repo add rancher-stable \
 https://releases.rancher.com/server-charts/stable
 ```
 
-## 二、使用自签名或者权威SSL证书安装Rancher server
+## 二、使用自签名或者权威SSL证书安装Rancher Server
 
-Rancher server设计默认需要开启SSL/TLS配置来保证安全，将ssl证书以`Kubernetes Secret`卷的形式传递给`rancher server或Ingress Controller`。首先创建证书密文，以便`Rancher和Ingress Controller`可以使用。
+Rancher Server设计默认需要开启SSL/TLS配置来保证安全，将ssl证书以`Kubernetes Secret`卷的形式传递给`Rancher Server或Ingress Controller`。首先创建证书密文，以便`Rancher和Ingress Controller`可以使用。
 
 {{% accordion id="option-a1" label="1、使用权威CA机构颁发的证书" %}}
 
@@ -30,7 +30,7 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全，将ssl证�
 
     ```bash
     # 指定配置文件
-    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
 
     kubectl --kubeconfig=$kubeconfig \
         create namespace cattle-system
@@ -41,13 +41,13 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全，将ssl证�
         --key=./tls.key
     ```
 
-1. 安装rancher server
+1. 安装Rancher Server
 
     >修改`hostname`
 
     ```bash
     # 指定配置文件
-    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
     helm --kubeconfig=$kubeconfig install \
         rancher-stable/rancher \
         --name rancher \
@@ -71,7 +71,7 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全，将ssl证�
 
     ```bash
     # 指定配置文件
-    kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    kubeconfig=xxx/xxx/xx.kubeconfig.yml
     # 创建命名空间
     kubectl --kubeconfig=$kubeconfig \
         create namespace cattle-system
@@ -88,12 +88,12 @@ Rancher server设计默认需要开启SSL/TLS配置来保证安全，将ssl证�
         --from-file=cacerts.pem
     ```
 
-1. 安装rancher server
+1. 安装Rancher Server
 
     >修改`hostname`
 
     ```bash
-    kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    kubeconfig=xxx/xxx/xx.kubeconfig.yml
 
     helm --kubeconfig=$kubeconfig install \
         rancher-stable/rancher \
@@ -118,16 +118,48 @@ Rancher chart有许多配置选项,可用于自定义安装以适合您的特定
 
 ### 6、(可选)为Agent Pod添加主机别名(/etc/hosts)
 
-如果您没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher server`,最终导致无法通信。
+如果您没有内部DNS服务器而是通过添加`/etc/hosts`主机别名的方式指定的Rancher Server域名，那么不管通过哪种方式(自定义、导入、Host驱动等)创建K8S集群，K8S集群运行起来之后，因为`cattle-cluster-agent Pod`和`cattle-node-agent`无法通过DNS记录找到`Rancher Server URL`,最终导致无法通信。
 
-- 解决方法
+### 解决方法
 
-可以通过给`cattle-cluster-agent Pod`和`cattle-node-agent`添加主机别名(/etc/hosts)，让其可以正常通信`(前提是IP地址可以互通)`。
+可以通过给`cattle-cluster-agent Pod`和`cattle-node-agent`添加主机别名(/etc/hosts)，让其可以正常通过`Rancher Server URL`与Rancher Server通信`(前提是IP地址可以互通)`。
+
+- 操作步骤
+
+1. `cattle-cluster-agent Pod`和`cattle-node-agent`需要在`LOCAL`集群初始化之后才会部署，所以先通过`Rancher Server URL`访问Rancher Web UI进行初始化。
+1. 执行以下命令为Rancher Server容器配置hosts:
+
+    ```bash
+    #指定kubectl配置文件
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
+
+    kubectl --kubeconfig=$kubeconfig -n cattle-system \
+        patch deployments rancher --patch '{
+            "spec": {
+                "template": {
+                    "spec": {
+                        "hostAliases": [
+                            {
+                                "hostnames":
+                                [
+                                    "xxx.cnrancher.com"
+                                ],
+                                    "ip": "192.168.1.100"
+                            }
+                        ]
+                    }
+                }
+            }
+        }'
+    ```
+
+1. 通过`Rancher Server URL`访问Rancher Web UI，设置用户名密码和`Rancher Server URL`地址，然后会自动登录Rancher Web UI；
+1. 在Rancher Web UI中依次进入`local集群/system项目`，在`cattle-system`命名空间中查看是否有`cattle-cluster-agent Pod`和`cattle-node-agent`被创建。如果有创建则进行下面的步骤，没有创建则等待；
 
 1. cattle-cluster-agent pod
 
     ```bash
-    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
 
     kubectl --kubeconfig=$kubeconfig -n cattle-system \
     patch deployments cattle-cluster-agent --patch '{
@@ -149,10 +181,10 @@ Rancher chart有许多配置选项,可用于自定义安装以适合您的特定
     }'
     ```
 
-2. cattle-node-agent pod
+1. cattle-node-agent pod
 
     ```bash
-    export kubeconfig=xxx/xxx/xx.kubeconfig.yaml
+    export kubeconfig=xxx/xxx/xx.kubeconfig.yml
 
     kubectl --kubeconfig=$kubeconfig -n cattle-system \
     patch  daemonsets cattle-node-agent --patch '{

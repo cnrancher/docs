@@ -9,25 +9,11 @@ weight: 2
 
 ## 二、准备文件
 
-Rancher HA安装需要使用来自3个源的镜像，将3个源合并到一个名为`rancher-images.txt`的文件中。
-
-1. 使用可以访问Internet的计算机，访问我们的版本[发布页面](https://github.com/rancher/rancher/releases)，找到需要安装的`Rancher 2.xx`版本。不要下载的版本标示`rc`或者`Pre-release`，因为它们不适用于稳定的生产环境。
+1. 使用可以访问Internet的计算机，访问我们的版本[发布页面](https://github.com/rancher/rancher/releases)，找到需要安装的`Rancher 2.x.x`版本。不要下载`rc`或者`Pre-release`版本，因为它们不适用于稳定的生产环境。
 
     ![Choose Release Version]({{< baseurl >}}/img/rancher/choose-release-version.png)
 
-1. 从发行版的***\*Assets\****部分，下载以下三个文件，这些文件是在离线环境中安装Rancher所必需的：
-
-    | 文件                     | 描述                                                         |
-    | :----------------------- | :----------------------------------------------------------- |
-    | `rancher-images.txt`     | 此文件包含安装Rancher所需的所有镜像的列表。                  |
-    | `rancher-save-images.sh` | 此脚本`rancher-images.txt`从Docker Hub中下载所有镜像并将所有镜像保存为`rancher-images.tar.gz`。 |
-    | `rancher-load-images.sh` | 此脚本从`rancher-images.tar.gz`文件加载镜像，并将其推送到您的私有镜像仓库。 |
-
-1. 确保`rancher-save-images.sh`可执行。
-
-    ```bash
-    chmod +x rancher-save-images.sh
-    ```
+1. 从发行版本的***\*Assets\****部分，下载`rancher-images.txt`，此文件包含安装Rancher所需的所有镜像的列表。  
 
 1. 通过RKE生成镜像清单
 
@@ -35,22 +21,13 @@ Rancher HA安装需要使用来自3个源的镜像，将3个源合并到一个�
     rke config --system-images -all >> ./rancher-images.txt
     ```
 
-1. 获取`cert-manager`镜像，[cert-manager](https://github.com/helm/charts/tree/master/stable/cert-manager)版本查询。
+1. 对镜像列表进行排序和去重，以去除重复的镜像。
 
-    1.  获取最新的`cert-manager` chart并解析模板以获取镜像详细信息。
+    ```plain
+    sort -u rancher-images.txt -o rancher-images.txt
+    ```
 
-        ```plain
-        helm fetch stable/cert-manager
-        helm template ./cert-manager-<version>.tgz | grep -oP '(?<=image: ").*(?=")' >> ./rancher-images.txt
-        ```
-
-    2. 对镜像列表进行排序和去重，以去除重复的镜像。
-
-        ```plain
-        sort -u rancher-images.txt -o rancher-images.txt
-        ```
-
-1. 复制以下脚本保存为`rancher-save-images.sh`
+1. 复制以下脚本保存为`rancher-save-images.sh`，与`rancher-images.txt`放在同一目录层级；
 
     ```bash
     #!/bin/bash
@@ -101,32 +78,35 @@ Rancher HA安装需要使用来自3个源的镜像，将3个源合并到一个�
         exit 0
     fi
 
-    set -e -x
-
     mkdir -p rancher-images-$(date +"%Y-%m-%d")
-    cd rancher-images-$(date +"%Y-%m-%d")
 
-    for i in $(cat ${list}); 
+    for i in $(cat ${list});
     do
-        docker pull ${i}
+        if [[ ! -f rancher-images-$(date +"%Y-%m-%d")/$(echo $i | sed "s#/#-#g; s#:#-#g").tgz ]];then
 
-        if [ $? -ne 0 ]; then
-            logger "${i} pull failed."
+            docker pull ${i}
+
+            if [ $? -ne 0 ]; then
+                logger "${i} pull failed."
+            else
+                logger "${i} pull successfully."
+            fi
+
+            docker save ${i} | gzip > rancher-images-$(date +"%Y-%m-%d")/$(echo $i | sed "s#/#-#g; s#:#-#g").tgz
+
+            if [ $? -ne 0 ]; then
+                logger "${i} save failed."
+            else
+                logger "${i} save successfully."
+            fi
+
         else
-            logger "${i} pull successfully."
-        fi
-
-        docker save ${i} | gzip > $(echo $i | sed "s#/#-#g; s#:#-#g").tgz
-
-        if [ $? -ne 0 ]; then
-            logger "${i} save failed."
-        else
-            logger "${i} save successfully."
+            logger "${i} Images downloaded."
         fi
     done
     ```
 
-1. 复制以下脚本保存为`rancher-load-images.sh`
+1. 复制以下脚本保存为`rancher-load-images.sh`，与`rancher-images.txt`放在同一目录层级；
 
     ```bash
     #!/bin/bash
@@ -144,49 +124,46 @@ Rancher HA安装需要使用来自3个源的镜像，将3个源合并到一个�
 
     POSITIONAL=()
     while [[ $# -gt 0 ]]; do
-    	key="$1"
-    	case $key in
-    		-i|--images-path)
-    		images_path="$2"
-    		shift # past argument
-    		shift # past value
-    		;;
-    		-l|--image-list)
-    		list="$2"
-    		shift # past argument
-    		shift # past value
-    		;;
-    		-h|--help)
-    		help="true"
-    		shift
-    		;;
-    	esac
+        key="$1"
+        case $key in
+            -i|--images-path)
+            images_path="$2"
+            shift # past argument
+            shift # past value
+            ;;
+            -l|--image-list)
+            list="$2"
+            shift # past argument
+            shift # past value
+            ;;
+            -h|--help)
+            help="true"
+            shift
+            ;;
+        esac
     done
 
     usage () {
-    	echo "USAGE: $0 [--image-list rancher-images.txt] [--images rancher-images.tar.gz]"
-    	echo "  [-l|--images-list path] text file with list of images. 1 per line."
-    	echo "  [-l|--images path] tar.gz generated by docker save."
-    	echo "  [-h|--help] Usage message"
+        echo "USAGE: $0 [--image-list rancher-images.txt] [--images rancher-images.tar.gz]"
+        echo "  [-l|--images-list path] text file with list of images. 1 per line."
+        echo "  [-l|--images path] tar.gz generated by docker save."
+        echo "  [-h|--help] Usage message"
     }
 
     if [[ $help ]]; then
-    	usage
-    	exit 0
+        usage
+        exit 0
     fi
-
-    set -e -x
 
     # 镜像压缩文件列表
     images=$(ls $images_path | grep ".tgz")
-    cd $images_path
 
     # 导入镜像
     docker_load ()
     {
         for imgs in $(echo ${images});
         do
-            gunzip -c ${imgs} | docker load
+            gunzip -c $images_path/${imgs} | docker load
 
             if [ $? -ne 0 ]; then
                 logger "${imgs} load failed."
@@ -199,7 +176,7 @@ Rancher HA安装需要使用来自3个源的镜像，将3个源合并到一个�
     docker_load
     ```
 
-1. 复制以下脚本保存为`rancher-push-images.sh`
+1. 复制以下脚本保存为`rancher-push-images.sh`，与`rancher-images.txt`放在同一目录层级；
 
     ```bash
     #!/bin/bash
@@ -240,45 +217,97 @@ Rancher HA安装需要使用来自3个源的镜像，将3个源合并到一个�
 
     echo "镜像仓库 $(docker login -u ${registry_user} -p ${registry_password} ${registry})"
 
-    images=$(docker images -a | grep -v TAG | awk '{print $1 ":" $2}')
-    namespace=rancher
+    #images=$(docker images -a | grep -v TAG | awk '{print $1 ":" $2}')
+
+    images=$(cat rancher-images.txt )
+
+    # 定义全局项目，如果想把镜像全部同步到一个仓库，则指定一个全局项目名称；
+    global_namespace=   # rancher
 
     docker_push() {
         for imgs in $(echo ${images}); do
-            n=$(echo ${imgs} | awk -F"/" '{print NF-1}')
-            #如果镜像名中没有/，那么此镜像一定是library仓库的镜像；
-            if [ ${n} -eq 0 ]; then
-                img_tag=${imgs}
-                #namespace=rancher
-                #重命名镜像
-                docker tag ${imgs} ${registry}/${namespace}/${img_tag}
-                #删除原始镜像
-                #docker rmi ${imgs}
-                #上传镜像
-                docker push ${registry}/${namespace}/${img_tag}
-            #如果镜像名中有一个/，那么/左侧为项目名，右侧为镜像名和tag
-            elif [ ${n} -eq 1 ]; then
-                img_tag=$(echo ${imgs} | awk -F"/" '{print $2}')
-                #namespace=$(echo ${imgs} | awk -F"/" '{print $1}')
-                #重命名镜像
-                docker tag ${imgs} ${registry}/${namespace}/${img_tag}
-                #删除旧镜像
-                #docker rmi ${imgs}
-                #上传镜像
-                docker push ${registry}/${namespace}/${img_tag}
-            #如果镜像名中有两个/，
-            elif [ ${n} -eq 2 ]; then
-                img_tag=$(echo ${imgs} | awk -F"/" '{print $3}')
-                #namespace=$(echo ${imgs} | awk -F"/" '{print $2}')
-                #重命名镜像
-                docker tag ${imgs} ${registry}/${namespace}/${img_tag}
-                #删除旧镜像
-                #docker rmi ${imgs}
-                #上传镜像
-                docker push ${registry}/${namespace}/${img_tag}
+            if [[ -n "$global_namespace" ]]; then
+
+                n=$(echo ${imgs} | awk -F"/" '{print NF-1}')
+                # 如果镜像名中没有/，那么此镜像一定是library仓库的镜像；
+                if [ ${n} -eq 0 ]; then
+                    img_tag=${imgs}
+
+                    #重命名镜像
+                    docker tag ${imgs} ${registry}/${global_namespace}/${img_tag}
+
+                    #删除原始镜像
+                    #docker rmi ${imgs}
+                    #上传镜像
+                    docker push ${registry}/${global_namespace}/${img_tag}
+
+                # 如果镜像名中有一个/，那么/左侧为项目名，右侧为镜像名和tag
+                elif [ ${n} -eq 1 ]; then
+                    img_tag=$(echo ${imgs} | awk -F"/" '{print $2}')
+
+                    #重命名镜像
+                    docker tag ${imgs} ${registry}/${global_namespace}/${img_tag}
+                    #删除旧镜像
+                    #docker rmi ${imgs}
+                    #上传镜像
+                    docker push ${registry}/${global_namespace}/${img_tag}
+
+                # 如果镜像名中有两个/，
+                elif [ ${n} -eq 2 ]; then
+                    img_tag=$(echo ${imgs} | awk -F"/" '{print $3}')
+
+                    #重命名镜像
+                    docker tag ${imgs} ${registry}/${global_namespace}/${img_tag}
+                    #删除旧镜像
+                    #docker rmi ${imgs}
+                    #上传镜像
+                    docker push ${registry}/${global_namespace}/${img_tag}
+                else
+                    #标准镜像为四层结构，即：仓库地址/项目名/镜像名:tag,如不符合此标准，即为非有效镜像。
+                    echo "No available images"
+                fi
             else
-                #标准镜像为四层结构，即：仓库地址/项目名/镜像名:tag,如不符合此标准，即为非有效镜像。
-                echo "No available images"
+
+                n=$(echo ${imgs} | awk -F"/" '{print NF-1}')
+                # 如果镜像名中没有/，那么此镜像一定是library仓库的镜像；
+                if [ ${n} -eq 0 ]; then
+                    img_tag=${imgs}
+                    namespace=library
+                    #重命名镜像
+                    docker tag ${imgs} ${registry}/${namespace}/${img_tag}
+                    #删除原始镜像
+                    #docker rmi ${imgs}
+                    #上传镜像
+                    docker push ${registry}/${namespace}/${img_tag}
+
+                # 如果镜像名中有一个/，那么/左侧为项目名，右侧为镜像名和tag
+                elif [ ${n} -eq 1 ]; then
+                    img_tag=$(echo ${imgs} | awk -F"/" '{print $2}')
+                    namespace=$(echo ${imgs} | awk -F"/" '{print $1}')
+
+                    #重命名镜像
+                    docker tag ${imgs} ${registry}/${namespace}/${img_tag}
+                    #删除旧镜像
+                    #docker rmi ${imgs}
+                    #上传镜像
+                    docker push ${registry}/${namespace}/${img_tag}
+
+                # 如果镜像名中有两个/，
+                elif [ ${n} -eq 2 ]; then
+                    img_tag=$(echo ${imgs} | awk -F"/" '{print $3}')
+                    namespace=$(echo ${imgs} | awk -F"/" '{print $2}')
+
+                    #重命名镜像
+                    docker tag ${imgs} ${registry}/${namespace}/${img_tag}
+                    #删除旧镜像
+                    #docker rmi ${imgs}
+                    #上传镜像
+                    docker push ${registry}/${namespace}/${img_tag}
+                else
+                    #标准镜像为四层结构，即：仓库地址/项目名/镜像名:tag,如不符合此标准，即为非有效镜像。
+                    echo "No available images"
+                fi
+
             fi
         done
     }
@@ -293,7 +322,7 @@ Rancher HA安装需要使用来自3个源的镜像，将3个源合并到一个�
     > **注意:**镜像同步需要接近20GB的空磁盘空间。
 
     ```plain
-    chmod +x rancher-save-images.sh && rancher-save-images.sh --image-list ./rancher-images.txt
+    chmod +x ./rancher-save-images.sh && ./rancher-save-images.sh --image-list ./rancher-images.txt
     ```
 
     **结果:** 在目录`rancher-images-$(date +"%Y-%m-%d")`生成所有镜像的压缩文件
@@ -303,7 +332,7 @@ Rancher HA安装需要使用来自3个源的镜像，将3个源合并到一个�
     >**注意** 如果上一步下载镜像的主机可以连接内网的镜像仓库，那么此步骤可以跳过
 
     ```bash
-    chmod +x rancher-load-images.sh && ./rancher-load-images.sh --images-path ./rancher-images-$(date +"%Y-%m-%d")
+    chmod +x ./rancher-load-images.sh && ./rancher-load-images.sh --images-path ./rancher-images-$(date +"%Y-%m-%d")
     ```
 
 1. 使用`rancher-push-images.sh`把导入的docker镜像自动tag重命名，然后上传到私有镜像仓库
@@ -311,7 +340,7 @@ Rancher HA安装需要使用来自3个源的镜像，将3个源合并到一个�
     > **注意** 镜像默认全部上传到镜像仓库的`rancher`项目下，如果镜像仓库不支持自动创建项目名（比如`Harbor`），需要提前手动去镜像仓库创建好项目。
 
     ```bash
-    chmod +x rancher-push-images.sh && ./rancher-push-images.sh
+    chmod +x ./rancher-push-images.sh && ./rancher-push-images.sh
     ```
 
     > 执行脚本后会要求输入镜像仓库地址和用户名、用户密码

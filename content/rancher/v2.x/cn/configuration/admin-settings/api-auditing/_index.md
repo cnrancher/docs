@@ -102,7 +102,7 @@ docker run -d --restart=unless-stopped \
 
 ### Rancher单节点安装
 
-单节点安装Rancher server时，与主机系统共享`AUDIT_LOG_PATH`目录(默认:`/var/log/auditlog`)。日志可以通过标准CLI工具进行查看，也可以转发到日志收集工具，如Fluentd，Filebeat，Logstash等。
+单节点安装Rancher Server时，与主机系统共享`AUDIT_LOG_PATH`目录(默认:`/var/log/auditlog`)。日志可以通过标准CLI工具进行查看，也可以转发到日志收集工具，如Fluentd，Filebeat，Logstash等。
 
 ### Rancher HA安装
 

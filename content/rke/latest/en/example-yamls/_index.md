@@ -219,7 +219,7 @@ addons: |-
         - containerPort: 80
 
 addons_include:
-    - https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/rook-operator.yaml
-    - https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/rook-cluster.yaml
+    - https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/rook-operator.yml
+    - https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/rook-cluster.yml
     - /path/to/manifest
 ```

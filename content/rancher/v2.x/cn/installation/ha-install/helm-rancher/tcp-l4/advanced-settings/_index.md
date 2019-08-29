@@ -29,7 +29,7 @@ weight: 5
 | `auditLog.maxBackups`          | 1                                                            | `int` - 要保留的最大审计日志文件数量(仅当`auditLog.destination`被设置为`hostPath`时才适用) |
 | `auditLog.maxSize`             | 100                                                          | `int` - 在轮换审计日志文件之前，它的最大大小(以兆为单位)(仅当`auditLog.destination`被设置为`hostPath`时才适用) |
 | `busyboxImage`                 | `busybox`                                                    | `string` - 用于收集审计日志的busybox镜像<br/>注意: 从v2.2.0开始可用 |
-| `debug`                        | false                                                        | `bool` - set debug flag on rancher server                    |
+| `debug`                        | false                                                        | `bool` - set debug flag on Rancher Server                    |
 | `extraEnv`                     | []                                                           | `list` - 为Rancher设置额外的环境变量<br/>*注意:从v2.2.0开始可用* |
 | `imagePullSecrets`             | []                                                           | `list` - 包含私有镜像仓库凭据的密文资源的名称列表            |
 | `ingress.extraAnnotations`     | {}                                                           | `map` - 用于自定义ingress的附加注释                          |

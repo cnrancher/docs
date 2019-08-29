@@ -10,7 +10,7 @@ weight: 3
 
 ## Rancher节点
 
-The following table lists the ports that need to be open to and from nodes that are running the Rancher server container for [single node installs]({{< baseurl >}}/rancher/v2.x/en/installation/single-node-install/) or pods for [high availability installs]({{< baseurl >}}/rancher/v2.x/en/installation/ha-server-install/).
+The following table lists the ports that need to be open to and from nodes that are running the Rancher Server container for [single node installs]({{< baseurl >}}/rancher/v2.x/en/installation/single-node-install/) or pods for [high availability installs]({{< baseurl >}}/rancher/v2.x/en/installation/ha-server-install/).
 
 {{< ports-rancher-nodes >}}
 
