@@ -7,7 +7,7 @@ weight: 1
 
 > 使用Rancher CLI还需要API密钥[cli](../cli)。
 
-API密钥由四个组件组成：
+API KEY由四个组件组成：
 
 - **Endpoint:**
 
@@ -28,10 +28,11 @@ API密钥由四个组件组成：
 ## 创建API Key
 
 1. 点击右上角用户头像，选择`API Key`;
-2. 点击`添加Key`;
-3. 选填API Key的描述，并选择API Key的有效期；
-4. 点击创建 ；
-5. `重要`: 保存生成的Access Key(用户名)、Secret Key(密码)，这些信息只显示一次，关闭当前页后将无法找回；
+1. 点击`添加Key`;
+1. 选填API Key描述，并选择API Key的有效期；
+1. 作用范围可保持默认；
+1. 点击创建 ；
+1. `重要`: 保存生成的Access Key(用户名)、Secret Key(密码)，这些信息只显示一次，关闭当前页后将无法找回；
 
 ## 删除API Keys
 

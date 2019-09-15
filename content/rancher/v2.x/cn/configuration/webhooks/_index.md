@@ -249,7 +249,7 @@ repo_type=<repo_type>
 
 ## 五、配置仓库触发
 
-### aliyun
+### Aliyun
 
   1. 浏览器访问`https://cr.console.aliyun.com`进入容器镜像服务管理界面；
 

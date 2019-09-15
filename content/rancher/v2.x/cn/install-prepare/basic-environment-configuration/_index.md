@@ -100,6 +100,9 @@ EOF
 
 以下模块需要在主机上加载
 
+
+{{% accordion id="1" label="模块列表" %}}
+
 | 模块名称               |
 | ---------------------- |
 | br_netfilter           |
@@ -134,6 +137,8 @@ EOF
 | xt_statistic           |
 | xt_tcpudp              |
 
+{{% /accordion %}}
+
 >模块查询: lsmod | grep <模块名> \
 模块加载: modprobe <模块名>\
 
@@ -157,120 +162,219 @@ EOF
 
 ### 1、Docker安装
 
-### Ubuntu 16.x
-
 - **修改系统源**
 
-    ```bash
-    sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
-    cat > /etc/apt/sources.list << EOF
+{{% accordion id="2" label="一、Ubuntu 16.04.x" %}}
 
-    deb http://mirrors.aliyun.com/ubuntu/ xenial main
-    deb-src http://mirrors.aliyun.com/ubuntu/ xenial main
-    deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main
-    deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates main
-    deb http://mirrors.aliyun.com/ubuntu/ xenial universe
-    deb-src http://mirrors.aliyun.com/ubuntu/ xenial universe
-    deb http://mirrors.aliyun.com/ubuntu/ xenial-updates universe
-    deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates universe
-    deb http://mirrors.aliyun.com/ubuntu/ xenial-security main
-    deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security main
-    deb http://mirrors.aliyun.com/ubuntu/ xenial-security universe
-    deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security universe
+```bash
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+cat > /etc/apt/sources.list << EOF
+deb http://mirrors.aliyun.com/ubuntu/ xenial main
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial main
+deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates main
+deb http://mirrors.aliyun.com/ubuntu/ xenial universe
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial universe
+deb http://mirrors.aliyun.com/ubuntu/ xenial-updates universe
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates universe
+deb http://mirrors.aliyun.com/ubuntu/ xenial-security main
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security main
+deb http://mirrors.aliyun.com/ubuntu/ xenial-security universe
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security universe
+EOF
+```
 
-    EOF
-    ```
+{{% /accordion %}}
+{{% accordion id="3" label="二、Ubuntu 18.04.x" %}}
+
+```bash
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+cat > /etc/apt/sources.list << EOF
+deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+EOF
+```
+
+{{% /accordion %}}
+{{% accordion id="4" label="三、Centos7.x" %}}
+
+```bash
+yum install ca-certificates ;
+update-ca-trust;
+
+cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo-bak
+cat << 'EOF' > /etc/yum.repos.d/CentOS-Base.repo
+# CentOS-Base.repo
+#
+# The mirror system uses the connecting IP address of the client and the
+# update status of each mirror to pick mirrors that are updated to and
+# geographically close to the client.  You should use this for CentOS updates
+# unless you are manually picking other mirrors.
+#
+# If the mirrorlist= does not work for you, as a fall back you can try the 
+# remarked out baseurl= line instead.
+#
+#
+
+[base]
+name=CentOS-$releasever - Base - mirrors.aliyun.com
+failovermethod=priority
+baseurl=http://mirrors.aliyun.com/centos/$releasever/os/$basearch/
+        http://mirrors.aliyuncs.com/centos/$releasever/os/$basearch/
+        http://mirrors.cloud.aliyuncs.com/centos/$releasever/os/$basearch/
+gpgcheck=1
+gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7
+
+#released updates
+[updates]
+name=CentOS-$releasever - Updates - mirrors.aliyun.com
+failovermethod=priority
+baseurl=http://mirrors.aliyun.com/centos/$releasever/updates/$basearch/
+        http://mirrors.aliyuncs.com/centos/$releasever/updates/$basearch/
+        http://mirrors.cloud.aliyuncs.com/centos/$releasever/updates/$basearch/
+gpgcheck=1
+gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7
+
+#additional packages that may be useful
+[extras]
+name=CentOS-$releasever - Extras - mirrors.aliyun.com
+failovermethod=priority
+baseurl=http://mirrors.aliyun.com/centos/$releasever/extras/$basearch/
+        http://mirrors.aliyuncs.com/centos/$releasever/extras/$basearch/
+        http://mirrors.cloud.aliyuncs.com/centos/$releasever/extras/$basearch/
+gpgcheck=1
+gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7
+
+#additional packages that extend functionality of existing packages
+[centosplus]
+name=CentOS-$releasever - Plus - mirrors.aliyun.com
+failovermethod=priority
+baseurl=http://mirrors.aliyun.com/centos/$releasever/centosplus/$basearch/
+        http://mirrors.aliyuncs.com/centos/$releasever/centosplus/$basearch/
+        http://mirrors.cloud.aliyuncs.com/centos/$releasever/centosplus/$basearch/
+gpgcheck=1
+enabled=0
+gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7
+
+#contrib - packages by Centos Users
+[contrib]
+name=CentOS-$releasever - Contrib - mirrors.aliyun.com
+failovermethod=priority
+baseurl=http://mirrors.aliyun.com/centos/$releasever/contrib/$basearch/
+        http://mirrors.aliyuncs.com/centos/$releasever/contrib/$basearch/
+        http://mirrors.cloud.aliyuncs.com/centos/$releasever/contrib/$basearch/
+gpgcheck=1
+enabled=0
+gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7
+
+EOF
+```
+
+{{% /accordion %}}
 
 - **Docker-ce安装**
 
-    ```bash
-    # 定义用户名
-    NEW_USER=rancher
-    # 添加用户(可选)
-    sudo adduser $NEW_USER
-    # 为新用户设置密码
-    sudo passwd $NEW_USER
-    # 为新用户添加sudo权限
-    sudo echo "$NEW_USER ALL=(ALL) ALL" >> /etc/sudoers
-    # 定义安装版本
-    export docker_version=18.06.3;
-    # step 1: 安装必要的一些系统工具
-    sudo apt-get remove docker docker-engine docker.io containerd runc -y;
-    sudo apt-get update;
-    sudo apt-get -y install apt-transport-https ca-certificates \
-        curl software-properties-common bash-completion  gnupg-agent;
-    # step 2: 安装GPG证书
-    sudo curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | \
-        sudo apt-key add -;
-    # Step 3: 写入软件源信息
-    sudo add-apt-repository "deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu \
-        $(lsb_release -cs) stable";
-    # Step 4: 更新并安装 Docker-CE
-    sudo apt-get -y update;
-    version=$(apt-cache madison docker-ce|grep ${docker_version}|awk '{print $3}');
-    # --allow-downgrades 允许降级安装
-    sudo apt-get -y install docker-ce=${version} --allow-downgrades;
-    # 把当前用户加入docker组
-    sudo usermod -aG docker $NEW_USER;
-    # 设置开机启动
-    sudo systemctl enable docker;
-    ```
+{{% accordion id="5" label="一、Ubuntu" %}}
 
-    **Docker-engine**
+```bash
+# 定义用户名
+NEW_USER=rancher
+# 添加用户(可选)
+sudo adduser $NEW_USER
+# 为新用户设置密码
+sudo passwd $NEW_USER
+# 为新用户添加sudo权限
+sudo echo "$NEW_USER ALL=(ALL) ALL" >> /etc/sudoers
+# 定义安装版本
+export docker_version=18.06.3;
+# step 1: 安装必要的一些系统工具
+sudo apt-get remove docker docker-engine docker.io containerd runc -y;
+sudo apt-get update;
+sudo apt-get -y install apt-transport-https ca-certificates \
+    curl software-properties-common bash-completion  gnupg-agent;
+# step 2: 安装GPG证书
+sudo curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | \
+    sudo apt-key add -;
+# Step 3: 写入软件源信息
+sudo add-apt-repository "deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu \
+    $(lsb_release -cs) stable";
+# Step 4: 更新并安装 Docker-CE
+sudo apt-get -y update;
+version=$(apt-cache madison docker-ce|grep ${docker_version}|awk '{print $3}');
+# --allow-downgrades 允许降级安装
+sudo apt-get -y install docker-ce=${version} --allow-downgrades;
+# 把当前用户加入docker组
+sudo usermod -aG docker $NEW_USER;
+# 设置开机启动
+sudo systemctl enable docker;
+```
 
-    Docker-Engine Docker官方已经不推荐使用，请安装Docker-CE。
+**Docker-engine**
+Docker-Engine Docker官方已经不推荐使用，请安装Docker-CE。
 
-### CentOS 7.x
+{{% /accordion %}}
+{{% accordion id="6" label="二、Centos" %}}
 
-- **Docker-ce安装**
+>因为CentOS的安全限制，通过RKE安装K8S集群时候无法使用`root`账户。所以，建议`CentOS`用户使用非`root`用户来运docker,不管是`RKE`还是`custom`安装k8s,详情查看[无法为主机配置SSH隧道]({{< baseurl >}}/rancher/v2.x/cn/faqtroubleshooting-ha/ssh-tunneling/)。
 
-    >因为CentOS的安全限制，通过RKE安装K8S集群时候无法使用`root`账户。所以，建议`CentOS`用户使用非`root`用户来运行docker,不管是`RKE`还是`custom`安装k8s,详情查看[无法为主机配置SSH隧道]({{< baseurl >}}/rancher/v2.x/cn/faq/troubleshooting-ha/ssh-tunneling/)。
+```bash
+# 定义用户名
+NEW_USER=rancher
+# 添加用户(可选)
+sudo adduser $NEW_USER
+# 为新用户设置密码
+sudo passwd $NEW_USER
+# 为新用户添加sudo权限
+sudo echo "$NEW_USER ALL=(ALL) ALL" >> /etc/sudoers
+# 卸载旧版本Docker软件
+sudo yum remove docker \
+              docker-client \
+              docker-client-latest \
+              docker-common \
+              docker-latest \
+              docker-latest-logrotate \
+              docker-logrotate \
+              docker-selinux \
+              docker-engine-selinux \
+              docker-engine \
+              container*
+# 定义安装版本
+export docker_version=18.06.3
+# step 1: 安装必要的一些系统工具
+sudo yum update -y;
+sudo yum install -y yum-utils device-mapper-persistent-data \
+    lvm2 bash-completion;
+# Step 2: 添加软件源信息
+sudo yum-config-manager --add-repo \
+    http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo;
+# Step 3: 更新并安装 Docker-CE
+sudo yum makecache all;
+version=$(yum list docker-ce.x86_64 --showduplicates | sort -r|grep ${docker_version}|awk '{print $2}';
+sudo yum -y install --setopt=obsoletes=0 docker-ce-${version} docker-ce-selinux-${version};
+# 如果已经安装高版本Docker,可进行降级安装(可选)
+yum downgrade --setopt=obsoletes=0 -y docker-ce-${version} docker-ce-selinux-${version};
+# 把当前用户加入docker组
+sudo usermod -aG docker $NEW_USER;
+# 设置开机启动
+sudo systemctl enable docker;
+```
 
-    ```bash
-    # 定义用户名
-    NEW_USER=rancher
-    # 添加用户(可选)
-    sudo adduser $NEW_USER
-    # 为新用户设置密码
-    sudo passwd $NEW_USER
-    # 为新用户添加sudo权限
-    sudo echo "$NEW_USER ALL=(ALL) ALL" >> /etc/sudoers
-    # 卸载旧版本Docker软件
-    sudo yum remove docker \
-                  docker-client \
-                  docker-client-latest \
-                  docker-common \
-                  docker-latest \
-                  docker-latest-logrotate \
-                  docker-logrotate \
-                  docker-selinux \
-                  docker-engine-selinux \
-                  docker-engine \
-                  container*
-    # 定义安装版本
-    export docker_version=18.06.3
-    # step 1: 安装必要的一些系统工具
-    sudo yum update -y;
-    sudo yum install -y yum-utils device-mapper-persistent-data \
-        lvm2 bash-completion;
-    # Step 2: 添加软件源信息
-    sudo yum-config-manager --add-repo \
-        http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo;
-    # Step 3: 更新并安装 Docker-CE
-    sudo yum makecache all;
-    version=$(yum list docker-ce.x86_64 --showduplicates | sort -r|grep ${docker_version}|awk '{print $2}');
-    sudo yum -y install --setopt=obsoletes=0 docker-ce-${version} docker-ce-selinux-${version};
-    # 如果已经安装高版本Docker,可进行降级安装(可选)
-    yum downgrade --setopt=obsoletes=0 -y docker-ce-${version} docker-ce-selinux-${version};
-    # 把当前用户加入docker组
-    sudo usermod -aG docker $NEW_USER;
-    # 设置开机启动
-    sudo systemctl enable docker;
-    ```
+**Docker-engine**
+Docker-Engine Docker官方已经不推荐使用，请安装Docker-CE。
 
-    **Docker-engine**
-
-    Docker-Engine Docker官方已经不推荐使用，请安装Docker-CE。
+{{% /accordion %}}
 
 ### 2、Docker配置
 
