@@ -6,16 +6,19 @@ aliases:
 ---
 To upgrade Rancher Server 2.x when a new version is released, create a data container for your current Rancher deployment, pull the latest image of Rancher, and then start a new Rancher container using your data container.
 
+> **Note:** If you are upgrading from from Rancher v2.0.13 or earlier, or v2.1.8 or earlier, and your cluster's certificates have expired, you will need to perform [additional steps]({{<baseurl>}}/rancher/v2.x/en/cluster-admin/certificate-rotation/#rotating-expired-certificates-after-upgrading-older-rancher-versions) to rotate the certificates.
+
 ## Before You Start
 
-During upgrade, you'll enter a series of commands, filling placeholders with data from your environment. These placeholders are denoted with angled brackets and all capital letters (`<EXAMPLE>`). Here's an example of a command with a placeholder:
+During upgrade, you'll enter a series of commands, filling placeholders with data from your environment. These placeholders are denoted with angled brackets and all capital letters (`<EXAMPLE>`). 
 
+Here's an **example** of a command with a placeholder:
 
 ```
-docker run  --volumes-from rancher-data -v $PWD:/backup busybox tar zcvf /backup/rancher-data-backup-<RANCHER_VERSION>-<DATE>.tar.gz /var/lib/rancher
+docker stop <RANCHER_CONTAINER_NAME>
 ```
 
-In this command, `<RANCHER_VERSION>-<DATE>` is the version number and date of creation for a backup of Rancher.
+In this command, `<RANCHER_CONTAINER_NAME>` is the name of your Rancher container.
 
 Cross reference the image and reference table below to learn how to obtain this placeholder data. Write down or copy this information before starting the [procedure below](#completing-the-upgrade).
 

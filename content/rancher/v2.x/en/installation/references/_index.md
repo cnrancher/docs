@@ -13,6 +13,8 @@ The following table lists the ports that need to be open to and from nodes that 
 
 {{< ports-rancher-nodes >}}
 
+**Note** Rancher nodes may also require additional outbound access for any external [authentication provider]({{< baseurl >}}rancher/v2.x/en/admin-settings/authentication/) which is configured (LDAP for example).
+
 ## Kubernetes Cluster Nodes
 
 The ports required to be open for cluster nodes changes depending on how the cluster was launched. Each of the tabs below list the ports that need to be opened for different [cluster creation options]({{< baseurl >}}/rancher/v2.x/en/cluster-provisioning/#cluster-creation-options).
@@ -112,6 +114,6 @@ When using the [AWS EC2 node driver]({{< baseurl >}}/rancher/v2.x/en/cluster-pro
 | Custom UDP Rule |    UDP   | 8472        | sg-xxx (rancher-nodes) | Inbound   |
 | Custom TCP Rule |    TCP   | 10250-10252 | sg-xxx (rancher-nodes) | Inbound   |
 | Custom TCP Rule |    TCP   | 10256       | sg-xxx (rancher-nodes) | Inbound   |
-| Custom TCP Rule |    TCP   | 30000-32767 | 30000-32767            | Inbound   |
-| Custom UDP Rule |    UDP   | 30000-32767 | 30000-32767            | Inbound   |
+| Custom TCP Rule |    TCP   | 30000-32767 | 0.0.0.0/0            | Inbound   |
+| Custom UDP Rule |    UDP   | 30000-32767 | 0.0.0.0/0            | Inbound   |
 | All traffic     |    All   | All         | 0.0.0.0/0              | Outbound  |
